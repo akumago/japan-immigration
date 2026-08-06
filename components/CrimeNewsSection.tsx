@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import newsData from '../data/newsData.json';
 
 interface NewsItem {
@@ -12,7 +12,13 @@ interface NewsItem {
 }
 
 export const CrimeNewsSection: React.FC = () => {
+  const [showAll, setShowAll] = useState(false);
   const items: NewsItem[] = newsData as NewsItem[];
+
+  // 最新6件と、それ以降の過去アーカイブ
+  const INITIAL_DISPLAY_COUNT = 6;
+  const displayedItems = showAll ? items : items.slice(0, INITIAL_DISPLAY_COUNT);
+  const hasMore = items.length > INITIAL_DISPLAY_COUNT;
 
   return (
     <section className="mb-20">
@@ -29,18 +35,18 @@ export const CrimeNewsSection: React.FC = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
               </span>
-              DAILY AUTOMATED UPDATES
+              DAILY AUTOMATED ARCHIVE ({items.length}件 蓄積中)
             </div>
             <h2 className="text-2xl md:text-3xl font-black text-white flex items-center gap-3 tracking-tight">
-              最新 外国人犯罪報道ニュース速報
+              外国人犯罪・報道ニュース速報（日次アーカイブ）
             </h2>
             <p className="text-gray-400 text-xs md:text-sm mt-1">
-              全国の地方紙・ローカルメディア等を含む最新報道を24時間監視し自動集計（毎日 09:00 自動更新）
+              全国の地方紙・ローカルメディア等の報道を24時間自動集計・永久蓄積（毎日 09:00 自動更新）
             </p>
           </div>
           <div className="text-right shrink-0">
-            <span className="text-xs font-mono text-gray-500 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">
-              自動追尾監視中
+            <span className="text-xs font-mono text-gray-400 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5">
+              累計 {items.length} 件記録
             </span>
           </div>
         </div>
@@ -49,12 +55,12 @@ export const CrimeNewsSection: React.FC = () => {
         <div className="space-y-4 relative z-10">
           {items.length === 0 ? (
             <div className="text-center py-12 bg-[#0d1117]/60 rounded-2xl border border-white/5">
-              <p className="text-gray-400 text-sm">直近24時間以内の新規報道事案は検出されていません。</p>
+              <p className="text-gray-400 text-sm">現在、収集された報道事案はありません。</p>
             </div>
           ) : (
-            items.map((item) => (
+            displayedItems.map((item, idx) => (
               <div 
-                key={item.id}
+                key={`${item.id}-${idx}`}
                 className="group/card bg-[#0d1117]/80 hover:bg-[#161b22] border border-white/5 hover:border-red-500/30 rounded-2xl p-6 transition-all duration-300 shadow-lg relative overflow-hidden"
               >
                 <div className="flex flex-wrap items-center gap-2 mb-3">
@@ -78,7 +84,7 @@ export const CrimeNewsSection: React.FC = () => {
                   >
                     {item.title}
                     <svg className="w-4 h-4 text-gray-400 group-hover/card:text-red-400 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                   </a>
                 </h3>
@@ -92,6 +98,30 @@ export const CrimeNewsSection: React.FC = () => {
             ))
           )}
         </div>
+
+        {/* 過去アーカイブを展開・折りたたむボタン */}
+        {hasMore && (
+          <div className="mt-8 pt-6 border-t border-white/10 text-center relative z-10">
+            <button
+              onClick={() => setShowAll(!showAll)}
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-red-950/40 hover:bg-red-900/60 text-red-300 border border-red-800/40 hover:border-red-500/60 rounded-xl transition-all font-bold text-sm shadow-lg group"
+            >
+              <span>
+                {showAll 
+                  ? '最新の報道のみ表示する' 
+                  : `過去の報道アーカイブをすべて表示する（全 ${items.length} 件）`}
+              </span>
+              <svg 
+                className={`w-4 h-4 transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
