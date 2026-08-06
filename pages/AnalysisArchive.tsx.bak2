@@ -1,0 +1,178 @@
+import React from "react";
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import { Header } from "../components/Header";
+import { MainLayout } from "../components/MainLayout";
+
+// 全43件のデータを直接定義（SSRで確実に出力するため）
+const ALL_ANALYSIS_ITEMS = [
+    // 核心的分析 & 事例レポート
+    { id: 'm1', cat: 'Report', title: '最新の数理予測モデルと多角的な検証', path: '/analysis/simulation-model', desc: '最新の数理予測モデルを用い、外国人労働者受け入れ拡大がもたらす短期的メリットと長期的リスクについて検証。' },
+    { id: 'm2', cat: 'Report', title: '解説動画', path: '/analysis/video-guide', desc: '日本の移民政策の現状と課題を、視覚的に分かりやすく解説した公式動画レポート。' },
+    { id: 'm3', cat: 'Report', title: '視覚的証拠：移民と経済成長の無関係性', path: '/analysis/statistical-evidence', desc: '国連および世界銀行のデータに基づき、移民の比率と経済成長率の相関関係の欠如を可視化。' },
+    { id: 'm4', cat: 'Report', title: '外国人労働者受け入れに伴う多角的なリスク分析', path: '/analysis/risk-analysis', desc: '経済、労働市場、社会、法制度といった広範な領域に及ぶ、長期的な構造的リスクを詳説。' },
+    { id: 'm5', cat: 'Report', title: '経済への長期的影響と課題', path: '/analysis/economic-impact', desc: '「人手不足」を安易な外国人労働力で補うことが、いかに実質賃金の停滞と生産性の低下を招くか。' },
+    { id: 'm6', cat: 'Report', title: '外国人受け入れの財政影響分析', path: '/analysis/economic-impact#fiscal-impact', desc: '外国人労働者のライフサイクルを通じた財政貢献と負荷をシミュレーションした詳細分析。' },
+    { id: 'm7', cat: 'Report', title: '法務省の犯罪統計に基づく、来日外国人の犯罪傾向の分析', path: '/analysis/crime-statistics', desc: '最新の犯罪白書に基づき、特定の条件下で外国人犯罪が社会問題化している現実を客観的に検証。' },
+    { id: 'm8', cat: 'Report', title: '国家安全保障への直接的脅威', path: '/analysis/national-security', desc: 'スパイ防止法の欠如や重要土地買収など、外国人受け入れが国家の安全保障に及ぼす影響。' },
+    { id: 'm9', cat: 'Report', title: '国土・重要インフラへの影響と安全保障上の課題', path: '/analysis/land-acquisition', desc: '不動産のマネーゲーム化、中国資本による太陽光発電、尖閣諸島周辺の情勢など。' },
+    { id: 'm10', cat: 'Report', title: '「なし崩し的」移民政策の構造的問題と世界的潮流', path: '/analysis/uk-immigration-lesson', desc: 'イギリスのロンドンデモが示す教訓。自国の秩序と文化を守ろうとする国民の当然の反応。' },
+    { id: 'm11', cat: 'Report', title: '働き方改革と外国人雇用の矛盾', path: '/analysis/labor-dilemma', desc: '日本人の労働意欲を抑制する一方で、外国人雇用に手厚い助成金を投入する政策的矛盾。' },
+    { id: 'm12', cat: 'Report', title: 'ナイジェリアの事例：『交流』が招く誤解と新たな火種', path: '/analysis/nigeria-case', desc: 'JICA事業を巡る認識齟齬と、現地の宗教対立・リンチ殺人の背景にある深刻なリスク。' },
+    { id: 'm13', cat: 'Report', title: '「人手不足」と「人手余り」：労働需給のミスマッチ', path: '/analysis/labor-mismatch', desc: '人手不足は賃金上昇の好機である一方で、安価な外国人労働力の導入はその機会を奪う。' },
+    { id: 'm14', cat: 'Report', title: '総括：統計的客観事実が示す政策見直しの必要性', path: '/analysis/summary-statistics', desc: '居住外国人と日本人の検挙人口比「1.72倍」の格差。参院内閣委員会で示された公的データ。' },
+    { id: 'm15', cat: 'Report', title: '政策提言：悪循環からの脱却と持続可能な未来へ', path: '/analysis/policy-recommendations', desc: '労働市場の健全化、社会保障の厳格運用、日本独自の文化規範の保護を提言。' },
+    { id: 'm16', cat: 'Report', title: '結び：真の平和に向けた「棲み分けの共生」の提唱', path: '/analysis/conclusion', desc: '摩擦とヘイトを最小化するための「適切な距離感」と、地球規模での自立した共生のあり方。' },
+    { id: 'm17', cat: 'Report', title: '戦略的提言：日本の未来を守るために', path: '/analysis/strategic-recommendations', desc: '具体的かつ実現可能な、日本の国家秩序と経済自立を維持するための戦略的提言。' },
+
+    // 画像解説 15枚
+    ...Array.from({ length: 15 }, (_, i) => ({
+        id: `img-${i + 1}`,
+        cat: 'Evidence',
+        title: `【画像解説】 視覚的エビデンス資料 #${i + 1}`,
+        path: `/analysis/image/${i + 1}`,
+        desc: `公的統計および現場の証拠写真に基づいた、視覚的なデータ分析レポート。情報の客観性を担保する重要な証拠資料です。`
+    })),
+
+    // サポート 7枚
+    { id: 's1', cat: 'Guide', title: '当サイトについて', path: '/about', desc: '当プロジェクトの目的、分析手法、情報の信頼性、および編集部の方針について。' },
+    { id: 's2', cat: 'Guide', title: 'よくある質問 (FAQ)', path: '/faq', desc: '移民政策、犯罪統計、社会保障などに関する一般的な疑問への詳細な回答。' },
+    { id: 's3', cat: 'Guide', title: '用語集', path: '/glossary', desc: '分析レポート内で使用される専門用語、公的制度名、および統計用語の解説。' },
+    { id: 's4', cat: 'Guide', title: '運営者情報', path: '/operator-info', desc: '日本の岐路編集部およびサイト運営に関する法的・事務的情報。' },
+    { id: 's5', cat: 'Guide', title: '参考文献・出典', path: '/references', desc: '本サイトの分析根拠となった公的統計、論文、報道、および会議録の一覧。' },
+    { id: 's6', cat: 'Guide', title: 'プライバシーポリシー', path: '/privacy-policy', desc: '情報の取り扱い、免責事項、およびCookieの利用に関する基本方針。' },
+    { id: 's7', cat: 'Guide', title: 'お問い合わせ', path: '/contact', desc: '分析内容に関するご意見、情報の提供、および取材依頼の窓口。' },
+];
+
+export const AnalysisArchive: React.FC = () => {
+    const totalCount = ALL_ANALYSIS_ITEMS.length;
+
+    return (
+        <MainLayout>
+            <Helmet>
+                <title>{`全${totalCount}件：分析レポート・アーカイブ一覧 | 日本の岐路`}</title>
+                <meta name="description" content={`日本の外国人移民政策に関する全${totalCount}の分析レポート、事例研究、および視覚的データのアーカイブ一覧です。`} />
+                <meta property="og:title" content="分析レポート・アーカイブ一覧 | 日本の岐路" />
+                <meta property="og:description" content={`全${totalCount}の多角的な分析記事を一挙公開。日本の未来を考えるためのデータアーカイブ。`} />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis-archive" />
+                <meta property="og:type" content="website" />
+                <meta name="twitter:card" content="summary_large_image" />
+            </Helmet>
+
+            <Header 
+                title="分析レポート・アーカイブ" 
+                description={`全${totalCount}の分析コンテンツから、日本の現状と未来を多角的に検証する`} 
+            />
+
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {ALL_ANALYSIS_ITEMS.map((item, index) => (
+                        <div key={item.id} className="card-item-wrapper h-full">
+                            <Link 
+                                to={item.path} 
+                                className="group relative flex flex-col h-full bg-[#161b22]/50 border border-gray-800 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:bg-[#1c2128] transition-all duration-300 shadow-lg"
+                            >
+                                <div className="h-1.5 w-full bg-gradient-to-r from-transparent via-blue-500/0 to-transparent group-hover:via-blue-500/50 transition-all duration-500"></div>
+                                
+                                <div className="p-8 flex flex-col h-full">
+                                    <div className="flex items-center justify-between mb-6">
+                                        <div className="flex items-center space-x-2">
+                                            <div className={`w-2 h-2 rounded-full ${item.cat === 'Report' ? 'bg-blue-500' : item.cat === 'Evidence' ? 'bg-purple-500' : 'bg-gray-500'}`}></div>
+                                            <span className={`text-[11px] font-black uppercase tracking-widest ${item.cat === 'Report' ? 'text-blue-400' : item.cat === 'Evidence' ? 'text-purple-400' : 'text-gray-400'}`}>
+                                                {item.cat}
+                                            </span>
+                                        </div>
+                                        <div className="text-gray-700 font-mono text-[10px]">#{index + 1}</div>
+                                    </div>
+                                    
+                                    <h3 className="text-xl font-bold text-gray-100 group-hover:text-white transition-colors mb-4 leading-tight">
+                                        {item.title}
+                                    </h3>
+                                    
+                                    <p className="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
+                                        {item.desc}
+                                    </p>
+                                    
+                                    <div className="flex items-center justify-between pt-6 border-t border-gray-800/50">
+                                        <span className="text-[10px] font-bold text-blue-500/80 group-hover:text-blue-400 flex items-center transition-colors">
+                                            詳しく読む
+                                            <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="mt-20 max-w-4xl mx-auto border-t border-gray-800 pt-16">
+                    <h2 className="text-3xl font-bold text-white mb-6">このアーカイブについて</h2>
+                    <p className="text-gray-400 leading-relaxed mb-6">
+                        本アーカイブは、「データの裏側にある真実を冷徹に暴き、既存の経済通説を再定義する」という一貫した思想のもと、日本の移民・外国人政策に関する全{totalCount}本のレポートを収録しています。各レポートは独立して読むことができますが、横断的に読み進めることで、個別の問題が連鎖・複合して日本社会の生産性・安全・文化的同一性に与える影響の全体像が浮かび上がります。
+                    </p>
+                    <p className="text-gray-400 leading-relaxed mb-6">
+                        経済・労働分野から始まり、治安・安全保障、さらには文化・社会的同一性の問題へと広がる分析は、単一の視点では見えてこない「外国人政策の複合的リスク」を可視化します。たとえば、外国人労働者の受け入れは短期的に「人手不足の解消」として歓迎されますが、それが実質賃金の停滞・日本人労働者の就業機会の喪失・生産性向上への投資意欲の低下を連鎖的に引き起こすことは、労働経済学の基本的なメカニズムから必然的に導かれる結論です。経営者は目先の安価な労働力に飛びつき、労働者は賃上げ交渉力を失い、政府は構造改革への動機を喪失する——この三重の悪循環を直視することなしに、「人手不足対策」は語れません。
+                    </p>
+                    <p className="text-gray-400 leading-relaxed mb-6">
+                        また、警察庁の公式答弁（2025年参院内閣委員会）が示す「外国人の刑法犯検挙率は日本人の1.72倍」というデータは、「移民と犯罪の相関はない」という主流メディアの論調と真っ向から対立します。このような「公的データ vs. 政治的物語」の乖離を直視することが、真に理性的な政策議論の出発点です。本アーカイブはその「直視」のための資料として機能します。証拠画像15点は、グラフや官公庁データなどのビジュアルエビデンスとして、各主張を裏付ける補完資料となっています。
+                    </p>
+                    <p className="text-gray-400 leading-relaxed">
+                        なお、本サイトの立場は「外国人＝敵」という単純な排外主義ではなく、文化的・制度的に大きく異なるバックグラウンドを持つ集団が同一の社会規範の下に同居することの構造的困難を、データと事例に基づいて分析するものです。適切な距離感を保ちながらの「棲み分けによる共生」こそが、摩擦とヘイトを最小化した真の国際協調であるという思想を基盤としています。隣の国が豊かであることは日本の利益でもある——であれば、その国の自立的発展を支援しながら、日本は日本の秩序・文化・経済を守ることこそが双方の幸福につながるのです。
+                    </p>
+                </div>
+
+                {/* 追記部分: アーカイブ群を貫くメタ分析 (2000文字規模) */}
+                <div className="mt-20 space-y-12 bg-gray-950/80 p-8 md:p-12 rounded-2xl border-t-4 border-blue-600 shadow-[0_0_50px_rgba(37,99,235,0.1)] relative">
+                    <div className="prose prose-invert prose-lg max-w-none relative z-10">
+                        <h2 className="text-3xl font-black text-white mb-10 text-center tracking-widest">
+                            [META-ANALYSIS] 全証拠群が提示する「不可避の未来」への最終宣告
+                        </h2>
+
+                        <div className="grid md:grid-cols-2 gap-12">
+                            <div>
+                                <h3 className="text-xl font-bold text-blue-400 mb-4 border-l-2 border-blue-500 pl-3">
+                                    【統計の真実】点から線へ、そして「構造的搾取の面」へ
+                                </h3>
+                                <p className="leading-relaxed text-gray-300">
+                                    本アーカイブに蓄積された数十本のレポートとデータ群は、単独では「一過性の社会問題」として片付けられがちな事象である。しかし、それらを年代別・地域別・産業別にマッピングした時、巨大な「点と線の結合」が起こり、一つの冷酷な「面（構造）」が浮かび上がる。それは、「人手不足解消」を名目とした安価な労働力の大量輸入が、必然的に日本人労働者の実質賃金を抑制し、企業にイノベーションへの投資を怠らせ、結果として国家全体の生産性を地盤沈下させているという「構造的搾取の完成図」である。公的に発表される平均値のマジックに騙されてはならない。局所的な特定のデータ（生活保護受給率の偏り、特定国籍の犯罪率の非対称性）こそが、平均値に埋もれた「日本社会の致死的な出血部位」を正確に指し示しているのである。
+                                </p>
+                            </div>
+
+                            <div>
+                                <h3 className="text-xl font-bold text-blue-400 mb-4 border-l-2 border-blue-500 pl-3">
+                                    【制度の崩壊】「無責任の体系」が駆動する自滅プログラム
+                                </h3>
+                                <p className="leading-relaxed text-gray-300">
+                                    アーカイブを読み解く中で最も戦慄すべき事実は、現在の日本において「移民政策のグランドデザイン（最終的な責任主体）」が存在しないということだ。「移民ではない」というフィクションを前提としているため、定住化に伴う莫大な社会的コスト（医療インフラへのフリーライド、教育現場の混乱、治安の悪化）は、すべて地方自治体や現場の教師、医療従事者、そして一般市民へと「下請け」のごとく丸投げされている。経済界が利益だけを享受し、政治が責任を放棄し、国民がそのツケを税金と治安の悪化という形で支払う——この見事なまでの「無責任の体系」は、もはや制度設計の失敗ではなく、国家が国力を意図的に削ぎ落とす「自滅プログラム」として完全に機能してしまっている。
+                                </p>
+                            </div>
+
+                            <div>
+                                <h3 className="text-xl font-bold text-blue-400 mb-4 border-l-2 border-blue-500 pl-3">
+                                    【グローバル比較】遅れてきた「多文化主義の犠牲者」としての日本
+                                </h3>
+                                <p className="leading-relaxed text-gray-300">
+                                    国際比較のレポート群が明白に示すのは、日本が現在進めている政策が、欧州諸国が20年〜30年前に採用し、そして現在「完全な失敗だった」と総括している政策の正確なトレース（模倣）だということである。スウェーデンやドイツが経験した「善意から始まった無制限な受け入れが、最終的に並行社会（パラレル社会）と分断を生み、極右政党の台頭を招く」という歴史的必然から、なぜ日本だけが逃れられると思えるのか。言語の壁や島国という地理的優位性は、もはや防波堤としては機能していない。世界の主流は既に「高度人材の選別的受け入れ」と「不法滞在の厳格な排除」へと完全に舵を切っている。日本の現状は、世界のトレンドに乗り遅れたのではなく、世界が捨て去った「陳腐化し、破綻が約束された古いイデオロギー」を周回遅れで拾い集めているに過ぎない。
+                                </p>
+                            </div>
+
+                            <div>
+                                <h3 className="text-xl font-bold text-blue-400 mb-4 border-l-2 border-blue-500 pl-3">
+                                    【臨界点への展望】データが突きつける「主権の奪還」という究極の選択
+                                </h3>
+                                <p className="leading-relaxed text-gray-300">
+                                    これら全てのアーカイブが発する最終的な警告は、「不可逆的な社会変容（臨界点）」がすぐ目の前に迫っているという事実である。一度形成された巨大な異文化コミュニティは、後から政策を転換したところで決して消滅することはない。我々が守るべきは、日本人としてのアイデンティティという情緒的な問題にとどまらず、長きにわたり日本社会を支えてきた「相互信頼（High-trust）」という極めて高度で脆弱な社会資本そのものである。「誰に日本の土を踏ませるか」「誰に社会保障へのアクセスを許すか」という決定は、主権国家にのみ許された最大の権利である。我々は今、目先の利益と感情論に流されて国家を解体するのか、それとも痛みを伴う構造改革（コンピュータ制御による高度な自動化、DX、省人化）を通じて「日本人のための日本」という主権を奪還するのか、その歴史的選択の最終局面に立たされているのである。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/* 追記部分終了 */}
+
+            </main>
+        </MainLayout>
+    );
+};

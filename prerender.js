@@ -1,0 +1,230 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import https from 'https';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const toAbsolute = (p) => path.resolve(__dirname, p);
+
+// URLからテキストを取得するヘルパー関数
+function fetchText(url) {
+  return new Promise((resolve, reject) => {
+    https.get(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' }
+    }, (res) => {
+      let data = '';
+      res.on('data', (chunk) => data += chunk);
+      res.on('end', () => resolve(data));
+    }).on('error', reject);
+  });
+}
+
+// noteのRSSを解析し、各記事のOGP画像をスクレイピングしてJSONファイルに保存
+async function updateNoteArticles() {
+  try {
+    console.log('Fetching note RSS feed...');
+    const xml = await fetchText('https://note.com/ideal_kudu9256/rss');
+    
+    // 記事要素を抽出するための簡易正規表現パース
+    const itemRegex = /<item>([\s\S]*?)<\/item>/g;
+    const titleRegex = /<title><!\[CDATA\[([\s\S]*?)\]\]><\/title>|<title>([\s\S]*?)<\/title>/;
+    const linkRegex = /<link>([\s\S]*?)<\/link>/;
+    const pubDateRegex = /<pubDate>([\s\S]*?)<\/pubDate>/;
+    const descRegex = /<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>|<description>([\s\S]*?)<\/description>/;
+
+    const articles = [];
+    let match;
+    
+    while ((match = itemRegex.exec(xml)) !== null && articles.length < 5) {
+      const itemXml = match[1];
+      
+      const titleMatch = itemXml.match(titleRegex);
+      const title = (titleMatch ? (titleMatch[1] || titleMatch[2]) : '').replace(/<!\[CDATA\[|\]\]>/g, '').trim();
+      
+      const linkMatch = itemXml.match(linkRegex);
+      const link = linkMatch ? linkMatch[1].trim() : '';
+      
+      const pubDateMatch = itemXml.match(pubDateRegex);
+      const pubDate = pubDateMatch ? pubDateMatch[1].trim() : '';
+
+      const descMatch = itemXml.match(descRegex);
+      let description = descMatch ? (descMatch[1] || descMatch[2]) : '';
+      description = description.replace(/<[^>]*>/g, '').replace(/続きをみる/g, '').replace(/\n/g, ' ').trim();
+      if (description.length > 90) {
+        description = description.substring(0, 90) + '...';
+      }
+
+      if (title && link) {
+        articles.push({ title, link, pubDate, description });
+      }
+    }
+
+    console.log(`Found ${articles.length} articles. Scraping OGP images...`);
+
+    for (let i = 0; i < articles.length; i++) {
+      const art = articles[i];
+      try {
+        const html = await fetchText(art.link);
+        // OGP画像（og:image）を確実に2段階で抽出
+        let thumbnail = null;
+        const metaTagMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]*>/i);
+        if (metaTagMatch) {
+          const metaTag = metaTagMatch[0];
+          const contentMatch = metaTag.match(/content=["'](.*?)["']/i);
+          if (contentMatch && contentMatch[1]) {
+            thumbnail = contentMatch[1].replace(/&amp;/g, '&');
+          }
+        }
+        
+        if (thumbnail) {
+          art.thumbnail = thumbnail;
+        } else {
+          art.thumbnail = "https://assets.st-note.com/production/uploads/images/282104689/profile_bdbe816059e6f0af49ce402d21b308fe.png";
+        }
+
+        // 日付の成形
+        try {
+          const date = new Date(art.pubDate);
+          if (!isNaN(date.getTime())) {
+            art.pubDate = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+          }
+        } catch (e) {}
+
+        const categories = ["ANALYSIS", "ECONOMY", "POLITICS", "SOCIETY"];
+        art.category = categories[i % categories.length];
+
+        console.log(`Processed article [${i+1}]: ${art.title} (Image found: ${!!thumbnail})`);
+      } catch (e) {
+        console.error(`Failed to scrape OGP for ${art.link}:`, e);
+        art.thumbnail = "https://assets.st-note.com/production/uploads/images/282104689/profile_bdbe816059e6f0af49ce402d21b308fe.png";
+      }
+    }
+
+    // 保存先ディレクトリ（public/とdist/client/）
+    const publicDir = toAbsolute('public');
+    if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir);
+    fs.writeFileSync(path.join(publicDir, 'note-articles.json'), JSON.stringify(articles, null, 2), 'utf-8');
+
+    const clientDir = toAbsolute('dist/client');
+    if (!fs.existsSync(clientDir)) fs.mkdirSync(clientDir, { recursive: true });
+    fs.writeFileSync(path.join(clientDir, 'note-articles.json'), JSON.stringify(articles, null, 2), 'utf-8');
+
+    console.log('Saved note-articles.json successfully!');
+  } catch (error) {
+    console.error('Failed to scrape note feed:', error);
+  }
+}
+
+async function prerender() {
+  // プリレンダリング前にJSONを更新
+  await updateNoteArticles();
+
+  const template = fs.readFileSync(toAbsolute('dist/client/index.html'), 'utf-8');
+  const { render } = await import('./dist/server/entry-server.js');
+
+  const routesToPrerender = [
+    '/',
+    '/analysis-archive',
+    '/privacy-policy',
+    '/disclaimer',
+    '/contact',
+    '/about',
+    '/references',
+    '/faq',
+    '/glossary',
+    '/operator-info',
+    '/analysis/crime-statistics',
+    '/analysis/economic-impact',
+    '/analysis/social-security',
+    '/analysis/naturalization-paradox',
+    '/analysis/burial-controversy',
+    '/analysis/land-acquisition',
+    '/analysis/uk-immigration-lesson',
+    '/analysis/borderless-welfare-state',
+    '/analysis/national-security',
+    '/analysis/nigeria-case',
+    '/analysis/simulation-model',
+    '/analysis/labor-dilemma',
+    '/analysis/video-guide',
+    '/analysis/statistical-evidence',
+    '/analysis/risk-analysis',
+    '/analysis/labor-mismatch',
+    '/analysis/summary-statistics',
+    '/analysis/policy-recommendations',
+    '/analysis/conclusion',
+    '/analysis/strategic-recommendations',
+    '/analysis/symbiosis',
+    '/analysis/ai-simulation',
+    ...Array.from({ length: 15 }, (_, i) => `/analysis/image/${i + 1}`)
+  ];
+
+  const uploadDir = toAbsolute('NETLIFY_UPLOAD');
+  if (fs.existsSync(uploadDir)) {
+    fs.rmSync(uploadDir, { recursive: true, force: true });
+  }
+  fs.mkdirSync(uploadDir, { recursive: true });
+
+  for (const url of routesToPrerender) {
+    const context = {};
+    const { html: appHtml, helmet } = render(url, context);
+
+    const normalizedUrl = url.endsWith('/') ? url : `${url}/`;
+    const canonicalUrl = `https://endearing-blini-b688ce.netlify.app${normalizedUrl}`;
+
+    const helmetMeta = helmet?.meta?.toString() || '';
+    const helmetLink = helmet?.link?.toString() || '';
+    const helmetScript = helmet?.script?.toString() || '';
+
+    // 重複を避けるため、Helmet内に存在しない場合のみフォールバック追加
+    const canonicalTag = helmetLink.includes('rel="canonical"')
+      ? ''
+      : `<link rel="canonical" href="${canonicalUrl}" />`;
+    const ogUrlTag = helmetMeta.includes('property="og:url"')
+      ? ''
+      : `<meta property="og:url" content="${canonicalUrl}" />`;
+
+    const finalHtml = template
+      .replace('<!--app-html-->', appHtml)
+      .replace(/<title>.*?<\/title>/, helmet?.title?.toString() || '')
+      .replace(
+        '</title>',
+        `</title>${helmetMeta}${helmetLink}${helmetScript}${canonicalTag}${ogUrlTag}`
+      );
+
+    const fileName = url === '/' ? 'index.html' : `${url}/index.html`;
+    const filePath = path.join(uploadDir, fileName);
+
+    fs.mkdirSync(path.dirname(filePath), { recursive: true });
+    fs.writeFileSync(filePath, finalHtml, 'utf-8');
+  }
+
+  const clientDir = toAbsolute('dist/client');
+
+  function copyStaticAssets(src, dest) {
+    fs.mkdirSync(dest, { recursive: true });
+    const entries = fs.readdirSync(src, { withFileTypes: true });
+
+    for (const entry of entries) {
+      if (entry.name === 'index.html') continue;
+
+      const srcPath = path.join(src, entry.name);
+      const destPath = path.join(dest, entry.name);
+
+      if (entry.isDirectory()) {
+        copyStaticAssets(srcPath, destPath);
+      } else if (!fs.existsSync(destPath)) {
+        fs.copyFileSync(srcPath, destPath);
+      }
+    }
+  }
+
+  copyStaticAssets(clientDir, uploadDir);
+  fs.copyFileSync(toAbsolute('dist/client/index.html'), path.join(uploadDir, '200.html'));
+
+  console.log('BUILD COMPLETE! Upload NETLIFY_UPLOAD to Netlify.');
+}
+
+prerender().catch((err) => {
+  console.error('Prerender failed:', err);
+  process.exit(1);
+});

@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "system-ui", "-apple-system", "sans-serif";
+}
+
+@layer base {
+  body {
+    @apply bg-[#0d1117] text-gray-300;
+  }
+}
+
+/* ナビゲーションを確実に見えるようにするための暫定スタイル */
+nav {
+  min-height: 64px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* SymbiosisSection 外部CSS上書き（テキストサイズ等） */
+.symbiosis-override .hero-lead,
+.symbiosis-override .art-p,
+.symbiosis-override .callout-txt,
+.symbiosis-override .quote-blk-txt,
+.symbiosis-override .warn-q,
+.symbiosis-override .warn-r,
+.symbiosis-override .ap-p,
+.symbiosis-override .gbox-txt,
+.symbiosis-override .g3c-body,
+.symbiosis-override .concl-p,
+.symbiosis-override .concl-final-txt {
+  font-size: 1.05rem !important;
+  line-height: 1.8 !important;
+}
+.symbiosis-override .ap-h3,
+.symbiosis-override .g3c-ttl,
+.symbiosis-override .concl-h4 {
+  font-size: 1.25rem !important;
+}
+.symbiosis-override .chart-ttl {
+  font-size: 1.1rem !important;
+}
+.symbiosis-override .art-h2 {
+  font-size: 1.3rem !important;
+}

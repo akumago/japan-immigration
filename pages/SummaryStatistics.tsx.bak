@@ -1,0 +1,118 @@
+import React from "react";
+import { Helmet } from 'react-helmet-async';
+import { Header } from "../components/Header";
+import { MainLayout } from "../components/MainLayout";
+import { RelatedArticles } from "../components/RelatedArticles";
+
+export const SummaryStatistics: React.FC = () => {
+    return (
+        <MainLayout>
+            <Helmet>
+                <title>総括：統計的客観事実が示す政策見直しの必要性 | 日本の岐路</title>
+                <meta name="description" content="国会答弁データが裏付ける、日本居住外国人と日本人の検挙率格差。" />
+                <meta property="og:title" content="総括：統計的客観事実が示す政策見直しの必要性" />
+                <meta property="og:description" content="国会答弁データが裏付ける、日本居住外国人と日本人の検挙率格差。1.72倍という数字の意味を徹底解説。" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/summary-statistics" />
+                <meta property="og:type" content="article" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="検挙率格差1.72倍：統計が示す政策見直しの必要性 | 日本の岐路" />
+                <meta name="twitter:description" content="国会答弁で明らかになった日本居住外国人と日本人の犯罪率格差を徹底分析" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+            </Helmet>
+            <Header title="総括：統計的客観事実" description="感情を排し、冷徹な数字から導き出される結論" />
+            <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-white/10 rounded-2xl p-10 shadow-2xl mb-12">
+                    <h3 className="text-3xl font-bold text-white mb-8 border-b border-white/10 pb-4">
+                        警察庁公式データの重み
+                    </h3>
+                    <div className="text-center py-10 bg-black/40 rounded-xl mb-8">
+                        <p className="text-gray-400 mb-4 text-xl">居住者同士の検挙人口比</p>
+                        <p className="text-6xl font-bold text-red-500">1.72<span className="text-2xl ml-2">倍</span></p>
+                    </div>
+                    <p className="text-gray-300 text-lg leading-relaxed">
+                        参議院内閣委員会において示されたこの数字は、もはや「文化の違い」や「一部の事例」では片付けられない構造的な課題を浮き彫りにしています。
+                        この格差を直視せずに受け入れを拡大することは、国家の安全保障と治安に対する無責任な判断と言わざるを得ません。
+                    </p>
+                </div>
+                <div className="space-y-10 mb-12 text-gray-300">
+                    <div className="border-l-4 border-blue-500 pl-6">
+                        <h3 className="text-xl font-bold text-white mb-4">「1.72倍」という数字の意味するもの</h3>
+                        <p className="leading-relaxed mb-4">
+                            2025年11月20日の参議院内閣委員会において、参政党・大津力議員の質疑により警察庁から引き出されたこのデータは、単なる数字ではありません。これは、短期滞在の観光客や留学生を除いた「日本に居住する外国人」と「日本人」を、同じ土台で比較した際に現れる、構造的な差異の証拠です。
+                        </p>
+                        <p className="leading-relaxed">
+                            日本人の刑法犯検挙率0.188%に対し、居住外国人の0.323%という格差は、誤差や偶然では説明できません。この格差の背景には、文化的規範への適応問題、経済的困窮、組織犯罪との連関といった複合的な要因が存在すると考えられます。重要なのは、この事実を「差別」ではなく「統計的な現実」として直視し、政策設計に反映させることです。
+                        </p>
+                    </div>
+
+                    <div className="border-l-4 border-yellow-500 pl-6">
+                        <h3 className="text-xl font-bold text-white mb-4">なぜこの数字が長い間、表に出なかったのか</h3>
+                        <p className="leading-relaxed mb-4">
+                            この比較データが国会答弁という形で公に示されるまでに、相当な時間を要したことは注目に値します。政府機関が発表する犯罪統計は、従来「検挙人員の絶対数」のみが示され、「人口比」という形での比較は積極的に開示されてきませんでした。その結果、「外国人犯罪は減っている」という外形的な情報のみが流通し、「日本人と比べてどうか」という本質的な比較が公的な文書で示されることは稀でした。
+                        </p>
+                        <p className="leading-relaxed">
+                            統計の開示方法が政策議論に与える影響は甚大です。本来、国民が知る権利を持つ「人口比较による犯罪率」が、適切に開示されなかった背景には、移民推進政策への政治的配慮があった可能性を否定できません。正確な情報なくして、正確な民主主義的判断はあり得ません。
+                        </p>
+                    </div>
+
+                    <div className="border-l-4 border-red-500 pl-6">
+                        <h3 className="text-xl font-bold text-white mb-4">海外比較：他国の移民犯罪統計と政策対応</h3>
+                        <p className="leading-relaxed mb-4">
+                            スウェーデンの国家犯罪防止評議会（Brå）は、移民の犯罪率が移民第一世代において、特定のカテゴリで非移民より高い傾向があることを公表しています。同国は、この事実を受けて移民政策の大幅な見直しを行いました。デンマークも同様にデータに基づく政策転換を実施し、非西洋圏からの移民に関してより厳格な審査基準を設けることで、社会統合の質を高めることに優先度を置いています。
+                        </p>
+                        <p className="leading-relaxed">
+                            日本においても、この1.72倍というデータを「差別を助長するもの」として封印するのではなく、「どのような条件下でこの格差が生まれるのか」「どのような政策が格差を縮小させるのか」という建設的・科学的な議論の出発点とすることが、真に責任ある政策立案のあり方です。
+                        </p>
+                    </div>
+
+                    <div className="bg-gray-800/50 border border-red-500/20 rounded-xl p-8">
+                        <h3 className="text-xl font-bold text-white mb-4">まとめ・考察：データを直視することが出発点</h3>
+                        <p className="leading-relaxed mb-4">
+                            「1.72倍」という格差を知りながら受け入れを拡大することは、国民の安全に対する無責任な判断です。この格差を縮小させるためには、単純な受け入れ数の制限だけでなく、受け入れる外国人の属性（教育水準・経済的自立能力・文化的適合性）の精査、入国後の社会統合プログラムの充実、そして逸脱行為への厳格な法的対応が不可欠です。
+                        </p>
+                        <p className="leading-relaxed">
+                            感情的な「多文化共生」の理念ではなく、統計的現実に基づく「機能する共生政策」の設計——本報告書の総括が示す結論は、この一点に収束します。
+                        </p>
+                    </div>
+                </div>
+                    <div className="border-l-4 border-green-500 pl-6">
+                        <h3 className="text-xl font-bold text-white mb-4">1.72倍格差を超えた問題の深層</h3>
+                        <p className="leading-relaxed mb-4">
+                            「1.72倍」という数字は結果であり、原因ではありません。この格差が生まれた背景には、少なくとも三つの構造的要因が複合しています。第一に「経済的困窮」です。多額の借金を背負って来日した技能実習生が、劣悪な労働環境や賃金不払いに直面し、失踪・犯罪に追い込まれるケースは後を絶ちません。入管庁のデータによれば、2023年の技能実習生の失踪者数は9,753人に達しており、これは過去最多水準です。失踪者の一部が自力で生計を立てるために犯罪に手を染めるリスクは、数字が示す通りです。
+                        </p>
+                        <p className="leading-relaxed mb-4">
+                            第二の要因は「組織犯罪との連関」です。外国人犯罪の特徴として、日本人の犯罪に比べて共犯率が高いことが警察庁のデータから読み取れます。これは、同国人ネットワークを基盤とした組織的な犯行グループが存在することを示唆します。観光ビザや技能実習制度などを悪用して来日した犯罪目的の者が、既存の外国人コミュニティに潜伏しやすい環境を、「開かれた受け入れ政策」が提供してしまっているという逆説があります。
+                        </p>
+                        <p className="leading-relaxed">
+                            第三の要因は「文化的規範の相違」です。拘束・逮捕・裁判のプロセスに対する価値観や道徳観が異なる場合、日本の法律や社会規範への理解が形成されないまま就労・生活することになります。「知らなかった」では済まされないのが法律ですが、言語の壁と文化的差異が組み合わさると、善意の人であっても意図せず違反行為を犯すケースが生じます。これは教育・情報提供の問題でもありますが、根本的には「文化的距離が大きい人々を無制限に受け入れること」の構造的リスクでもあります。
+                        </p>
+                    </div>
+
+                    <div className="border-l-4 border-orange-400 pl-6">
+                        <h3 className="text-xl font-bold text-white mb-4">海外比較：データを直視した国の行方</h3>
+                        <p className="leading-relaxed mb-4">
+                            スウェーデンは長年、最も開放的な移民政策を持つ国の一つとして知られていましたが、犯罪統計が示す移民出自集団と非移民集団の間の犯罪率格差を公式に認め、2024年の選挙後には過去最も厳格な移民政策への転換を実施しました。スウェーデン国家犯罪防止評議会（Brå）は、2021年の報告書において「移民（第一世代）の犯罪リスクは非移民の2.5倍、第二世代でも1.7倍」というデータを公表しています。これは、移民問題を「差別の問題」ではなく「統計の問題」として扱う社会の成熟度を示しています。
+                        </p>
+                        <p className="leading-relaxed mb-4">
+                            デンマークもまた、「非西洋圏出身者」と「西洋圏出身者」で明確に異なる犯罪率統計を公表し、それを政策に反映させる国です。2002年以降、デンマークは「社会的統合力の高い移民のみを受け入れる」という基準を設け、配偶者ビザや家族呼び寄せの要件を厳格化しました。この政策転換の根拠は、イデオロギーではなくデータでした。「データを示すこと自体が差別だ」という圧力に屈した国と、データを直視して政策に反映した国——現在、その社会的帰結に明確な差が生まれつつあります。
+                        </p>
+                        <p className="leading-relaxed">
+                            日本が今学ぶべきは、スウェーデンやデンマークが「やらかした失敗」だけでなく、その失敗に直面したとき「どのようにデータを公開し、議論し、政策転換したか」というプロセスです。日本では今もなお、「1.72倍」という国会答弁データがメディアでほぼ報道されない状況が続いています。情報の非公開化こそが、問題の深化を招いています。
+                        </p>
+                    </div>
+
+                    <div className="bg-gray-800/50 border border-green-500/20 rounded-xl p-8">
+                        <h3 className="text-xl font-bold text-white mb-4">まとめ：数字が告発する政策不作為</h3>
+                        <p className="leading-relaxed mb-4">
+                            本ページが提示したデータの核心は、「日本社会はすでに、移民政策の負の側面を数字として目撃している」という事実です。1.72倍の検挙率格差、9,753人の技能実習生失踪、国民健康保険の滞納増加——これらは断片的な事例ではなく、統計的必然性を持って積み上がっているトレンドです。それにも関わらず、政府は受け入れを拡大し続け、企業は安価な労働力に依存し続け、メディアはこのトレンドをほぼ黙殺しています。これは政策の無知ではなく「政策的不作為」と呼ぶべき状況です。
+                        </p>
+                        <p className="leading-relaxed">
+                            統計的現実を政策に反映させることは、外国人への差別ではありません。むしろ、適切な管理のない無秩序な受け入れが、来日外国人自身にとっても搾取や孤立という不幸な結末をもたらしているという意味で、受け入れ基準の厳格化は双方にとって有益な政策転換です。「量」ではなく「質」を重視する移民政策への転換——それが、本報告書の統計分析から導き出される、最も合理的で人道的な結論です。
+                        </p>
+                    </div>
+                <RelatedArticles currentPath="/analysis/summary-statistics" />
+            </main>
+        </MainLayout>
+    );
+};

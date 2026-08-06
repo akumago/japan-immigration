@@ -1,0 +1,178 @@
+import React from "react";
+import { Helmet } from 'react-helmet-async';
+import { Header } from "../components/Header";
+import Section from "../components/Section";
+import ContentBlockRenderer from "../components/ContentBlockRenderer";
+import { SocialShare } from "../components/SocialShare";
+import { RelatedArticles } from "../components/RelatedArticles";
+import { EmbeddedImage } from "../components/EmbeddedImage";
+
+import { MainLayout } from "../components/MainLayout";
+
+export const LandAcquisition: React.FC = () => {
+    return (
+        <MainLayout>
+            <Helmet>
+                <title>国土保全と安全保障：外国資本による土地買収の現状 | 日本の岐路</title>
+                <meta
+                    name="description"
+                    content="水源地や自衛隊基地周辺など、外国資本による日本の土地買収の実態と法規制の不十分さを検証。"
+                />
+                <meta property="og:title" content="国土保全と安全保障：外国資本による土地買収の現状" />
+                <meta property="og:description" content="水源地や自衛隊基地周辺など、土地買収の実態と法規制の不十分さを検証。" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/land-acquisition" />
+                <meta property="og:type" content="article" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="国土保全と安全保障：土地買収の現状 | 日本の岐路" />
+                <meta name="twitter:description" content="自衛隊基地周辺や水源地などの重要土地が外国資本へ。安全保障上の懸念を鋭く検証。" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+            </Helmet>
+
+            <Header title="国土保全と外国資本の土地取得" description="水源地、基地周辺、森林：静かに進行する「物理的な浸食」の実態" />
+
+            <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <Section title="買収される重要インフラと資源" id="current-state">
+                        <ContentBlockRenderer
+                            blocks={[
+                                {
+                                    type: 'paragraph',
+                                    text: '北海道をはじめとする日本の豊かな自然資源や、防衛上の要衝となる土地が、外国資本によって次々と買収されています。特に懸念されているのが、大規模な森林や水源地の買収、そして自衛隊基地や原子力発電所周辺の土地取得です。'
+                                },
+                                {
+                                    type: 'paragraph',
+                                    text: '農林水産省の調査によれば、外国資本による森林買収の面積は年々拡大傾向にあります。これらは単なる投資目的として説明されることが多いですが、一度買収された土地の利用実態を外部から把握することは極めて困難であり、事実上の「治外法権化」が進むリスクがあります。'
+                                }
+                            ]}
+                        />
+                        <EmbeddedImage pageId={4} caption="安全保障リスク：重要土地の買収状況" />
+                    </Section>
+
+                    <Section title="法規制の遅れと日本の「無防備」な現状" id="regulation">
+                        <ContentBlockRenderer
+                            blocks={[
+                                {
+                                    type: 'paragraph',
+                                    text: '日本は長く、外国人による土地取得に対して極めて開放的な国でした。WTO協定（GATS）上の約束もあり、外国人土地法はあるものの事実上死文化しており、相互主義（日本人が土地を買えない国の国民には日本の土地を売らない）の運用もなされてきませんでした。'
+                                },
+                                {
+                                    type: 'paragraph',
+                                    text: '近年、ようやく「重要土地利用調査法」が成立・施行され、基地周辺などの「注視区域」において利用状況の調査や不適切な利用の中止命令が可能となりました。しかし、水源地や一般の農地・森林に対する規制は依然として抜け穴が多く、スパイ防止法が存在しないこととも相まって、国家としての防衛体制は極めて脆弱です。'
+                                },
+                                {
+                                    type: 'paragraph',
+                                    text: '私有財産権の保護と国家安全保障のバランスにおいて、欧米諸国と比較しても日本はあまりに無防備です。自治体による条例等による規制強化の動きも始まっていますが、スピード感を持った法整備が急務です。'
+                                }
+                            ]}
+                        />
+                        <div className="my-8 bg-red-900/10 border border-red-500/30 rounded-xl p-6">
+                            <h4 className="text-red-400 font-bold mb-4">主な買収リスク項目</h4>
+                            <ul className="list-disc list-inside space-y-2 text-sm text-gray-300">
+                                <li>自衛隊基地・レーダーサイトを俯瞰できる山林の取得</li>
+                                <li>都市部における重要インフラ（発電所等）近接地の所有</li>
+                                <li>将来的な水資源確保を目的とした水源涵養林の買収</li>
+                                <li>再開発に乗じた主要都市中心部の不動産買い占め</li>
+                            </ul>
+                        </div>
+                    </Section>
+
+                    <Section title="海外比較：主要国の外国人土地規制とその実効性" id="global-comparison">
+                        <ContentBlockRenderer
+                            blocks={[
+                                {
+                                    type: 'paragraph',
+                                    text: 'オーストラリアは外国人による国内不動産取得に対し、「外国投資審査委員会（FIRB）」による事前審査を義務付けています。農業用地については特に厳格な審査が行われ、一定面積以上の農地取得には閣僚の承認が必要です。2023年には中国資本からの農地取得申請が複数否決されており、安全保障上の観点を明確に組み込んだ運用が行われています。また、農業用地買収の際の課税強化も実施されており、財政的なハードルも高められています。'
+                                },
+                                {
+                                    type: 'paragraph',
+                                    text: 'アメリカでは、外国人や外国企業による農地取得について「農業用地の外国人所有状況に関する農業法（Agricultural Foreign Investment Disclosure Act: AFIDA）」に基づく報告義務があり、国家安全保障上の懸念があるケースはCFIUS（対米外国投資委員会）が審査します。中国資本が軍事基地近くに農地を購入しようとした事案では、連邦政府が「安全保障上の脅威」として売買を阻止した事例もあります（ノースダコタ州のコーン農場事案、2022年）。一方、日本では「重要土地利用調査法」が2022年から施行されましたが、対象区域の指定範囲は限定的であり、一般農地や水源地に対する包括的な規制は依然として不十分な状態にあります。'
+                                },
+                                {
+                                    type: 'paragraph',
+                                    text: 'ニュージーランドは2018年、「海外投資改正法」を制定し、外国人による農地・住宅地取得を大幅に制限しました。この法改正の背景には、中国系資本による不動産価格の高騰と、地元住民が自国内で家を買えなくなるという社会問題がありました。日本でも、北海道や東北の農村部・リゾートエリアで同様の問題——「外国資本に買い占められ、地元住民が取得できない」——が出始めており、ニュージーランドの事例は日本への直接的な警鐘です。'
+                                }
+                            ]}
+                        />
+                    </Section>
+
+                    <Section title="まとめ：国土は「売り物」ではなく「守るもの」" id="land-summary">
+                        <ContentBlockRenderer
+                            blocks={[
+                                {
+                                    type: 'paragraph',
+                                    text: '国土とは、ある民族・国家が代々受け継いできた「物理的な生存基盤」です。経済的合理性だけを基準に「高く買ってくれる外国資本に売ればいい」という論理は、短期的な利得のために長期的な国家主権を切り売りすることに等しい行為です。水源地・農地・森林——これらは「経済的資産」である前に、日本国民の「安全保障資産」であるという認識を、政策設計の根幹に据える必要があります。'
+                                },
+                                {
+                                    type: 'paragraph',
+                                    text: '移民政策との関係で言えば、外国人の居住・就労の拡大は、今後の土地所有の問題と必然的に交差します。長期在留・帰化を経た「元外国人」が、組織的に特定地域の土地を取得するケースは、すでに欧州で観察されています。日本においても、受け入れ政策と土地規制政策を一体的に設計しなければ、数十年後に「気づいたときには手遅れ」という事態が到来します。その日が来る前に、今すぐ重要土地利用規制の強化・対象範囲の拡大・監視体制の整備を実行することが、現世代が次世代に対して果たすべき責任です。'
+                                }
+                            ]}
+                        />
+                    </Section>
+
+                    <div className="mt-12 mb-12">
+                         <h3 className="text-xl font-bold text-white mb-6">この記事を共有する</h3>
+                        <SocialShare />
+                    </div>
+
+                    {/* 追記部分: 国土買収とインフラ喪失への警告 (2000文字規模) */}
+                    <div className="mt-20 space-y-12 bg-gray-950/80 p-8 md:p-12 rounded-2xl border-t-4 border-blue-600 shadow-[0_0_50px_rgba(37,99,235,0.1)] relative">
+                        <div className="prose prose-invert prose-lg max-w-none relative z-10">
+                            <h2 className="text-3xl font-black text-white mb-10 text-center tracking-widest">
+                                [DEEP ANALYSIS] 静かなる侵略：国土買収と重要インフラが外国資本に奪われる時
+                            </h2>
+
+                            <div className="grid md:grid-cols-2 gap-12">
+                                <div>
+                                    <h3 className="text-xl font-bold text-blue-400 mb-4 border-l-2 border-blue-500 pl-3">
+                                        【統計の裏側】可視化されない「外国資本による領土支配」の全貌
+                                    </h3>
+                                    <p className="leading-relaxed text-gray-300">
+                                        日本における外国人・外国法人の土地取得は、先進国の中でも異常なほど自由であり、国家としての防衛機能が完全に欠如している。林野庁の統計等で一部が報告されている水源地の買収は氷山の一角に過ぎず、防衛施設周辺、重要インフラ（通信・電力）、そして再生可能エネルギー（メガソーラー等）を隠れ蓑にした広大な土地の囲い込みが急増している。ペーパーカンパニーや日本法人を通じた間接的な買収により、最終的な実質的支配者（Beneficial Owner）が「どの国の誰であるか」を日本政府すら正確に把握できていないのが現状だ。これは単なる不動産取引ではなく、日本の主権が及ばない「治外法権的エリア」が国内に無数に形成されつつあることを意味する。
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-xl font-bold text-blue-400 mb-4 border-l-2 border-blue-500 pl-3">
+                                        【制度が生んだ歪み】安全保障を度外視した「相互主義」の放棄
+                                    </h3>
+                                    <p className="leading-relaxed text-gray-300">
+                                        国際的な不動産取引における大原則は「相互主義」である。すなわち、「自国民の土地取得を許さない国の国民には、自国の土地も売らない」というルールだ。しかし日本は WTO条約の過剰な解釈や「外資導入」という経済的目的に固執し、この基本的な国家防衛線を自ら放棄している。例えば、中国は国家体制として個人や外国法人の土地「所有」を一切認めず、使用権のみを付与している。それにもかかわらず、中国資本は日本において永続的な「所有権」を購入し、意のままに開発できる。この完全に非対称な関係は、日本の制度的欠陥を突いた「合法的な侵略」を可能にしているのである。
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-xl font-bold text-blue-400 mb-4 border-l-2 border-blue-500 pl-3">
+                                        【グローバル比較】他国はいかにして「領土」を守っているか
+                                    </h3>
+                                    <p className="leading-relaxed text-gray-300">
+                                        国土買収に対する危機感は世界的な潮流である。アメリカでは対米外国投資委員会（CFIUS）が軍事基地周辺や重要インフラに関わる外資の土地取得を厳しく審査し、大統領権限で強制的に売却・買収阻止を命じている。近年では複数の州が、特定の懸念国に属する個人・法人による農地や不動産の取得を全面的に禁止する州法を次々と制定した。オーストラリアも外資審査委員会（FIRB）による厳格な事前認可制度を導入しており、安全保障上の懸念があれば巨額の取引であっても容赦なく却下される。このように他国が「領土の防衛」に国家権力を集中させているのに対し、依然として「事後届出制」でお茶を濁している日本の対応は、国際社会において極めて特異かつ脆弱である。
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-xl font-bold text-blue-400 mb-4 border-l-2 border-blue-500 pl-3">
+                                        【臨界点への展望】「見えない国境線」が引かれる前に
+                                    </h3>
+                                    <p className="leading-relaxed text-gray-300">
+                                        一度外資に渡った所有権を、民主主義国家が強制的に剥奪することは極めて困難である。つまり、現在の制度的怠慢は「取り返しのつかない領土の喪失」を将来世代に押し付ける行為だ。水源が押さえられれば命の綱が握られ、通信インフラや電力網周辺が押さえられれば有事における国家の機能不全を招く。我々は早急に、厳格な相互主義の導入、安全保障上重要なエリア（国境離島、防衛施設、水源地等）の外国資本における取得の原則禁止、および実質的支配者を追及する事前審査制度（日本版CFIUSの創設）を実現しなければならない。国土は単なる経済的商品ではなく、国家存立の絶対的な基盤なのである。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* 追記部分終了 */}
+
+                                                            <RelatedArticles currentPath="/analysis/land-acquisition" />
+
+                                                        </main>
+
+                                                </MainLayout>
+
+                                        
+
+                        );
+
+                    };
+
+                    

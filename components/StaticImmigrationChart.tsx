@@ -1,0 +1,112 @@
+import React from 'react';
+
+const StaticImmigrationChart: React.FC = () => {
+  // A representative set of data points to mimic the distribution of the provided chart image.
+  const points = [
+    { cx: 1, cy: 5.5 }, { cx: 2, cy: 8.2 }, { cx: 2.5, cy: 4.1 }, { cx: 3, cy: 12.5 },
+    { cx: 3.5, cy: 6.7 }, { cx: 4, cy: 2.3 }, { cx: 4.5, cy: 7.8 }, { cx: 5, cy: 5.0 },
+    { cx: 5.2, cy: -7.5 }, { cx: 5.8, cy: 3.3 }, { cx: 6, cy: 9.1 }, { cx: 6.5, cy: 0.5 },
+    { cx: 7, cy: 6.2 }, { cx: 7.5, cy: 3.9 }, { cx: 8, cy: 8.0 }, { cx: 8.2, cy: -2.1 },
+    { cx: 8.8, cy: 5.5 }, { cx: 9, cy: 1.8 }, { cx: 9.5, cy: 4.3 }, { cx: 10, cy: 7.2 },
+    { cx: 10.5, cy: -0.5 }, { cx: 11, cy: 2.8 }, { cx: 11.5, cy: 6.0 }, { cx: 12, cy: 3.5 },
+    { cx: 12.5, cy: -8.8 }, { cx: 13, cy: 5.1 }, { cx: 13.5, cy: 1.0 }, { cx: 14, cy: 8.5 },
+    { cx: 14.5, cy: 4.7 }, { cx: 15, cy: 2.2 }, { cx: 15.5, cy: 6.8 }, { cx: 16, cy: -5.0 },
+    { cx: 16.5, cy: 3.0 }, { cx: 17, cy: 5.8 }, { cx: 17.5, cy: 0.0 }, { cx: 18, cy: 7.5 },
+    { cx: 18.5, cy: 4.2 }, { cx: 19, cy: 2.0 }, { cx: 19.5, cy: 5.3 }, { cx: 20, cy: -1.0 },
+    { cx: 1.2, cy: 2.5 }, { cx: 2.8, cy: 6.3 }, { cx: 4.2, cy: 0.8 }, { cx: 6.8, cy: 4.5 },
+    { cx: 9.2, cy: -3.0 }, { cx: 11.8, cy: 7.0 }, { cx: 14.2, cy: -4.2 }, { cx: 16.8, cy: 1.5 },
+    { cx: 18.8, cy: 6.5 }, { cx: 22, cy: 2.5 }, { cx: 25, cy: 5.0 }, { cx: 28, cy: 1.2 },
+    { cx: 33, cy: 3.8 }, { cx: 38, cy: 0.5 }, { cx: 45, cy: 2.0 }, { cx: 49, cy: -2.5 },
+    { cx: 56, cy: 4.0 }, { cx: 61, cy: 1.8 }, { cx: 68, cy: -1.0 }, { cx: 74, cy: 2.3 },
+    { cx: 81, cy: -0.5 }, { cx: 85, cy: 1.0 }, { cx: 92, cy: 3.5 }, { cx: 99, cy: 1.8 },
+  ];
+
+  const yOffset = 15;
+
+  return (
+    <div role="img" aria-label="移民人口比と経済成長率の相関図：全世界のデータを基にした、移民比率と経済成長率に強い因果関係がないことを示す散布図" className="bg-black/20 p-4 rounded-xl border border-white/5 shadow-inner">
+      <svg width="100%" viewBox="0 0 500 360" className="font-sans">
+        <title>移民人口比と経済成長率の相関図</title>
+        <desc>全世界のデータを基にした、移民比率と経済成長率に強い因果関係がないことを示す散布図。</desc>
+        <style>
+          {`
+            .axis-text { font-size: 12px; fill: #678eb5; font-family: sans-serif; }
+            .grid-line { stroke: #1e293b; stroke-width: 1; }
+            .point { fill: #67c5e5; }
+          `}
+        </style>
+
+        {/* Grid Lines (drawn first) */}
+        {[-10, -5, 0, 5, 10, 15].map((val) => {
+          const y = 280 - ((val + 10) * (260 / 25)) + yOffset;
+          return (
+              <line key={`y-grid-${val}`} x1="40" y1={y} x2="480" y2={y} className="grid-line" />
+          );
+        })}
+        {[20, 40, 60, 80].map((val) => {
+            const x = 40 + (val * (440 / 100));
+            return (
+                <line key={`x-grid-${val}`} x1={x} y1={20 + yOffset} x2={x} y2={280 + yOffset} className="grid-line" />
+            );
+        })}
+
+        {/* Trendline & Data Points (drawn on top of grid) */}
+        <line x1="50" y1={165 + yOffset} x2="470" y2={185 + yOffset} stroke="#678eb5" strokeWidth="1.5" strokeDasharray="3, 3" />
+        {points.map((p, i) => {
+           const x = 40 + (p.cx * (440 / 100));
+           const y = 280 - ((p.cy + 10) * (260 / 25)) + yOffset;
+          return <circle key={i} cx={x} cy={y} r="2.5" className="point" />;
+        })}
+        
+        {/* --- TEXT LABELS (drawn last, on top of everything) --- */}
+
+        {/* Title Background Mask */}
+        <rect x="150" y={10 + yOffset} width="200" height="20" fill="#0d1117" />
+        
+        {/* Title */}
+        <text x="250" y={20 + yOffset} textAnchor="middle" className="axis-text" fontSize="18px" fill="#a8c5e5">
+          （全世界 2010-2022）
+        </text>
+
+        {/* Correlation Info */}
+        <g transform={`translate(380, ${40 + yOffset})`}>
+          <text x="0" y="0" textAnchor="start" className="axis-text" fill="#a8c5e5">相関係数</text>
+          <text x="5" y="18" textAnchor="start" className="axis-text" fill="#a8c5e5">▲ 0.18</text>
+        </g>
+        
+        {/* Y Axis Labels */}
+        {[-10, -5, 0, 5, 10, 15].map((val) => {
+          const y = 280 - ((val + 10) * (260 / 25)) + yOffset;
+          return (
+            <text key={`y-label-${val}`} x="35" y={y + 4} textAnchor="end" className="axis-text">{val}</text>
+          );
+        })}
+
+        {/* Y-axis label */}
+        <text transform="rotate(-90)" x="-170" y="15" textAnchor="middle" className="axis-text" fontSize="14px" fill="#a8c5e5">
+          経済成長率（縦軸）
+        </text>
+
+        {/* X Axis Labels */}
+        {[0, 20, 40, 60, 80, 100].map((val) => {
+            const x = 40 + (val * (440 / 100));
+            return (
+                <text key={`x-label-${val}`} x={x} y={300 + yOffset} textAnchor="middle" className="axis-text">{val}</text>
+            );
+        })}
+
+        {/* X-axis label */}
+        <text x="260" y={320 + yOffset} textAnchor="middle" className="axis-text" fontSize="14px" fill="#a8c5e5">
+          移民人口比（横軸）
+        </text>
+        
+        {/* Footer Caption */}
+        <text x="480" y={340 + yOffset} textAnchor="end" className="axis-text" fontSize="11px">
+          資料: 国連人口部 (2020) および 世界銀行
+        </text>
+      </svg>
+    </div>
+  );
+};
+
+export default StaticImmigrationChart;

@@ -1,0 +1,57 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import App from './App';
+import './src/index.css';
+
+// 外部ツールのポップアップ等を削除するクリーンアップ
+const cleanupExternalUI = () => {
+  if (typeof window === 'undefined') return;
+  const blockList = ['Bug Detail', 'Primary bug', 'Netlify Drawer'];
+  const all = document.querySelectorAll('div, iframe');
+  all.forEach(el => {
+    const htmlEl = el as HTMLElement;
+    const text = htmlEl.innerText || el.textContent || '';
+    const hasBadText = blockList.some(word => text.includes(word));
+    if (hasBadText && el.id !== 'root' && !el.closest('#root')) {
+      el.remove();
+    }
+  });
+};
+
+// ハイドレーションの実行
+// React 18のhydrateRootを使用（プリレンダリング済みのHTMLが存在する場合のみ）
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  // 開発環境などで<!--app-html-->がそのまま残っている場合はhydrateではなくrenderを使用する
+  const hasPrerenderedContent = rootElement.innerHTML.trim().length > 0 && 
+                                !rootElement.innerHTML.includes('<!--app-html-->');
+  
+  if (hasPrerenderedContent) {
+    ReactDOM.hydrateRoot(
+      rootElement,
+      <React.StrictMode>
+        <HelmetProvider>
+          <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+            <App />
+          </BrowserRouter>
+        </HelmetProvider>
+      </React.StrictMode>
+    );
+  } else {
+    const root = ReactDOM.createRoot(rootElement);
+    root.render(
+      <React.StrictMode>
+        <HelmetProvider>
+          <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+            <App />
+          </BrowserRouter>
+        </HelmetProvider>
+      </React.StrictMode>
+    );
+  }
+  
+  // マウント後にクリーンアップを実行
+  setTimeout(cleanupExternalUI, 1000);
+}

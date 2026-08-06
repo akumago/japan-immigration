@@ -1,0 +1,101 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { exec } from 'child_process';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const toAbsolute = (p) => path.resolve(__dirname, p);
+
+async function prerender() {
+  const template = fs.readFileSync(toAbsolute('dist/client/index.html'), 'utf-8');
+  // ESMとしてインポート
+  const { render } = await import('./dist/server/entry-server.js');
+
+  const routesToPrerender = [
+    '/',
+    '/analysis-archive',
+    '/privacy-policy',
+    '/contact',
+    '/about',
+    '/references',
+    '/faq',
+    '/glossary',
+    '/operator-info',
+    '/analysis/crime-statistics',
+    '/analysis/economic-impact',
+    '/analysis/social-security',
+    '/analysis/naturalization-paradox',
+    '/analysis/burial-controversy',
+    '/analysis/land-acquisition',
+    '/analysis/uk-immigration-lesson',
+    '/analysis/borderless-welfare-state',
+    '/analysis/national-security',
+    '/analysis/nigeria-case',
+    '/analysis/simulation-model',
+    '/analysis/labor-dilemma',
+    '/analysis/video-guide',
+    '/analysis/statistical-evidence',
+    '/analysis/risk-analysis',
+    '/analysis/labor-mismatch',
+    '/analysis/summary-statistics',
+    '/analysis/policy-recommendations',
+    '/analysis/conclusion',
+    '/analysis/strategic-recommendations',
+    '/analysis/symbiosis',
+    ...Array.from({ length: 15 }, (_, i) => `/analysis/image/${i + 1}`)
+  ];
+
+  for (const url of routesToPrerender) {
+    const context = {};
+    const { html: appHtml, helmet } = render(url, context);
+
+    // カノニカルURLを動的に生成
+    const canonicalUrl = `https://endearing-blini-b688ce.netlify.app${url}`;
+    const canonicalTag = `<link rel="canonical" href="${canonicalUrl}" />`;
+    const ogUrlTag = `<meta property="og:url" content="${canonicalUrl}" />`;
+
+    const finalHtml = template
+      .replace('<!--app-html-->', appHtml)
+      .replace(/<title>.*?<\/title>/, helmet?.title?.toString() || '')
+      .replace('</title>', `</title>${helmet?.meta?.toString() || ''}${helmet?.link?.toString() || ''}${canonicalTag}${ogUrlTag}`);
+
+
+    const fileName = url === '/' ? 'index.html' : `${url}/index.html`;
+    const filePath = path.join('dist/client', fileName);
+
+    fs.mkdirSync(path.dirname(toAbsolute(filePath)), { recursive: true });
+    fs.writeFileSync(toAbsolute(filePath), finalHtml, 'utf-8');
+  }
+
+  fs.copyFileSync(toAbsolute('dist/client/index.html'), toAbsolute('dist/client/200.html'));
+
+  const uploadDir = toAbsolute('NETLIFY_UPLOAD');
+  const clientDir = toAbsolute('dist/client');
+
+  function copyDir(src, dest) {
+    fs.mkdirSync(dest, { recursive: true });
+    const entries = fs.readdirSync(src, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const srcPath = path.join(src, entry.name);
+      const destPath = path.join(dest, entry.name);
+      if (entry.isDirectory()) { copyDir(srcPath, destPath); } 
+      else { fs.copyFileSync(srcPath, destPath); }
+    }
+  }
+
+  if (fs.existsSync(uploadDir)) { fs.rmSync(uploadDir, { recursive: true, force: true }); }
+  copyDir(clientDir, uploadDir);
+
+  console.log('BUILD COMPLETE! Please drag NETLIFY_UPLOAD to Netlify.');
+  
+  // OSに応じたオープン処理（Windows想定）
+  if (process.platform === 'win32') {
+    exec(`start "" "${uploadDir}"`);
+  }
+}
+
+prerender().catch(err => {
+  console.error('Prerender failed:', err);
+  process.exit(1);
+});

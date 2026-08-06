@@ -1,0 +1,284 @@
+import React from "react";
+import { Helmet } from 'react-helmet-async';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { Header } from "../components/Header";
+import Section from "../components/Section";
+import CaseCard from "../components/CaseCard";
+import StatCard from "../components/StatCard";
+import { SocialShare } from "../components/SocialShare";
+import StaticImmigrationChart from "../components/StaticImmigrationChart";
+import ImmigrationGrowthComparisonChart from "../components/ImmigrationGrowthComparisonChart";
+import DichotomyOfLabor from "../components/DichotomyOfLabor";
+import JapaneseLaborDilemma from "../components/JapaneseLaborDilemma";
+import ViciousCycle from "../components/ViciousCycle";
+import { FiscalImpactAnalysis } from "../components/FiscalImpactAnalysis";
+import BorderlessWelfareState from "../components/BorderlessWelfareState";
+import YouTubeEmbed from "../components/YouTubeEmbed";
+import ContentBlockRenderer from "../components/ContentBlockRenderer";
+import {
+    reportData,
+} from "../constants";
+import AdComponent from "../components/AdComponent";
+import { EmbeddedImage } from "../components/EmbeddedImage";
+
+import { MainLayout } from "../components/MainLayout";
+
+export const HomePage: React.FC = () => {
+    return (
+        <MainLayout>
+            <Helmet>
+                <title>日本の岐路：外国人労働者受け入れ政策における構造的課題と国民経済への影響</title>
+                <meta
+                    name="description"
+                    content="外国人移民政策が日本の経済、社会、安全保障に与える影響を、公적統計データと事例分析に基づき包括的に検証。労働市場、治安、社会保障制度への影響を詳細に解説。"
+                />
+                <meta
+                    name="keywords"
+                    content="外国人移民,日本経済,労働市場,治安,社会保障,移民政策,技能実習制度,特定技能,クルド人問題,国家安全保障"
+                />
+                <meta property="og:title" content="日本の岐路：外国人移民がもたらす影響の包括的分析" />
+                <meta property="og:description" content="公的データに基づく移民政策の影響分析レポート。日本の未来を左右する構造的課題を検証。" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/" />
+                <meta property="og:type" content="website" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="日本の岐路：外国人移民がもたらす影響の包括的分析" />
+                <meta name="twitter:description" content="公的データに基づき、移民政策が日本社会に与える影響を多角的に分析したレポート。" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+            </Helmet>
+
+            <Header title={reportData.mainTitle} description={reportData.introduction} />
+            
+            <noscript>
+                <div style={{ padding: '20px', backgroundColor: '#0d1117', color: '#fff' }}>
+                    <h1>{reportData.mainTitle}</h1>
+                    <p>{reportData.introduction}</p>
+                    {reportData.sections.map((section, index) => (
+                        <div key={index} style={{ marginBottom: '40px' }}>
+                            <h2>{section.title}</h2>
+                            {section.content.introduction && <p>{section.content.introduction}</p>}
+                            {section.content.blocks?.map((block, bIndex) => (
+                                <div key={bIndex}>
+                                    {block.type === 'subheading' && <h3>{block.text}</h3>}
+                                    {block.type === 'paragraph' && <p>{block.text}</p>}
+                                    {block.type === 'list' && Array.isArray(block.text) && (
+                                        <ul>{block.text.map((item, iIndex) => <li key={iIndex}>{item}</li>)}</ul>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+            </noscript>
+            
+            <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 -mt-8 mb-8 text-right">
+                <span className="text-xs text-gray-500 bg-white/5 px-3 py-1 rounded-full border border-white/10">
+                    最終更新日: 2025年12月31日
+                </span>
+            </div>
+
+            <main className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                    {/* 詳細テキストレポートセクション */}
+                    <div className="mt-16 p-8 bg-gray-900/50 rounded-2xl border border-white/10">
+                        <h2 className="text-2xl font-bold text-white mb-6">詳細分析レポート（テキスト版）</h2>
+                        <div className="prose prose-invert max-w-none">
+                            <h1 className="text-xl font-bold text-blue-400 mb-4">{reportData.mainTitle}</h1>
+                            <p className="mb-8">{reportData.introduction}</p>
+                            {reportData.sections.map((s, i) => (
+                                <div key={i} className="mb-12">
+                                    <h2 className="text-lg font-bold text-white mb-4 border-l-4 border-blue-500 pl-4">{s.title}</h2>
+                                    <p className="mb-4 text-gray-300">{s.content.introduction}</p>
+                                    {s.content.blocks?.map((b, bi) => (
+                                        <div key={bi} className="mb-4">
+                                            {b.type === 'subheading' && <h3 className="text-md font-bold text-gray-200 mb-2">{b.text}</h3>}
+                                            {b.type === 'paragraph' && <p className="text-gray-400 leading-relaxed">{b.text}</p>}
+                                            {Array.isArray(b.text) && (
+                                                <ul className="list-disc list-inside ml-4 text-gray-400 space-y-2">
+                                                    {b.text.map((li, lii) => <li key={lii}>{li}</li>)}
+                                                </ul>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="mb-12 flex justify-center">
+                        <SocialShare />
+                    </div>
+
+                    {reportData.sections.map((section, sectionIndex) => (
+                        <React.Fragment key={sectionIndex}>
+                            {sectionIndex === 0 && (
+                                <section className="mb-20">
+                                    <Link to="/analysis-archive" className="block group relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-900/40 via-[#161b22] to-purple-900/40 border border-blue-500/30 p-8 md:p-16 hover:border-blue-500/60 transition-all duration-500 shadow-2xl">
+                                        <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] group-hover:bg-blue-500/20 transition-all duration-700"></div>
+                                        <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px] group-hover:bg-purple-500/20 transition-all duration-700"></div>
+                                        
+                                        <div className="relative z-10 flex flex-col items-center text-center">
+                                            <motion.div 
+                                                initial={{ scale: 0.9, opacity: 0 }}
+                                                whileInView={{ scale: 1, opacity: 1 }}
+                                                className="inline-flex items-center px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-bold mb-8 tracking-widest uppercase"
+                                            >
+                                                <span className="relative flex h-3 w-3 mr-3">
+                                                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                                                  <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                                                </span>
+                                                Full Access Available
+                                            </motion.div>
+                                            
+                                            <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter leading-none">
+                                                全43件の<span className="text-white drop-shadow-[0_0_25px_rgba(59,130,246,0.8)] border-b-4 border-blue-500">分析アーカイブ</span>を公開
+                                            </h2>
+                                            
+                                            <p className="text-xl md:text-2xl text-white max-w-3xl mb-12 leading-relaxed text-center font-bold drop-shadow-md">
+                                                統計データ、治安リスク、経済シミュレーション、海外事例。<br className="hidden md:block" />
+                                                日本の未来を左右する膨大な知見を、視覚的なカード形式で一挙に閲覧いただけます。
+                                            </p>
+                                            
+                                            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+                                                <span className="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white text-xl font-black rounded-full transition-all duration-300 transform group-hover:scale-110 shadow-[0_0_40px_rgba(37,99,235,0.4)] flex items-center">
+                                                    レポート一覧へアクセス
+                                                    <svg className="ml-3 w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </section>
+                            )}
+                            <div className="section-wrapper mb-16">
+                                <Section title={section.title} id={`section-${sectionIndex}`}>
+                                    {section.content.introduction && (
+                                        <p className="text-lg mb-8 leading-relaxed text-gray-300">{section.content.introduction}</p>
+                                    )}
+
+                                    {section.content.customComponent === 'ViciousCycle' && <ViciousCycle />}
+                                    {section.content.customComponent === 'YouTubeEmbed' && <YouTubeEmbed videoId={section.content.videoId!} />}
+                                    {section.content.customComponent === 'StaticImmigrationChart' && (
+                                        <div className="space-y-8">
+                                            <StaticImmigrationChart />
+                                            <ImmigrationGrowthComparisonChart />
+                                        </div>
+                                    )}
+                                    {section.content.customComponent === 'DichotomyOfLabor' && <DichotomyOfLabor />}
+                                    {section.content.customComponent === 'JapaneseLaborDilemma' && <JapaneseLaborDilemma />}
+                                    {section.content.customComponent === 'FiscalImpactAnalysis' && <FiscalImpactAnalysis />}
+                                    {section.content.customComponent === 'BorderlessWelfareState' && <BorderlessWelfareState />}
+                                    
+                                    {section.content.blocks && (
+                                        <ContentBlockRenderer blocks={section.content.blocks} />
+                                    )}
+
+                                    {section.content.stats && (
+                                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                                            {section.content.stats.map((stat, statIndex) => (
+                                                <StatCard key={statIndex} stat={stat} />
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {section.content.cases && (
+                                        <div className="grid md:grid-cols-2 gap-6 mt-8">
+                                            {section.content.cases.map((caseItem, caseIndex) => (
+                                                <CaseCard key={caseIndex} caseItem={caseItem} />
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {section.title.includes('最新の数理予測モデル') && <EmbeddedImage pageId={1} caption="【総論】社会構造への深刻な影響：外国人受け入れが招く悪循環の全体構造" />}
+                                    {section.title.includes('経済への長期的影響') && <EmbeddedImage pageId={2} caption="問題の構造：長期的な経済停滞と「外国人頼み」の矛盾（悪循環の図解）" />}
+                                    {section.title.includes('法務省の犯罪統計') && (
+                                        <div className="mt-12 space-y-16">
+                                            <EmbeddedImage pageId={5} caption="【法務省統計】来日外国人の刑法犯検挙人員の推移と治安の現状" />
+                                            <EmbeddedImage pageId={6} caption="文化の衝突：ホスト国への敬意を欠いた要求と地域社会の軋轢" />
+                                            <EmbeddedImage pageId={9} caption="深刻な脅威：日本国内で増加する外国人による凶悪性犯罪" />
+                                        </div>
+                                    )}
+                                    {section.title.includes('国家安全保障への直接的脅威') && (
+                                        <div className="mt-12 space-y-16">
+                                            <EmbeddedImage pageId={11} caption="【安全保障分析】スパイ防止法の欠如と狙われる防衛機密・政治工作" />
+                                            <EmbeddedImage pageId={10} caption="【安保リスク】テロと麻薬の温床：脆弱な監視体制が招く国際犯罪組織の浸透" />
+                                            <EmbeddedImage pageId={8} caption="治安維持の課題：特定の外国人集団による摩擦と地域社会の変容" />
+                                        </div>
+                                    )}
+
+                                    {/* 追記: 独立記事への誘導ボタン */}
+                                    <div className="mt-12 pt-8 border-t border-white/5 flex justify-center">
+                                        <Link 
+                                            to={(() => {
+                                                const title = section.title;
+                                                if (title.includes('最新の数理予測モデル')) return '/analysis/ai-simulation';
+                                                if (title.includes('解説動画')) return '/analysis/video-guide';
+                                                if (title.includes('視覚的証拠')) return '/analysis/statistical-evidence';
+                                                if (title.includes('リスク分析')) return '/analysis/risk-analysis';
+                                                if (title.includes('経済への長期的影響')) return '/analysis/economic-impact';
+                                                if (title.includes('財政影響分析')) return '/analysis/economic-impact';
+                                                if (title.includes('犯罪統計')) return '/analysis/crime-statistics';
+                                                if (title.includes('実証データ')) return '/analysis/borderless-welfare-state';
+                                                if (title.includes('国家安全保障')) return '/analysis/national-security';
+                                                if (title.includes('国土・重要インフラ')) return '/analysis/land-acquisition';
+                                                if (title.includes('なし崩し的')) return '/analysis/uk-immigration-lesson';
+                                                if (title.includes('働き方改革')) return '/analysis/labor-dilemma';
+                                                if (title.includes('ナイジェリア')) return '/analysis/nigeria-case';
+                                                if (title.includes('人手不足')) return '/analysis/labor-mismatch';
+                                                if (title.includes('総括')) return '/analysis/summary-statistics';
+                                                if (title.includes('政策提言')) return '/analysis/policy-recommendations';
+                                                if (title.includes('結び')) return '/analysis/conclusion';
+                                                return '#';
+                                            })()}
+                                            className="inline-flex items-center px-8 py-4 bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border border-blue-500/30 rounded-xl transition-all group font-bold"
+                                        >
+                                            <span className="mr-3">この章を独立した記事で読む</span>
+                                            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                            </svg>
+                                        </Link>
+                                    </div>
+                                </Section>
+                            </div>
+                            <AdComponent />
+                        </React.Fragment>
+                    ))}
+
+                    <Section title="戦略的提言：日本の未来を守るために" id="strategic-recommendations">
+                        <p className="text-lg mb-10 text-gray-400">
+                            本プロジェクトの分析に基づき、私たちが将来世代に誇れる日本を引き継ぐための具体的な提言を以下の3つの視点でまとめました。
+                        </p>
+                        <div className="space-y-16">
+                            <EmbeddedImage pageId={13} caption="【総括】信頼社会の変容：日本の「性善説」への影響と社会統合コストの真実" />
+                            <EmbeddedImage pageId={14} caption="【最終結論】外国人受け入れ政策に関する構造的課題：早急な政策転換の提言" />
+                            <EmbeddedImage pageId={15} caption="【結び】日本人の「我慢」が限界を超える時：未来を守るための最後の決断" />
+                        </div>
+                        
+                        {/* 戦略的提言セクションの末尾にもリンクを追加 */}
+                        <div className="mt-12 pt-8 border-t border-white/5 flex justify-center">
+                            <Link 
+                                to="/analysis/strategic-recommendations"
+                                className="inline-flex items-center px-8 py-4 bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border border-blue-500/30 rounded-xl transition-all group font-bold"
+                            >
+                                <span className="mr-3">戦略的提言の全文を独立記事で読む</span>
+                                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </Link>
+                        </div>
+                    </Section>
+
+                    <footer className="text-center mt-12 text-gray-600 border-t border-white/10 pt-12 pb-12">
+                        <div className="mb-12 p-6 bg-blue-900/10 border border-blue-500/20 rounded-xl max-w-2xl mx-auto text-sm">
+                            <p className="text-gray-400 mb-3">当プロジェクトは情報の正確性を最優先としています。</p>
+                            <Link to="/contact" className="text-blue-400 hover:text-blue-300 underline">
+                                修正依頼・ファクトチェックをリクエストする
+                            </Link>
+                        </div>
+                        <p className="text-xs">&copy; 2024 Akuma Shogun | 日本社会構造分析リサーチ</p>
+                    </footer>
+                </main>
+        </MainLayout>
+    );
+};

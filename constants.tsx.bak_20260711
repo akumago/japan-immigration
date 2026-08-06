@@ -1,0 +1,480 @@
+import React from 'react';
+import { CaseType, type ReportData } from './types';
+
+const ChartIcon = (
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+  </svg>
+);
+
+const UserGroupIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+    </svg>
+);
+
+const ShieldExclamationIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.876c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+    </svg>
+);
+
+const GlobeIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h10a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.704 4.04a9 9 0 0110.592 0M7.704 4.04L7 4.74M7.704 4.04L8.4 3.34M16.296 4.04L17 4.74m-1.296-.7L15.6 3.34M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+);
+
+export const IMMIGRATION_CHART_LABELS = ['2010', '2015', '2020', '2025'];
+export const IMMIGRATION_CHART_DATA = [100, 150, 200, 250];
+
+export const LABOR_DICHOTOMY_LABELS = ['Category A', 'Category B', 'Category C'];
+export const LABOR_DICHOTOMY_DATA = [30, 50, 20];
+
+export const JAPANESE_LABOR_DILEMMA_LABELS = ['Factor 1', 'Factor 2', 'Factor 3'];
+export const JAPANESE_LABOR_DILEMMA_DATA = [40, 30, 30];
+
+export const VICIOUS_CYCLE_LABELS = ['Phase 1', 'Phase 2', 'Phase 3'];
+export const VICIOUS_CYCLE_DATA = [25, 45, 30];
+
+export const reportData: ReportData = {
+  mainTitle: '日本の岐路：外国人労働者受け入れ政策における構造的課題と国民経済への影響',
+  introduction: '本報告書は、外国人労働者の受け入れ拡大が日本の経済構造、社会秩序、および国家安全保障に及ぼす多角的な影響を公的データに基づき客証的に分析することを目的とする。',
+  sections: [
+    {
+      title: '最新の数理予測モデルの論理的限界と「日本固有の変数」による再検証',
+      content: {
+        introduction: 'グローバルな標準指標に基づく予測モデルに対し、日本の治安統計や社会保障コストという「剥き出しの現実」をぶつけ、その論理的な脆弱性を浮き彫りにした独自の検証記録。単なる受け入れ拡大論がいかに日本独自の社会的共通資本を毀損するか、シミュレーションの再計算を通じて明らかにされた不都合な真実を提示する。',
+        blocks: [
+          { type: 'subheading', text: 'データ駆動型シミュレーションの再検証：理論と現実の相克' },
+          { type: 'paragraph', text: '本検証の目的は、マクロ経済モデルが提示する「多文化共生による経済効果」という教科書的な正論を、日本の個別具体的なデータ（実質賃金の推移、国民健康保険滞納の実態、特定の地域社会での摩擦）によって解体することにある。' },
+          { type: 'paragraph', text: '当初のシミュレーションにおいて、既存の学術モデルはマクロ経済的な合理性のみを算出した。しかし、そこに「社会的取引コスト」や「信頼社会の維持費」という外部不経済の変数を加算し、論理的な負荷をかけた結果、シミュレーションは「安直な労働力輸入が、長期的には日本の社会的統合力を不可逆的に毀損するリスク」を認めざるを得ない状況に追い込まれた。' },
+          { type: 'list', text: [
+            '日本独自の「高信頼社会」という目に見えない資産の保護',
+            '制度のフリーライドを許さない、厳格な法的・財政的枠組みの再構築',
+            '低賃金労働に頼らず、DXと高度ロボティクスによる生産性向上を完遂する真の経済再生'
+          ]},
+          { type: 'paragraph', text: 'このプロセスを通じて、高度な計量分析の結果ですら、全データ――特に不都合な真実――を直視すれば、現在の移民政策がいかに危うい砂上の楼閣であるかを吐露せざるを得ないことが証明された。' }
+        ]
+      }
+    },
+    {
+      title: '解説動画',
+      content: {
+        customComponent: 'YouTubeEmbed',
+        videoId: '6d5vUlgH_ko',
+      }
+    },
+    {
+      title: '視覚的証拠：移民と経済成長の無関係性',
+      content: {
+        introduction: '「移民が経済を成長させる」という主張は、しばしば受け入れ推進の根拠とされるが、これは客観的な統計事実に反する。国連が発表した全世界のデータは、その相関関係の欠如を明確に示している。',
+        customComponent: 'StaticImmigrationChart',
+        blocks: [
+          { type: 'paragraph', text: '※ 上図は公的統計に基づき、特定の変数（移民比率）が経済成長に与える直接的な因果関係が、世界規模では確認されないという客観的事実を可視化したものです。' },
+          { type: 'subheading', text: 'この表が示していること' },
+          { type: 'list', text: [
+            '世界全体で見ると、移民の比率と経済成長率には強い因果関係がない。',
+            '「移民が多い国ほど経済が伸びる」「移民が少ない国ほど経済が安定する」などの単純な結論は導けない。',
+            '経済成長は移民以外の要因（産業構造、政策、国際情勢など）の影響が大きいことを示唆している。'
+          ] },
+          { type: 'paragraph', text: '出典元：国連人口部「International Migrant Stock 2020」および世界銀行「GDP growth (annual %)」データを基に作成。' }
+        ]
+      }
+    },
+    {
+      title: '外国人労働者受け入れに伴う多角的なリスク分析',
+      content: {
+        introduction: '外国人受け入れに伴う課題は、経済、社会、法制度といった広範な領域に及び、日本の社会構造に長期的な影響を及ぼす可能性がある。',
+        blocks: [
+          { type: 'subheading', text: '1. 経済・労働市場への影響' },
+          { type: 'list', text: [
+            '日本人労働者の賃金停滞：低賃金外国人労働者の増加が、日本人全体の賃金水準を押し下げ、経済の悪循環を生み出す。',
+            '生産性の低下：企業が安価な労働力に依存し、技術革新への投資を怠ることで、日本の産業競争力が長期的に低下する。',
+            '劣悪な労働環境の蔓延：技能実習制度に代表されるように、外国人労働者を搾取する構造が、日本全体の労働環境を悪化させる。'
+          ]},
+          { type: 'paragraph', text: '【一次ソース】厚生労働省：外国人雇用状況の届出状況まとめ / 経済産業省：通商白書' },
+          { type: 'subheading', text: '2. 社会・文化的摩擦の激化' },
+          { type: 'list', text: [
+            '地域社会との軋轢：生活習慣、騒音、ゴミ出しルールなどの違いが、地域住民との深刻なトラブルに発展している。',
+            'コミュニケーションの課題：言語の壁が、職場や地域社会における意思疎通を困難にし、相互不信を増大させている。'
+          ]},
+          { type: 'subheading', text: '3. 法的リスクと制度の悪用' },
+          { type: 'list', text: [
+            '不法就労の助長：複雑な在留資格制度の隙間を突き、不法就労が横行。これを放置することが、さらなる犯罪の温床となっている。',
+            '失踪と犯罪：多額の借金を背負って来日した外国人が失踪し、犯罪組織に吸収されるケースが後を絶たない。'
+          ]},
+          { type: 'paragraph', text: '【一次ソース】出入国在留管理庁：不法残留者数及び失踪者数の推移' },
+          { type: 'subheading', text: '4. 国民健康保険制度への影響' },
+          {
+            type: 'paragraph',
+            text: '日本の相互扶助の精神の根幹である国民健康保険制度において、一部地域で滞納や不適切な利用が報告されている。'
+          },
+          { type: 'list', text: [
+            '低い納付率と制度の課題：一部地域では滞納率が高く、また制度の穴を突いた不適切な利用事例が懸念されている。',
+            '医療財政への負担：適切な保険料納付がない状態での高額医療利用は、正直に保険料を納める日本国民の負担増に直結する。',
+          ]},
+          { type: 'paragraph', text: '【一次ソース】厚生労働省：国民健康保険の実態調査 / 各自治体の滞納統計' },
+          { type: 'subheading', text: '5. 企業側への負担転嫁' },
+          { type: 'list', text: [
+              '手続きの煩雑さ：外国人労働者の雇用には、在留資格の申請や各種手続きなど、日本人雇用にはない煩雑な業務が伴う。',
+              '支援体制の必要性：適切な労働条件の提示に加え、生活面（役所や銀行での手続きなど）の支援体制を整える必要があり、そのコストと労力は全て企業側に転嫁される。'
+          ]},
+          { type: 'paragraph', text: '▶ [社会保障制度と国民健康保険の維持課題に関する詳細分析](/analysis/social-security)' }
+        ],
+        stats: [
+          {
+            icon: ChartIcon,
+            title: '外国人国保滞納率',
+            value: '30%以上',
+            description: '厚生労働省の調査によると、一部の地域では外国人の3割以上が国民健康保険料を滞納しており、日本人全体の滞納率を大幅に上回る。',
+          },
+          {
+            icon: UserGroupIcon,
+            title: '共犯事件の割合',
+            value: '日本人の約3倍',
+            description: '警察庁のデータによると、来日外国人による刑法犯の共犯事件の割合は、日本人によるものの約2.8倍から3倍に上り、組織的な犯行が多いことを示唆している。',
+          }
+        ]
+      }
+    },
+    {
+      title: '経済への長期的影響と課題',
+      content: {
+        introduction: '「労働力不足を補うため」という名目で進められる外国人受け入れは、実際には日本経済に深刻な影響を与える負のスパイラルを生み出している。人手不足は本来、賃金が上昇する唯一無二のチャンスであるが、安価な外国人労働力でその機会を逸することは、慎重な検討を要する課題である。',
+        blocks: [
+          { type: 'paragraph', text: '▶ [外国人労働者導入が日本の賃金と生産性に与える影響分析](/analysis/economic-impact)' }
+        ],
+        customComponent: 'ViciousCycle',
+      }
+    },
+    {
+      title: '外国人受け入れの財政影響分析',
+      content: {
+        introduction: '日本の税制・社会保障制度は「富の再分配」を前提としています。外国人労働者のライフサイクルを通じた財政貢献と負荷をシミュレーションした結果、特定のモデルにおいては将来的に重大な財政赤字を招くリスクが浮き彫りとなりました。',
+        customComponent: 'FiscalImpactAnalysis',
+        blocks: [
+          { type: 'paragraph', text: '※ 上記のシミュレーションは、平均的な年収推移と社会保障コストに基づき算出されたものです。' }
+        ]
+      }
+    },
+    {
+      title: '実証データ：欧州の「福祉国家と移民」に関する衝撃の調査結果',
+      content: {
+        introduction: 'オランダにおける1,700万人の匿名マイクロデータを用いた、2023年の最新研究「Borderless Welfare State」の結果を提示します。シミュレーションではなく、現実の財政純貢献度が、出身国によっていかに残酷なまでに乖離しているかを明らかにします。',
+        customComponent: 'BorderlessWelfareState',
+        blocks: [
+          { type: 'paragraph', text: '▶ [オランダ財政影響調査（Borderless Welfare State）の詳細な分析と日本への示唆](/analysis/borderless-welfare-state)' }
+        ]
+      }
+    },
+    {
+      title: '法務省の犯罪統計に基づく、来日外国人の犯罪傾向の分析',
+      content: {
+        introduction: '日本の治安維持は、法執行のみならず、長年培われてきた社会的なマナーや規範という「見えないインフラ」に支えられてきた。異なる文化的背景を持つ人々の流入が、これらの社会的基盤にどのような影響を与えるか、公的データに基づき検証する。',
+        blocks: [
+          { type: 'subheading', text: '統計が示す外国人犯罪の傾向' },
+          { type: 'paragraph', text: '法務省の「令和6年版 犯罪白書」によると、令和5年における来日外国人の刑法犯検挙人員は5,735人で、前年比14.4%増加した。' },
+          { type: 'paragraph', text: '特に、国籍別で見ると特定の国籍者による犯罪の集中がうかがえる。窃盗や詐欺といった財産犯が依然として高い割合を占めており、その手口も巧妙化・多様化している。これらのデータは、特定の条件下で外国人による犯罪が社会問題化している現実を示している。' },
+          { type: 'paragraph', text: '【一次ソース】法務省：令和6年版 犯罪白書 / 警察庁：令和5年における来日外国人犯罪の検挙状況について' },
+          { type: 'subheading', text: '文化的規範の衝突と社会問題' },
+          { type: 'paragraph', text: '日本の「性善説」文化や公共のマナーを根底から覆すような、信じがたい迷惑行為や蛮行がインターネット上で告発され、社会問題となっている。これらは単なる文化の違いでは済まされない、日本の価値観との間に深刻な摩擦を生んでいる。' },
+          { type: 'subheading', text: '土葬問題とハラル給食：文化の尊重を履き違えた要求' },
+          { type: 'paragraph', text: '宮城県で計画されたイスラム教徒向けの土葬墓地は、大きな社会問題となった。日本が公衆衛生と国土の有効利用の観点から火葬を基本としてきた歴史を無視し、自らの文化を一方的に押し付ける要求は、多文化共生とは相容れない。郷に入っては郷に従うのが大原則であり、それが嫌なら受け入れてくれる国へ行くべきである。日本に来ておきながら「土葬させろ」と会見まで開いて要求する姿勢は、受け入れられるべきではない。' },
+          { type: 'paragraph', text: '同様に、公立学校でのハラル給食の要求も問題視されている。アレルギー対応とは次元が異なり、個人の宗教的信条のために公的システムに負担を強いるのは筋違いである。給食の献立は事前に分かるのだから、対応できない日は家庭で弁当を用意するのが当然の配慮であろう。宗教を盾に特別扱いを要求する風潮は、日本の社会秩序に重大な影響を及ぼす。' },
+          { type: 'subheading', text: '地域社会を脅かす具体的な事件' },
+          { type: 'paragraph', text: '特定の外国人コミュニティが形成された地域では、日本人住民の生活を脅かす深刻な事件が頻発し、社会問題化している。' },
+          { type: 'paragraph', text: '加えて、外国人同士の揉め事が日本の警察沙汰に発展するケースも頻発しており、無用な法執行リソースを浪費させ、日本の治安維持に余計な負担を強いている。' },
+          { type: 'paragraph', text: '▶ [来日外国人犯罪統計（1.72倍データ）の深層分析](/analysis/crime-statistics)' }
+        ],
+        cases: [
+          { type: CaseType.Cultural, title: '公共空間におけるマナーと規範の衝突', year: '近年', description: '日本の伝統的な慣習や公共マナーに対する理解不足から生じる、公共施設や宗教施設でのトラブルが報告されている。これらは地域住民の生活環境に影響を及ぼし、相互の摩擦の原因となっている。' },
+          { type: CaseType.Community, title: '特定の地域における社会統合の課題', year: '2023-現在', description: '一部の地域において、異なる文化的背景を持つ住民グループと既存の地域社会との間で摩擦が発生している。公的データの分析によれば、特定の国籍者による逮捕率が国内平均を上回る事例も確認されている。' },
+          { type: CaseType.Violent, title: '司法手続および再犯防止の課題', year: '2024', description: '重大な犯罪行為が発生した際、法規範に対する認識の相違や、司法判断のあり方が議論を呼ぶケースが見られる。治安維持に向けた適切な法適用の必要性が指摘されている。' }
+        ]
+      }
+    },
+    {
+      title: '国家安全保障への直接的脅威',
+      content: {
+        introduction: 'スパイ防止法が存在しない日本の体制は、国外勢力にとって活動しやすい環境と見なされる懸念がある。外国人受け入れは、国内問題だけでなく、国家の安全保障に関わる重要な課題を内包している。',
+        blocks: [
+            {
+                type: 'paragraph',
+                text: 'スパイ防止法が存在しない日本は、一部から「スパイ天国」と指摘されることがあるなど、外国の諜報機関や特定の組織にとって活動が比較的容易であるとの見方がある。このような状況下での受け入れは、安全保障上のリスクを高める可能性がある。',
+            },
+        ],
+        stats: [
+            {
+                icon: ShieldExclamationIcon,
+                title: '警備体制の課題',
+                value: '侵入の危険性',
+                description: '重要施設への侵入事件などは、日本の警備体制の脆弱性を露呈している。外国勢力による政治家への接触や工作の危険性が高まっている。',
+            },
+            {
+                icon: GlobeIcon,
+                title: '外国資本による土地買収',
+                value: '進行中',
+                description: '北海道の水源地や、自衛隊基地を一望できる土地などが外国資本に買収されている。これは国家の安全保障に関わる深刻な課題である。',
+            }
+        ],
+        cases: [
+          {
+            type: CaseType.NationalSecurity,
+            title: 'テロ組織（PKK）メンバーの暗躍と日本社会の搾取',
+            year: '近年',
+            description: '日本に在住していたクルド人リーダーが、トルコでテロ組織「PKK」のメンバーとして逮捕。この人物は日本でクルーザーや高級車を乗り回し、テレビ番組で「治安を守る」と公言するなど、日本のシステムを悪用・搾取し、国民を欺いていた。'
+          },
+          {
+            type: CaseType.NationalSecurity,
+            title: '国際的な麻薬密輸の中継地点化（フェンタニル問題）',
+            year: '近年',
+            description: '名古屋市が、アメリカへ向かう合成麻薬フェンタニルの密輸拠点として利用されていたことが発覚。日本の監視体制の甘さが国際犯罪組織に悪用され、日本が「テロ支援国家」と認定されかねない危険な状況にある。'
+          }
+        ]
+      }
+    },
+    {
+        title: '国土・重要インフラへの影響と安全保障上の課題',
+        content: {
+            introduction: '外国人による土地取得やインフラ関与の拡大は、物理的な国土や重要インフラの維持管理に影響を及ぼす可能性がある。これは国家の安全保障に関わる重要な検討事項である。',
+            cases: [
+                {
+                    type: CaseType.Infrastructure,
+                    title: '不動産のマネーゲーム化（東京・大阪）',
+                    year: '現在進行中',
+                    description: '東京都心や大阪のタワーマンションが中国人投資家の投機対象となり価格が高騰。これにより日本人が住居を確保できなくなるだけでなく、日本で得られた富が国外へ流出する構図が生まれている。また、民泊が「中国人専用」となり、犯罪の温床となる懸念も指摘されている。',
+                },
+                {
+                    type: CaseType.Infrastructure,
+                    title: '中国系資本による太陽光発電事業の拡大',
+                    year: '現在進行中',
+                    description: '中国系資本による太陽光発電事業が日本各地で急増。特に国営企業「上海電力」は複数のメガソーラー事業を展開. 在日・帰化中国人によるFIT（固定価格買取制度）認定は2023年時点で780件を超え、年間約20億円の国民負担（賦課金）が流出。エネルギーインフラと国土への影響が懸念されている。',
+                },
+                {
+                    type: CaseType.NationalSecurity,
+                    title: '尖閣諸島周辺における中国海警局の連続航行',
+                    year: '2024年8月',
+                    description: '2024年8月30日時点で、中国海警局の船は尖閣諸島周辺の接続水域で285日連続で航行し、2012年の尖閣諸島国有化以降の最長記録を更新。翌日には286日連続となり、日本の主権を脅かす威圧的な行動が常態化している。',
+                }
+            ]
+        }
+    },
+    {
+      title: '「なし崩し的」移民政策の構造的問題と世界的潮流',
+      content: {
+        introduction: '政府が国民に十分な説明をしないまま「なし崩し的」に進める外国人受け入れ政策は、制度疲労と数々の抜け穴を生み出し、日本の社会構造そのものを脅かしている。世界的な反移民感情の高まりは、決して人種差別ではなく、自国の秩序と文化を守ろうとする国民の当然の反応である。',
+        blocks: [
+          { type: 'subheading', text: '1. 世界が示す「安易な受け入れ」の末路：イギリスの事例' },
+          { type: 'paragraph', text: 'イギリス・ロンドンで発生した15万人規模の反移民デモは、その象徴である。これは差別的な感情からではなく、政府が不法入国者を管理できず、国家としての統制能力を失っていることへの国民の怒りの表れである。日本の外国人比率は15年後にはEU並みの10%に達すると試算されており、これは対岸の火事ではない。' },
+          { type: 'subheading', text: '2. 制度の抜け穴と「日本人搾取」の構造' },
+          { type: 'paragraph', text: '日本の労働力不足は、本来であれば賃金が上昇する絶好の機会である。しかし、経済界の要求に応じ、安価な外国人労働者を安易に受け入れることで、この機会は潰され、日本人の所得停滞と少子化という悪循環を加速させている。時代遅れの「移民頼み」ではなく、DX（デジタルトランスフォーメーション）による生産性向上が本来進めるべき道である。' },
+          { type: 'list', text: [
+            '「技術・人文知識・国際業務ビザ」の悪用：本来は高度専門職向けだが、要件の緩さから単純労働者の抜け道に。このビザでの入国者は2020年から4年で約3倍に急増している。',
+            '社会保障制度への寄生：「経営・管理」ビザなどを利用し、本国の高齢な親族を呼び寄せ、日本の国民健康保険を使って高額医療を受けさせる「医療目的移民」が横行している。'
+          ]},
+          { type: 'subheading', text: '3. 緩すぎる帰化条件と国家への忠誠心' },
+          { type: 'paragraph', text: '日本の帰化制度は、国家への忠誠を問わない世界でも稀な「ザル制度」となっている。永住資格（最低10年）より帰化（最低5年）のほうが容易という構造的欠陥を抱えている。' },
+          { type: 'list', text: [
+            '忠誠宣誓の欠如：米国では市民テストや「国のために武器を取る」という忠誠宣誓が必須だが、日本では国旗すらない5分程度の事務手続きで完了する。これにより「日本人になった」という当事者意識も、国民としての覚悟も生まれない。',
+            '安全保障上のリスク：反日的な国家の出身者であっても、思想を問われることなく容易に日本国籍が取得できる現状は、安全保障上の深刻な脅威である。'
+          ]},
+          { type: 'subheading', text: '4. 『育成収労制度』への移行：事実上の移民受け入れ拡大' },
+          { type: 'paragraph', text: '政府は2027年より、現在の『技能実習制度』を廃止し、新たに『育成収労制度』を開始する。これは、これまで原則不可能だった職場間の『転籍』を一定条件で認めるものであり、事実上、単純労働者の受け入れを固定化・拡大させるものである。特定技能制度への移行を円滑にし、最終的には82万人規模の外国人材受け入れを目指すこの制度は、『労働力の補充』という名目で日本をなし崩し的に移民国家へと変貌させる、極めて危険な政策である。' }
+        ]
+      }
+    },
+    {
+      title: '働き方改革と外国人雇用の矛盾',
+      content: {
+        introduction: '「働き方改革」を推進する一方で「103万円の壁」などの制度を残し日本人の労働意欲と所得を抑制。その裏で、外国人雇用には手厚い助成金が投入される。この構造的矛盾は、国内の賃金上昇を阻害し、国民を低所得状態に留め置く「不均衡な政策」に他ならない。',
+        customComponent: 'JapaneseLaborDilemma',
+      }
+    },
+    {
+      title: '愛知県西尾市「県営緑町住宅」の現状と共生の課題',
+      content: {
+        introduction: '安価な労働力の導入が推進される中、地域社会における「多文化共生」の現場がどのような現実を迎えているか、愛知県西尾市の県営住宅の事例とデータから検証する。',
+        customComponent: 'SymbiosisSection'
+      }
+    },
+    {
+      title: 'ナイジェリアの事例：『交流』が招く誤解と新たな火種',
+      content: {
+        introduction: '政府主導の国際交流事業が、いかに危険な誤解を生み、新たな社会問題の火種となりうるか。JICAの「ふるさと事業」を巡るナイジェリアとの一件は、その典型的な失敗例である。',
+        blocks: [
+          { type: 'paragraph', text: '【一次ソース】外務省：ナイジェリアの危険情報 / 出入国在留管理庁：特定技能制度の運用状況' },
+          { type: 'subheading', text: '政府間の認識齟齬と誤ったメッセージ' },
+          { type: 'paragraph', text: 'JICAは千葉県木更津市をナイジェリアの「ふるさと」に指定し、研修生の短期受け入れなどを目的とした事業を開始した。しかし、ナイジェリア政府はこれを「日本が木更津市をナイジェリア人の移住地として指定し、若者向けに特別ビザを創設した」と国内に大々的に報道。この一件は、日本の安易な受け入れ姿勢が海外に「移民ウェルカム」という誤ったメッセージとして伝わり、制御不能な事態を招く危険性を明確に示している。林芳正官房長官が公式に否定し、訂正を申し入れる事態にまで発展した。' },
+          { type: 'subheading', text: '背景にある深刻な国内事情と文化的衝突のリスク' },
+          { type: 'paragraph', text: 'ナイジェリア国内、特にイスラム教徒が多数を占める北部では、世俗法と並行してイスラム法（シャリーア）が適用されており、冒涜罪を巡るリンチ殺人が深刻な社会問題となっている。2022年にはキリスト教徒の女子大学生が、2023年には精肉店主が、それぞれ冒涜の嫌疑をかけられて群衆に殺害される事件が発生した。国際人権団体アムネスティ・インターナショナルは「冒瀆の追及が個人的な恨みを晴らすために使われることが多い」と指摘しており、日本の価値観とは相容れない深刻な人権問題や法の支配の欠如が報告されている。このような背景を持つ人々を安易に受け入れることが、いかに大きな文化的衝突のリスクを内包するか、認識すべきである。' },
+          { type: 'subheading', text: '外務省による最高危険度「レベル4」指定' },
+          { type: 'paragraph', text: '現在JICAがホームタウン事業の対象国としたナイジェリアは、外務省が渡航中止を勧告する危険情報「レベル4」に指定されている地域を含む国である。国民に渡航を禁じるほどの危険な国から、なぜ積極的に人材を受け入れようとするのか。政府の判断基準そのものに、根本的な疑問符が付く。' }
+        ],
+        cases: [
+          { type: CaseType.Violent, title: '冒涜罪でのリンチ殺人事件（大学生）', year: '2022', description: 'ナイジェリア北部ソコト州で、キリスト教徒の女子大学生デボラ・サミュエルさんが、預言者ムハンマドを冒涜したとして学友らに投石され、焼き殺された。事件はSNS上での宗教的な議論が発端となった。' },
+          { type: CaseType.Violent, title: '冒涜罪でのリンチ殺人事件（精肉店主）', year: '2023', description: 'ナイジェリア北部ソコト州で、精肉店主のウスマン・ブダさんが、預言者ムハンマドを侮辱する発言をしたとして告発され、激怒した群衆によって殺害された。この事件もまた、個人的な対立が宗教問題にすり替えられた可能性が指摘されている。' },
+          { type: CaseType.Violent, title: '求婚拒否を理由としたリンチ殺人事件', year: '近年', description: 'ナイジェリア北部で、男性からの冗談交じりの求婚を断ったところ、その断り方が預言者ムハンマドへの冒涜と見なされた女性が、数百人の群衆によって投石され、生きたまま焼き殺される事件が発生。国内の深刻な宗教対立と法の支配の欠如を象徴している。' },
+          { type: CaseType.Cultural, title: 'ホームタウン事業を巡る誤解', year: '2024', description: 'JICAの短期研修事業を、ナイジェリア政府が「若者の移住を促す特別ビザ創設」と誤って報道。日本政府が公式に否定し訂正を求める事態となった。安易な国際交流が外交問題に発展しうる危険性を示した。' },
+          { type: CaseType.Community, title: '日本国内での迷惑行為', year: '近年報告', description: 'ソースによれば、アフリカ出身者と見られる集団が公共の場で騒いだり、電車内で仲間同士の揉め事を起こしたりする事例が報告されている。これらの行為は日本の警察を動かす事態に発展しており、地域社会の平穏を乱す要因となっている。' }
+        ]
+      }
+    },
+    {
+      title: '「人手不足」と「人手余り」：労働需給のミスマッチと課題',
+      content: {
+        introduction: '政府と経済界が意図的に混同する「人手不足」と「人手余り」。この二つは全く逆の現実を指し示す。前者は日本の賃金上昇と技術革新の好機であるが、後者は海外における犯罪と絶望の温床である。現在の政策は、日本の好機を潰し、海外の絶望を輸入するに等しく、国家的な課題となっている。',
+        customComponent: 'DichotomyOfLabor',
+      }
+    },
+    {
+        title: '総括：統計的客観事実が示す政策見直しの必要性',
+        content: {
+            introduction: '本報告書の締めくくりとして、2025年11月20日の参議院内閣委員会において示された、日本の治安と社会秩序に関わる最も重要な統計データを提示する。',
+            stats: [
+                {
+                    icon: ShieldExclamationIcon,
+                    title: '居住外国人と日本人の検挙人口比',
+                    value: '1.72倍の格差',
+                    description: '居住実態のある外国人の検挙人口比（0.323%）は、日本人のそれ（0.188%）と比較して1.72倍に達している。',
+                }
+            ],
+            blocks: [
+                { type: 'subheading', text: '政策判断の根拠としての公的統計' },
+                { type: 'paragraph', text: '参政党・大津力議員の質疑により警察庁から引き出されたこの数字は、短期滞在者を除外した「国内居住者同士」の正確な比較である。この1.72倍という格差は、安易な受け入れ拡大が国内の社会コストと治安維持リスクを増大させる可能性を科学的に示唆している。' },
+                { type: 'paragraph', text: '公的ソース：参議院会議録情報 第219回国会 内閣委員会 第2号（2025年11月20日）' },
+                { type: 'paragraph', text: 'https://kokkai.ndl.go.jp/#/detail?minId=121914889X00220251120&current=10' }
+            ]
+        }
+    },
+    {
+      title: '政策提言：悪循環からの脱却と持続可能な未来へ',
+      content: {
+        introduction: '以上の分析と統計的事実に基づき、日本経済と社会秩序を維持するための抜本的な政策転換を提言する。',
+        blocks: [
+          {
+            type: 'subheading',
+            text: '1. 労働市場の健全化と実質賃金の上昇'
+          },
+          {
+            type: 'paragraph',
+            text: '安価な労働供給に頼る構造を打破し、DXと生産性向上による賃金上昇サイクルを優先すべきである。'
+          },
+          {
+            type: 'subheading',
+            text: '2. 社会保障制度の厳格な運用'
+          },
+          {
+            type: 'paragraph',
+            text: '国民健康保険をはじめとする相互扶助制度の悪用を防止し、日本国民の負担の適正化を図る法的整備が不可欠である。'
+          },
+          {
+            type: 'subheading',
+            text: '3. 日本独自の文化規範の保護'
+          },
+          {
+            type: 'paragraph',
+            text: '「多文化共生」という言葉が理想として語られる一方で、その実態は国内における秩序の希薄化と摩擦の増大を招いている。我々は今、真の意味での「平和な共生」とは何かを再定義すべき時を迎えている。'
+          }
+        ]
+      }
+    },
+    {
+      title: '結び：真の平和に向けた「棲み分けの共生」の提唱',
+      content: {
+        introduction: '「混ぜれば平和になる」という幻想が揺らぐ中、我々は差別やヘイト、そこで無用な衝突を最小化するための現実的な解決策を模索しなければならない。',
+        blocks: [
+          { type: 'subheading', text: '1. 「家族」でさえ屋根を分かつ知恵' },
+          { type: 'paragraph', text: '血の繋がった家族でさえ、一つ屋根の下に住めば生活習慣の違いから軋轢を生むことがある。しかし、互いに適切な距離を保ち、離れて暮らすことで、かえって良好な関係を維持し、喧嘩を避けることができる。国家や文化においても同様である。異なる規範を持つ人々を無理に同一国内に混在させるのではなく、それぞれの伝統や思想に合った場所で自立し、地球規模で棲み分ける。これこそが、摩擦やヘイトを物理的に解消し、真の敬意を育むための人類の知恵である。' },
+          { type: 'subheading', text: '2. 差別と犯罪を減らすための研究' },
+          { type: 'paragraph', text: '当プロジェクトの究極の目的は、日本における差別、ヘイト、そして犯罪をいかにして減らすかを研究することにある。強制的な多文化共生がもたらす「内なる衝突」は、不幸な偏見や犯罪の温床となりかねない。客観的な統計データを直視し、適切な距離感を設計することこそが、日本人にとっても来日外国人にとっても、尊厳を守りながら平和に生きるための唯一の道であると確信している。' },
+          { type: 'subheading', text: '3. 責任ある「自立」による地球規模の共生' },
+          { type: 'paragraph', text: '自らの思想に合う国で自立して生きることは、最も誠実な選択である。他国の社会保障やシステムに依存するのではなく、自国のリソースで自立し、その上で独立した国家間として外交を通じて協力し合う。これこそが、憎しみを再生産しない、真に平和な地球規模の共生社会のあり方である。' }
+        ]
+      }
+    }
+  ]
+};
+
+export const SHARED_TOC_ITEMS = [
+    {
+        id: 'overall-top',
+        title: '🏠 【全体表示】総合レポート',
+        level: 1,
+        path: '/'
+    },
+    ...reportData.sections.map((section, index) => {
+        const id = `section-${index}`;
+        let path = undefined;
+        
+        // Map every single section to its detail page
+        if (section.title.includes('最新の数理予測モデル')) path = '/analysis/simulation-model/';
+        else if (section.title.includes('解説動画')) path = '/analysis/video-guide/';
+        else if (section.title.includes('視覚的証拠')) path = '/analysis/statistical-evidence/';
+        else if (section.title.includes('リスク分析')) path = '/analysis/risk-analysis/';
+        else if (section.title.includes('経済への長期的影響')) path = '/analysis/economic-impact/';
+        else if (section.title.includes('財政影響分析')) path = '/analysis/economic-impact/';
+        else if (section.title.includes('犯罪統計')) path = '/analysis/crime-statistics/';
+        else if (section.title.includes('国家安全保障')) path = '/analysis/national-security/';
+        else if (section.title.includes('国土・重要インフラ')) path = '/analysis/land-acquisition/';
+        else if (section.title.includes('なし崩し的')) path = '/analysis/uk-immigration-lesson/';
+        else if (section.title.includes('働き方改革')) path = '/analysis/labor-dilemma/';
+        else if (section.title.includes('緑町住宅')) path = '/analysis/symbiosis/';
+        else if (section.title.includes('ナイジェリア')) path = '/analysis/nigeria-case/';
+        else if (section.title.includes('人手不足')) path = '/analysis/labor-mismatch/';
+        else if (section.title.includes('総括')) path = '/analysis/summary-statistics/';
+        else if (section.title.includes('政策提言')) path = '/analysis/policy-recommendations/';
+        else if (section.title.includes('結び')) path = '/analysis/conclusion/';
+        else if (section.title.includes('実証データ')) path = '/analysis/borderless-welfare-state/';
+        
+        return {
+            id,
+            title: section.title,
+            level: 1,
+            path
+        };
+    }),
+    {
+        id: 'strategic-recommendations',
+        title: '戦略的提言：日本の未来を守るために',
+        level: 1,
+        path: '/analysis/strategic-recommendations/'
+    }
+];
+
+export const CRAWLER_NAV_LINKS = [
+    { title: 'ホーム', path: '/' },
+    { title: '分析アーカイブ一覧', path: '/analysis-archive/' },
+    { title: '最新の数理予測モデルと多角的な検証', path: '/analysis/simulation-model/' },
+    { title: '解説動画', path: '/analysis/video-guide/' },
+    { title: '視覚的証拠：移民と経済成長の無関係性', path: '/analysis/statistical-evidence/' },
+    { title: '経済への長期的影響と課題', path: '/analysis/economic-impact/' },
+    { title: '法務省の犯罪統計に基づく、来日外国人の犯罪傾向の分析', path: '/analysis/crime-statistics/' },
+    { title: '国家安全保障への直接的脅威', path: '/analysis/national-security/' },
+    { title: '国土・重要インフラへの影響と安全保障上の課題', path: '/analysis/land-acquisition/' },
+    { title: '実証データ：欧州の「福祉国家と移民」に関する衝撃 of 調査結果', path: '/analysis/borderless-welfare-state/' },
+    { title: '愛知県西尾市「県営緑町住宅」の現状と共生の課題', path: '/analysis/symbiosis/' },
+    { title: 'ナイジェリアの事例：『交流』が招く誤解と新たな火種', path: '/analysis/nigeria-case/' },
+    { title: '総括：統計的客観事実が示す政策見直しの必要性', path: '/analysis/summary-statistics/' },
+    { title: 'イギリスの教訓', path: '/analysis/uk-immigration-lesson/' },
+    { title: '労働需給のミスマッチ', path: '/analysis/labor-mismatch/' },
+    { title: '社会保障制度の課題', path: '/analysis/social-security/' },
+    { title: '帰化のパラドックス', path: '/analysis/naturalization-paradox/' },
+    { title: '土葬問題の議論と地域社会の受容性', path: '/analysis/burial-controversy/' },
+    { title: '外国人受け入れに伴う多角的なリスク分析', path: '/analysis/risk-analysis/' },
+    { title: '働き方改革と外国人雇用の矛盾', path: '/analysis/labor-dilemma/' },
+    { title: '政策提言：悪循環からの脱却', path: '/analysis/policy-recommendations/' },
+    { title: '戦略的提言：日本の未来を守るために', path: '/analysis/strategic-recommendations/' },
+    { title: '結び：真の平和に向けた「棲み分けの共生」', path: '/analysis/conclusion/' },
+    { title: '当サイトについて', path: '/about/' },
+    { title: 'FAQ', path: '/faq/' },
+    { title: '用語集', path: '/glossary/' },
+    { title: '運営者情報', path: '/operator-info/' },
+    { title: 'プライバシーポリシー', path: '/privacy-policy/' },
+    { title: '参考文献・出典', path: '/references/' },
+    { title: 'お問い合わせ', path: '/contact/' },
+    ...Array.from({ length: 15 }, (_, i) => ({ 
+        title: `証拠資料画像 ${i + 1}`, 
+        path: `/analysis/image/${i + 1}/` 
+    }))
+];

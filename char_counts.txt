@@ -1,0 +1,38 @@
+URL                                           | Source                         | Char Count | Status
+--------------------------------------------------------------------------------------------------------------
+/                                             | HomePage (via constants)       | 4411       | OK
+/analysis-archive                             | AnalysisArchive.tsx            | 963        | UNDER 2000
+/analysis/crime-statistics                    | CrimeStatistics.tsx            | 3184       | OK
+/analysis/economic-impact                     | EconomicImpact.tsx             | 3282       | OK
+/analysis/social-security                     | SocialSecurity.tsx             | 2123       | OK
+/analysis/naturalization-paradox              | NaturalizationParadox.tsx      | 2061       | OK
+/analysis/burial-controversy                  | BurialControversy.tsx          | 2173       | OK
+/analysis/land-acquisition                    | LandAcquisition.tsx            | 2041       | OK
+/analysis/uk-immigration-lesson               | UKImmigrationLesson.tsx        | 2301       | OK
+/analysis/national-security                   | NationalSecurity.tsx           | 2227       | OK
+/analysis/nigeria-case                        | NigeriaCase.tsx                | 2674       | OK
+/analysis/ai-simulation                       | AISimulation.tsx               | 2950       | OK
+/analysis/labor-dilemma                       | LaborDilemma.tsx               | 2334       | OK
+/analysis/video-guide                         | VideoGuide.tsx                 | 1746       | UNDER 2000
+/analysis/statistical-evidence                | StatisticalEvidence.tsx        | 3384       | OK
+/analysis/risk-analysis                       | RiskAnalysis.tsx               | 1479       | UNDER 2000
+/analysis/labor-mismatch                      | LaborMismatch.tsx              | 1424       | UNDER 2000
+/analysis/summary-statistics                  | SummaryStatistics.tsx          | 3186       | OK
+/analysis/policy-recommendations              | PolicyRecommendations.tsx      | 1433       | UNDER 2000
+/analysis/conclusion                          | Conclusion.tsx                 | 1524       | UNDER 2000
+/analysis/strategic-recommendations           | StrategicRecommendations.tsx   | 79         | UNDER 2000
+/analysis/image/1                             | slideData.ts (ID:1)      | 218        | UNDER 2000
+/analysis/image/2                             | slideData.ts (ID:2)      | 207        | UNDER 2000
+/analysis/image/3                             | slideData.ts (ID:3)      | 205        | UNDER 2000
+/analysis/image/4                             | slideData.ts (ID:4)      | 223        | UNDER 2000
+/analysis/image/5                             | slideData.ts (ID:5)      | 223        | UNDER 2000
+/analysis/image/6                             | slideData.ts (ID:6)      | 211        | UNDER 2000
+/analysis/image/7                             | slideData.ts (ID:7)      | 222        | UNDER 2000
+/analysis/image/8                             | slideData.ts (ID:8)      | 225        | UNDER 2000
+/analysis/image/9                             | slideData.ts (ID:9)      | 212        | UNDER 2000
+/analysis/image/10                            | slideData.ts (ID:10)      | 232        | UNDER 2000
+/analysis/image/11                            | slideData.ts (ID:11)      | 221        | UNDER 2000
+/analysis/image/12                            | slideData.ts (ID:12)      | 238        | UNDER 2000
+/analysis/image/13                            | slideData.ts (ID:13)      | 233        | UNDER 2000
+/analysis/image/14                            | slideData.ts (ID:14)      | 234        | UNDER 2000
+/analysis/image/15                            | slideData.ts (ID:15)      | 246        | UNDER 2000
