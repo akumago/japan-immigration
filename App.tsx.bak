@@ -34,6 +34,7 @@ import { BorderlessWelfarePage } from "./pages/BorderlessWelfarePage";
 import { SymbiosisPage } from "./pages/SymbiosisPage";
 import { AISimulation } from "./pages/AISimulation";
 import { ImagePage } from "./pages/ImagePage";
+import { Disclaimer } from "./pages/Disclaimer";
 
 const App: React.FC = () => {
   // ハイドレーションエラーを防ぐためのフラグ
@@ -78,6 +79,7 @@ const App: React.FC = () => {
         <Route path="/analysis/symbiosis/" element={<SymbiosisPage />} />
         <Route path="/analysis/ai-simulation/" element={<AISimulation />} />
         <Route path="/privacy-policy/" element={<PrivacyPolicy />} />
+        <Route path="/disclaimer/" element={<Disclaimer />} />
         <Route path="/contact/" element={<Contact />} />
         <Route path="/about/" element={<About />} />
         <Route path="/references/" element={<References />} />

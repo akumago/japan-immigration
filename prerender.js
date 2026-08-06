@@ -155,6 +155,7 @@ async function prerender() {
     '/analysis/strategic-recommendations',
     '/analysis/symbiosis',
     '/analysis/ai-simulation',
+    '/analysis/crime-news',
     ...Array.from({ length: 15 }, (_, i) => `/analysis/image/${i + 1}`)
   ];
 
