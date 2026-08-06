@@ -16,6 +16,9 @@ interface NewsItem {
 export const CrimeNewsArchive: React.FC = () => {
   const items: NewsItem[] = newsData as NewsItem[];
   const [selectedPref, setSelectedPref] = useState<string>('ALL');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const ITEMS_PER_PAGE = 15;
 
   // ユニークな都道府県リスト
   const prefectures = useMemo(() => {
@@ -33,6 +36,21 @@ export const CrimeNewsArchive: React.FC = () => {
     if (selectedPref === 'ALL') return items;
     return items.filter(item => item.location === selectedPref);
   }, [items, selectedPref]);
+
+  // 総ページ数
+  const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+
+  // 現在のページに表示するニュース
+  const paginatedItems = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredItems.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredItems, currentPage]);
+
+  // フィルター変更時は1ページ目へ戻す
+  const handlePrefChange = (pref: string) => {
+    setSelectedPref(pref);
+    setCurrentPage(1);
+  };
 
   return (
     <MainLayout>
@@ -73,13 +91,13 @@ export const CrimeNewsArchive: React.FC = () => {
               <span>🔍</span> 地域絞り込みフィルター
             </h2>
             <span className="text-xs text-gray-400 font-mono">
-              該当件数: <strong className="text-red-400 text-sm">{filteredItems.length}</strong> / {items.length} 件
+              該当件数: <strong className="text-red-400 text-sm">{filteredItems.length}</strong> / 全 {items.length} 件 （ページ {currentPage} / {totalPages || 1}）
             </span>
           </div>
 
           <div className="flex flex-wrap gap-2">
             <button
-              onClick={() => setSelectedPref('ALL')}
+              onClick={() => handlePrefChange('ALL')}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                 selectedPref === 'ALL'
                   ? 'bg-red-600 text-white shadow-lg shadow-red-600/30'
@@ -93,7 +111,7 @@ export const CrimeNewsArchive: React.FC = () => {
               return (
                 <button
                   key={pref}
-                  onClick={() => setSelectedPref(pref)}
+                  onClick={() => handlePrefChange(pref)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
                     selectedPref === pref
                       ? 'bg-red-600 text-white shadow-lg shadow-red-600/30'
@@ -109,12 +127,12 @@ export const CrimeNewsArchive: React.FC = () => {
 
         {/* ニュースカード一覧 */}
         <div className="space-y-4">
-          {filteredItems.length === 0 ? (
+          {paginatedItems.length === 0 ? (
             <div className="text-center py-16 bg-[#161b22]/50 rounded-2xl border border-white/5">
-              <p className="text-gray-400">指定された地域での報道ログはまだ登録されていません。</p>
+              <p className="text-gray-400">指定された条件での報道ログは登録されていません。</p>
             </div>
           ) : (
-            filteredItems.map((item, idx) => (
+            paginatedItems.map((item, idx) => (
               <div
                 key={`${item.id}-${idx}`}
                 className="group bg-[#161b22] hover:bg-[#1c2128] border border-white/5 hover:border-red-500/30 rounded-2xl p-6 md:p-8 transition-all duration-300 shadow-xl relative overflow-hidden"
@@ -154,6 +172,49 @@ export const CrimeNewsArchive: React.FC = () => {
             ))
           )}
         </div>
+
+        {/* ページネーションコントロール */}
+        {totalPages > 1 && (
+          <div className="mt-12 flex items-center justify-center gap-2">
+            <button
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${
+                currentPage === 1
+                  ? 'bg-white/5 text-gray-600 border-white/5 cursor-not-allowed'
+                  : 'bg-[#161b22] hover:bg-[#1c2128] text-gray-200 border-white/10 hover:border-red-500/30'
+              }`}
+            >
+              ❮ 前へ
+            </button>
+
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={`w-10 h-10 rounded-xl text-xs font-bold transition-all border ${
+                  currentPage === page
+                    ? 'bg-red-600 text-white border-red-500 shadow-lg shadow-red-600/30'
+                    : 'bg-[#161b22] hover:bg-[#1c2128] text-gray-300 border-white/10 hover:border-red-500/30'
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+
+            <button
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${
+                currentPage === totalPages
+                  ? 'bg-white/5 text-gray-600 border-white/5 cursor-not-allowed'
+                  : 'bg-[#161b22] hover:bg-[#1c2128] text-gray-200 border-white/10 hover:border-red-500/30'
+              }`}
+            >
+              次へ ❯
+            </button>
+          </div>
+        )}
       </div>
     </MainLayout>
   );
