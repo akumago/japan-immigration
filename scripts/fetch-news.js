@@ -15,6 +15,26 @@ const PREFECTURES = [
   '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
 ];
 
+// 外国人関与を示すキーワード
+const FOREIGN_KEYWORDS = [
+  '外国人', '外国籍', '国籍', 'ベトナム', '中国', '韓国', 'ブラジル', 'ペルー',
+  'ネパール', 'フィリピン', 'タイ', 'クルド', '不法滞在', '不法残留', '不法入国',
+  '技能実習生', 'オーバーステイ', '偽造在留カード', '在留カード', '密入国'
+];
+
+// 犯罪・容疑を示すキーワード
+const CRIME_KEYWORDS = [
+  '逮捕', '容疑', '書類送検', '不法', '強盗', '窃盗', '暴行', '傷害',
+  '覚醒剤', '大麻', '密売', '詐欺', '横領', 'わいせつ', '刺殺', '密輸',
+  '再逮捕', 'ひき逃げ', '薬物', '風俗'
+];
+
+// 除外キーワード（公的要望・事故・お祭り・海外現地事件など）
+const EXCLUDE_KEYWORDS = [
+  '知事会', '基本法', '要請', 'まつり', '花笠', '白バイ', 'ロンドン',
+  'アメリカ', '韓国警察', 'イベント', '訓練', 'サーキット', '減給処分', '知事'
+];
+
 function fetchRSS(url) {
   return new Promise((resolve, reject) => {
     https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' } }, (res) => {
@@ -51,6 +71,15 @@ function extractItemsFromRSS(xml) {
         media = mediaMatch[2].trim();
       }
 
+      // 条件判定: 外国人関与 & 犯罪キーワードがあり、除外ワードが含まれていないこと
+      const hasForeignKw = FOREIGN_KEYWORDS.some(kw => title.includes(kw));
+      const hasCrimeKw = CRIME_KEYWORDS.some(kw => title.includes(kw));
+      const hasExcludeKw = EXCLUDE_KEYWORDS.some(kw => title.includes(kw));
+
+      if (!hasForeignKw || !hasCrimeKw || hasExcludeKw) {
+        continue;
+      }
+
       // 都道府県の判定
       let location = '全国';
       for (const pref of PREFECTURES) {
@@ -73,7 +102,7 @@ function extractItemsFromRSS(xml) {
         location: location,
         media: media,
         url: link,
-        summary: `${media}等で報道された外国人容疑者の事件・逮捕に関する速報データ。`
+        summary: `${location}で発生した外国人関与の事件・容疑に関する報道速報です。`
       });
     }
   }
@@ -81,10 +110,11 @@ function extractItemsFromRSS(xml) {
 }
 
 async function main() {
-  console.log('Fetching daily foreign crime news...');
+  console.log('Fetching strict daily foreign crime news...');
   const searchQueries = [
     encodeURIComponent('外国人 逮捕 when:1d'),
-    encodeURIComponent('外国人 容疑 when:1d')
+    encodeURIComponent('外国人 容疑 when:1d'),
+    encodeURIComponent('外国籍 逮捕 when:1d')
   ];
 
   let newEntries = [];
@@ -100,35 +130,18 @@ async function main() {
     }
   }
 
-  // 重複排除 (ID または タイトル)
+  // 重複排除 (タイトルベース)
   const uniqueMap = new Map();
   newEntries.forEach(item => uniqueMap.set(item.title, item));
   const uniqueItems = Array.from(uniqueMap.values());
 
-  if (uniqueItems.length === 0) {
-    console.log('No new items found today.');
-    return;
-  }
+  console.log(`Filtered ${uniqueItems.length} strict foreign crime news items today.`);
 
-  // 既存データとマージ
-  let existingData = [];
-  if (fs.existsSync(NEWS_DATA_PATH)) {
-    try {
-      existingData = JSON.parse(fs.readFileSync(NEWS_DATA_PATH, 'utf-8'));
-    } catch (e) {
-      existingData = [];
-    }
-  }
-
-  const existingTitles = new Set(existingData.map(d => d.title));
-  const trulyNewItems = uniqueItems.filter(item => !existingTitles.has(item.title));
-
-  console.log(`Found ${trulyNewItems.length} newly reported items.`);
-
-  const mergedData = [...trulyNewItems, ...existingData].slice(0, 30); // 直近30件を保持
+  // 保存処理 (古いデータも一度リセットし、厳格フィルタを全適用)
+  const mergedData = uniqueItems.slice(0, 30); // 直近30件
 
   fs.writeFileSync(NEWS_DATA_PATH, JSON.stringify(mergedData, null, 2), 'utf-8');
-  console.log('Successfully updated newsData.json!');
+  console.log('Successfully updated newsData.json with strict filter!');
 }
 
 main().catch(err => console.error(err));
