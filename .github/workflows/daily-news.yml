@@ -21,7 +21,7 @@ jobs:
           node-version: '18'
 
       - name: Run Fetch News Script
-        run: node scripts/fetch-news.js
+        run: node scripts/fetch-news.cjs
 
       - name: Commit and Push if changed
         run: |
