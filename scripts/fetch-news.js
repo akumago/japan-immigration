@@ -29,10 +29,23 @@ const CRIME_KEYWORDS = [
   '再逮捕', 'ひき逃げ', '薬物', '風俗'
 ];
 
-// 除外キーワード
+// 海外現地・国外ニュースを除外するための単語
+const OVERSEAS_LOCATIONS = [
+  'タイニン', 'タイの', 'タイで', 'タイ首都', '首都近郊', '韓国の', '韓国で', 'ベトナムで', 'ベトナムの',
+  'アメリカの', 'アメリカで', '中国の', '中国で', '台湾の', '台湾で',
+  'フィリピンの', 'フィリピンで', 'ブラジルの', 'ブラジルで', 'ソウル', 'バンコク',
+  'ワシントン', '北京', 'ロンドン', 'パリ', '現地', '国外', '米軍基地', '米海兵隊'
+];
+
+// 国内発生を確定するキーワード（海外地名が含まれていても、これが含まれれば国内事案として保持）
+const DOMESTIC_INDICATORS = [
+  '日本で', '日本国内', '警察', '県警', '警視庁', '在日', '来日', '訪日', '不法就労', '不法滞在'
+];
+
+// その他一般的な除外キーワード
 const EXCLUDE_KEYWORDS = [
   '知事会', '基本法', '要請', 'まつり', '花笠', '白バイ', 'ロンドン',
-  'アメリカ', '韓国警察', 'イベント', '訓練', 'サーキット', '減給処分', '知事'
+  'アメリカ', '韓国警察', 'イベント', '訓練', 'サーキット', '減給処分', '知事', 'サッカー', '代表監督'
 ];
 
 function fetchRSS(url) {
@@ -45,7 +58,6 @@ function fetchRSS(url) {
   });
 }
 
-// タイトルの標準化（全角→半角、カッコ内表記の削除）
 function normalizeTitle(title) {
   if (!title) return '';
   return title
@@ -55,26 +67,41 @@ function normalizeTitle(title) {
     .toLowerCase();
 }
 
-// 同一事件かどうかの判定（コアとなる名詞・数値の重なり具合を比較）
+// 国内での事案かどうか判定（海外現地事案の除外）
+function isDomesticCrime(title) {
+  // 海外現地キーワードが含まれるか
+  const isOverseasMentioned = OVERSEAS_LOCATIONS.some(loc => title.includes(loc));
+
+  if (isOverseasMentioned) {
+    // 明確に「日本で」「〇〇県警」「警視庁」「都道府県名」が含まれているか
+    const hasPrefecture = PREFECTURES.some(pref => title.includes(pref) || title.includes(pref.replace(/[府県]$/, '')));
+    const hasDomesticIndicator = DOMESTIC_INDICATORS.some(ind => title.includes(ind));
+
+    // 国内を示すキーワードや都道府県が含まれていなければ国外ニュースとみなして除外
+    if (!hasPrefecture && !hasDomesticIndicator) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 function isSameEvent(titleA, titleB) {
   const normA = normalizeTitle(titleA);
   const normB = normalizeTitle(titleB);
 
   if (normA === normB) return true;
 
-  // 15文字以上共通している場合は同一事件とみなす
   if (normA.length > 10 && normB.length > 10) {
     if (normA.includes(normB.substring(0, 12)) || normB.includes(normA.substring(0, 12))) {
       return true;
     }
   }
 
-  // 数字・固有名詞などの主要部分の一致度チェック
   const numbersA = (normA.match(/\d+/g) || []).join(',');
   const numbersB = (normB.match(/\d+/g) || []).join(',');
 
   if (numbersA && numbersA === numbersB) {
-    // 同じ数値（例: 2000万, 3000万, 91歳等）が含まれ、容疑者国籍が合致
     const nationalities = ['ブラジル', 'ベトナム', '中国', '韓国', 'ネパール', 'ペルー', 'タイ', 'フィリピン'];
     for (const nat of nationalities) {
       if (normA.includes(nat) && normB.includes(nat)) {
@@ -113,8 +140,9 @@ function extractItemsFromRSS(xml) {
       const hasForeignKw = FOREIGN_KEYWORDS.some(kw => title.includes(kw));
       const hasCrimeKw = CRIME_KEYWORDS.some(kw => title.includes(kw));
       const hasExcludeKw = EXCLUDE_KEYWORDS.some(kw => title.includes(kw));
+      const isDomestic = isDomesticCrime(title);
 
-      if (!hasForeignKw || !hasCrimeKw || hasExcludeKw) {
+      if (!hasForeignKw || !hasCrimeKw || hasExcludeKw || !isDomestic) {
         continue;
       }
 
@@ -146,7 +174,7 @@ function extractItemsFromRSS(xml) {
 }
 
 async function main() {
-  console.log('Fetching daily foreign crime news with advanced deduplication...');
+  console.log('Fetching daily foreign crime news with strict domestic filtering...');
   const searchQueries = [
     encodeURIComponent('外国人 逮捕 when:1d'),
     encodeURIComponent('外国人 容疑 when:1d'),
@@ -166,7 +194,6 @@ async function main() {
     }
   }
 
-  // 取得したニュース内での同一事件重複排除
   const uniqueItems = [];
   for (const item of fetchedItems) {
     const exists = uniqueItems.some(existing => isSameEvent(existing.title, item.title));
@@ -175,9 +202,6 @@ async function main() {
     }
   }
 
-  console.log(`Extracted ${uniqueItems.length} unique crime event items today.`);
-
-  // 既存データベースとのマージ＆重複排除
   let existingData = [];
   if (fs.existsSync(NEWS_DATA_PATH)) {
     try {
@@ -187,22 +211,30 @@ async function main() {
     }
   }
 
-  // 全既存データに対しても同様に同義事件のクリーンアップを実施
+  // 既存データからも海外現地ニュースを除去
   const cleanExisting = [];
   for (const item of existingData) {
+    if (!isDomesticCrime(item.title)) {
+      console.log(`Removed overseas item: ${item.title}`);
+      continue;
+    }
+    const hasExcludeKw = EXCLUDE_KEYWORDS.some(kw => item.title.includes(kw));
+    if (hasExcludeKw) {
+      console.log(`Removed excluded item: ${item.title}`);
+      continue;
+    }
     const isDup = cleanExisting.some(ex => isSameEvent(ex.title, item.title));
     if (!isDup) {
       cleanExisting.push(item);
     }
   }
 
-  // 新規追加記事の判定
   const trulyNew = uniqueItems.filter(item => !cleanExisting.some(ex => isSameEvent(ex.title, item.title)));
 
   const finalMerged = [...trulyNew, ...cleanExisting].slice(0, 10000);
 
   fs.writeFileSync(NEWS_DATA_PATH, JSON.stringify(finalMerged, null, 2), 'utf-8');
-  console.log(`Deduplicated & updated newsData.json! Total clean entries: ${finalMerged.length}`);
+  console.log(`Strictly filtered & updated newsData.json! Total clean domestic entries: ${finalMerged.length}`);
 }
 
 main().catch(err => console.error(err));
