@@ -15,19 +15,38 @@ const PREFECTURES = [
   '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
 ];
 
-// 外国人関与を示すキーワード（「タイ」は単体だと「タイトル」「タイム」に誤マッチするため具体化）
+// 外国人関与を示すキーワード（単体の「タイ」は誤判定防止のため「タイ人」「タイ国籍」等に限定）
 const FOREIGN_KEYWORDS = [
-  '外国人', '外国籍', '国籍', 'ベトナム', '中国', '韓国', 'ブラジル', 'ペルー',
-  'ネパール', 'フィリピン', 'タイ人', 'タイ国籍', 'タイ籍', 'クルド', '不法滞在', '不法残留', '不法入国',
-  '技能実習生', 'オーバーステイ', '偽造在留カード', '在留カード', '密入国',
-  'インドネシア', 'カンボジア', 'スリランカ', 'パキスタン', 'バングラデシュ', 'モンゴル', 'ナイジェリア', 'ガーナ'
+  '外国人', '外国籍', '国籍',
+  'ベトナム', '中国', '韓国', 'ブラジル', 'ペルー',
+  'ネパール', 'フィリピン', 'タイ人', 'タイ国籍', 'タイ籍', 'クルド',
+  'インドネシア', 'カンボジア', 'スリランカ', 'パキスタン', 'バングラデシュ', 'モンゴル', 'ナイジェリア', 'ガーナ',
+  'トルコ', 'ミャンマー', 'イラン',
+  '不法滞在', '不法残留', '不法入国', '密入国', 'オーバーステイ',
+  '技能実習生', '元技能実習生', '特定技能', '留学生', '元留学生', '仮放免',
+  '偽造在留カード', '在留カード', '不法就労助長'
+];
+
+// 代表的国籍リスト（エンティティ重複チェック用）
+const NATIONALITIES = [
+  'ベトナム', '中国', '韓国', 'ブラジル', 'ペルー', 'ネパール', 'フィリピン', 'タイ',
+  'インドネシア', 'カンボジア', 'スリランカ', 'パキスタン', 'バングラデシュ', 'モンゴル',
+  'ナイジェリア', 'ガーナ', 'トルコ', 'ミャンマー', 'イラン', 'クルド'
 ];
 
 // 犯罪・容疑を示すキーワード
 const CRIME_KEYWORDS = [
   '逮捕', '容疑', '書類送検', '不法', '強盗', '窃盗', '暴行', '傷害',
   '覚醒剤', '大麻', '密売', '詐欺', '横領', 'わいせつ', '刺殺', '密輸',
-  '再逮捕', 'ひき逃げ', '薬物', '風俗', '摘発', '検挙', '起訴', '送検', '指名手配', '殺人'
+  '再逮捕', 'ひき逃げ', '薬物', '風俗', '摘発', '検挙', '起訴', '送検',
+  '指名手配', '殺人', '追送検', '逮捕状', '退去強制', '強制送還', '不法就労助長',
+  '資格外活動', '偽装滞在'
+];
+
+// 代表的犯罪種別（エンティティ重複チェック用）
+const CRIME_TYPES = [
+  '窃盗', '強盗', '詐欺', '覚醒剤', '大麻', '薬物', '不法滞在', '不法残留', '不法就労',
+  '傷害', '暴行', '殺人', 'わいせつ', '密輸', '風俗', '万引き', '横領', '事故'
 ];
 
 // 海外現地・国外ニュースを除外するための単語
@@ -37,10 +56,13 @@ const OVERSEAS_LOCATIONS = [
   'フィリピンの', 'フィリピンで', 'ブラジルの', 'ブラジルで', 'ソウル', 'バンコク',
   'ワシントン', '北京', 'ロンドン', 'パリ', '現地', '国外', '米軍基地', '米海兵隊',
   'インドの', 'インドで', 'ミャンマーの', 'ミャンマーで', 'カンボジアの', 'カンボジアで',
-  'モロッコ', 'イランの', 'イランで', 'シリアの', 'シリアで', 'メキシコの', 'メキシコで'
+  'モロッコ', 'イランの', 'イランで', 'シリアの', 'シリアで', 'メキシコの', 'メキシコで',
+  'トルコの', 'トルコで', 'イスラエルの', 'イスラエルで', 'ドイツの', 'ドイツで',
+  'マレーシアの', 'マレーシアで', 'オーストラリアの', 'オーストラリアで',
+  '海外', '渡航先'
 ];
 
-// 国内発生を確定するキーワード（「警察」は海外の〇〇警察にもマッチするため除去し日本固有表記を追加）
+// 国内発生を確定するキーワード
 const DOMESTIC_INDICATORS = [
   '日本で', '日本国内', '県警', '警視庁', '府警', '道警', '署員', '在日', '来日', '訪日', '不法就労', '不法滞在', '入管', '検察', '地方裁判所', '地裁'
 ];
@@ -48,7 +70,8 @@ const DOMESTIC_INDICATORS = [
 // その他一般的な除外キーワード
 const EXCLUDE_KEYWORDS = [
   '知事会', '基本法', '要請', 'まつり', '花笠', '白バイ', 'ロンドン',
-  'アメリカ', '韓国警察', 'イベント', '訓練', 'サーキット', '減給処分', '知事', 'サッカー', '代表監督'
+  'アメリカ', '韓国警察', '現地警察', '現地当局', 'FBI', '国際指名手配',
+  'イベント', '訓練', 'サーキット', '減給処分', '知事', 'サッカー', '代表監督'
 ];
 
 function fetchRSS(url, redirectCount = 0) {
@@ -77,21 +100,35 @@ function normalizeTitle(title) {
 
 // 国内での事案かどうか判定（海外現地事案の除外）
 function isDomesticCrime(title) {
-  // 海外現地キーワードが含まれるか
   const isOverseasMentioned = OVERSEAS_LOCATIONS.some(loc => title.includes(loc));
 
   if (isOverseasMentioned) {
-    // 明確に「日本で」「〇〇県警」「警視庁」「都道府県名」が含まれているか
     const hasPrefecture = PREFECTURES.some(pref => title.includes(pref) || title.includes(pref.replace(/[府県]$/, '')));
     const hasDomesticIndicator = DOMESTIC_INDICATORS.some(ind => title.includes(ind));
 
-    // 国内を示すキーワードや都道府県が含まれていなければ国外ニュースとみなして除外
     if (!hasPrefecture && !hasDomesticIndicator) {
       return false;
     }
   }
 
   return true;
+}
+
+// エンティティ抽出キー（日付_国籍_犯罪種別）
+function getEntityKey(item) {
+  const norm = normalizeTitle(item.title);
+  const nat = NATIONALITIES.find(n => norm.includes(n.toLowerCase())) || 'その他';
+  const crime = CRIME_TYPES.find(c => norm.includes(c.toLowerCase())) || '事件';
+  return `${item.date}_${nat}_${crime}`;
+}
+
+// 通信社・転載メディア優先判定（一次報道・地方紙を優先）
+function getMediaPriority(media) {
+  if (!media) return 1;
+  if (media.includes('Yahoo') || media.includes('goo') || media.includes('dメニュー') || media.includes('au')) {
+    return 1; // 転載ポータル
+  }
+  return 2; // 一次報道・地方紙・新聞
 }
 
 function isSameEvent(titleA, titleB) {
@@ -107,28 +144,26 @@ function isSameEvent(titleA, titleB) {
     }
   }
 
-  // 数字トークンの一致判定（例: 2000万円, 26歳 などの数値特徴）
+  // 数字トークンの一致判定
   const numbersA = (normA.match(/\d+/g) || []).join(',');
   const numbersB = (normB.match(/\d+/g) || []).join(',');
 
   if (numbersA && numbersA === numbersB && numbersA.length >= 2) {
-    const nationalities = ['ブラジル', 'ベトナム', '中国', '韓国', 'ネパール', 'ペルー', 'タイ', 'フィリピン', 'カンボジア', 'インドネシア'];
-    for (const nat of nationalities) {
+    for (const nat of NATIONALITIES) {
       if (normA.includes(nat) && normB.includes(nat)) {
         return true;
       }
     }
   }
 
-  // 漢字・ひらがな・カタカナの2文字以上の単語トークン比較（Jaccard係数による類似度判定）
+  // 漢字・ひらがな・カタカナの2文字以上の単語トークン比較（Jaccard係数）
   const wordsA = new Set(normA.match(/[\u3040-\u9faf]{2,}/g) || []);
   const wordsB = new Set(normB.match(/[\u3040-\u9faf]{2,}/g) || []);
-  
+
   if (wordsA.size > 0 && wordsB.size > 0) {
     const intersection = [...wordsA].filter(w => wordsB.has(w));
     const union = new Set([...wordsA, ...wordsB]);
     const similarity = intersection.length / union.size;
-    // 類似度が35%以上なら同一事件とみなす
     if (similarity >= 0.35) {
       return true;
     }
@@ -198,21 +233,29 @@ function extractItemsFromRSS(xml) {
 }
 
 async function main() {
-  console.log('Fetching daily foreign crime news with strict domestic filtering & high coverage...');
-  
-  // 網羅性を高めるための11個の主要クエリ
+  console.log('Fetching daily foreign crime news with 19 optimized queries & 3-layer deduplication...');
+
+  // 19本の完全網羅化検索クエリ
   const searchQueries = [
     encodeURIComponent('外国人 逮捕 when:1d'),
     encodeURIComponent('外国人 容疑 when:1d'),
     encodeURIComponent('外国籍 逮捕 when:1d'),
-    encodeURIComponent('ベトナム人 逮捕 when:1d'),
-    encodeURIComponent('中国籍 逮捕 when:1d'),
-    encodeURIComponent('ブラジル人 逮捕 when:1d'),
-    encodeURIComponent('技能実習生 逮捕 when:1d'),
-    encodeURIComponent('不法滞在 摘発 when:1d'),
-    encodeURIComponent('不法就労 逮捕 when:1d'),
-    encodeURIComponent('外国人 摘発 when:1d'),
-    encodeURIComponent('外国人 書類送検 when:1d')
+    encodeURIComponent('外国人 書類送検 OR 追送検 when:1d'),
+    encodeURIComponent('外国人 摘発 OR 指名手配 when:1d'),
+    encodeURIComponent('ベトナム 逮捕 OR 摘発 when:1d'),
+    encodeURIComponent('中国籍 OR 中国人 逮捕 when:1d'),
+    encodeURIComponent('ブラジル 逮捕 OR 摘発 when:1d'),
+    encodeURIComponent('タイ人 OR タイ国籍 逮捕 when:1d'),
+    encodeURIComponent('フィリピン人 逮捕 OR 摘発 when:1d'),
+    encodeURIComponent('インドネシア 逮捕 OR 摘発 when:1d'),
+    encodeURIComponent('スリランカ OR カンボジア OR ネパール 逮捕 when:1d'),
+    encodeURIComponent('韓国人 OR 韓国籍 逮捕 when:1d'),
+    encodeURIComponent('技能実習生 OR 元技能実習生 OR 特定技能 逮捕 when:1d'),
+    encodeURIComponent('仮放免 逮捕 OR 容疑 when:1d'),
+    encodeURIComponent('不法滞在 OR 不法残留 OR オーバーステイ 逮捕 OR 摘発 when:1d'),
+    encodeURIComponent('不法就労助長 逮捕 OR 容疑 when:1d'),
+    encodeURIComponent('退去強制 OR 強制送還 when:1d'),
+    encodeURIComponent('不法就労 逮捕 OR 摘発 when:1d')
   ];
 
   let fetchedItems = [];
@@ -234,12 +277,18 @@ async function main() {
     throw new Error('All RSS fetch attempts failed.');
   }
 
-  // 今回取得したアイテムの重複排除
+  // --- 重複排除層1 & 2: 今回取得アイテムの統合 ---
   const uniqueItems = [];
   for (const item of fetchedItems) {
-    const exists = uniqueItems.some(existing => isSameEvent(existing.title, item.title));
-    if (!exists) {
+    const isDup = uniqueItems.some(existing => isSameEvent(existing.title, item.title));
+    if (!isDup) {
       uniqueItems.push(item);
+    } else {
+      // メディア優先度が高い方を保持
+      const idx = uniqueItems.findIndex(existing => isSameEvent(existing.title, item.title));
+      if (idx !== -1 && getMediaPriority(item.media) > getMediaPriority(uniqueItems[idx].media)) {
+        uniqueItems[idx] = item;
+      }
     }
   }
 
@@ -252,7 +301,7 @@ async function main() {
     }
   }
 
-  // 既存データからも海外現地ニュース・誤検出・既存重複を除去
+  // --- 重複排除層3: 既存データのクリーンアップ ---
   const cleanExisting = [];
   for (const item of existingData) {
     if (!isDomesticCrime(item.title)) {
