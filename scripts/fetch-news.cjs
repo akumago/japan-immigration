@@ -48,9 +48,14 @@ const EXCLUDE_KEYWORDS = [
   'アメリカ', '韓国警察', 'イベント', '訓練', 'サーキット', '減給処分', '知事', 'サッカー', '代表監督'
 ];
 
-function fetchRSS(url) {
+function fetchRSS(url, redirectCount = 0) {
+  if (redirectCount > 5) return Promise.reject(new Error('Too many redirects'));
   return new Promise((resolve, reject) => {
     https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' } }, (res) => {
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        resolve(fetchRSS(res.headers.location, redirectCount + 1));
+        return;
+      }
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => resolve(data));
@@ -182,6 +187,7 @@ async function main() {
   ];
 
   let fetchedItems = [];
+  let successCount = 0;
 
   for (const query of searchQueries) {
     const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=ja&gl=JP&ceid=JP:ja`;
@@ -189,9 +195,14 @@ async function main() {
       const xml = await fetchRSS(rssUrl);
       const items = extractItemsFromRSS(xml);
       fetchedItems.push(...items);
+      successCount++;
     } catch (err) {
       console.error('Failed to fetch RSS:', err.message);
     }
+  }
+
+  if (successCount === 0) {
+    throw new Error('All RSS fetch attempts failed.');
   }
 
   const uniqueItems = [];
@@ -237,4 +248,7 @@ async function main() {
   console.log(`Strictly filtered & updated newsData.json! Total clean domestic entries: ${finalMerged.length}`);
 }
 
-main().catch(err => console.error(err));
+main().catch(err => {
+  console.error('Fatal error during news update:', err);
+  process.exit(1);
+});
