@@ -9,6 +9,8 @@ on:
 jobs:
   update-news:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # 変更されたファイルのCommit/Push権限を明示的に付与
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
