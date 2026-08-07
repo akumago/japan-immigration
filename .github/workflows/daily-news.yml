@@ -2,8 +2,8 @@ name: Daily Foreign Crime News Collector
 
 on:
   schedule:
-    # 毎日 日本時間 09:00 (UTC 00:00) に自動実行
-    - cron: '0 0 * * *'
+    # 毎日 日本時間 18:00 (UTC 09:00) に自動実行
+    - cron: '0 9 * * *'
   workflow_dispatch: # 手動実行も可能
 
 jobs:
@@ -28,4 +28,4 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add data/newsData.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "auto: 毎日09:00 最新外国人犯罪ニュース全自動更新" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "auto: 毎日18:00 最新外国人犯罪ニュース全自動更新" && git push)

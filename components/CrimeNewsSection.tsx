@@ -14,18 +14,15 @@ interface NewsItem {
 
 export const CrimeNewsSection: React.FC = () => {
   const items: NewsItem[] = newsData as NewsItem[];
-  // トップページには最新4件のみ表示
   const TOP_DISPLAY_COUNT = 4;
   const displayedItems = items.slice(0, TOP_DISPLAY_COUNT);
 
   return (
     <section className="mb-20">
       <div className="bg-gradient-to-br from-[#161b22] via-[#0d1117] to-[#161b22] rounded-3xl border border-red-500/20 p-8 md:p-12 shadow-2xl relative overflow-hidden group hover:border-red-500/40 transition-all duration-500">
-        {/* 背景光彩アクセント */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 rounded-full blur-[100px] pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-[100px] pointer-events-none"></div>
 
-        {/* ヘッダー部分 */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-6 border-b border-white/10 relative z-10 gap-4">
           <div>
             <div className="inline-flex items-center px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold mb-3 tracking-widest uppercase">
@@ -39,7 +36,7 @@ export const CrimeNewsSection: React.FC = () => {
               最新 外国人犯罪報道ニュース速報
             </h2>
             <p className="text-gray-400 text-xs md:text-sm mt-1">
-              全国の地方紙・ローカルメディア等の報道を24時間自動集計（毎日 09:00 自動更新）
+              全国の地方紙・ローカルメディア等の報道を24時間自動集計（毎日 18:00 自動更新）
             </p>
           </div>
           <div className="text-right shrink-0">
@@ -49,7 +46,6 @@ export const CrimeNewsSection: React.FC = () => {
           </div>
         </div>
 
-        {/* ニュース一覧リスト */}
         <div className="space-y-4 relative z-10">
           {items.length === 0 ? (
             <div className="text-center py-12 bg-[#0d1117]/60 rounded-2xl border border-white/5">
@@ -97,7 +93,6 @@ export const CrimeNewsSection: React.FC = () => {
           )}
         </div>
 
-        {/* 独立アーカイブページへの導線ボタン */}
         <div className="mt-8 pt-6 border-t border-white/10 text-center relative z-10">
           <Link
             to="/analysis/crime-news/"
