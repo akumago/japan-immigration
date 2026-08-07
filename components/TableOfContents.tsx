@@ -36,10 +36,10 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({ sections }) =>
 
     return (
         <>
-            {/* Mobile / Laptop Toggle Button (1680px未満のディスプレイで常駐) */}
+            {/* 全画面共通: 画面右下の浮遊型「目次ボタン」 */}
             <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                className="min-[1680px]:hidden fixed bottom-24 right-8 z-40 p-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg shadow-purple-500/30"
+                className="fixed bottom-24 right-8 z-40 p-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transition-all duration-300"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label="目次を開く"
@@ -54,60 +54,35 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({ sections }) =>
                 </svg>
             </motion.button>
 
-            {/* Desktop Sidebar (1680px以上の特大モニターでのみ被らずに常視表示) */}
-            <div className="hidden min-[1680px]:block fixed left-6 top-24 w-64 max-h-[calc(100vh-8rem)] overflow-y-auto z-30">
-                <div className="bg-gradient-to-br from-[#161b22] to-[#0d1117] rounded-xl border border-white/10 p-6 shadow-xl backdrop-blur-sm">
-                    <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                        <div className="w-1 h-6 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full" />
-                        目次
-                    </h3>
-                    <nav className="space-y-1">
-                        {sections.map((section) => (
-                            <ScrollLink
-                                key={section.id}
-                                to={section.id}
-                                spy={true}
-                                smooth={true}
-                                offset={-80}
-                                duration={500}
-                                className={`block py-2 px-3 rounded-lg text-sm transition-all duration-300 cursor-pointer ${activeSection === section.id
-                                        ? 'text-blue-400 bg-blue-500/10 border-l-2 border-blue-500 pl-4'
-                                        : 'text-gray-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent'
-                                    } ${section.level > 1 ? 'ml-4 text-xs' : ''}`}
-                            >
-                                {section.title}
-                            </ScrollLink>
-                        ))}
-                    </nav>
-                </div>
-            </div>
-
-            {/* Mobile / Laptop Drawer */}
+            {/* クリック時に右から展開される目次ドロワー */}
             <AnimatePresence>
                 {isOpen && (
                     <>
+                        {/* オーバーレイ背景 */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setIsOpen(false)}
-                            className="min-[1680px]:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+                            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
                         />
+                        
+                        {/* ドロワー本体 */}
                         <motion.div
                             initial={{ x: '100%' }}
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
                             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="min-[1680px]:hidden fixed right-0 top-0 bottom-0 w-80 bg-[#161b22] border-l border-white/10 p-6 z-50 overflow-y-auto shadow-2xl"
+                            className="fixed right-0 top-0 bottom-0 w-80 sm:w-96 bg-[#161b22] border-l border-white/10 p-6 z-50 overflow-y-auto shadow-2xl"
                         >
                             <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
                                 <h3 className="text-lg font-bold text-white flex items-center gap-2">
                                     <div className="w-1 h-6 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full" />
-                                    目次
+                                    目次ナビゲーション
                                 </h3>
                                 <button
                                     onClick={() => setIsOpen(false)}
-                                    className="p-2 rounded-lg bg-white/5 text-gray-400 hover:text-white"
+                                    className="p-2 rounded-lg bg-white/5 text-gray-400 hover:text-white transition-colors"
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path
@@ -119,6 +94,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({ sections }) =>
                                     </svg>
                                 </button>
                             </div>
+
                             <nav className="space-y-2">
                                 {sections.map((section) => (
                                     <ScrollLink
@@ -130,7 +106,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({ sections }) =>
                                         duration={500}
                                         onClick={() => setIsOpen(false)}
                                         className={`block py-3 px-4 rounded-xl text-sm transition-all duration-300 cursor-pointer ${activeSection === section.id
-                                                ? 'text-blue-400 bg-blue-500/10 border-l-2 border-blue-500 pl-5'
+                                                ? 'text-blue-400 bg-blue-500/10 border-l-2 border-blue-500 pl-5 font-bold'
                                                 : 'text-gray-300 hover:text-white hover:bg-white/5 border-l-2 border-transparent'
                                             } ${section.level > 1 ? 'ml-4 text-xs' : ''}`}
                                     >
