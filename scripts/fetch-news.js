@@ -45,6 +45,47 @@ function fetchRSS(url) {
   });
 }
 
+// タイトルの標準化（全角→半角、カッコ内表記の削除）
+function normalizeTitle(title) {
+  if (!title) return '';
+  return title
+    .replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xfee0))
+    .replace(/（.*?）|\(.*?\)|〈.*?〉|<.*?>|【.*?】/g, '')
+    .replace(/\s+/g, '')
+    .toLowerCase();
+}
+
+// 同一事件かどうかの判定（コアとなる名詞・数値の重なり具合を比較）
+function isSameEvent(titleA, titleB) {
+  const normA = normalizeTitle(titleA);
+  const normB = normalizeTitle(titleB);
+
+  if (normA === normB) return true;
+
+  // 15文字以上共通している場合は同一事件とみなす
+  if (normA.length > 10 && normB.length > 10) {
+    if (normA.includes(normB.substring(0, 12)) || normB.includes(normA.substring(0, 12))) {
+      return true;
+    }
+  }
+
+  // 数字・固有名詞などの主要部分の一致度チェック
+  const numbersA = (normA.match(/\d+/g) || []).join(',');
+  const numbersB = (normB.match(/\d+/g) || []).join(',');
+
+  if (numbersA && numbersA === numbersB) {
+    // 同じ数値（例: 2000万, 3000万, 91歳等）が含まれ、容疑者国籍が合致
+    const nationalities = ['ブラジル', 'ベトナム', '中国', '韓国', 'ネパール', 'ペルー', 'タイ', 'フィリピン'];
+    for (const nat of nationalities) {
+      if (normA.includes(nat) && normB.includes(nat)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
 function extractItemsFromRSS(xml) {
   const items = [];
   const itemMatches = xml.match(/<item>[\s\S]*?<\/item>/gi) || [];
@@ -105,32 +146,38 @@ function extractItemsFromRSS(xml) {
 }
 
 async function main() {
-  console.log('Fetching daily foreign crime news for accumulation...');
+  console.log('Fetching daily foreign crime news with advanced deduplication...');
   const searchQueries = [
     encodeURIComponent('外国人 逮捕 when:1d'),
     encodeURIComponent('外国人 容疑 when:1d'),
     encodeURIComponent('外国籍 逮捕 when:1d')
   ];
 
-  let newEntries = [];
+  let fetchedItems = [];
 
   for (const query of searchQueries) {
     const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=ja&gl=JP&ceid=JP:ja`;
     try {
       const xml = await fetchRSS(rssUrl);
       const items = extractItemsFromRSS(xml);
-      newEntries.push(...items);
+      fetchedItems.push(...items);
     } catch (err) {
       console.error('Failed to fetch RSS:', err.message);
     }
   }
 
-  // 重複排除
-  const uniqueMap = new Map();
-  newEntries.forEach(item => uniqueMap.set(item.title, item));
-  const uniqueItems = Array.from(uniqueMap.values());
+  // 取得したニュース内での同一事件重複排除
+  const uniqueItems = [];
+  for (const item of fetchedItems) {
+    const exists = uniqueItems.some(existing => isSameEvent(existing.title, item.title));
+    if (!exists) {
+      uniqueItems.push(item);
+    }
+  }
 
-  // 既存データとマージ（上書き削除せず永久蓄積保存）
+  console.log(`Extracted ${uniqueItems.length} unique crime event items today.`);
+
+  // 既存データベースとのマージ＆重複排除
   let existingData = [];
   if (fs.existsSync(NEWS_DATA_PATH)) {
     try {
@@ -140,16 +187,22 @@ async function main() {
     }
   }
 
-  const existingTitles = new Set(existingData.map(d => d.title));
-  const trulyNewItems = uniqueItems.filter(item => !existingTitles.has(item.title));
+  // 全既存データに対しても同様に同義事件のクリーンアップを実施
+  const cleanExisting = [];
+  for (const item of existingData) {
+    const isDup = cleanExisting.some(ex => isSameEvent(ex.title, item.title));
+    if (!isDup) {
+      cleanExisting.push(item);
+    }
+  }
 
-  console.log(`Newly added ${trulyNewItems.length} items to existing archive of ${existingData.length} items.`);
+  // 新規追加記事の判定
+  const trulyNew = uniqueItems.filter(item => !cleanExisting.some(ex => isSameEvent(ex.title, item.title)));
 
-  // 新しい記事を先頭に追加し、最大500件まで蓄積保持
-  const mergedData = [...trulyNewItems, ...existingData].slice(0, 500);
+  const finalMerged = [...trulyNew, ...cleanExisting].slice(0, 500);
 
-  fs.writeFileSync(NEWS_DATA_PATH, JSON.stringify(mergedData, null, 2), 'utf-8');
-  console.log(`Successfully updated newsData.json! Total archived items: ${mergedData.length}`);
+  fs.writeFileSync(NEWS_DATA_PATH, JSON.stringify(finalMerged, null, 2), 'utf-8');
+  console.log(`Deduplicated & updated newsData.json! Total clean entries: ${finalMerged.length}`);
 }
 
 main().catch(err => console.error(err));
