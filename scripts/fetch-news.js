@@ -199,7 +199,7 @@ async function main() {
   // 新規追加記事の判定
   const trulyNew = uniqueItems.filter(item => !cleanExisting.some(ex => isSameEvent(ex.title, item.title)));
 
-  const finalMerged = [...trulyNew, ...cleanExisting].slice(0, 500);
+  const finalMerged = [...trulyNew, ...cleanExisting].slice(0, 10000);
 
   fs.writeFileSync(NEWS_DATA_PATH, JSON.stringify(finalMerged, null, 2), 'utf-8');
   console.log(`Deduplicated & updated newsData.json! Total clean entries: ${finalMerged.length}`);
