@@ -55,23 +55,54 @@ const OVERSEAS_LOCATIONS = [
   'アメリカの', 'アメリカで', '中国の', '中国で', '台湾の', '台湾で',
   'フィリピンの', 'フィリピンで', 'ブラジルの', 'ブラジルで', 'ソウル', 'バンコク',
   'ワシントン', '北京', 'ロンドン', 'パリ', '現地', '国外', '米軍基地', '米海兵隊',
-  'インドの', 'インドで', 'ミャンマーの', 'ミャンマーで', 'カンボジアの', 'カンボジアで',
+  'インドの', 'インドで', 'ミャンマーの', 'ミャンマーで', 'カンボジアの', 'カンボジアで', 'インドネシアの', 'インドネシアで',
   'モロッコ', 'イランの', 'イランで', 'シリアの', 'シリアで', 'メキシコの', 'メキシコで',
   'トルコの', 'トルコで', 'イスラエルの', 'イスラエルで', 'ドイツの', 'ドイツで',
   'マレーシアの', 'マレーシアで', 'オーストラリアの', 'オーストラリアで',
-  '海外', '渡航先'
+  '海外', '渡航先',
+  'マカオ', 'ラオス', '英国', 'ドンムアン', 'ホーチミン', 'ハノイ',
+  'プノンペン', 'ジャカルタ', 'マニラ', 'クアラルンプール', 'ニューヨーク',
+  'シンガポール', '上海', '香港', '台北', '深圳', 'ムンバイ',
+  'ヤンゴン', 'ダッカ', 'カラチ', 'リヤド', 'ドバイ', 'テルアビブ',
+  'モスクワ', 'キーウ', 'ベルリン', 'ローマ', 'マドリード',
+  'Reform UK', '超法規的', 'インドへ出国'
 ];
 
 // 国内発生を確定するキーワード
 const DOMESTIC_INDICATORS = [
-  '日本で', '日本国内', '県警', '警視庁', '府警', '道警', '署員', '在日', '来日', '訪日', '不法就労', '不法滞在', '入管', '検察', '地方裁判所', '地裁'
+  '日本で', '日本国内', '県警', '警視庁', '府警', '道警', '署員',
+  '在日', '来日', '訪日', '不法就労', '不法滞在', '入管', '検察',
+  '地方裁判所', '地裁', '署が', '署に', '署は', '警察署',
+  '地検', '簡裁', '高裁', '逮捕した', '逮捕され', '容疑で逮捕',
+  '現行犯逮捕', '緊急逮捕', '送検した', '書類送検'
 ];
 
 // その他一般的な除外キーワード
 const EXCLUDE_KEYWORDS = [
   '知事会', '基本法', '要請', 'まつり', '花笠', '白バイ', 'ロンドン',
   'アメリカ', '韓国警察', '現地警察', '現地当局', 'FBI', '国際指名手配',
-  'イベント', '訓練', 'サーキット', '減給処分', '知事', 'サッカー', '代表監督'
+  'イベント', '訓練', 'サーキット', '減給処分', '知事', 'サッカー', '代表監督',
+  '中国ネット', '強制送還され'
+];
+
+// 海外メディア名リスト（出典が海外メディアの場合は除外）
+const OVERSEAS_MEDIA = [
+  'Vietnam.vn', 'Laodong.vn', 'ENTREVUE.FR', 'arabnews', 'Reuters',
+  'AP通信', 'AFP', 'タイランドハイパーリンクス', 'VnExpress', 'Tuoi Tre',
+  'The Guardian', 'BBC', 'CNN', 'New York Times', 'Washington Post',
+  'South China Morning Post', 'Yonhap', 'Channel News Asia'
+];
+
+// 国名リスト（タイトル冒頭が国名で始まる海外ニュースを構造的に除外するため）
+const COUNTRY_NAMES = [
+  'パキスタン', 'インド', 'ミャンマー', 'カンボジア', 'モロッコ',
+  'イラン', 'シリア', 'メキシコ', 'トルコ', 'イスラエル',
+  'ドイツ', 'マレーシア', 'オーストラリア', 'ロシア', 'ウクライナ',
+  'タイ', 'フィリピン', 'ベトナム', '中国', '韓国', 'ブラジル',
+  'ペルー', 'ネパール', 'スリランカ', 'バングラデシュ',
+  'インドネシア', 'ナイジェリア', 'ガーナ', 'アフガニスタン',
+  '北朝鮮', 'エジプト', 'サウジアラビア', 'イラク', 'コロンビア',
+  'ラオス', 'マカオ', '英国', '米国'
 ];
 
 function fetchRSS(url, redirectCount = 0) {
@@ -99,15 +130,29 @@ function normalizeTitle(title) {
 }
 
 // 国内での事案かどうか判定（海外現地事案の除外）
-function isDomesticCrime(title) {
+function isDomesticCrime(title, media) {
+  // チェック0: 出典メディアが海外メディアの場合は即除外
+  if (media && OVERSEAS_MEDIA.some(m => media.includes(m))) {
+    return false;
+  }
+
+  const hasPrefecture = PREFECTURES.some(pref => title.includes(pref) || title.includes(pref.replace(/[府県]$/, '')));
+  const hasDomesticIndicator = DOMESTIC_INDICATORS.some(ind => title.includes(ind));
+  // 都道府県名か日本の捜査機関名があれば確定的に国内
+  const isStrongDomestic = hasPrefecture || hasDomesticIndicator;
+
+  // チェック1: 海外現地キーワードが明示的に含まれている場合 → 都道府県・捜査機関名がない限り海外
   const isOverseasMentioned = OVERSEAS_LOCATIONS.some(loc => title.includes(loc));
+  if (isOverseasMentioned && !isStrongDomestic) {
+    return false;
+  }
 
-  if (isOverseasMentioned) {
-    const hasPrefecture = PREFECTURES.some(pref => title.includes(pref) || title.includes(pref.replace(/[府県]$/, '')));
-    const hasDomesticIndicator = DOMESTIC_INDICATORS.some(ind => title.includes(ind));
-
-    if (!hasPrefecture && !hasDomesticIndicator) {
-      return false;
+  // チェック2: タイトル冒頭が国名で始まる場合 → 都道府県・捜査機関名がない限り海外
+  for (const country of COUNTRY_NAMES) {
+    if (title.startsWith(country) || title.startsWith('【' + country)) {
+      if (!isStrongDomestic) {
+        return false;
+      }
     }
   }
 
@@ -199,7 +244,7 @@ function extractItemsFromRSS(xml) {
       const hasForeignKw = FOREIGN_KEYWORDS.some(kw => title.includes(kw));
       const hasCrimeKw = CRIME_KEYWORDS.some(kw => title.includes(kw));
       const hasExcludeKw = EXCLUDE_KEYWORDS.some(kw => title.includes(kw));
-      const isDomestic = isDomesticCrime(title);
+      const isDomestic = isDomesticCrime(title, media);
 
       if (!hasForeignKw || !hasCrimeKw || hasExcludeKw || !isDomestic) {
         continue;
@@ -235,27 +280,27 @@ function extractItemsFromRSS(xml) {
 async function main() {
   console.log('Fetching daily foreign crime news with 19 optimized queries & 3-layer deduplication...');
 
-  // 19本の完全網羅化検索クエリ
+  // 19本の完全網羅化検索クエリ（when:2dでインデックス遅延のローカル記事も確実に補足）
   const searchQueries = [
-    encodeURIComponent('外国人 逮捕 when:1d'),
-    encodeURIComponent('外国人 容疑 when:1d'),
-    encodeURIComponent('外国籍 逮捕 when:1d'),
-    encodeURIComponent('外国人 書類送検 OR 追送検 when:1d'),
-    encodeURIComponent('外国人 摘発 OR 指名手配 when:1d'),
-    encodeURIComponent('ベトナム 逮捕 OR 摘発 when:1d'),
-    encodeURIComponent('中国籍 OR 中国人 逮捕 when:1d'),
-    encodeURIComponent('ブラジル 逮捕 OR 摘発 when:1d'),
-    encodeURIComponent('タイ人 OR タイ国籍 逮捕 when:1d'),
-    encodeURIComponent('フィリピン人 逮捕 OR 摘発 when:1d'),
-    encodeURIComponent('インドネシア 逮捕 OR 摘発 when:1d'),
-    encodeURIComponent('スリランカ OR カンボジア OR ネパール 逮捕 when:1d'),
-    encodeURIComponent('韓国人 OR 韓国籍 逮捕 when:1d'),
-    encodeURIComponent('技能実習生 OR 元技能実習生 OR 特定技能 逮捕 when:1d'),
-    encodeURIComponent('仮放免 逮捕 OR 容疑 when:1d'),
-    encodeURIComponent('不法滞在 OR 不法残留 OR オーバーステイ 逮捕 OR 摘発 when:1d'),
-    encodeURIComponent('不法就労助長 逮捕 OR 容疑 when:1d'),
-    encodeURIComponent('退去強制 OR 強制送還 when:1d'),
-    encodeURIComponent('不法就労 逮捕 OR 摘発 when:1d')
+    encodeURIComponent('外国人 逮捕 when:2d'),
+    encodeURIComponent('外国人 容疑 when:2d'),
+    encodeURIComponent('外国籍 逮捕 when:2d'),
+    encodeURIComponent('外国人 書類送検 OR 追送検 when:2d'),
+    encodeURIComponent('外国人 摘発 OR 指名手配 when:2d'),
+    encodeURIComponent('ベトナム 逮捕 OR 摘発 when:2d'),
+    encodeURIComponent('中国籍 OR 中国人 逮捕 when:2d'),
+    encodeURIComponent('ブラジル 逮捕 OR 摘発 when:2d'),
+    encodeURIComponent('タイ人 OR タイ国籍 逮捕 when:2d'),
+    encodeURIComponent('フィリピン人 逮捕 OR 摘発 when:2d'),
+    encodeURIComponent('インドネシア 逮捕 OR 摘発 when:2d'),
+    encodeURIComponent('スリランカ OR カンボジア OR ネパール 逮捕 when:2d'),
+    encodeURIComponent('韓国人 OR 韓国籍 逮捕 when:2d'),
+    encodeURIComponent('技能実習生 OR 元技能実習生 OR 特定技能 逮捕 when:2d'),
+    encodeURIComponent('仮放免 逮捕 OR 容疑 when:2d'),
+    encodeURIComponent('不法滞在 OR 不法残留 OR オーバーステイ 逮捕 OR 摘発 when:2d'),
+    encodeURIComponent('不法就労助長 逮捕 OR 容疑 when:2d'),
+    encodeURIComponent('退去強制 OR 強制送還 when:2d'),
+    encodeURIComponent('不法就労 逮捕 OR 摘発 when:2d')
   ];
 
   let fetchedItems = [];
@@ -304,7 +349,7 @@ async function main() {
   // --- 重複排除層3: 既存データのクリーンアップ ---
   const cleanExisting = [];
   for (const item of existingData) {
-    if (!isDomesticCrime(item.title)) {
+    if (!isDomesticCrime(item.title, item.media)) {
       console.log(`Removed overseas item: ${item.title}`);
       continue;
     }
