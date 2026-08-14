@@ -106,14 +106,22 @@ const CRIME_KEYWORDS = [
 
 // 代表的特筆事象（同一事件のキーワードクロス判定用）
 const EVENT_FEATURE_KEYWORDS = [
-  ['銅線', 'ケーブル', '太陽光', '金属'],
+  ['あべちか', '天王寺', '地下街'],
+  ['強盗殺人未遂', '強殺未遂', '強盗殺人', '強殺', 'バッグ奪', 'カバン奪', '強盗'],
+  ['刺傷', '刺され', '刺し', '刺殺', '切りつけ', '刃物', 'ナイフ'],
+  ['死体遺棄', '遺体遺棄', '山林遺棄', '高齢女性遺体', '女性遺体', '遺体'],
+  ['空き家', '邸宅侵入', '空き巣', '指輪'],
+  ['営利略取', '押し込', '車に押し込', '監禁', '連れ去り'],
+  ['偽物', '偽ブランド', 'ルイ・ヴィトン', '商標法'],
+  ['不法就労', '不法在留', '在留資格超え', '週28時間', '虚偽申告', '労働時間'],
+  ['銅線', 'ケーブル', '太陽光', '金属', '金属盗'],
   ['風俗', 'メンズエステ', '性風俗', '禁止区域'],
   ['大麻', '覚醒剤', '麻薬', 'ケタミン', '薬物'],
   ['SUV', '高級車', 'レクサス', '自動車盗'],
   ['自転車', '酒酔い', '蛇行'],
-  ['ニセ警察官', '受け子', '特殊詐欺', '570万円', '1051万円'],
+  ['ニセ警察官', '受け子', '特殊詐欺', '出し子', '回収役', '50万円', '570万円', '1051万円', '3600万円'],
   ['わいせつ', '胸', '性犯罪'],
-  ['不法滞在', 'オーバーステイ', '不法残留', '不法就労'],
+  ['不法滞在', 'オーバーステイ', '不法残留'],
   ['万引き', 'スニーカー', '窃盗'],
   ['ひき逃げ', '多重事故', '過失運転']
 ];
@@ -323,23 +331,49 @@ function isSameEvent(itemA, itemB) {
 
   if (normA === normB) return true;
 
-  // 1. 地域・国籍・事象の3点一致（エンティティ判定）
+  // 1. 固有施設名・現場名・特徴的ランドマークの一致（例: あべちか、天王寺、飯能、加古川、亀山等）
+  const LANDMARKS = [
+    'あべちか', '天王寺', '飯能', '加古川', '亀山', '天童', '流山', '神栖',
+    '浅草橋', '名張', '松戸', '釧路', '氷見', 'ミナミ', '歌舞伎町', '六本木', '大久保'
+  ];
+  for (const lm of LANDMARKS) {
+    if (titleA.includes(lm) && titleB.includes(lm)) {
+      const natA = NATIONALITIES.find(n => titleA.includes(n));
+      const natB = NATIONALITIES.find(n => titleB.includes(n));
+      if (!natA || !natB || natA === natB) {
+        return true; // 固有の現場名＋国籍一致は確定で同一事件！
+      }
+    }
+  }
+
+  // 2. 地域・国籍・事象グループのクロス判定
   const locA = detectLocation(titleA);
   const locB = detectLocation(titleB);
   
   const natA = NATIONALITIES.find(n => titleA.includes(n));
   const natB = NATIONALITIES.find(n => titleB.includes(n));
 
-  const featA = getEventFeatureGroup(titleA);
-  const featB = getEventFeatureGroup(titleB);
+  // 複数の特徴グループを検出
+  const featsA = [];
+  const featsB = [];
+  for (let i = 0; i < EVENT_FEATURE_KEYWORDS.length; i++) {
+    if (EVENT_FEATURE_KEYWORDS[i].some(kw => titleA.includes(kw))) featsA.push(i);
+    if (EVENT_FEATURE_KEYWORDS[i].some(kw => titleB.includes(kw))) featsB.push(i);
+  }
 
-  // 国籍 ＋ 事象グループが一致する場合
-  if (natA && natB && natA === natB && featA !== -1 && featA === featB) {
+  // 共通の特徴グループがあるか
+  const commonFeats = featsA.filter(f => featsB.includes(f));
+
+  if (natA && natB && natA === natB && commonFeats.length > 0) {
+    // 同じ地域（例: 大阪府、埼玉県、三重県等）なら同一事件
     if (locA === locB && locA !== '全国') {
-      return true; // 同じ地域（例: 富山県や氷見市）なら確定で同一事件！
+      return true;
     }
+    // どちらかが「全国」でも、特徴グループが2つ以上共通、または人数が一致
     if (locA === '全国' || locB === '全国' || locA === locB) {
-      // 人数表記（例: 2人, 8人）や共通重要語があれば同一
+      if (commonFeats.length >= 2) {
+        return true;
+      }
       const numA = (normA.match(/(\d+)人/) || [])[1];
       const numB = (normB.match(/(\d+)人/) || [])[1];
       if (numA && numB && numA === numB) {
@@ -351,21 +385,14 @@ function isSameEvent(itemA, itemB) {
     }
   }
 
-  // 特例: 金属盗・ケーブルカッター等のベトナム人2人事件の特定統合
-  if ((titleA.includes('金属盗') || titleA.includes('ケーブルカッター') || titleA.includes('銅線')) &&
-      (titleB.includes('金属盗') || titleB.includes('ケーブルカッター') || titleB.includes('銅線')) &&
-      titleA.includes('ベトナム') && titleB.includes('ベトナム')) {
-    return true;
-  }
-
-  // 2. 先頭12文字の一致判定
-  if (normA.length > 10 && normB.length > 10) {
-    if (normA.includes(normB.substring(0, 12)) || normB.includes(normA.substring(0, 12))) {
+  // 3. 先頭10文字の一致判定
+  if (normA.length >= 10 && normB.length >= 10) {
+    if (normA.includes(normB.substring(0, 10)) || normB.includes(normA.substring(0, 10))) {
       return true;
     }
   }
 
-  // 3. 数字トークン＋国籍の一致判定
+  // 4. 数字トークン＋国籍の一致判定
   const numbersA = (normA.match(/\d+/g) || []).join(',');
   const numbersB = (normB.match(/\d+/g) || []).join(',');
 
@@ -377,7 +404,7 @@ function isSameEvent(itemA, itemB) {
     }
   }
 
-  // 4. Jaccard単語類似度
+  // 5. Jaccard単語類似度
   const wordsA = new Set(normA.match(/[\u3040-\u9faf]{2,}/g) || []);
   const wordsB = new Set(normB.match(/[\u3040-\u9faf]{2,}/g) || []);
 
@@ -385,7 +412,7 @@ function isSameEvent(itemA, itemB) {
     const intersection = [...wordsA].filter(w => wordsB.has(w));
     const union = new Set([...wordsA, ...wordsB]);
     const similarity = intersection.length / union.size;
-    if (similarity >= 0.35) {
+    if (similarity >= 0.30) {
       return true;
     }
   }
