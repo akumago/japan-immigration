@@ -129,21 +129,26 @@ const OVERSEAS_LOCATIONS = [
   'トルコの', 'トルコで', 'イスラエルの', 'イスラエルで', 'ドイツの', 'ドイツで',
   'マレーシアの', 'マレーシアで', 'オーストラリアの', 'オーストラリアで',
   '海外', '渡航先',
+  'ホアヒン', 'パタヤ', 'チェンマイ', 'プーケット', 'セブ', 'バリ', 'グアム', 'ハワイ',
+  'カリフォルニア', 'テキサス', 'フロリダ', 'ロサンゼルス', 'シカゴ',
   'マカオ', 'ラオス', '英国', '米国', 'ドンムアン', 'ホーチミン', 'ハノイ',
   'プノンペン', 'ジャカルタ', 'マニラ', 'クアラルンプール', 'ニューヨーク',
   'シンガポール', '上海', '香港', '台北', '深圳', 'ムンバイ',
   'ヤンゴン', 'ダッカ', 'カラチ', 'リヤド', 'ドバイ', 'テルアビブ',
-  'モスクワ', 'キーウ', 'ベルリン', 'ローマ', 'マドリード',
+  'モスクワ', 'キーウ', 'ベルリン', 'ローマ', 'マドリード', 'シドニー',
   'Reform UK', '超法規的', 'インドへ出国'
 ];
 
-// 国内発生を確定するキーワード
+// 国内発生を確定するキーワード（日本の警察組織・裁判所・行政・法令・制度・報道用語）
 const DOMESTIC_INDICATORS = [
   '日本で', '日本国内', '県警', '警視庁', '府警', '道警', '署員',
-  '在日', '来日', '訪日', '不法就労', '不法滞在', '入管', '検察',
+  '在日', '来日', '訪日', '不法就労', '不法滞在', '不法残留', '入管', '検察',
   '地方裁判所', '地裁', '署が', '署に', '署は', '警察署',
   '地検', '簡裁', '高裁', '逮捕した', '逮捕され', '容疑で逮捕',
-  '現行犯逮捕', '緊急逮捕', '送検した', '書類送検'
+  '現行犯逮捕', '緊急逮捕', '送検した', '書類送検', '追送検',
+  '風営法', '出入国管理', '入管難民法', '入管法', '金属盗対策法', '暴処法',
+  '技能実習', '特定技能', '仮放免', 'オーバーステイ', '偽造在留カード', '在留カード',
+  '不法就労助長', '資格外活動'
 ];
 
 // 除外キーワード
@@ -157,9 +162,9 @@ const EXCLUDE_KEYWORDS = [
 // 海外メディア名リスト
 const OVERSEAS_MEDIA = [
   'Vietnam.vn', 'Laodong.vn', 'ENTREVUE.FR', 'arabnews', 'Reuters',
-  'AP通信', 'AFP', 'タイランドハイパーリンクス', 'VnExpress', 'Tuoi Tre',
-  'The Guardian', 'BBC', 'CNN', 'New York Times', 'Washington Post',
-  'South China Morning Post', 'Yonhap', 'Channel News Asia'
+  'AP通信', 'AFP', 'タイランドハイパーリンクス', 'タイニュース', 'クロスボンバー',
+  'VnExpress', 'Tuoi Tre', 'The Guardian', 'BBC', 'CNN', 'New York Times',
+  'Washington Post', 'South China Morning Post', 'Yonhap', 'Channel News Asia'
 ];
 
 // 国名リスト
@@ -173,6 +178,10 @@ const COUNTRY_NAMES = [
   '北朝鮮', 'エジプト', 'サウジアラビア', 'イラク', 'コロンビア',
   'ラオス', 'マカオ', '英国', '米国'
 ];
+
+// 文末の海外国名略称（例: 「...11人逮捕 米」「...摘発 タイ」）および通信社海外発信パターンの正規表現
+const OVERSEAS_TAIL_REGEX = /[\s　](米|英|仏|独|伊|露|豪|中|韓|タイ|比|越|印|伯|加|欧州|EU)$/;
+const OVERSEAS_PREFIX_REGEX = /【(ワシントン|ニューヨーク|ロンドン|パリ|北京|ソウル|バンコク|ハノイ|マニラ|シドニー|モスクワ|ベルリン|プーケット).*?】/;
 
 function fetchRSS(url, redirectCount = 0) {
   if (redirectCount > 5) return Promise.reject(new Error('Too many redirects'));
@@ -225,28 +234,60 @@ function detectLocation(title) {
   return '全国';
 }
 
-// 国内での事案かどうか判定（海外現地事案の除外）
+// 国名で始まる海外ニュースの判定（「ベトナム人」「中国籍」「ベトナム料理」等は除外）
+function isTitleStartingWithOverseasCountry(title) {
+  for (const country of COUNTRY_NAMES) {
+    if (title.startsWith(country) || title.startsWith('【' + country)) {
+      const remainder = title.startsWith('【' + country)
+        ? title.substring(('【' + country).length)
+        : title.substring(country.length);
+      // 国名直後に「人」「国籍」「籍」「料理」「出身」等が続く場合は国内属性なので海外判定しない
+      if (/^(人|国籍|籍|出身|料理|パブ|バー|サロン|留学生|実習生)/.test(remainder)) {
+        continue;
+      }
+      return true;
+    }
+  }
+  return false;
+}
+
+// 日本国内の警察・公的機関・法執行が明記されているか判定
+function hasJapaneseEnforcement(title) {
+  const JP_ENFORCEMENT = [
+    '県警', '警視庁', '府警', '道警', '警察署', '署が', '署に', '署は', '署員',
+    '地検', '地裁', '簡裁', '高裁', '検察', '入管', '出入国在留管理'
+  ];
+  return JP_ENFORCEMENT.some(kw => title.includes(kw));
+}
+
+// 国内での事案かどうか判定（ポジティブ国内確証ホワイトリスト方式）
 function isDomesticCrime(title, media) {
+  // 1. 海外メディアまたは文末国名略称（例: 「...逮捕 米」）や通信社海外発信は即除外
   if (media && OVERSEAS_MEDIA.some(m => media.includes(m))) {
     return false;
   }
-
-  const detectedLoc = detectLocation(title);
-  const hasPrefecture = detectedLoc !== '全国';
-  const hasDomesticIndicator = DOMESTIC_INDICATORS.some(ind => title.includes(ind));
-  const isStrongDomestic = hasPrefecture || hasDomesticIndicator;
-
-  const isOverseasMentioned = OVERSEAS_LOCATIONS.some(loc => title.includes(loc));
-  if (isOverseasMentioned && !isStrongDomestic) {
+  if (OVERSEAS_TAIL_REGEX.test(title) || OVERSEAS_PREFIX_REGEX.test(title)) {
     return false;
   }
 
-  for (const country of COUNTRY_NAMES) {
-    if (title.startsWith(country) || title.startsWith('【' + country)) {
-      if (!isStrongDomestic) {
-        return false;
-      }
-    }
+  // 2. 海外地名・国名が含まれているか判定
+  const isOverseasMentioned = OVERSEAS_LOCATIONS.some(loc => title.includes(loc)) ||
+                              isTitleStartingWithOverseasCountry(title);
+
+  // 海外地名がある場合、日本の警察・検察・裁判所等の直接の法執行（例: 愛知県警が逮捕へ等）が明記されていない限り100%除外
+  if (isOverseasMentioned && !hasJapaneseEnforcement(title)) {
+    return false;
+  }
+
+  // 3. 日本国内である明確な証拠（都道府県・市町村名、日本の警察・捜査機関、日本固有の法令）
+  const detectedLoc = detectLocation(title);
+  const hasPrefecture = detectedLoc !== '全国';
+  const hasEnforcement = hasJapaneseEnforcement(title);
+  const hasDomesticIndicator = DOMESTIC_INDICATORS.some(ind => title.includes(ind));
+
+  // 国内証拠（地名、警察機関、国内指示ワード）のいずれかが必須
+  if (!hasPrefecture && !hasEnforcement && !hasDomesticIndicator) {
+    return false;
   }
 
   return true;
