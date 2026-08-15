@@ -1,0 +1,37 @@
+# 日本の岐路：外国人労働者受け入れ政策の構造的課題と国民経済への影響
+
+外国人労働者の受け入れ拡大が、日本国内の経済構造（実質賃金、労働生産性）、社会秩序（治安、地域文化との共生）、社会保障制度（健康保険、福祉）、および国家安全保障に与える長期的かつ累積的な影響を、一次公的データに基づいて客観的に分析・提示するレポートプロジェクト。
+
+- **URL**: https://endearing-blini-b688ce.netlify.app/
+- **著者 (Author)**: Akuma Shogun (独立系社会・経済データビジュアライザー)
+- **ライセンス**: CC0 (データセット部)
+- **運営主体**: 日本社会構造分析リサーチ
+
+---
+
+## 📋 主要セクションと記事インデックス
+
+- [分析アーカイブ一覧](https://endearing-blini-b688ce.netlify.app/analysis-archive/) : 全分析レポートの一覧マップ。
+- [最新の数理予測モデルと検証](https://endearing-blini-b688ce.netlify.app/analysis/simulation-model/) : 経済予測シミュレーションの検証と「日本固有の変数」の解説。
+- [経済への長期的影響](https://endearing-blini-b688ce.netlify.app/analysis/economic-impact/) : 実質賃金停滞と労働生産性の関係性。
+- [実証データ：欧州の「福祉国家と移民」](https://endearing-blini-b688ce.netlify.app/analysis/borderless-welfare-state/) : オランダの匿名マイクロデータ研究「Borderless Welfare State」の紹介。
+- [外国人犯罪統計の分析](https://endearing-blini-b688ce.netlify.app/analysis/crime-statistics/) : 警察庁答弁データに基づく、刑法犯検挙率の客観的比較。
+- [国家安全保障への直接的脅威](https://endearing-blini-b688ce.netlify.app/analysis/national-security/) : 国境なき世界がもたらす防衛・安全保障上の課題。
+- [国土・重要インフラへの影響](https://endearing-blini-b688ce.netlify.app/analysis/land-acquisition/) : 水源地や自衛隊基地周辺の土地買収の実態。
+- [多角的なリスク分析](https://endearing-blini-b688ce.netlify.app/analysis/risk-analysis/) : 行政コスト、法秩序、インフラ摩擦の総括。
+- [愛知県西尾市「県営緑町住宅」の現状](https://endearing-blini-b688ce.netlify.app/analysis/symbiosis/) : 集合住宅等における地域摩擦の現場レポート。
+- [ナイジェリアの事例研究](https://endearing-blini-b688ce.netlify.app/analysis/nigeria-case/) : 治安崩壊および多文化主義の限界から学ぶ教訓。
+- [イギリスの教訓](https://endearing-blini-b688ce.netlify.app/analysis/uk-immigration-lesson/) : なし崩し的な労働力導入がもたらしたブレグジットへの道。
+- [働き方改革と雇用の矛盾](https://endearing-blini-b688ce.netlify.app/analysis/labor-dilemma/) : 安価な外国人労働への依存が技術革新を停滞させる弊害。
+- [政策提言](https://endearing-blini-b688ce.netlify.app/analysis/policy-recommendations/) : 悪循環を断ち切り、自立経済とロボティクスDXへ進むロードマップ。
+- [戦略的提言](https://endearing-blini-b688ce.netlify.app/analysis/strategic-recommendations/) : 日本社会の共通資本を守るための3つの大提言。
+
+---
+
+## 🏛️ 基本情報およびポリシー
+
+- [当サイトについて](https://endearing-blini-b688ce.netlify.app/about/) : プロジェクトのミッション、反差別および中立性ポリシー。
+- [運営者情報](https://endearing-blini-b688ce.netlify.app/operator-info/) : Akuma Shogun のプロフィール、活動理念、公式note/Xリンク。
+- [プライバシーポリシー](https://endearing-blini-b688ce.netlify.app/privacy-policy/) : Cookie等の取り扱いに関する定義。
+- [免責事項](https://endearing-blini-b688ce.netlify.app/disclaimer/) : 情報の正確性、知的財産権、損害賠償に関する責任の除外範囲。
+- [参考文献・出典一覧](https://endearing-blini-b688ce.netlify.app/references/) : 記述されたデータの根拠となる公的資料・論文リスト。

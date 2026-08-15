@@ -22,6 +22,7 @@ import {
 } from "../constants";
 import AdComponent from "../components/AdComponent";
 import { EmbeddedImage } from "../components/EmbeddedImage";
+import CrimeNewsSection from "../components/CrimeNewsSection";
 
 import { MainLayout } from "../components/MainLayout";
 
@@ -385,6 +386,9 @@ export const HomePage: React.FC = () => {
                             </div>
                         </div>
                     </section>
+
+                    {/* 最新 外国人犯罪報道ニュース速報セクション（毎日09:00全自動更新） */}
+                    <CrimeNewsSection />
 
                     <footer className="text-center mt-12 text-gray-600 border-t border-white/10 pt-12 pb-12">
                         <div className="mb-12 p-6 bg-blue-900/10 border border-blue-500/20 rounded-xl max-w-2xl mx-auto text-sm">
