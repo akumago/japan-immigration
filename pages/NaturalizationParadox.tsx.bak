@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { Header } from "../components/Header";
 import Section from "../components/Section";
@@ -21,7 +21,7 @@ export const NaturalizationParadox: React.FC = () => {
                 <meta property="og:title" content="帰化制度と永住権の逆転現象：国家主権と安全保障のリスク分析" />
                 <meta property="og:description" content="帰化要件の緩和と永住権取得のハードル低下がもたらす、法的な「穴」と安全保障上の懸念を考察。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
-                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/naturalization-paradox" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/naturalization-paradox/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="帰化制度と永住権の逆転現象 | 日本の岐路" />

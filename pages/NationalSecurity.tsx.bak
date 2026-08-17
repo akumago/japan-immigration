@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { Header } from "../components/Header";
 import Section from "../components/Section";
@@ -36,7 +36,7 @@ export const NationalSecurity: React.FC = () => {
                 <meta property="og:title" content="国家安全保障への直接的脅威：スパイ防止法なき日本の脆弱性" />
                 <meta property="og:description" content="外国人スパイ活動や技術流出、サイバー攻撃など、日本が直面する安全保障上のリスクを分析。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
-                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/national-security" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/national-security/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="国家安全保障への直接的脅威 | 日本の岐路" />
