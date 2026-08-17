@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { Header } from "../components/Header";
 import Section from "../components/Section";
@@ -23,7 +23,7 @@ export const NigeriaCase: React.FC = () => {
                 <meta property="og:title" content="ナイジェリアの事例：交流の失敗とリスク" />
                 <meta property="og:description" content="政府主導の国際交流事業が、いかに危険な誤解と新たな火種を生むか。JICA事業の失敗例を検証。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
-                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/nigeria-case" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/nigeria-case/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="ナイジェリアの事例：交流の失敗とリスク | 日本の岐路" />
@@ -175,3 +175,4 @@ export const NigeriaCase: React.FC = () => {
         </MainLayout>
     );
 };
+

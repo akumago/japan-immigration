@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { Header } from "../components/Header";
 import { MainLayout } from "../components/MainLayout";
@@ -14,7 +14,7 @@ export const LaborMismatch: React.FC = () => {
                 <meta property="og:title" content="「人手不足」と「人手余り」：致命的な誤解" />
                 <meta property="og:description" content="日本の好機を潰し、海外の絶望を輸入している現状の政策矛盾を分析。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
-                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/labor-mismatch" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/labor-mismatch/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="「人手不足」と「人手余り」の致命的な誤解 | 日本の岐路" />
@@ -121,3 +121,4 @@ export const LaborMismatch: React.FC = () => {
         </MainLayout>
     );
 };
+

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Main Page -->
   <url>
@@ -34,6 +34,7 @@
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/strategic-recommendations/</loc><priority>0.9</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/borderless-welfare-state/</loc><priority>0.9</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/symbiosis/</loc><priority>0.9</priority></url>
+  <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/ai-simulation/</loc><priority>0.9</priority></url>
 
   <!-- Evidence Image Pages -->
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/image/1/</loc><priority>0.6</priority></url>
