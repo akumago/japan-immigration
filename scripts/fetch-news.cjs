@@ -193,8 +193,8 @@ const COUNTRY_NAMES = [
   'ラオス', 'マカオ', '英国', '米国', 'アルゼンチン', 'フランス'
 ];
 
-// 文末の海外国名略称（例: 「...11人逮捕 米」「...摘発 タイ」）および通信社海外発信パターンの正規表現
-const OVERSEAS_TAIL_REGEX = /[\s　](米|英|仏|独|伊|露|豪|中|韓|タイ|比|越|印|伯|加|欧州|EU)$/;
+// 文末の海外国名略称および通信社海外発信パターンの正規表現
+const OVERSEAS_TAIL_REGEX = /(?:[\s　](?:米|英|仏|独|伊|露|豪|中|韓|タイ|比|越|印|伯|加|欧州|EU)|【(?:韓国|中国|米国|アメリカ|タイ|ベトナム|フランス|英国|ドイツ|ロシア)】|[、,]\s*(?:韓国|中国|タイ|ベトナム|アメリカ).*)$/;
 const OVERSEAS_PREFIX_REGEX = /【(ワシントン|ニューヨーク|ロンドン|パリ|北京|ソウル|バンコク|ハノイ|マニラ|シドニー|モスクワ|ベルリン|プーケット).*?】/;
 
 function fetchRSS(url, redirectCount = 0) {
@@ -449,6 +449,37 @@ function isSameEvent(itemA, itemB) {
   return false;
 }
 
+function cleanTitleText(t) {
+  if (!t) return '';
+  let cleaned = t
+    .replace(/\s*\|.*$/, '') // パイプ以降のメディア名・副題を除去
+    .replace(/\s*〈[^〉]+〉$/, '') // 末尾の〈地域名〉を除去
+    .replace(/\s*（[^）]+(?:新聞|テレビ|DIG|NEWS|編集部|NNN|FNN)）$/, '') // 末尾のメディア表記を除去
+    .replace(/^(?:【[^】]+】|\([^\)]+\))\s*/, '') // 先頭の【写真】や【速報】等の装飾をスッキリ整理
+    .replace(/…\s*私たちが.*$/, '')
+    .trim();
+
+  // 65文字を超える長文見出しの場合、主要な逮捕・容疑文に要約短縮
+  if (cleaned.length > 65) {
+    const parts = cleaned.split(/[　\s…]+/);
+    if (parts.length > 1) {
+      let shortTitle = '';
+      for (const part of parts) {
+        if ((shortTitle + ' ' + part).trim().length <= 60) {
+          shortTitle = (shortTitle + ' ' + part).trim();
+        } else {
+          break;
+        }
+      }
+      if (shortTitle.length >= 20) {
+        cleaned = shortTitle;
+      }
+    }
+  }
+
+  return cleaned;
+}
+
 function extractItemsFromRSS(xml) {
   const items = [];
   const itemMatches = xml.match(/<item>[\s\S]*?<\/item>/gi) || [];
@@ -472,6 +503,9 @@ function extractItemsFromRSS(xml) {
         title = mediaMatch[1].trim();
         media = mediaMatch[2].trim();
       }
+
+      // 見出しのノイズ除去と要約・簡潔化
+      title = cleanTitleText(title);
 
       const hasForeignKw = FOREIGN_KEYWORDS.some(kw => title.includes(kw));
       const hasCrimeKw = CRIME_KEYWORDS.some(kw => title.includes(kw));
@@ -585,6 +619,9 @@ async function main() {
       console.log(`Removed excluded item: ${item.title}`);
       continue;
     }
+
+    // 見出しのノイズ除去と要約・簡潔化
+    item.title = cleanTitleText(item.title);
 
     // 地域分類の最新化
     item.location = detectLocation(item.title);
