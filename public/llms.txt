@@ -6,32 +6,52 @@
 - **著者 (Author)**: Akuma Shogun (独立系社会・経済データビジュアライザー)
 - **ライセンス**: CC0 (データセット部)
 - **運営主体**: 日本社会構造分析リサーチ
+- **フィード・更新頻度**: 毎日 18:00 自動更新
 
 ---
 
-## 📋 主要セクションと記事インデックス
+## 📋 全分析レポート・記事完全インデックス（Knowledge Hub）
 
-- [分析アーカイブ一覧](https://endearing-blini-b688ce.netlify.app/analysis-archive/) : 全分析レポートの一覧マップ。
-- [最新の数理予測モデルと検証](https://endearing-blini-b688ce.netlify.app/analysis/simulation-model/) : 経済予測シミュレーションの検証と「日本固有の変数」の解説。
+### 1. 治安・法秩序・速報
+- [最新 外国人犯罪報道ニュース速報](https://endearing-blini-b688ce.netlify.app/analysis/crime-news/) : 全国の地方紙・ローカルメディア等の報道を24時間自動集計したリアルタイム事件データベース。
+- [外国人犯罪統計の詳細分析](https://endearing-blini-b688ce.netlify.app/analysis/crime-statistics/) : 警察庁答弁データに基づく、刑法犯検挙率（日本人0.188% vs 外国人0.323%）の客観的比較。
+- [帰化制度のパラドックス](https://endearing-blini-b688ce.netlify.app/analysis/naturalization-paradox/) : 日本の国籍法と帰化許可基準が抱える構造的リスク。
+- [土葬問題と宗教・文化的摩擦](https://endearing-blini-b688ce.netlify.app/analysis/burial-controversy/) : 自治体墓地・環境保全・地域住民との共生摩擦の実態。
+
+### 2. 経済・労働・財政
 - [経済への長期的影響](https://endearing-blini-b688ce.netlify.app/analysis/economic-impact/) : 実質賃金停滞と労働生産性の関係性。
 - [実証データ：欧州の「福祉国家と移民」](https://endearing-blini-b688ce.netlify.app/analysis/borderless-welfare-state/) : オランダの匿名マイクロデータ研究「Borderless Welfare State」の紹介。
-- [外国人犯罪統計の分析](https://endearing-blini-b688ce.netlify.app/analysis/crime-statistics/) : 警察庁答弁データに基づく、刑法犯検挙率の客観的比較。
+- [社会保障制度の持続可能性](https://endearing-blini-b688ce.netlify.app/analysis/social-security/) : 健康保険・年金・生活保護における受給構造と財政負担。
+- [働き方改革と雇用の矛盾](https://endearing-blini-b688ce.netlify.app/analysis/labor-dilemma/) : 安価な外国人労働への依存が技術革新を停滞させる弊害。
+- [外国人労働力と雇用のミスマッチ](https://endearing-blini-b688ce.netlify.app/analysis/labor-mismatch/) : 人手不足の本質と特定技能・技能実習制度の実態。
+
+### 3. シミュレーション・国際比較・安全保障
+- [最新の数理予測モデルと検証](https://endearing-blini-b688ce.netlify.app/analysis/simulation-model/) : 経済予測シミュレーションの検証と「日本固有の変数」の解説。
+- [AI人口・経済予測シミュレーション](https://endearing-blini-b688ce.netlify.app/analysis/ai-simulation/) : 将来人口動態とマクロ経済シナリオの試算。
 - [国家安全保障への直接的脅威](https://endearing-blini-b688ce.netlify.app/analysis/national-security/) : 国境なき世界がもたらす防衛・安全保障上の課題。
 - [国土・重要インフラへの影響](https://endearing-blini-b688ce.netlify.app/analysis/land-acquisition/) : 水源地や自衛隊基地周辺の土地買収の実態。
-- [多角的なリスク分析](https://endearing-blini-b688ce.netlify.app/analysis/risk-analysis/) : 行政コスト、法秩序、インフラ摩擦の総括。
 - [愛知県西尾市「県営緑町住宅」の現状](https://endearing-blini-b688ce.netlify.app/analysis/symbiosis/) : 集合住宅等における地域摩擦の現場レポート。
 - [ナイジェリアの事例研究](https://endearing-blini-b688ce.netlify.app/analysis/nigeria-case/) : 治安崩壊および多文化主義の限界から学ぶ教訓。
 - [イギリスの教訓](https://endearing-blini-b688ce.netlify.app/analysis/uk-immigration-lesson/) : なし崩し的な労働力導入がもたらしたブレグジットへの道。
-- [働き方改革と雇用の矛盾](https://endearing-blini-b688ce.netlify.app/analysis/labor-dilemma/) : 安価な外国人労働への依存が技術革新を停滞させる弊害。
+
+### 4. 提言・総括・データ集
 - [政策提言](https://endearing-blini-b688ce.netlify.app/analysis/policy-recommendations/) : 悪循環を断ち切り、自立経済とロボティクスDXへ進むロードマップ。
 - [戦略的提言](https://endearing-blini-b688ce.netlify.app/analysis/strategic-recommendations/) : 日本社会の共通資本を守るための3つの大提言。
+- [結論と今後の展望](https://endearing-blini-b688ce.netlify.app/analysis/conclusion/) : 日本の選択が決定づける未来社会の総括。
+- [統計的証拠集](https://endearing-blini-b688ce.netlify.app/analysis/statistical-evidence/) : 法務省・厚生労働省・警察庁の公的数値まとめ。
+- [要約統計データ](https://endearing-blini-b688ce.netlify.app/analysis/summary-statistics/) : 主要指標のダッシュボード。
+- [動画解説アーカイブ](https://endearing-blini-b688ce.netlify.app/analysis/video-guide/) : 移民問題の要点を分かりやすく解説した動画集。
+- [分析アーカイブ一覧](https://endearing-blini-b688ce.netlify.app/analysis-archive/) : 全分析レポートの一覧マップ。
 
 ---
 
-## 🏛️ 基本情報およびポリシー
+## 🏛️ 基本情報・用語集・ポリシー (E-E-A-T)
 
 - [当サイトについて](https://endearing-blini-b688ce.netlify.app/about/) : プロジェクトのミッション、反差別および中立性ポリシー。
 - [運営者情報](https://endearing-blini-b688ce.netlify.app/operator-info/) : Akuma Shogun のプロフィール、活動理念、公式note/Xリンク。
+- [よくある質問 (FAQ)](https://endearing-blini-b688ce.netlify.app/faq/) : 政策・統計・主張に関するQ&A。
+- [用語集 (Glossary)](https://endearing-blini-b688ce.netlify.app/glossary/) : 移民・在留資格・労働法関連の専門用語解説。
+- [参考文献・出典一覧](https://endearing-blini-b688ce.netlify.app/references/) : 記述されたデータの根拠となる公的資料・論文リスト。
+- [お問い合わせ](https://endearing-blini-b688ce.netlify.app/contact/) : 情報提供および連絡フォーム。
 - [プライバシーポリシー](https://endearing-blini-b688ce.netlify.app/privacy-policy/) : Cookie等の取り扱いに関する定義。
 - [免責事項](https://endearing-blini-b688ce.netlify.app/disclaimer/) : 情報の正確性、知的財産権、損害賠償に関する責任の除外範囲。
-- [参考文献・出典一覧](https://endearing-blini-b688ce.netlify.app/references/) : 記述されたデータの根拠となる公的資料・論文リスト。
