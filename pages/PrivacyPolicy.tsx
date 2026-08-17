@@ -35,7 +35,7 @@ export const PrivacyPolicy: React.FC = () => {
                             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                                 プライバシーポリシー
                             </h1>
-                            <p className="text-gray-400">最終更新日: 2025年12月31日</p>
+                            <p className="text-gray-400">最終更新日: 2026年8月17日</p>
                         </div>
 
                         {/* Content */}

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Header } from "../components/Header";
@@ -42,7 +42,7 @@ export const PrivacyPolicy: React.FC = () => {
                         <div className="space-y-8">
                             <Section title="プライバシーポリシー">
                                 <p>
-                                    当サイト（以下、「当サイト」）では、第三者配信の広告サービス（Google AdSense）を利用する予定です。以下に、当サイトにおける個人情報の取り扱いおよび広告配信に関する事項を記載します。
+                                    当サイト（以下、「当サイト」）では、第三者配信の広告サービス（Google AdSense）を利用しています。以下に、当サイトにおける個人情報の取り扱いおよび広告配信に関する事項を記載します。
                                 </p>
                             </Section>
 
