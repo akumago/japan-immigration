@@ -128,7 +128,8 @@ const EVENT_FEATURE_KEYWORDS = [
   ['わいせつ', '胸', '性犯罪'],
   ['不法滞在', 'オーバーステイ', '不法残留'],
   ['万引き', 'スニーカー', '窃盗'],
-  ['ひき逃げ', '危険運転', '多重事故', '過失運転', '人身事故']
+  ['ひき逃げ', '危険運転', '多重事故', '過失運転', '人身事故'],
+  ['マッサージ', '客引き', '風営法', '無許可営業', 'ポンバシ', '歓楽街']
 ];
 
 // 海外現地・国外ニュースを除外するための単語
@@ -172,6 +173,10 @@ const EXCLUDE_KEYWORDS = [
   'アメリカ', '韓国警察', '現地警察', '現地当局', 'FBI', '国際指名手配',
   'イベント', '訓練', 'サーキット', '減給処分', '知事', 'サッカー', '代表監督',
   '中国ネット', '強制送還され',
+  
+  // 日本人暴力団・国内組織犯罪・日本人被疑者
+  '組員', '暴力団', '組幹部', '指定暴力団', '住吉会', '山口組', '稲川会', '道仁会', '工藤会',
+  '移送目的', '移送しようと',
   
   // 日本人偽装・なりすまし犯罪
   '外国人装い', '外国人を装', '外国人のふり', '外国人のフリ', '外国人になりすま', '外国人に扮', '外国人の真似',
@@ -422,25 +427,19 @@ function isSameEvent(itemA, itemB) {
 
   if (commonFeats.length > 0) {
     const isNatMatch = natA && natB && natA === natB;
-    const isGenericMatch = titleA.includes('外国籍') || titleB.includes('外国籍') || titleA.includes('外国人') || titleB.includes('外国人');
+    const isGenericMatch = titleA.includes('外国籍') || titleB.includes('外国籍') || titleA.includes('外国人') || titleB.includes('外国人') || (!natA && !natB);
 
-    if ((isNatMatch || isGenericMatch) && locA === locB && locA !== '全国') {
+    // 同じ地域（または片方が全国）で同じ犯罪特徴グループ＆国籍一致なら即同一事件
+    if ((isNatMatch || isGenericMatch) && (locA === locB || locA === '全国' || locB === '全国')) {
       return true;
     }
+  }
 
-    if (locA === '全国' || locB === '全国' || locA === locB) {
-      if (commonFeats.length >= 2) {
-        return true;
-      }
-      const numA = (normA.match(/(\d+)人/) || [])[1];
-      const numB = (normB.match(/(\d+)人/) || [])[1];
-      if (numA && numB && numA === numB && (isNatMatch || isGenericMatch)) {
-        return true;
-      }
-      if (normA.includes(normB.substring(0, 8)) || normB.includes(normA.substring(0, 8))) {
-        return true;
-      }
-    }
+  // 引用符内の印象的なセリフ・手口ワードの一致判定（例: 「マッサージどう」「お金をください」等）
+  const quoteA = (titleA.match(/「(.*?)」/) || [])[1];
+  const quoteB = (titleB.match(/「(.*?)」/) || [])[1];
+  if (quoteA && quoteB && (quoteA.includes(quoteB.substring(0, 5)) || quoteB.includes(quoteA.substring(0, 5)))) {
+    return true;
   }
 
   // 3. 先頭10文字の一致判定
