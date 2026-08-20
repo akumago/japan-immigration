@@ -129,7 +129,8 @@ const EVENT_FEATURE_KEYWORDS = [
   ['不法滞在', 'オーバーステイ', '不法残留'],
   ['万引き', 'スニーカー', '窃盗'],
   ['ひき逃げ', '危険運転', '多重事故', '過失運転', '人身事故'],
-  ['マッサージ', '客引き', '風営法', '無許可営業', 'ポンバシ', '歓楽街']
+  ['マッサージ', '客引き', '風営法', '無許可営業', 'ポンバシ', '歓楽街'],
+  ['あおり運転', '妨害運転', 'オートバイ', 'ミニバイク', 'バイク転倒', 'バイク']
 ];
 
 // 海外現地・国外ニュースを除外するための単語
@@ -174,9 +175,12 @@ const EXCLUDE_KEYWORDS = [
   'イベント', '訓練', 'サーキット', '減給処分', '知事', 'サッカー', '代表監督',
   '中国ネット', '強制送還され',
   
-  // 日本人暴力団・国内組織犯罪・日本人被疑者
+  // オピニオン・コラム・発言記事の排除
+  '私見', '持論', '語る', '苦言', '言及', '内幕', '捜査の内幕', '氏、', 'ひろゆき',
+
+  // 日本人被疑者の海外逃亡・海外特殊詐欺拠点（被疑者が日本人）の排除
   '組員', '暴力団', '組幹部', '指定暴力団', '住吉会', '山口組', '稲川会', '道仁会', '工藤会',
-  '移送目的', '移送しようと',
+  '移送目的', '移送しようと', 'に潜伏', 'へ潜伏', 'に逃亡', 'へ逃亡', '当局が拘束', '日本に移送', '拠点特殊詐欺', 'に派遣',
   
   // 日本人偽装・なりすまし犯罪
   '外国人装い', '外国人を装', '外国人のふり', '外国人のフリ', '外国人になりすま', '外国人に扮', '外国人の真似',
@@ -422,6 +426,31 @@ function isSameEvent(itemA, itemB) {
   // 特例：トカゲ密輸事件（メキシコ国籍の男・羽田税関）
   if ((titleA.includes('トカゲ') || titleA.includes('200匹')) &&
       (titleB.includes('トカゲ') || titleB.includes('200匹'))) {
+    return true;
+  }
+
+  // 特例：クルーズ船大麻・麻薬不起訴（米国籍女性・鹿児島地検）
+  if ((titleA.includes('鹿児島地検') || titleA.includes('鹿児島')) &&
+      (titleB.includes('鹿児島地検') || titleB.includes('鹿児島')) &&
+      (titleA.includes('不起訴') || titleA.includes('麻薬') || titleA.includes('大麻')) &&
+      (titleB.includes('不起訴') || titleB.includes('麻薬') || titleB.includes('大麻')) &&
+      (titleA.includes('米国籍') || titleB.includes('米国籍'))) {
+    return true;
+  }
+
+  // 特例：特殊詐欺受け子（韓国籍・宮城県警）
+  if ((locA === '宮城県' || locB === '宮城県' || titleA.includes('宮城') || titleB.includes('宮城')) &&
+      (titleA.includes('詐欺') || titleA.includes('受け子') || titleA.includes('警察官')) &&
+      (titleB.includes('詐欺') || titleB.includes('受け子') || titleB.includes('警察官')) &&
+      (titleA.includes('韓国籍') || titleB.includes('韓国籍'))) {
+    return true;
+  }
+
+  // 特例：あおり運転殺人未遂（韓国籍・京都）
+  if ((locA === '京都府' || locB === '京都府' || titleA.includes('京都') || titleB.includes('京都')) &&
+      (titleA.includes('あおり運転') || titleA.includes('バイク') || titleA.includes('オートバイ')) &&
+      (titleB.includes('あおり運転') || titleB.includes('バイク') || titleB.includes('オートバイ')) &&
+      (titleA.includes('韓国籍') || titleB.includes('韓国籍'))) {
     return true;
   }
 
