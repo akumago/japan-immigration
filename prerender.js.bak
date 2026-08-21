@@ -65,6 +65,7 @@ async function updateNoteArticles() {
       const art = articles[i];
       try {
         const html = await fetchText(art.link);
+        // OGP画像（og:image）を確実に2段階で抽出
         let thumbnail = null;
         const metaTagMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]*>/i);
         if (metaTagMatch) {
@@ -81,6 +82,7 @@ async function updateNoteArticles() {
           art.thumbnail = "https://assets.st-note.com/production/uploads/images/282104689/profile_bdbe816059e6f0af49ce402d21b308fe.png";
         }
 
+        // 日付の成形
         try {
           const date = new Date(art.pubDate);
           if (!isNaN(date.getTime())) {
@@ -98,6 +100,7 @@ async function updateNoteArticles() {
       }
     }
 
+    // 保存先ディレクトリ（public/とdist/client/）
     const publicDir = toAbsolute('public');
     if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir);
     fs.writeFileSync(path.join(publicDir, 'note-articles.json'), JSON.stringify(articles, null, 2), 'utf-8');
@@ -113,6 +116,7 @@ async function updateNoteArticles() {
 }
 
 async function prerender() {
+  // プリレンダリング前にJSONを更新
   await updateNoteArticles();
 
   const template = fs.readFileSync(toAbsolute('dist/client/index.html'), 'utf-8');
@@ -150,12 +154,10 @@ async function prerender() {
     '/analysis/conclusion',
     '/analysis/strategic-recommendations',
     '/analysis/symbiosis',
-    '/analysis/ai-simulation'
+    '/analysis/ai-simulation',
+    '/analysis/crime-news',
+    ...Array.from({ length: 15 }, (_, i) => `/analysis/image/${i + 1}`)
   ];
-
-  for (let i = 1; i <= 15; i++) {
-    routesToPrerender.push(`/analysis/image/${i}`);
-  }
 
   const uploadDir = toAbsolute('NETLIFY_UPLOAD');
   if (fs.existsSync(uploadDir)) {
@@ -164,15 +166,17 @@ async function prerender() {
   fs.mkdirSync(uploadDir, { recursive: true });
 
   for (const url of routesToPrerender) {
-    const { html, helmet } = render(url);
+    const context = {};
+    const { html: appHtml, helmet } = render(url, context);
 
-    const canonicalUrl = `https://endearing-blini-b688ce.netlify.app${url === '/' ? '' : url}/`;
+    const normalizedUrl = url.endsWith('/') ? url : `${url}/`;
+    const canonicalUrl = `https://endearing-blini-b688ce.netlify.app${normalizedUrl}`;
+
     const helmetMeta = helmet?.meta?.toString() || '';
     const helmetLink = helmet?.link?.toString() || '';
     const helmetScript = helmet?.script?.toString() || '';
 
-    const appHtml = html || '';
-
+    // 重複を避けるため、Helmet内に存在しない場合のみフォールバック追加
     const canonicalTag = helmetLink.includes('rel="canonical"')
       ? ''
       : `<link rel="canonical" href="${canonicalUrl}" />`;

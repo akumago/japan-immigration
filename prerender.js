@@ -1,21 +1,27 @@
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 import https from 'https';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const toAbsolute = (p) => path.resolve(__dirname, p);
 
-// URLからテキストを取得するヘルパー関数
+// URLからテキストを取得するヘルパー関数（タイムアウト付き堅牢設計）
 function fetchText(url) {
   return new Promise((resolve, reject) => {
-    https.get(url, {
-      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' }
+    const req = https.get(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' },
+      timeout: 8000
     }, (res) => {
       let data = '';
       res.on('data', (chunk) => data += chunk);
       res.on('end', () => resolve(data));
-    }).on('error', reject);
+    });
+    req.on('error', reject);
+    req.on('timeout', () => {
+      req.destroy();
+      reject(new Error(`Request timeout for ${url}`));
+    });
   });
 }
 
@@ -120,7 +126,8 @@ async function prerender() {
   await updateNoteArticles();
 
   const template = fs.readFileSync(toAbsolute('dist/client/index.html'), 'utf-8');
-  const { render } = await import('./dist/server/entry-server.js');
+  const entryServerPath = pathToFileURL(toAbsolute('dist/server/entry-server.js')).href;
+  const { render } = await import(entryServerPath);
 
   const routesToPrerender = [
     '/',
