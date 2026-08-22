@@ -20,18 +20,12 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install Dependencies
-        run: npm ci
-
       - name: Run Fetch News Script
         run: node scripts/fetch-news.cjs
-
-      - name: Build Static Production Site
-        run: npm run build
 
       - name: Commit and Push if changed
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git diff --quiet && git diff --staged --quiet || (git commit -m "auto: 毎日18:00 最新外国人犯罪ニュース全自動更新＆本番HTMLビルド" && git push)
+          git add data/newsData.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "auto: 毎日18:00 最新外国人犯罪ニュース全自動更新" && git push)
