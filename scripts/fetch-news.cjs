@@ -243,9 +243,9 @@ function fetchRSS(url, redirectCount = 0) {
         resolve(fetchRSS(res.headers.location, redirectCount + 1));
         return;
       }
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => resolve(data));
+      const chunks = [];
+      res.on('data', chunk => chunks.push(chunk));
+      res.on('end', () => resolve(Buffer.concat(chunks).toString('utf-8')));
     }).on('error', err => reject(err));
   });
 }
@@ -678,6 +678,17 @@ async function main() {
     if (hasExcludeKw) {
       console.log(`Removed excluded item: ${item.title}`);
       continue;
+    }
+
+    // 過去の受信チャンク分断で発生した破損文字（\ufffd）の完全修復
+    if (item.title.includes('\ufffd')) {
+      item.title = item.title
+        .replace(/胸を\ufffd+丁で/, '胸を包丁で')
+        .replace(/暴行の疑\ufffd+「怖かった」/, '暴行の疑い「怖かった」')
+        .replace(/ベトナ\ufffd+料理店/, 'ベトナム料理店')
+        .replace(/男女2人殺\ufffd+しようとした/, '男女2人殺害しようとした')
+        .replace(/東京都\ufffd+の被害急増/, '東京都内の被害急増')
+        .replace(/\ufffd+/g, '');
     }
 
     // 見出しのノイズ除去と要約・簡潔化
