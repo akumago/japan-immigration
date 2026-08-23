@@ -153,7 +153,9 @@ const OVERSEAS_LOCATIONS = [
   'ヤンゴン', 'ダッカ', 'カラチ', 'リヤド', 'ドバイ', 'テルアビブ',
   'モスクワ', 'キーウ', 'ベルリン', 'ローマ', 'マドリード', 'シドニー',
   'スワンナプーム', '仁川', '桃園', 'ヒースロー', 'JFK',
-  'Reform UK', '超法規的', 'インドへ出国'
+  'Reform UK', '超法規的', 'インドへ出国',
+  '天安', '水原', '城南', '高陽', '龍仁', '清州', '全州', '大邱', '大田', '光州', '蔚山',
+  '京畿', '江原', '忠清', '全羅', '慶尚', '済州'
 ];
 
 // 国内発生を確定するキーワード（日本の警察組織・裁判所・行政・法令・制度・報道用語）
@@ -166,7 +168,7 @@ const DOMESTIC_INDICATORS = [
   '東京税関', '税関', '麻薬取締部', 'マトリ', '海上保安部', '海保',
   '風営法', '出入国管理', '入管難民法', '入管法', '金属盗対策法', '暴処法', '麻薬及び向精神薬取締法',
   '技能実習', '特定技能', '仮放免', 'オーバーステイ', '偽造在留カード', '在留カード',
-  '不法就労助長', '資格外活動'
+  '資格外活動'
 ];
 
 // 除外キーワード
@@ -178,6 +180,9 @@ const EXCLUDE_KEYWORDS = [
   
   // オピニオン・コラム・発言記事の排除
   '私見', '持論', '語る', '苦言', '言及', '内幕', '捜査の内幕', '氏、', 'ひろゆき',
+
+  // 海外固有の刑法・事案用語
+  '存続殺人', '尊属殺人',
 
   // 日本人被疑者の海外逃亡・海外特殊詐欺拠点（被疑者が日本人）の排除
   '組員', '暴力団', '組幹部', '指定暴力団', '住吉会', '山口組', '稲川会', '道仁会', '工藤会',
@@ -314,13 +319,14 @@ function hasJapaneseEnforcement(title) {
 
 // 国内での事案かどうか判定（ポジティブ国内確証ホワイトリスト方式）
 function isDomesticCrime(title, media) {
-  // 1. 海外メディアまたは文末国名略称（例: 「...逮捕 米」）や通信社海外発信は即除外
-  if (media && OVERSEAS_MEDIA.some(m => media.includes(m))) {
-    return false;
-  }
-  // 2. 芸能・エンタメメディア発の記事は即座に100%除外
-  if (media && ENTERTAINMENT_MEDIA.some(m => media.includes(m))) {
-    return false;
+  // 1. 海外メディア・外国語メディア（ハングル等）・通信社海外発信は即除外
+  if (media) {
+    if (OVERSEAS_MEDIA.some(m => media.includes(m))) return false;
+    if (ENTERTAINMENT_MEDIA.some(m => media.includes(m))) return false;
+    // ハングル文字（韓国メディア）または中国・韓国の主要通信社・メディアは100%除外
+    if (/[\uac00-\ud7af]/.test(media) || /中央日報|朝鮮日報|東亜日報|ハンギョレ|毎日経済|매일경제|聯合ニュース|KBS|MBC|SBS|JTBC|YTN|新華社|人民日報|環球時報/.test(media)) {
+      return false;
+    }
   }
   if (OVERSEAS_TAIL_REGEX.test(title) || OVERSEAS_PREFIX_REGEX.test(title)) {
     return false;
