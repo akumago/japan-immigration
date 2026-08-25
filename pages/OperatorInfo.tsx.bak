@@ -1,8 +1,61 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 
+interface NoteArticle {
+    title: string;
+    link: string;
+    pubDate: string;
+    description: string;
+    category?: string;
+    thumbnail?: string;
+}
+
+const FALLBACK_NOTE_ARTICLES: NoteArticle[] = [
+    {
+        title: "日本衰退の真実：古代ローマ崩壊の歴史が暴く外国人依存の致命的罠",
+        link: "https://note.com/ideal_kudu9256/n/n0f4ba8a12ee0",
+        pubDate: "2026年7月14日",
+        description: "古代ローマが外国人への労働・防衛依存によって内側から自壊していった史実を、現代日本の移民政策と対比しながら冷静に解説する警告の論考。",
+        category: "HISTORY & IMMIGRATION",
+        thumbnail: "https://assets.st-note.com/production/uploads/images/291646571/rectangle_large_type_2_d66ab7ec247d208da0b75d544d542ff2.png?width=800"
+    },
+    {
+        title: "財務省の嘘を暴く！なぜ日本の給料は世界の「3分の1」に叩き売られ、路上に若い女性が立つ貧困国に転落したのか？",
+        link: "https://note.com/ideal_kudu9256/n/ned56f487f97b",
+        pubDate: "2026年7月13日",
+        description: "真面目に働きながら手取りの少なさに絶望する現役世代に向け、給料暴落と貧困化をもたらす財務省の増税緊縮路線の実態を暴きます。",
+        category: "TAX & ECONOMY",
+        thumbnail: "https://assets.st-note.com/production/uploads/images/291297666/rectangle_large_type_2_af0d0e5e562d31ae44454804e5a458b9.png?width=800"
+    },
+    {
+        title: "自民党と維新が進める「議員定数削減」の嘘。国民を騙す独裁体制の正体を暴く",
+        link: "https://note.com/ideal_kudu9256/n/n9a6b58e4b1b3",
+        pubDate: "2026年7月12日",
+        description: "国政選挙で投票先に悩み、マスコミの報道に違和感を抱いているすべての有権者に向け、「身を切る改革」という心地よいスローガンの欺瞞を検証。",
+        category: "POLITICS & REFORM"
+    }
+];
+
 export const OperatorInfo: React.FC = () => {
+    const [noteArticles, setNoteArticles] = useState<NoteArticle[]>(FALLBACK_NOTE_ARTICLES);
+
+    useEffect(() => {
+        const fetchNoteArticles = async () => {
+            try {
+                const response = await fetch('/note-articles.json');
+                const data = await response.json();
+                if (Array.isArray(data) && data.length > 0) {
+                    setNoteArticles(data.slice(0, 3));
+                }
+            } catch (error) {
+                console.error("Failed to fetch local note articles JSON:", error);
+            }
+        };
+
+        fetchNoteArticles();
+    }, []);
+
     return (
         <>
             <Helmet>
@@ -173,6 +226,59 @@ export const OperatorInfo: React.FC = () => {
                                     <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span>
                                 </a>
                             </div>
+                        </div>
+                    </motion.section>
+
+                    {/* note最新コラム（リアルタイム動的取得） */}
+                    <motion.section 
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        className="mb-20"
+                    >
+                        <div className="flex items-center gap-4 mb-8">
+                            <span className="text-4xl">📝</span>
+                            <h2 className="text-2xl font-bold text-gray-100">公式noteコラム：最新の論考</h2>
+                        </div>
+                        
+                        <div className="grid md:grid-cols-3 gap-6">
+                            {noteArticles.map((article, idx) => (
+                                <a 
+                                    key={idx}
+                                    href={article.link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="group bg-[#161b22] border border-white/10 rounded-2xl hover:border-purple-500/50 hover:bg-[#1c2128] transition-all flex flex-col h-full shadow-lg overflow-hidden"
+                                >
+                                    {article.thumbnail && (
+                                        <div className="w-full aspect-[1280/670] overflow-hidden relative border-b border-white/10 bg-[#0d1117]">
+                                            <img 
+                                                src={article.thumbnail} 
+                                                alt={article.title} 
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                    )}
+                                    <div className="p-6 flex flex-col flex-grow">
+                                        <div className="text-purple-400 font-mono text-[10px] font-bold mb-3 tracking-widest uppercase">
+                                            {article.category || 'NOTE COLUMN'}
+                                        </div>
+                                        <h3 className="text-base font-bold text-gray-200 group-hover:text-white mb-3 leading-snug">
+                                            {article.title}
+                                        </h3>
+                                        <p className="text-gray-400 text-xs leading-relaxed mb-6 flex-grow">
+                                            {article.description}
+                                        </p>
+                                        <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+                                            <span className="text-[10px] text-gray-500 font-medium">{article.pubDate}</span>
+                                            <span className="text-[11px] font-bold text-purple-400 group-hover:text-purple-300 flex items-center">
+                                                コラムを読む →
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            ))}
                         </div>
                     </motion.section>
 

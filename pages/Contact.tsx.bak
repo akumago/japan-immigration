@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 
@@ -34,7 +34,7 @@ export const Contact: React.FC = () => {
                 <meta property="og:title" content="お問い合わせ | 日本の岐路" />
                 <meta property="og:description" content="ご質問、ご意見、内容の訂正依頼など、こちらからお寄せください。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
-                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/contact" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/contact/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="お問い合わせ | 日本の岐路" />

@@ -84,7 +84,7 @@ export const OperatorInfo: React.FC = () => {
                         className="mb-16 border-b border-white/10 pb-8 text-center"
                     >
                         <h1 className="text-3xl md:text-4xl font-serif font-bold text-blue-400 mb-4 tracking-tight">運営者情報・このサイトについて</h1>
-                        <p className="text-gray-500 text-sm md:text-base tracking-widest uppercase">Operator Profile & Site Philosophy</p>
+                        <p className="text-gray-400 text-sm md:text-base tracking-widest uppercase">Operator Profile & Site Philosophy</p>
                     </motion.div>
 
                     {/* Profile Section */}
@@ -271,7 +271,7 @@ export const OperatorInfo: React.FC = () => {
                                             {article.description}
                                         </p>
                                         <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                                            <span className="text-[10px] text-gray-500 font-medium">{article.pubDate}</span>
+                                            <span className="text-[10px] text-gray-400 font-medium">{article.pubDate}</span>
                                             <span className="text-[11px] font-bold text-purple-400 group-hover:text-purple-300 flex items-center">
                                                 コラムを読む →
                                             </span>
@@ -317,11 +317,11 @@ export const OperatorInfo: React.FC = () => {
                         viewport={{ once: true }}
                         className="mt-20 pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6"
                     >
-                        <div className="text-sm text-gray-500">
+                        <div className="text-sm text-gray-400">
                             © 2024 Akuma Shogun | 日本社会構造分析リサーチ
                         </div>
                         <div className="flex items-center gap-4">
-                            <span className="text-xs text-gray-500 uppercase tracking-widest">Contact:</span>
+                            <span className="text-xs text-gray-400 uppercase tracking-widest">Contact:</span>
                             <a href="mailto:suteakann@gmail.com" className="text-blue-400 hover:underline font-mono text-sm">suteakann@gmail.com</a>
                         </div>
                     </motion.div>

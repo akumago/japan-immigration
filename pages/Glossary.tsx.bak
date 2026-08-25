@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 
@@ -281,7 +281,7 @@ export const Glossary: React.FC = () => {
                 <meta property="og:title" content="用語集 | 日本の岐路" />
                 <meta property="og:description" content="移民政策に関する専門用語をわかりやすく解説。30以上の重要用語を網羅。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
-                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/glossary" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/glossary/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="移民政策用語集 | 日本の岐路" />
@@ -401,3 +401,4 @@ export const Glossary: React.FC = () => {
         </>
     );
 };
+

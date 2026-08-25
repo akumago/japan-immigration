@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 
@@ -79,7 +79,7 @@ export const Contact: React.FC = () => {
                                     >
                                         Googleフォームで送信する
                                     </a>
-                                    <p className="text-xs text-gray-500 mt-4 text-center">※ 外部リンクへ移動します</p>
+                                    <p className="text-xs text-gray-400 mt-4 text-center">※ 外部リンクへ移動します</p>
                                 </div>
 
                                 {/* Simple Form Card */}
