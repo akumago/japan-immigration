@@ -191,12 +191,16 @@ async function prerender() {
       ? ''
       : `<meta property="og:url" content="${canonicalUrl}" />`;
 
+    // CSSのプリロードタグを自動抽出して最優先配置
+    const cssMatch = template.match(/<link rel="stylesheet" [^>]*href="([^"]+)"[^>]*>/);
+    const cssPreloadTag = cssMatch ? `<link rel="preload" as="style" href="${cssMatch[1]}" />` : '';
+
     const finalHtml = template
       .replace('<!--app-html-->', appHtml)
       .replace(/<title>.*?<\/title>/, helmet?.title?.toString() || '')
       .replace(
         '</title>',
-        `</title>${helmetMeta}${helmetLink}${helmetScript}${canonicalTag}${ogUrlTag}`
+        `</title>${cssPreloadTag}${helmetMeta}${helmetLink}${helmetScript}${canonicalTag}${ogUrlTag}`
       );
 
     const fileName = url === '/' ? 'index.html' : `${url}/index.html`;

@@ -191,16 +191,23 @@ async function prerender() {
       ? ''
       : `<meta property="og:url" content="${canonicalUrl}" />`;
 
-    // CSSのプリロードタグを自動抽出して最優先配置
+    // CSSを完全インライン化してレンダリングブロックリクエストを完全ゼロ化（最速表示）
     const cssMatch = template.match(/<link rel="stylesheet" [^>]*href="([^"]+)"[^>]*>/);
-    const cssPreloadTag = cssMatch ? `<link rel="preload" as="style" href="${cssMatch[1]}" />` : '';
+    let inlinedTemplate = template;
+    if (cssMatch) {
+      const cssPath = path.join(toAbsolute('dist/client'), cssMatch[1].replace(/^\//, ''));
+      if (fs.existsSync(cssPath)) {
+        const cssContent = fs.readFileSync(cssPath, 'utf-8');
+        inlinedTemplate = template.replace(cssMatch[0], `<style>${cssContent}</style>`);
+      }
+    }
 
-    const finalHtml = template
+    const finalHtml = inlinedTemplate
       .replace('<!--app-html-->', appHtml)
       .replace(/<title>.*?<\/title>/, helmet?.title?.toString() || '')
       .replace(
         '</title>',
-        `</title>${cssPreloadTag}${helmetMeta}${helmetLink}${helmetScript}${canonicalTag}${ogUrlTag}`
+        `</title>${helmetMeta}${helmetLink}${helmetScript}${canonicalTag}${ogUrlTag}`
       );
 
     const fileName = url === '/' ? 'index.html' : `${url}/index.html`;
