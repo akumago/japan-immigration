@@ -22,6 +22,7 @@ export const Navigation: React.FC = () => {
         { path: '/faq/', label: 'FAQ' },
         { path: '/operator-info/', label: '運営者情報' },
         { path: '/privacy-policy/', label: 'プライバシーポリシー' },
+        { path: '/disclaimer/', label: '免責事項' },
         { path: '/contact/', label: 'お問い合わせ' },
     ];
 

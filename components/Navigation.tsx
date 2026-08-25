@@ -42,7 +42,7 @@ export const Navigation: React.FC = () => {
                     </div>
                     <div className="flex flex-col text-left">
                         <span className="text-white font-bold text-base leading-tight">日本の岐路</span>
-                        <span className="text-[10px] text-gray-500 font-medium tracking-widest uppercase">Overall Report</span>
+                        <span className="text-[10px] text-gray-400 font-medium tracking-widest uppercase">Overall Report</span>
                     </div>
                 </Link>
 
@@ -66,6 +66,7 @@ export const Navigation: React.FC = () => {
                 {/* Mobile Menu Button */}
                 <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    aria-label="ナビゲーションメニューを開閉する"
                     className="md:hidden p-2 rounded-lg text-gray-300 hover:text-white transition-all"
                 >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

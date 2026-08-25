@@ -32,6 +32,8 @@ export const EmbeddedImage: React.FC<EmbeddedImageProps> = ({ pageId, caption })
         <img 
           src={imageSrc} 
           alt={`${slide.title} - ${slide.keywords.join(' ')}`}
+          width="1200"
+          height="675"
           className="w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700"
           loading="lazy"
         />

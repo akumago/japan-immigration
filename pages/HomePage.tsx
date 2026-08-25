@@ -246,6 +246,7 @@ export const HomePage: React.FC = () => {
                                                     if (title.includes('結び')) return '/analysis/conclusion/';
                                                     return '#';
                                                 })()}
+                                                aria-label={`${section.title}の独立記事を読む`}
                                                 className="inline-flex items-center px-6 py-3.5 bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-500/30 rounded-xl transition-all duration-300 group font-bold shadow-lg shadow-blue-500/5 group-hover:scale-105 shrink-0"
                                             >
                                                 <span className="mr-2">この記事を読む</span>
@@ -375,7 +376,7 @@ export const HomePage: React.FC = () => {
                                                 {article.description}
                                             </p>
                                             <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                                                <span className="text-[10px] text-gray-500 font-medium">{article.pubDate}</span>
+                                                <span className="text-[10px] text-gray-400 font-medium">{article.pubDate}</span>
                                                 <span className="text-[11px] font-bold text-purple-400 group-hover:text-purple-300 flex items-center">
                                                     コラムを読む →
                                                 </span>

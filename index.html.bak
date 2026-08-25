@@ -30,11 +30,6 @@
     margin: 0;
     padding: 0;
   }
-  /* 外部ツールの徹底排除 */
-  #netlify-modal, .netlify-container, [id*="netlify"], [class*="netlify"],
-  iframe[src*="netlify"], iframe[title*="Feedback"], .feedback-widget, #feedback-button {
-    display: none !important;
-  }
 </style>
 </head>
   <body>
@@ -42,6 +37,5 @@
     <script type="module" src="/entry-client.tsx"></script>
     
     <!-- 外部スクリプトはハイドレーションを邪魔しないようbody末尾に配置 -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1244393386981388" crossorigin="anonymous"></script>
   </body>
 </html>
