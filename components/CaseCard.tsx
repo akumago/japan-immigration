@@ -38,7 +38,7 @@ const CaseCard: React.FC<CaseCardProps> = ({ caseItem }) => {
         </div>
         <p className="text-gray-400 leading-relaxed mb-4">{caseItem.description}</p>
         {caseItem.source && (
-          <div className="text-right text-xs text-gray-500 italic">
+          <div className="text-right text-xs text-gray-400 italic">
               Source: {caseItem.source.name} [{caseItem.source.number}]
           </div>
         )}

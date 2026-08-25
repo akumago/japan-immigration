@@ -107,7 +107,7 @@ export const HomePage: React.FC = () => {
             <Header title={reportData.mainTitle} description={reportData.introduction} />
             
             <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 -mt-8 mb-8 text-right">
-                <span className="text-xs text-gray-500 bg-white/5 px-3 py-1 rounded-full border border-white/10">
+                <span className="text-xs text-gray-400 bg-white/5 px-3 py-1 rounded-full border border-white/10">
                     最終更新日: 2025年12月31日
                 </span>
             </div>
@@ -171,7 +171,7 @@ export const HomePage: React.FC = () => {
                                             {(sectionIndex + 1).toString().padStart(2, '0')}
                                         </span>
                                         <div className="h-px w-8 md:w-full md:h-1 bg-gradient-to-r md:bg-gradient-to-b from-blue-500/30 to-purple-500/30 rounded-full"></div>
-                                        <span className="text-xs font-mono text-gray-500 uppercase tracking-widest hidden md:inline">
+                                        <span className="text-xs font-mono text-gray-400 uppercase tracking-widest hidden md:inline">
                                             Chapter
                                         </span>
                                     </div>
@@ -217,7 +217,7 @@ export const HomePage: React.FC = () => {
                                                     if (title.includes('人手不足')) return ['#外国人依存', '#生産性向上', '#機械化投資'];
                                                     return ['#分析レポート', '#日本経済'];
                                                 })().map((tag, tIdx) => (
-                                                    <span key={tIdx} className="text-xs text-gray-500 font-mono bg-white/5 px-2.5 py-1 rounded-md border border-white/5">
+                                                    <span key={tIdx} className="text-xs text-gray-400 font-mono bg-white/5 px-2.5 py-1 rounded-md border border-white/5">
                                                         {tag}
                                                     </span>
                                                 ))}
@@ -274,7 +274,7 @@ export const HomePage: React.FC = () => {
                                     PROP
                                 </span>
                                 <div className="h-px w-8 md:w-full md:h-1 bg-gradient-to-r md:bg-gradient-to-b from-purple-500/40 to-blue-500/40 rounded-full"></div>
-                                <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest hidden md:inline">
+                                <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest hidden md:inline">
                                     Strategic
                                 </span>
                             </div>
@@ -298,7 +298,7 @@ export const HomePage: React.FC = () => {
                                     {/* 章ごとの関連キーワード */}
                                     <div className="flex flex-wrap gap-2">
                                         {['#戦略的提言', '#自国防衛', '#社会統合コスト', '#自立国家の未来'].map((tag, tIdx) => (
-                                            <span key={tIdx} className="text-xs text-gray-500 font-mono bg-white/5 px-2.5 py-1 rounded-md border border-white/5">
+                                            <span key={tIdx} className="text-xs text-gray-400 font-mono bg-white/5 px-2.5 py-1 rounded-md border border-white/5">
                                                 {tag}
                                             </span>
                                         ))}

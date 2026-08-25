@@ -64,7 +64,7 @@ export const CrimeNewsSection: React.FC = () => {
                   <span className="text-xs text-gray-400 font-mono">
                     {item.date}
                   </span>
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-gray-400">
                     • 出典: <strong className="text-gray-300 font-normal">{item.media}</strong>
                   </span>
                 </div>
