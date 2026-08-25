@@ -39,7 +39,7 @@ const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({ videoId }) => {
           className="absolute inset-0 w-full h-full group cursor-pointer border-none bg-transparent p-0 block text-left"
         >
           <img
-            src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+            src="/assets/youtube-thumbnail.jpg"
             alt="解説動画サムネイル"
             width="853"
             height="480"
