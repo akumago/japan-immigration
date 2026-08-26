@@ -39,7 +39,7 @@ const MUNICIPALITY_MAP = {
   '富山': '富山県', '高岡': '富山県', '氷見': '富山県', '魚津': '富山県',
   '金沢': '石川県', '小松': '石川県',
   '福井': '福井県', '敦賀': '福井県',
-  '甲府': '山梨県', '笛吹': '山梨県',
+  '甲府': '山梨県', '笛吹': '山梨県', '富士吉田': '山梨県', '富士河口湖': '山梨県',
   '長野': '長野県', '松本': '長野県', '上田': '長野県',
   '岐阜': '岐阜県', '大垣': '岐阜県', '各務原': '岐阜県',
   '静岡': '静岡県', '浜松': '静岡県', '沼津': '静岡県', '富士': '静岡県', '天竜': '静岡県', '伊豆の国': '静岡県', '熱海': '静岡県',
@@ -174,7 +174,7 @@ const DOMESTIC_INDICATORS = [
 // 除外キーワード
 const EXCLUDE_KEYWORDS = [
   '知事会', '基本法', '要請', 'まつり', '花笠', '白バイ', 'ロンドン',
-  'アメリカ', '韓国警察', '現地警察', '現地当局', 'FBI', '国際指名手配',
+  '米警察', '米当局', '韓国警察', '現地警察', '現地当局', 'FBI', '国際指名手配',
   'イベント', '訓練', 'サーキット', '減給処分', '知事', 'サッカー', '代表監督',
   '中国ネット', '強制送還され',
   
@@ -629,7 +629,13 @@ async function main() {
     encodeURIComponent('不法就労 逮捕 OR 摘発 when:2d'),
     encodeURIComponent('密輸 逮捕 when:2d'),
     encodeURIComponent('コカイン OR 覚醒剤 密輸 when:2d'),
-    encodeURIComponent('危険運転 逮捕 when:2d')
+    encodeURIComponent('危険運転 逮捕 when:2d'),
+    encodeURIComponent('銅線 OR 太陽光 逮捕 OR 窃盗 when:2d'),
+    encodeURIComponent('立てこもり 逮捕 OR 再逮捕 when:2d'),
+    encodeURIComponent('車上ねらい OR 車上荒らし 逮捕 when:2d'),
+    encodeURIComponent('アメリカ人 OR 米国籍 逮捕 when:2d'),
+    encodeURIComponent('不法在留 逮捕 OR 摘発 when:2d'),
+    encodeURIComponent('ブラジル国籍 逮捕 OR 再逮捕 when:2d')
   ];
 
   let fetchedItems = [];
