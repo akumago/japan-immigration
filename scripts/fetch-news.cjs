@@ -712,7 +712,10 @@ async function main() {
 
   const trulyNew = uniqueItems.filter(item => !cleanExisting.some(ex => isSameEvent(ex, item)));
 
-  const finalMerged = [...trulyNew, ...cleanExisting].slice(0, 10000);
+  // 最新日付（2026-08-26 → 2026-08-25 ...）順に厳密ソート
+  const finalMerged = [...trulyNew, ...cleanExisting]
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 10000);
 
   fs.writeFileSync(NEWS_DATA_PATH, JSON.stringify(finalMerged, null, 2), 'utf-8');
   console.log(`Ultimate Filtering & Mapping Complete! newsData.json updated. Total entries: ${finalMerged.length}`);
