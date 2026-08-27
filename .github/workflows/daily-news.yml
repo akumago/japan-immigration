@@ -1,13 +1,13 @@
-name: Daily Foreign Crime News Collector
+name: Daily Foreign Crime News Collector & Static Rebuilder
 
 on:
   schedule:
-    # 毎日 日本時間 18:00 (UTC 09:00) に自動実行
-    - cron: '0 9 * * *'
+    # 毎日 日本時間 18:15 (UTC 09:15) に自動実行（混雑を避けて確実に実行）
+    - cron: '15 9 * * *'
   workflow_dispatch: # 手動実行も可能
 
 jobs:
-  update-news:
+  update-news-and-build:
     runs-on: ubuntu-latest
     permissions:
       contents: write # 変更されたファイルのCommit/Push権限を明示的に付与
@@ -18,18 +18,23 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm ci
 
       - name: Run Fetch News Script
         run: node scripts/fetch-news.cjs
+
+      - name: Build and Prerender Static Pages
+        run: npm run build
 
       - name: Commit and Push if changed
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/newsData.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "auto: 毎日18:00 最新外国人犯罪ニュース全自動更新" && git push)
+          git add data/newsData.json NETLIFY_UPLOAD/ public/note-articles.json dist/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "auto: 毎日18:15 最新外国人犯罪ニュース全自動更新＆全ページ再ビルド" && git push)
 
       - name: Submit URLs to IndexNow (Bing / Search Engines)
         run: node scripts/submit-indexnow.cjs
-
