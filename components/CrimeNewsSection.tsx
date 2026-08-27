@@ -14,8 +14,11 @@ interface NewsItem {
 
 export const CrimeNewsSection: React.FC = () => {
   const items: NewsItem[] = newsData as NewsItem[];
-  const TOP_DISPLAY_COUNT = 4;
-  const displayedItems = items.slice(0, TOP_DISPLAY_COUNT);
+  // 最新日（本日）の事件は件数に関わらず漏れなく全件表示（最低4件保証）
+  const latestDate = items[0]?.date;
+  const todayNewsCount = items.filter(item => item.date === latestDate).length;
+  const displayCount = Math.max(4, todayNewsCount);
+  const displayedItems = items.slice(0, displayCount);
 
   return (
     <section className="mb-20">
