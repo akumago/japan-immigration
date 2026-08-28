@@ -34,7 +34,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add data/newsData.json NETLIFY_UPLOAD/ public/note-articles.json dist/
-          git diff --quiet && git diff --staged --quiet || (git commit -m "auto: 毎日18:15 最新外国人犯罪ニュース全自動更新＆全ページ再ビルド" && git push)
+          git diff --staged --quiet || (git commit -m "auto: 毎時自動巡回 外国人犯罪ニュース更新＆全ページ再ビルド $(date -u +%Y-%m-%dT%H:%M)" && git push)
 
       - name: Submit URLs to IndexNow (Bing / Search Engines)
         run: node scripts/submit-indexnow.cjs

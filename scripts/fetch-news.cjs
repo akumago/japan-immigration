@@ -79,14 +79,16 @@ const MUNICIPALITY_MAP = {
 // 外国人関与を示すキーワード
 const FOREIGN_KEYWORDS = [
   '外国人', '外国籍', '国籍',
-  '米軍', '米兵', '米軍属', '米海兵隊員',
+  '米軍', '米兵', '米軍属', '米海兵隊員', '米国人', 'アメリカ人', 'アメリカ国籍',
   'ベトナム', '中国', '韓国', '台湾', '台湾籍', '台湾国籍', 'ブラジル', 'ペルー',
   'ネパール', 'フィリピン', 'タイ人', 'タイ国籍', 'タイ籍', 'クルド',
   'インドネシア', 'カンボジア', 'スリランカ', 'パキスタン', 'バングラデシュ', 'モンゴル', 'ナイジェリア', 'ガーナ',
   'トルコ', 'ミャンマー', 'イラン', 'アルゼンチン', 'コロンビア', 'フランス', 'メキシコ', 'エジプト', 'チリ', 'チリ人', 'チリ国籍', 'チリ籍',
+  'ロシア', 'ロシア人', 'ロシア国籍', 'ウズベキスタン', 'ボリビア',
   '不法滞在', '不法残留', '不法入国', '密入国', 'オーバーステイ',
   '技能実習生', '元技能実習生', '特定技能', '留学生', '元留学生', '仮放免',
-  '偽造在留カード', '在留カード'
+  '偽造在留カード', '在留カード', '入管法', '入管難民法',
+  '難民', '難民申請', '白タク'
 ];
 
 // 代表的国籍リスト
@@ -94,7 +96,8 @@ const NATIONALITIES = [
   'ベトナム', '中国', '韓国', 'ブラジル', 'ペルー', 'ネパール', 'フィリピン', 'タイ人', 'タイ国籍', 'タイ籍',
   'インドネシア', 'カンボジア', 'スリランカ', 'パキスタン', 'バングラデシュ', 'モンゴル',
   'ナイジェリア', 'ガーナ', 'トルコ', 'ミャンマー', 'イラン', 'クルド',
-  'アルゼンチン', 'コロンビア', 'フランス', 'メキシコ', 'エジプト', 'チリ', '台湾'
+  'アルゼンチン', 'コロンビア', 'フランス', 'メキシコ', 'エジプト', 'チリ', '台湾',
+  'ロシア', 'ウズベキスタン', 'ボリビア', 'アフガニスタン', '北朝鮮'
 ];
 
 // 犯罪・容疑を示すキーワード
@@ -441,6 +444,13 @@ function isSameEvent(itemA, itemB) {
     return true;
   }
 
+  // 特例：中野高級時計2億円窃盗事件（チリ国籍・警視庁）
+  if ((titleA.includes('中野') || titleA.includes('高級時計') || titleA.includes('高級腕時計') || titleA.includes('2億円')) &&
+      (titleB.includes('中野') || titleB.includes('高級時計') || titleB.includes('高級腕時計') || titleB.includes('2億円')) &&
+      (titleA.includes('チリ') || titleB.includes('チリ') || titleA.includes('時計') || titleB.includes('時計'))) {
+    return true;
+  }
+
   // 特例：クルーズ船大麻・麻薬不起訴（米国籍女性・鹿児島地検）
   if ((titleA.includes('鹿児島地検') || titleA.includes('鹿児島')) &&
       (titleB.includes('鹿児島地検') || titleB.includes('鹿児島')) &&
@@ -510,7 +520,7 @@ function isSameEvent(itemA, itemB) {
     const intersection = [...wordsA].filter(w => wordsB.has(w));
     const union = new Set([...wordsA, ...wordsB]);
     const similarity = intersection.length / union.size;
-    if (similarity >= 0.30) {
+    if (similarity >= 0.40) {
       return true;
     }
   }
@@ -608,39 +618,57 @@ function extractItemsFromRSS(xml) {
 }
 
 async function main() {
-  console.log('Fetching daily foreign crime news with Expanded 23-queries, high-precision location mapping & entity deduplication...');
+  console.log('Fetching daily foreign crime news with Expanded 41-queries (72h window), high-precision location mapping & entity deduplication...');
 
   const searchQueries = [
-    encodeURIComponent('外国人 逮捕 when:2d'),
-    encodeURIComponent('外国人 容疑 when:2d'),
-    encodeURIComponent('外国籍 逮捕 when:2d'),
-    encodeURIComponent('国籍 逮捕 when:2d'),
-    encodeURIComponent('外国人 書類送検 OR 追送検 when:2d'),
-    encodeURIComponent('外国人 摘発 OR 指名手配 when:2d'),
-    encodeURIComponent('ベトナム 逮捕 OR 摘発 when:2d'),
-    encodeURIComponent('中国籍 OR 中国人 逮捕 when:2d'),
-    encodeURIComponent('ブラジル 逮捕 OR 摘発 when:2d'),
-    encodeURIComponent('タイ人 OR タイ国籍 逮捕 when:2d'),
-    encodeURIComponent('フィリピン人 逮捕 OR 摘発 when:2d'),
-    encodeURIComponent('インドネシア 逮捕 OR 摘発 when:2d'),
-    encodeURIComponent('スリランカ OR カンボジア OR ネパール 逮捕 when:2d'),
-    encodeURIComponent('韓国人 OR 韓国籍 逮捕 when:2d'),
-    encodeURIComponent('技能実習生 OR 元技能実習生 OR 特定技能 逮捕 when:2d'),
-    encodeURIComponent('仮放免 逮捕 OR 容疑 when:2d'),
-    encodeURIComponent('不法滞在 OR 不法残留 OR オーバーステイ 逮捕 OR 摘発 when:2d'),
-    encodeURIComponent('退去強制 OR 強制送還 when:2d'),
-    encodeURIComponent('不法就労 逮捕 OR 摘発 when:2d'),
-    encodeURIComponent('密輸 逮捕 when:2d'),
-    encodeURIComponent('コカイン OR 覚醒剤 密輸 when:2d'),
-    encodeURIComponent('危険運転 逮捕 when:2d'),
-    encodeURIComponent('銅線 OR 太陽光 逮捕 OR 窃盗 when:2d'),
-    encodeURIComponent('立てこもり 逮捕 OR 再逮捕 when:2d'),
-    encodeURIComponent('車上ねらい OR 車上荒らし 逮捕 when:2d'),
-    encodeURIComponent('アメリカ人 OR 米国籍 逮捕 when:2d'),
-    encodeURIComponent('不法在留 逮捕 OR 摘発 when:2d'),
-    encodeURIComponent('ブラジル国籍 逮捕 OR 再逮捕 when:2d'),
-    encodeURIComponent('台湾人 OR 台湾国籍 OR 台湾籍 逮捕 when:2d'),
-    encodeURIComponent('わいせつ 外国人 OR 外国籍 逮捕 when:2d')
+    // === 基本クエリ（外国人×犯罪の幅広い網） ===
+    encodeURIComponent('外国人 逮捕 when:3d'),
+    encodeURIComponent('外国人 容疑 when:3d'),
+    encodeURIComponent('外国籍 逮捕 when:3d'),
+    encodeURIComponent('国籍 逮捕 when:3d'),
+    encodeURIComponent('外国人 書類送検 OR 追送検 when:3d'),
+    encodeURIComponent('外国人 摘発 OR 指名手配 when:3d'),
+
+    // === 国籍別クエリ（主要在日外国人コミュニティ） ===
+    encodeURIComponent('ベトナム 逮捕 OR 摘発 when:3d'),
+    encodeURIComponent('中国籍 OR 中国人 逮捕 when:3d'),
+    encodeURIComponent('ブラジル 逮捕 OR 摘発 when:3d'),
+    encodeURIComponent('タイ人 OR タイ国籍 逮捕 when:3d'),
+    encodeURIComponent('フィリピン人 逮捕 OR 摘発 when:3d'),
+    encodeURIComponent('インドネシア 逮捕 OR 摘発 when:3d'),
+    encodeURIComponent('スリランカ OR カンボジア OR ネパール 逮捕 when:3d'),
+    encodeURIComponent('韓国人 OR 韓国籍 逮捕 when:3d'),
+    encodeURIComponent('ペルー 逮捕 OR 摘発 when:3d'),
+    encodeURIComponent('パキスタン OR バングラデシュ 逮捕 when:3d'),
+    encodeURIComponent('モンゴル OR ナイジェリア 逮捕 when:3d'),
+    encodeURIComponent('トルコ国籍 OR クルド人 逮捕 when:3d'),
+    encodeURIComponent('アメリカ人 OR 米国籍 逮捕 when:3d'),
+    encodeURIComponent('ブラジル国籍 逮捕 OR 再逮捕 when:3d'),
+    encodeURIComponent('台湾人 OR 台湾国籍 OR 台湾籍 逮捕 when:3d'),
+
+    // === 在留資格・入管制度別クエリ ===
+    encodeURIComponent('技能実習生 OR 元技能実習生 OR 特定技能 逮捕 when:3d'),
+    encodeURIComponent('仮放免 逮捕 OR 容疑 when:3d'),
+    encodeURIComponent('不法滞在 OR 不法残留 OR オーバーステイ 逮捕 OR 摘発 when:3d'),
+    encodeURIComponent('退去強制 OR 強制送還 when:3d'),
+    encodeURIComponent('不法就労 逮捕 OR 摘発 when:3d'),
+    encodeURIComponent('不法在留 逮捕 OR 摘発 when:3d'),
+    encodeURIComponent('留学生 逮捕 OR 摘発 when:3d'),
+    encodeURIComponent('在留資格 OR 偽装結婚 逮捕 when:3d'),
+
+    // === 犯罪類型別クエリ（取り漏らし防止） ===
+    encodeURIComponent('密輸 逮捕 when:3d'),
+    encodeURIComponent('コカイン OR 覚醒剤 密輸 when:3d'),
+    encodeURIComponent('危険運転 逮捕 when:3d'),
+    encodeURIComponent('銅線 OR 太陽光 逮捕 OR 窃盗 when:3d'),
+    encodeURIComponent('立てこもり 逮捕 OR 再逮捕 when:3d'),
+    encodeURIComponent('車上ねらい OR 車上荒らし 逮捕 when:3d'),
+    encodeURIComponent('わいせつ 外国人 OR 外国籍 逮捕 when:3d'),
+    encodeURIComponent('住居侵入 OR 侵入窃盗 逮捕 when:3d'),
+    encodeURIComponent('傷害致死 OR 殺人 外国 逮捕 when:3d'),
+    encodeURIComponent('詐欺 外国人 OR 外国籍 逮捕 when:3d'),
+    encodeURIComponent('窃盗 外国人 OR 外国籍 逮捕 when:3d'),
+    encodeURIComponent('白タク OR 無許可営業 逮捕 when:3d')
   ];
 
   let fetchedItems = [];
@@ -694,6 +722,12 @@ async function main() {
     const hasExcludeKw = EXCLUDE_KEYWORDS.some(kw => item.title.includes(kw));
     if (hasExcludeKw) {
       console.log(`Removed excluded item: ${item.title}`);
+      continue;
+    }
+    const hasForeignKw = FOREIGN_KEYWORDS.some(kw => item.title.includes(kw));
+    const hasCrimeKw = CRIME_KEYWORDS.some(kw => item.title.includes(kw));
+    if (!hasForeignKw || !hasCrimeKw) {
+      console.log(`Removed non-foreign or non-crime item: ${item.title}`);
       continue;
     }
 
