@@ -80,7 +80,7 @@ export const CrimeNewsArchive: React.FC = () => {
             外国人犯罪報道 <span className="text-red-500 border-b-4 border-red-500">日次データベース</span>
           </h1>
           <p className="text-gray-300 text-base md:text-lg font-light leading-relaxed">
-            全国の地方紙・主要報道メディア等のニュースから、外国人が関与する案件を自動取得・累積保存しています（毎日 18:00 自動更新）。
+            全国の地方紙・主要報道メディア等のニュースから、外国人が関与する案件を自動取得・累積保存しています（毎時 自動巡回更新中）。
           </p>
         </div>
 

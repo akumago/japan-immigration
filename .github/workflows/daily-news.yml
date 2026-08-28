@@ -2,8 +2,8 @@ name: Daily Foreign Crime News Collector & Static Rebuilder
 
 on:
   schedule:
-    # 1日4回（日本時間 09:15 / 12:15 / 18:15 / 22:15）に自動巡回・確実実行
-    - cron: '15 0,3,9,13 * * *'
+    # 24時間 毎時（1時間に1回）自動巡回・速報検知時に何度でも即時反映
+    - cron: '0 * * * *'
   workflow_dispatch: # 手動実行も可能
 
 jobs:

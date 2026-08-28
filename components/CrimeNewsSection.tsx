@@ -39,7 +39,7 @@ export const CrimeNewsSection: React.FC = () => {
               最新 外国人犯罪報道ニュース速報
             </h2>
             <p className="text-gray-400 text-xs md:text-sm mt-1">
-              全国の地方紙・ローカルメディア等の報道を24時間自動集計（毎日 18:00 自動更新）
+              全国の地方紙・ローカルメディア等の報道を24時間自動集計（毎時 自動巡回更新中）
             </p>
           </div>
           <div className="text-right shrink-0">
