@@ -2,8 +2,8 @@ name: Daily Foreign Crime News Collector & Static Rebuilder
 
 on:
   schedule:
-    # 毎日 日本時間 18:15 (UTC 09:15) に自動実行（混雑を避けて確実に実行）
-    - cron: '15 9 * * *'
+    # 1日4回（日本時間 09:15 / 12:15 / 18:15 / 22:15）に自動巡回・確実実行
+    - cron: '15 0,3,9,13 * * *'
   workflow_dispatch: # 手動実行も可能
 
 jobs:
