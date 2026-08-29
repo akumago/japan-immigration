@@ -158,7 +158,7 @@ const OVERSEAS_LOCATIONS = [
   'ヤンゴン', 'ダッカ', 'カラチ', 'リヤド', 'ドバイ', 'テルアビブ',
   'モスクワ', 'キーウ', 'ベルリン', 'ローマ', 'マドリード', 'シドニー',
   'スワンナプーム', '仁川', '桃園', 'ヒースロー', 'JFK',
-  'Reform UK', '超法規的', 'インドへ出国',
+  'Reform UK', '超法規的', 'インドへ出国', 'メトロジャヤ', 'ジャカルタ首都圏', 'インドネシア共和国',
   '天安', '水原', '城南', '高陽', '龍仁', '清州', '全州', '大邱', '大田', '光州', '蔚山',
   '京畿', '江原', '忠清', '全羅', '慶尚', '済州'
 ];
@@ -199,6 +199,9 @@ const EXCLUDE_KEYWORDS = [
   // 日本人偽装・なりすまし犯罪
   '外国人装い', '外国人を装', '外国人のふり', '外国人のフリ', '外国人になりすま', '外国人に扮', '外国人の真似',
 
+  // 外国人が純粋な被害者側（ひき逃げ被害・事件被害等）の排除
+  '男性が重傷', '女性が重傷', '男性が軽傷', '女性が軽傷', '男性が刺され', '女性が刺され',
+
   // ドラマ・映画・アニメ・マンガ・芸能・フィクション徹底遮断
   'ドラマ', '連続ドラマ', '新ドラマ', '連ドラ', '劇場版', '映画', 'アニメ', '漫画', 'マンガ', 'コミック', '小説', '原作', '脚本',
   'キャスト', '出演', '主演', '助演', 'ヒロイン', '主人公', '登場人物', 'クランクイン', 'クランクアップ', 'オフショット',
@@ -218,7 +221,8 @@ const OVERSEAS_MEDIA = [
   'Informat.ro', 'Mshale', 'Vietnam.vn', 'Laodong.vn', 'ENTREVUE.FR', 'arabnews', 'Reuters',
   'AP通信', 'AFP', 'タイランドハイパーリンクス', 'タイニュース', 'クロスボンバー', 'bomberth',
   'VnExpress', 'Tuoi Tre', 'The Guardian', 'BBC', 'CNN', 'New York Times',
-  'Washington Post', 'South China Morning Post', 'Yonhap', 'Channel News Asia'
+  'Washington Post', 'South China Morning Post', 'Yonhap', 'Channel News Asia',
+  'VOI.ID', 'voi.id', 'ANTARA'
 ];
 
 // 芸能・エンタメ・テレビ番組メディアの完全除外リスト
@@ -400,6 +404,12 @@ function isSameEvent(itemA, itemB) {
     if (titleA.includes(lm) && titleB.includes(lm)) {
       const natA = NATIONALITIES.find(n => titleA.includes(n));
       const natB = NATIONALITIES.find(n => titleB.includes(n));
+      // 新たな容疑者・実行役の逮捕など、明確な新展開報道は別記事として保持
+      const isNewSuspectA = titleA.includes('新たに逮捕') || titleA.includes('実行役');
+      const isNewSuspectB = titleB.includes('新たに逮捕') || titleB.includes('実行役');
+      if (isNewSuspectA !== isNewSuspectB) {
+        continue;
+      }
       // 国籍が一致、またはどちらかが「外国籍」等の総称表記なら即同一事件
       if (!natA || !natB || natA === natB || titleA.includes('外国籍') || titleB.includes('外国籍') || titleA.includes('外国人') || titleB.includes('外国人')) {
         return true;
