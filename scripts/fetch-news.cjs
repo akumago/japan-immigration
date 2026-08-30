@@ -29,7 +29,7 @@ const MUNICIPALITY_MAP = {
   // 関東
   '水戸': '茨城県', 'つくば': '茨城県', '日立': '茨城県', '土浦': '茨城県', '神栖': '茨城県', '足利': '栃木県', '宇都宮': '栃木県', '小山': '栃木県',
   '前橋': '群馬県', '高崎': '群馬県', '太田': '群馬県', '伊勢崎': '群馬県', '大泉': '群馬県', '館林': '群馬県',
-  'さいたま': '埼玉県', '川口': '埼玉県', '川越': '埼玉県', '越谷': '埼玉県', '所沢': '埼玉県', '熊谷': '埼玉県', '飯能': '埼玉県',
+  'さいたま': '埼玉県', '川口': '埼玉県', '川越': '埼玉県', '越谷': '埼玉県', '所沢': '埼玉県', '熊谷': '埼玉県', '飯能': '埼玉県', '東松山': '埼玉県', '上尾': '埼玉県', '草加': '埼玉県', '春日部': '埼玉県',
   '千葉': '千葉県', '船橋': '千葉県', '松戸': '千葉県', '柏': '千葉県', '市川': '千葉県', '木更津': '千葉県', '成田': '千葉県', '流山': '千葉県', '匝瑳': '千葉県',
   '浅草橋': '東京都', '羽田': '東京都', '大田区': '東京都', '新宿': '東京都', '渋谷': '東京都', '池袋': '東京都', '足立': '東京都', '江戸川': '東京都', '八王子': '東京都', '町田': '東京都', '世田谷': '東京都', '歌舞伎町': '東京都', '六本木': '東京都', '大久保': '東京都', '牛込': '東京都', '中野': '東京都', '警視庁': '東京都',
   '横浜': '神奈川県', '川崎': '神奈川県', '相模原': '神奈川県', '横須賀': '神奈川県', '藤沢': '神奈川県', '平塚': '神奈川県',
@@ -42,12 +42,12 @@ const MUNICIPALITY_MAP = {
   '甲府': '山梨県', '笛吹': '山梨県', '富士吉田': '山梨県', '富士河口湖': '山梨県',
   '長野': '長野県', '松本': '長野県', '上田': '長野県',
   '岐阜': '岐阜県', '大垣': '岐阜県', '各務原': '岐阜県',
-  '静岡': '静岡県', '浜松': '静岡県', '沼津': '静岡県', '富士': '静岡県', '天竜': '静岡県', '伊豆の国': '静岡県', '熱海': '静岡県',
+  '静岡': '静岡県', '浜松': '静岡県', '沼津': '静岡県', '富士': '静岡県', '天竜': '静岡県', '伊豆の国': '静岡県', '熱海': '静岡県', '御殿場': '静岡県',
   '名古屋': '愛知県', '豊橋': '愛知県', '岡崎': '愛知県', '一宮': '愛知県', '豊田': '愛知県', '豊川': '愛知県',
   '津': '三重県', '四日市': '三重県', '伊勢': '三重県', '名張': '三重県', '鈴鹿': '三重県', '亀山': '三重県',
 
   // 近畿
-  '大津': '滋賀県', '草津': '滋賀県',
+  '大津': '滋賀県', '草津': '滋賀県', '東近江': '滋賀県', '甲賀': '滋賀県', '彦根': '滋賀県',
   '京都': '京都府', '宇治': '京都府', '舞鶴': '京都府',
   '大阪': '大阪府', '堺': '大阪府', '東大阪': '大阪府', '枚方': '大阪府', '豊中': '大阪府', 'ミナミ': '大阪府', '難波': '大阪府', '天王寺': '大阪府', 'あべちか': '大阪府', '鶴見': '大阪府',
   '神戸': '兵庫県', '姫路': '兵庫県', '尼崎': '兵庫県', '西宮': '兵庫県', '明石': '兵庫県', '加古川': '兵庫県', '洲本': '兵庫県',
@@ -66,7 +66,7 @@ const MUNICIPALITY_MAP = {
   '高知': '高知県', '南国': '高知県',
 
   // 九州・沖縄
-  '福岡': '福岡県', '北九州': '福岡県', '久留米': '福岡県', '飯塚': '福岡県',
+  '福岡': '福岡県', '北九州': '福岡県', '久留米': '福岡県', '飯塚': '福岡県', '天神': '福岡県',
   '佐賀': '佐賀県', '唐津': '佐賀県', '鳥栖': '佐賀県',
   '長崎': '長崎県', '佐世保': '長崎県',
   '熊本': '熊本県', '八代': '熊本県',
@@ -88,7 +88,10 @@ const FOREIGN_KEYWORDS = [
   '不法滞在', '不法残留', '不法入国', '密入国', 'オーバーステイ',
   '技能実習生', '元技能実習生', '特定技能', '留学生', '元留学生', '仮放免',
   '偽造在留カード', '在留カード', '入管法', '入管難民法',
-  '難民', '難民申請', '白タク'
+  '難民', '難民申請', '白タク',
+  'インド人', 'インド国籍', 'イギリス人', '英国籍', 'カナダ人', 'カナダ国籍',
+  'ドイツ人', 'ドイツ国籍', 'オーストラリア人', '豪州籍',
+  'アフガニスタン', '北朝鮮', '朝鮮籍', '不法就労', '密航'
 ];
 
 // 代表的国籍リスト
@@ -97,7 +100,9 @@ const NATIONALITIES = [
   'インドネシア', 'カンボジア', 'スリランカ', 'パキスタン', 'バングラデシュ', 'モンゴル',
   'ナイジェリア', 'ガーナ', 'トルコ', 'ミャンマー', 'イラン', 'クルド',
   'アルゼンチン', 'コロンビア', 'フランス', 'メキシコ', 'エジプト', 'チリ', '台湾',
-  'ロシア', 'ウズベキスタン', 'ボリビア', 'アフガニスタン', '北朝鮮'
+  'ロシア', 'ウズベキスタン', 'ボリビア', 'アフガニスタン', '北朝鮮',
+  'アメリカ', '米国', '米国籍', 'インド', 'イギリス', '英国',
+  'ドイツ', 'オーストラリア', 'カナダ'
 ];
 
 // 犯罪・容疑を示すキーワード
@@ -106,7 +111,10 @@ const CRIME_KEYWORDS = [
   '覚醒剤', '大麻', 'コカイン', '麻薬', '密売', '詐欺', '横領', 'わいせつ', '刺殺', '密輸',
   '再逮捕', 'ひき逃げ', '危険運転', '薬物', '風俗', '摘発', '検挙', '起訴', '送検',
   '指名手配', '殺人', '追送検', '逮捕状', '退去強制', '強制送還', '不法就労助長',
-  '資格外活動', '偽装滞在'
+  '資格外活動', '偽装滞在',
+  '住居侵入', '建造物侵入', '邸宅侵入', '器物損壊', '脅迫', '恐喝',
+  '監禁', '略取', '不同意性交', '不同意わいせつ', '盗撮',
+  '万引き', '酒気帯び', '当て逃げ', '無免許', '公判', '判決', '初公判'
 ];
 
 // 代表的特筆事象（同一事件のキーワードクロス判定用）
@@ -159,6 +167,7 @@ const OVERSEAS_LOCATIONS = [
   'モスクワ', 'キーウ', 'ベルリン', 'ローマ', 'マドリード', 'シドニー',
   'スワンナプーム', '仁川', '桃園', 'ヒースロー', 'JFK',
   'Reform UK', '超法規的', 'インドへ出国', 'メトロジャヤ', 'ジャカルタ首都圏', 'インドネシア共和国',
+  '南京', '湖北', '江蘇', '広州', '武漢', '天津', '青島', '大連', '成都', '重慶', '杭州', '西安',
   '天安', '水原', '城南', '高陽', '龍仁', '清州', '全州', '大邱', '大田', '光州', '蔚山',
   '京畿', '江原', '忠清', '全羅', '慶尚', '済州'
 ];
@@ -200,7 +209,8 @@ const EXCLUDE_KEYWORDS = [
   '外国人装い', '外国人を装', '外国人のふり', '外国人のフリ', '外国人になりすま', '外国人に扮', '外国人の真似',
 
   // 外国人が純粋な被害者側（ひき逃げ被害・事件被害等）の排除
-  '男性が重傷', '女性が重傷', '男性が軽傷', '女性が軽傷', '男性が刺され', '女性が刺され',
+  // ※ extractItemsFromRSS() および cleanExisting で「逮捕」「容疑」がタイトルに
+  //    含まれていない被害者記事のみを除外する安全ロジックを使用
 
   // ドラマ・映画・アニメ・マンガ・芸能・フィクション徹底遮断
   'ドラマ', '連続ドラマ', '新ドラマ', '連ドラ', '劇場版', '映画', 'アニメ', '漫画', 'マンガ', 'コミック', '小説', '原作', '脚本',
@@ -275,6 +285,27 @@ function normalizeTitle(title) {
 
 // 高精度地域判定関数（市町村名・警察署名・都道府県名を全面解析）
 function detectLocation(title) {
+  // 0. 特徴的事件現場ランドマーク・管轄警察組織を最優先（例: あべちか→大阪府、大阪府警→大阪府、警視庁→東京都）
+  const PRIMARY_LOCATION_SIGNS = [
+    { key: 'あべちか', pref: '大阪府' },
+    { key: '天王寺', pref: '大阪府' },
+    { key: '中野ブロードウェイ', pref: '東京都' },
+    { key: '大阪府警', pref: '大阪府' },
+    { key: '警視庁', pref: '東京都' },
+    { key: '埼玉県警', pref: '埼玉県' },
+    { key: '愛知県警', pref: '愛知県' },
+    { key: '神奈川県警', pref: '神奈川県' },
+    { key: '千葉県警', pref: '千葉県' },
+    { key: '兵庫県警', pref: '兵庫県' },
+    { key: '京都府警', pref: '京都府' },
+    { key: '福岡県警', pref: '福岡県' }
+  ];
+  for (const item of PRIMARY_LOCATION_SIGNS) {
+    if (title.includes(item.key)) {
+      return item.pref;
+    }
+  }
+
   // 1. まず直接の「〇〇県」「〇〇府」「東京都」「北海道」を検索
   for (const pref of PREFECTURES) {
     if (title.includes(pref)) {
@@ -320,8 +351,9 @@ function isTitleStartingWithOverseasCountry(title) {
 function hasJapaneseEnforcement(title) {
   const JP_ENFORCEMENT = [
     '県警', '警視庁', '府警', '道警', '警察署', '署が', '署に', '署は', '署員',
-    '地検', '地裁', '簡裁', '高裁', '検察', '入管', '出入国在留管理',
-    '東京税関', '税関', '麻薬取締部', 'マトリ', '海上保安部', '海保'
+    '東京税関', '横浜税関', '税関', '麻薬取締部', 'マトリ', '海上保安部', '海保',
+    '東京地裁', '大阪地裁', '名古屋地裁', '福岡地裁', '横浜地裁', 'さいたま地裁', '千葉地裁', '那覇地裁', '京都地裁', '神戸地裁',
+    '東京地検', '大阪地検', '名古屋地検', '福岡地検', '最高裁'
   ];
   return JP_ENFORCEMENT.some(kw => title.includes(kw));
 }
@@ -503,26 +535,30 @@ function isSameEvent(itemA, itemB) {
     return true;
   }
 
-  // 3. 先頭10文字の一致判定
+  // 3. 先頭10文字の一致判定（＋地域一致を必須条件として誤統合を防止）
   if (normA.length >= 10 && normB.length >= 10) {
     if (normA.includes(normB.substring(0, 10)) || normB.includes(normA.substring(0, 10))) {
-      return true;
-    }
-  }
-
-  // 4. 数字トークン＋国籍の一致判定
-  const numbersA = (normA.match(/\d+/g) || []).join(',');
-  const numbersB = (normB.match(/\d+/g) || []).join(',');
-
-  if (numbersA && numbersA === numbersB && numbersA.length >= 2) {
-    for (const nat of NATIONALITIES) {
-      if (normA.includes(nat) && normB.includes(nat)) {
+      if (locA === locB || locA === '全国' || locB === '全国') {
         return true;
       }
     }
   }
 
-  // 5. Jaccard単語類似度
+  // 4. 数字トークン＋国籍の一致判定（3桁以上の数字＋地域一致で年齢のみの誤統合を防止）
+  const numbersA = (normA.match(/\d+/g) || []).filter(n => n.length >= 3).join(',');
+  const numbersB = (normB.match(/\d+/g) || []).filter(n => n.length >= 3).join(',');
+
+  if (numbersA && numbersA === numbersB) {
+    if (locA === locB || locA === '全国' || locB === '全国') {
+      for (const nat of NATIONALITIES) {
+        if (normA.includes(nat) && normB.includes(nat)) {
+          return true;
+        }
+      }
+    }
+  }
+
+  // 5. Jaccard単語類似度（＋地域一致を必須条件として誤統合を防止）
   const wordsA = new Set(normA.match(/[\u3040-\u9faf]{2,}/g) || []);
   const wordsB = new Set(normB.match(/[\u3040-\u9faf]{2,}/g) || []);
 
@@ -530,7 +566,7 @@ function isSameEvent(itemA, itemB) {
     const intersection = [...wordsA].filter(w => wordsB.has(w));
     const union = new Set([...wordsA, ...wordsB]);
     const similarity = intersection.length / union.size;
-    if (similarity >= 0.40) {
+    if (similarity >= 0.40 && (locA === locB || locA === '全国' || locB === '全国')) {
       return true;
     }
   }
@@ -588,10 +624,19 @@ function extractItemsFromRSS(xml) {
 
       let media = '新聞・報道';
       let title = rawTitle;
+
+      // Google News RSS の <source> タグを優先取得
+      const sourceMatch = itemXml.match(/<source[^>]*>([\s\S]*?)<\/source>/i);
+      if (sourceMatch) {
+        media = sourceMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim();
+      }
+
       const mediaMatch = rawTitle.match(/^(.*)\s*-\s*([^-]+)$/);
       if (mediaMatch) {
         title = mediaMatch[1].trim();
-        media = mediaMatch[2].trim();
+        if (media === '新聞・報道') {
+          media = mediaMatch[2].trim();
+        }
       }
 
       // 見出しのノイズ除去と要約・簡潔化
@@ -603,6 +648,14 @@ function extractItemsFromRSS(xml) {
       const isDomestic = isDomesticCrime(title, media);
 
       if (!hasForeignKw || !hasCrimeKw || hasExcludeKw || !isDomestic) {
+        continue;
+      }
+
+      // 外国人が被害者側の記事（例: 「男逮捕 自転車のインドネシア人は重傷」「インドネシア国籍の３２歳男性が重傷」等）を安全かつ確実に排除
+      const isForeignVictim = /(インドネシア|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|外国)(人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[はが]?(頭蓋骨|骨折|意識不明|重傷|軽傷|死亡|重体|刺され|被害)/.test(title);
+      const isForeignPerpetrator = /(外国人|外国籍|ベトナム人|中国人|韓国人|フィリピン人|タイ人|ブラジル人|ミャンマー人|米国籍|アメリカ人|米兵|実習生|留学生)[の男女代性0-9０-９（）\s]*[をが]?(逮捕|容疑|送検|再逮捕|起訴|摘発)/.test(title) ||
+                                  /(逮捕|容疑|送検|再逮捕)[の男女代性0-9０-９（）\s]*[は、\s]*(外国人|外国籍|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|米国|アメリカ|米兵|実習生|留学生)/.test(title);
+      if (isForeignVictim && !isForeignPerpetrator) {
         continue;
       }
 
@@ -666,23 +719,31 @@ async function main() {
     encodeURIComponent('留学生 逮捕 OR 摘発 when:3d'),
     encodeURIComponent('在留資格 OR 偽装結婚 逮捕 when:3d'),
 
-    // === 犯罪類型別クエリ（取り漏らし防止） ===
-    encodeURIComponent('密輸 逮捕 when:3d'),
+    // === 犯罪類型別クエリ（外国人キーワード付きで精度向上） ===
+    encodeURIComponent('密輸 外国人 OR 外国籍 逮捕 when:3d'),
     encodeURIComponent('コカイン OR 覚醒剤 密輸 when:3d'),
-    encodeURIComponent('危険運転 逮捕 when:3d'),
-    encodeURIComponent('銅線 OR 太陽光 逮捕 OR 窃盗 when:3d'),
+    encodeURIComponent('危険運転 外国人 OR 外国籍 OR 米兵 逮捕 when:3d'),
+    encodeURIComponent('銅線 OR 太陽光 外国人 OR 技能実習生 逮捕 OR 窃盗 when:3d'),
     encodeURIComponent('立てこもり 逮捕 OR 再逮捕 when:3d'),
-    encodeURIComponent('車上ねらい OR 車上荒らし 逮捕 when:3d'),
+    encodeURIComponent('車上ねらい OR 車上荒らし 外国人 OR 外国籍 逮捕 when:3d'),
     encodeURIComponent('わいせつ 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('住居侵入 OR 侵入窃盗 逮捕 when:3d'),
+    encodeURIComponent('住居侵入 OR 侵入窃盗 外国人 OR 外国籍 逮捕 when:3d'),
     encodeURIComponent('傷害致死 OR 殺人 外国 逮捕 when:3d'),
     encodeURIComponent('詐欺 外国人 OR 外国籍 逮捕 when:3d'),
     encodeURIComponent('窃盗 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('白タク OR 無許可営業 逮捕 when:3d')
+    encodeURIComponent('白タク OR 無許可営業 逮捕 when:3d'),
+
+    // === 追加国籍クエリ（取り漏らし防止） ===
+    encodeURIComponent('ミャンマー国籍 OR ミャンマー人 逮捕 when:3d'),
+    encodeURIComponent('インド人 OR インド国籍 逮捕 when:3d'),
+    encodeURIComponent('ロシア人 OR ロシア国籍 逮捕 when:3d'),
+    encodeURIComponent('米兵 OR 米軍 逮捕 OR 容疑 OR 摘発 when:3d')
   ];
 
   let fetchedItems = [];
   let successCount = 0;
+
+  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
   for (const query of searchQueries) {
     const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=ja&gl=JP&ceid=JP:ja`;
@@ -694,6 +755,7 @@ async function main() {
     } catch (err) {
       console.error('Failed to fetch RSS:', err.message);
     }
+    await sleep(300);
   }
 
   if (successCount === 0) {
@@ -738,6 +800,14 @@ async function main() {
     const hasCrimeKw = CRIME_KEYWORDS.some(kw => item.title.includes(kw));
     if (!hasForeignKw || !hasCrimeKw) {
       console.log(`Removed non-foreign or non-crime item: ${item.title}`);
+      continue;
+    }
+    // 外国人が被害者側の記事（例: 「男逮捕 自転車のインドネシア人は重傷」「インドネシア国籍の３２歳男性が重傷」等）を安全かつ確実に排除
+    const isForeignVictim = /(インドネシア|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|外国)(人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[はが]?(頭蓋骨|骨折|意識不明|重傷|軽傷|死亡|重体|刺され|被害)/.test(item.title);
+    const isForeignPerpetrator = /(外国人|外国籍|ベトナム人|中国人|韓国人|フィリピン人|タイ人|ブラジル人|ミャンマー人|米国籍|アメリカ人|米兵|実習生|留学生)[の男女代性0-9０-９（）\s]*[をが]?(逮捕|容疑|送検|再逮捕|起訴|摘発)/.test(item.title) ||
+                                /(逮捕|容疑|送検|再逮捕)[の男女代性0-9０-９（）\s]*[は、\s]*(外国人|外国籍|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|米国|アメリカ|米兵|実習生|留学生)/.test(item.title);
+    if (isForeignVictim && !isForeignPerpetrator) {
+      console.log(`Removed victim-side item: ${item.title}`);
       continue;
     }
 
