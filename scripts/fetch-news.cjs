@@ -88,7 +88,7 @@ const FOREIGN_KEYWORDS = [
   '不法滞在', '不法残留', '不法入国', '密入国', 'オーバーステイ',
   '技能実習生', '元技能実習生', '特定技能', '留学生', '元留学生', '仮放免',
   '偽造在留カード', '在留カード', '入管法', '入管難民法',
-  '難民', '難民申請', '白タク',
+  '難民', '難民申請',
   'インド人', 'インド国籍', 'イギリス人', '英国籍', 'カナダ人', 'カナダ国籍',
   'ドイツ人', 'ドイツ国籍', 'オーストラリア人', '豪州籍',
   'アフガニスタン', '北朝鮮', '朝鮮籍', '不法就労', '密航'
@@ -642,7 +642,10 @@ function extractItemsFromRSS(xml) {
       // 見出しのノイズ除去と要約・簡潔化
       title = cleanTitleText(title);
 
-      const hasForeignKw = FOREIGN_KEYWORDS.some(kw => title.includes(kw));
+      // 「中国道」「中国地方」「中国電力」等の国内固有名詞を外国人判定から除外
+      const titleWithoutDomesticChugoku = title.replace(/中国(道|自動車道|地方|電力|銀行|新聞|バス|管区)/g, '');
+
+      const hasForeignKw = FOREIGN_KEYWORDS.some(kw => titleWithoutDomesticChugoku.includes(kw));
       const hasCrimeKw = CRIME_KEYWORDS.some(kw => title.includes(kw));
       const hasExcludeKw = EXCLUDE_KEYWORDS.some(kw => title.includes(kw));
       const isDomestic = isDomesticCrime(title, media);
@@ -651,8 +654,9 @@ function extractItemsFromRSS(xml) {
         continue;
       }
 
-      // 外国人が被害者側の記事（例: 「男逮捕 自転車のインドネシア人は重傷」「インドネシア国籍の３２歳男性が重傷」等）を安全かつ確実に排除
-      const isForeignVictim = /(インドネシア|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|外国)(人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[はが]?(頭蓋骨|骨折|意識不明|重傷|軽傷|死亡|重体|刺され|被害)/.test(title);
+      // 外国人が被害者側の記事（例: 「男逮捕 自転車のインドネシア人は重傷」「外国人に日常的暴行」等）を安全かつ確実に排除
+      const isForeignVictim = /(インドネシア|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|外国)(人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[はが]?(頭蓋骨|骨折|意識不明|重傷|軽傷|死亡|重体|刺され|被害)/.test(title) ||
+                              /(外国人|外国籍|実習生|留学生)[にへ]?(日常的暴行|暴行|傷害|性的暴行|差別|対する)/.test(title);
       const isForeignPerpetrator = /(外国人|外国籍|ベトナム人|中国人|韓国人|フィリピン人|タイ人|ブラジル人|ミャンマー人|米国籍|アメリカ人|米兵|実習生|留学生)[の男女代性0-9０-９（）\s]*[をが]?(逮捕|容疑|送検|再逮捕|起訴|摘発)/.test(title) ||
                                   /(逮捕|容疑|送検|再逮捕)[の男女代性0-9０-９（）\s]*[は、\s]*(外国人|外国籍|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|米国|アメリカ|米兵|実習生|留学生)/.test(title);
       if (isForeignVictim && !isForeignPerpetrator) {
@@ -731,7 +735,7 @@ async function main() {
     encodeURIComponent('傷害致死 OR 殺人 外国 逮捕 when:3d'),
     encodeURIComponent('詐欺 外国人 OR 外国籍 逮捕 when:3d'),
     encodeURIComponent('窃盗 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('白タク OR 無許可営業 逮捕 when:3d'),
+    encodeURIComponent('白タク 外国人 OR 外国籍 逮捕 when:3d'),
 
     // === 追加国籍クエリ（取り漏らし防止） ===
     encodeURIComponent('ミャンマー国籍 OR ミャンマー人 逮捕 when:3d'),
@@ -796,14 +800,18 @@ async function main() {
       console.log(`Removed excluded item: ${item.title}`);
       continue;
     }
-    const hasForeignKw = FOREIGN_KEYWORDS.some(kw => item.title.includes(kw));
+    // 「中国道」「中国地方」「中国電力」等の国内固有名詞を外国人判定から除外
+    const titleWithoutDomesticChugoku = item.title.replace(/中国(道|自動車道|地方|電力|銀行|新聞|バス|管区)/g, '');
+
+    const hasForeignKw = FOREIGN_KEYWORDS.some(kw => titleWithoutDomesticChugoku.includes(kw));
     const hasCrimeKw = CRIME_KEYWORDS.some(kw => item.title.includes(kw));
     if (!hasForeignKw || !hasCrimeKw) {
       console.log(`Removed non-foreign or non-crime item: ${item.title}`);
       continue;
     }
-    // 外国人が被害者側の記事（例: 「男逮捕 自転車のインドネシア人は重傷」「インドネシア国籍の３２歳男性が重傷」等）を安全かつ確実に排除
-    const isForeignVictim = /(インドネシア|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|外国)(人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[はが]?(頭蓋骨|骨折|意識不明|重傷|軽傷|死亡|重体|刺され|被害)/.test(item.title);
+    // 外国人が被害者側の記事（例: 「男逮捕 自転車のインドネシア人は重傷」「外国人に日常的暴行」等）を安全かつ確実に排除
+    const isForeignVictim = /(インドネシア|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|外国)(人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[はが]?(頭蓋骨|骨折|意識不明|重傷|軽傷|死亡|重体|刺され|被害)/.test(item.title) ||
+                            /(外国人|外国籍|実習生|留学生)[にへ]?(日常的暴行|暴行|傷害|性的暴行|差別|対する)/.test(item.title);
     const isForeignPerpetrator = /(外国人|外国籍|ベトナム人|中国人|韓国人|フィリピン人|タイ人|ブラジル人|ミャンマー人|米国籍|アメリカ人|米兵|実習生|留学生)[の男女代性0-9０-９（）\s]*[をが]?(逮捕|容疑|送検|再逮捕|起訴|摘発)/.test(item.title) ||
                                 /(逮捕|容疑|送検|再逮捕)[の男女代性0-9０-９（）\s]*[は、\s]*(外国人|外国籍|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|米国|アメリカ|米兵|実習生|留学生)/.test(item.title);
     if (isForeignVictim && !isForeignPerpetrator) {
