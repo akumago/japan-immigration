@@ -18,7 +18,7 @@ const PREFECTURES = [
 // 主要市町村名・地域名・警察署名・主要施設から都道府県への高精度マッピング辞書
 const MUNICIPALITY_MAP = {
   // 北海道・東北
-  '札幌': '北海道', '函館': '北海道', '旭川': '北海道', '釧路': '北海道', '帯広': '北海道', '苫小牧': '北海道', '小樽': '北海道', '北見': '北海道',
+  '札幌': '北海道', '函館': '北海道', '旭川': '北海道', '釧路': '北海道', '帯広': '北海道', '苫小牧': '北海道', '小樽': '北海道', '北見': '北海道', '千歳': '北海道', '八雲': '北海道', '京極': '北海道',
   '青森': '青森県', '八戸': '青森県', '弘前': '青森県',
   '盛岡': '岩手県', '奥州': '岩手県', '一関': '岩手県',
   '仙台': '宮城県', '石巻': '宮城県', '気仙沼': '宮城県', '名取': '宮城県', '大崎': '宮城県',
@@ -43,7 +43,7 @@ const MUNICIPALITY_MAP = {
   '長野': '長野県', '松本': '長野県', '上田': '長野県',
   '岐阜': '岐阜県', '大垣': '岐阜県', '各務原': '岐阜県',
   '静岡': '静岡県', '浜松': '静岡県', '沼津': '静岡県', '富士': '静岡県', '天竜': '静岡県', '伊豆の国': '静岡県', '熱海': '静岡県', '御殿場': '静岡県',
-  '名古屋': '愛知県', '豊橋': '愛知県', '岡崎': '愛知県', '一宮': '愛知県', '豊田': '愛知県', '豊川': '愛知県',
+  '名古屋': '愛知県', '中村区': '愛知県', '中区': '愛知県', '豊橋': '愛知県', '岡崎': '愛知県', '一宮': '愛知県', '豊田': '愛知県', '豊川': '愛知県',
   '津': '三重県', '四日市': '三重県', '伊勢': '三重県', '名張': '三重県', '鈴鹿': '三重県', '亀山': '三重県',
 
   // 近畿
@@ -144,7 +144,8 @@ const EVENT_FEATURE_KEYWORDS = [
   ['あおり運転', '妨害運転', 'オートバイ', 'ミニバイク', 'バイク転倒', 'バイク'],
   ['ミャンマー', '特定技能', '虐待', '保護', '6人'],
   ['スコップ', '頭殴', '殴打', '頭部殴打'],
-  ['中野ブロードウェイ', '高級時計', '高級腕時計', 'チリ人', 'チリ国籍', '2億円']
+  ['中野ブロードウェイ', '高級時計', '高級腕時計', 'チリ人', 'チリ国籍', '2億円'],
+  ['北谷', '北谷町', 'ホテル火災', '宿泊施設火災', '放火殺人未遂', '簡易ホテル火災']
 ];
 
 // 海外現地・国外ニュースを除外するための単語
@@ -290,6 +291,10 @@ function detectLocation(title) {
     { key: 'あべちか', pref: '大阪府' },
     { key: '天王寺', pref: '大阪府' },
     { key: '中野ブロードウェイ', pref: '東京都' },
+    { key: '八雲', pref: '北海道' },
+    { key: '千歳', pref: '北海道' },
+    { key: 'テレビ愛知', pref: '愛知県' },
+    { key: '中京テレビ', pref: '愛知県' },
     { key: '大阪府警', pref: '大阪府' },
     { key: '警視庁', pref: '東京都' },
     { key: '埼玉県警', pref: '埼玉県' },
@@ -430,7 +435,8 @@ function isSameEvent(itemA, itemB) {
   const LANDMARKS = [
     'あべちか', '天王寺', '飯能', '加古川', '亀山', '天童', '流山', '神栖',
     '浅草橋', '名張', '松戸', '釧路', '氷見', 'ミナミ', '歌舞伎町', '六本木', '大久保',
-    '豊川', '豊川市民病院', '羽田', '羽田空港', '大垣', '鶴見', '洲本'
+    '豊川', '豊川市民病院', '羽田', '羽田空港', '大垣', '鶴見', '洲本',
+    '北谷', '北谷町', '八雲', '千歳'
   ];
   for (const lm of LANDMARKS) {
     if (titleA.includes(lm) && titleB.includes(lm)) {
@@ -578,20 +584,19 @@ function cleanTitleText(t) {
   if (!t) return '';
   let cleaned = t
     .replace(/\s*\|.*$/, '') // パイプ以降のメディア名・副題を除去
-    .replace(/\s*〈[^〉]+〉$/, '') // 末尾の〈地域名〉を除去
     .replace(/\s*（[^）]+(?:新聞|テレビ|DIG|NEWS|編集部|NNN|FNN)）$/, '') // 末尾のメディア表記を除去
     .replace(/^(?:【[^】]+】|\([^\)]+\))\s*/, '') // 先頭の【写真】や【速報】等の装飾をスッキリ整理
     .replace(/^八代英輝弁護士\s*/, '')
     .replace(/…\s*私たちが.*$/, '')
     .trim();
 
-  // 65文字を超える長文見出しの場合、主要な逮捕・容疑文に要約短縮
-  if (cleaned.length > 65) {
+  // 100文字を超える長文見出しの場合、主要な逮捕・容疑文に要約短縮
+  if (cleaned.length > 100) {
     const parts = cleaned.split(/[　\s…]+/);
     if (parts.length > 1) {
       let shortTitle = '';
       for (const part of parts) {
-        if ((shortTitle + ' ' + part).trim().length <= 60) {
+        if ((shortTitle + ' ' + part).trim().length <= 95) {
           shortTitle = (shortTitle + ' ' + part).trim();
         } else {
           break;
@@ -663,7 +668,10 @@ function extractItemsFromRSS(xml) {
         continue;
       }
 
-      const location = detectLocation(title);
+      let location = detectLocation(title);
+      if (location === '全国') {
+        location = detectLocation(rawTitle);
+      }
 
       const parsedDate = new Date(pubDate);
       const dateStr = !isNaN(parsedDate.getTime()) 
@@ -740,8 +748,12 @@ async function main() {
     // === 追加国籍クエリ（取り漏らし防止） ===
     encodeURIComponent('ミャンマー国籍 OR ミャンマー人 逮捕 when:3d'),
     encodeURIComponent('インド人 OR インド国籍 逮捕 when:3d'),
+    encodeURIComponent('ネパール人 OR ネパール国籍 OR ネパール 逮捕 when:3d'),
+    encodeURIComponent('台湾人 OR 台湾籍 OR 台湾国籍 逮捕 when:3d'),
     encodeURIComponent('ロシア人 OR ロシア国籍 逮捕 when:3d'),
-    encodeURIComponent('米兵 OR 米軍 逮捕 OR 容疑 OR 摘発 when:3d')
+    encodeURIComponent('米兵 OR 米軍 逮捕 OR 容疑 OR 摘発 when:3d'),
+    encodeURIComponent('八雲 逮捕 when:3d'),
+    encodeURIComponent('千歳 台湾 逮捕 when:3d')
   ];
 
   let fetchedItems = [];
