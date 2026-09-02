@@ -291,6 +291,7 @@ function detectLocation(title) {
     { key: 'あべちか', pref: '大阪府' },
     { key: '天王寺', pref: '大阪府' },
     { key: '中野ブロードウェイ', pref: '東京都' },
+    { key: '八王子', pref: '東京都' },
     { key: '八雲', pref: '北海道' },
     { key: '千歳', pref: '北海道' },
     { key: 'テレビ愛知', pref: '愛知県' },
@@ -496,6 +497,21 @@ function isSameEvent(itemA, itemB) {
   if ((titleA.includes('中野') || titleA.includes('高級時計') || titleA.includes('高級腕時計') || titleA.includes('2億円')) &&
       (titleB.includes('中野') || titleB.includes('高級時計') || titleB.includes('高級腕時計') || titleB.includes('2億円')) &&
       (titleA.includes('チリ') || titleB.includes('チリ') || titleA.includes('時計') || titleB.includes('時計'))) {
+    return true;
+  }
+
+  // 特例：沖縄・北谷町ホテル放火殺人未遂事件（米国籍32歳男・複数媒体の統合）
+  if ((titleA.includes('沖縄') || titleA.includes('北谷') || locA === '沖縄県') &&
+      (titleB.includes('沖縄') || titleB.includes('北谷') || locB === '沖縄県') &&
+      (titleA.includes('放火') || titleA.includes('火災') || titleA.includes('火事') || titleA.includes('火を付') || titleA.includes('火をつけ')) &&
+      (titleB.includes('放火') || titleB.includes('火災') || titleB.includes('火事') || titleB.includes('火を付') || titleB.includes('火をつけ'))) {
+    return true;
+  }
+
+  // 特例：八王子アパート空室侵入事件（中国籍41歳男・下野新聞とTBS NEWS DIG等の統合）
+  if ((titleA.includes('空き部屋') || titleA.includes('空室')) &&
+      (titleB.includes('空き部屋') || titleB.includes('空室')) &&
+      (titleA.includes('侵入') || titleB.includes('侵入'))) {
     return true;
   }
 
