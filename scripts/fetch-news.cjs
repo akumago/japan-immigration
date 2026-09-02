@@ -85,6 +85,8 @@ const FOREIGN_KEYWORDS = [
   'インドネシア', 'カンボジア', 'スリランカ', 'パキスタン', 'バングラデシュ', 'モンゴル', 'ナイジェリア', 'ガーナ',
   'トルコ', 'ミャンマー', 'イラン', 'アルゼンチン', 'コロンビア', 'フランス', 'メキシコ', 'エジプト', 'チリ', 'チリ人', 'チリ国籍', 'チリ籍',
   'ロシア', 'ロシア人', 'ロシア国籍', 'ウズベキスタン', 'ボリビア',
+  'ラオス', 'ラオス人', 'ラオス国籍', 'マレーシア', 'マレーシア人', 'マレーシア国籍', 'シンガポール',
+  'キルギス', 'タジキスタン', 'カザフスタン', 'ケニア', 'ウガンダ', 'セネガル',
   '不法滞在', '不法残留', '不法入国', '密入国', 'オーバーステイ',
   '技能実習生', '元技能実習生', '特定技能', '留学生', '元留学生', '仮放免',
   '偽造在留カード', '在留カード', '入管法', '入管難民法',
@@ -101,6 +103,7 @@ const NATIONALITIES = [
   'ナイジェリア', 'ガーナ', 'トルコ', 'ミャンマー', 'イラン', 'クルド',
   'アルゼンチン', 'コロンビア', 'フランス', 'メキシコ', 'エジプト', 'チリ', '台湾',
   'ロシア', 'ウズベキスタン', 'ボリビア', 'アフガニスタン', '北朝鮮',
+  'ラオス', 'マレーシア', 'シンガポール', 'キルギス', 'タジキスタン', 'カザフスタン',
   'アメリカ', '米国', '米国籍', 'インド', 'イギリス', '英国',
   'ドイツ', 'オーストラリア', 'カナダ'
 ];
@@ -388,14 +391,18 @@ function isDomesticCrime(title, media) {
     return false;
   }
 
-  // 3. 日本国内である明確な証拠（都道府県・市町村名、日本の警察・捜査機関、日本固有の法令）
+  // 3. 日本国内である明確な証拠（都道府県・市町村名、日本の警察・捜査機関、日本固有の法令、公認国内メディア、国内特有事案）
   const detectedLoc = detectLocation(title);
   const hasPrefecture = detectedLoc !== '全国';
   const hasEnforcement = hasJapaneseEnforcement(title);
   const hasDomesticIndicator = DOMESTIC_INDICATORS.some(ind => title.includes(ind));
 
-  // 国内証拠（地名、警察機関、国内指示ワード）のいずれかが必須
-  if (!hasPrefecture && !hasEnforcement && !hasDomesticIndicator) {
+  // 日本の公認国内メディアからの配信、または太陽光・銅線窃盗等の日本特有事案の救済
+  const isDomesticSpecificCrime = /(太陽光|メガソーラー|銅線|空室|空き部屋|受け子|出し子|ヤード|不法就労)/.test(title);
+  const isCertifiedDomesticMedia = media && /(新聞|テレビ|放送|NEWS DIG|NNN|FNN|ANN|JNN|Yahoo|ｄメニュー|goo|au)/.test(media);
+
+  // 国内証拠（地名、警察機関、国内指示ワード、または特有犯罪×国内メディア）のいずれかが必須
+  if (!hasPrefecture && !hasEnforcement && !hasDomesticIndicator && !(isDomesticSpecificCrime && isCertifiedDomesticMedia)) {
     return false;
   }
 
@@ -426,6 +433,22 @@ function getEventFeatureGroup(title) {
 function isSameEvent(itemA, itemB) {
   const titleA = typeof itemA === 'string' ? itemA : itemA.title;
   const titleB = typeof itemB === 'string' ? itemB : itemB.title;
+
+  // 同義語・表現ゆれの完全正規化
+  function canonicalizeTitle(t) {
+    return normalizeTitle(t)
+      .replace(/火を付[けける]|火災|火事/g, '放火')
+      .replace(/宿泊施設|簡易宿所|簡易ホテル|ホテル|旅館/g, 'ホテル施設')
+      .replace(/空き部屋|空き室|空室|賃貸住宅の空き/g, '空き部屋')
+      .replace(/出し子|回収役|特殊詐欺|sns型投資詐欺|投資詐欺/g, '受け子詐欺')
+      .replace(/不同意わいせつ|強制わいせつ/g, 'わいせつ')
+      .replace(/乾燥大麻|大麻リキッド/g, '大麻')
+      .replace(/高級腕時計|高級時計/g, '高級時計');
+  }
+
+  const canonA = canonicalizeTitle(titleA);
+  const canonB = canonicalizeTitle(titleB);
+  if (canonA === canonB) return true;
 
   const normA = normalizeTitle(titleA);
   const normB = normalizeTitle(titleB);
@@ -768,8 +791,9 @@ async function main() {
     encodeURIComponent('台湾人 OR 台湾籍 OR 台湾国籍 逮捕 when:3d'),
     encodeURIComponent('ロシア人 OR ロシア国籍 逮捕 when:3d'),
     encodeURIComponent('米兵 OR 米軍 逮捕 OR 容疑 OR 摘発 when:3d'),
-    encodeURIComponent('八雲 逮捕 when:3d'),
-    encodeURIComponent('千歳 台湾 逮捕 when:3d')
+    encodeURIComponent('ラオス人 OR ラオス国籍 逮捕 when:3d'),
+    encodeURIComponent('マレーシア人 OR マレーシア国籍 逮捕 when:3d'),
+    encodeURIComponent('太陽光 OR 銅線 外国人 OR 外国籍 逮捕 when:3d')
   ];
 
   let fetchedItems = [];
