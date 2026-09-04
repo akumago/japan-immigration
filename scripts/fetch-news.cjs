@@ -470,6 +470,42 @@ function isSameEvent(itemA, itemB) {
 
   if (normA === normB) return true;
 
+  // === 4次元エンティティクラスタリング（手動修正を完全撤廃する恒久統合エンジン） ===
+  function getCrimeCategory(t) {
+    if (/放火|火災|火事|火を付/.test(t)) return 'ARSON';
+    if (/殺人|強盗致死|強盗殺人|刺殺|刺傷|死体遺棄|遺棄/.test(t)) return 'HOMICIDE';
+    if (/詐欺|受け子|出し子|なりすまし/.test(t)) return 'FRAUD';
+    if (/銅線|太陽光|空き部屋|空室|窃盗|万引き|侵入|キャッシュカード/.test(t)) return 'THEFT';
+    if (/無免許|ひき逃げ|危険運転|過失運転|飲酒運転|酒気帯び|トラック|はみ出し/.test(t)) return 'TRAFFIC';
+    if (/不法残留|不法滞在|旅券不携帯|オーバーステイ|入管法/.test(t)) return 'IMMIGRATION';
+    if (/わいせつ|性交|盗撮/.test(t)) return 'SEXUAL';
+    if (/薬物|覚醒剤|大麻|コカイン|麻薬|密輸/.test(t)) return 'DRUGS';
+    return 'OTHER';
+  }
+
+  const locA = detectLocation(titleA);
+  const locB = detectLocation(titleB);
+  const natA = NATIONALITIES.find(n => titleA.includes(n));
+  const natB = NATIONALITIES.find(n => titleB.includes(n));
+  const catA = getCrimeCategory(titleA);
+  const catB = getCrimeCategory(titleB);
+
+  // 地域一致・国籍一致・罪種カテゴリー一致の場合、見出し表現の違いを無視して自動統合
+  if (locA !== '全国' && locA === locB &&
+      natA && natB && natA === natB &&
+      catA !== 'OTHER' && catA === catB) {
+    const dateA = itemA.date ? new Date(itemA.date).getTime() : 0;
+    const dateB = itemB.date ? new Date(itemB.date).getTime() : 0;
+    if (dateA && dateB) {
+      const diffDays = Math.abs(dateA - dateB) / (1000 * 60 * 60 * 24);
+      if (diffDays <= 2) {
+        return true;
+      }
+    } else {
+      return true;
+    }
+  }
+
   // 1. 固有施設名・現場名・特徴的ランドマークの一致
   const LANDMARKS = [
     'あべちか', '天王寺', '飯能', '加古川', '亀山', '天童', '流山', '神栖',
@@ -495,12 +531,6 @@ function isSameEvent(itemA, itemB) {
   }
 
   // 2. 地域・国籍・事象グループのクロス判定
-  const locA = detectLocation(titleA);
-  const locB = detectLocation(titleB);
-  
-  const natA = NATIONALITIES.find(n => titleA.includes(n));
-  const natB = NATIONALITIES.find(n => titleB.includes(n));
-
   const featsA = [];
   const featsB = [];
   for (let i = 0; i < EVENT_FEATURE_KEYWORDS.length; i++) {
