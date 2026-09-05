@@ -523,6 +523,8 @@ function isSameEvent(itemA, itemB) {
   const affB = detectAffiliation(titleB);
   const catA = getCrimeCategory(titleA);
   const catB = getCrimeCategory(titleB);
+  const natA = NATIONALITIES.find(n => titleA.includes(n));
+  const natB = NATIONALITIES.find(n => titleB.includes(n));
 
   // 現場特徴語・管轄警察署の一致判定（全島エイサー、沖縄署等の同一起訴・逮捕を即時統合）
   if (/(全島エイサー|エイサー)/.test(titleA) && /(全島エイサー|エイサー)/.test(titleB)) return true;
