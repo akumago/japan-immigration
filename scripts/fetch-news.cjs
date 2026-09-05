@@ -181,7 +181,7 @@ const OVERSEAS_LOCATIONS = [
   'Reform UK', '超法規的', 'インドへ出国', 'メトロジャヤ', 'ジャカルタ首都圏', 'インドネシア共和国',
   '南京', '湖北', '江蘇', '広州', '武漢', '天津', '青島', '大連', '成都', '重慶', '杭州', '西安',
   '天安', '水原', '城南', '高陽', '龍仁', '清州', '全州', '大邱', '大田', '光州', '蔚山',
-  '京畿', '江原', '忠清', '全羅', '慶尚', '済州'
+  '京畿', '江原', '忠清', '全羅', '慶尚', '慶北', '慶山', '済州', 'ソウル', '釜山', '仁川', '大邱', '大田', '光州', '蔚山'
 ];
 
 // 国内発生を確定するキーワード（日本の警察組織・裁判所・行政・法令・制度・報道用語）
@@ -210,6 +210,9 @@ const EXCLUDE_KEYWORDS = [
   
   // オピニオン・コラム・発言記事の排除
   '私見', '持論', '語る', '苦言', '言及', '内幕', '捜査の内幕', '氏、', 'ひろゆき',
+  
+  // 被害者側の刑事告訴・被害申告事案、および論考・連載記事の除外
+  '刑事告訴', '告訴した', '告訴され', '告訴受け', '被害を告訴', '被害を訴え', '＜岐路の多様性＞', '【岐路の多様性】',
 
   // 海外固有の刑法・事案用語
   '存続殺人', '尊属殺人',
@@ -301,6 +304,14 @@ function normalizeTitle(title) {
 
 // 高精度地域判定関数（市町村名・警察署名・都道府県名を全面解析）
 function detectLocation(title) {
+  // 0. 見出し冒頭の地域プレフィックス（例: 「埼玉・」「東京・」「神奈川・」「愛知・」等）を最優先
+  for (const pref of PREFECTURES) {
+    const shortName = pref.replace(/[府県]$/, '');
+    const prefixRegex = new RegExp(`^[\\\[【〔]?(?:${shortName})[・\\s\\:：\\\]】〕]`);
+    if (prefixRegex.test(title)) {
+      return pref;
+    }
+  }
   // 0. 特徴的事件現場ランドマーク・管轄警察組織を最優先（例: あべちか→大阪府、大阪府警→大阪府、警視庁→東京都）
   const PRIMARY_LOCATION_SIGNS = [
     { key: '津幡', pref: '石川県' },
@@ -490,7 +501,7 @@ function isSameEvent(itemA, itemB) {
   function detectAffiliation(t) {
     if (/米兵|米海兵隊|米軍|米国籍|アメリカ/.test(t)) return 'US_MILITARY';
     if (/ベトナム/.test(t)) return 'VIETNAM';
-    if (/中国/.test(t)) return 'CHINA';
+    if (/中国|台湾/.test(t)) return 'CHINA_TAIWAN';
     if (/韓国|朝鮮/.test(t)) return 'KOREA';
     if (/ブラジル/.test(t)) return 'BRAZIL';
     if (/フィリピン/.test(t)) return 'PHILIPPINES';
@@ -566,6 +577,63 @@ function isSameEvent(itemA, itemB) {
   }
 
   const commonFeats = featsA.filter(f => featsB.includes(f));
+
+  // 特例：愛知・豊川のイラン人男性死亡・強盗致死・死体遺棄事件（NHK/共同/福井新聞等の統合）
+  if ((locA === '愛知県' || titleA.includes('愛知') || titleA.includes('豊川')) &&
+      (locB === '愛知県' || titleB.includes('愛知') || titleB.includes('豊川')) &&
+      (titleA.includes('イラン') || titleA.includes('3人') || titleA.includes('強盗致死') || titleA.includes('病院敷地内')) &&
+      (titleB.includes('イラン') || titleB.includes('3人') || titleB.includes('強盗致死') || titleB.includes('病院敷地内'))) {
+    return true;
+  }
+
+  // 特例：世田谷ストーカー殺人事件判決（韓国籍男・求刑20年・実刑判決の統合）
+  if ((titleA.includes('世田谷') || titleA.includes('ストーカー')) &&
+      (titleB.includes('世田谷') || titleB.includes('ストーカー')) &&
+      (titleA.includes('韓国') || titleB.includes('韓国') || titleA.includes('東京地裁') || titleB.includes('東京地裁'))) {
+    return true;
+  }
+
+  // 特例：大阪・スリランカ留学生不起訴処分事案（読売テレビ/MBS/ライブドア等の統合）
+  if ((locA === '大阪府' || titleA.includes('大阪')) &&
+      (locB === '大阪府' || titleB.includes('大阪')) &&
+      (titleA.includes('留学生') || titleA.includes('スリランカ')) &&
+      (titleB.includes('留学生') || titleB.includes('スリランカ')) &&
+      (titleA.includes('不起訴') || titleB.includes('不起訴'))) {
+    return true;
+  }
+
+  // 特例：山形県警 400万円受け子特殊詐欺（台湾/中国籍男・山形県警）
+  if ((locA === '山形県' || titleA.includes('山形')) &&
+      (locB === '山形県' || titleB.includes('山形')) &&
+      (titleA.includes('400万') || titleA.includes('受け子')) &&
+      (titleB.includes('400万') || titleB.includes('受け子'))) {
+    return true;
+  }
+
+  // 特例：福島・郡山 ベトナム国籍女の詐欺事件（受け子/なりすまし/1000万円）
+  if ((locA === '福島県' || titleA.includes('福島') || titleA.includes('郡山')) &&
+      (locB === '福島県' || titleB.includes('福島') || titleB.includes('郡山')) &&
+      (titleA.includes('ベトナム') || titleB.includes('ベトナム')) &&
+      (titleA.includes('詐欺') || titleB.includes('詐欺'))) {
+    return true;
+  }
+
+  // 特例：千葉・ベトナム国籍男の飲酒多重事故（FNN/テレ朝等の統合）
+  if ((locA === '千葉県' || titleA.includes('千葉')) &&
+      (locB === '千葉県' || titleB.includes('千葉')) &&
+      (titleA.includes('ベトナム') || titleB.includes('ベトナム')) &&
+      (titleA.includes('飲酒') || titleA.includes('酒酔い') || titleA.includes('玉突き') || titleA.includes('多重事故') || titleA.includes('男児')) &&
+      (titleB.includes('飲酒') || titleB.includes('酒酔い') || titleB.includes('玉突き') || titleB.includes('多重事故') || titleB.includes('男児'))) {
+    return true;
+  }
+
+  // 特例：三重・中国籍夫婦の海賊版DVD販売（NHK/伊勢新聞等の統合）
+  if ((locA === '三重県' || titleA.includes('三重')) &&
+      (locB === '三重県' || titleB.includes('三重')) &&
+      (titleA.includes('海賊版') || titleA.includes('DVD')) &&
+      (titleB.includes('海賊版') || titleB.includes('DVD'))) {
+    return true;
+  }
 
   // 特例：愛知県での死体遺棄（イラン/ブラジル/外国籍/3人等の表記ゆれ統合）
   if ((locA === '愛知県' || titleA.includes('愛知') || titleA.includes('豊川')) &&
