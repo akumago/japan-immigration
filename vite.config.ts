@@ -23,6 +23,8 @@ export default defineConfig(({ mode }) => {
                 if (id.includes('framer-motion')) return 'vendor-motion';
                 if (id.includes('react') || id.includes('react-dom') || id.includes('react-router') || id.includes('react-helmet')) return 'vendor-react';
               }
+              if (id.includes('newsData.json')) return 'data-news';
+              if (id.includes('constants.tsx')) return 'data-constants';
             }
           }
         }

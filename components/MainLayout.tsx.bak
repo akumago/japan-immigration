@@ -144,7 +144,7 @@ export const MainLayout: React.FC<LayoutProps> = ({ children }) => {
               "name": "日本の岐路：外国人労働者受け入れ政策の構造的課題と国民経済への影響",
               "description": "外国人労働者受け入れ政策が日本の経済、社会、治安、安全保障に与える長期的影響を、公的統計データに基づき包括的に検証。",
               "url": siteUrl,
-              "image": "https://endearing-blini-b688ce.netlify.app/ogp-image-2.png",
+              "image": "https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg",
               "author": {
                   "@type": "Person",
                   "name": "Akuma Shogun",
@@ -185,7 +185,7 @@ export const MainLayout: React.FC<LayoutProps> = ({ children }) => {
                       "headline": pageMeta.title,
                       "description": pageMeta.desc,
                       "image": [
-                          "https://endearing-blini-b688ce.netlify.app/ogp-image-2.png"
+                          "https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg"
                       ],
                       "url": canonicalUrl,
                       "mainEntityOfPage": {
@@ -206,7 +206,7 @@ export const MainLayout: React.FC<LayoutProps> = ({ children }) => {
                           "name": "日本社会構造分析リサーチ",
                           "logo": {
                               "@type": "ImageObject",
-                              "url": "https://endearing-blini-b688ce.netlify.app/ogp-image-2.png"
+                              "url": "https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg"
                           }
                       },
                       "datePublished": pageMeta.published,
@@ -257,12 +257,12 @@ export const MainLayout: React.FC<LayoutProps> = ({ children }) => {
             <CookieConsent />
 
             {/* SEO Crawler Highway - Essential for indexing 44+ pages */}
-            <footer id="seo-crawler-nav" className="mt-20 py-10 border-t border-white/5 opacity-20 hover:opacity-100 transition-opacity duration-500">
+            <footer id="seo-crawler-nav" className="mt-20 py-10 border-t border-white/5 opacity-40 hover:opacity-100 transition-opacity duration-500">
                 <div className="max-w-7xl mx-auto px-4 text-[10px] leading-relaxed">
-                    <p className="text-gray-500 mb-4 font-bold uppercase tracking-widest text-center">Crawler Navigation Map</p>
+                    <p className="text-gray-400 mb-4 font-bold uppercase tracking-widest text-center">Crawler Navigation Map</p>
                     <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
                         {CRAWLER_NAV_LINKS.map((link, idx) => (
-                            <Link key={idx} to={link.path} className="text-gray-600 hover:text-blue-400 transition-colors">
+                            <Link key={idx} to={link.path} className="text-gray-400 hover:text-blue-400 transition-colors">
                                 {link.title}
                             </Link>
                         ))}

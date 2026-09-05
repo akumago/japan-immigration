@@ -51,11 +51,24 @@ const AdComponent: React.FC = () => {
             }
         };
 
-        // ビューポートに近づいた時（マージン300px）のみ初期化する遅延ロード（TBT・LCP劇的改善）
+        // AdSense スクリプトを必要時に一度だけ動的に注入（初期表示のメインスレッドブロックを完全回避）
+        const loadAdSenseScript = () => {
+            if (typeof window === 'undefined') return;
+            if (!document.querySelector('script[src*="adsbygoogle.js"]')) {
+                const script = document.createElement('script');
+                script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1244393386981388';
+                script.async = true;
+                script.crossOrigin = 'anonymous';
+                document.head.appendChild(script);
+            }
+        };
+
+        // ビューポートに近づいた時（マージン300px）のみスクリプト読込と広告初期化を実行
         if (typeof IntersectionObserver !== 'undefined') {
             const io = new IntersectionObserver((entries) => {
                 for (const entry of entries) {
                     if (entry.isIntersecting) {
+                        loadAdSenseScript();
                         executePush();
                         io.disconnect();
                         break;
@@ -66,6 +79,7 @@ const AdComponent: React.FC = () => {
             return () => io.disconnect();
         } else {
             // IntersectionObserver 非対応環境のフォールバック
+            loadAdSenseScript();
             executePush();
         }
     }, [isLoaded]);

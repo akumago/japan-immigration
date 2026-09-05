@@ -391,7 +391,7 @@ export const HomePage: React.FC = () => {
                     {/* 最新 外国人犯罪報道ニュース速報セクション（毎日09:00全自動更新） */}
                     <CrimeNewsSection />
 
-                    <footer className="text-center mt-12 text-gray-600 border-t border-white/10 pt-12 pb-12">
+                    <footer className="text-center mt-12 text-gray-400 border-t border-white/10 pt-12 pb-12">
                         <div className="mb-12 p-6 bg-blue-900/10 border border-blue-500/20 rounded-xl max-w-2xl mx-auto text-sm">
                             <p className="text-gray-400 mb-3">当プロジェクトは情報の正確性を最優先としています。</p>
                             <Link to="/contact/" className="text-blue-400 hover:text-blue-300 underline">

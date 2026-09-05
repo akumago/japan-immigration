@@ -257,7 +257,7 @@ export const MainLayout: React.FC<LayoutProps> = ({ children }) => {
             <CookieConsent />
 
             {/* SEO Crawler Highway - Essential for indexing 44+ pages */}
-            <footer id="seo-crawler-nav" className="mt-20 py-10 border-t border-white/5 opacity-40 hover:opacity-100 transition-opacity duration-500">
+            <footer id="seo-crawler-nav" className="mt-20 py-10 border-t border-white/5 opacity-75 hover:opacity-100 transition-opacity duration-500">
                 <div className="max-w-7xl mx-auto px-4 text-[10px] leading-relaxed">
                     <p className="text-gray-400 mb-4 font-bold uppercase tracking-widest text-center">Crawler Navigation Map</p>
                     <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
