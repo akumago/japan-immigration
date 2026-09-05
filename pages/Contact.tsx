@@ -10,13 +10,39 @@ export const Contact: React.FC = () => {
         message: '',
     });
     const [submitted, setSubmitted] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // ここで実際の送信処理を実装
-        console.log('Form submitted:', formData);
-        setSubmitted(true);
-        setTimeout(() => setSubmitted(false), 3000);
+        setSubmitting(true);
+        setSubmitError(false);
+
+        try {
+            const body = new URLSearchParams({
+                'form-name': 'contact',
+                ...formData,
+            }).toString();
+
+            const res = await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body,
+            });
+
+            if (res.ok) {
+                setSubmitted(true);
+                setFormData({ name: '', email: '', subject: '', message: '' });
+                setTimeout(() => setSubmitted(false), 5000);
+            } else {
+                setSubmitError(true);
+            }
+        } catch (err) {
+            console.error('Submission error:', err);
+            setSubmitError(true);
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -62,34 +88,40 @@ export const Contact: React.FC = () => {
                         <div className="grid md:grid-cols-2 gap-8">
                             {/* Contact Form Column */}
                             <div className="space-y-8">
-                                {/* Google Form Card */}
+                                {/* Official Guidance Card */}
                                 <div className="bg-gradient-to-br from-[#161b22] to-[#0d1117] rounded-xl border border-white/10 p-6 md:p-8">
                                     <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
                                         <div className="w-1 h-6 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full" />
-                                        公式お問い合わせフォーム
+                                        お問い合わせ窓口のご案内
                                     </h2>
-                                    <p className="text-gray-400 mb-6 text-sm">
-                                        Google フォームによる公式窓口を設置しています。より確実な対応をご希望の場合は、こちらをご利用ください。
+                                    <p className="text-gray-300 mb-4 text-sm leading-relaxed">
+                                        当サイトの分析レポートに関するご質問、引用・取材のご相談、公的統計データの訂正依頼などは、以下の公式フォームより直接お寄せいただけます。
                                     </p>
-                                    <a 
-                                        href="https://docs.google.com/forms/d/e/1FAIpQLSclK7I5hX_G9vJ7L0_r0XfN_7P1Y6J8W_W_W_W_W/viewform?usp=sf_link" 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white text-center rounded-lg shadow-lg shadow-blue-500/20 transition-all block font-bold"
-                                    >
-                                        Googleフォームで送信する
-                                    </a>
-                                    <p className="text-xs text-gray-400 mt-4 text-center">※ 外部リンクへ移動します</p>
+                                    <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 text-xs text-blue-300 space-y-2">
+                                        <p className="font-semibold flex items-center gap-1.5">
+                                            <span>✓</span> 受付後、担当者より順次確認・対応いたします
+                                        </p>
+                                        <p className="text-gray-400">
+                                            ※ 内容の正確性・客観性を維持するため、統計値の誤記や更新情報のご指摘を歓迎しております。
+                                        </p>
+                                    </div>
                                 </div>
 
-                                {/* Simple Form Card */}
+                                {/* Official Contact Form */}
                                 <div className="bg-gradient-to-br from-[#161b22] to-[#0d1117] rounded-xl border border-white/10 p-6 md:p-8">
                                     <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
                                         <div className="w-1 h-6 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full" />
-                                        簡易フォーム
+                                        メッセージ送信フォーム
                                     </h2>
 
-                                    <form onSubmit={handleSubmit} className="space-y-5">
+                                    <form
+                                        name="contact"
+                                        method="POST"
+                                        data-netlify="true"
+                                        onSubmit={handleSubmit}
+                                        className="space-y-5"
+                                    >
+                                        <input type="hidden" name="form-name" value="contact" />
                                         <div>
                                             <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                                                 お名前 <span className="text-red-400">*</span>
@@ -160,11 +192,12 @@ export const Contact: React.FC = () => {
 
                                         <motion.button
                                             type="submit"
+                                            disabled={submitting}
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
-                                            className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300"
+                                            className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 disabled:opacity-50"
                                         >
-                                            送信する
+                                            {submitting ? '送信中...' : '送信する'}
                                         </motion.button>
 
                                         {submitted && (
@@ -173,7 +206,17 @@ export const Contact: React.FC = () => {
                                                 animate={{ opacity: 1, y: 0 }}
                                                 className="p-4 bg-green-500/10 border border-green-500/30 rounded-xl text-green-400 text-center"
                                             >
-                                                お問い合わせを受け付けました。ありがとうございます。
+                                                お問い合わせを受け付けました。ご連絡ありがとうございます。
+                                            </motion.div>
+                                        )}
+
+                                        {submitError && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: -10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-center"
+                                            >
+                                                送信中にエラーが発生しました。時間をおいて再度お試しください。
                                             </motion.div>
                                         )}
                                     </form>

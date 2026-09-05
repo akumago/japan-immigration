@@ -38,7 +38,7 @@ export const VICIOUS_CYCLE_LABELS = ['Phase 1', 'Phase 2', 'Phase 3'];
 export const VICIOUS_CYCLE_DATA = [25, 45, 30];
 
 export const reportData: ReportData = {
-  mainTitle: '日本の岐路：外国人労働者受け入れ政策における構造的課題と国民経済への影響',
+  mainTitle: '日本の岐路：外国人労働者受け入れ政策の構造的課題と国民経済への影響',
   introduction: '本報告書は、外国人労働者の受け入れ拡大が日本の経済構造、社会秩序、および国家安全保障に及ぼす多角的な影響を公的データに基づき客証的に分析することを目的とする。',
   sections: [
     {

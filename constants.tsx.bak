@@ -478,6 +478,7 @@ export const CRAWLER_NAV_LINKS = [
     { title: '用語集', path: '/glossary/' },
     { title: '運営者情報', path: '/operator-info/' },
     { title: 'プライバシーポリシー', path: '/privacy-policy/' },
+    { title: '免責事項', path: '/disclaimer/' },
     { title: '参考文献・出典', path: '/references/' },
     { title: 'お問い合わせ', path: '/contact/' },
     ...Array.from({ length: 15 }, (_, i) => ({ 
