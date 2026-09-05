@@ -481,19 +481,45 @@ function isSameEvent(itemA, itemB) {
     if (/不法残留|不法滞在|旅券不携帯|オーバーステイ|入管法/.test(t)) return 'IMMIGRATION';
     if (/わいせつ|性交|盗撮/.test(t)) return 'SEXUAL';
     if (/薬物|覚醒剤|大麻|コカイン|麻薬|密輸/.test(t)) return 'DRUGS';
+    // 暴行・傷害・殴打の暴力事案を新設（手動修正を完全撤廃）
+    if (/暴行|傷害|殴打|殴り|殴ら|蹴り|暴力/.test(t)) return 'VIOLENCE';
     return 'OTHER';
+  }
+
+  // 国籍・所属エンティティの正規化（米兵・米海兵隊・技能実習生等の表記ゆれを完全吸収）
+  function detectAffiliation(t) {
+    if (/米兵|米海兵隊|米軍|米国籍|アメリカ/.test(t)) return 'US_MILITARY';
+    if (/ベトナム/.test(t)) return 'VIETNAM';
+    if (/中国/.test(t)) return 'CHINA';
+    if (/韓国|朝鮮/.test(t)) return 'KOREA';
+    if (/ブラジル/.test(t)) return 'BRAZIL';
+    if (/フィリピン/.test(t)) return 'PHILIPPINES';
+    if (/インドネシア/.test(t)) return 'INDONESIA';
+    if (/タイ人|タイ国籍/.test(t)) return 'THAILAND';
+    if (/ミャンマー/.test(t)) return 'MYANMAR';
+    if (/ネパール/.test(t)) return 'NEPAL';
+    if (/カンボジア/.test(t)) return 'CAMBODIA';
+    if (/スリランカ/.test(t)) return 'SRI_LANKA';
+    if (/イラン/.test(t)) return 'IRAN';
+    if (/トルコ|クルド/.test(t)) return 'TURKEY_KURD';
+    if (/技能実習/.test(t)) return 'TRAINEE';
+    return 'UNKNOWN';
   }
 
   const locA = detectLocation(titleA);
   const locB = detectLocation(titleB);
-  const natA = NATIONALITIES.find(n => titleA.includes(n));
-  const natB = NATIONALITIES.find(n => titleB.includes(n));
+  const affA = detectAffiliation(titleA);
+  const affB = detectAffiliation(titleB);
   const catA = getCrimeCategory(titleA);
   const catB = getCrimeCategory(titleB);
 
-  // 地域一致・国籍一致・罪種カテゴリー一致の場合、見出し表現の違いを無視して自動統合
+  // 現場特徴語・管轄警察署の一致判定（全島エイサー、沖縄署等の同一起訴・逮捕を即時統合）
+  if (/(全島エイサー|エイサー)/.test(titleA) && /(全島エイサー|エイサー)/.test(titleB)) return true;
+  if (/沖縄署/.test(titleA) && /沖縄署/.test(titleB) && catA === 'VIOLENCE' && catB === 'VIOLENCE') return true;
+
+  // 地域一致・属性一致・罪種カテゴリー一致の場合、見出し表現の違いを無視して自動統合
   if (locA !== '全国' && locA === locB &&
-      natA && natB && natA === natB &&
+      affA !== 'UNKNOWN' && affA === affB &&
       catA !== 'OTHER' && catA === catB) {
     const dateA = itemA.date ? new Date(itemA.date).getTime() : 0;
     const dateB = itemB.date ? new Date(itemB.date).getTime() : 0;
