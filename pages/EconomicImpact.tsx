@@ -21,13 +21,13 @@ export const EconomicImpact: React.FC = () => {
                 />
                 <meta property="og:title" content="移民政策と実質賃金の相関分析" />
                 <meta property="og:description" content="安価な労働供給は、いかにして「日本人の貧困化」を加速させるか。公的統計に基づく詳細レポート。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/economic-impact/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="移民政策と実質賃金の相関分析 | 日本の岐路" />
                 <meta name="twitter:description" content="安価な労働供給がもたらす構造的課題を検証する経済レポート" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header title="移民政策と国民所得の相関分析" description="安価な労働供給は、いかにして「日本人の貧困化」を加速させるか" />

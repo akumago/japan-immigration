@@ -20,13 +20,13 @@ export const BurialControversy: React.FC = () => {
                 />
                 <meta property="og:title" content="公衆衛生と文化摩擦：土葬問題と水源地保護" />
                 <meta property="og:description" content="イスラム教徒による土葬要望と日本の火葬文化・公衆衛生の衝突を分析。公衆衛生・国土保全の観点から検証。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/burial-controversy/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="公衆衛生と文化摩擦：土葬問題 | 日本の岐路" />
                 <meta name="twitter:description" content="火葬文化・公衆衛生と土葬要求の衝突を多角的に検証する分析レポート" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header title="公衆衛生と文化摩擦：土葬問題の深層" description="「郷に入っては郷に従え」：リスペクトと公衆衛生の観点から" />

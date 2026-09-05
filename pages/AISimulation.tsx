@@ -19,7 +19,7 @@ export const AISimulation: React.FC = () => {
                 />
                 <meta property="og:title" content="AIによる政策シミュレーションと多角的検証" />
                 <meta property="og:description" content="AIが提示する「正論」の裏にある、日本固有の構造的課題を浮き彫りにしたレポート。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/ai-simulation/" />
             </Helmet>
 

@@ -12,13 +12,13 @@ export const Conclusion: React.FC = () => {
                 <meta name="description" content="差別や衝突を最小化するための、現実的かつ人類の知恵としての「棲み分け」という考え方を提唱。" />
                 <meta property="og:title" content="結び：真の平和に向けた「棲み分けの共生」の提唱" />
                 <meta property="og:description" content="差別や衝突を最小化するための、現実的かつ人類の知恵としての「棲み分け」という考え方を提唱。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/conclusion/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="棲み分けの共生：真の平和への提唱 | 日本の岐路" />
                 <meta name="twitter:description" content="差別でも排外主義でもなく、冷静な現実認識に基づいた適切な設計を提唱する最終考察" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
             <Header title="結び" description="憎しみを再生産しないための、地球規模での平和な共生" />
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-gray-300">

@@ -20,13 +20,13 @@ export const NaturalizationParadox: React.FC = () => {
                 />
                 <meta property="og:title" content="帰化制度と永住権の逆転現象：国家主権と安全保障のリスク分析" />
                 <meta property="og:description" content="帰化要件の緩和と永住権取得のハードル低下がもたらす、法的な「穴」と安全保障上の懸念を考察。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/naturalization-paradox/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="帰化制度と永住権の逆転現象 | 日本の岐路" />
                 <meta name="twitter:description" content="国家主権と安全保障の観点から、帰化要件緩和と永住権取得ハードル低下のリスクを鋭く分析。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header title="帰化制度と永住権の逆転現象" description="安全保障と主権の観点からの構造的欠陥の考察" />

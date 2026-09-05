@@ -14,13 +14,13 @@ export const Disclaimer: React.FC = () => {
                 />
                 <meta property="og:title" content="免責事項 | 日本の岐路" />
                 <meta property="og:description" content="JSSARが公開する統計データ、分析レポートの利用規約、免責事項についての公式ステートメント。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/disclaimer/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="免責事項 | 日本の岐路" />
                 <meta name="twitter:description" content="JSSARの免責事項および情報利用ポリシー。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <div className="min-h-screen bg-[#0d1117] pt-24 pb-16">

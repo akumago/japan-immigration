@@ -20,13 +20,13 @@ export const LandAcquisition: React.FC = () => {
                 />
                 <meta property="og:title" content="国土保全と安全保障：外国資本による土地買収の現状" />
                 <meta property="og:description" content="水源地や自衛隊基地周辺など、土地買収の実態と法規制の不十分さを検証。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/land-acquisition/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="国土保全と安全保障：土地買収の現状 | 日本の岐路" />
                 <meta name="twitter:description" content="自衛隊基地周辺や水源地などの重要土地が外国資本へ。安全保障上の懸念を鋭く検証。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header title="国土保全と外国資本の土地取得" description="水源地、基地周辺、森林：静かに進行する「物理的な浸食」の実態" />

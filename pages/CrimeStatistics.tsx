@@ -20,13 +20,13 @@ export const CrimeStatistics: React.FC = () => {
                 />
                 <meta property="og:title" content="外国人犯罪統計の詳細分析：検挙率1.72倍の真実" />
                 <meta property="og:description" content="警察庁統計および2025年参院内閣委員会答弁に基づく詳細分析。日本人検挙率0.188%に対し外国人0.323%という数値の統計的意味。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/crime-statistics/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="外国人犯罪統計の詳細分析：検挙率1.72倍の真実" />
                 <meta name="twitter:description" content="公的統計データに基づいた治安リスクの客観的検証レポート" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header title="外国人犯罪統計の詳細分析" description="感情論を排し、公的統計データのみに基づいた治安リスクの検証" />

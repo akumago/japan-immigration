@@ -22,13 +22,13 @@ export const NigeriaCase: React.FC = () => {
                 />
                 <meta property="og:title" content="ナイジェリアの事例：交流の失敗とリスク" />
                 <meta property="og:description" content="政府主導の国際交流事業が、いかに危険な誤解と新たな火種を生むか。JICA事業の失敗例を検証。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/nigeria-case/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="ナイジェリアの事例：交流の失敗とリスク | 日本の岐路" />
                 <meta name="twitter:description" content="安易な国際交流が招く外交・治安リスクを検証する分析レポート" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header title="ナイジェリアの事例：交流の失敗とリスク" description="政府主導の国際交流事業が、いかに危険な誤解と新たな火種を生むか" />

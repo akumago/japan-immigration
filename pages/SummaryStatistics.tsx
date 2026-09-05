@@ -12,13 +12,13 @@ export const SummaryStatistics: React.FC = () => {
                 <meta name="description" content="国会答弁データが裏付ける、日本居住外国人と日本人の検挙率格差。" />
                 <meta property="og:title" content="総括：統計的客観事実が示す政策見直しの必要性" />
                 <meta property="og:description" content="国会答弁データが裏付ける、日本居住外国人と日本人の検挙率格差。1.72倍という数字の意味を徹底解説。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/summary-statistics/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="検挙率格差1.72倍：統計が示す政策見直しの必要性 | 日本の岐路" />
                 <meta name="twitter:description" content="国会答弁で明らかになった日本居住外国人と日本人の犯罪率格差を徹底分析" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
             <Header title="総括：統計的客観事実" description="感情を排し、冷徹な数字から導き出される結論" />
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

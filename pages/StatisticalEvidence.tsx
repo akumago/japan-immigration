@@ -15,13 +15,13 @@ export const StatisticalEvidence: React.FC = () => {
                 <meta name="description" content="国連および世界銀行の統計データを基に、移民比率とGDP成長率の間に因果関係がないことを証明。" />
                 <meta property="og:title" content="視覚的証拠：移民と経済成長の相関性に関する客観的データ" />
                 <meta property="og:description" content="国連および世界銀行の統計データを基に、移民比率とGDP成長率の相関を視覚的に検証。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/statistical-evidence/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="移民と経済成長の無関係性：統計データによる検証 | 日本の岐路" />
                 <meta name="twitter:description" content="「移民が経済を救う」という神話を、世界銀行等の公式データから視覚的に解体" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
             <Header title="視覚的証拠：移民と経済成長の無関係性" description="「移民が経済を救う」という神話の再検証" />
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

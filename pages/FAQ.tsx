@@ -173,13 +173,13 @@ export const FAQ: React.FC = () => {
                 />
                 <meta property="og:title" content="よくある質問（FAQ） | 日本の岐路" />
                 <meta property="og:description" content="移民政策に関する疑問にデータと事実で答えます。経済、治安、制度など多角的に解説。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/faq/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="移民政策FAQ：疑問に答える | 日本の岐路" />
                 <meta name="twitter:description" content="「移民は経済に必要？」「犯罪は増えてる？」公認統計に基づき、よくある疑問を解明。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <div className="min-h-screen bg-[#0d1117] pt-24 pb-16">

@@ -64,6 +64,15 @@ export const CrimeNewsArchive: React.FC = () => {
           name="keywords"
           content="外国人犯罪,逮捕報道,地方紙ニュース,治安データベース,不法滞在,治安維持"
         />
+              <meta property="og:title" content="外国人犯罪報道 日次アーカイブ＆データベース | 日本の岐路" />
+        <meta property="og:description" content="全国の地方紙・主要報道メディア等のニュースから、外国人が関与する案件を自動取得・累積保存しています。" />
+        <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
+        <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/crime-news/" />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="外国人犯罪報道 日次アーカイブ＆データベース | 日本の岐路" />
+        <meta name="twitter:description" content="全国の地方紙・主要報道メディア等のニュースから、外国人が関与する案件を自動取得・累積保存しています。" />
+        <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
       </Helmet>
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12">

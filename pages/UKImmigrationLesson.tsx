@@ -20,13 +20,13 @@ export const UKImmigrationLesson: React.FC = () => {
                 />
                 <meta property="og:title" content="イギリスの反移民デモが教える未来：日本の教訓" />
                 <meta property="og:description" content="ロンドンで発生したデモの背景と、多文化共生の限界を分析。欧州の失敗から日本が学ぶべき教訓。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/uk-immigration-lesson/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="イギリスの反移民デモが教える未来 | 日本の岐路" />
                 <meta name="twitter:description" content="欧州の失敗から日本が学ぶべき移民政策の教訓" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header title="イギリスの事例と日本の教訓" description="「多文化共生」の幻想が崩れる時：欧州の失敗を繰り返さないために" />

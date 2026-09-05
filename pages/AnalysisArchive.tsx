@@ -61,13 +61,13 @@ export const AnalysisArchive: React.FC = () => {
                 <meta name="description" content={`日本の外国人移民政策に関する厳選された${totalCount}の専門分析レポートおよび実用ガイドのアーカイブ一覧です。`} />
                 <meta property="og:title" content="分析レポート・アーカイブ一覧 | 日本の岐路" />
                 <meta property="og:description" content={`厳選された${totalCount}の多角的な専門分析記事を一挙公開。日本の未来を考えるためのデータアーカイブ。`} />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis-archive/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="分析レポート・アーカイブ一覧 | 日本の岐路" />
                 <meta name="twitter:description" content={`厳選された${totalCount}の多角的な専門分析記事を一挙公開。日本の未来を考えるためのデータアーカイブ。`} />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header 

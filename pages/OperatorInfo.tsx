@@ -67,13 +67,13 @@ export const OperatorInfo: React.FC = () => {
                 />
                 <meta property="og:title" content="運営者情報・このサイトについて | 日本の岐路" />
                 <meta property="og:description" content="独立系経済アナリスト Akuma Shogun による、外国人移民政策と日本社会の構造的課題分析プロジェクト。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/operator-info/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="運営者情報：分析の理念 | 日本の岐路" />
                 <meta name="twitter:description" content="公的統計データに基づき、日本の未来を可視化。独立系経済アナリストによる分析プロジェクト。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <div className="bg-[#0d1117] min-h-screen text-gray-300 font-sans py-24 px-4">

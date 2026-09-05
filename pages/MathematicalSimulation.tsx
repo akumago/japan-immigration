@@ -19,13 +19,13 @@ export const MathematicalSimulation: React.FC = () => {
                 />
                 <meta property="og:title" content="推計モデルによる政策シミュレーションと多角的検証" />
                 <meta property="og:description" content="マクロ推計が提示する「正論」の裏にある、日本固有の構造的課題を浮き彫りにしたレポート。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/simulation-model/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="移民政策シミュレーション：長期的リスク検証 | 日本の岐路" />
                 <meta name="twitter:description" content="計量経済モデルで検証する外国人労働者受け入れ拡大のリスク" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header title="最新の数理予測モデルの論理的限界と「日本固有の変数」による再検証" description="グローバルな最適化理論は、なぜ日本の「信頼社会」の前で沈黙したのか" />

@@ -60,13 +60,13 @@ export const Contact: React.FC = () => {
                 <meta name="description" content="ご質問、ご意見、ご要望などお気軽にお問い合わせください" />
                 <meta property="og:title" content="お問い合わせ | 日本の岐路" />
                 <meta property="og:description" content="ご質問、ご意見、内容の訂正依頼など、こちらからお寄せください。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/contact/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="お問い合わせ | 日本の岐路" />
                 <meta name="twitter:description" content="日本社会構造分析リサーチへのご連絡、ご意見をお待ちしております。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <div className="min-h-screen bg-[#0d1117] pt-24 pb-16">

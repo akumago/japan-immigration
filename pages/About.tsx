@@ -14,13 +14,13 @@ export const About: React.FC = () => {
                 />
                 <meta property="og:title" content="日本社会構造分析リサーチについて | 日本の岐路" />
                 <meta property="og:description" content="JSSARの目的、客観的調査方法、および反差別・中立性ポリシーについての公式ステートメント。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/about/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="JSSARについて | 日本の岐路" />
                 <meta name="twitter:description" content="いかに摩擦とヘイトを減らすか。JSSARの設立趣旨と反差別・中立性ポリシー。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <div className="min-h-screen bg-[#0d1117] pt-24 pb-16">

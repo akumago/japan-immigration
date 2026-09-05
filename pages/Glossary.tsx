@@ -281,13 +281,13 @@ export const Glossary: React.FC = () => {
                 />
                 <meta property="og:title" content="用語集 | 日本の岐路" />
                 <meta property="og:description" content="移民政策に関する専門用語をわかりやすく解説。30以上の重要用語を網羅。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/glossary/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="移民政策用語集 | 日本の岐路" />
                 <meta name="twitter:description" content="技能実習、特定技能、犯罪統計など、議論の土台となる重要用語を徹底解説。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <div className="min-h-screen bg-[#0d1117] pt-24 pb-16">

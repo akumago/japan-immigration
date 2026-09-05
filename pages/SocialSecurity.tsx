@@ -20,13 +20,13 @@ export const SocialSecurity: React.FC = () => {
                 />
                 <meta property="og:title" content="社会保障制度の持続可能性と外国人の加入問題" />
                 <meta property="og:description" content="国民健康保険の滞納問題や不適切利用の疑いなど、制度が直面する課題を分析。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/social-security/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="社会保障の持続可能性：不適切利用の検証 | 日本の岐路" />
                 <meta name="twitter:description" content="相互扶助の精神を守るための提言。保険制度の悪用防止と適正運用の検証。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header title="社会保障制度の持続可能性と課題" description="相互扶助の精神をいかに守るか：保険制度の悪用防止と適正運用の検証" />

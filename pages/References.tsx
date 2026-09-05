@@ -77,13 +77,13 @@ export const References: React.FC = () => {
                 />
                 <meta property="og:title" content="参考文献・データソース | 日本の岐路" />
                 <meta property="og:description" content="警察庁、法務省、国連など、本サイトが依拠する信頼性の高い情報源一覧。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/references/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="データの透明性：依拠した典拠一覧 | 日本の岐路" />
                 <meta name="twitter:description" content="一次統計資料を重視するJSSARのデータソースを公開。信頼性を担保します。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <div className="min-h-screen bg-[#0d1117] pt-24 pb-16">

@@ -18,13 +18,13 @@ export const LaborDilemma: React.FC = () => {
                 <meta name="description" content="日本人の労働意欲を削ぐ制度と、外国人雇用への助成。この構造的矛盾がもたらす「日本人差別」の実態を分析。" />
                 <meta property="og:title" content="働き方改革と外国人雇用の矛盾：所得抑制の構造" />
                 <meta property="og:description" content="日本人の労働意欲を削ぐ制度と外国人雇用への助成。この構造的矛盾の実態を分析。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/labor-dilemma/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="働き方改革と外国人雇用の矛盾 | 日本の岐路" />
                 <meta name="twitter:description" content="日本人の所得が抑制される一方で外国人雇用に公金が投じられる構造的矛盾を解明" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header title="働き方改革と外国人雇用の矛盾" description="日本人の所得は抑えられ、外国人の導入には公金が投じられる現実" />

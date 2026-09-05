@@ -35,13 +35,13 @@ export const NationalSecurity: React.FC = () => {
                 />
                 <meta property="og:title" content="国家安全保障への直接的脅威：スパイ防止法なき日本の脆弱性" />
                 <meta property="og:description" content="外国人スパイ活動や技術流出、サイバー攻撃など、日本が直面する安全保障上のリスクを分析。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/national-security/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="国家安全保障への直接的脅威 | 日本の岐路" />
                 <meta name="twitter:description" content="技術流出、サイバー攻撃、スパイ活動。スパイ防止法なき日本の脆弱性を鋭く指摘。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header title="国家安全保障への直接的脅威" description="「スパイ天国」と化す日本：外国人受け入れの裏側に潜む安全保障リスク" />

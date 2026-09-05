@@ -13,13 +13,13 @@ export const VideoGuide: React.FC = () => {
                 <meta name="description" content="外国人労働者受け入れ問題の構造的課題を動画 for 分かりやすく解説。" />
                 <meta property="og:title" content="解説動画：日本の岐路と外国人移民政策" />
                 <meta property="og:description" content="外国人労働者受け入れ問題の構造적課題を動画で分かりやすく解説。悪循環のメカニズムを可視化。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/video-guide/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="解説動画：日本の岐路と外国人移民政策 | 日本の岐路" />
                 <meta name="twitter:description" content="映像で理解する、日本の社会構造と移民政策の相克。アニメーションと図解で解説。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
             <Header title="解説動画" description="映像で理解する、日本の社会構造と移民政策の相克" />
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

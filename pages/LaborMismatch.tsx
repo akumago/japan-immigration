@@ -13,13 +13,13 @@ export const LaborMismatch: React.FC = () => {
                 <meta name="description" content="日本の好機を潰し、海外の絶望を輸入している現状の政策矛盾を分析。" />
                 <meta property="og:title" content="「人手不足」と「人手余り」：致命的な誤解" />
                 <meta property="og:description" content="日本の好機を潰し、海外の絶望を輸入している現状の政策矛盾を分析。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/labor-mismatch/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="「人手不足」と「人手余り」の致命的な誤解 | 日本の岐路" />
                 <meta name="twitter:description" content="日本の賃金上昇チャンスを奪う、時代遅れの労働力輸入政策を解明" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
             <Header title="「人手不足」と「人手余り」：致命的な誤解" description="日本の賃金上昇チャンスを奪う、時代遅れの労働力輸入政策" />
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

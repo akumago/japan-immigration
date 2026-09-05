@@ -12,13 +12,13 @@ export const PolicyRecommendations: React.FC = () => {
                 <meta name="description" content="実質賃金の上昇、社会保障の厳格運用、文化規範の保護を軸とした、具体的な政策転換の提案。" />
                 <meta property="og:title" content="政策提言：悪循環からの脱却と持続可能な未来へ" />
                 <meta property="og:description" content="実質賃金の上昇、社会保障の厳格運用、文化規範の保護を軸とした具体的な政策転換の提案。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/policy-recommendations/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="政策提言：持続可能な未来への脱却 | 日本の岐路" />
                 <meta name="twitter:description" content="賃金上昇・社会保障厳格運用・文化規範保護を軸にした具体的政策転換の提案" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
             <Header title="政策提言" description="未来の日本を守るための、具体的かつ抜本的な政策転換" />
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-gray-300">

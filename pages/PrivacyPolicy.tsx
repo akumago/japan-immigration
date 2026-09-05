@@ -15,13 +15,13 @@ export const PrivacyPolicy: React.FC = () => {
                 />
                 <meta property="og:title" content="プライバシーポリシー | 日本の岐路" />
                 <meta property="og:description" content="個人情報の取り扱いおよびGoogle AdSense広告配信に関する公式規定。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/privacy-policy/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="プライバシーポリシー | 日本の岐路" />
                 <meta name="twitter:description" content="当サイトにおける個人情報の取り扱いと広告配信に関する重要なお知らせ。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <div className="min-h-screen bg-[#0d1117] pt-24 pb-16">

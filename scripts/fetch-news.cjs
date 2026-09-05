@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
+const crypto = require('crypto');
 
 const NEWS_DATA_PATH = path.join(__dirname, '../data/newsData.json');
 
@@ -763,7 +764,7 @@ function extractItemsFromRSS(xml) {
         : new Date().toISOString().split('T')[0];
 
       items.push({
-        id: Buffer.from(title).toString('base64').substring(0, 16),
+        id: crypto.createHash('md5').update(title + dateStr).digest('hex').substring(0, 16),
         title: title,
         date: dateStr,
         location: location,
@@ -941,6 +942,9 @@ async function main() {
 
     // 地域分類の最新化
     item.location = detectLocation(item.title);
+    if (!item.id || item.id.length < 16 || !/^[0-9a-f]{16}$/.test(item.id)) {
+      item.id = crypto.createHash('md5').update(item.title + (item.date || '')).digest('hex').substring(0, 16);
+    }
     item.summary = `${item.location}で発生した外国人関与の事件・容疑に関する報道速報です。`
 
     const isDup = cleanExisting.some(ex => isSameEvent(ex, item));

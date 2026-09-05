@@ -95,13 +95,13 @@ export const HomePage: React.FC = () => {
                 />
                 <meta property="og:title" content="日本の岐路：外国人移民がもたらす影響の包括的分析" />
                 <meta property="og:description" content="公的データに基づく移民政策の影響分析レポート。日本の未来を左右する構造的課題を検証。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="日本の岐路：外国人移民がもたらす影響の包括的分析" />
                 <meta name="twitter:description" content="公的データに基づき、移民政策が日本社会に与える影響を多角的に分析したレポート。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header title={reportData.mainTitle} description={reportData.introduction} />

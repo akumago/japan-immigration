@@ -25,13 +25,13 @@ export const RiskAnalysis: React.FC = () => {
                 <meta name="description" content="経済、社会、文化的側面から、外国人労働者受け入れが日本に及ぼす広範なリスクを検証。" />
                 <meta property="og:title" content="外国人労働者受け入れに伴う多角的なリスク分析" />
                 <meta property="og:description" content="経済、社会、文化的側面から、外国人労働者受け入れが日本に及ぼす広範なリスクを検証。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/risk-analysis/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="多角的なリスク分析：外国人受け入れの真実 | 日本の岐路" />
                 <meta name="twitter:description" content="経済・社会・文化の各側面から、日本に及ぼす広範なリスクを専門的に検証。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
             <Header title="多角的なリスク分析" description="表面的なメリットの裏に隠された、日本の社会構造への深刻な影響" />
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

@@ -16,13 +16,13 @@ export const StrategicRecommendations: React.FC = () => {
                 />
                 <meta property="og:title" content="戦略的提言：日本の未来を守るために | 日本の岐路" />
                 <meta property="og:description" content="データから導き出された冷徹な総括。国家の存立基盤を再構築するための不可避の決断と提言。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/strategic-recommendations/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="戦略的提言：日本を守るための決断 | 日本の岐路" />
                 <meta name="twitter:description" content="崩れゆく信頼社会を再生し、日本を守るための最後の決断。多角的な分析に基づく国家戦略の提案。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
             <Header title="戦略的提言" description="崩れゆく信頼社会を再生し、日本を守るための最後の決断" />
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-gray-300">

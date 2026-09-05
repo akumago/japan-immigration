@@ -17,13 +17,13 @@ export const SymbiosisPage: React.FC = () => {
                 />
                 <meta property="og:title" content="愛知県西尾市「県営緑町住宅」の現状と多文化共生の課題" />
                 <meta property="og:description" content="外国人集住が地域社会にもたらす真の負担とは。現場の事例と統計から検証する多文化共生の構造的課題。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/symbiosis/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="「県営緑町住宅」に見る多文化共生の真実 | 日本の岐路" />
                 <meta name="twitter:description" content="外国人労働者の受け入れが地域にもたらした急激な変化と、摩擦の現場から見える「日本の未来」。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header title="「多文化共生」の限界と地域社会の現実" description="愛知県西尾市「県営緑町住宅」の事例に見る、実質的な移民流入がもたらす統治コストの増大と不都合な真実" />

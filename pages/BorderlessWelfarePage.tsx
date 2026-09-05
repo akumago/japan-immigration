@@ -19,13 +19,13 @@ export const BorderlessWelfarePage: React.FC = () => {
                 />
                 <meta property="og:title" content="オランダ財政影響調査：Borderless Welfare Stateの衝撃" />
                 <meta property="og:description" content="アムステルダム大学による1700万人のデータ分析。移民の出身国別財政貢献度の全容と、日本への峻烈な示唆。" />
-                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/borderless-welfare-state/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="オランダ財政影響調査：Borderless Welfare Stateの衝撃" />
                 <meta name="twitter:description" content="マイクロデータ分析が解明した、移民政策と社会保障制度の矛盾を検証するレポート。" />
-                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header 
