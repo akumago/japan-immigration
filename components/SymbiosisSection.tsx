@@ -273,10 +273,10 @@ export default function SymbiosisSection() {
                 2026.04.14
               </time>
             </div>
-            <h1 className="hero-h1">
+            <h2 className="hero-h1">
               「日本の習慣だもんで覚えてください」
               <span className="hero-h1-sub">多国籍の愛知県西尾市「県営緑町住宅」手探りの共生</span>
-            </h1>
+            </h2>
             <div className="hero-rule" />
             <p className="hero-lead">
               安価な労働力の導入が推進される日本。経済界の論理によって変貌し、限界を迎えつつある地域社会の現実を追う。

@@ -32,7 +32,7 @@ export const AISimulation: React.FC = () => {
 
             <noscript>
                 <div style={{ padding: '20px', backgroundColor: '#0d1117', color: '#fff', border: '1px solid #333' }}>
-                    <h1>生成AIの論理的限界と「日本固有の変数」による再検証</h1>
+                    <h2>生成AIの論理的限界と「日本固有の変数」による再検証</h2>
                     <p>標準的なAIモデルが提示する「移民受け入れの経済的合理性」を、日本の治安・社会保障・文化的資産のデータで解体。再計算の果てに導き出された、日本の生存戦略とは。</p>
                 </div>
             </noscript>
