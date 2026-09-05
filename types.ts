@@ -44,7 +44,7 @@ export interface ReportSection {
       src: string;
       caption: string;
     };
-    customComponent?: 'ViciousCycle' | 'StaticImmigrationChart' | 'YouTubeEmbed' | 'DichotomyOfLabor' | 'JapaneseLaborDilemma' | 'FiscalImpactAnalysis' | 'BorderlessWelfareState';
+    customComponent?: 'ViciousCycle' | 'StaticImmigrationChart' | 'YouTubeEmbed' | 'DichotomyOfLabor' | 'JapaneseLaborDilemma' | 'FiscalImpactAnalysis' | 'BorderlessWelfareState' | 'SymbiosisSection';
     videoId?: string;
   };
 }
