@@ -1,0 +1,17 @@
+﻿[build]
+  publish = "NETLIFY_UPLOAD"
+
+# Security & Cache Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Immutable Caching for Static Assets (CSS, JS, Fonts)
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

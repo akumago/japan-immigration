@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
+import { MainLayout } from "../components/MainLayout";
 
 interface NoteArticle {
     title: string;
@@ -57,7 +58,7 @@ export const OperatorInfo: React.FC = () => {
     }, []);
 
     return (
-        <>
+        <MainLayout>
             <Helmet>
                 <title>運営者情報・このサイトについて | 日本の岐路</title>
                 <meta
@@ -327,7 +328,7 @@ export const OperatorInfo: React.FC = () => {
                     </motion.div>
                 </div>
             </div>
-        </>
+        </MainLayout>
     );
 };
 

@@ -16,9 +16,9 @@ const AdComponent: React.FC = () => {
   }, []);
 
     return (
-        <div className="my-8 flex justify-center">
+        <div className="my-4 flex justify-center overflow-hidden" style={{ minHeight: 0 }}>
             <ins className="adsbygoogle"
-                style={{ display: 'block' }}
+                style={{ display: 'block', minHeight: 0 }}
                 data-ad-client="ca-pub-1244393386981388"
                 data-ad-slot="3298086219"
                 data-ad-format="auto"

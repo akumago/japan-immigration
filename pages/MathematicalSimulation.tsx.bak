@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { Header } from "../components/Header";
 import Section from "../components/Section";
@@ -20,7 +20,7 @@ export const MathematicalSimulation: React.FC = () => {
                 <meta property="og:title" content="推計モデルによる政策シミュレーションと多角的検証" />
                 <meta property="og:description" content="マクロ推計が提示する「正論」の裏にある、日本固有の構造的課題を浮き彫りにしたレポート。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
-                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/simulation-model" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/simulation-model/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="移民政策シミュレーション：長期的リスク検証 | 日本の岐路" />

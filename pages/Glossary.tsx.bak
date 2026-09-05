@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 
@@ -373,7 +373,7 @@ export const Glossary: React.FC = () => {
                                     <p className="text-gray-300 leading-relaxed mb-4">{term.definition}</p>
                                     {term.relatedTerms && term.relatedTerms.length > 0 && (
                                         <div>
-                                            <p className="text-xs text-gray-500 mb-2">関連用語:</p>
+                                            <p className="text-xs text-gray-400 mb-2">関連用語:</p>
                                             <div className="flex flex-wrap gap-2">
                                                 {term.relatedTerms.map((related, i) => (
                                                     <span

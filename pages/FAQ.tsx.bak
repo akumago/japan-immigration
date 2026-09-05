@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 
@@ -173,7 +173,7 @@ export const FAQ: React.FC = () => {
                 <meta property="og:title" content="よくある質問（FAQ） | 日本の岐路" />
                 <meta property="og:description" content="移民政策に関する疑問にデータと事実で答えます。経済、治安、制度など多角的に解説。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
-                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/faq" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/faq/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="移民政策FAQ：疑問に答える | 日本の岐路" />
@@ -296,3 +296,4 @@ const FAQCard: React.FC<{ faq: FAQItem; index: number }> = ({ faq, index }) => {
         </div>
     );
 };
+

@@ -27,6 +27,13 @@ export const Navigation: React.FC = () => {
     ];
 
     return (
+        <>
+        <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[99999] focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-lg focus:shadow-2xl focus:outline-none font-bold text-sm"
+        >
+            メインコンテンツへスキップ
+        </a>
         <nav
             className={`fixed top-0 left-0 right-0 z-[10000] h-16 transition-all duration-300 ${
                 isScrolled ? 'bg-[#0d1117] shadow-xl' : 'bg-[#161b22]'
@@ -106,5 +113,6 @@ export const Navigation: React.FC = () => {
                 )}
             </AnimatePresence>
         </nav>
+        </>
     );
 };

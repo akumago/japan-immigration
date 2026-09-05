@@ -28,7 +28,7 @@ export const NationalSecurity: React.FC = () => {
     return (
         <MainLayout>
             <Helmet>
-                <title>国家安全保障への直接的脅威：スパイ防止法なき日本の脆弱性 | 日本の岐路</title>
+                <title>国家安全保障の脅威：スパイ防止法と脆弱性 | 日本の岐路</title>
                 <meta
                     name="description"
                     content="外国人スパイ活動や技術流出、サイバー攻撃など、現代日本が直面する安全保障上のリスクを分析。スパイ防止法の必要性を提言。"

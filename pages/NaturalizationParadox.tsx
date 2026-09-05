@@ -13,7 +13,7 @@ export const NaturalizationParadox: React.FC = () => {
     return (
         <MainLayout>
             <Helmet>
-                <title>帰化制度と永住権の逆転現象：国家主権と安全保障のリスク分析 | 日本の岐路</title>
+                <title>帰化制度と永住権逆転：安全保障リスク | 日本の岐路</title>
                 <meta
                     name="description"
                     content="帰化要件の緩和と永住権取得のハードル低下がもたらす、法的な「穴」と安全保障上の懸念を考察。"

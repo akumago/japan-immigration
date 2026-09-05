@@ -1,10 +1,11 @@
-﻿import React from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
+import { MainLayout } from "../components/MainLayout";
 
 export const About: React.FC = () => {
     return (
-        <>
+        <MainLayout>
             <Helmet>
                 <title>日本社会構造分析リサーチについて | 日本の岐路</title>
                 <meta
@@ -193,7 +194,7 @@ export const About: React.FC = () => {
                     </motion.div>
                 </div>
             </div>
-        </>
+        </MainLayout>
     );
 };
 

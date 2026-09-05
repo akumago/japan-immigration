@@ -5,6 +5,7 @@ import { Header } from '../components/Header';
 import { SocialShare } from '../components/SocialShare';
 import { SLIDE_ANALYSIS_DATA } from '../data/slideData';
 import { SlideDeepAnalysisBlock } from '../components/SlideDeepAnalysisBlock';
+import { MainLayout } from '../components/MainLayout';
 
 export const ImagePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -32,7 +33,8 @@ export const ImagePage: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#0d1117] min-h-screen text-gray-300 font-sans xl:pl-72 2xl:pl-80">
+    <MainLayout>
+      <div className="bg-[#0d1117] min-h-screen text-gray-300 font-sans">
       <Helmet>
         <title>{`${slide.title} | 日本の岐路`}</title>
         <meta name="description" content={slide.seoDescription} />
@@ -123,5 +125,6 @@ export const ImagePage: React.FC = () => {
 
       </main>
     </div>
+    </MainLayout>
   );
 };

@@ -58,7 +58,7 @@ export const ImagePage: React.FC = () => {
             <Link to="/" className="text-blue-400 hover:text-blue-300 transition-colors flex items-center">
                 <span className="mr-2">←</span> トップページへ
             </Link>
-            <div className="text-sm text-gray-500 font-mono">
+            <div className="text-sm text-gray-400 font-mono">
                 PAGE: {displayNum} / 15
             </div>
         </div>

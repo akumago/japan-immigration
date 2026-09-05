@@ -2,10 +2,11 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Header } from "../components/Header";
+import { MainLayout } from "../components/MainLayout";
 
 export const PrivacyPolicy: React.FC = () => {
     return (
-        <>
+        <MainLayout>
             <Helmet>
                 <title>プライバシーポリシー | 日本の岐路</title>
                 <meta
@@ -149,7 +150,7 @@ export const PrivacyPolicy: React.FC = () => {
                     </motion.div>
                 </div>
             </div>
-        </>
+        </MainLayout>
     );
 };
 

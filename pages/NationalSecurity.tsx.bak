@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { Header } from "../components/Header";
 import Section from "../components/Section";
@@ -137,7 +137,7 @@ export const NationalSecurity: React.FC = () => {
                         />
                     </Section>
 
-                    <Section title="まとめ：安全保障なき開国は国家の自殺に等しい" id="security-summary">
+                    <Section title="まとめ：安全保障なき開国は国家主権の自己放棄に等しい" id="security-summary">
                         <ContentBlockRenderer
                             blocks={[
                                 {

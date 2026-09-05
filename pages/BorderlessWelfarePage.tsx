@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { Header } from "../components/Header";
 import Section from "../components/Section";
@@ -12,7 +12,7 @@ export const BorderlessWelfarePage: React.FC = () => {
     return (
         <MainLayout>
             <Helmet>
-                <title>オランダ財政影響調査：Borderless Welfare Stateの衝撃 | 日本の岐路</title>
+                <title>オランダ財政調査と福祉国家の危機 | 日本の岐路</title>
                 <meta
                     name="description"
                     content="アムステルダム大学による1700万人のマイクロデータ分析。移民の出身国別財政貢献度の全容と、日本への峻烈な示唆を解説。"

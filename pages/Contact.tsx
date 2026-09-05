@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
+import { MainLayout } from "../components/MainLayout";
 
 export const Contact: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -53,7 +54,7 @@ export const Contact: React.FC = () => {
     };
 
     return (
-        <>
+        <MainLayout>
             <Helmet>
                 <title>お問い合わせ | 日本の岐路</title>
                 <meta name="description" content="ご質問、ご意見、ご要望などお気軽にお問い合わせください" />
@@ -346,6 +347,6 @@ export const Contact: React.FC = () => {
                     </motion.div>
                 </div>
             </div>
-        </>
+        </MainLayout>
     );
 };

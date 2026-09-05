@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 
@@ -14,7 +14,7 @@ export const About: React.FC = () => {
                 <meta property="og:title" content="日本社会構造分析リサーチについて | 日本の岐路" />
                 <meta property="og:description" content="JSSARの目的、客観的調査方法、および反差別・中立性ポリシーについての公式ステートメント。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
-                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/about" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/about/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="JSSARについて | 日本の岐路" />
@@ -255,3 +255,4 @@ const UpdateLog: React.FC<{ date: string; content: string }> = ({ date, content 
         </div>
     );
 };
+

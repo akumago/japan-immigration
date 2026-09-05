@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { Header } from "../components/Header";
 import SymbiosisSection from "../components/SymbiosisSection";
@@ -18,7 +18,7 @@ export const SymbiosisPage: React.FC = () => {
                 <meta property="og:title" content="愛知県西尾市「県営緑町住宅」の現状と多文化共生の課題" />
                 <meta property="og:description" content="外国人集住が地域社会にもたらす真の負担とは。現場の事例と統計から検証する多文化共生の構造的課題。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
-                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/symbiosis" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/symbiosis/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="「県営緑町住宅」に見る多文化共生の真実 | 日本の岐路" />
@@ -90,3 +90,4 @@ export const SymbiosisPage: React.FC = () => {
         </MainLayout>
     );
 };
+

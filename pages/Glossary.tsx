@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
+import { MainLayout } from "../components/MainLayout";
 
 interface GlossaryTerm {
     term: string;
@@ -271,7 +272,7 @@ export const Glossary: React.FC = () => {
     });
 
     return (
-        <>
+        <MainLayout>
             <Helmet>
                 <title>用語集 | 日本の岐路</title>
                 <meta
@@ -398,7 +399,7 @@ export const Glossary: React.FC = () => {
                     </motion.div>
                 </div>
             </div>
-        </>
+        </MainLayout>
     );
 };
 

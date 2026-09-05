@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { Header } from "../components/Header";
 import Section from "../components/Section";
@@ -12,7 +12,7 @@ export const AISimulation: React.FC = () => {
     return (
         <MainLayout>
             <Helmet>
-                <title>AIによる政策シミュレーション：移民政策の長期的リスク検証 | JSSAR</title>
+                <title>AI政策シミュレーション：移民検証 | 日本の岐路</title>
                 <meta
                     name="description"
                     content="最新AI技術を用いた、外国人労働者受け入れ拡大の多角的シミュレーション結果を公開。経済的合理性と社会的安定の相克を検証。"

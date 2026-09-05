@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { Header } from "../components/Header";
 import Section from "../components/Section";
@@ -20,7 +20,7 @@ export const BorderlessWelfarePage: React.FC = () => {
                 <meta property="og:title" content="オランダ財政影響調査：Borderless Welfare Stateの衝撃" />
                 <meta property="og:description" content="アムステルダム大学による1700万人のデータ分析。移民の出身国別財政貢献度の全容と、日本への峻烈な示唆。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
-                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/borderless-welfare-state" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/borderless-welfare-state/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="オランダ財政影響調査：Borderless Welfare Stateの衝撃" />
@@ -114,3 +114,4 @@ export const BorderlessWelfarePage: React.FC = () => {
 const LayoutFix: React.FC = () => (
     <div className="h-0 w-0 pointer-events-none opacity-0" aria-hidden="true" />
 );
+

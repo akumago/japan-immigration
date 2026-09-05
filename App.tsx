@@ -46,7 +46,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#0d1117]">
+    <div id="main-content" className="relative min-h-screen bg-[#0d1117]">
       {/* 
         サーバー側でプリレンダリングされる内容を固定する。
         クライアントでも初回レンダリング時はこれと同じ構造を出す。

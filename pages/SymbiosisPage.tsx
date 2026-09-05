@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { Header } from "../components/Header";
 import SymbiosisSection from "../components/SymbiosisSection";
@@ -10,7 +10,7 @@ export const SymbiosisPage: React.FC = () => {
     return (
         <MainLayout>
             <Helmet>
-                <title>愛知県西尾市「県営緑町住宅」の現状と限界点：多文化共生の真実 | 日本の岐路</title>
+                <title>西尾市緑町住宅の現状：多文化共生の真実 | 日本の岐路</title>
                 <meta
                     name="description"
                     content="県営住宅に集住する外国人コミュニティの現実をデータと事例から分析。「多文化共生」の理想と、地域住民に押し付けられる統治コスト・摩擦のギャップを解説します。"

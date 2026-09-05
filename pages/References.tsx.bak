@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 
@@ -77,7 +77,7 @@ export const References: React.FC = () => {
                 <meta property="og:title" content="参考文献・データソース | 日本の岐路" />
                 <meta property="og:description" content="警察庁、法務省、国連など、本サイトが依拠する信頼性の高い情報源一覧。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.png" />
-                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/references" />
+                <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/references/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="データの透明性：依拠した典拠一覧 | 日本の岐路" />
@@ -237,3 +237,4 @@ export const References: React.FC = () => {
         </>
     );
 };
+

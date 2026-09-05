@@ -1,6 +1,7 @@
-﻿import React from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
+import { MainLayout } from "../components/MainLayout";
 
 interface FAQItem {
     question: string;
@@ -163,7 +164,7 @@ export const FAQ: React.FC = () => {
     ];
 
     return (
-        <>
+        <MainLayout>
             <Helmet>
                 <title>よくある質問（FAQ） | 日本の岐路</title>
                 <meta
@@ -236,7 +237,7 @@ export const FAQ: React.FC = () => {
                     </motion.div>
                 </div>
             </div>
-        </>
+        </MainLayout>
     );
 };
 

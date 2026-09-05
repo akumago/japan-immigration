@@ -1,6 +1,7 @@
-﻿import React from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
+import { MainLayout } from "../components/MainLayout";
 
 export const References: React.FC = () => {
     const references = [
@@ -67,7 +68,7 @@ export const References: React.FC = () => {
     ];
 
     return (
-        <>
+        <MainLayout>
             <Helmet>
                 <title>参考文献・データソース | 日本の岐路</title>
                 <meta
@@ -234,7 +235,7 @@ export const References: React.FC = () => {
                     </motion.div>
                 </div>
             </div>
-        </>
+        </MainLayout>
     );
 };
 
