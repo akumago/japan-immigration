@@ -17,10 +17,15 @@ export const AISimulation: React.FC = () => {
                     name="description"
                     content="最新AI技術を用いた、外国人労働者受け入れ拡大の多角的シミュレーション結果を公開。経済的合理性と社会的安定の相克を検証。"
                 />
-                <meta property="og:title" content="AIによる政策シミュレーションと多角的検証" />
-                <meta property="og:description" content="AIが提示する「正論」の裏にある、日本固有の構造的課題を浮き彫りにしたレポート。" />
+                <meta property="og:title" content="AI政策シミュレーション：移民検証 | 日本の岐路" />
+                <meta property="og:description" content="最新AI技術を用いた、外国人労働者受け入れ拡大の多角的シミュレーション結果を公開。経済的合理性と社会的安定の相克を検証。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/ai-simulation/" />
+                <meta property="og:type" content="article" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="AI政策シミュレーション：移民検証 | 日本の岐路" />
+                <meta name="twitter:description" content="最新AI技術を用いた、外国人労働者受け入れ拡大の多角的シミュレーション結果を公開。経済的合理性と社会的安定の相克を検証。" />
+                <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 
             <Header title="生成AIの論理的限界と「日本固有の変数」による再検証" description="グローバルな最適化理論は、なぜ日本の「信頼社会」の前で沈黙したのか" />

@@ -144,7 +144,7 @@ export const MainLayout: React.FC<LayoutProps> = ({ children }) => {
               "name": "日本の岐路：外国人労働者受け入れ政策の構造的課題と国民経済への影響",
               "description": "外国人労働者受け入れ政策が日本の経済、社会、治安、安全保障に与える長期的影響を、公的統計データに基づき包括的に検証。",
               "url": siteUrl,
-              "image": "https://endearing-blini-b688ce.netlify.app/ogp-image-2.png",
+              "image": "https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg",
               "author": {
                   "@type": "Person",
                   "name": "Akuma Shogun",
@@ -185,7 +185,7 @@ export const MainLayout: React.FC<LayoutProps> = ({ children }) => {
                       "headline": pageMeta.title,
                       "description": pageMeta.desc,
                       "image": [
-                          "https://endearing-blini-b688ce.netlify.app/ogp-image-2.png"
+                          "https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg"
                       ],
                       "url": canonicalUrl,
                       "mainEntityOfPage": {
@@ -206,7 +206,7 @@ export const MainLayout: React.FC<LayoutProps> = ({ children }) => {
                           "name": "日本社会構造分析リサーチ",
                           "logo": {
                               "@type": "ImageObject",
-                              "url": "https://endearing-blini-b688ce.netlify.app/ogp-image-2.png"
+                              "url": "https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg"
                           }
                       },
                       "datePublished": pageMeta.published,

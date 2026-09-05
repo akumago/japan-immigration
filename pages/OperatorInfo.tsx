@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { MainLayout } from "../components/MainLayout";
 
 interface NoteArticle {
@@ -324,6 +325,8 @@ export const OperatorInfo: React.FC = () => {
                         <div className="flex items-center gap-4">
                             <span className="text-xs text-gray-400 uppercase tracking-widest">Contact:</span>
                             <a href="mailto:suteakann@gmail.com" className="text-blue-400 hover:underline font-mono text-sm">suteakann@gmail.com</a>
+                            <span className="text-gray-600">|</span>
+                            <Link to="/contact" className="text-blue-400 hover:underline text-sm">お問い合わせフォーム</Link>
                         </div>
                     </motion.div>
                 </div>
