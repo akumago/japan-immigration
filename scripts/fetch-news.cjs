@@ -493,7 +493,7 @@ function isSameEvent(itemA, itemB) {
     if (/わいせつ|性交|盗撮/.test(t)) return 'SEXUAL';
     if (/薬物|覚醒剤|大麻|コカイン|麻薬|密輸/.test(t)) return 'DRUGS';
     // 暴行・傷害・殴打の暴力事案を新設（手動修正を完全撤廃）
-    if (/暴行|傷害|殴打|殴り|殴ら|蹴り|暴力/.test(t)) return 'VIOLENCE';
+    if (/暴行|傷害|殴打|殴[りらっる]|蹴[りっる]|暴力|たた[いか]|叩[いか]|平手打ち|体罰/.test(t)) return 'VIOLENCE';
     return 'OTHER';
   }
 
@@ -551,7 +551,7 @@ function isSameEvent(itemA, itemB) {
     'あべちか', '天王寺', '飯能', '加古川', '亀山', '天童', '流山', '神栖',
     '浅草橋', '名張', '松戸', '釧路', '氷見', 'ミナミ', '歌舞伎町', '六本木', '大久保',
     '豊川', '豊川市民病院', '羽田', '羽田空港', '大垣', '鶴見', '洲本',
-    '北谷', '北谷町', '八雲', '千歳'
+    '北谷', '北谷町', '八雲', '千歳', '熱海'
   ];
   for (const lm of LANDMARKS) {
     if (titleA.includes(lm) && titleB.includes(lm)) {
