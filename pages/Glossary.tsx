@@ -313,6 +313,7 @@ export const Glossary: React.FC = () => {
                             <div className="relative">
                                 <input
                                     type="text"
+                                    aria-label="用語を検索"
                                     placeholder="用語を検索..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}

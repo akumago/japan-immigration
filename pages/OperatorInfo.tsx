@@ -320,7 +320,7 @@ export const OperatorInfo: React.FC = () => {
                         className="mt-20 pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6"
                     >
                         <div className="text-sm text-gray-400">
-                            © 2024 Akuma Shogun | 日本社会構造分析リサーチ
+                            © 2026 Akuma Shogun | 日本社会構造分析リサーチ
                         </div>
                         <div className="flex items-center gap-4">
                             <span className="text-xs text-gray-400 uppercase tracking-widest">Contact:</span>

@@ -260,7 +260,7 @@ export const Contact: React.FC = () => {
                                         お問い合わせの前に、よくある質問をご確認ください。
                                     </p>
                                     <a
-                                        href="/#faq"
+                                        href="/faq"
                                         className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors"
                                     >
                                         FAQを見る
