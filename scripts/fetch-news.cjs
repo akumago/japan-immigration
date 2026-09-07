@@ -320,6 +320,8 @@ function detectLocation(title) {
     { key: '浜松', pref: '静岡県' },
     { key: '宇和島', pref: '愛媛県' },
     { key: '那須塩原', pref: '栃木県' },
+    { key: 'あわら', pref: '福井県' },
+    { key: '羽生', pref: '埼玉県' },
     { key: 'あべちか', pref: '大阪府' },
     { key: '天王寺', pref: '大阪府' },
     { key: '中野ブロードウェイ', pref: '東京都' },
