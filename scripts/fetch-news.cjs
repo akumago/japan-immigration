@@ -161,6 +161,7 @@ const EVENT_FEATURE_KEYWORDS = [
 
 // 海外現地・国外ニュースを除外するための単語
 const OVERSEAS_LOCATIONS = [
+  'ルーマニア', 'モルドバ', 'プルート川',
   'タイニン', 'タイの', 'タイで', 'タイ首都', '首都近郊', '韓国の', '韓国で', 'ベトナムで', 'ベトナムの',
   'アメリカの', 'アメリカで', '中国の', '中国で', '台湾の', '台湾で',
   'フィリピンの', 'フィリピンで', 'ブラジルの', 'ブラジルで', 'ソウル', 'バンコク',
@@ -247,6 +248,7 @@ const EXCLUDE_KEYWORDS = [
 
 // 海外メディア名リスト
 const OVERSEAS_MEDIA = [
+  'informat.ro', '.ro',
   'Informat.ro', 'Mshale', 'Vietnam.vn', 'Laodong.vn', 'ENTREVUE.FR', 'arabnews', 'Reuters',
   'AP通信', 'AFP', 'タイランドハイパーリンクス', 'タイニュース', 'クロスボンバー', 'bomberth',
   'VnExpress', 'Tuoi Tre', 'The Guardian', 'BBC', 'CNN', 'New York Times',
@@ -317,6 +319,7 @@ function detectLocation(title) {
     { key: '津幡', pref: '石川県' },
     { key: '浜松', pref: '静岡県' },
     { key: '宇和島', pref: '愛媛県' },
+    { key: '那須塩原', pref: '栃木県' },
     { key: 'あべちか', pref: '大阪府' },
     { key: '天王寺', pref: '大阪府' },
     { key: '中野ブロードウェイ', pref: '東京都' },
@@ -350,6 +353,10 @@ function detectLocation(title) {
 
   // 2. 市町村名・主要警察署名辞書から逆引き
   for (const [muni, pref] of Object.entries(MUNICIPALITY_MAP)) {
+    if (muni === '川越') {
+      if (/川越(?!し|す|さ|せ|そ|て|た)/.test(title)) return pref;
+      continue;
+    }
     if (title.includes(muni)) {
       return pref;
     }
@@ -390,7 +397,9 @@ function hasJapaneseEnforcement(title) {
     '東京地裁', '大阪地裁', '名古屋地裁', '福岡地裁', '横浜地裁', 'さいたま地裁', '千葉地裁', '那覇地裁', '京都地裁', '神戸地裁',
     '東京地検', '大阪地検', '名古屋地検', '福岡地検', '最高裁'
   ];
-  return JP_ENFORCEMENT.some(kw => title.includes(kw));
+  if (JP_ENFORCEMENT.some(kw => title.includes(kw))) return true;
+  if (/[一-龠ぁ-んァ-ヶ]{2,}署(?:\s|[（(・＝=]|$)/.test(title)) return true;
+  return false;
 }
 
 // 国内での事案かどうか判定（ポジティブ国内確証ホワイトリスト方式）
