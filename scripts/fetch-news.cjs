@@ -220,6 +220,7 @@ const EXCLUDE_KEYWORDS = [
 
   // 日本人被疑者の海外逃亡・海外特殊詐欺拠点（被疑者が日本人）の排除
   '組員', '暴力団', '組幹部', '指定暴力団', '住吉会', '山口組', '稲川会', '道仁会', '工藤会',
+  'JPドラゴン', '日本人女', '日本人男', '日本人男女', '日本人ら', '日本人グループ',
   '移送目的', '移送しようと', 'に潜伏', 'へ潜伏', 'に逃亡', 'へ逃亡', '当局が拘束', '日本に移送', '拠点特殊詐欺', 'に派遣',
   
   // 日本人雇用主・経営者による不法就労助長（被疑者が日本人）の排除
@@ -496,7 +497,7 @@ function isSameEvent(itemA, itemB) {
   // === 4次元エンティティクラスタリング（手動修正を完全撤廃する恒久統合エンジン） ===
   function getCrimeCategory(t) {
     if (/放火|火災|火事|火を付/.test(t)) return 'ARSON';
-    if (/殺人|強盗致死|強盗殺人|刺殺|刺傷|死体遺棄|遺棄/.test(t)) return 'HOMICIDE';
+    if (/殺人|殺害|強盗致死|強盗殺人|刺殺|刺傷|死体遺棄|遺棄/.test(t)) return 'HOMICIDE';
     if (/詐欺|受け子|出し子|なりすまし/.test(t)) return 'FRAUD';
     if (/銅線|太陽光|空き部屋|空室|窃盗|万引き|侵入|キャッシュカード/.test(t)) return 'THEFT';
     if (/無免許|ひき逃げ|危険運転|過失運転|飲酒運転|酒気帯び|トラック|はみ出し/.test(t)) return 'TRAFFIC';
@@ -590,6 +591,15 @@ function isSameEvent(itemA, itemB) {
   }
 
   const commonFeats = featsA.filter(f => featsB.includes(f));
+
+  // 特例：愛知・豊田市送迎車内ブラジル国籍女の切りつけ殺人未遂事件（片方が全国フォールバックの統合）
+  if ((affA === 'BRAZIL' && affB === 'BRAZIL') &&
+      (locA === '愛知県' || locB === '愛知県') &&
+      (locA === '全国' || locB === '全国' || locA === locB) &&
+      (titleA.includes('同僚女性') && titleB.includes('同僚女性')) &&
+      (titleA.includes('車内') && titleB.includes('車内'))) {
+    return true;
+  }
 
   // 特例：愛知・豊川のイラン人男性死亡・強盗致死・死体遺棄事件（NHK/共同/福井新聞等の統合）
   if ((locA === '愛知県' || titleA.includes('愛知') || titleA.includes('豊川')) &&
@@ -851,6 +861,17 @@ function extractItemsFromRSS(xml) {
         continue;
       }
 
+      // 日本人被疑者・海外拠点特殊詐欺事案（被疑者が日本人）の排除
+      const isJapaneseSuspect = /(?:日本人|日本国籍)[の男女代性0-9０-９（）\s]*[をが]?(?:逮捕|容疑|送検|起訴|書類送検)/.test(title) ||
+                                /(?:逮捕|容疑|送検)[の男女代性0-9０-９（）\s]*[は、\s]*(?:日本人|日本国籍)/.test(title) ||
+                                /日本人(?:女|男|男女|ら|グループ|容疑者)/.test(title) ||
+                                /(?:カンボジア|フィリピン|タイ|インドネシア|ミャンマー|ベトナム|ラオス)[\s\S]{0,15}拠点[\s\S]{0,20}(?:特殊詐欺|詐欺|かけ子)/.test(title) ||
+                                /JPドラゴン/.test(title) ||
+                                /フィリピンを拠点に「かけ子」/.test(title);
+      if (isJapaneseSuspect) {
+        continue;
+      }
+
       // 外国人が被害者側の記事（例: 「男逮捕 自転車のインドネシア人は重傷」「外国人に日常的暴行」等）を安全かつ確実に排除
       const isForeignVictim = /(インドネシア|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|外国)(人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[はが]?(頭蓋骨|骨折|意識不明|重傷|軽傷|死亡|重体|刺され|被害)/.test(title) ||
                               /(外国人|外国籍|実習生|留学生)[にへ]?(日常的暴行|暴行|傷害|性的暴行|差別|対する)/.test(title);
@@ -1021,6 +1042,18 @@ async function main() {
     const hasCrimeKw = CRIME_KEYWORDS.some(kw => item.title.includes(kw));
     if (!hasForeignKw || !hasCrimeKw) {
       console.log(`Removed non-foreign or non-crime item: ${item.title}`);
+      continue;
+    }
+
+    // 日本人被疑者・海外拠点特殊詐欺事案（被疑者が日本人）の排除
+    const isJapaneseSuspectItem = /(?:日本人|日本国籍)[の男女代性0-9０-９（）\s]*[をが]?(?:逮捕|容疑|送検|起訴|書類送検)/.test(item.title) ||
+                                  /(?:逮捕|容疑|送検)[の男女代性0-9０-９（）\s]*[は、\s]*(?:日本人|日本国籍)/.test(item.title) ||
+                                  /日本人(?:女|男|男女|ら|グループ|容疑者)/.test(item.title) ||
+                                  /(?:カンボジア|フィリピン|タイ|インドネシア|ミャンマー|ベトナム|ラオス)[\s\S]{0,15}拠点[\s\S]{0,20}(?:特殊詐欺|詐欺|かけ子)/.test(item.title) ||
+                                  /JPドラゴン/.test(item.title) ||
+                                  /フィリピンを拠点に「かけ子」/.test(item.title);
+    if (isJapaneseSuspectItem) {
+      console.log(`Removed Japanese suspect item: ${item.title}`);
       continue;
     }
     // 外国人が被害者側の記事（例: 「男逮捕 自転車のインドネシア人は重傷」「外国人に日常的暴行」等）を安全かつ確実に排除
