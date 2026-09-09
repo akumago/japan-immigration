@@ -636,10 +636,9 @@ function isSameEvent(itemA, itemB) {
     return true;
   }
 
-  // 特例：福岡・ネパール国籍女性殺人事件（男女3人逮捕・文春・長崎新聞等の報道統合）
-  if ((titleA.includes('ネパール') && titleB.includes('ネパール')) &&
-      (titleA.includes('女性') || titleA.includes('専門学校生') || titleA.includes('留学生')) &&
-      (titleB.includes('女性') || titleB.includes('専門学校生') || titleB.includes('留学生')) &&
+  // 特例：福岡・ネパール国籍女性殺人事件（逮捕報道の全社統合・下見続報のみ分離保持）
+  if ((titleA.includes('ネパール') || titleB.includes('ネパール')) &&
+      (titleA.includes('福岡') || titleB.includes('福岡') || titleA.includes('天神') || titleB.includes('天神')) &&
       (titleA.includes('殺害') || titleA.includes('殺人') || titleA.includes('遺体')) &&
       (titleB.includes('殺害') || titleB.includes('殺人') || titleB.includes('遺体')) &&
       (!titleA.includes('下見') && !titleB.includes('下見'))) {
