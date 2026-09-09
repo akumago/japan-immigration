@@ -22,6 +22,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: 'npm'
 
       - name: Install Dependencies
         run: npm ci
@@ -32,17 +33,22 @@ jobs:
       - name: Build and Prerender Static Pages
         run: npm run build
 
-      - name: Commit and Push if changed
+      - name: Commit, Sync and Push if changed
+        id: commit-push
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
           if ! git diff --staged --quiet; then
             git commit -m "auto: 毎時自動巡回 外国人犯罪ニュース更新＆全ページ再ビルド"
+            git pull --rebase -X theirs origin main || git rebase --abort
             git push origin main
+            echo "has_changes=true" >> $GITHUB_OUTPUT
           else
             echo "No changes to commit"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Submit URLs to IndexNow (Bing / Search Engines)
+        if: steps.commit-push.outputs.has_changes == 'true'
         run: node scripts/submit-indexnow.cjs
