@@ -157,8 +157,8 @@ const EVENT_FEATURE_KEYWORDS = [
   ['スコップ', '頭殴', '殴打', '頭部殴打'],
   ['中野ブロードウェイ', '高級時計', '高級腕時計', 'チリ人', 'チリ国籍', '2億円'],
   ['北谷', '北谷町', 'ホテル火災', '宿泊施設火災', '放火殺人未遂', '簡易ホテル火災'],
-  ['ベトナム料理店', '違法薬物', '薬物', '覚醒剤', '覚せい剤', '再逮捕', '男女2人'],
-  ['スマホ', '不正契約', '大学生', 'ベトナム', '不正送金', '700台']
+  ['ベトナム料理店', '違法薬物所持'],
+  ['不正契約', '700台', '不正送金']
 ];
 
 // 海外現地・国外ニュースを除外するための単語
@@ -193,12 +193,11 @@ const OVERSEAS_LOCATIONS = [
 
 // 国内発生を確定するキーワード（日本の警察組織・裁判所・行政・法令・制度・報道用語）
 const DOMESTIC_INDICATORS = [
-  '日本で', '日本国内', '県警', '警視庁', '府警', '道警', '署員', '警察署',
-  '在日', '来日', '訪日', '不法就労', '不法残留', '検察',
-  '地方裁判所', '地裁', '署が', '署に', '署は',
-  '地検', '簡裁', '高裁', '逮捕した', '逮捕され', '容疑で逮捕',
-  '現行犯逮捕', '緊急逮捕', '送検した', '書類送検', '追送検', '逮捕', '起訴', '送検', '男逮捕', '女逮捕',
-  '東京税関', '税関', '麻薬取締部', 'マトリ', '海上保安部', '海保',
+  '日本で', '日本国内', '県警', '警視庁', '府警', '道警', '警察署',
+  '在日', '来日', '訪日', '不法就労', '不法残留',
+  '地方裁判所', '地裁', '署が', '署に', '署は', '署員',
+  '地検', '簡裁', '高裁',
+  '東京税関', '横浜税関', '税関', '麻薬取締部', 'マトリ', '海上保安部', '海保',
   '風営法', '出入国管理', '入管難民法', '入管法', '金属盗対策法', '暴処法', '麻薬及び向精神薬取締法',
   '技能実習', '特定技能', '仮放免', 'オーバーステイ', '偽造在留カード', '在留カード',
   '資格外活動'
@@ -228,7 +227,7 @@ const EXCLUDE_KEYWORDS = [
   // 日本人被疑者の海外逃亡・海外特殊詐欺拠点（被疑者が日本人）の排除
   '組員', '暴力団', '組幹部', '指定暴力団', '住吉会', '山口組', '稲川会', '道仁会', '工藤会',
   'JPドラゴン', 'ＪＰドラゴン', '日本人女', '日本人男', '日本人男女', '日本人ら', '日本人グループ',
-  '移送目的', '移送しようと', 'に潜伏', 'へ潜伏', 'に逃亡', 'へ逃亡', '当局が拘束', '日本に移送', '拠点特殊詐欺', 'に派遣',
+  '移送目的', '移送しようと', 'に潜伏', 'へ潜伏', 'に逃亡', 'へ逃亡', '海外逃亡', '当局が拘束', '日本に移送', '拠点特殊詐欺', 'に派遣',
   
   // ※ 日本人雇用主の排除は、外国籍社長本人の誤遮断を防ぐため isJapaneseSuspect 側で高精度に個別判定
   
@@ -288,6 +287,7 @@ const COUNTRY_NAMES = [
 // 文末の海外国名略称および通信社海外発信パターンの正規表現
 const OVERSEAS_TAIL_REGEX = /(?:[\s　](?:米|英|仏|独|伊|露|豪|中|韓|タイ|比|越|印|伯|加|欧州|EU|トルコ|ロシア|インド|ネパール|フィリピン|カンボジア|スリランカ|マレーシア|インドネシア|シンガポール|メキシコ|ブラジル|イタリア|スペイン|イギリス|フランス|ドイツ|アメリカ)|【(?:韓国|中国|米国|アメリカ|タイ|ベトナム|フランス|英国|ドイツ|ロシア|トルコ)】|[、,]\s*(?:韓国|中国|タイ|ベトナム|アメリカ|トルコ)(?:通信|支局|特派員)?)$/;
 const OVERSEAS_PREFIX_REGEX = /【(ワシントン|ニューヨーク|ロンドン|パリ|北京|ソウル|バンコク|ハノイ|マニラ|シドニー|モスクワ|ベルリン|プーケット).*?】/;
+const OVERSEAS_AGENCY_REGEX = /[（\(【\[](?:AFP|ＡＦＰ|ロイター|Reuters|AP通信|タス通信|新華社|インターファクス|CNN|BBC|ブルームバーグ)[＝=・\s\w\u3000-\u303f\u3040-\u30ff\u4e00-\u9faf]*[）\)】\]]/i;
 
 function fetchRSS(url, redirectCount = 0) {
   if (redirectCount > 5) return Promise.reject(new Error('Too many redirects'));
@@ -315,6 +315,9 @@ function normalizeTitle(title) {
 
 // 高精度地域判定関数（市町村名・警察署名・都道府県名を全面解析）
 function detectLocation(title) {
+  // 末尾のメディア名表記（例: 「（北海道新聞デジタル）」「（千葉日報オンライン）」）を除去して本文地名のみを判定
+  title = title.replace(/[（\(〈<【\[〔][^）\)〉>】\]〕]*(?:新聞|テレビ|放送|NEWS|通信|オンライン|デジタル|時事|共同)[^）\)〉>】\]〕]*[）\)〉>】\]〕]$/i, '');
+
   // 0. 見出し冒頭の地域プレフィックス（例: 「埼玉・」「東京・」「神奈川・」「愛知・」等）を最優先
   for (const pref of PREFECTURES) {
     const shortName = pref.replace(/[府県]$/, '');
@@ -429,16 +432,15 @@ function hasJapaneseEnforcement(title) {
 
 // 国内での事案かどうか判定（ポジティブ国内確証ホワイトリスト方式）
 function isDomesticCrime(title, media) {
-  // 1. 海外メディア・外国語メディア（ハングル等）・通信社海外発信は即除外
+  // 1. 海外メディア・外国通信社クレジット・外国語メディアは即除外
   if (media) {
     if (OVERSEAS_MEDIA.some(m => media.includes(m))) return false;
     if (ENTERTAINMENT_MEDIA.some(m => media.includes(m))) return false;
-    // ハングル文字（韓国メディア）または中国・韓国の主要通信社・メディアは100%除外
     if (/[\uac00-\ud7af]/.test(media) || /中央日報|朝鮮日報|東亜日報|ハンギョレ|毎日経済|매일경제|聯合ニュース|KBS|MBC|SBS|JTBC|YTN|新華社|人民日報|環球時報/.test(media)) {
       return false;
     }
   }
-  if (OVERSEAS_TAIL_REGEX.test(title) || OVERSEAS_PREFIX_REGEX.test(title)) {
+  if (OVERSEAS_TAIL_REGEX.test(title) || OVERSEAS_PREFIX_REGEX.test(title) || OVERSEAS_AGENCY_REGEX.test(title)) {
     return false;
   }
 
@@ -446,23 +448,28 @@ function isDomesticCrime(title, media) {
   const isOverseasMentioned = OVERSEAS_LOCATIONS.some(loc => title.includes(loc)) ||
                               isTitleStartingWithOverseasCountry(title);
 
-  // 海外地名がある場合、日本の警察・税関・裁判所等の直接の法執行（例: 愛知県警が逮捕へ、羽田空港税関等）が明記されていない限り100%除外
+  // 海外地名がある場合、日本の警察・税関・裁判所等の直接の法執行が明記されていない限り100%除外
   if (isOverseasMentioned && !hasJapaneseEnforcement(title)) {
     return false;
   }
 
-  // 3. 日本国内である明確な証拠（都道府県・市町村名、日本の警察・捜査機関、日本固有の法令、公認国内メディア、国内特有事案）
+  // 3. 日本国内である明確な証拠判定
   const detectedLoc = detectLocation(title);
   const hasPrefecture = detectedLoc !== '全国';
   const hasEnforcement = hasJapaneseEnforcement(title);
   const hasDomesticIndicator = DOMESTIC_INDICATORS.some(ind => title.includes(ind));
 
-  // 日本の公認国内メディアからの配信、または太陽光・銅線窃盗等の日本特有事案の救済
-  const isDomesticSpecificCrime = /(太陽光|メガソーラー|銅線|空室|空き部屋|受け子|出し子|ヤード|不法就労)/.test(title);
-  const isCertifiedDomesticMedia = media && /(新聞|テレビ|放送|NEWS DIG|NNN|FNN|ANN|JNN|Yahoo|ｄメニュー|goo|au)/.test(media);
+  // 日本の公認国内メディア（地方紙、民放各社、全国紙、ポータル等）
+  const isCertifiedDomesticMedia = media && /(新聞|テレビ|放送|NEWS DIG|NNN|FNN|ANN|JNN|Yahoo|ｄメニュー|goo|au|livedoor|ライブドア|shimbun|shimotsuke|niigata|kyodo|共同通信|時事通信|line|ライン|excite|エキサイト|infoseek|nifty|\.jp)/i.test(media);
+  const hasCrimeAction = /(?:逮捕|容疑|送検|起訴|家宅捜索|摘発|書類送検)/.test(title);
 
-  // 国内証拠（地名、警察機関、国内指示ワード、または特有犯罪×国内メディア）のいずれかが必須
-  if (!hasPrefecture && !hasEnforcement && !hasDomesticIndicator && !(isDomesticSpecificCrime && isCertifiedDomesticMedia)) {
+  // 国内主要メディアによる刑事事件報道（海外地名・通信社を含まない）は国内事案として承認
+  if (isCertifiedDomesticMedia && hasCrimeAction) {
+    return true;
+  }
+
+  const isDomesticSpecificCrime = /(太陽光|メガソーラー|銅線|空室|空き部屋|受け子|出し子|ヤード|不法就労)/.test(title);
+  if (!hasPrefecture && !hasEnforcement && !hasDomesticIndicator && !isDomesticSpecificCrime) {
     return false;
   }
 
@@ -564,18 +571,19 @@ function isSameEvent(itemA, itemB) {
   if (/(全島エイサー|エイサー)/.test(titleA) && /(全島エイサー|エイサー)/.test(titleB)) return true;
   if (/沖縄署/.test(titleA) && /沖縄署/.test(titleB) && catA === 'VIOLENCE' && catB === 'VIOLENCE') return true;
 
-  // 地域一致・属性一致・罪種カテゴリー一致の場合の自動統合（※別事件の誤消去防止ガード付き）
-  if (locA !== '全国' && locA === locB &&
-      affA !== 'UNKNOWN' && affA === affB &&
+  // 地域一致または地域不問のエンティティ自動統合（重要単語マッチング）
+  if (affA !== 'UNKNOWN' && affA === affB &&
       catA !== 'OTHER' && catA === catB) {
     const dateA = itemA.date ? new Date(itemA.date).getTime() : 0;
     const dateB = itemB.date ? new Date(itemB.date).getTime() : 0;
     const diffDays = (dateA && dateB) ? Math.abs(dateA - dateB) / (1000 * 60 * 60 * 24) : 0;
-    if (diffDays <= 2) {
+    if (diffDays <= 3) {
       const wordsA = new Set(normA.match(/[\u3040-\u9faf]{2,}/g) || []);
       const wordsB = new Set(normB.match(/[\u3040-\u9faf]{2,}/g) || []);
       const common = [...wordsA].filter(w => wordsB.has(w));
-      if (common.length >= 2 || (wordsA.size > 0 && common.length / Math.max(wordsA.size, wordsB.size) >= 0.20)) {
+      // 同一地域なら2単語、地域が異なる/片方が全国なら3単語以上の一致で同一事件と判定
+      const minCommon = (locA === locB && locA !== '全国') ? 2 : 3;
+      if (common.length >= minCommon || (wordsA.size > 0 && common.length / Math.max(wordsA.size, wordsB.size) >= 0.25)) {
         return true;
       }
     }
@@ -791,6 +799,17 @@ function isSameEvent(itemA, itemB) {
   const isBankCaseA = (titleA.includes('地下銀行') || titleA.includes('為替取引') || titleA.includes('人民元')) && (titleA.includes('中国') || titleA.includes('京都'));
   const isBankCaseB = (titleB.includes('地下銀行') || titleB.includes('為替取引') || titleB.includes('人民元')) && (titleB.includes('中国') || titleB.includes('京都'));
   if (isBankCaseA && isBankCaseB) {
+    return true;
+  }
+
+  // 特例：大学生スマホ不正契約・不正送金事件（ベトナム人ら男女4人・700台・警視庁の報道を1本化）
+  const isPhoneCaseA = (titleA.includes('スマホ') || titleA.includes('スマートフォン')) &&
+                       (titleA.includes('ベトナム') || affA === 'VIETNAM') &&
+                       (titleA.includes('不正') || titleA.includes('契約') || titleA.includes('送金') || titleA.includes('大学生') || titleA.includes('4人'));
+  const isPhoneCaseB = (titleB.includes('スマホ') || titleB.includes('スマートフォン')) &&
+                       (titleB.includes('ベトナム') || affB === 'VIETNAM') &&
+                       (titleB.includes('不正') || titleB.includes('契約') || titleB.includes('送金') || titleB.includes('大学生') || titleB.includes('4人'));
+  if (isPhoneCaseA && isPhoneCaseB) {
     return true;
   }
 
@@ -1092,13 +1111,18 @@ async function main() {
     throw new Error('All RSS fetch attempts failed.');
   }
 
-  // --- 重複排除（一次報道メディア優先保持） ---
+  // --- 重複排除（一次報道メディア優先保持）＆ 続報・供述後追い防止 ---
   const uniqueItems = [];
   for (const item of fetchedItems) {
+    const isFollowUp = /(?:続報|供述|供述か|供述している|とみられる|新たに判明|解剖の結果|追送検)/.test(item.title);
     const idx = uniqueItems.findIndex(existing => isSameEvent(existing, item));
     if (idx === -1) {
       uniqueItems.push(item);
     } else {
+      // 続報・後追い記事の場合は、一次報道（逮捕・送検速報）を上書きせずスキップ
+      if (isFollowUp) {
+        continue;
+      }
       if (getMediaPriority(item.media) > getMediaPriority(uniqueItems[idx].media)) {
         uniqueItems[idx] = item;
       }
@@ -1218,7 +1242,25 @@ async function main() {
     }
   }
 
-  const trulyNew = uniqueItems.filter(item => !cleanExisting.some(ex => isSameEvent(ex, item)));
+  const trulyNew = [];
+  for (const item of uniqueItems) {
+    const isFollowUp = /(?:続報|供述|供述か|供述している|とみられる|新たに判明|解剖の結果|追送検)/.test(item.title);
+    const dupIdx = cleanExisting.findIndex(ex => isSameEvent(ex, item));
+    if (dupIdx !== -1) {
+      if (isFollowUp) {
+        console.log(`⏩ 既報事件の続報・後追い記事のためスキップ: ${item.title}`);
+        continue;
+      }
+      // 既存記事が「全国」で新着記事の地域が特定されている場合は補正更新
+      if (cleanExisting[dupIdx].location === '全国' && item.location !== '全国') {
+        console.log(`🗺️ 既存記事の地域を特定更新: ${cleanExisting[dupIdx].location} -> ${item.location} (${item.title})`);
+        cleanExisting[dupIdx].location = item.location;
+        cleanExisting[dupIdx].summary = `${item.location}で発生した外国人関与の事件・容疑に関する報道速報です。`;
+      }
+    } else {
+      trulyNew.push(item);
+    }
+  }
 
   // 最新日付（2026-08-26 → 2026-08-25 ...）順に厳密ソート
   const finalMerged = [...trulyNew, ...cleanExisting]
