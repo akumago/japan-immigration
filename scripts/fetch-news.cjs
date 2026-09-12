@@ -813,12 +813,27 @@ function isSameEvent(itemA, itemB) {
     return true;
   }
 
+  // 特例：福井・あわら市等太陽光銅線ケーブル窃盗事件（ベトナム人男2人・トクリュウ・日テレ/産経/福井新聞の報道統合）
+  const isFukuiCopperA = (titleA.includes('銅線') || titleA.includes('ケーブル')) &&
+                         (titleA.includes('ベトナム') || affA === 'VIETNAM') &&
+                         (titleA.includes('トクリュウ') || titleA.includes('あわら') || titleA.includes('5400万') || locA === '福井県');
+  const isFukuiCopperB = (titleB.includes('銅線') || titleB.includes('ケーブル')) &&
+                         (titleB.includes('ベトナム') || affB === 'VIETNAM') &&
+                         (titleB.includes('トクリュウ') || titleB.includes('あわら') || titleB.includes('5400万') || locB === '福井県');
+  if (isFukuiCopperA && isFukuiCopperB) {
+    return true;
+  }
+
   if (commonFeats.length > 0) {
     const isNatMatch = natA && natB && natA === natB;
     const isGenericMatch = titleA.includes('外国籍') || titleB.includes('外国籍') || titleA.includes('外国人') || titleB.includes('外国人') || (!natA && !natB);
 
-    // 犯罪特徴グループ一致による統合は、地域が完全一致する場合に限定（別地域の同種事案の誤統合を完全防止）
-    if ((isNatMatch || isGenericMatch) && locA !== '全国' && locA === locB) {
+    // 犯罪特徴グループ一致による統合は、3日以内の近接報道かつ地域が完全一致する場合に限定（過去の別事件との誤統合を防止）
+    const dateA = itemA.date ? new Date(itemA.date).getTime() : 0;
+    const dateB = itemB.date ? new Date(itemB.date).getTime() : 0;
+    const diffDays = (dateA && dateB) ? Math.abs(dateA - dateB) / (1000 * 60 * 60 * 24) : 0;
+
+    if ((isNatMatch || isGenericMatch) && locA !== '全国' && locA === locB && diffDays <= 3) {
       return true;
     }
   }
@@ -965,20 +980,20 @@ function extractItemsFromRSS(xml) {
                                 /公開手配の男/.test(title) ||
                                 /医師書類送検.*患者側も/.test(title) ||
                                 /建設会社を書類送検/.test(title) ||
-                                /町議会議員を告訴/.test(title) ||
+                                /町議/.test(title) ||
                                 /ベトナム食材.*(?:男1人逮捕|男逮捕)/.test(title) ||
                                 /有償で乗車させた疑い\s*31歳男逮捕/.test(title);
       if (isJapaneseSuspect) {
         continue;
       }
-      // 行政啓蒙・周知・コラム・意見・動画の排除（個別事件報道ではないもの）
-      const isAwarenessOrColumn = /チラシで周知|協力を.*呼びかけ|注意を呼びかけ|防犯教室|啓発|連載|金難民|録画[０-９0-9]|覚えているだろうか|デイリー新潮|薬師寺の国宝|立ち入り|摘発を?強化|他省庁と合同|実施へ|団体交渉|不当徴収|謝罪|農業法人と交渉|賃金支払いも求める/.test(title);
+      // 行政啓蒙・周知・コラム・意見・動画・省庁施策の排除（個別事件報道ではないもの）
+      const isAwarenessOrColumn = /チラシで周知|協力を.*呼びかけ|注意を呼びかけ|防犯教室|啓発|連載|金難民|録画[０-９0-9]|覚えているだろうか|デイリー新潮|薬師寺の国宝|立ち入り|摘発[をの]?強化|他省庁.*(?:合同|参加|調査)|法務省.*不法就労|実施へ|団体交渉|不当徴収|謝罪|農業法人と交渉|賃金支払いも求める/.test(title);
       if (isAwarenessOrColumn) {
         continue;
       }
 
       // 外国人が被害者側の記事（特殊詐欺被害、暴行被害、下着盗難等の盗難被害）を確実に排除
-      const isForeignVictim = /(インドネシア|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|外国)(人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[はがの]?(頭蓋骨|骨折|意識不明|重傷|軽傷|死亡|重体|刺され|被害|だまし取られ|下着)/.test(title) ||
+      const isForeignVictim = /(インドネシア|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|外国)(人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[はがの]?(頭蓋骨|骨折|意識不明|重傷|軽傷|死亡|重体|刺され|被害|だまし取られ|下着|暴行)/.test(title) ||
                               /(外国人|外国籍|実習生|留学生)[にへの]?[の男女代性0-9０-９歳（）\s]*(日常的暴行|暴行|傷害|性的暴行|差別|対する|賃金を支払わ|下着|私物|部屋に侵入)/.test(title) ||
                               /技能実習生の女性.*盗んだ/.test(title) ||
                               /天神に留学生の遺体|専門学校生の遺体発見/.test(title);
@@ -996,10 +1011,12 @@ function extractItemsFromRSS(xml) {
         location = detectLocation(media);
       }
 
+      // 日本標準時（JST = UTC+9時間）に補正して日付文字列（YYYY-MM-DD）を生成
       const parsedDate = new Date(pubDate);
-      const dateStr = !isNaN(parsedDate.getTime()) 
-        ? parsedDate.toISOString().split('T')[0] 
-        : new Date().toISOString().split('T')[0];
+      const jstDate = !isNaN(parsedDate.getTime()) 
+        ? new Date(parsedDate.getTime() + 9 * 60 * 60 * 1000) 
+        : new Date(Date.now() + 9 * 60 * 60 * 1000);
+      const dateStr = jstDate.toISOString().split('T')[0];
 
       items.push({
         id: crypto.createHash('md5').update(title + dateStr).digest('hex').substring(0, 16),
@@ -1177,21 +1194,21 @@ async function main() {
                                   /公開手配の男/.test(item.title) ||
                                   /医師書類送検.*患者側も/.test(item.title) ||
                                   /建設会社を書類送検/.test(item.title) ||
-                                  /町議会議員を告訴/.test(item.title) ||
+                                  /町議/.test(item.title) ||
                                   /ベトナム食材.*(?:男1人逮捕|男逮捕)/.test(item.title) ||
                                   /有償で乗車させた疑い\s*31歳男逮捕/.test(item.title);
     if (isJapaneseSuspectItem) {
       console.log(`Removed Japanese suspect item: ${item.title}`);
       continue;
     }
-    // 行政啓蒙・周知・コラム・意見・動画の排除
-    const isAwarenessOrColumn = /チラシで周知|協力を.*呼びかけ|注意を呼びかけ|防犯教室|啓発|連載|金難民|録画[０-９0-9]|覚えているだろうか|デイリー新潮|薬師寺の国宝|立ち入り|摘発を?強化|他省庁と合同|実施へ|団体交渉|不当徴収|謝罪|農業法人と交渉|賃金支払いも求める/.test(item.title);
+    // 行政啓蒙・周知・コラム・意見・動画・省庁施策の排除
+    const isAwarenessOrColumn = /チラシで周知|協力を.*呼びかけ|注意を呼びかけ|防犯教室|啓発|連載|金難民|録画[０-９0-9]|覚えているだろうか|デイリー新潮|薬師寺の国宝|立ち入り|摘発[をの]?強化|他省庁.*(?:合同|参加|調査)|法務省.*不法就労|実施へ|団体交渉|不当徴収|謝罪|農業法人と交渉|賃金支払いも求める/.test(item.title);
     if (isAwarenessOrColumn) {
       console.log(`Removed awareness/column item: ${item.title}`);
       continue;
     }
     // 外国人が被害者側の記事（特殊詐欺被害、暴行被害、下着盗難等の盗難被害）を確実に排除
-    const isForeignVictim = /(インドネシア|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|外国)(人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[はがの]?(頭蓋骨|骨折|意識不明|重傷|軽傷|死亡|重体|刺され|被害|だまし取られ|下着)/.test(item.title) ||
+    const isForeignVictim = /(インドネシア|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|外国)(人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[はがの]?(頭蓋骨|骨折|意識不明|重傷|軽傷|死亡|重体|刺され|被害|だまし取られ|下着|暴行)/.test(item.title) ||
                             /(外国人|外国籍|実習生|留学生)[にへの]?[の男女代性0-9０-９歳（）\s]*(日常的暴行|暴行|傷害|性的暴行|差別|対する|賃金を支払わ|下着|私物|部屋に侵入)/.test(item.title) ||
                             /技能実習生の女性.*盗んだ/.test(item.title) ||
                             /天神に留学生の遺体|専門学校生の遺体発見/.test(item.title);
