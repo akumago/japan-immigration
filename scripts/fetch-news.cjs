@@ -833,7 +833,19 @@ function isSameEvent(itemA, itemB) {
     const dateB = itemB.date ? new Date(itemB.date).getTime() : 0;
     const diffDays = (dateA && dateB) ? Math.abs(dateA - dateB) / (1000 * 60 * 60 * 24) : 0;
 
-    if ((isNatMatch || isGenericMatch) && locA !== '全国' && locA === locB && diffDays <= 3) {
+    // 性別の不一致判定（男 vs 女 の明らかな別人は統合しない）
+    const isMaleA = /(?:男|男性|少年)/.test(titleA) && !/(?:女|女性|少女)/.test(titleA);
+    const isFemaleA = /(?:女|女性|少女)/.test(titleA) && !/(?:男|男性|少年)/.test(titleA);
+    const isMaleB = /(?:男|男性|少年)/.test(titleB) && !/(?:女|女性|少女)/.test(titleB);
+    const isFemaleB = /(?:女|女性|少女)/.test(titleB) && !/(?:男|男性|少年)/.test(titleB);
+    const isGenderMismatch = (isMaleA && isFemaleB) || (isFemaleA && isMaleB);
+
+    // 異なる警察署名の明記（例: 太田署 vs 大泉署 は統合しない）
+    const stationA = (titleA.match(/([一-龠ぁ-んァ-ヶ]{2,}署)/) || [])[1];
+    const stationB = (titleB.match(/([一-龠ぁ-んァ-ヶ]{2,}署)/) || [])[1];
+    const isStationMismatch = stationA && stationB && stationA !== stationB;
+
+    if ((isNatMatch || isGenericMatch) && locA !== '全国' && locA === locB && diffDays <= 3 && !isGenderMismatch && !isStationMismatch) {
       return true;
     }
   }
