@@ -124,7 +124,8 @@ const CRIME_KEYWORDS = [
   '住居侵入', '建造物侵入', '邸宅侵入', '器物損壊', '脅迫', '恐喝', '監禁', '略取', '誘拐',
   '万引き', '公判', '判決', '初公判',
   '不法投棄', '廃棄物処理法', 'ヤード', '無許可解体',
-  '地下銀行', '無許可送金', 'マネロン', '偽造', '偽装', '商標法', '不正アクセス'
+  '地下銀行', '無許可送金', 'マネロン', '偽造', '偽装', '商標法', '不正アクセス',
+  '家畜伝染病', '不正持ち込み', '無許可持ち込み'
 ];
 
 // 代表的特筆事象（同一事件のキーワードクロス判定用）
@@ -364,7 +365,10 @@ function detectLocation(title) {
     { key: '兵庫県警', pref: '兵庫県' },
     { key: '京都府警', pref: '京都府' },
     { key: '福岡県警', pref: '福岡県' },
-    { key: '新周南', pref: '山口県' }
+    { key: '新周南', pref: '山口県' },
+    { key: '宝石展示会', pref: '東京都' },
+    { key: 'ビッグサイト', pref: '東京都' },
+    { key: '婦中町', pref: '富山県' }
   ];
   for (const item of PRIMARY_LOCATION_SIGNS) {
     if (title.includes(item.key)) {
@@ -390,9 +394,9 @@ function detectLocation(title) {
     }
   }
 
-  // 3. 都道府県名の末尾省略パターン（「宮城」「愛媛」「福岡」「富山」など）
+  // 3. 都道府県名の末尾省略パターン（「東京」「宮城」「愛媛」「福岡」「富山」などを完全網羅）
   for (const pref of PREFECTURES) {
-    const shortName = pref.replace(/[府県]$/, '');
+    const shortName = pref.replace(/[都府県]$/, '');
     if (title.includes(shortName)) {
       return pref;
     }
@@ -821,6 +825,27 @@ function isSameEvent(itemA, itemB) {
                          (titleB.includes('ベトナム') || affB === 'VIETNAM') &&
                          (titleB.includes('トクリュウ') || titleB.includes('あわら') || titleB.includes('5400万') || locB === '福井県');
   if (isFukuiCopperA && isFukuiCopperB) {
+    return true;
+  }
+
+  // 特例：静岡・愛知 ベトナム国籍8人大麻リキッド23kg密輸事件（Yahoo/静岡新聞等の統合）
+  const isDrugLiquidA = (titleA.includes('大麻') || titleA.includes('液状大麻')) && (titleA.includes('ベトナム') || affA === 'VIETNAM') && (titleA.includes('密輸') || titleA.includes('23キロ') || titleA.includes('2億') || titleA.includes('8人'));
+  const isDrugLiquidB = (titleB.includes('大麻') || titleB.includes('液状大麻')) && (titleB.includes('ベトナム') || affB === 'VIETNAM') && (titleB.includes('密輸') || titleB.includes('23キロ') || titleB.includes('2億') || titleB.includes('8人'));
+  if (isDrugLiquidA && isDrugLiquidB) {
+    return true;
+  }
+
+  // 特例：富山・中国籍男女2人 銅線1.1トン不正買取り事件（日テレ/北日本新聞等の統合）
+  const isCopperBuyerA = (titleA.includes('銅線') || titleA.includes('盗品')) && (titleA.includes('中国') || affA === 'CHINA_TAIWAN') && (titleA.includes('買') || locA === '富山県');
+  const isCopperBuyerB = (titleB.includes('銅線') || titleB.includes('盗品')) && (titleB.includes('中国') || affB === 'CHINA_TAIWAN') && (titleB.includes('買') || locB === '富山県');
+  if (isCopperBuyerA && isCopperBuyerB) {
+    return true;
+  }
+
+  // 特例：三重・太陽光銅線窃取 偽名売却ベトナム人男再逮捕事件（dメニュー/福井新聞等の統合）
+  const isCopperResellA = (titleA.includes('銅線') || titleA.includes('売却')) && (titleA.includes('ベトナム') || affA === 'VIETNAM') && (titleA.includes('再逮捕') || /[4４]度目/.test(titleA) || titleA.includes('677万') || titleA.includes('偽名'));
+  const isCopperResellB = (titleB.includes('銅線') || titleB.includes('売却')) && (titleB.includes('ベトナム') || affB === 'VIETNAM') && (titleB.includes('再逮捕') || /[4４]度目/.test(titleB) || titleB.includes('677万') || titleB.includes('偽名'));
+  if (isCopperResellA && isCopperResellB) {
     return true;
   }
 
