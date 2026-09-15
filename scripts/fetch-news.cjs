@@ -168,6 +168,7 @@ const OVERSEAS_LOCATIONS = [
   'ベルギー', 'ブリュッセル', '現地当局', '現地警察', 'インターポール',
   '中華人民共和国', '大韓民国', 'ベトナム社会主義共和国', 'フィリピン共和国', 'タイ王国', 'アメリカ合衆国',
   'シアヌークビル', 'ポイペト', 'バベット', 'クラーク', 'アンヘレス', 'パサイ', 'ミャワディ',
+  'ナイジェリアで', 'ナイジェリアの', 'ナイジェリア',
   'ロシアで', 'ロシアの', 'ウクライナで', 'ウクライナの', 'ネパールで', 'ネパールの', 'スリランカで', 'スリランカの',
   'タイニン', 'タイの', 'タイで', 'タイ首都', '首都近郊', '韓国の', '韓国で', 'ベトナムで', 'ベトナムの',
   'アメリカの', 'アメリカで', '中国の', '中国で', '台湾の', '台湾で',
@@ -286,7 +287,7 @@ const COUNTRY_NAMES = [
 ];
 
 // 文末の海外国名略称および通信社海外発信パターンの正規表現
-const OVERSEAS_TAIL_REGEX = /(?:[\s　](?:米|英|仏|独|伊|露|豪|中|韓|タイ|比|越|印|伯|加|欧州|EU|トルコ|ロシア|インド|ネパール|フィリピン|カンボジア|スリランカ|マレーシア|インドネシア|シンガポール|メキシコ|ブラジル|イタリア|スペイン|イギリス|フランス|ドイツ|アメリカ)|【(?:韓国|中国|米国|アメリカ|タイ|ベトナム|フランス|英国|ドイツ|ロシア|トルコ)】|[、,]\s*(?:韓国|中国|タイ|ベトナム|アメリカ|トルコ)(?:通信|支局|特派員)?)$/;
+const OVERSEAS_TAIL_REGEX = /(?:[\s　](?:米|英|仏|独|伊|露|豪|中|韓|タイ|比|越|印|伯|加|欧州|EU|トルコ|ロシア|インド|ネパール|フィリピン|カンボジア|スリランカ|マレーシア|インドネシア|シンガポール|メキシコ|ブラジル|イタリア|スペイン|イギリス|フランス|ドイツ|アメリカ|ナイジェリア)|【(?:韓国|中国|米国|アメリカ|タイ|ベトナム|フランス|英国|ドイツ|ロシア|トルコ|ナイジェリア)】|[、,]\s*(?:韓国|中国|タイ|ベトナム|アメリカ|トルコ|ナイジェリア)(?:通信|支局|特派員)?)$/;
 const OVERSEAS_PREFIX_REGEX = /【(ワシントン|ニューヨーク|ロンドン|パリ|北京|ソウル|バンコク|ハノイ|マニラ|シドニー|モスクワ|ベルリン|プーケット).*?】/;
 const OVERSEAS_AGENCY_REGEX = /[（\(【\[](?:AFP|ＡＦＰ|ロイター|Reuters|AP通信|タス通信|新華社|インターファクス|CNN|BBC|ブルームバーグ)[＝=・\s\w\u3000-\u303f\u3040-\u30ff\u4e00-\u9faf]*[）\)】\]]/i;
 
@@ -368,7 +369,9 @@ function detectLocation(title) {
     { key: '新周南', pref: '山口県' },
     { key: '宝石展示会', pref: '東京都' },
     { key: 'ビッグサイト', pref: '東京都' },
-    { key: '婦中町', pref: '富山県' }
+    { key: '婦中町', pref: '富山県' },
+    { key: '成田空港', pref: '千葉県' },
+    { key: 'ソーセージ', pref: '千葉県' }
   ];
   for (const item of PRIMARY_LOCATION_SIGNS) {
     if (title.includes(item.key)) {
@@ -853,6 +856,13 @@ function isSameEvent(itemA, itemB) {
   const isZombieTobaccoA = (titleA.includes('ゾンビたばこ') || titleA.includes('エトミデート')) && (titleA.includes('台湾') || affA === 'CHINA_TAIWAN');
   const isZombieTobaccoB = (titleB.includes('ゾンビたばこ') || titleB.includes('エトミデート')) && (titleB.includes('台湾') || affB === 'CHINA_TAIWAN');
   if (isZombieTobaccoA && isZombieTobaccoB) {
+    return true;
+  }
+
+  // 特例：ソーセージ約154キロ密輸事件（フィリピン国籍男女3人・成田空港・各社報道の統合）
+  const isSausageA = (titleA.includes('ソーセージ') || titleA.includes('家畜伝染病')) && (titleA.includes('フィリピン') || affA === 'PHILIPPINES');
+  const isSausageB = (titleB.includes('ソーセージ') || titleB.includes('家畜伝染病')) && (titleB.includes('フィリピン') || affB === 'PHILIPPINES');
+  if (isSausageA && isSausageB) {
     return true;
   }
 
