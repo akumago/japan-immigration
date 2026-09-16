@@ -51,7 +51,7 @@ const MUNICIPALITY_MAP = {
   '大津': '滋賀県', '草津': '滋賀県', '東近江': '滋賀県', '甲賀': '滋賀県', '彦根': '滋賀県',
   '京都': '京都府', '宇治': '京都府', '舞鶴': '京都府',
   '大阪': '大阪府', '堺': '大阪府', '東大阪': '大阪府', '枚方': '大阪府', '豊中': '大阪府', 'ミナミ': '大阪府', '難波': '大阪府', '天王寺': '大阪府', 'あべちか': '大阪府', '鶴見': '大阪府',
-  '神戸': '兵庫県', '姫路': '兵庫県', '尼崎': '兵庫県', '西宮': '兵庫県', '明石': '兵庫県', '加古川': '兵庫県', '洲本': '兵庫県',
+  '神戸': '兵庫県', '姫路': '兵庫県', '尼崎': '兵庫県', '西宮': '兵庫県', '明石': '兵庫県', '加古川': '兵庫県', '加東': '兵庫県', '洲本': '兵庫県',
   '奈良': '奈良県', '橿原': '奈良県',
   '和歌山': '和歌山県', '田辺': '和歌山県',
 
@@ -213,6 +213,7 @@ const EXCLUDE_KEYWORDS = [
   '中国ネット', '強制送還され',
   '臓器移植法', '臓器移植', '臓器あっせん',
   'スパイ容疑', 'スパイ罪', // 日本の一般刑法に存在しない海外事案を100%遮断
+  'CORTIS', 'BIGHIT', // 韓国芸能人・K-POP現地事案の完全排除
   
   // デマ・不確定情報・事実否定報道の完全排除
   '不確定情報', '事実を把握していない', 'デマ', '事実無根', '裏付ける事実はない', '確認されていない',
@@ -371,7 +372,8 @@ function detectLocation(title) {
     { key: 'ビッグサイト', pref: '東京都' },
     { key: '婦中町', pref: '富山県' },
     { key: '成田空港', pref: '千葉県' },
-    { key: 'ソーセージ', pref: '千葉県' }
+    { key: 'ソーセージ', pref: '千葉県' },
+    { key: '高級車を盗んだ疑いでブラジル', pref: '山形県' }
   ];
   for (const item of PRIMARY_LOCATION_SIGNS) {
     if (title.includes(item.key)) {
@@ -852,11 +854,21 @@ function isSameEvent(itemA, itemB) {
     return true;
   }
 
-  // 特例：ゾンビたばこ「エトミデート」台湾出身/台湾籍の女密輸事件（警視庁・各社報道の統合）
+  // 特例：ゾンビたばこ「エトミデート」台湾出身/台湾籍の密輸事件（羽田・女 と 成田・男 は明確に分離保持）
   const isZombieTobaccoA = (titleA.includes('ゾンビたばこ') || titleA.includes('エトミデート')) && (titleA.includes('台湾') || affA === 'CHINA_TAIWAN');
   const isZombieTobaccoB = (titleB.includes('ゾンビたばこ') || titleB.includes('エトミデート')) && (titleB.includes('台湾') || affB === 'CHINA_TAIWAN');
   if (isZombieTobaccoA && isZombieTobaccoB) {
-    return true;
+    const isMaleA = /(?:男|男性|張)/.test(titleA) && !/(?:女|女性|呂)/.test(titleA);
+    const isFemaleA = /(?:女|女性|呂)/.test(titleA) && !/(?:男|男性|張)/.test(titleA);
+    const isMaleB = /(?:男|男性|張)/.test(titleB) && !/(?:女|女性|呂)/.test(titleB);
+    const isFemaleB = /(?:女|女性|呂)/.test(titleB) && !/(?:男|男性|張)/.test(titleB);
+    if ((isMaleA && isFemaleB) || (isFemaleA && isMaleB)) {
+      // 性別が異なる場合は別人・別事件として分離保持
+    } else if ((titleA.includes('羽田') && titleB.includes('成田')) || (titleA.includes('成田') && titleB.includes('羽田'))) {
+      // 羽田空港と成田空港で現場が異なる場合は分離保持
+    } else {
+      return true;
+    }
   }
 
   // 特例：ソーセージ約154キロ密輸事件（フィリピン国籍男女3人・成田空港・各社報道の統合）
@@ -1048,7 +1060,7 @@ function extractItemsFromRSS(xml) {
         continue;
       }
       // 行政啓蒙・周知・コラム・意見・動画・省庁施策の排除（個別事件報道ではないもの）
-      const isAwarenessOrColumn = /チラシで周知|協力を.*呼びかけ|注意を呼びかけ|防犯教室|啓発|連載|金難民|録画[０-９0-9]|覚えているだろうか|デイリー新潮|薬師寺の国宝|立ち入り|摘発[をの]?強化|他省庁.*(?:合同|参加|調査)|法務省.*不法就労|実施へ|団体交渉|不当徴収|謝罪|農業法人と交渉|賃金支払いも求める/.test(title);
+      const isAwarenessOrColumn = /チラシで周知|協力を.*呼びかけ|注意を呼びかけ|防犯教室|啓発|連載|金難民|録画[０-９0-9]|覚えているだろうか|デイリー新潮|薬師寺の国宝|立ち入り|摘発[をの]?強化|他省庁.*(?:合同|参加|調査)|法務省.*不法就労|実施へ|団体交渉|不当徴収|謝罪|農業法人と交渉|賃金支払いも求める|監督指導|送検等の状況/.test(title);
       if (isAwarenessOrColumn) {
         continue;
       }
@@ -1271,7 +1283,7 @@ async function main() {
       continue;
     }
     // 行政啓蒙・周知・コラム・意見・動画・省庁施策の排除
-    const isAwarenessOrColumn = /チラシで周知|協力を.*呼びかけ|注意を呼びかけ|防犯教室|啓発|連載|金難民|録画[０-９0-9]|覚えているだろうか|デイリー新潮|薬師寺の国宝|立ち入り|摘発[をの]?強化|他省庁.*(?:合同|参加|調査)|法務省.*不法就労|実施へ|団体交渉|不当徴収|謝罪|農業法人と交渉|賃金支払いも求める/.test(item.title);
+    const isAwarenessOrColumn = /チラシで周知|協力を.*呼びかけ|注意を呼びかけ|防犯教室|啓発|連載|金難民|録画[０-９0-9]|覚えているだろうか|デイリー新潮|薬師寺の国宝|立ち入り|摘発[をの]?強化|他省庁.*(?:合同|参加|調査)|法務省.*不法就労|実施へ|団体交渉|不当徴収|謝罪|農業法人と交渉|賃金支払いも求める|監督指導|送検等の状況/.test(item.title);
     if (isAwarenessOrColumn) {
       console.log(`Removed awareness/column item: ${item.title}`);
       continue;
