@@ -225,33 +225,77 @@ export const CrimeNewsArchive: React.FC = () => {
           </div>
         )}
 
-        {/* 防犯・家財盗難補償インフォメーション枠（A8.net提携案件） */}
-        <div className="mt-8 p-5 rounded-2xl bg-gradient-to-r from-blue-950/30 via-[#161b22] to-slate-900/40 border border-blue-500/20 shadow-lg">
-          <div className="flex items-center gap-2 mb-2 font-bold text-sm text-blue-400">
+        {/* 防犯・生活安全インフォメーション枠（A8.net提携案件：防犯カメラ＆家財補償） */}
+        <div className="mt-8 p-6 rounded-2xl bg-gradient-to-r from-blue-950/20 via-[#161b22] to-slate-900/30 border border-blue-500/20 shadow-xl">
+          <div className="flex items-center gap-2 mb-4 font-bold text-sm text-blue-400">
             <span className="text-base">🛡️</span>
-            <span>【防犯対策】空き巣・盗難被害と家財補償について</span>
+            <span>【防犯・生活安全対策】大切なご自宅とご家族を守るために</span>
           </div>
-          <p className="text-xs text-gray-400 leading-relaxed mb-3">
-            空き巣や侵入窃盗による家財・現金の盗難被害、窓ガラス等の損壊は、適切な火災保険・家財特約で補償される場合があります。ご自宅の補償範囲の確認や見直しはお早めにご確認ください。
-          </p>
-          <div className="pt-1">
-            <a
-              href="https://px.a8.net/svt/ejp?a8mat=4BCE3I+CI3Q42+3RU+6S45GI"
-              rel="nofollow noopener noreferrer"
-              target="_blank"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:text-blue-300 underline underline-offset-4 transition-colors"
-            >
-              あなたの家に最適な火災保険を無料診断！
-              <span className="text-[10px]">↗</span>
-            </a>
-            <img
-              border="0"
-              width="1"
-              height="1"
-              src="https://www14.a8.net/0.gif?a8mat=4BCE3I+CI3Q42+3RU+6S45GI"
-              alt=""
-              className="inline"
-            />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* 1. 防犯カメラ設置（未然防止・110番） */}
+            <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-1.5 font-bold text-xs text-gray-200 mb-1.5">
+                  <span>📹</span>
+                  <span>戸建て・店舗の侵入防止・防犯カメラ設置</span>
+                </div>
+                <p className="text-[11px] text-gray-400 leading-relaxed mb-3">
+                  空き巣や車上荒らしの抑止に。プロによる死角のない防犯設計、現地調査とお見積りは完全無料です。
+                </p>
+              </div>
+              <div className="pt-1">
+                <a
+                  href="https://px.a8.net/svt/ejp?a8mat=4BCE3I+CGBFAQ+39GM+1BMW42"
+                  rel="nofollow noopener noreferrer"
+                  target="_blank"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-blue-400 hover:text-blue-300 underline underline-offset-4 transition-colors"
+                >
+                  【防犯カメラ】設置の無料現地調査・お見積りはこちら
+                  <span className="text-[10px]">↗</span>
+                </a>
+                <img
+                  border="0"
+                  width="1"
+                  height="1"
+                  src="https://www13.a8.net/0.gif?a8mat=4BCE3I+CGBFAQ+39GM+1BMW42"
+                  alt=""
+                  className="inline"
+                />
+              </div>
+            </div>
+
+            {/* 2. 家財盗難補償（火災保険見直し・bang!） */}
+            <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-1.5 font-bold text-xs text-gray-200 mb-1.5">
+                  <span>🏠</span>
+                  <span>空き巣・盗難被害と家財補償の確認</span>
+                </div>
+                <p className="text-[11px] text-gray-400 leading-relaxed mb-3">
+                  空き巣による現金・家財の盗難や窓ガラス損壊は、適切な火災保険で補償されます。補償範囲の無料見直しに。
+                </p>
+              </div>
+              <div className="pt-1">
+                <a
+                  href="https://px.a8.net/svt/ejp?a8mat=4BCE3I+CI3Q42+3RU+6S45GI"
+                  rel="nofollow noopener noreferrer"
+                  target="_blank"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-blue-400 hover:text-blue-300 underline underline-offset-4 transition-colors"
+                >
+                  あなたの家に最適な火災保険を無料診断！
+                  <span className="text-[10px]">↗</span>
+                </a>
+                <img
+                  border="0"
+                  width="1"
+                  height="1"
+                  src="https://www14.a8.net/0.gif?a8mat=4BCE3I+CI3Q42+3RU+6S45GI"
+                  alt=""
+                  className="inline"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
