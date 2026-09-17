@@ -224,6 +224,36 @@ export const CrimeNewsArchive: React.FC = () => {
             </button>
           </div>
         )}
+
+        {/* 防犯・家財盗難補償インフォメーション枠（A8.net提携案件） */}
+        <div className="mt-8 p-5 rounded-2xl bg-gradient-to-r from-blue-950/30 via-[#161b22] to-slate-900/40 border border-blue-500/20 shadow-lg">
+          <div className="flex items-center gap-2 mb-2 font-bold text-sm text-blue-400">
+            <span className="text-base">🛡️</span>
+            <span>【防犯対策】空き巣・盗難被害と家財補償について</span>
+          </div>
+          <p className="text-xs text-gray-400 leading-relaxed mb-3">
+            空き巣や侵入窃盗による家財・現金の盗難被害、窓ガラス等の損壊は、適切な火災保険・家財特約で補償される場合があります。ご自宅の補償範囲の確認や見直しはお早めにご確認ください。
+          </p>
+          <div className="pt-1">
+            <a
+              href="https://px.a8.net/svt/ejp?a8mat=4BCE3I+CI3Q42+3RU+6S45GI"
+              rel="nofollow noopener noreferrer"
+              target="_blank"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:text-blue-300 underline underline-offset-4 transition-colors"
+            >
+              あなたの家に最適な火災保険を無料診断！
+              <span className="text-[10px]">↗</span>
+            </a>
+            <img
+              border="0"
+              width="1"
+              height="1"
+              src="https://www14.a8.net/0.gif?a8mat=4BCE3I+CI3Q42+3RU+6S45GI"
+              alt=""
+              className="inline"
+            />
+          </div>
+        </div>
       </div>
     </MainLayout>
   );
