@@ -788,6 +788,28 @@ function isSameEvent(itemA, itemB) {
     return true;
   }
 
+  // 特例：愛媛・松山 マレーシア国籍男のメガネ型カメラ特殊詐欺受け子事件（全媒体統合）
+  if ((locA === '愛媛県' || locB === '愛媛県' || titleA.includes('愛媛') || titleB.includes('愛媛') || titleA.includes('松山') || titleB.includes('松山')) &&
+      (titleA.includes('マレーシア') || titleB.includes('マレーシア')) &&
+      (titleA.includes('詐欺') || titleA.includes('受け子') || titleA.includes('カメラ') || titleA.includes('警察官') || titleA.includes('警官')) &&
+      (titleB.includes('詐欺') || titleB.includes('受け子') || titleB.includes('カメラ') || titleB.includes('警察官') || titleB.includes('警官'))) {
+    return true;
+  }
+
+  // 特例：東京・江戸川 台湾出身男の非接触特殊詐欺受け子事件（全媒体統合）
+  if ((titleA.includes('台湾') || titleB.includes('台湾')) &&
+      (titleA.includes('受け子') || titleA.includes('詐欺') || titleA.includes('警察官') || titleA.includes('非接触') || titleA.includes('玄関前') || titleA.includes('門の下')) &&
+      (titleB.includes('受け子') || titleB.includes('詐欺') || titleB.includes('警察官') || titleB.includes('非接触') || titleB.includes('玄関前') || titleB.includes('門の下'))) {
+    return true;
+  }
+
+  // 特例：福井・ショークラブ フィリピン国籍女偽装結婚事件（全媒体統合）
+  if ((titleA.includes('フィリピン') || titleB.includes('フィリピン')) &&
+      (titleA.includes('偽装結婚') || titleA.includes('ショークラブ')) &&
+      (titleB.includes('偽装結婚') || titleB.includes('ショークラブ'))) {
+    return true;
+  }
+
   // 特例：岡山中央署 中国籍女2人現金詐取事件（山陽新聞と47NEWS等の統合）
   const isOkayamaCaseA = (locA === '岡山県' || titleA.includes('岡山')) && titleA.includes('中国') && (titleA.includes('岡山中央署') || titleA.includes('女2人') || titleA.includes('女２人'));
   const isOkayamaCaseB = (locB === '岡山県' || titleB.includes('岡山')) && titleB.includes('中国') && (titleB.includes('岡山中央署') || titleB.includes('女2人') || titleB.includes('女２人'));
@@ -1045,6 +1067,10 @@ function extractItemsFromRSS(xml) {
       const hasExplicitForeignSuspect = /(?:トルコ|中国|ベトナム|韓国|フィリピン|ブラジル|タイ|ネパール|台湾|米国|アメリカ|外国)(?:人|国籍|籍)/.test(title);
       const isIllegalEmploymentBroker = /不法就労助長/.test(title) && !hasExplicitForeignSuspect;
       const isShopOwnerWithForeignVictim = /(?:店主|店長|経営の男|経営の女|経営者)[男女代性0-9０-９（）\(\)\sの歳]*に.*(?:判決|拘禁刑|懲役)/.test(title);
+      // 偽装結婚・在留資格の斡旋・仲介ブローカー（日本人側）の逮捕事案を100%遮断
+      const isBrokerSuspect = /(?:偽装結婚|在留資格|不法就労).*(?:斡旋|あっせん|紹介|仲介)/.test(title) ||
+                              /(?:斡旋|あっせん|紹介|仲介).*疑いで逮捕/.test(title) ||
+                              /(?:飲食店経営|会社経営|無職|男２人|男ら).*(?:フィリピン|ベトナム|中国|タイ).*紹介/.test(title);
 
       const isJapaneseSuspect = /(?:日本人|日本国籍)[の男女代性0-9０-９（）\s]*[をが]?(?:逮捕|容疑|送検|起訴|書類送検)/.test(title) ||
                                 /(?:逮捕|容疑|送検)[の男女代性0-9０-９（）\s]*[は、\s]*(?:日本人|日本国籍)/.test(title) ||
@@ -1052,6 +1078,7 @@ function extractItemsFromRSS(xml) {
                                 isJapaneseEmployer ||
                                 isIllegalEmploymentBroker ||
                                 isShopOwnerWithForeignVictim ||
+                                isBrokerSuspect ||
                                 // 日本人社員による中国企業・外国企業への機密流出・スパイ事案を100%遮断
                                 /(?:中国企業|外国企業|中国側)[へのに]*(?:流出|漏洩|漏えい|提供|持ち出)/.test(title) ||
                                 /(?:半導体|機密|営業秘密).*(?:流出|漏洩|漏えい).*(?:元社員|元従業員|元開発責任者)/.test(title) ||
