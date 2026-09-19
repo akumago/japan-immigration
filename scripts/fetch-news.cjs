@@ -600,13 +600,19 @@ function isSameEvent(itemA, itemB) {
     const dateB = itemB.date ? new Date(itemB.date).getTime() : 0;
     const diffDays = (dateA && dateB) ? Math.abs(dateA - dateB) / (1000 * 60 * 60 * 24) : 0;
     if (diffDays <= 3) {
-      const wordsA = new Set(normA.match(/[\u3040-\u9faf]{2,}/g) || []);
-      const wordsB = new Set(normB.match(/[\u3040-\u9faf]{2,}/g) || []);
-      const common = [...wordsA].filter(w => wordsB.has(w));
-      // 同一地域なら2単語、地域が異なる/片方が全国なら3単語以上の一致で同一事件と判定
-      const minCommon = (locA === locB && locA !== '全国') ? 2 : 3;
-      if (common.length >= minCommon || (wordsA.size > 0 && common.length / Math.max(wordsA.size, wordsB.size) >= 0.25)) {
-        return true;
+      // 都道府県が明確に異なっており広域事件の記載もない場合は、別事件として絶対に統合しない（東京と岡山の別事件誤統合防止）
+      const isCrossPrefectureCase = /広域|13府県|複数県|他県|県警合同/.test(titleA) || /広域|13府県|複数県|他県|県警合同/.test(titleB);
+      if (locA !== '全国' && locB !== '全国' && locA !== locB && !isCrossPrefectureCase) {
+        // 異なる都道府県の別事件として判定をスキップ
+      } else {
+        const wordsA = new Set(normA.match(/[\u3040-\u9faf]{2,}/g) || []);
+        const wordsB = new Set(normB.match(/[\u3040-\u9faf]{2,}/g) || []);
+        const common = [...wordsA].filter(w => wordsB.has(w));
+        // 同一地域なら2単語、片方が全国なら3単語以上の一致で同一事件と判定
+        const minCommon = (locA === locB && locA !== '全国') ? 2 : 3;
+        if (common.length >= minCommon || (wordsA.size > 0 && common.length / Math.max(wordsA.size, wordsB.size) >= 0.25)) {
+          return true;
+        }
       }
     }
   }
@@ -781,7 +787,9 @@ function isSameEvent(itemA, itemB) {
   }
 
   // 特例：特殊詐欺受け子（韓国籍・宮城県警）
-  if ((locA === '宮城県' || locB === '宮城県' || titleA.includes('宮城') || titleB.includes('宮城')) &&
+  const isMiyagiA = (locA === '宮城県' || titleA.includes('宮城'));
+  const isMiyagiB = (locB === '宮城県' || titleB.includes('宮城'));
+  if (isMiyagiA && isMiyagiB &&
       (titleA.includes('詐欺') || titleA.includes('受け子') || titleA.includes('警察官')) &&
       (titleB.includes('詐欺') || titleB.includes('受け子') || titleB.includes('警察官')) &&
       (titleA.includes('韓国籍') || titleB.includes('韓国籍'))) {
@@ -789,7 +797,9 @@ function isSameEvent(itemA, itemB) {
   }
 
   // 特例：あおり運転殺人未遂（韓国籍・京都）
-  if ((locA === '京都府' || locB === '京都府' || titleA.includes('京都') || titleB.includes('京都')) &&
+  const isKyotoA = (locA === '京都府' || titleA.includes('京都'));
+  const isKyotoB = (locB === '京都府' || titleB.includes('京都'));
+  if (isKyotoA && isKyotoB &&
       (titleA.includes('あおり運転') || titleA.includes('バイク') || titleA.includes('オートバイ')) &&
       (titleB.includes('あおり運転') || titleB.includes('バイク') || titleB.includes('オートバイ')) &&
       (titleA.includes('韓国籍') || titleB.includes('韓国籍'))) {
@@ -797,17 +807,24 @@ function isSameEvent(itemA, itemB) {
   }
 
   // 特例：愛媛・松山 マレーシア国籍男のメガネ型カメラ特殊詐欺受け子事件（全媒体統合）
-  if ((locA === '愛媛県' || locB === '愛媛県' || titleA.includes('愛媛') || titleB.includes('愛媛') || titleA.includes('松山') || titleB.includes('松山')) &&
+  const isEhimeA = (locA === '愛媛県' || titleA.includes('愛媛') || titleA.includes('松山'));
+  const isEhimeB = (locB === '愛媛県' || titleB.includes('愛媛') || titleB.includes('松山'));
+  if (isEhimeA && isEhimeB &&
       (titleA.includes('マレーシア') || titleB.includes('マレーシア')) &&
-      (titleA.includes('詐欺') || titleA.includes('受け子') || titleA.includes('カメラ') || titleA.includes('警察官') || titleA.includes('警官')) &&
-      (titleB.includes('詐欺') || titleB.includes('受け子') || titleB.includes('カメラ') || titleB.includes('警察官') || titleB.includes('警官'))) {
+      (titleA.includes('カメラ') || titleB.includes('カメラ')) &&
+      (titleA.includes('詐欺') || titleA.includes('受け子') || titleA.includes('警察官') || titleA.includes('警官')) &&
+      (titleB.includes('詐欺') || titleB.includes('受け子') || titleB.includes('警察官') || titleB.includes('警官'))) {
     return true;
   }
 
   // 特例：東京・江戸川 台湾出身男の非接触特殊詐欺受け子事件（全媒体統合）
-  if ((titleA.includes('台湾') || titleB.includes('台湾')) &&
-      (titleA.includes('受け子') || titleA.includes('詐欺') || titleA.includes('警察官') || titleA.includes('非接触') || titleA.includes('玄関前') || titleA.includes('門の下')) &&
-      (titleB.includes('受け子') || titleB.includes('詐欺') || titleB.includes('警察官') || titleB.includes('非接触') || titleB.includes('玄関前') || titleB.includes('門の下'))) {
+  const isTokyoA = (locA === '東京都' || titleA.includes('東京') || titleA.includes('江戸川') || titleA.includes('警視庁'));
+  const isTokyoB = (locB === '東京都' || titleB.includes('東京') || titleB.includes('江戸川') || titleB.includes('警視庁'));
+  if (isTokyoA && isTokyoB &&
+      (titleA.includes('台湾') || titleB.includes('台湾')) &&
+      (titleA.includes('非接触') || titleA.includes('玄関前') || titleA.includes('門の下') || titleB.includes('非接触') || titleB.includes('玄関前') || titleB.includes('門の下')) &&
+      (titleA.includes('受け子') || titleA.includes('詐欺') || titleA.includes('警察官')) &&
+      (titleB.includes('受け子') || titleB.includes('詐欺') || titleB.includes('警察官'))) {
     return true;
   }
 
