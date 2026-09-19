@@ -373,6 +373,12 @@ function detectLocation(title) {
     { key: 'ビッグサイト', pref: '東京都' },
     { key: '婦中町', pref: '富山県' },
     { key: '成田空港', pref: '千葉県' },
+    { key: '羽田空港', pref: '東京都' },
+    { key: '中部国際空港', pref: '愛知県' },
+    { key: 'セントレア', pref: '愛知県' },
+    { key: '関西空港', pref: '大阪府' },
+    { key: '関空', pref: '大阪府' },
+    { key: '常滑', pref: '愛知県' },
     { key: 'ソーセージ', pref: '千葉県' },
     { key: '高級車を盗んだ疑いでブラジル', pref: '山形県' },
     { key: 'タイ古式マッサージ', pref: '茨城県' },
@@ -435,7 +441,9 @@ function isTitleStartingWithOverseasCountry(title) {
 function hasJapaneseEnforcement(title) {
   const JP_ENFORCEMENT = [
     '県警', '警視庁', '府警', '道警', '警察署', '署が', '署に', '署は', '署員',
-    '東京税関', '横浜税関', '税関', '麻薬取締部', 'マトリ', '海上保安部', '海保',
+    '東京税関', '横浜税関', '名古屋税関', '大阪税関', '神戸税関', '門司税関', '長崎税関', '函館税関', '沖縄地区税関', '税関支署', '税関',
+    '中部国際空港', '成田空港', '羽田空港', '関西空港', '関空', '福岡空港', '新千歳空港',
+    '麻薬取締部', 'マトリ', '海上保安部', '海保',
     '東京地裁', '大阪地裁', '名古屋地裁', '福岡地裁', '横浜地裁', 'さいたま地裁', '千葉地裁', '那覇地裁', '京都地裁', '神戸地裁',
     '東京地検', '大阪地検', '名古屋地検', '福岡地検', '最高裁'
   ];
@@ -1401,9 +1409,93 @@ async function main() {
   }
 
   // 最新日付（2026-08-26 → 2026-08-25 ...）順に厳密ソート
-  const finalMerged = [...trulyNew, ...cleanExisting]
+  const rawMerged = [...trulyNew, ...cleanExisting]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 10000);
+
+  // === 【第2チェックシステム：最終審査ゲート（セカンドバリデーター）】 ===
+  // 外部API・手動確認を一切使わず、サイトデータ書き込み直前の最終防衛線として
+  // 被害者トラップ・日本人ブローカー・企業違反・重複を完全自動スキャン
+  function runSecondStageQualityGate(articles) {
+    console.log('\n🛡️ === [第2チェックシステム] 最終審査ゲート（セカンドバリデーター）起動 ===');
+    const vettedArticles = [];
+    const rejectedLog = [];
+
+    for (const item of articles) {
+      const title = item.title;
+
+      // 1. 【失格判定①】被害者トラップ（外国人が被害者、加害者が日本人の事案）の完全遮断
+      const isVictimPattern = /(?:自転車の)?(?:ベトナム|中国|外国人|外国籍|ミャンマー|インドネシア|フィリピン|タイ|韓国|台湾)(?:人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[をにへ]?(?:死亡ひき逃げ|ひき逃げ|はねられ|はねて|死亡|重傷|被害)/.test(title) ||
+                              /(?:ベトナム|中国|フィリピン|タイ|インドネシア|韓国|外国)(?:人|国籍|籍)?[男女代性0-9０-９歳（）\s]*[をにへ].*(?:はね|撥ね|轢き|ひき逃げ|暴行|殺害され|刺され|だまし取られ)/.test(title);
+      const hasExplicitForeignPerpetrator = /(?:外国人|外国籍|ベトナム人|中国人|韓国人|フィリピン人|タイ人|ブラジル人|ミャンマー人|台湾出身|台湾籍|マレーシア人|マレーシア国籍|米国籍|アメリカ人|米兵|実習生|留学生)[の男女代性0-9０-９（）\s]*[をが]?(?:現行犯逮捕|緊急逮捕|逮捕|容疑|送検|再逮捕|起訴|摘発)/.test(title) ||
+                                            /(?:現行犯逮捕|緊急逮捕|逮捕|容疑|送検|再逮捕)[の男女代性0-9０-９（）\s]*[は、\s]*(?:外国人|外国籍|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|台湾|マレーシア|米国|アメリカ|米兵|実習生|留学生)/.test(title);
+      if (isVictimPattern && !hasExplicitForeignPerpetrator) {
+        rejectedLog.push({ reason: '被害者トラップ（加害者が日本人・被害者が外国人）', title });
+        continue;
+      }
+
+      // 2. 【失格判定②】日本人斡旋・紹介・ブローカー事案の完全遮断
+      const isBrokerPattern = /(?:偽装結婚|在留資格|不法就労).*(?:斡旋|あっせん|紹介|仲介)/.test(title) ||
+                              /(?:斡旋|あっせん|紹介|仲介).*疑いで逮捕/.test(title) ||
+                              /(?:飲食店経営|会社役員|会社経営|無職|男２人|男ら).*(?:フィリピン|ベトナム|中国|タイ).*紹介/.test(title);
+      if (isBrokerPattern) {
+        rejectedLog.push({ reason: '日本人ブローカー（斡旋・紹介・仲介役が日本人）', title });
+        continue;
+      }
+
+      // 3. 【失格判定③】受入企業側・行政処分・労基法違反統計の完全遮断
+      const isCorporateLaborViolation = /監督対象|監督指導|安衛法|是正勧告|安全基準違反|労基法違反|受入企業|受入れ企業|重大・悪質.*件を送検|送検等の状況/.test(title);
+      if (isCorporateLaborViolation) {
+        rejectedLog.push({ reason: '受入企業側の労基法違反・行政処分統計', title });
+        continue;
+      }
+
+      // 4. 【失格判定④】日本人社員によるスパイ・機密流出・海外逃亡拠点の完全遮断
+      const isJapaneseSpyOrOverseasBase = /旭化成/.test(title) ||
+                                          /(?:中国企業|外国企業|中国側)[へのに]*(?:流出|漏洩|漏えい|提供|持ち出)/.test(title) ||
+                                          /(?:半導体|機密|営業秘密).*(?:流出|漏洩|漏えい).*(?:元社員|元従業員|元開発責任者)/.test(title) ||
+                                          /[JＪ][PＰ]ドラゴン/.test(title) ||
+                                          /フィリピンを拠点に「かけ子」/.test(title);
+      if (isJapaneseSpyOrOverseasBase) {
+        rejectedLog.push({ reason: '日本人社員のスパイ流出または日本人海外拠点', title });
+        continue;
+      }
+
+      vettedArticles.push(item);
+    }
+
+    // 5. 【失格判定⑤】最終配列レベルでの同一事件・別メディア重複の強制一本化（高品質一次メディア優先）
+    const finalUniqueArticles = [];
+    for (const item of vettedArticles) {
+      const existingIdx = finalUniqueArticles.findIndex(ex => isSameEvent(ex, item));
+      if (existingIdx === -1) {
+        finalUniqueArticles.push(item);
+      } else {
+        const existing = finalUniqueArticles[existingIdx];
+        const isHigherPriority = getMediaPriority(item.media) > getMediaPriority(existing.media);
+        const isMoreDetailed = item.title.length > existing.title.length;
+        if (isHigherPriority || (getMediaPriority(item.media) === getMediaPriority(existing.media) && isMoreDetailed)) {
+          rejectedLog.push({ reason: `重複記事の一本化統合（置換）: ${existing.title}`, title: item.title });
+          finalUniqueArticles[existingIdx] = item;
+        } else {
+          rejectedLog.push({ reason: `重複記事の一本化統合（除外）: ${item.title}`, title: existing.title });
+        }
+      }
+    }
+
+    if (rejectedLog.length > 0) {
+      console.log(`⚠️ 第2チェックシステムにより ${rejectedLog.length} 件の不適格・重複記事を自動排除しました:`);
+      rejectedLog.forEach((log, i) => {
+        console.log(`   [${i+1}] 【${log.reason}】 ${log.title}`);
+      });
+    } else {
+      console.log('✅ 第2チェックシステム全件通過：不適格記事・重複ゼロを確認。');
+    }
+
+    return finalUniqueArticles;
+  }
+
+  const finalMerged = runSecondStageQualityGate(rawMerged);
 
   fs.writeFileSync(NEWS_DATA_PATH, JSON.stringify(finalMerged, null, 2), 'utf-8');
   console.log(`Ultimate Filtering & Mapping Complete! newsData.json updated. Total entries: ${finalMerged.length}`);
