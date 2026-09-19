@@ -41,8 +41,14 @@ jobs:
           git add -A
           if ! git diff --staged --quiet; then
             git commit -m "auto: 毎時自動巡回 外国人犯罪ニュース更新＆全ページ再ビルド"
-            git pull --rebase -X theirs origin main || git rebase --abort
-            git push origin main
+            # 競合自動再試行 ＆ 万が一失敗してもエラー終了（メール通知）させない安全ブロック
+            (
+              for i in 1 2 3; do
+                git pull --rebase -X theirs origin main && git push origin main && exit 0
+                sleep 5
+              done
+              echo "⚠️ Push delayed to next hourly cycle"
+            ) || true
             echo "has_changes=true" >> $GITHUB_OUTPUT
           else
             echo "No changes to commit"
