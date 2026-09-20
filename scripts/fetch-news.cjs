@@ -43,7 +43,7 @@ const MUNICIPALITY_MAP = {
   '甲府': '山梨県', '笛吹': '山梨県', '富士吉田': '山梨県', '富士河口湖': '山梨県',
   '長野': '長野県', '松本': '長野県', '上田': '長野県',
   '岐阜': '岐阜県', '大垣': '岐阜県', '各務原': '岐阜県',
-  '静岡': '静岡県', '浜松': '静岡県', '沼津': '静岡県', '富士': '静岡県', '天竜': '静岡県', '伊豆の国': '静岡県', '熱海': '静岡県', '御殿場': '静岡県',
+  '静岡': '静岡県', '浜松': '静岡県', '沼津': '静岡県', '富士': '静岡県', '天竜': '静岡県', '伊豆の国': '静岡県', '熱海': '静岡県', '御殿場': '静岡県', '菊川': '静岡県', '袋井': '静岡県',
   '名古屋': '愛知県', '中村区': '愛知県', '中区': '愛知県', '豊橋': '愛知県', '岡崎': '愛知県', '一宮': '愛知県', '豊田': '愛知県', '豊川': '愛知県',
   '津市': '三重県', '四日市': '三重県', '伊勢': '三重県', '名張': '三重県', '鈴鹿': '三重県', '亀山': '三重県',
 
@@ -810,21 +810,20 @@ function isSameEvent(itemA, itemB) {
   const isEhimeA = (locA === '愛媛県' || titleA.includes('愛媛') || titleA.includes('松山'));
   const isEhimeB = (locB === '愛媛県' || titleB.includes('愛媛') || titleB.includes('松山'));
   if (isEhimeA && isEhimeB &&
-      (titleA.includes('マレーシア') || titleB.includes('マレーシア')) &&
-      (titleA.includes('カメラ') || titleB.includes('カメラ')) &&
-      (titleA.includes('詐欺') || titleA.includes('受け子') || titleA.includes('警察官') || titleA.includes('警官')) &&
-      (titleB.includes('詐欺') || titleB.includes('受け子') || titleB.includes('警察官') || titleB.includes('警官'))) {
+      (titleA.includes('マレーシア') && titleB.includes('マレーシア')) &&
+      (titleA.includes('詐欺') || titleA.includes('受け子')) &&
+      (titleB.includes('詐欺') || titleB.includes('受け子'))) {
     return true;
   }
 
   // 特例：東京・江戸川 台湾出身男の非接触特殊詐欺受け子事件（全媒体統合）
-  const isTokyoA = (locA === '東京都' || titleA.includes('東京') || titleA.includes('江戸川') || titleA.includes('警視庁'));
-  const isTokyoB = (locB === '東京都' || titleB.includes('東京') || titleB.includes('江戸川') || titleB.includes('警視庁'));
+  const isTokyoA = (locA === '東京都' || titleA.includes('東京') || titleA.includes('江戸川') || titleA.includes('警視庁') || locA === '全国');
+  const isTokyoB = (locB === '東京都' || titleB.includes('東京') || titleB.includes('江戸川') || titleB.includes('警視庁') || locB === '全国');
   if (isTokyoA && isTokyoB &&
-      (titleA.includes('台湾') || titleB.includes('台湾')) &&
-      (titleA.includes('非接触') || titleA.includes('玄関前') || titleA.includes('門の下') || titleB.includes('非接触') || titleB.includes('玄関前') || titleB.includes('門の下')) &&
-      (titleA.includes('受け子') || titleA.includes('詐欺') || titleA.includes('警察官')) &&
-      (titleB.includes('受け子') || titleB.includes('詐欺') || titleB.includes('警察官'))) {
+      (titleA.includes('台湾') && titleB.includes('台湾')) &&
+      (titleA.includes('受け子') && titleB.includes('受け子')) &&
+      (titleA.includes('警察官') || titleA.includes('警官') || titleA.includes('騙る') || titleA.includes('装い')) &&
+      (titleB.includes('警察官') || titleB.includes('警官') || titleB.includes('騙る') || titleB.includes('装い'))) {
     return true;
   }
 
