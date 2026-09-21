@@ -529,6 +529,7 @@ function isDomesticCrime(title, media) {
   const hasPrefecture = detectedLoc !== '全国';
   const hasEnforcement = hasJapaneseEnforcement(title);
   const hasDomesticIndicator = DOMESTIC_INDICATORS.some(ind => title.includes(ind));
+  const isDomesticSpecificCrime = /(太陽光|メガソーラー|銅線|空室|空き部屋|受け子|出し子|ヤード|不法就労)/.test(title);
 
   // 日本の公認国内メディア（地方紙、民放各社、全国紙、ポータル等）
   const isCertifiedDomesticMedia = media && /(新聞|テレビ|放送|NEWS DIG|NNN|FNN|ANN|JNN|Yahoo|ｄメニュー|goo|au|livedoor|ライブドア|shimbun|shimotsuke|niigata|kyodo|共同通信|時事通信|(?:^LINE|\bLINE|LINE\s*NEWS|LINEニュース)|excite|エキサイト|infoseek|nifty|\.jp)/i.test(media);
@@ -547,7 +548,6 @@ function isDomesticCrime(title, media) {
     return false;
   }
 
-  const isDomesticSpecificCrime = /(太陽光|メガソーラー|銅線|空室|空き部屋|受け子|出し子|ヤード|不法就労)/.test(title);
   if (!hasPrefecture && !hasEnforcement && !hasDomesticIndicator && !isDomesticSpecificCrime) {
     return false;
   }
