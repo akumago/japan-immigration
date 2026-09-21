@@ -817,6 +817,20 @@ function isSameEvent(itemA, itemB) {
     return true;
   }
 
+  // 特例：静岡・菊川 メロン栽培ハウス侵入事件（全媒体統合）
+  const isMelonA = (titleA.includes('メロン') && (titleA.includes('ハウス') || titleA.includes('温室'))) && titleA.includes('ベトナム');
+  const isMelonB = (titleB.includes('メロン') && (titleB.includes('ハウス') || titleB.includes('温室'))) && titleB.includes('ベトナム');
+  if (isMelonA && isMelonB) {
+    return true;
+  }
+
+  // 特例：静岡・袋井 スリランカ国籍男ひき逃げ事件（全媒体統合）
+  const isFukuroiA = (locA === '静岡県' || titleA.includes('静岡') || titleA.includes('袋井')) && titleA.includes('スリランカ') && (titleA.includes('ひき逃げ') || titleA.includes('逃走'));
+  const isFukuroiB = (locB === '静岡県' || titleB.includes('静岡') || titleB.includes('袋井')) && titleB.includes('スリランカ') && (titleB.includes('ひき逃げ') || titleB.includes('逃走'));
+  if (isFukuroiA && isFukuroiB) {
+    return true;
+  }
+
   // 特例：東京・江戸川 台湾出身男の非接触特殊詐欺受け子事件（全媒体統合）
   const isTokyoA = (locA === '東京都' || titleA.includes('東京') || titleA.includes('江戸川') || titleA.includes('警視庁') || locA === '全国');
   const isTokyoB = (locB === '東京都' || titleB.includes('東京') || titleB.includes('江戸川') || titleB.includes('警視庁') || locB === '全国');
