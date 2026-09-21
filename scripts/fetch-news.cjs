@@ -201,13 +201,14 @@ const EVENT_FEATURE_KEYWORDS = [
 // 海外現地・国外ニュースを除外するための単語
 const OVERSEAS_LOCATIONS = [
   'ルーマニア', 'モルドバ', 'プルート川', 'イタリア', 'アルテナ', 'カラビニエリ', 'スペイン',
+  'ルーブル', 'ルーヴル', 'モナリザ',
   'ベルギー', 'ブリュッセル', '現地当局', '現地警察', 'インターポール',
   '中華人民共和国', '大韓民国', 'ベトナム社会主義共和国', 'フィリピン共和国', 'タイ王国', 'アメリカ合衆国',
   'シアヌークビル', 'ポイペト', 'バベット', 'クラーク', 'アンヘレス', 'パサイ', 'ミャワディ',
   'ナイジェリアで', 'ナイジェリアの', 'ナイジェリア',
   'ロシアで', 'ロシアの', 'ウクライナで', 'ウクライナの', 'ネパールで', 'ネパールの', 'スリランカで', 'スリランカの',
   'タイニン', 'タイの', 'タイで', 'タイ首都', '首都近郊', '韓国の', '韓国で', 'ベトナムで', 'ベトナムの',
-  'アメリカの', 'アメリカで', '中国の', '中国で', '台湾の', '台湾で',
+  'アメリカ', '米国', 'アメリカの', 'アメリカで', '中国の', '中国で', '台湾の', '台湾で',
   'フィリピンの', 'フィリピンで', 'ブラジルの', 'ブラジルで', 'ソウル', 'バンコク',
   'ワシントン', '北京', 'ロンドン', 'パリ', '現地', '国外',
   'インドの', 'インドで', 'ミャンマーの', 'ミャンマーで', 'カンボジアの', 'カンボジアで', 'インドネシアの', 'インドネシアで',
@@ -243,6 +244,10 @@ const DOMESTIC_INDICATORS = [
 
 // 除外キーワード
 const EXCLUDE_KEYWORDS = [
+  // 海外首脳・海外政治・オピニオン・経済誌コラム徹底排除
+  'トランプ', 'バイデン', 'ハリス', '大統領', 'ホワイトハウス', '米政権', '米議会', '米移民',
+  '東洋経済', 'プレジデント', 'ダイヤモンド・オンライン', '現代ビジネス',
+  '伸びない理由', '阻むもの', 'への意欲', 'その背景とは', 'その真相とは', '読み解く',
   '画像・写真', '写真：', '調査同行', '実態を告白', 'その後とは',
   '知事会', '基本法', '要請', 'まつり', '花笠', '白バイ', 'ロンドン',
   '米警察', '米当局', '韓国警察', '現地警察', '現地当局', 'FBI', '国際指名手配',
@@ -322,7 +327,7 @@ const COUNTRY_NAMES = [
   'ペルー', 'ネパール', 'スリランカ', 'バングラデシュ',
   'インドネシア', 'ナイジェリア', 'ガーナ', 'アフガニスタン',
   '北朝鮮', 'エジプト', 'サウジアラビア', 'イラク', 'コロンビア',
-  'ラオス', 'マカオ', '英国', '米国', 'アルゼンチン', 'フランス'
+  'ラオス', 'マカオ', 'アメリカ', '米国', '英国', 'フランス', 'アルゼンチン'
 ];
 
 // 文末の海外国名略称および通信社海外発信パターンの正規表現
@@ -460,6 +465,13 @@ function detectLocation(title) {
 
 // 国名で始まる海外ニュースの判定（「ベトナム人」「中国籍」「ベトナム料理」等は除外）
 function isTitleStartingWithOverseasCountry(title) {
+  // 新聞・通信社の見出し先頭1文字国名略称（「仏ルーブル」「米ニューヨーク」「英ロンドン」等の海外特派員電）を100%遮断
+  if (/^[米英仏独伊露豪泰越印伯加][\s　・:：A-Za-z\u3040-\u30ff\u4e00-\u9faf]/.test(title)) {
+    if (!/^(米軍|米兵|米国人|米海兵|英国人|英国籍|フランス人|ドイツ人)/.test(title)) {
+      return true;
+    }
+  }
+
   for (const country of COUNTRY_NAMES) {
     if (title.startsWith(country) || title.startsWith('【' + country)) {
       const remainder = title.startsWith('【' + country)
@@ -519,12 +531,20 @@ function isDomesticCrime(title, media) {
   const hasDomesticIndicator = DOMESTIC_INDICATORS.some(ind => title.includes(ind));
 
   // 日本の公認国内メディア（地方紙、民放各社、全国紙、ポータル等）
-  const isCertifiedDomesticMedia = media && /(新聞|テレビ|放送|NEWS DIG|NNN|FNN|ANN|JNN|Yahoo|ｄメニュー|goo|au|livedoor|ライブドア|shimbun|shimotsuke|niigata|kyodo|共同通信|時事通信|line|ライン|excite|エキサイト|infoseek|nifty|\.jp)/i.test(media);
+  const isCertifiedDomesticMedia = media && /(新聞|テレビ|放送|NEWS DIG|NNN|FNN|ANN|JNN|Yahoo|ｄメニュー|goo|au|livedoor|ライブドア|shimbun|shimotsuke|niigata|kyodo|共同通信|時事通信|(?:^LINE|\bLINE|LINE\s*NEWS|LINEニュース)|excite|エキサイト|infoseek|nifty|\.jp)/i.test(media);
   const hasCrimeAction = /(?:逮捕|容疑|送検|起訴|家宅捜索|摘発|書類送検)/.test(title);
 
   // 国内主要メディアによる刑事事件報道（海外地名・通信社を含まない）は国内事案として承認
+  // ※ポータル転載（Yahoo, dメニュー等）の場合は、国内警察組織・地域・国内制度語の存在を必須とし海外通信社電を完全遮断
+  const isPortalMedia = /(?:Yahoo|ｄメニュー|goo|au|livedoor|ライブドア|LINE|excite|infoseek|nifty)/i.test(media || '');
   if (isCertifiedDomesticMedia && hasCrimeAction) {
-    return true;
+    if (!isPortalMedia) {
+      return true;
+    }
+    if (hasPrefecture || hasEnforcement || hasDomesticIndicator || isDomesticSpecificCrime) {
+      return true;
+    }
+    return false;
   }
 
   const isDomesticSpecificCrime = /(太陽光|メガソーラー|銅線|空室|空き部屋|受け子|出し子|ヤード|不法就労)/.test(title);
@@ -1528,11 +1548,12 @@ async function main() {
         continue;
       }
 
-      // 6. 【失格判定⑥】具体的刑事手続き・事件性の欠如（単なる行政施策・調査同行・写真・ルポ・コラム）の完全遮断
+      // 6. 【失格判定⑥】具体的刑事手続き・事件性の欠如および海外政治・コラム・論考の完全遮断
       const hasConcreteLegalAction = /(?:逮捕|容疑|疑い|送検|起訴|判決|摘発|指名手配|家宅捜索|検挙|公判|地裁|地検|簡裁|高裁|書類送検|追送検|不起訴|拘禁刑|懲役|実刑|罰金|強盗|窃盗|傷害|暴行|殺害|殺人|ひき逃げ)/.test(title);
-      const isNonCrimeMediaOrReport = /(?:画像・写真|写真：|調査同行|実態を告白|報奨金制度|コラム|連載|ルポ)/.test(title);
-      if (!hasConcreteLegalAction || isNonCrimeMediaOrReport) {
-        rejectedLog.push({ reason: '非事件記事（行政調査同行・写真・ルポ・刑事手続き欠如）', title });
+      const isNonCrimeMediaOrReport = /(?:画像・写真|写真：|調査同行|実態を告白|報奨金制度|コラム|連載|ルポ|大統領|トランプ|バイデン|伸びない理由|阻むもの)/.test(title);
+      const isOverseasPoliticsOrMedia = /(?:東洋経済|プレジデント|ダイヤモンド|現代ビジネス)/.test(item.media || '') || /アメリカ移民|米国移民|トランプ政権/.test(title);
+      if (!hasConcreteLegalAction || isNonCrimeMediaOrReport || isOverseasPoliticsOrMedia) {
+        rejectedLog.push({ reason: '非事件記事（海外政治・コラム・大統領・調査同行・刑事手続き欠如）', title });
         continue;
       }
 
