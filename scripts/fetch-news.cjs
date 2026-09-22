@@ -515,8 +515,9 @@ function isDomesticCrime(title, media) {
     return false;
   }
 
-  // 2. 海外地名・国名が含まれているか判定
-  const isOverseasMentioned = OVERSEAS_LOCATIONS.some(loc => title.includes(loc)) ||
+  // 2. 海外地名・国名が含まれているか判定（国籍表現「米国籍」「アメリカ人」「中国籍」等が海外地名と誤認されるのを防止）
+  const titleWithoutNationality = title.replace(/[一-龠ぁ-んァ-ヶA-Za-z]+(?:人|国籍|籍|出身)/g, '');
+  const isOverseasMentioned = OVERSEAS_LOCATIONS.some(loc => titleWithoutNationality.includes(loc)) ||
                               isTitleStartingWithOverseasCountry(title);
 
   // 海外地名がある場合、日本の警察・税関・裁判所等の直接の法執行が明記されていない限り100%除外
