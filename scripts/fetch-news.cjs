@@ -865,6 +865,13 @@ function isSameEvent(itemA, itemB) {
     return true;
   }
 
+  // 特例：東京・池袋 800万円強盗事件（中国人男逮捕・共同通信配信と各紙の統合）
+  if ((titleA.includes('800万') || titleA.includes('８００万')) &&
+      (titleB.includes('800万') || titleB.includes('８００万')) &&
+      (titleA.includes('強盗') && titleB.includes('強盗'))) {
+    return true;
+  }
+
   // 特例：特殊詐欺受け子（韓国籍・宮城県警）
   const isMiyagiA = (locA === '宮城県' || titleA.includes('宮城'));
   const isMiyagiB = (locB === '宮城県' || titleB.includes('宮城'));

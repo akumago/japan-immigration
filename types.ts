@@ -54,3 +54,10 @@ export interface ReportData {
   introduction: string;
   sections: ReportSection[];
 }
+
+// React imgタグのborder属性の型拡張（既存JSX構造を完全維持するための型定義）
+declare module 'react' {
+  interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
+    border?: string | number;
+  }
+}
