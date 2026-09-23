@@ -397,6 +397,7 @@ function detectLocation(title) {
     { key: '浜松', pref: '静岡県' },
     { key: '宇和島', pref: '愛媛県' },
     { key: '那須塩原', pref: '栃木県' },
+    { key: 'にいがた', pref: '新潟県' },
     { key: 'あわら', pref: '福井県' },
     { key: '羽生', pref: '埼玉県' },
     { key: 'あべちか', pref: '大阪府' },
@@ -847,6 +848,20 @@ function isSameEvent(itemA, itemB) {
       (titleA.includes('不起訴') || titleA.includes('麻薬') || titleA.includes('大麻')) &&
       (titleB.includes('不起訴') || titleB.includes('麻薬') || titleB.includes('大麻')) &&
       (titleA.includes('米国籍') || titleB.includes('米国籍'))) {
+    return true;
+  }
+
+  // 特例：新潟・シェアハウス空き家侵入事件（中国籍大学院生・にいがた経済新聞と民放各社の統合）
+  if ((titleA.includes('シェアハウス') || titleA.includes('元シェアハウス')) &&
+      (titleB.includes('シェアハウス') || titleB.includes('元シェアハウス')) &&
+      (titleA.includes('大学院生') || titleB.includes('大学院生') || titleA.includes('侵入') || titleB.includes('侵入'))) {
+    return true;
+  }
+
+  // 特例：横浜・オクトーバーフェスト警備員暴行事件（米国籍男・複数局の統合）
+  if ((titleA.includes('オクトーバー') || titleA.includes('フェスで酒酔い')) &&
+      (titleB.includes('オクトーバー') || titleB.includes('フェスで酒酔い')) &&
+      (titleA.includes('警備員') || titleB.includes('警備員'))) {
     return true;
   }
 
