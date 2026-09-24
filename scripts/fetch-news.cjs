@@ -249,8 +249,9 @@ const EXCLUDE_KEYWORDS = [
   '東洋経済', 'プレジデント', 'ダイヤモンド・オンライン', '現代ビジネス',
   '伸びない理由', '阻むもの', 'への意欲', 'その背景とは', 'その真相とは', '読み解く',
   '画像・写真', '写真：', '調査同行', '実態を告白', 'その後とは',
-  // 週刊誌・回顧録・ルポ・過去の証言・搾取被害記事の徹底排除
+  // 週刊誌・回顧録・ルポ・過去の証言・搾取被害記事・ヘイト事件の徹底排除
   '昔は', '元経営者', '売春小屋', '明かす、', 'が明かす', 'を明かす', 'なかったワケ', 'ないワケ', '悪徳店', '逃げ場のない', '慰安旅行', '絞れるだけ', '食い物に', '当時を語る',
+  'モスク', '追い出して', '追い出し',
   '知事会', '基本法', '要請', 'まつり', '花笠', '白バイ', 'ロンドン',
   '米警察', '米当局', '韓国警察', '現地警察', '現地当局', 'FBI', '国際指名手配',
   'イベント', '訓練', 'サーキット', '減給処分', '知事', 'サッカー', '代表監督',
@@ -872,6 +873,14 @@ function isSameEvent(itemA, itemB) {
     return true;
   }
 
+  // 特例：香川・知人女性車内暴行事件（中国籍無職男逮捕・TBS/Excite等の統合）
+  if ((locA === '香川県' || locB === '香川県' || titleA.includes('香川') || titleB.includes('香川')) &&
+      (titleA.includes('車内') && titleB.includes('車内')) &&
+      (titleA.includes('知人女性') && titleB.includes('知人女性')) &&
+      (titleA.includes('殴') && titleB.includes('殴'))) {
+    return true;
+  }
+
   // 特例：特殊詐欺受け子（韓国籍・宮城県警）
   const isMiyagiA = (locA === '宮城県' || titleA.includes('宮城'));
   const isMiyagiB = (locB === '宮城県' || titleB.includes('宮城'));
@@ -1085,16 +1094,27 @@ function isSameEvent(itemA, itemB) {
     }
   }
 
-  // 5. Jaccard単語類似度（＋地域一致を必須条件として誤統合を防止）
-  const wordsA = new Set(normA.match(/[\u3040-\u9faf]{2,}/g) || []);
-  const wordsB = new Set(normB.match(/[\u3040-\u9faf]{2,}/g) || []);
-
-  if (wordsA.size > 0 && wordsB.size > 0) {
-    const intersection = [...wordsA].filter(w => wordsB.has(w));
-    const union = new Set([...wordsA, ...wordsB]);
-    const similarity = intersection.length / union.size;
-    if (similarity >= 0.40 && (locA === locB || locA === '全国' || locB === '全国')) {
-      return true;
+  // 5. 2文字N-gram (Bigram) Dice係数類似度（形態素解析不要・日本語高精度重複判定）
+  function getBigrams(str) {
+    const s = str.replace(/[【】「」《》（）()、。\s]/g, '');
+    const bgs = new Set();
+    for (let i = 0; i < s.length - 1; i++) {
+      bgs.add(s.substring(i, i + 2));
+    }
+    return bgs;
+  }
+  const bgA = getBigrams(normA);
+  const bgB = getBigrams(normB);
+  if (bgA.size > 0 && bgB.size > 0) {
+    let inter = 0;
+    for (const b of bgA) {
+      if (bgB.has(b)) inter++;
+    }
+    const dice = (2 * inter) / (bgA.size + bgB.size);
+    if (dice >= 0.45 && (locA === locB || locA === '全国' || locB === '全国')) {
+      if (natA && natB && natA === natB) return true;
+      if (titleA.includes('外国籍') || titleB.includes('外国籍') || titleA.includes('外国人') || titleB.includes('外国人')) return true;
+      if (!natA && !natB) return true;
     }
   }
 
@@ -1429,6 +1449,9 @@ async function main() {
     const isJapaneseSuspectItem = /(?:日本人|日本国籍)[の男女代性0-9０-９（）\s]*[をが]?(?:逮捕|容疑|送検|起訴|書類送検)/.test(item.title) ||
                                   /(?:逮捕|容疑|送検)[の男女代性0-9０-９（）\s]*[は、\s]*(?:日本人|日本国籍)/.test(item.title) ||
                                   /日本人(?:女|男|男女|ら|グループ|容疑者)/.test(item.title) ||
+                                  /(?:市|町|村|区)の[0-9０-９男女歳代\s]+[にへがはを]*(?:判決|求刑|逮捕|起訴|送検|認める)/.test(item.title) ||
+                                  /モスク.*(?:放火|求刑|判決|逮捕)/.test(item.title) ||
+                                  /追い出してやろう/.test(item.title) ||
                                   isJapaneseEmployerItem ||
                                   isIllegalEmploymentBrokerItem ||
                                   isShopOwnerWithForeignVictimItem ||
