@@ -246,6 +246,7 @@ const DOMESTIC_INDICATORS = [
 const EXCLUDE_KEYWORDS = [
   // 海外首脳・海外政治・オピニオン・経済誌コラム徹底排除
   'トランプ', 'バイデン', 'ハリス', '大統領', 'ホワイトハウス', '米政権', '米議会', '米移民',
+  '米国政府', '米政府', '第三国へ強制送還', '連邦最高裁', '大統領令',
   '東洋経済', 'プレジデント', 'ダイヤモンド・オンライン', '現代ビジネス',
   '伸びない理由', '阻むもの', 'への意欲', 'その背景とは', 'その真相とは', '読み解く',
   '画像・写真', '写真：', '調査同行', '実態を告白', 'その後とは',
@@ -298,18 +299,22 @@ const EXCLUDE_KEYWORDS = [
 
   // フィクション・煽り記号（ストレート事件報道に存在しない記号）
   '!!', '!?', '！？', '？！', '！！', '？？', '??',
-  '【ネタバレ】', '【あらすじ】', '【場面写真】', '【予告】', '【動画】'
+  '【ネタバレ】', '【あらすじ】', '【場面写真】', '【予告】', '【動画】',
+  // テレビ番組表・EPG記号・字幕記号の完全排除
+  '[字]', '[再]', '[デ]', '[解]', '[手]', '[多]', '[双]', '[生]',
+  '【字】', '【再】', '報道特集'
 ];
 
 // 海外メディア名リスト
 const OVERSEAS_MEDIA = [
   'informat.ro', '.ro',
-  'Informat.ro', 'Mshale', 'Vietnam.vn', 'Laodong.vn', 'ENTREVUE.FR', 'arabnews', 'Reuters',
+  'Informat.ro', 'Mshale', 'Vietnam.vn', 'vietnam.vn', 'Laodong.vn', 'ENTREVUE.FR', 'arabnews', 'Reuters',
   'AP通信', 'AFP', 'タイランドハイパーリンクス', 'タイニュース', 'クロスボンバー', 'bomberth',
   'VnExpress', 'Tuoi Tre', 'The Guardian', 'BBC', 'CNN', 'New York Times',
   'Washington Post', 'South China Morning Post', 'Yonhap', 'Channel News Asia',
   'VOI.ID', 'voi.id', 'ANTARA',
   'PRP Channel', 'PRP', 'Record China', 'レコードチャイナ', 'Searchina', 'サーチチャイナ', 'WoW!Korea', 'Kstyle',
+  'mk.co.kr', '.co.kr', '.vn', '.kr',
   'YouTube', '選挙ドットコム', 'エックス速報'
 ];
 
@@ -502,8 +507,12 @@ function hasJapaneseEnforcement(title) {
     '中部国際空港', '成田空港', '羽田空港', '関西空港', '関空', '福岡空港', '新千歳空港',
     '麻薬取締部', 'マトリ', '海上保安部', '海保',
     '東京地裁', '大阪地裁', '名古屋地裁', '福岡地裁', '横浜地裁', 'さいたま地裁', '千葉地裁', '那覇地裁', '京都地裁', '神戸地裁',
-    '東京地検', '大阪地検', '名古屋地検', '福岡地検', '最高裁'
+    '東京地検', '大阪地検', '名古屋地検', '福岡地検', '最高裁判所'
   ];
+  // 海外地名や外国政府の文脈での誤検知を防ぐ
+  if (/米国|アメリカ|韓国|中国|済州|連邦/.test(title) && !/日本の|警視庁|県警|府警|道警/.test(title)) {
+    return false;
+  }
   if (JP_ENFORCEMENT.some(kw => title.includes(kw))) return true;
   if (/[一-龠ぁ-んァ-ヶ]{2,}署(?:\s|[（(・＝=]|$)/.test(title)) return true;
   return false;
@@ -513,8 +522,10 @@ function hasJapaneseEnforcement(title) {
 function isDomesticCrime(title, media) {
   // 1. 海外メディア・外国通信社クレジット・外国語メディアは即除外
   if (media) {
-    if (OVERSEAS_MEDIA.some(m => media.includes(m))) return false;
+    const lowerMedia = media.toLowerCase();
+    if (OVERSEAS_MEDIA.some(m => lowerMedia.includes(m.toLowerCase()))) return false;
     if (ENTERTAINMENT_MEDIA.some(m => media.includes(m))) return false;
+    if (/\.(?:vn|kr|cn|tw|th|ph|my|id|ru|uk)\b/i.test(media)) return false;
     if (/[\uac00-\ud7af]/.test(media) || /中央日報|朝鮮日報|東亜日報|ハンギョレ|毎日経済|매일경제|聯合ニュース|KBS|MBC|SBS|JTBC|YTN|新華社|人民日報|環球時報/.test(media)) {
       return false;
     }
