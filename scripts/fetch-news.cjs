@@ -145,6 +145,23 @@ const NATIONALITIES = [
   'オーストラリア', '豪州', 'ニュージーランド', 'フィジー', 'パプアニューギニア', 'サモア', 'トンガ'
 ];
 
+// 全国籍・外国籍・在留資格を含む包括的被疑者マッチ用正規表現パターン（イラン、ウズベキスタン等あらゆる国籍の漏れを100%防止）
+const ALL_FOREIGN_SUSPECT_PATTERN = [
+  '外国人', '外国籍', '国籍', '米兵', '米軍', '米軍属', '米海兵隊員', '米国人', 'アメリカ人', 'アメリカ国籍', '米国籍',
+  '技能実習生', '元技能実習生', '実習生', '特定技能', '留学生', '元留学生', '仮放免',
+  ...NATIONALITIES
+].map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+
+const RE_FOREIGN_PERPETRATOR = new RegExp(
+  `(?:(?:${ALL_FOREIGN_SUSPECT_PATTERN})[の男女代性0-9０-９（）\\s]*[をが]?(?:現行犯逮捕|緊急逮捕|逮捕|容疑|送検|再逮捕|起訴|摘発))` +
+  `|(?:(?:現行犯逮捕|緊急逮捕|逮捕|容疑|送検|再逮捕)[の男女代性0-9０-９（）\\s]*[は、\\s]*(?:${ALL_FOREIGN_SUSPECT_PATTERN}))`
+);
+
+const RE_FOREIGN_BOSS = new RegExp(
+  `(?:(?:${ALL_FOREIGN_SUSPECT_PATTERN})[の\\s]*(?:会社)?(?:社長|役員|経営者))` +
+  `|(?:(?:会社)?(?:社長|役員|経営者)[の\\s]*(?:${ALL_FOREIGN_SUSPECT_PATTERN}))`
+);
+
 // 犯罪・容疑を示すキーワード（あらゆる罪種・手口・司法フェーズを完全網羅）
 const CRIME_KEYWORDS = [
   '逮捕', '容疑', '疑い', '書類送検', '強盗', '窃盗', '暴行', '傷害',
@@ -1221,14 +1238,13 @@ function extractItemsFromRSS(xml) {
       }
 
       // 日本人被疑者・海外拠点特殊詐欺・日本人雇用主事案の完全排除（外国籍社長本人は保持）
-      const isForeignBoss = /(?:トルコ|中国|ベトナム|韓国|フィリピン|ブラジル|タイ|ネパール|外国)(?:人|国籍|籍)[の\s]*(?:会社)?(?:社長|役員|経営者)/.test(title) ||
-                            /(?:会社)?(?:社長|役員|経営者)[の\s]*(?:トルコ|中国|ベトナム|韓国|フィリピン|ブラジル|タイ|ネパール|外国)(?:人|国籍|籍)/.test(title);
+      const isForeignBoss = RE_FOREIGN_BOSS.test(title) || RE_FOREIGN_BOSS.test(rawDesc);
       const isJapaneseEmployer = !isForeignBoss &&
         !(/中国籍|ベトナム国籍|韓国籍|フィリピン国籍|タイ国籍/.test(title) && /男女|男ら|女ら/.test(title)) &&
         /(?:派遣会社社長|建設会社社長|解体会社社長|会社社長|社長|経営者)[男女代性0-9０-９（）\(\)\sの歳]*[をが]?(?:逮捕|容疑|送検|起訴|書類送検)/.test(title);
 
       // 外国籍の明記がない不法就労助長ブローカー逮捕・店舗経営者への判決（被疑者・被告が日本人の事案）
-      const hasExplicitForeignSuspect = /(?:トルコ|中国|ベトナム|韓国|フィリピン|ブラジル|タイ|ネパール|台湾|米国|アメリカ|外国)(?:人|国籍|籍)/.test(title);
+      const hasExplicitForeignSuspect = new RegExp(ALL_FOREIGN_SUSPECT_PATTERN).test(title) || new RegExp(ALL_FOREIGN_SUSPECT_PATTERN).test(rawDesc);
       const isIllegalEmploymentBroker = /不法就労助長/.test(title) && !hasExplicitForeignSuspect;
       const isShopOwnerWithForeignVictim = /(?:店主|店長|経営の男|経営の女|経営者)[男女代性0-9０-９（）\(\)\sの歳]*に.*(?:判決|拘禁刑|懲役)/.test(title);
       // 偽装結婚・在留資格の斡旋・仲介ブローカー（日本人側）の逮捕事案を100%遮断
@@ -1274,8 +1290,7 @@ function extractItemsFromRSS(xml) {
                               /(?:タイ|ベトナム|中国|フィリピン|インドネシア|韓国|外国)(?:人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*(?:少女|女児|女性|少年|児童|生徒)に.*(?:みだら|性交|性的|わいせつ|売春|買春)/.test(title) ||
                               /技能実習生の女性.*盗んだ/.test(title) ||
                               /天神に留学生の遺体|専門学校生の遺体発見/.test(title);
-      const isForeignPerpetrator = /(外国人|外国籍|ベトナム人|中国人|韓国人|フィリピン人|タイ人|ブラジル人|ミャンマー人|米国籍|アメリカ人|米兵|実習生|留学生)[の男女代性0-9０-９（）\s]*[をが]?(逮捕|容疑|送検|再逮捕|起訴|摘発)/.test(title) ||
-                                  /(逮捕|容疑|送検|再逮捕)[の男女代性0-9０-９（）\s]*[は、\s]*(外国人|外国籍|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|米国|アメリカ|米兵|実習生|留学生)/.test(title);
+      const isForeignPerpetrator = RE_FOREIGN_PERPETRATOR.test(title) || RE_FOREIGN_PERPETRATOR.test(rawDesc);
       if (isForeignVictim && !isForeignPerpetrator) {
         continue;
       }
@@ -1545,14 +1560,13 @@ async function main() {
     }
 
     // 日本人被疑者・海外拠点特殊詐欺・日本人雇用主事案の完全排除（外国籍社長本人は保持）
-    const isForeignBossItem = /(?:トルコ|中国|ベトナム|韓国|フィリピン|ブラジル|タイ|ネパール|外国)(?:人|国籍|籍)[の\s]*(?:会社)?(?:社長|役員|経営者)/.test(item.title) ||
-                              /(?:会社)?(?:社長|役員|経営者)[の\s]*(?:トルコ|中国|ベトナム|韓国|フィリピン|ブラジル|タイ|ネパール|外国)(?:人|国籍|籍)/.test(item.title);
+    const isForeignBossItem = RE_FOREIGN_BOSS.test(item.title);
     const isJapaneseEmployerItem = !isForeignBossItem &&
       !(/中国籍|ベトナム国籍|韓国籍|フィリピン国籍|タイ国籍/.test(item.title) && /男女|男ら|女ら/.test(item.title)) &&
       /(?:派遣会社社長|建設会社社長|解体会社社長|会社社長|社長|経営者)[男女代性0-9０-９（）\(\)\sの歳]*[をが]?(?:逮捕|容疑|送検|起訴|書類送検)/.test(item.title);
 
     // 外国籍の明記がない不法就労助長ブローカー逮捕・店舗経営者への判決（被疑者・被告が日本人の事案）
-    const hasExplicitForeignSuspectItem = /(?:トルコ|中国|ベトナム|韓国|フィリピン|ブラジル|タイ|ネパール|台湾|米国|アメリカ|外国)(?:人|国籍|籍)/.test(item.title);
+    const hasExplicitForeignSuspectItem = new RegExp(ALL_FOREIGN_SUSPECT_PATTERN).test(item.title);
     const isIllegalEmploymentBrokerItem = /不法就労助長/.test(item.title) && !hasExplicitForeignSuspectItem;
     const isShopOwnerWithForeignVictimItem = /(?:店主|店長|経営の男|経営の女|経営者)[男女代性0-9０-９（）\(\)\sの歳]*に.*(?:判決|拘禁刑|懲役)/.test(item.title);
 
@@ -1591,8 +1605,7 @@ async function main() {
                             /(?:タイ|ベトナム|中国|フィリピン|インドネシア|韓国|外国)(?:人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*(?:少女|女児|女性|少年|児童|生徒)に.*(?:みだら|性交|性的|わいせつ|売春|買春)/.test(item.title) ||
                             /技能実習生の女性.*盗んだ/.test(item.title) ||
                             /天神に留学生の遺体|専門学校生の遺体発見/.test(item.title);
-    const isForeignPerpetrator = /(外国人|外国籍|ベトナム人|中国人|韓国人|フィリピン人|タイ人|ブラジル人|ミャンマー人|米国籍|アメリカ人|米兵|実習生|留学生)[の男女代性0-9０-９（）\s]*[をが]?(逮捕|容疑|送検|再逮捕|起訴|摘発)/.test(item.title) ||
-                                /(逮捕|容疑|送検|再逮捕)[の男女代性0-9０-９（）\s]*[は、\s]*(外国人|外国籍|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|米国|アメリカ|米兵|実習生|留学生)/.test(item.title);
+    const isForeignPerpetrator = RE_FOREIGN_PERPETRATOR.test(item.title);
     if (isForeignVictim && !isForeignPerpetrator) {
       console.log(`Removed victim-side item: ${item.title}`);
       continue;
@@ -1706,8 +1719,7 @@ async function main() {
       // 1. 【失格判定①】被害者トラップ（外国人が被害者、加害者が日本人の事案）の完全遮断
       const isVictimPattern = /(?:自転車の)?(?:ベトナム|中国|外国人|外国籍|ミャンマー|インドネシア|フィリピン|タイ|韓国|台湾)(?:人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[をにへ]?(?:死亡ひき逃げ|ひき逃げ|はねられ|はねて|死亡|重傷|被害)/.test(title) ||
                               /(?:ベトナム|中国|フィリピン|タイ|インドネシア|韓国|外国)(?:人|国籍|籍)?[男女代性0-9０-９歳（）\s]*[をにへ].*(?:はね|撥ね|轢き|ひき逃げ|暴行|殺害され|刺され|だまし取られ)/.test(title);
-      const hasExplicitForeignPerpetrator = /(?:外国人|外国籍|ベトナム人|中国人|韓国人|フィリピン人|タイ人|ブラジル人|ミャンマー人|台湾出身|台湾籍|マレーシア人|マレーシア国籍|米国籍|アメリカ人|米兵|実習生|留学生)[の男女代性0-9０-９（）\s]*[をが]?(?:現行犯逮捕|緊急逮捕|逮捕|容疑|送検|再逮捕|起訴|摘発)/.test(title) ||
-                                            /(?:現行犯逮捕|緊急逮捕|逮捕|容疑|送検|再逮捕)[の男女代性0-9０-９（）\s]*[は、\s]*(?:外国人|外国籍|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|台湾|マレーシア|米国|アメリカ|米兵|実習生|留学生)/.test(title);
+      const hasExplicitForeignPerpetrator = RE_FOREIGN_PERPETRATOR.test(title);
       if (isVictimPattern && !hasExplicitForeignPerpetrator) {
         rejectedLog.push({ reason: '被害者トラップ（加害者が日本人・被害者が外国人）', title });
         continue;
