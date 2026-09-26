@@ -653,6 +653,8 @@ function isSameEvent(itemA, itemB) {
     if (/カンボジア/.test(t)) return 'CAMBODIA';
     if (/スリランカ/.test(t)) return 'SRI_LANKA';
     if (/イラン/.test(t)) return 'IRAN';
+    if (/ウズベキスタン/.test(t)) return 'UZBEKISTAN';
+    if (/コロンビア/.test(t)) return 'COLOMBIA';
     if (/トルコ|クルド/.test(t)) return 'TURKEY_KURD';
     if (/技能実習/.test(t)) return 'TRAINEE';
     return 'UNKNOWN';
@@ -1172,13 +1174,16 @@ function extractItemsFromRSS(xml) {
     const titleMatch = itemXml.match(/<title>([\s\S]*?)<\/title>/i);
     const linkMatch = itemXml.match(/<link>([\s\S]*?)<\/link>/i);
     const pubDateMatch = itemXml.match(/<pubDate>([\s\S]*?)<\/pubDate>/i);
+    const descMatch = itemXml.match(/<description>([\s\S]*?)<\/description>/i);
 
     if (titleMatch && linkMatch) {
       let rawTitle = titleMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim();
       let link = linkMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim();
       let pubDate = pubDateMatch ? pubDateMatch[1].trim() : new Date().toUTCString();
+      let rawDesc = descMatch ? descMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').replace(/<[^>]+>/g, '').trim() : '';
 
       rawTitle = rawTitle.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+      rawDesc = rawDesc.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
 
       let media = '新聞・報道';
       let title = rawTitle;
@@ -1202,9 +1207,12 @@ function extractItemsFromRSS(xml) {
 
       // 「中国道」「中国地方」「中国電力」等の国内固有名詞を外国人判定から除外
       const titleWithoutDomesticChugoku = title.replace(/中国(道|自動車道|地方|電力|銀行|新聞|バス|管区)/g, '');
+      const descWithoutDomesticChugoku = rawDesc.replace(/中国(道|自動車道|地方|電力|銀行|新聞|バス|管区)/g, '');
 
-      const hasForeignKw = FOREIGN_KEYWORDS.some(kw => titleWithoutDomesticChugoku.includes(kw));
-      const hasCrimeKw = CRIME_KEYWORDS.some(kw => title.includes(kw));
+      // 見出しまたは記事概要（Description）のいずれかに外国人キーワードが含まれているかを判定（見出しで国籍が伏せられた重大事故も網羅）
+      const hasForeignKw = FOREIGN_KEYWORDS.some(kw => titleWithoutDomesticChugoku.includes(kw)) ||
+                           FOREIGN_KEYWORDS.some(kw => descWithoutDomesticChugoku.includes(kw));
+      const hasCrimeKw = CRIME_KEYWORDS.some(kw => title.includes(kw)) || CRIME_KEYWORDS.some(kw => rawDesc.includes(kw));
       const hasExcludeKw = EXCLUDE_KEYWORDS.some(kw => title.includes(kw));
       const isDomestic = isDomesticCrime(title, media);
 
@@ -1294,6 +1302,7 @@ function extractItemsFromRSS(xml) {
         location: location,
         media: media,
         url: link,
+        description: rawDesc.substring(0, 150),
         summary: `${location}で発生した外国人関与の事件・容疑に関する報道速報です。`
       });
     }
@@ -1302,7 +1311,7 @@ function extractItemsFromRSS(xml) {
 }
 
 // === 【AI最終検閲＆自動整形ゲート（最新Gemini Flash・二重保険フォールバック完備）】 ===
-async function inspectAndFormatWithAI(title, media) {
+async function inspectAndFormatWithAI(title, media, description = '') {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return { isValid: true, cleanTitle: title, reason: 'No API Key (Fallback)' };
 
@@ -1311,11 +1320,12 @@ async function inspectAndFormatWithAI(title, media) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
   const prompt = `あなたは「日本国内の外国人治安・事件報道データベース」の厳格な主任校閲デスクです。
-以下のニュース記事の「タイトル」と「媒体名」を精査し、指定のJSON形式のみで出力してください。
+以下のニュース記事の「タイトル」「媒体名」「記事要約スニペット」を精査し、指定のJSON形式のみで出力してください。
 
 【採否基準（isValid）】
 ◆ 採用（true）にするもの:
 ・日本国内で発生した、外国籍（外国人・米兵・技能実習生・留学生など）の被疑者・被告人に関する刑事事件・警察発表・摘発・公判報道。
+・見出しに国籍が明記されていなくても、記事要約スニペット等から外国籍被疑者と判断できる場合は積極的に採用してください。
 ・タイトルに都道府県名が直接書かれていなくても、媒体名や内容から日本国内の事件と判断できる場合は積極的に採用してください。
 
 ◆ 不採用（false）にするもの:
@@ -1326,7 +1336,7 @@ async function inspectAndFormatWithAI(title, media) {
 ・テレビ番組表、コラム、オピニオン、行政の啓蒙キャンペーン
 
 【整形指示（cleanTitle）】
-採用の場合、読者が一目で事件の概要・重大性を把握できるよう、端正なストレートニュース形式に整形してください。
+採用の場合、読者が一目で事件の概要・重大性を把握できるよう、端正なストレートニュース形式に整形してください。見出しに国籍が欠けていて要約に記載がある場合は国籍を補完してください。
 形式: 「発生状況や手口 ＋ 容疑 ＋ 国籍・年齢 ＋ 逮捕/送検 ＋ 発生地域」
 （例：「ポール衝突後に蛇行運転 呼気検査拒否の疑いで中国籍の男（42）を現行犯逮捕 新潟・上越」）
 
@@ -1340,7 +1350,8 @@ async function inspectAndFormatWithAI(title, media) {
 }
 
 対象記事見出し: 「${title}」
-媒体名: 「${media || '不明'}」`;
+媒体名: 「${media || '不明'}」
+記事要約スニペット: 「${description ? description.substring(0, 150) : 'なし'}」`;
 
   try {
     const response = await fetch(url, {
@@ -1452,7 +1463,14 @@ async function main() {
     encodeURIComponent('米兵 OR 米軍 逮捕 OR 容疑 OR 摘発 when:3d'),
     encodeURIComponent('ラオス人 OR ラオス国籍 逮捕 when:3d'),
     encodeURIComponent('マレーシア人 OR マレーシア国籍 逮捕 when:3d'),
-    encodeURIComponent('飲酒運転 外国人 OR 外国籍 逮捕 when:3d')
+    encodeURIComponent('イラン人 OR イラン国籍 逮捕 when:3d'),
+    encodeURIComponent('ウズベキスタン OR カザフスタン 逮捕 when:3d'),
+    encodeURIComponent('コロンビア OR アルゼンチン 逮捕 when:3d'),
+    encodeURIComponent('飲酒運転 外国人 OR 外国籍 逮捕 when:3d'),
+    encodeURIComponent('死亡事故 OR 危険運転 外国人 OR 外国籍 逮捕 when:3d'),
+    encodeURIComponent('過失運転致死 OR 危険運転致死 外国人 OR 外国籍 when:3d'),
+    encodeURIComponent('不同意性交 OR 不同意わいせつ 外国人 OR 外国籍 逮捕 when:3d'),
+    encodeURIComponent('殺人 OR 殺人未遂 外国人 OR 外国籍 逮捕 when:3d')
   ];
 
   let fetchedItems = [];
@@ -1646,7 +1664,8 @@ async function main() {
     console.log(`\n🤖 === 新着記事 ${trulyNew.length} 件を AI 最終検閲＆自動整形ゲートで審査 ===`);
     const aiVettedNew = [];
     for (const item of trulyNew) {
-      const aiResult = await inspectAndFormatWithAI(item.title, item.media);
+      const aiResult = await inspectAndFormatWithAI(item.title, item.media, item.description);
+      await sleep(1000); // 15 RPM (1分間15回) 無料枠制限を完全防衛
       if (aiResult.isValid) {
         if (aiResult.cleanTitle && aiResult.cleanTitle.trim().length > 0) {
           console.log(`   ✨ [AI採用・整形] 前: ${item.title}\n                   後: ${aiResult.cleanTitle}`);
