@@ -1301,6 +1301,86 @@ function extractItemsFromRSS(xml) {
   return items;
 }
 
+// === 【AI最終検閲＆自動整形ゲート（最新Gemini Flash・二重保険フォールバック完備）】 ===
+async function inspectAndFormatWithAI(title, media) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) return { isValid: true, cleanTitle: title, reason: 'No API Key (Fallback)' };
+
+  // 環境変数 GEMINI_MODEL で指定可能（未指定時のデフォルト: gemini-2.0-flash）
+  const model = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+  const prompt = `あなたは「日本国内の外国人治安・事件報道データベース」の厳格な主任校閲デスクです。
+以下のニュース記事の「タイトル」と「媒体名」を精査し、指定のJSON形式のみで出力してください。
+
+【採否基準（isValid）】
+◆ 採用（true）にするもの:
+・日本国内で発生した、外国籍（外国人・米兵・技能実習生・留学生など）の被疑者・被告人に関する刑事事件・警察発表・摘発・公判報道。
+・タイトルに都道府県名が直接書かれていなくても、媒体名や内容から日本国内の事件と判断できる場合は積極的に採用してください。
+
+◆ 不採用（false）にするもの:
+・海外現地で発生した出来事・海外国内の裁判や訴訟（例：米国の送還訴訟、韓国済州島の摘発など）
+・海外の出来事が日本に関連しているだけの記事（例：日本人が海外で被害に遭ったニュースなど）
+・SNS上のデマや偽情報を検証したファクトチェック記事（例：「〜と誤認させる偽情報拡散」など）
+・日本人が加害者のヘイト犯罪・礼拝所放火事案
+・テレビ番組表、コラム、オピニオン、行政の啓蒙キャンペーン
+
+【整形指示（cleanTitle）】
+採用の場合、読者が一目で事件の概要・重大性を把握できるよう、端正なストレートニュース形式に整形してください。
+形式: 「発生状況や手口 ＋ 容疑 ＋ 国籍・年齢 ＋ 逮捕/送検 ＋ 発生地域」
+（例：「ポール衝突後に蛇行運転 呼気検査拒否の疑いで中国籍の男（42）を現行犯逮捕 新潟・上越」）
+
+【出力フォーマット】
+説明文は一切含めず、以下のJSONのみを出力してください:
+{
+  "isValid": true または false,
+  "reason": "採否の理由（一言）",
+  "cleanTitle": "整形後のタイトル（不採用なら空文字）",
+  "location": "推定都道府県名（例：新潟県。不明なら全国）"
+}
+
+対象記事見出し: 「${title}」
+媒体名: 「${media || '不明'}」`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          responseMimeType: "application/json",
+          temperature: 0.1
+        }
+      })
+    });
+
+    if (!response.ok) {
+      console.warn(`[AI Warning] API returned status ${response.status}. Falling back to rule-based.`);
+      return { isValid: true, cleanTitle: title, reason: `API Error ${response.status} (Fallback)` };
+    }
+
+    const data = await response.json();
+    let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    // 余計なマークダウンや前後の説明文を除去（クレンジング）
+    text = text.replace(/```json|```/g, '').trim();
+
+    // パース失敗時の二重保険
+    let result;
+    try {
+      result = JSON.parse(text);
+    } catch (parseError) {
+      console.warn(`[AI Warning] JSON parse failed. Falling back. Raw: ${text.substring(0, 200)}`);
+      return { isValid: true, cleanTitle: title, reason: 'JSON Parse Error (Fallback)' };
+    }
+    return result;
+
+  } catch (error) {
+    console.warn(`[AI Warning] Inspection failed (${error.message}). Falling back to rule-based.`);
+    return { isValid: true, cleanTitle: title, reason: `Exception: ${error.message} (Fallback)` };
+  }
+}
+
 async function main() {
   console.log('Fetching daily foreign crime news with Expanded 41-queries (72h window), high-precision location mapping & entity deduplication...');
 
@@ -1558,6 +1638,34 @@ async function main() {
     } else {
       trulyNew.push(item);
     }
+  }
+
+  // === 【新着記事のAI最終検閲＆タイトル自動整形ゲート】 ===
+  // 1時間あたり数件の新着差分のみを対象とし、無料枠内で完全自動判定・高品質整形
+  if (trulyNew.length > 0 && process.env.GEMINI_API_KEY) {
+    console.log(`\n🤖 === 新着記事 ${trulyNew.length} 件を AI 最終検閲＆自動整形ゲートで審査 ===`);
+    const aiVettedNew = [];
+    for (const item of trulyNew) {
+      const aiResult = await inspectAndFormatWithAI(item.title, item.media);
+      if (aiResult.isValid) {
+        if (aiResult.cleanTitle && aiResult.cleanTitle.trim().length > 0) {
+          console.log(`   ✨ [AI採用・整形] 前: ${item.title}\n                   後: ${aiResult.cleanTitle}`);
+          item.title = aiResult.cleanTitle;
+        } else {
+          console.log(`   ✅ [AI採用] ${item.title}`);
+        }
+        // 「全国」のときだけ慎重にAI推定地域で補正
+        if (aiResult.location && aiResult.location !== '全国' && item.location === '全国') {
+          item.location = aiResult.location;
+          item.summary = `${item.location}で発生した外国人関与の事件・容疑に関する報道速報です。`;
+        }
+        aiVettedNew.push(item);
+      } else {
+        console.log(`   ⛔ [AI却下] 理由: ${aiResult.reason} | 見出し: ${item.title}`);
+      }
+    }
+    trulyNew.length = 0;
+    trulyNew.push(...aiVettedNew);
   }
 
   // 最新日付（2026-08-26 → 2026-08-25 ...）順に厳密ソート

@@ -29,6 +29,9 @@ jobs:
 
       - name: Run Fetch News Script
         run: node scripts/fetch-news.cjs
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
 
       - name: Build and Prerender Static Pages
         run: npm run build
