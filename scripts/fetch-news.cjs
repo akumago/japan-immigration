@@ -445,6 +445,7 @@ function detectLocation(title) {
     { key: '宝石展示会', pref: '東京都' },
     { key: 'ビッグサイト', pref: '東京都' },
     { key: '婦中町', pref: '富山県' },
+    { key: '関越道', pref: '埼玉県' },
     { key: '成田空港', pref: '千葉県' },
     { key: '羽田空港', pref: '東京都' },
     { key: '中部国際空港', pref: '愛知県' },
@@ -1473,7 +1474,7 @@ async function main() {
     encodeURIComponent('ミャンマー国籍 OR ミャンマー人 逮捕 when:3d'),
     encodeURIComponent('インド人 OR インド国籍 逮捕 when:3d'),
     encodeURIComponent('切りつけ 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('台湾人 OR 台湾籍 OR 台湾国籍 逮捕 when:3d'),
+    encodeURIComponent('台湾人 OR 台湾籍 OR 台湾国籍 OR 台湾出身 逮捕 when:3d'),
     encodeURIComponent('ロシア人 OR ロシア国籍 逮捕 when:3d'),
     encodeURIComponent('米兵 OR 米軍 逮捕 OR 容疑 OR 摘発 when:3d'),
     encodeURIComponent('ラオス人 OR ラオス国籍 逮捕 when:3d'),
@@ -1484,6 +1485,7 @@ async function main() {
     encodeURIComponent('飲酒運転 外国人 OR 外国籍 逮捕 when:3d'),
     encodeURIComponent('死亡事故 OR 危険運転 外国人 OR 外国籍 逮捕 when:3d'),
     encodeURIComponent('過失運転致死 OR 危険運転致死 外国人 OR 外国籍 when:3d'),
+    encodeURIComponent('迷惑防止条例 OR 痴漢 外国人 OR 外国籍 逮捕 when:3d'),
     encodeURIComponent('不同意性交 OR 不同意わいせつ 外国人 OR 外国籍 逮捕 when:3d'),
     encodeURIComponent('殺人 OR 殺人未遂 外国人 OR 外国籍 逮捕 when:3d')
   ];
