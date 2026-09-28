@@ -212,7 +212,8 @@ const EVENT_FEATURE_KEYWORDS = [
   ['中野ブロードウェイ', '高級時計', '高級腕時計', 'チリ人', 'チリ国籍', '2億円'],
   ['北谷', '北谷町', 'ホテル火災', '宿泊施設火災', '放火殺人未遂', '簡易ホテル火災'],
   ['ベトナム料理店', '違法薬物所持'],
-  ['不正契約', '700台', '不正送金']
+  ['不正契約', '700台', '不正送金'],
+  ['関越道', '滑川町', '作業員2人', '作業員', 'オザヒ']
 ];
 
 // 海外現地・国外ニュースを除外するための単語
@@ -718,7 +719,8 @@ function isSameEvent(itemA, itemB) {
     'あべちか', '天王寺', '飯能', '加古川', '亀山', '天童', '流山', '神栖',
     '浅草橋', '名張', '松戸', '釧路', '氷見', 'ミナミ', '歌舞伎町', '六本木', '大久保',
     '豊川', '豊川市民病院', '羽田', '羽田空港', '大垣', '鶴見', '洲本',
-    '北谷', '北谷町', '八雲', '千歳', '熱海'
+    '北谷', '北谷町', '八雲', '千歳', '熱海',
+    '関越道', '滑川町', '音更町', '森町', '米子'
   ];
   for (const lm of LANDMARKS) {
     if (titleA.includes(lm) && titleB.includes(lm)) {
@@ -1335,10 +1337,10 @@ async function inspectAndFormatWithAI(title, media, description = '') {
     return { isValid: isDomestic, cleanTitle: title, reason: isDomestic ? 'Rule-based (No API Key)' : 'Rejected Overseas (No API Key)' };
   }
 
-  // 試行するモデル候補リスト（環境変数指定 ➔ gemini-2.5-flash ➔ gemini-1.5-flash ➔ gemini-2.0-flash ➔ gemini-3.5-flash）
+  // 試行するモデル候補リスト（確実に稼働確認済みの gemini-3.5-flash を最優先とし、404エラー試行の無駄をゼロ化）
   const candidateModels = workingGeminiModel 
     ? [workingGeminiModel] 
-    : [process.env.GEMINI_MODEL, 'gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-3.5-flash', 'gemini-2.0-flash-exp'].filter(Boolean);
+    : [process.env.GEMINI_MODEL, 'gemini-3.5-flash', 'gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-2.0-flash'].filter(Boolean);
 
   const prompt = `あなたは「日本国内の外国人治安・事件報道データベース」の厳格な主任校閲デスクです。
 以下のニュース記事の「タイトル」「媒体名」「記事要約スニペット」を精査し、指定のJSON形式のみで出力してください。
