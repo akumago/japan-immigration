@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 const crypto = require('crypto');
+const gate = require('./lib/ai-gate.cjs');
+const SHADOW_MODE = process.env.SHADOW_MODE !== '0'; // 既定はシャドー（0を明示したときだけ本番）
 
 const NEWS_DATA_PATH = path.join(__dirname, '../data/newsData.json');
 
@@ -392,6 +394,65 @@ function normalizeTitle(title) {
     .toLowerCase();
 }
 
+// 特徴的事件現場ランドマーク・管轄警察組織（例: あべちか→大阪府、大阪府警→大阪府、警視庁→東京都）
+const PRIMARY_LOCATION_SIGNS = [
+  { key: '東京地裁', pref: '東京都' },
+  { key: '東京地検', pref: '東京都' },
+  { key: '東京税関', pref: '東京都' },
+  { key: '大阪地裁', pref: '大阪府' },
+  { key: '大阪地検', pref: '大阪府' },
+  { key: '名古屋地裁', pref: '愛知県' },
+  { key: '名古屋地検', pref: '愛知県' },
+  { key: '福岡地裁', pref: '福岡県' },
+  { key: '福岡地検', pref: '福岡県' },
+  { key: '横浜地裁', pref: '神奈川県' },
+  { key: 'さいたま地裁', pref: '埼玉県' },
+  { key: '千葉地裁', pref: '千葉県' },
+  { key: '静岡地検', pref: '静岡県' },
+  { key: '津幡', pref: '石川県' },
+  { key: '浜松', pref: '静岡県' },
+  { key: '宇和島', pref: '愛媛県' },
+  { key: '那須塩原', pref: '栃木県' },
+  { key: 'にいがた', pref: '新潟県' },
+  { key: 'あわら', pref: '福井県' },
+  { key: '羽生', pref: '埼玉県' },
+  { key: 'あべちか', pref: '大阪府' },
+  { key: '天王寺', pref: '大阪府' },
+  { key: '中野ブロードウェイ', pref: '東京都' },
+  { key: '八王子', pref: '東京都' },
+  { key: '八雲', pref: '北海道' },
+  { key: '千歳', pref: '北海道' },
+  { key: 'テレビ愛知', pref: '愛知県' },
+  { key: '中京テレビ', pref: '愛知県' },
+  { key: '大阪府警', pref: '大阪府' },
+  { key: '警視庁', pref: '東京都' },
+  { key: '埼玉県警', pref: '埼玉県' },
+  { key: '愛知県警', pref: '愛知県' },
+  { key: '神奈川県警', pref: '神奈川県' },
+  { key: '千葉県警', pref: '千葉県' },
+  { key: '兵庫県警', pref: '兵庫県' },
+  { key: '京都府警', pref: '京都府' },
+  { key: '福岡県警', pref: '福岡県' },
+  { key: '新周南', pref: '山口県' },
+  { key: '宝石展示会', pref: '東京都' },
+  { key: 'ビッグサイト', pref: '東京都' },
+  { key: '婦中町', pref: '富山県' },
+  { key: '関越道', pref: '埼玉県' },
+  { key: '成田空港', pref: '千葉県' },
+  { key: '羽田空港', pref: '東京都' },
+  { key: '中部国際空港', pref: '愛知県' },
+  { key: 'セントレア', pref: '愛知県' },
+  { key: '関西空港', pref: '大阪府' },
+  { key: '関空', pref: '大阪府' },
+  { key: '常滑', pref: '愛知県' },
+  { key: 'ソーセージ', pref: '千葉県' },
+  { key: '高級車を盗んだ疑いでブラジル', pref: '山形県' },
+  { key: 'タイ古式マッサージ', pref: '茨城県' },
+  { key: 'タイ国籍の女ら逮捕', pref: '茨城県' },
+  { key: '神戸市内の路上で女性にわいせつ', pref: '兵庫県' },
+  { key: 'セントレアへ入国してきた中国籍', pref: '兵庫県' }
+];
+
 // 高精度地域判定関数（市町村名・警察署名・都道府県名を全面解析）
 function detectLocation(title) {
   // 末尾のメディア名表記（例: 「（北海道新聞デジタル）」「（千葉日報オンライン）」）を除去して本文地名のみを判定
@@ -405,64 +466,7 @@ function detectLocation(title) {
       return pref;
     }
   }
-  // 0. 特徴的事件現場ランドマーク・管轄警察組織を最優先（例: あべちか→大阪府、大阪府警→大阪府、警視庁→東京都）
-  const PRIMARY_LOCATION_SIGNS = [
-    { key: '東京地裁', pref: '東京都' },
-    { key: '東京地検', pref: '東京都' },
-    { key: '東京税関', pref: '東京都' },
-    { key: '大阪地裁', pref: '大阪府' },
-    { key: '大阪地検', pref: '大阪府' },
-    { key: '名古屋地裁', pref: '愛知県' },
-    { key: '名古屋地検', pref: '愛知県' },
-    { key: '福岡地裁', pref: '福岡県' },
-    { key: '福岡地検', pref: '福岡県' },
-    { key: '横浜地裁', pref: '神奈川県' },
-    { key: 'さいたま地裁', pref: '埼玉県' },
-    { key: '千葉地裁', pref: '千葉県' },
-    { key: '静岡地検', pref: '静岡県' },
-    { key: '津幡', pref: '石川県' },
-    { key: '浜松', pref: '静岡県' },
-    { key: '宇和島', pref: '愛媛県' },
-    { key: '那須塩原', pref: '栃木県' },
-    { key: 'にいがた', pref: '新潟県' },
-    { key: 'あわら', pref: '福井県' },
-    { key: '羽生', pref: '埼玉県' },
-    { key: 'あべちか', pref: '大阪府' },
-    { key: '天王寺', pref: '大阪府' },
-    { key: '中野ブロードウェイ', pref: '東京都' },
-    { key: '八王子', pref: '東京都' },
-    { key: '八雲', pref: '北海道' },
-    { key: '千歳', pref: '北海道' },
-    { key: 'テレビ愛知', pref: '愛知県' },
-    { key: '中京テレビ', pref: '愛知県' },
-    { key: '大阪府警', pref: '大阪府' },
-    { key: '警視庁', pref: '東京都' },
-    { key: '埼玉県警', pref: '埼玉県' },
-    { key: '愛知県警', pref: '愛知県' },
-    { key: '神奈川県警', pref: '神奈川県' },
-    { key: '千葉県警', pref: '千葉県' },
-    { key: '兵庫県警', pref: '兵庫県' },
-    { key: '京都府警', pref: '京都府' },
-    { key: '福岡県警', pref: '福岡県' },
-    { key: '新周南', pref: '山口県' },
-    { key: '宝石展示会', pref: '東京都' },
-    { key: 'ビッグサイト', pref: '東京都' },
-    { key: '婦中町', pref: '富山県' },
-    { key: '関越道', pref: '埼玉県' },
-    { key: '成田空港', pref: '千葉県' },
-    { key: '羽田空港', pref: '東京都' },
-    { key: '中部国際空港', pref: '愛知県' },
-    { key: 'セントレア', pref: '愛知県' },
-    { key: '関西空港', pref: '大阪府' },
-    { key: '関空', pref: '大阪府' },
-    { key: '常滑', pref: '愛知県' },
-    { key: 'ソーセージ', pref: '千葉県' },
-    { key: '高級車を盗んだ疑いでブラジル', pref: '山形県' },
-    { key: 'タイ古式マッサージ', pref: '茨城県' },
-    { key: 'タイ国籍の女ら逮捕', pref: '茨城県' },
-    { key: '神戸市内の路上で女性にわいせつ', pref: '兵庫県' },
-    { key: 'セントレアへ入国してきた中国籍', pref: '兵庫県' }
-  ];
+  // 0. 特徴的事件現場ランドマーク・管轄警察組織を最優先
   for (const item of PRIMARY_LOCATION_SIGNS) {
     if (title.includes(item.key)) {
       return item.pref;
@@ -1696,20 +1700,22 @@ async function main() {
     }
   }
 
-  // === 【新着記事のAI最終検閲＆タイトル自動整形ゲート】 ===
-  // 1時間あたり数件の新着差分のみを対象とし、無料枠内で完全自動判定・高品質整形
-  if (trulyNew.length > 0 && process.env.GEMINI_API_KEY) {
-    console.log(`\n🤖 === 新着記事 ${trulyNew.length} 件を AI 最終検閲＆自動整形ゲートで審査 ===`);
+  // --- AIゲート ---
+  const candidatesBeforeLegacy = trulyNew.slice();
+
+  // 旧AI審査は、シャドー運転中だけ実行する（公開データを現行どおりに保つため）
+  if (SHADOW_MODE && trulyNew.length > 0 && process.env.GEMINI_API_KEY) {
+    console.log(`\n🤖 === [シャドー運転] 旧AI審査を実行中 (${trulyNew.length} 件) ===`);
     const aiVettedNew = [];
     for (const item of trulyNew) {
       const aiResult = await inspectAndFormatWithAI(item.title, item.media, item.description);
       await sleep(1000); // 15 RPM (1分間15回) 無料枠制限を完全防衛
       if (aiResult.isValid) {
         if (aiResult.cleanTitle && aiResult.cleanTitle.trim().length > 0) {
-          console.log(`   ✨ [AI採用・整形] 前: ${item.title}\n                   後: ${aiResult.cleanTitle}`);
+          console.log(`   ✨ [旧AI採用・整形] 前: ${item.title}\n                     後: ${aiResult.cleanTitle}`);
           item.title = aiResult.cleanTitle;
         } else {
-          console.log(`   ✅ [AI採用] ${item.title}`);
+          console.log(`   ✅ [旧AI採用] ${item.title}`);
         }
         // 「全国」のときだけ慎重にAI推定地域で補正
         if (aiResult.location && aiResult.location !== '全国' && item.location === '全国') {
@@ -1718,11 +1724,24 @@ async function main() {
         }
         aiVettedNew.push(item);
       } else {
-        console.log(`   ⛔ [AI却下] 理由: ${aiResult.reason} | 見出し: ${item.title}`);
+        console.log(`   ⛔ [旧AI却下] 理由: ${aiResult.reason} | 見出し: ${item.title}`);
       }
     }
     trulyNew.length = 0;
     trulyNew.push(...aiVettedNew);
+  }
+
+  const gateOut = await gate.run({
+    candidates: SHADOW_MODE ? candidatesBeforeLegacy : trulyNew.slice(),
+    shadow: SHADOW_MODE,
+    legacyAccepted: SHADOW_MODE ? trulyNew : null, // 旧ロジックの採否と比較するため
+    apiKey: process.env.GEMINI_API_KEY,
+    primaryLocationSigns: typeof PRIMARY_LOCATION_SIGNS !== 'undefined' ? PRIMARY_LOCATION_SIGNS : [],
+  });
+
+  if (!SHADOW_MODE) {
+    trulyNew.length = 0;
+    trulyNew.push(...gateOut.accepted); // 新ゲートを通ったものだけが公開される
   }
 
   // 最新日付（2026-08-26 → 2026-08-25 ...）順に厳密ソート

@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 *.bak*
 
+# AIゲート状態キャッシュ・シャドー運転比較ログ
+data/aiDecisions.json
+data/aiDecisions.shadow.json
+data/shadowComparison.jsonl
+files (1)/
