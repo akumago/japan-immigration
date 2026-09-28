@@ -1325,14 +1325,20 @@ function extractItemsFromRSS(xml) {
   return items;
 }
 
-// === 【AI最終検閲＆自動整形ゲート（最新Gemini Flash・二重保険フォールバック完備）】 ===
+// === 【AI最終検閲＆自動整形ゲート（マルチモデル自動検知＆厳格フェイルセーフ）】 ===
+let workingGeminiModel = null; // 一度成功した稼働モデルをキャッシュ
+
 async function inspectAndFormatWithAI(title, media, description = '') {
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return { isValid: true, cleanTitle: title, reason: 'No API Key (Fallback)' };
+  if (!apiKey) {
+    const isDomestic = isDomesticCrime(title, media);
+    return { isValid: isDomestic, cleanTitle: title, reason: isDomestic ? 'Rule-based (No API Key)' : 'Rejected Overseas (No API Key)' };
+  }
 
-  // 環境変数 GEMINI_MODEL で指定可能（未指定時のデフォルト: gemini-2.0-flash）
-  const model = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  // 試行するモデル候補リスト（環境変数指定 ➔ gemini-2.5-flash ➔ gemini-1.5-flash ➔ gemini-2.0-flash ➔ gemini-3.5-flash）
+  const candidateModels = workingGeminiModel 
+    ? [workingGeminiModel] 
+    : [process.env.GEMINI_MODEL, 'gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-3.5-flash', 'gemini-2.0-flash-exp'].filter(Boolean);
 
   const prompt = `あなたは「日本国内の外国人治安・事件報道データベース」の厳格な主任校閲デスクです。
 以下のニュース記事の「タイトル」「媒体名」「記事要約スニペット」を精査し、指定のJSON形式のみで出力してください。
@@ -1368,43 +1374,57 @@ async function inspectAndFormatWithAI(title, media, description = '') {
 媒体名: 「${media || '不明'}」
 記事要約スニペット: 「${description ? description.substring(0, 150) : 'なし'}」`;
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          responseMimeType: "application/json",
-          temperature: 0.1
-        }
-      })
-    });
-
-    if (!response.ok) {
-      console.warn(`[AI Warning] API returned status ${response.status}. Falling back to rule-based.`);
-      return { isValid: true, cleanTitle: title, reason: `API Error ${response.status} (Fallback)` };
-    }
-
-    const data = await response.json();
-    let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    // 余計なマークダウンや前後の説明文を除去（クレンジング）
-    text = text.replace(/```json|```/g, '').trim();
-
-    // パース失敗時の二重保険
-    let result;
+  for (const model of candidateModels) {
     try {
-      result = JSON.parse(text);
-    } catch (parseError) {
-      console.warn(`[AI Warning] JSON parse failed. Falling back. Raw: ${text.substring(0, 200)}`);
-      return { isValid: true, cleanTitle: title, reason: 'JSON Parse Error (Fallback)' };
-    }
-    return result;
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: {
+            responseMimeType: "application/json",
+            temperature: 0.1
+          }
+        })
+      });
 
-  } catch (error) {
-    console.warn(`[AI Warning] Inspection failed (${error.message}). Falling back to rule-based.`);
-    return { isValid: true, cleanTitle: title, reason: `Exception: ${error.message} (Fallback)` };
+      if (!response.ok) {
+        console.warn(`[AI Warning] Model ${model} returned status ${response.status}. Trying next model...`);
+        continue;
+      }
+
+      if (!workingGeminiModel) {
+        console.log(`✨ [AI Connected] Successfully established connection with Gemini Model: ${model}`);
+        workingGeminiModel = model;
+      }
+
+      const data = await response.json();
+      let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      text = text.replace(/```json|```/g, '').trim();
+
+      let result;
+      try {
+        result = JSON.parse(text);
+      } catch (parseError) {
+        console.warn(`[AI Warning] JSON parse failed on ${model}. Raw: ${text.substring(0, 200)}`);
+        const isDomestic = isDomesticCrime(title, media);
+        return { isValid: isDomestic, cleanTitle: title, reason: 'JSON Parse Error (Rule Fallback)' };
+      }
+      return result;
+
+    } catch (error) {
+      console.warn(`[AI Warning] Inspection failed on ${model} (${error.message}).`);
+    }
   }
+
+  // 全モデル試行失敗時：海外記事のすり抜けを完全防止するため、国内確証判定（isDomesticCrime）を厳格適用
+  const isDomestic = isDomesticCrime(title, media);
+  return { 
+    isValid: isDomestic, 
+    cleanTitle: title, 
+    reason: isDomestic ? 'All AI Models Failed (Domestic Rule Passed)' : 'All AI Models Failed (Overseas Rejected)' 
+  };
 }
 
 async function main() {
