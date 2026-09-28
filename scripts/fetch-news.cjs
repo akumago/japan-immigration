@@ -646,7 +646,7 @@ function isSameEvent(itemA, itemB) {
     if (/殺人|殺害|強盗致死|強盗殺人|刺殺|刺傷|死体遺棄|遺棄/.test(t)) return 'HOMICIDE';
     if (/詐欺|詐取|だまし取|騙し取|受け子|出し子|なりすまし|地下銀行|無許可送金|不正換金|マネロン|人民元送金/.test(t)) return 'FRAUD';
     if (/銅線|太陽光|空き部屋|空室|窃盗|万引き|侵入|キャッシュカード/.test(t)) return 'THEFT';
-    if (/無免許|ひき逃げ|危険運転|過失運転|飲酒運転|酒気帯び|トラック|はみ出し/.test(t)) return 'TRAFFIC';
+    if (/無免許|ひき逃げ|危険運転|過失運転|飲酒運転|酒気帯び|トラック|はみ出し|車突っ込|正面衝突|追突|衝突|死亡事故|人身事故|多重事故|道路交通法|道交法|転落事故/.test(t)) return 'TRAFFIC';
     if (/不法残留|不法滞在|旅券不携帯|オーバーステイ|入管法/.test(t)) return 'IMMIGRATION';
     if (/わいせつ|性交|盗撮/.test(t)) return 'SEXUAL';
     if (/薬物|覚醒剤|大麻|コカイン|麻薬|密輸/.test(t)) return 'DRUGS';
