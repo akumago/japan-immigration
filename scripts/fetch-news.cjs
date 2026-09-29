@@ -545,17 +545,20 @@ function hasJapaneseEnforcement(title) {
 }
 
 // 国内での事案かどうか判定（ポジティブ国内確証ホワイトリスト方式）
+// メディア名だけで海外・芸能と分かるもの（本文に関係なく従来どおり即除外）
+function isOverseasOrEntertainmentMedia(media) {
+  if (!media) return false;
+  const lowerMedia = media.toLowerCase();
+  if (OVERSEAS_MEDIA.some(m => lowerMedia.includes(m.toLowerCase()))) return true;
+  if (ENTERTAINMENT_MEDIA.some(m => media.includes(m))) return true;
+  if (/\.(?:vn|kr|cn|tw|th|ph|my|id|ru|uk)\b/i.test(media)) return true;
+  if (/[\uac00-\ud7af]/.test(media) || /中央日報|朝鮮日報|東亜日報|ハンギョレ|毎日経済|매일경제|聯合ニュース|KBS|MBC|SBS|JTBC|YTN|新華社|人民日報|環球時報/.test(media)) return true;
+  return false;
+}
+
 function isDomesticCrime(title, media) {
   // 1. 海外メディア・外国通信社クレジット・外国語メディアは即除外
-  if (media) {
-    const lowerMedia = media.toLowerCase();
-    if (OVERSEAS_MEDIA.some(m => lowerMedia.includes(m.toLowerCase()))) return false;
-    if (ENTERTAINMENT_MEDIA.some(m => media.includes(m))) return false;
-    if (/\.(?:vn|kr|cn|tw|th|ph|my|id|ru|uk)\b/i.test(media)) return false;
-    if (/[\uac00-\ud7af]/.test(media) || /中央日報|朝鮮日報|東亜日報|ハンギョレ|毎日経済|매일경제|聯合ニュース|KBS|MBC|SBS|JTBC|YTN|新華社|人民日報|環球時報/.test(media)) {
-      return false;
-    }
-  }
+  if (isOverseasOrEntertainmentMedia(media)) return false;
   if (OVERSEAS_TAIL_REGEX.test(title) || OVERSEAS_PREFIX_REGEX.test(title) || OVERSEAS_AGENCY_REGEX.test(title)) {
     return false;
   }
@@ -1238,8 +1241,14 @@ function extractItemsFromRSS(xml) {
       const hasExcludeKw = EXCLUDE_KEYWORDS.some(kw => title.includes(kw));
       const isDomestic = isDomesticCrime(title, media);
 
+      // [ゲートv3.3] 旧ルール（キーワードの網・国内証拠・被害者/雇用主/斡旋の正規表現）で落ちる記事のうち、
+      // 新ルール（被疑者側の国籍表現＋刑事手続語＋海外でない＋日本人逮捕でない）が強く通すものは、捨てずにAIゲートへ回す（_soft）。
+      // 最終判断はAIの一次判定と最終精査が行う。メディア起因の除外と「日本人被疑者」の除外は従来どおり即除外。
+      let soft = false;
+      const strongByRules = () => !isOverseasOrEntertainmentMedia(media) && gate.rulesPass({ title, description: rawDesc }, { requireLocation: false });
       if (!hasForeignKw || !hasCrimeKw || hasExcludeKw || !isDomestic) {
-        continue;
+        if (!strongByRules()) continue;
+        soft = true;
       }
 
       // 日本人被疑者・海外拠点特殊詐欺・日本人雇用主事案の完全排除（外国籍社長本人は保持）
@@ -1260,10 +1269,6 @@ function extractItemsFromRSS(xml) {
       const isJapaneseSuspect = /(?:日本人|日本国籍)[の男女代性0-9０-９（）\s]*[をが]?(?:逮捕|容疑|送検|起訴|書類送検)/.test(title) ||
                                 /(?:逮捕|容疑|送検)[の男女代性0-9０-９（）\s]*[は、\s]*(?:日本人|日本国籍)/.test(title) ||
                                 /日本人(?:女|男|男女|ら|グループ|容疑者)/.test(title) ||
-                                isJapaneseEmployer ||
-                                isIllegalEmploymentBroker ||
-                                isShopOwnerWithForeignVictim ||
-                                isBrokerSuspect ||
                                 // 日本人社員による中国企業・外国企業への機密流出・スパイ事案を100%遮断
                                 /(?:中国企業|外国企業|中国側)[へのに]*(?:流出|漏洩|漏えい|提供|持ち出)/.test(title) ||
                                 /(?:半導体|機密|営業秘密).*(?:流出|漏洩|漏えい).*(?:元社員|元従業員|元開発責任者)/.test(title) ||
@@ -1282,6 +1287,11 @@ function extractItemsFromRSS(xml) {
       if (isJapaneseSuspect) {
         continue;
       }
+      // 雇用主・斡旋役・店主の判定は語彙ベースで、外国籍の斡旋役なども巻き込む。新ルールが被疑者側の外国籍と認めるものはAIに回す
+      if (isJapaneseEmployer || isIllegalEmploymentBroker || isShopOwnerWithForeignVictim || isBrokerSuspect) {
+        if (!strongByRules()) continue;
+        soft = true;
+      }
       // 行政啓蒙・周知・コラム・意見・動画・省庁施策・受入企業側の労基法違反等の排除（外国人本人の個別事件報道ではないもの）
       const isAwarenessOrColumn = /チラシで周知|協力を.*呼びかけ|注意を呼びかけ|防犯教室|啓発|連載|金難民|録画[０-９0-9]|覚えているだろうか|デイリー新潮|薬師寺の国宝|立ち入り|摘発[をの]?強化|他省庁.*(?:合同|参加|調査)|法務省.*不法就労|実施へ|団体交渉|不当徴収|謝罪|農業法人と交渉|賃金支払いも求める|監督指導|送検等の状況|監督対象|受入企業|受入れ企業|是正勧告|安全基準違反|労基法違反|重大・悪質.*件を送検/.test(title);
       if (isAwarenessOrColumn) {
@@ -1298,7 +1308,9 @@ function extractItemsFromRSS(xml) {
                               /天神に留学生の遺体|専門学校生の遺体発見/.test(title);
       const isForeignPerpetrator = RE_FOREIGN_PERPETRATOR.test(title) || RE_FOREIGN_PERPETRATOR.test(rawDesc);
       if (isForeignVictim && !isForeignPerpetrator) {
-        continue;
+        // 「ベトナム人の男 暴行容疑で逮捕」のように、国籍の直後に罪名が来る加害者の見出しも、この正規表現は被害者と誤判定する
+        if (!strongByRules()) continue;
+        soft = true;
       }
 
       let location = detectLocation(title);
@@ -1324,7 +1336,8 @@ function extractItemsFromRSS(xml) {
         media: media,
         url: link,
         description: rawDesc.substring(0, 150),
-        summary: `${location}で発生した外国人関与の事件・容疑に関する報道速報です。`
+        summary: `${location}で発生した外国人関与の事件・容疑に関する報道速報です。`,
+        ...(soft ? { _soft: true } : {})
       });
     }
   }
@@ -1568,12 +1581,12 @@ async function main() {
   // --- 既存データクリーンアップ（市町村名からの地域再マッピング含む） ---
   const cleanExisting = [];
   for (const item of existingData) {
-    if (!isDomesticCrime(item.title, item.media)) {
+    if (!item.audited && !isDomesticCrime(item.title, item.media)) {
       console.log(`Removed overseas item: ${item.title}`);
       continue;
     }
     const hasExcludeKw = EXCLUDE_KEYWORDS.some(kw => item.title.includes(kw));
-    if (hasExcludeKw) {
+    if (hasExcludeKw && !item.audited) {
       console.log(`Removed excluded item: ${item.title}`);
       continue;
     }
@@ -1582,7 +1595,7 @@ async function main() {
 
     const hasForeignKw = FOREIGN_KEYWORDS.some(kw => titleWithoutDomesticChugoku.includes(kw));
     const hasCrimeKw = CRIME_KEYWORDS.some(kw => item.title.includes(kw));
-    if (!hasForeignKw || !hasCrimeKw) {
+    if (!item.audited && (!hasForeignKw || !hasCrimeKw)) {
       console.log(`Removed non-foreign or non-crime item: ${item.title}`);
       continue;
     }
@@ -1616,13 +1629,13 @@ async function main() {
                                   /町議/.test(item.title) ||
                                   /ベトナム食材.*(?:男1人逮捕|男逮捕)/.test(item.title) ||
                                   /有償で乗車させた疑い\s*31歳男逮捕/.test(item.title);
-    if (isJapaneseSuspectItem) {
+    if (isJapaneseSuspectItem && !item.audited) {
       console.log(`Removed Japanese suspect item: ${item.title}`);
       continue;
     }
     // 行政啓蒙・周知・コラム・意見・動画・省庁施策・デマ検証記事の排除
     const isAwarenessOrColumn = /チラシで周知|協力を.*呼びかけ|注意を呼びかけ|防犯教室|啓発|連載|金難民|録画[０-９0-9]|覚えているだろうか|デイリー新潮|薬師寺の国宝|立ち入り|摘発[をの]?強化|他省庁.*(?:合同|参加|調査)|法務省.*不法就労|実施へ|団体交渉|不当徴収|謝罪|農業法人と交渉|賃金支払いも求める|監督指導|送検等の状況|偽情報|ファクトチェック|誤認させる|デマ情報/.test(item.title);
-    if (isAwarenessOrColumn) {
+    if (isAwarenessOrColumn && !item.audited) {
       console.log(`Removed awareness/column item: ${item.title}`);
       continue;
     }
@@ -1635,7 +1648,7 @@ async function main() {
                             /技能実習生の女性.*盗んだ/.test(item.title) ||
                             /天神に留学生の遺体|専門学校生の遺体発見/.test(item.title);
     const isForeignPerpetrator = RE_FOREIGN_PERPETRATOR.test(item.title);
-    if (isForeignVictim && !isForeignPerpetrator) {
+    if (isForeignVictim && !isForeignPerpetrator && !item.audited) {
       console.log(`Removed victim-side item: ${item.title}`);
       continue;
     }
@@ -1707,7 +1720,7 @@ async function main() {
   if (SHADOW_MODE && trulyNew.length > 0 && process.env.GEMINI_API_KEY) {
     console.log(`\n🤖 === [シャドー運転] 旧AI審査を実行中 (${trulyNew.length} 件) ===`);
     const aiVettedNew = [];
-    for (const item of trulyNew) {
+    for (const item of trulyNew.filter(i => !i._soft)) { // _soft は旧ルールが落としていた記事。旧AIには渡さず、新ゲートの比較ログにだけ出す
       const aiResult = await inspectAndFormatWithAI(item.title, item.media, item.description);
       await sleep(1000); // 15 RPM (1分間15回) 無料枠制限を完全防衛
       if (aiResult.isValid) {
@@ -1741,7 +1754,8 @@ async function main() {
 
   if (!SHADOW_MODE) {
     trulyNew.length = 0;
-    trulyNew.push(...gateOut.accepted); // 新ゲートを通ったものだけが公開される
+    // 新ゲート（一次判定→最終精査）を通ったものだけが公開される。audited は、以後の旧regex掃除・第2チェックで再び落とさない印
+    trulyNew.push(...gateOut.accepted.map(({ _soft, ...rest }) => ({ ...rest, audited: true })));
   }
 
   // 最新日付（2026-08-26 → 2026-08-25 ...）順に厳密ソート
@@ -1764,7 +1778,7 @@ async function main() {
       const isVictimPattern = /(?:自転車の)?(?:ベトナム|中国|外国人|外国籍|ミャンマー|インドネシア|フィリピン|タイ|韓国|台湾)(?:人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[をにへ]?(?:死亡ひき逃げ|ひき逃げ|はねられ|はねて|死亡|重傷|被害)/.test(title) ||
                               /(?:ベトナム|中国|フィリピン|タイ|インドネシア|韓国|外国)(?:人|国籍|籍)?[男女代性0-9０-９歳（）\s]*[をにへ].*(?:はね|撥ね|轢き|ひき逃げ|暴行|殺害され|刺され|だまし取られ)/.test(title);
       const hasExplicitForeignPerpetrator = RE_FOREIGN_PERPETRATOR.test(title);
-      if (isVictimPattern && !hasExplicitForeignPerpetrator) {
+      if (isVictimPattern && !hasExplicitForeignPerpetrator && !item.audited) {
         rejectedLog.push({ reason: '被害者トラップ（加害者が日本人・被害者が外国人）', title });
         continue;
       }
@@ -1773,7 +1787,7 @@ async function main() {
       const isBrokerPattern = /(?:偽装結婚|在留資格|不法就労).*(?:斡旋|あっせん|紹介|仲介)/.test(title) ||
                               /(?:斡旋|あっせん|紹介|仲介).*疑いで逮捕/.test(title) ||
                               /(?:飲食店経営|会社役員|会社経営|無職|男２人|男ら).*(?:フィリピン|ベトナム|中国|タイ).*紹介/.test(title);
-      if (isBrokerPattern) {
+      if (isBrokerPattern && !item.audited) {
         rejectedLog.push({ reason: '日本人ブローカー（斡旋・紹介・仲介役が日本人）', title });
         continue;
       }
