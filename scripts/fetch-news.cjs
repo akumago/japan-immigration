@@ -782,8 +782,8 @@ function isSameEvent(itemA, itemB) {
   }
 
   // 特例：福岡・ネパール国籍女性殺人事件（逮捕報道の全社統合・下見続報のみ分離保持）
-  if ((titleA.includes('ネパール') || titleB.includes('ネパール')) &&
-      (titleA.includes('福岡') || titleB.includes('福岡') || titleA.includes('天神') || titleB.includes('天神')) &&
+  if ((titleA.includes('ネパール') && titleB.includes('ネパール')) &&
+      ((titleA.includes('福岡') || titleA.includes('天神')) && (titleB.includes('福岡') || titleB.includes('天神'))) &&
       (titleA.includes('殺害') || titleA.includes('殺人') || titleA.includes('遺体')) &&
       (titleB.includes('殺害') || titleB.includes('殺人') || titleB.includes('遺体')) &&
       (!titleA.includes('下見') && !titleB.includes('下見'))) {
@@ -855,8 +855,9 @@ function isSameEvent(itemA, itemB) {
   }
 
   // 特例：トカゲ密輸事件（メキシコ国籍の男・羽田税関）
-  if ((titleA.includes('トカゲ') || titleA.includes('200匹')) &&
-      (titleB.includes('トカゲ') || titleB.includes('200匹'))) {
+  if (titleA.includes('トカゲ') && titleB.includes('トカゲ') &&
+      (/(?:^|[^\d])200匹/.test(titleA) || titleA.includes('密輸') || titleA.includes('羽田')) &&
+      (/(?:^|[^\d])200匹/.test(titleB) || titleB.includes('密輸') || titleB.includes('羽田'))) {
     return true;
   }
 
@@ -976,7 +977,7 @@ function isSameEvent(itemA, itemB) {
   }
 
   // 特例：福井・ショークラブ フィリピン国籍女偽装結婚事件（全媒体統合）
-  if ((titleA.includes('フィリピン') || titleB.includes('フィリピン')) &&
+  if (titleA.includes('フィリピン') && titleB.includes('フィリピン') &&
       (titleA.includes('偽装結婚') || titleA.includes('ショークラブ')) &&
       (titleB.includes('偽装結婚') || titleB.includes('ショークラブ'))) {
     return true;
