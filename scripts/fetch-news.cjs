@@ -3,6 +3,7 @@ const path = require('path');
 const https = require('https');
 const crypto = require('crypto');
 const gate = require('./lib/ai-gate.cjs');
+const articleFetcher = require('./lib/article-fetcher.cjs');
 const SHADOW_MODE = process.env.SHADOW_MODE !== '0'; // 既定はシャドー（0を明示したときだけ本番）
 
 const NEWS_DATA_PATH = path.join(__dirname, '../data/newsData.json');
@@ -1246,10 +1247,18 @@ function extractItemsFromRSS(xml) {
       // 新ルール（被疑者側の国籍表現＋刑事手続語＋海外でない＋日本人逮捕でない）が強く通すものは、捨てずにAIゲートへ回す（_soft）。
       // 最終判断はAIの一次判定と最終精査が行う。メディア起因の除外と「日本人被疑者」の除外は従来どおり即除外。
       let soft = false;
+      let needsBody = false;
       const strongByRules = () => !isOverseasOrEntertainmentMedia(media) && gate.rulesPass({ title, description: rawDesc }, { requireLocation: false });
       if (!hasForeignKw || !hasCrimeKw || hasExcludeKw || !isDomestic) {
-        if (!strongByRules()) continue;
-        soft = true;
+        if (strongByRules()) {
+          soft = true;
+        } else if (!hasForeignKw && hasCrimeKw && !hasExcludeKw && !isOverseasOrEntertainmentMedia(media)) {
+          // [本文スキャン] 見出し・要約に国籍語が無いだけの事件記事は捨てず、本文の確認対象にする。確認は main() の本文スキャンで行う
+          needsBody = true;
+          soft = true;
+        } else {
+          continue;
+        }
       }
 
       // 日本人被疑者・海外拠点特殊詐欺・日本人雇用主事案の完全排除（外国籍社長本人は保持）
@@ -1338,7 +1347,8 @@ function extractItemsFromRSS(xml) {
         url: link,
         description: rawDesc.substring(0, 150),
         summary: `${location}で発生した外国人関与の事件・容疑に関する報道速報です。`,
-        ...(soft ? { _soft: true } : {})
+        ...(soft ? { _soft: true } : {}),
+        ...(needsBody ? { _needsBody: true, _bodyPriority: isDomestic ? 1 : 0 } : {})
       });
     }
   }
@@ -1358,7 +1368,7 @@ async function inspectAndFormatWithAI(title, media, description = '') {
   // 試行するモデル候補リスト（確実に稼働確認済みの gemini-3.5-flash を最優先とし、404エラー試行の無駄をゼロ化）
   const candidateModels = workingGeminiModel 
     ? [workingGeminiModel] 
-    : [process.env.GEMINI_MODEL, 'gemini-3.5-flash', 'gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-2.0-flash'].filter(Boolean);
+    : [process.env.GEMINI_MODEL, 'gemini-3.1-flash-lite', 'gemini-3.5-flash', 'gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-2.0-flash'].filter(Boolean);
 
   const prompt = `あなたは「日本国内の外国人治安・事件報道データベース」の厳格な主任校閲デスクです。
 以下のニュース記事の「タイトル」「媒体名」「記事要約スニペット」を精査し、指定のJSON形式のみで出力してください。
@@ -1714,6 +1724,32 @@ async function main() {
     }
   }
 
+  // --- [本文スキャン] 見出しに国籍語が無い事件記事の本文を確認する（Gemini API は使わない） ---
+  const bodyTargets = trulyNew.filter(i => i._needsBody);
+  if (bodyTargets.length > 0) {
+    if (process.env.BODY_SCAN === '0') {
+      console.log(`📰 [本文スキャン] 無効(BODY_SCAN=0)。本文確認の対象 ${bodyTargets.length} 件は候補にしません`);
+    } else {
+      const scanner = articleFetcher.createScanner({
+        findNationality: (sentence) => !!gate.ruleSuspect(sentence, ''),
+        maxPerRun: Number(process.env.BODY_SCAN_MAX) || 40,
+      });
+      const st = await scanner.scan(bodyTargets);
+      console.log(`📰 [本文スキャン] 対象${st.total}件 | 国籍語あり ${st.nat} / なし ${st.noNat} / 保留(取得失敗) ${st.pending} / 404 ${st.gone} / 断念 ${st.gaveUp} | キャッシュ ${st.cached} / 再試行待ち ${st.skippedBackoff} / 上限超過 ${st.skippedCap}${st.breaker ? ' | ⚠️ Googleの連続失敗のため打ち切り' : ''}`);
+      if (scanner.flush() && process.env.GITHUB_OUTPUT) {
+        try { fs.appendFileSync(process.env.GITHUB_OUTPUT, 'state_changed=true\n'); } catch (_) { /* 出力に失敗してもキャッシュは次回読める */ }
+      }
+    }
+    // 本文で国籍語を確認できた記事だけを候補に残す。確認できなかった記事（国籍語なし・取得失敗・保留・上限超過）は今回の候補から外す。
+    // 取得失敗・上限超過は、RSSの窓（3日）の間は毎時再登場し、キャッシュの間隔に従って再試行される（国籍なしとして確定はしない）。
+    for (let i = trulyNew.length - 1; i >= 0; i--) {
+      const it = trulyNew[i];
+      if (!it._needsBody) continue;
+      if (it.bodyContext) delete it._needsBody;
+      else trulyNew.splice(i, 1);
+    }
+  }
+
   // --- AIゲート ---
   const candidatesBeforeLegacy = trulyNew.slice();
 
@@ -1756,7 +1792,7 @@ async function main() {
   if (!SHADOW_MODE) {
     trulyNew.length = 0;
     // 新ゲート（一次判定→最終精査）を通ったものだけが公開される。audited は、以後の旧regex掃除・第2チェックで再び落とさない印
-    trulyNew.push(...gateOut.accepted.map(({ _soft, ...rest }) => ({ ...rest, audited: true })));
+    trulyNew.push(...gateOut.accepted.map(({ _soft, _needsBody, _bodyPriority, bodyContext, ...rest }) => ({ ...rest, audited: true })));
   }
 
   // 最新日付（2026-08-26 → 2026-08-25 ...）順に厳密ソート

@@ -412,3 +412,28 @@ test('rulesPass: 場所の解決を必須にしない指定（前段フィルタ
   assert.equal(gate.rulesPass(item('日本人の男を窃盗容疑で逮捕 愛知県警'), { requireLocation: false }), false);
   assert.equal(gate.rulesPass(item('中国人女性を暴行した疑い 日本人の男を逮捕 大阪府警'), { requireLocation: false }), false);
 });
+
+// ── 本文スキャン（v3.4）: 本文の言い回しと、被害者の国籍を拾わない ──
+test('本文の言い回し（国籍は韓国／特別永住者）も国籍表現として拾う', () => {
+  assert.ok(gate.ruleSuspect('捜査関係者によると、男の国籍は韓国で', ''));
+  assert.ok(gate.ruleSuspect('男は特別永住者で、', ''));
+});
+test('被害者の国籍を示す文は、被疑者側の国籍表現として拾わない', () => {
+  assert.equal(gate.ruleSuspect('被害に遭ったのは韓国籍の女性で、', ''), null);
+  assert.equal(gate.ruleSuspect('刺されたのはベトナム国籍の男性(30)で、', ''), null);
+  assert.ok(gate.ruleSuspect('逮捕されたのはベトナム国籍の男(30)で、', ''));
+});
+test('bodyContext は見出しに国籍が無い記事の国籍の根拠になり、公開する項目（description）には入らない', () => {
+  const it2 = { ...item('タイヤとホイールを盗んだ疑い 男を逮捕 兵庫県警'), bodyContext: '調べに対し、男は韓国籍の会社員(40)で、容疑を認めている。' };
+  const v = gate.verifyItem(it2, ai({ suspectEvidence: '男は韓国籍の会社員(40)', locationEvidence: '兵庫県警' }));
+  assert.equal(v.status, 'accepted');
+  assert.equal(v.pref, '兵庫県');
+  assert.equal(it2.description, '');
+});
+test('bodyContext が無く見出しにも国籍が無い記事は、従来どおり却下', () => {
+  assert.equal(gate.verifyItem(item('タイヤとホイールを盗んだ疑い 男を逮捕 兵庫県警'), ai({ suspectEvidence: '男を逮捕', locationEvidence: '兵庫県警' })).code, 'no_nationality');
+});
+test('bodyContext の国籍が被害者のものだけなら却下', () => {
+  const it2 = { ...item('傷害容疑で男を逮捕 兵庫県警'), bodyContext: '被害に遭ったのはベトナム国籍の女性(25)で、' };
+  assert.equal(gate.verifyItem(it2, ai({ suspectEvidence: 'ベトナム国籍の女性(25)', locationEvidence: '兵庫県警' })).status, 'rejected');
+});

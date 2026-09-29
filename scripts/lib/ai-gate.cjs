@@ -25,7 +25,8 @@ const CFG = {
   trimMs: 60 * 24 * 60 * 60 * 1000,
   requestTimeoutMs: 90000,
 };
-const MODELS = [...new Set([process.env.GEMINI_MODEL, 'gemini-3.5-flash', 'gemini-3.1-flash-lite'].filter(Boolean))];
+// 無料枠は Flash-Lite 系のほうが大きい（2026-09時点の報告: Flash 系 約20回/日、Flash-Lite 系 約500回/日。実際の値は AI Studio のダッシュボードで確認）
+const MODELS = [...new Set([process.env.GEMINI_MODEL, 'gemini-3.1-flash-lite', 'gemini-3.5-flash'].filter(Boolean))];
 
 // ───────────────────────── テキスト正規化 ─────────────────────────
 const nfkc = (s) => String(s == null ? '' : s).normalize('NFKC');
@@ -38,7 +39,8 @@ const stripHtml = (s) =>
 function ownText(item) {
   let title = nfkc(item.title).replace(/\s[-–—―]\s[^-–—―]{1,30}$/, '');
   if (item.media) title = title.split(nfkc(item.media)).join('');
-  const desc = stripHtml(item.description || '').slice(0, 240);
+  const body = stripHtml(item.bodyContext || '').slice(0, 320); // 本文スキャンが取り出した「国籍語を含む文」。公開データには載せない
+  const desc = [body, stripHtml(item.description || '').slice(0, 240)].filter(Boolean).join(' ');
   return { title: title.trim(), desc };
 }
 const articleKey = (item) => crypto.createHash('md5').update(item.url || item.title || '').digest('hex').slice(0, 16);
@@ -68,6 +70,7 @@ const NAT_SOURCE =
   `(?:${COUNTRY_ALT})(?:国籍|籍|人|出身)` +
   `|[ァ-ヴー]{2,}(?:国籍|籍の)` +
   `|外国籍|外国人|外国出身` +
+  `|国籍(?:は|が|を|の)(?:${COUNTRY_ALT})|特別永住者|永住者` + // 本文の言い回し（「男の国籍は韓国」「特別永住者」）
   `|[ァ-ヴー]{3,}人(?=の?(?:男|女|少年|少女|グループ|容疑者|被告|実習生|留学生|労働者|従業員|店員|運転手|客|ら))` + // 辞書にない国名（○○人の男）
   `|(?:${COUNTRY_ALT})系(?=の?(?:男|女|少年|少女|グループ|容疑者|被告))` + // 中国系の男
   `|[ァ-ヴー]{2,}(?:・[ァ-ヴー]{1,}){1,}(?=容疑者|被告|受刑者)` + // カタカナのフルネーム＋容疑者（報道の慣行で外国籍）
@@ -92,13 +95,16 @@ const NON_SUSPECT_AFTER_RE = /^(?:被害者|被害女性|被害男性|を装|に
 const CLAUSE_STOP_RE = /[。]|逮捕|送検|送致|起訴|容疑|疑い|摘発|検挙|立件|書類送検/;
 
 /** NAT の各出現を「被疑者になり得る」か判定する。スペースで窓を切らない（見出しは述語の前に空白が入る） */
+const VICTIM_HEAD_RE = /(?:被害者|被害に遭った|被害を受けた|襲われたのは|けがをしたのは|刺されたのは|殺害されたのは|亡くなったのは|死亡したのは|盗まれたのは)[^。、]{0,10}$/;
 function natOccurrences(text) {
   const t = nfkc(text);
   return [...t.matchAll(NAT_RE_G)].map((m) => {
+    const head = t.slice(Math.max(0, m.index - 24), m.index);
+    const victimHead = VICTIM_HEAD_RE.test(head);
     const tail = t.slice(m.index + m[0].length, m.index + m[0].length + 40);
     const stop = tail.search(CLAUSE_STOP_RE);
     const win = (stop >= 0 ? tail.slice(0, stop) : tail).slice(0, 28);
-    const victim = !AGENT_PASSIVE_RE.test(win) && (VICTIM_PASSIVE_RE.test(win) || VICTIM_OBJECT_RE.test(win));
+    const victim = victimHead || (!AGENT_PASSIVE_RE.test(win) && (VICTIM_PASSIVE_RE.test(win) || VICTIM_OBJECT_RE.test(win)));
     const nonSuspect = NON_SUSPECT_AFTER_RE.test(win);
     return { text: m[0], victim, nonSuspect, suspect: !victim && !nonSuspect };
   });
@@ -405,7 +411,7 @@ function buildPrompt(items) {
     })
     .join('\n\n');
   return `あなたは、日本国内で発生した「外国籍の被疑者・被告人による事件」の報道を、取りこぼさず収録するデータベースの一次判定担当です。
-下の記事（見出しと要約のみ。本文はありません）を1件ずつ判定し、記事と同じ件数のJSON配列だけを出力してください。
+下の記事（見出しと要約のみ。要約には、記事本文から抜き出した文が含まれることがあります）を1件ずつ判定し、記事と同じ件数のJSON配列だけを出力してください。
 この後に、別の校閲担当が誤採用を探す最終精査を行います。あなたは取りこぼしを出さないことを優先し、明確に対象外のものだけを不採用にしてください。
 
 【採用（isValid: true）】
