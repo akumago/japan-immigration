@@ -212,7 +212,10 @@ function extractArticleText(html, maxChars = 8000) {
   const art = h.match(/<article\b[\s\S]*?<\/article>/i);
   if (art) h = art[0];
   const ps = [...h.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => clean(m[1])).filter((t) => t.length >= 15);
-  parts.push(ps.length >= 2 ? ps.join('') : clean(h));
+  let rawBody = ps.length >= 2 ? ps.join('') : clean(h);
+  // 記事末尾の回遊リンク・フッター・関連記事（Pick Up等）の巻き込みを遮断
+  rawBody = rawBody.split(/(?:もっとよむ|Pick\s*Up|関連記事|あわせて読みたい|注目記事|アクセスランキング|人気記事|最新ニュース|おすすめ記事)/i)[0];
+  parts.push(rawBody);
   return parts.join('').slice(0, maxChars);
 }
 

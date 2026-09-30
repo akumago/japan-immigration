@@ -4,7 +4,7 @@ const https = require('https');
 const crypto = require('crypto');
 const gate = require('./lib/ai-gate.cjs');
 const articleFetcher = require('./lib/article-fetcher.cjs');
-const SHADOW_MODE = process.env.SHADOW_MODE !== '0'; // 既定はシャドー（0を明示したときだけ本番）
+const SHADOW_MODE = process.env.SHADOW_MODE === '1'; // 既定は本番稼働（1を明示したときだけシャドー）
 
 const NEWS_DATA_PATH = path.join(__dirname, '../data/newsData.json');
 
@@ -1280,6 +1280,9 @@ function extractItemsFromRSS(xml) {
       const isJapaneseSuspect = /(?:日本人|日本国籍)[の男女代性0-9０-９（）\s]*[をが]?(?:逮捕|容疑|送検|起訴|書類送検)/.test(title) ||
                                 /(?:逮捕|容疑|送検)[の男女代性0-9０-９（）\s]*[は、\s]*(?:日本人|日本国籍)/.test(title) ||
                                 /日本人(?:女|男|男女|ら|グループ|容疑者)/.test(title) ||
+                                // 日本人夫婦・家族事件の除外（外国籍の夫婦は「ベトナム人夫婦」等と国籍が付く）
+                                /(?:京都市|東京都|大阪府|[一-龥]{2,4}[市区町村])?の?夫婦を(?:逮捕|容疑|送検|書類送検)/.test(title) ||
+                                /(?:自営業|会社員|無職|パート|アルバイト)[の男女代性0-9０-９（）\s]*(?:男性|女性|男|女)[男女代性0-9０-９（）\s]*と妻/.test(title) ||
                                 // 日本人社員による中国企業・外国企業への機密流出・スパイ事案を100%遮断
                                 /(?:中国企業|外国企業|中国側)[へのに]*(?:流出|漏洩|漏えい|提供|持ち出)/.test(title) ||
                                 /(?:半導体|機密|営業秘密).*(?:流出|漏洩|漏えい).*(?:元社員|元従業員|元開発責任者)/.test(title) ||
@@ -1746,8 +1749,20 @@ async function main() {
     for (let i = trulyNew.length - 1; i >= 0; i--) {
       const it = trulyNew[i];
       if (!it._needsBody) continue;
-      if (it.bodyContext) delete it._needsBody;
-      else trulyNew.splice(i, 1);
+      if (it.bodyContext) {
+        delete it._needsBody;
+        // 見出しで地名が決まらなかった記事は、本文から都道府県を解決する
+        if (it.location === '全国') {
+          const locRes = gate.resolvePrefecture(it.bodyContext, { primaryLocationSigns: PRIMARY_LOCATION_SIGNS });
+          if (locRes && locRes.pref) {
+            it.location = locRes.pref;
+            it.summary = `${it.location}で発生した外国人関与の事件・容疑に関する報道速報です。`;
+            console.log(`🗺️ [本文スキャン] 地域を特定: ${it.location} (${it.title})`);
+          }
+        }
+      } else {
+        trulyNew.splice(i, 1);
+      }
     }
   }
 

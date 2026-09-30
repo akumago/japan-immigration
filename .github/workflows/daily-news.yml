@@ -56,8 +56,8 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
-          # 既定はシャドー運転。本番に切り替えるときは、リポジトリ変数 SHADOW_MODE を 0 にする（コード変更不要）
-          SHADOW_MODE: ${{ vars.SHADOW_MODE || '1' }}
+          # 既定は本番稼働。シャドーに戻すときはリポジトリ変数 SHADOW_MODE を 1 にする
+          SHADOW_MODE: ${{ vars.SHADOW_MODE || '0' }}
           # 本文スキャン有効化（1:有効 / 0:無効）。障害時はリポジトリ変数 BODY_SCAN を 0 にするだけで即時停止可能
           BODY_SCAN: ${{ vars.BODY_SCAN || '1' }}
           BODY_SCAN_MAX: ${{ vars.BODY_SCAN_MAX || '40' }}
