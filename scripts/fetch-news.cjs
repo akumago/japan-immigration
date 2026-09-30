@@ -1869,11 +1869,15 @@ async function main() {
         const existing = finalUniqueArticles[existingIdx];
         const isHigherPriority = getMediaPriority(item.media) > getMediaPriority(existing.media);
         const isMoreDetailed = item.title.length > existing.title.length;
+        // 日付は常に新しい方を維持（古い記事で置換されて日付が巻き戻るのを100%防止）
+        const latestDate = new Date(existing.date) >= new Date(item.date) ? existing.date : item.date;
+
         if (isHigherPriority || (getMediaPriority(item.media) === getMediaPriority(existing.media) && isMoreDetailed)) {
           rejectedLog.push({ reason: `重複記事の一本化統合（置換）: ${existing.title}`, title: item.title });
-          finalUniqueArticles[existingIdx] = item;
+          finalUniqueArticles[existingIdx] = { ...item, date: latestDate };
         } else {
           rejectedLog.push({ reason: `重複記事の一本化統合（除外）: ${item.title}`, title: existing.title });
+          finalUniqueArticles[existingIdx] = { ...existing, date: latestDate };
         }
       }
     }
@@ -1886,6 +1890,9 @@ async function main() {
     } else {
       console.log('✅ 第2チェックシステム全件通過：不適格記事・重複ゼロを確認。');
     }
+
+    // 重複置換後も、最終的に最新日付順（降順）であることを100%保証
+    finalUniqueArticles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     return finalUniqueArticles;
   }
