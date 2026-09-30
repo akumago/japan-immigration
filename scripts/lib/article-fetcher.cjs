@@ -271,7 +271,7 @@ function createScanner(opts = {}) {
   }
 
   async function scan(items) {
-    const s = { total: items.length, fetched: 0, cached: 0, nat: 0, noNat: 0, gone: 0, pending: 0, gaveUp: 0, skippedBackoff: 0, skippedCap: 0, notAttempted: 0, breaker: false };
+    const s = { total: items.length, fetched: 0, cached: 0, nat: 0, noNat: 0, gone: 0, pending: 0, gaveUp: 0, skippedBackoff: 0, skippedCap: 0, notAttempted: 0, breaker: false, reasons: {} };
     const byUrl = new Map();
     for (const it of items) { if (!byUrl.has(it.url)) byUrl.set(it.url, []); byUrl.get(it.url).push(it); }
     const apply = (its, snippet) => { for (const it of its) it.bodyContext = snippet; };
@@ -312,6 +312,7 @@ function createScanner(opts = {}) {
           cache.set(w.url, { st: 'gone', ts }); s.gone++;
         } else {
           const attempts = (prev.attempts || 0) + 1;
+          s.reasons[r.fail] = (s.reasons[r.fail] || 0) + 1; // 例: google_no_params / google_http_429 / google_parse / http_403 / unreadable
           if (attempts >= cfg.maxAttempts) { cache.set(w.url, { st: 'gave_up', attempts, reason: r.fail, ts }); s.gaveUp++; }
           else {
             const wait = cfg.backoffMinutes[Math.min(attempts - 1, cfg.backoffMinutes.length - 1)];

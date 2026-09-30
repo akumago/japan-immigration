@@ -1735,7 +1735,7 @@ async function main() {
         maxPerRun: Number(process.env.BODY_SCAN_MAX) || 40,
       });
       const st = await scanner.scan(bodyTargets);
-      console.log(`📰 [本文スキャン] 対象${st.total}件 | 国籍語あり ${st.nat} / なし ${st.noNat} / 保留(取得失敗) ${st.pending} / 404 ${st.gone} / 断念 ${st.gaveUp} | キャッシュ ${st.cached} / 再試行待ち ${st.skippedBackoff} / 上限超過 ${st.skippedCap}${st.breaker ? ' | ⚠️ Googleの連続失敗のため打ち切り' : ''}`);
+      console.log(`📰 [本文スキャン] 対象${st.total}件 | 国籍語あり ${st.nat} / なし ${st.noNat} / 保留(取得失敗) ${st.pending} / 404 ${st.gone} / 断念 ${st.gaveUp} | キャッシュ ${st.cached} / 再試行待ち ${st.skippedBackoff} / 上限超過 ${st.skippedCap}${st.breaker ? ' | ⚠️ Googleの連続失敗のため打ち切り' : ''}${Object.keys(st.reasons).length ? ' | 失敗理由 ' + Object.entries(st.reasons).map(([k, v]) => `${k}=${v}`).join(', ') : ''}`);
       if (scanner.flush() && process.env.GITHUB_OUTPUT) {
         try { fs.appendFileSync(process.env.GITHUB_OUTPUT, 'state_changed=true\n'); } catch (_) { /* 出力に失敗してもキャッシュは次回読める */ }
       }

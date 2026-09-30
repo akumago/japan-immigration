@@ -219,3 +219,11 @@ test('壊れたキャッシュファイルでも落ちずに空から始める',
   const sc = F.createScanner({ cachePath, io: fakeIo({}).io, findNationality: isNat, log: { warn() {} } });
   assert.equal(sc._cache.size, 0);
 });
+
+test('失敗の理由を集計する（Googleの仕様変更・制限・元記事側の拒否を、ログだけで見分けるため）', async () => {
+  const { io } = fakeIo({ r1: { status: 503 }, r2: { status: 403 }, r3: { status: 503 } });
+  const r = await scanner(io).scan([mkItem('r1'), mkItem('r2'), mkItem('r3')]);
+  assert.deepEqual(r.reasons, { http_503: 2, http_403: 1 });
+  const g = fakeIo({}, { googleFail: true });
+  assert.deepEqual((await scanner(g.io).scan([mkItem('r4')])).reasons, { google_http_429: 1 });
+});
