@@ -441,6 +441,7 @@ const PRIMARY_LOCATION_SIGNS = [
   { key: '関越道', pref: '埼玉県' },
   { key: '成田空港', pref: '千葉県' },
   { key: '羽田空港', pref: '東京都' },
+  { key: '福岡空港', pref: '福岡県' },
   { key: '中部国際空港', pref: '愛知県' },
   { key: 'セントレア', pref: '愛知県' },
   { key: '関西空港', pref: '大阪府' },
