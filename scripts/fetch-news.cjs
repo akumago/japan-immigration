@@ -1558,6 +1558,16 @@ async function main() {
       console.error(`千葉県警公式発表の取得失敗（RSS収集は継続）: ${err.message}`);
       sourceHealth.push({ id: 'chiba-police-bulletins', ok: false, error: err.message });
     }
+    try {
+      const officialItems = await policeBulletins.collectShizuokaBulletins(articleFetcher.httpRequest);
+      fetchedItems.push(...officialItems);
+      console.log(`🚓 静岡県警事件・事故掲示板: ${officialItems.length} 件の外国籍記載候補`);
+      supplementalSuccessCount++;
+      sourceHealth.push({ id: 'shizuoka-police-bulletins', ok: true, candidates: officialItems.length });
+    } catch (err) {
+      console.error(`静岡県警事件・事故掲示板の取得失敗（他ソース巡回は継続）: ${err.message}`);
+      sourceHealth.push({ id: 'shizuoka-police-bulletins', ok: false, error: err.message });
+    }
   }
   if (!process.env.TEST_SEARCH_QUERIES && process.env.PUBLISHER_LISTINGS !== '0') {
     const direct = await publisherListings.collectPublisherCandidates(articleFetcher.httpRequest);
@@ -1853,6 +1863,7 @@ async function main() {
     // 公開データ用オブジェクト作成（本文抜粋 audit は著作権保護のため絶対に含めない！）
     acceptedNew.push({
       id: v.id,
+      ...(v.sourceRecordId ? { sourceRecordId: v.sourceRecordId } : {}),
       title: v.title,
       date: v.date,
       location: v.location,

@@ -3,6 +3,7 @@
 const crypto = require('crypto');
 
 const CHIBA_INDEX = 'https://www.police.pref.chiba.jp/kohoka/safe-life_trouble.html';
+const SHIZUOKA_INDEX = 'https://www.pref.shizuoka.jp/police/about/kohomemo/index.html';
 
 function decodeEntities(value) {
   return String(value || '')
@@ -93,4 +94,71 @@ async function collectChibaBulletins(httpRequest, { now = Date.now(), maxDays = 
   return candidates;
 }
 
-module.exports = { CHIBA_INDEX, parseChibaIndex, parseChibaBulletin, collectChibaBulletins };
+function parseShizuokaIndex(html, { now = Date.now(), maxDays = 5, baseUrl = SHIZUOKA_INDEX } = {}) {
+  const links = [];
+  const htmlText = String(html || '');
+  const nowJst = new Date(now + 9 * 60 * 60 * 1000);
+  const currentYear = nowJst.getUTCFullYear();
+  const currentMonth = nowJst.getUTCMonth() + 1;
+  const cutoff = now - maxDays * 24 * 60 * 60 * 1000;
+  const re = /<a\b[^>]*href=["']([^"']*\/police\/about\/kohomemo\/\d+\.html(?:\?[^"']*)?)["'][^>]*>([\s\S]*?)<\/a>/gi;
+  let match;
+  while ((match = re.exec(htmlText))) {
+    const label = htmlToText(match[2]);
+    const dateMatch = label.match(/(\d{1,2})月(\d{1,2})日/);
+    if (!dateMatch) continue;
+    const month = Number(dateMatch[1]);
+    const day = Number(dateMatch[2]);
+    const year = month > currentMonth ? currentYear - 1 : currentYear;
+    const date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    const timestamp = new Date(`${date}T23:59:59+09:00`).getTime();
+    if (timestamp < cutoff || timestamp > now + 24 * 60 * 60 * 1000) continue;
+    const url = new URL(decodeEntities(match[1]), baseUrl).href;
+    if (!links.some((item) => item.url === url)) links.push({ url, date });
+  }
+  return links;
+}
+
+function parseShizuokaBulletin(html, url, date) {
+  const rows = String(html || '').match(/<tr\b[^>]*>[\s\S]*?<\/tr>/gi) || [];
+  const candidates = [];
+  for (const row of rows) {
+    const cells = [...row.matchAll(/<t[dh]\b[^>]*>([\s\S]*?)<\/t[dh]>/gi)].map((m) => htmlToText(m[1]));
+    if (cells.length < 4 || !/^\d+$/.test(cells[0])) continue;
+    const title = cells[1].trim();
+    const unit = cells[2].trim();
+    const body = cells.slice(3).join(' ').trim();
+    const sourceBody = `${title}。${unit}警察署発表。${body}`;
+    if (!/(?:国籍|外国籍|外国人|中国籍|韓国籍|ベトナム籍|フィリピン籍|タイ籍|ブラジル籍|ネパール籍|イラン籍|パキスタン籍|ミャンマー籍|スリランカ籍|台湾籍|ドミニカ(?:共和国)?籍|中国人|韓国人|ベトナム人|フィリピン人|タイ人|ブラジル人|ネパール人|ペルー国籍)/.test(sourceBody)) continue;
+    const recordKey = crypto.createHash('sha256').update(`${url}\n${cells.join('\n')}`).digest('hex').slice(0, 20);
+    candidates.push({
+      id: recordKey,
+      sourceRecordId: `shizuoka-police:${recordKey}`,
+      sourceType: 'police_bulletin',
+      sourceBody,
+      url,
+      title,
+      media: '静岡県警察',
+      date,
+      pubDate: new Date(`${date}T12:00:00+09:00`).toISOString(),
+    });
+  }
+  return candidates;
+}
+
+async function collectShizuokaBulletins(httpRequest, { now = Date.now(), maxDays = 5, pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms)) } = {}) {
+  const indexResponse = await httpRequest(SHIZUOKA_INDEX, { timeoutMs: 12000, maxBytes: 800000 });
+  if (indexResponse.status < 200 || indexResponse.status >= 300) throw new Error(`shizuoka_index_http_${indexResponse.status}`);
+  const pages = parseShizuokaIndex(indexResponse.body.toString('utf8'), { now, maxDays });
+  const candidates = [];
+  for (let i = 0; i < pages.length; i++) {
+    if (i > 0) await pause(2500);
+    const response = await httpRequest(pages[i].url, { timeoutMs: 12000, maxBytes: 800000 });
+    if (response.status === 429 || response.status === 403) throw new Error(`shizuoka_bulletin_http_${response.status}`);
+    if (response.status < 200 || response.status >= 300) continue;
+    candidates.push(...parseShizuokaBulletin(response.body.toString('utf8'), pages[i].url, pages[i].date));
+  }
+  return candidates;
+}
+
+module.exports = { CHIBA_INDEX, SHIZUOKA_INDEX, parseChibaIndex, parseChibaBulletin, collectChibaBulletins, parseShizuokaIndex, parseShizuokaBulletin, collectShizuokaBulletins };

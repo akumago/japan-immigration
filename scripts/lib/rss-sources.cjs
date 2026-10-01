@@ -7,14 +7,16 @@
 const RSS_SOURCES = [
   { id: 'yahoo-domestic', name: 'Yahoo!ニュース 国内', url: 'https://news.yahoo.co.jp/rss/topics/domestic.xml', media: 'Yahoo!ニュース' },
   { id: 'yahoo-local', name: 'Yahoo!ニュース 地域', url: 'https://news.yahoo.co.jp/rss/topics/local.xml', media: 'Yahoo!ニュース' },
+  { id: 'livedoor-domestic', name: 'ライブドアニュース 国内', url: 'https://news.livedoor.com/rss/summary/8.xml', media: 'ライブドアニュース' },
   { id: 'nhk-social', name: 'NHK 社会', url: 'https://www.nhk.or.jp/rss/news/cat1.xml', media: 'NHKニュース' },
   { id: 'nhk-top', name: 'NHK 主要', url: 'https://www.nhk.or.jp/rss/news/cat0.xml', media: 'NHKニュース' },
   { id: 'nnn-latest', name: '日テレNEWS NNN', url: 'https://news.ntv.co.jp/rss/index.rdf', media: '日テレNEWS NNN' },
   { id: 'fnn-latest', name: 'FNNプライムオンライン', url: 'https://www.fnn.jp/list/feed/rss', media: 'FNNプライムオンライン' },
+  { id: 'nara-police', name: '奈良県警察 RSS', url: 'https://www.police.pref.nara.jp/rss/rss.xml', media: '奈良県警察' },
 ];
 
 const YAHOO_RSS_CATALOG = 'https://news.yahoo.co.jp/rss/';
-const LOCAL_MEDIA_NAME_RE = /新聞|放送|テレビ|ＴＶ|TV|通信社|通信|民報|民友|日報|新報|地方|地域|県紙|道新|みんなの経済新聞/i;
+const LOCAL_MEDIA_NAME_RE = /新聞|放送|テレビ|ＴＶ|TV|通信社|通信|民報|民友|日報|新報|地方|地域|県紙|道新|みんなの経済新聞|47NEWS|チバテレ|MBSニュース/i;
 const NON_NEWS_TV_RE = /ALBA TV|TV LIFE|TVガイド|ザテレビジョン|韓国TVドラマ/i;
 
 function decodeHtml(s) {

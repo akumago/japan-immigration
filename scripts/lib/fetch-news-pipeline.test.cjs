@@ -339,6 +339,21 @@ test('警察公式ソース: 千葉県警の日次事件ファイルから外国
   assert.equal(verified.location, '千葉県');
 });
 
+test('警察公式ソース: 静岡県警の直近5日掲示板から国籍記載の事件行だけを抽出する', () => {
+  const source = require('./police-bulletins.cjs');
+  const now = Date.parse('2026-10-01T03:00:00Z');
+  const index = '<a href="/police/about/kohomemo/2009040.html">9月30日</a><a href="/police/about/kohomemo/2009039.html">9月20日</a>';
+  const pages = source.parseShizuokaIndex(index, { now });
+  assert.equal(pages.length, 1);
+  assert.equal(pages[0].date, '2026-09-30');
+  const html = '<table><tr><th>番号</th><th>件名</th><th>発表所属</th><th>内容</th></tr><tr><td>1</td><td>窃盗被疑者の逮捕</td><td>富士</td><td>住宅のタイヤを盗んだとしてブラジル国籍の男（43）を逮捕しました。現場付近での捜査を続けています。</td></tr><tr><td>2</td><td>交通事故</td><td>静南</td><td>普通乗用車の事故が発生しました。</td></tr></table>';
+  const items = source.parseShizuokaBulletin(html, pages[0].url, pages[0].date);
+  assert.equal(items.length, 1);
+  assert.match(items[0].sourceBody, /ブラジル国籍/);
+  assert.equal(items[0].sourceType, 'police_bulletin');
+  assert.equal(items[0].sourceRecordId.startsWith('shizuoka-police:'), true);
+});
+
 test('直接メディア巡回: JNN・FNN・ANNの一覧から事件記事だけを本文審査候補にする', () => {
   const listings = require('./publisher-listings.cjs');
   const source = listings.SOURCES.find((s) => s.id === 'tbs-domestic');
@@ -356,7 +371,7 @@ test('直接メディア巡回: JNN・FNN・ANNの一覧から事件記事だけ
 test('独立RSS取得元: Yahoo国内・地域、NHK、NNN、FNNがGoogle検索とは別に登録される', () => {
   const { RSS_SOURCES } = require('./rss-sources.cjs');
   const ids = new Set(RSS_SOURCES.map((source) => source.id));
-  for (const id of ['yahoo-domestic', 'yahoo-local', 'nhk-social', 'nhk-top', 'nnn-latest', 'fnn-latest']) {
+  for (const id of ['yahoo-domestic', 'yahoo-local', 'livedoor-domestic', 'nhk-social', 'nhk-top', 'nnn-latest', 'fnn-latest', 'nara-police']) {
     assert.equal(ids.has(id), true, `${id} の公式RSS経路が登録される`);
   }
   assert.ok(RSS_SOURCES.every((source) => source.url.startsWith('https://')));
@@ -364,9 +379,12 @@ test('独立RSS取得元: Yahoo国内・地域、NHK、NNN、FNNがGoogle検索�
 
 test('Yahoo!公式RSS一覧: 地方メディアの提供元フィードを動的に抽出し、2巡回枠へ重複なく分割する', () => {
   const sources = require('./rss-sources.cjs');
-  const html = '<a href="/rss/media/doshin/all.xml">北海道新聞</a><a href="/rss/media/at_s/all.xml">静岡新聞DIGITAL</a><a href="/rss/media/tssv/all.xml">テレビ新広島</a><a href="/rss/media/idol/all.xml">TV LIFE web</a>';
+  const html = '<a href="/rss/media/doshin/all.xml">北海道新聞</a><a href="/rss/media/at_s/all.xml">静岡新聞DIGITAL</a><a href="/rss/media/tssv/all.xml">テレビ新広島</a><a href="/rss/media/yonnana/all.xml">47NEWS</a><a href="/rss/media/chibatele/all.xml">チバテレ</a><a href="/rss/media/mbsnews/all.xml">MBSニュース</a><a href="/rss/media/idol/all.xml">TV LIFE web</a>';
   const feeds = sources.parseYahooMediaCatalog(html);
-  assert.equal(feeds.length, 3);
+  assert.equal(feeds.length, 6);
+  assert.ok(feeds.some((x) => x.id === 'yahoo-media-yonnana'));
+  assert.ok(feeds.some((x) => x.id === 'yahoo-media-chibatele'));
+  assert.ok(feeds.some((x) => x.id === 'yahoo-media-mbsnews'));
   const first = sources.selectYahooMediaShard(feeds, { now: Date.parse('2026-10-01T00:00:00Z'), shardCount: 2 });
   const second = sources.selectYahooMediaShard(feeds, { now: Date.parse('2026-10-01T01:00:00Z'), shardCount: 2 });
   assert.equal(first.length + second.length, feeds.length);
