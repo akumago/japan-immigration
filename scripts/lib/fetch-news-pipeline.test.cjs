@@ -320,6 +320,14 @@ test('本文判定: 熱海市での覚醒剤所持と逮捕された韓国籍の
   assert.equal(result.location, '静岡県');
 });
 
+test('本文判定: 「台湾の男」を認識し、本文の別件で日本人が逮捕されても対象外国籍被疑者を落とさない', () => {
+  const body = '東京都新宿区の住宅に侵入して金品を盗んだとして、台湾の男（57）を窃盗容疑で逮捕しました。別の事件では日本人の男も逮捕されたと発表されました。';
+  const result = gate.verifyArticleContent(body, '新宿区の住宅侵入 台湾の男を逮捕');
+  assert.equal(result.verified, true);
+  assert.equal(result.location, '東京都');
+  assert.equal(result.audit.foreignNationality.verified, true);
+});
+
 test('警察公式ソース: 千葉県警の日次事件ファイルから外国籍候補を事件ごとに抽出する', () => {
   const source = require('./police-bulletins.cjs');
   const index = '<a href="orders_prefecture_03776.html">最新事件・事故ファイル（2026年9月30日）</a>';
@@ -366,6 +374,20 @@ test('直接メディア巡回: JNN・FNN・ANNの一覧から事件記事だけ
   assert.equal(items[0].url, 'https://newsdig.tbs.co.jp/articles/-/123');
   assert.equal(items[0].pubDate, new Date(now - 5 * 60 * 1000).toISOString());
   assert.equal(items[0].date, '2026-10-01');
+});
+
+test('直接メディア巡回: 時事通信の記事IDクエリを保持し、静岡FNN一覧を候補化する', () => {
+  const listings = require('./publisher-listings.cjs');
+  const jiji = listings.SOURCES.find((source) => source.id === 'jiji-society');
+  const jijiHtml = '<a href="/jc/article?k=2026100100123">中国籍の男を窃盗容疑で逮捕　東京</a><a href="/jc/article?k=2026100100456">ベトナム人の男を詐欺容疑で逮捕　千葉</a>';
+  const jijiItems = listings.parseListing(jijiHtml, jiji, { now: Date.parse('2026-10-01T00:00:00Z') });
+  assert.equal(jijiItems.length, 2, '記事IDクエリが異なる記事を同じURLに畳まない');
+  assert.ok(jijiItems.every((item) => item.url.includes('?k=')));
+
+  const fnn = listings.SOURCES.find((source) => source.id === 'fnn-shizuoka');
+  const fnnItems = listings.parseListing('<a href="/articles/-/123456">浜松市で中国籍の男を窃盗容疑で逮捕</a>', fnn);
+  assert.equal(fnnItems.length, 1);
+  assert.equal(fnnItems[0].url, 'https://www.fnn.jp/articles/-/123456');
 });
 
 test('独立RSS取得元: Yahoo国内・地域、NHK、NNN、FNNがGoogle検索とは別に登録される', () => {
@@ -446,6 +468,43 @@ test('重複照合: 新潟・三条市のタイヤ窃盗は媒体が違っても
     audit: { suspectRole: { evidence: '新潟県三条市で住宅の車庫からタイヤ4本を盗んだとして、ブラジル国籍の男が逮捕されました。' } },
   };
   assert.equal(fetchNews.eventFingerprint(existing), fetchNews.eventFingerprint(syndicated));
+});
+
+test('重複照合: 検証済み国籍の本文根拠を使い、台湾の事件指紋も永続キーとして保持できる', () => {
+  const fetchNews = require('../fetch-news.cjs');
+  const verified = {
+    title: '新宿区の住宅窃盗 台湾の男を逮捕',
+    date: '2026-10-01',
+    audit: {
+      suspectRole: { evidence: '東京都新宿区の住宅に侵入し金品を盗んだとして、台湾の男を逮捕しました。' },
+      foreignNationality: { verified: true, evidence: '本文抜粋: 台湾' },
+    },
+  };
+  const key = fetchNews.eventFingerprint(verified);
+  assert.match(key, /^event-v1:[a-f0-9]{64}$/);
+  assert.equal(fetchNews.eventFingerprint({ eventKey: key }), key);
+});
+
+test('同一事件の掲載元選定: Google News中継よりポータル、ポータルより報道元URLを優先する', () => {
+  const fetchNews = require('../fetch-news.cjs');
+  assert.ok(fetchNews.publicationSourceRank('https://news.google.com/rss/articles/example')
+    < fetchNews.publicationSourceRank('https://news.livedoor.com/article/detail/123/'));
+  assert.ok(fetchNews.publicationSourceRank('https://news.livedoor.com/article/detail/123/')
+    < fetchNews.publicationSourceRank('https://www.fnn.jp/articles/-/123'));
+});
+
+test('キュー配分: 明示外国籍候補75%・広域発見候補25%を確保し、各枠の古い候補も審査する', () => {
+  const fetchNews = require('../fetch-news.cjs');
+  const queue = [
+    { id: 'explicit-new', candidateLane: 'explicit_foreign', pubDate: '2026-10-02T01:00:00Z' },
+    { id: 'explicit-mid', candidateLane: 'explicit_foreign', pubDate: '2026-09-30T01:00:00Z' },
+    { id: 'explicit-old', candidateLane: 'explicit_foreign', pubDate: '2026-09-28T01:00:00Z' },
+    { id: 'broad-new', candidateLane: 'broad_discovery', pubDate: '2026-10-01T01:00:00Z' },
+    { id: 'broad-old', candidateLane: 'broad_discovery', pubDate: '2026-09-27T01:00:00Z' },
+  ];
+  const selected = fetchNews.prioritizeCandidateLanes(queue, 4);
+  assert.equal(selected.length, 4);
+  assert.deepEqual(selected.map((item) => item.id), ['explicit-new', 'explicit-old', 'explicit-mid', 'broad-new']);
 });
 
 test('キュー選定: 公開日時の新しい未処理記事を先に審査し、古い候補に新着を埋もれさせない', () => {
@@ -555,11 +614,20 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
                 <pubDate>${new Date().toUTCString()}</pubDate>
                 <description>群馬県前橋市でブラジル国籍の男逮捕</description>
               </item>
+              <item>
+                <title>大泉町の住宅侵入 ブラジル国籍の工員を窃盗容疑で逮捕（別媒体配信）</title>
+                <link>http://127.0.0.1:${server.address().port}/article-legit-duplicate</link>
+                <pubDate>${new Date().toUTCString()}</pubDate>
+                <description>群馬県大泉町の住宅侵入、ブラジル国籍の男を逮捕</description>
+              </item>
             </channel>
           </rss>`;
         res.writeHead(200, { 'Content-Type': 'application/xml; charset=utf-8' });
         res.end(rssXml);
       } else if (u.pathname === '/article-legit') {
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(legitArticleHtml);
+      } else if (u.pathname === '/article-legit-duplicate') {
         res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
         res.end(legitArticleHtml);
       } else if (u.pathname === '/article-meta-only') {
@@ -611,7 +679,7 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
     await fetchNews.main();
 
     // 1. 公開データ（newsData.json）の検証
-    // 正当記事2件（通常長文 + 100文字境界記事）が追加され、既存2件と合わせて合計4件になること
+    // 正当事件2件（長文記事は媒体違い候補を1件に統合 + 100文字境界記事）が追加され、合計4件になること
     const updatedData = JSON.parse(fs.readFileSync(testNewsDataPath, 'utf-8'));
     assert.equal(updatedData.length, 4, '通常長文記事と100文字記事の2件のみが追加され合計4件になること');
 
@@ -648,6 +716,14 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
     const legitQueueItem = updatedQueue.items.find((i) => i.title.includes('ブラジル国籍の男を逮捕 群馬県警'));
     assert.ok(legitQueueItem, '正当記事がキューに存在すること');
     assert.equal(legitQueueItem.status, 'verified', '正当記事は verified になること');
+
+    const duplicateQueueItem = updatedQueue.items.find((i) => i.url.includes('article-legit-duplicate'));
+    assert.ok(duplicateQueueItem, '別媒体相当の同一事件候補がキューに登録されること');
+    assert.equal(duplicateQueueItem.status, 'verified', '同一事件候補も本文根拠で verified になること');
+    assert.equal(updatedData.filter((a) => /article-legit(?:-duplicate)?/.test(a.url || '')).length, 1,
+      '媒体違いの同一事件は公開配列に1件だけ残ること');
+    assert.ok(updatedData.slice(0, 2).every((article) => /^event-v1:[a-f0-9]{64}$/.test(article.eventKey || '')),
+      '新規記事の事件指紋ハッシュが後続実行用に保存されること');
 
     // メタ説明文記事の検証
     const metaQueueItem = updatedQueue.items.find((i) => i.title.includes('中国籍'));

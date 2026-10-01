@@ -7,6 +7,8 @@ const crypto = require('crypto');
 const SOURCES = [
   { id: 'tbs-domestic', name: 'TBS NEWS DIG（JNN地域局）', url: 'https://newsdig.tbs.co.jp/list/genre/%E5%9B%BD%E5%86%85', host: 'newsdig.tbs.co.jp', path: /\/articles\/-\//, pages: 3 },
   { id: 'tv-asahi-society', name: 'テレ朝NEWS（事件・社会）', url: 'https://news.tv-asahi.co.jp/news_society/', host: 'news.tv-asahi.co.jp', path: /\/news_society\/articles\// },
+  { id: 'jiji-society', name: '時事通信（社会）', url: 'https://www.jiji.com/jc/c?g=soc', host: 'www.jiji.com', path: /\/jc\/article/, preserveQuery: true },
+  { id: 'fnn-shizuoka', name: 'FNNプライムオンライン（テレビ静岡）', url: 'https://www.fnn.jp/category/news-sut', host: 'www.fnn.jp', path: /\/articles\/-\// },
 ];
 
 const CRIME_RE = /逮捕|再逮捕|起訴|書類送検|送検|送致|摘発|検挙|容疑|疑い|事件|窃盗|強盗|詐欺|暴行|傷害|殺人|覚醒剤|麻薬|密輸|不法残留|不法就労|盗撮|わいせつ|飲酒運転|ひき逃げ|横領|放火|侵入|賭博|売春|風営法|入管法/;
@@ -36,7 +38,7 @@ function parseListing(html, source, { now = Date.now() } = {}) {
     if (url.hostname !== source.host || !source.path.test(url.pathname)) continue;
     const title = textOf(m[4]);
     if (title.length < 12 || !CRIME_RE.test(title)) continue;
-    const normalized = `${url.origin}${url.pathname}`;
+    const normalized = source.preserveQuery && url.search ? `${url.origin}${url.pathname}${url.search}` : `${url.origin}${url.pathname}`;
     if (seen.has(normalized)) continue;
     seen.add(normalized);
     const id = crypto.createHash('sha256').update(normalized).digest('hex').slice(0, 16);

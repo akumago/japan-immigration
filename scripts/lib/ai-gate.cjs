@@ -66,7 +66,9 @@ const COUNTRY_NAMES = [
 ];
 const COUNTRY_ALT = [...COUNTRY_NAMES].sort((a, b) => b.length - a.length).map(esc).join('|');
 const NAT_SOURCE =
-  `(?:${COUNTRY_ALT})(?:国籍|籍|人|出身)` +
+  // 「台湾の男」「イランの女性」のように、国籍語の「国籍/人」が省略される報道表現も拾う。
+  // 国名だけの一致を許すが、後段の nationalityLinkedToSuspect が直後の人物語＋刑事手続との結合を必須にする。
+  `(?:${COUNTRY_ALT})(?:(?:国籍|籍|人|出身)|(?=の?(?:男|女|男性|女性|少年|少女|容疑者|被告)))` +
   `|[ァ-ヴー]{2,}(?:国籍|籍の)` +
   `|外国籍|外国人|外国出身` +
   `|国籍(?:は|が|を|の)(?:${COUNTRY_ALT})|特別永住者|永住者` + // 本文の言い回し（「男の国籍は韓国」「特別永住者」）
@@ -628,14 +630,9 @@ function verifyArticleContent(text, title = '') {
     return result;
   }
 
-  // 2. 日本人被疑者の積極的除外（本文 text のみ）
-  if (isJapaneseArrestee(text)) {
-    result.rejected = true;
-    result.rejectReason = 'suspect_is_japanese';
-    return result;
-  }
-
-  // 3. 文脈結合による外国籍被疑者の検証（本文 sentences のみ）
+  // 2. 文脈結合による外国籍被疑者の検証（本文 sentences のみ）
+  // 記事全体に対する「日本人逮捕」判定は使わない。別件・共犯者・引用中の日本人記述で
+  // 外国籍被疑者の記事全体を誤って落とし得るため、外国籍表現ごとに同一文内の役割を確認する。
   // 被疑者文には逮捕・容疑・送検・起訴・有罪などの刑事手続語・犯罪述語が同一文内に存在することを必須化
   const CRIME_PREDICATE_RE = /(?:逮捕|容疑|疑い|送検|送致|起訴|判決|求刑|摘発|指名手配|検挙|立件|有罪|被告|被疑者|現行犯|身柄|拘束|書類送検|再逮捕|罰金|勾留|実刑|懲役)/;
   const sentences = text.split(/(?<=[。！？\n])/).map((s) => s.trim()).filter(Boolean);
