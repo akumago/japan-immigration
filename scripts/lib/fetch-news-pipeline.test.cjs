@@ -320,6 +320,86 @@ test('本文判定: 熱海市での覚醒剤所持と逮捕された韓国籍の
   assert.equal(result.location, '静岡県');
 });
 
+test('警察公式ソース: 千葉県警の日次事件ファイルから外国籍候補を事件ごとに抽出する', () => {
+  const source = require('./police-bulletins.cjs');
+  const index = '<a href="orders_prefecture_03776.html">最新事件・事故ファイル（2026年9月30日）</a>';
+  const pages = source.parseChibaIndex(index);
+  assert.equal(pages.length, 1);
+  assert.equal(pages[0].url, 'https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03776.html');
+  const html = '<main><h1>最新事件・事故ファイル（2026年9月30日）</h1><p>・性的姿態撮影等処罰法違反(性的姿態等撮影未遂)事件で男を逮捕（流山警察署）</p><p>　9月30日午前10時20分頃、東武野田線江戸川台駅西口上りエスカレーター上で、後方から女性(20歳代)に近づき、手に持っていたスマートフォンをスカートの下方に差し入れ撮影しようとした中国国籍の男(30)を同日逮捕</p><p>・交通重傷事故で女を逮捕（四街道警察署）</p><p>　会社員の女(52)を逮捕</p><a>前のページに戻る</a></main>';
+  const items = source.parseChibaBulletin(html, pages[0].url);
+  assert.equal(items.length, 1);
+  assert.match(items[0].title, /性的姿態撮影/);
+  assert.match(items[0].sourceBody, /中国国籍/);
+  assert.equal(items[0].sourceType, 'police_bulletin');
+  assert.equal(items[0].date, '2026-09-30');
+  const gate = require('./ai-gate.cjs');
+  const verified = gate.verifyArticleContent(items[0].sourceBody, items[0].title);
+  assert.equal(verified.verified, true);
+  assert.equal(verified.location, '千葉県');
+});
+
+test('直接メディア巡回: JNN・FNN・ANNの一覧から事件記事だけを本文審査候補にする', () => {
+  const listings = require('./publisher-listings.cjs');
+  const source = listings.SOURCES.find((s) => s.id === 'tbs-domestic');
+  const html = '<a href="/articles/-/123">中国籍の男を窃盗容疑で逮捕　新潟・三条市</a><span>5分前</span><a href="/articles/-/124">外国人観光客が増加</a><a href="/articles/-/123">中国籍の男を窃盗容疑で逮捕　新潟・三条市</a>';
+  const now = Date.parse('2026-10-01T00:05:00Z');
+  const items = listings.parseListing(html, source, { now });
+  assert.equal(items.length, 1);
+  assert.match(items[0].title, /中国籍/);
+  assert.equal(items[0].sourceType, 'publisher_listing');
+  assert.equal(items[0].url, 'https://newsdig.tbs.co.jp/articles/-/123');
+  assert.equal(items[0].pubDate, new Date(now - 5 * 60 * 1000).toISOString());
+  assert.equal(items[0].date, '2026-10-01');
+});
+
+test('独立RSS取得元: Yahoo国内・地域、NHK、NNN、FNNがGoogle検索とは別に登録される', () => {
+  const { RSS_SOURCES } = require('./rss-sources.cjs');
+  const ids = new Set(RSS_SOURCES.map((source) => source.id));
+  for (const id of ['yahoo-domestic', 'yahoo-local', 'nhk-social', 'nhk-top', 'nnn-latest', 'fnn-latest']) {
+    assert.equal(ids.has(id), true, `${id} の公式RSS経路が登録される`);
+  }
+  assert.ok(RSS_SOURCES.every((source) => source.url.startsWith('https://')));
+});
+
+test('Yahoo!公式RSS一覧: 地方メディアの提供元フィードを動的に抽出し、2巡回枠へ重複なく分割する', () => {
+  const sources = require('./rss-sources.cjs');
+  const html = '<a href="/rss/media/doshin/all.xml">北海道新聞</a><a href="/rss/media/at_s/all.xml">静岡新聞DIGITAL</a><a href="/rss/media/tssv/all.xml">テレビ新広島</a><a href="/rss/media/idol/all.xml">TV LIFE web</a>';
+  const feeds = sources.parseYahooMediaCatalog(html);
+  assert.equal(feeds.length, 3);
+  const first = sources.selectYahooMediaShard(feeds, { now: Date.parse('2026-10-01T00:00:00Z'), shardCount: 2 });
+  const second = sources.selectYahooMediaShard(feeds, { now: Date.parse('2026-10-01T01:00:00Z'), shardCount: 2 });
+  assert.equal(first.length + second.length, feeds.length);
+  assert.equal(first.some((x) => second.some((y) => x.id === y.id)), false);
+});
+
+test('独立RSS取得元: ある媒体が失敗しても別媒体の候補を保持し、取得状態を記録する', async () => {
+  const { collectOfficialRss } = require('./rss-sources.cjs');
+  const sources = [
+    { id: 'ok', url: 'https://ok.example/rss', media: 'test media' },
+    { id: 'bad', url: 'https://bad.example/rss', media: 'bad media' },
+  ];
+  const result = await collectOfficialRss(
+    async (url) => { if (url.includes('bad')) throw new Error('http_503'); return '<rss></rss>'; },
+    () => [{ id: 'item-1', media: '新聞・報道' }],
+    { sources, pause: async () => {}, logger: { log() {}, error() {} } },
+  );
+  assert.equal(result.items.length, 1);
+  assert.equal(result.items[0].media, 'test media');
+  assert.equal(result.items[0].sourceId, 'ok');
+  assert.deepEqual(result.status.map((x) => x.ok), [true, false]);
+});
+
+test('RSS 1.0: RDF形式の日テレ公式フィードも候補として解析し、配信日時を保持する', () => {
+  const fetchNews = require('../fetch-news.cjs');
+  const rdf = '<?xml version="1.0"?><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><item rdf:about="https://news.ntv.co.jp/n/abc"><title>中国籍の男を窃盗容疑で逮捕　新潟県三条市</title><dc:date>2026-10-01T10:00:00+09:00</dc:date></item></rdf:RDF>';
+  const items = fetchNews.extractItemsFromRSS(rdf);
+  assert.equal(items.length, 1);
+  assert.match(items[0].title, /中国籍/);
+  assert.equal(items[0].url, 'https://news.ntv.co.jp/n/abc');
+  assert.equal(new Date(items[0].pubDate).toISOString(), '2026-10-01T01:00:00.000Z');
+});
+
 test('重複照合: 媒体が違っても同一の富士市・覚醒剤製造・イラン国籍事件は同じ指紋になる', () => {
   const fetchNews = require('../fetch-news.cjs');
   const livedoor = {

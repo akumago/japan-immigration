@@ -5,6 +5,9 @@ const https = require('https');
 const crypto = require('crypto');
 const gate = require('./lib/ai-gate.cjs');
 const articleFetcher = require('./lib/article-fetcher.cjs');
+const policeBulletins = require('./lib/police-bulletins.cjs');
+const publisherListings = require('./lib/publisher-listings.cjs');
+const rssSources = require('./lib/rss-sources.cjs');
 const SHADOW_MODE = process.env.SHADOW_MODE === '1'; // 既定は本番稼働（1を明示したときだけシャドー）
 
 const getNewsDataPath = () => process.env.NEWS_DATA_PATH || path.join(__dirname, '../data/newsData.json');
@@ -437,15 +440,25 @@ function fetchRSS(url, redirectCount = 0) {
   if (redirectCount > 5) return Promise.reject(new Error('Too many redirects'));
   return new Promise((resolve, reject) => {
     const client = String(url).startsWith('http://') ? http : https;
-    client.get(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' } }, (res) => {
+    const req = client.get(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', Accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*' } }, (res) => {
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        resolve(fetchRSS(res.headers.location, redirectCount + 1));
+        const nextUrl = new URL(res.headers.location, url).href;
+        res.resume();
+        fetchRSS(nextUrl, redirectCount + 1).then(resolve, reject);
+        return;
+      }
+      if (res.statusCode < 200 || res.statusCode >= 300) {
+        res.resume();
+        reject(new Error(`RSS HTTP ${res.statusCode}`));
         return;
       }
       const chunks = [];
       res.on('data', chunk => chunks.push(chunk));
       res.on('end', () => resolve(Buffer.concat(chunks).toString('utf-8')));
-    }).on('error', err => reject(err));
+      res.on('error', reject);
+    });
+    req.setTimeout(15000, () => req.destroy(new Error('RSS request timeout')));
+    req.on('error', reject);
   });
 }
 
@@ -1259,17 +1272,19 @@ function cleanTitleText(t) {
 
 function extractItemsFromRSS(xml) {
   const items = [];
-  const itemMatches = xml.match(/<item>[\s\S]*?<\/item>/gi) || [];
+  // RSS 1.0/RDF feeds attach rdf:about attributes to <item>; accept both RDF and RSS 2.0.
+  const itemMatches = xml.match(/<item\b[^>]*>[\s\S]*?<\/item>/gi) || [];
 
   for (const itemXml of itemMatches) {
     const titleMatch = itemXml.match(/<title>([\s\S]*?)<\/title>/i);
     const linkMatch = itemXml.match(/<link>([\s\S]*?)<\/link>/i);
-    const pubDateMatch = itemXml.match(/<pubDate>([\s\S]*?)<\/pubDate>/i);
+    const pubDateMatch = itemXml.match(/<(?:pubDate|dc:date|date|updated|published)\b[^>]*>([\s\S]*?)<\/(?:pubDate|dc:date|date|updated|published)>/i);
     const descMatch = itemXml.match(/<description>([\s\S]*?)<\/description>/i);
 
-    if (titleMatch && linkMatch) {
+    if (titleMatch && (linkMatch || /\brdf:about=["'][^"']+["']/i.test(itemXml))) {
       let rawTitle = titleMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim();
-      let link = linkMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim();
+      const aboutMatch = itemXml.match(/\brdf:about=["']([^"']+)["']/i);
+      let link = (linkMatch ? linkMatch[1] : aboutMatch[1]).replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim();
       let pubDate = pubDateMatch ? pubDateMatch[1].trim() : new Date().toUTCString();
       let rawDesc = descMatch ? descMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').replace(/<[^>]+>/g, '').trim() : '';
 
@@ -1463,6 +1478,8 @@ async function main() {
 
   let fetchedItems = [];
   let successCount = 0;
+  let supplementalSuccessCount = 0;
+  const sourceHealth = [];
 
   const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -1482,9 +1499,79 @@ async function main() {
     }
     if (queryDelay > 0) await sleep(queryDelay);
   }
+  sourceHealth.push({ id: 'google-news-rss', ok: successCount === queriesToRun.length, successes: successCount, total: queriesToRun.length });
 
-  if (successCount === 0) {
-    throw new Error('All RSS fetch attempts failed.');
+  // Google Newsとは独立した公式RSSを巡回する。RSSごとの障害は個別記録し、
+  // 取得できた他ソースの処理は続ける。候補は既存の本文ゲートに合流させる。
+  if (!process.env.TEST_SEARCH_QUERIES && process.env.PUBLISHER_RSS !== '0') {
+    const directFeeds = await rssSources.collectOfficialRss(
+      fetchRSS,
+      extractItemsFromRSS,
+      { pause: () => sleep(500), logger: console },
+    );
+    fetchedItems.push(...directFeeds.items);
+    sourceHealth.push(...directFeeds.status);
+    supplementalSuccessCount += directFeeds.status.filter((s) => s.ok).length;
+
+    // Yahoo!公式RSS一覧から地方紙・地方局などの提供元フィードを抽出。
+    // 件数が多いため2時間で全件を一巡し、各提供元は公式RSSで1秒間隔に巡回する。
+    try {
+      const catalogXml = await fetchRSS(rssSources.YAHOO_RSS_CATALOG);
+      const providerFeeds = rssSources.parseYahooMediaCatalog(catalogXml);
+      if (!providerFeeds.length) throw new Error('yahoo_media_catalog_empty');
+      const shard = rssSources.selectYahooMediaShard(providerFeeds, { now: Date.now(), shardCount: 2 });
+      const providerResult = await rssSources.collectOfficialRss(
+        fetchRSS,
+        extractItemsFromRSS,
+        { sources: shard, pause: () => sleep(1000), stopOnRateLimit: true, logger: console },
+      );
+      fetchedItems.push(...providerResult.items);
+      const providerSuccesses = providerResult.status.filter((s) => s.ok).length;
+      supplementalSuccessCount += providerSuccesses;
+      const providerFailures = providerResult.status.filter((s) => !s.ok && s.error !== 'circuit_breaker_skipped');
+      sourceHealth.push({
+        id: `yahoo-media-rss-shard-${Math.floor(Date.now() / 3_600_000) % 2 + 1}`,
+        ok: providerSuccesses === shard.length,
+        successes: providerSuccesses,
+        total: shard.length,
+        candidates: providerResult.items.length,
+        error: providerFailures.slice(0, 8).map((s) => `${s.id}:${s.error}`).join(', ')
+          || (providerSuccesses < shard.length ? 'circuit_breaker_skipped' : ''),
+      });
+      console.log(`🗞️ Yahoo!提供元RSS: ${providerFeeds.length}媒体を登録、今時の巡回 ${providerSuccesses}/${shard.length}件、候補 ${providerResult.items.length}件`);
+    } catch (err) {
+      console.error(`Yahoo!提供元RSS一覧取得失敗: ${err.message}`);
+      sourceHealth.push({ id: 'yahoo-media-rss-catalog', ok: false, error: err.message });
+    }
+  }
+
+  // Google Newsに載らない警察公式の事件発表も別経路で補完する。
+  // テストでは外部ネットワークへ出ず、公式発表側の取得失敗もRSS収集を止めない。
+  if (!process.env.TEST_SEARCH_QUERIES && process.env.POLICE_BULLETINS !== '0') {
+    try {
+      const officialItems = await policeBulletins.collectChibaBulletins(articleFetcher.httpRequest);
+      fetchedItems.push(...officialItems);
+      console.log(`🚓 千葉県警公式発表: ${officialItems.length} 件の外国籍記載候補`);
+      supplementalSuccessCount++;
+      sourceHealth.push({ id: 'chiba-police-bulletins', ok: true, candidates: officialItems.length });
+    } catch (err) {
+      console.error(`千葉県警公式発表の取得失敗（RSS収集は継続）: ${err.message}`);
+      sourceHealth.push({ id: 'chiba-police-bulletins', ok: false, error: err.message });
+    }
+  }
+  if (!process.env.TEST_SEARCH_QUERIES && process.env.PUBLISHER_LISTINGS !== '0') {
+    const direct = await publisherListings.collectPublisherCandidates(articleFetcher.httpRequest);
+    fetchedItems.push(...direct.items);
+    sourceHealth.push(...direct.status);
+    supplementalSuccessCount += direct.status.filter((s) => s.ok).length;
+  }
+  if (!process.env.TEST_SEARCH_QUERIES && process.env.GITHUB_STEP_SUMMARY && sourceHealth.length) {
+    const rows = sourceHealth.map((s) => `| ${s.id} | ${s.ok ? 'OK' : 'FAILED'} | ${s.candidates ?? `${s.successes ?? 0}/${s.total ?? 0}`} | ${s.error || ''} |`).join('\n');
+    fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `\n## ニュース取得元の稼働状況\n\n| Source | Status | Candidates / success | Detail |\n|---|---:|---:|---|\n${rows}\n`);
+  }
+
+  if (successCount === 0 && supplementalSuccessCount === 0) {
+    throw new Error('All news sources failed; refusing to report a successful empty collection.');
   }
 
   // --- 重複排除（正規化URLによる一意化） ---
@@ -1492,9 +1579,10 @@ async function main() {
   const seenUrls = new Set();
   for (const item of fetchedItems) {
     const norm = normalizeArticleUrl(item.url);
-    if (!norm) continue;
-    if (!seenUrls.has(norm)) {
-      seenUrls.add(norm);
+    const identity = item.sourceRecordId || norm;
+    if (!identity) continue;
+    if (!seenUrls.has(identity)) {
+      seenUrls.add(identity);
       uniqueItems.push(item);
     }
   }
@@ -1517,7 +1605,10 @@ async function main() {
 
   // 既存記事のURL（元URL・解決後URL）をSet化
   const existingNormUrls = new Set();
+  const existingIds = new Set();
   for (const ex of frozenExisting) {
+    if (ex.id) existingIds.add(ex.id);
+    if (ex.sourceRecordId) existingIds.add(ex.sourceRecordId);
     if (ex.url) existingNormUrls.add(normalizeArticleUrl(ex.url));
     if (ex.resolvedUrl) existingNormUrls.add(normalizeArticleUrl(ex.resolvedUrl));
   }
@@ -1552,6 +1643,7 @@ async function main() {
   // 2. キューに存在するURLのSetを作成
   const queueNormUrls = new Set();
   for (const qItem of queue.items) {
+    if (qItem.sourceRecordId) queueNormUrls.add(`source:${qItem.sourceRecordId}`);
     if (qItem.url) queueNormUrls.add(normalizeArticleUrl(qItem.url));
     if (qItem.resolvedUrl) queueNormUrls.add(normalizeArticleUrl(qItem.resolvedUrl));
   }
@@ -1560,12 +1652,13 @@ async function main() {
   let newlyEnqueued = 0;
   for (const item of uniqueItems) {
     const norm = normalizeArticleUrl(item.url);
-    if (!norm) continue;
-    if (existingNormUrls.has(norm) || queueNormUrls.has(norm)) {
+    const identity = item.sourceRecordId ? `source:${item.sourceRecordId}` : norm;
+    if (!identity) continue;
+    if ((item.sourceRecordId ? existingIds.has(item.sourceRecordId) || existingIds.has(item.id) : existingNormUrls.has(norm)) || queueNormUrls.has(identity)) {
       continue;
     }
 
-    queueNormUrls.add(norm);
+    queueNormUrls.add(identity);
     queue.items.push({
       id: item.id,
       url: item.url,
@@ -1582,6 +1675,10 @@ async function main() {
       location: item.location,
       media: item.media,
       date: item.date,
+      sourceRecordId: item.sourceRecordId || null,
+      sourceType: item.sourceType || null,
+      sourceId: item.sourceId || null,
+      sourceBody: item.sourceBody || null,
     });
     newlyEnqueued++;
   }
@@ -1646,12 +1743,14 @@ async function main() {
 
       console.log(`\n📄 [本文検証] 審査開始: ${qItem.title.slice(0, 40)}... (試行 ${qItem.attempts}回目)`);
 
-      const scanItem = { url: qItem.url, title: qItem.title };
-      await scanner.scan([scanItem]);
-
-      const scanResult = scanItem._scanResult;
-      if (scanItem.resolvedUrl) {
-        qItem.resolvedUrl = scanItem.resolvedUrl;
+      let scanResult;
+      if (qItem.sourceBody) {
+        scanResult = { ok: true, text: qItem.sourceBody, resolvedUrl: qItem.url };
+      } else {
+        const scanItem = { url: qItem.url, title: qItem.title };
+        await scanner.scan([scanItem]);
+        scanResult = scanItem._scanResult;
+        if (scanItem.resolvedUrl) qItem.resolvedUrl = scanItem.resolvedUrl;
       }
 
       if (!scanResult || !scanResult.ok) {
@@ -1727,12 +1826,12 @@ async function main() {
     const normResolved = v.resolvedUrl ? normalizeArticleUrl(v.resolvedUrl) : null;
 
     // 1. 既存掲載データとの照合
-    if (existingNormUrls.has(normUrl) || (normResolved && existingNormUrls.has(normResolved))) {
+    if (existingIds.has(v.id) || (v.sourceRecordId && existingIds.has(v.sourceRecordId)) || (!v.sourceRecordId && (existingNormUrls.has(normUrl) || (normResolved && existingNormUrls.has(normResolved))))) {
       continue;
     }
 
     // 2. 今回バッチ内の合格記事同士の重複照合
-    if (seenBatchUrls.has(normUrl) || (normResolved && seenBatchUrls.has(normResolved))) {
+    if (!v.sourceRecordId && (seenBatchUrls.has(normUrl) || (normResolved && seenBatchUrls.has(normResolved)))) {
       console.log(`   ⏩ バッチ内重複除外: ${v.title}`);
       continue;
     }
@@ -1746,8 +1845,10 @@ async function main() {
     }
     if (fingerprint) knownEvents.push({ fingerprint, date: v.date });
 
-    seenBatchUrls.add(normUrl);
-    if (normResolved) seenBatchUrls.add(normResolved);
+    if (!v.sourceRecordId) {
+      seenBatchUrls.add(normUrl);
+      if (normResolved) seenBatchUrls.add(normResolved);
+    }
 
     // 公開データ用オブジェクト作成（本文抜粋 audit は著作権保護のため絶対に含めない！）
     acceptedNew.push({
@@ -1756,7 +1857,8 @@ async function main() {
       date: v.date,
       location: v.location,
       media: v.media,
-      url: v.url,
+      // Google News/RSSの中継URLではなく、本文確認時に解決した報道元のURLを公開する。
+      url: v.resolvedUrl || v.url,
       summary: `${v.location}で発生した外国人関与の事件・容疑に関する報道速報です。`,
       audited: true
     });
@@ -1797,4 +1899,7 @@ module.exports = {
   isOverseasOrEntertainmentMedia,
   eventFingerprint,
   prioritizeRecentCandidates,
+  // 公式ソース統合の単体検証用
+  _policeBulletins: policeBulletins,
+  _publisherListings: publisherListings,
 };

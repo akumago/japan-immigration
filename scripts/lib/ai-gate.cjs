@@ -538,6 +538,9 @@ const DOMESTIC_AIRPORTS = {
   '仙台空港': '宮城県', '広島空港': '広島県', '北九州空港': '福岡県'
 };
 
+// 地名辞書の語幹（例: 江戸川区→江戸川）が別地名の一部に偶然含まれるケースを補正する。
+const DOMESTIC_LANDMARKS = { '江戸川台駅': '千葉県' };
+
 // 警察署・捜査機関および居住地・出身地の表記を除去
 function cleanPoliceAndResidence(str) {
   return str
@@ -554,6 +557,10 @@ function resolveCrimeSceneInContext(targetSentence, dict = loadMunicipalities())
   // 現場表現のキーワード（単独の「宅」は誤検知を防ぐため「〇〇宅」に限定、商業施設・アウトレット等を含む）
   const SCENE_RE = /(?:都内|道内|府内|県内|市内|町内|村内|路上|アパート|マンション|住宅|空き家|空き巣|解体工事現場|(?:[^\s、。]{1,6})宅|店舗|敷地|車内|山林|ホテル|自宅|港|空港|現場|店|駅|ヤード|倉庫|工場|ビル|施設|部屋|アウトレット|モール|商業施設|スーパー|コンビニ|駐車場|パーキング)/;
   if (!SCENE_RE.test(cleanSent)) return null;
+
+  for (const [landmark, pref] of Object.entries(DOMESTIC_LANDMARKS)) {
+    if (cleanSent.includes(landmark)) return { pref, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+  }
 
   // 1. 空港辞書の照合
   for (const [ap, pref] of Object.entries(DOMESTIC_AIRPORTS)) {
@@ -577,7 +584,9 @@ function resolveCrimeSceneInContext(targetSentence, dict = loadMunicipalities())
         if (prefs && prefs.length === 1) return { pref: prefs[0], evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
       }
       const stem = key.replace(/(?:市|区|町|村)$/, '');
-      if (stem.length >= 3 && cleanSent.includes(stem)) {
+      const stemAt = stem.length >= 3 ? cleanSent.indexOf(stem) : -1;
+      const afterStem = stemAt >= 0 ? cleanSent[stemAt + stem.length] : '';
+      if (stemAt >= 0 && (!afterStem || !/[一-龥]/.test(afterStem))) {
         const prefs = dict.map[key];
         if (prefs && prefs.length === 1) return { pref: prefs[0], evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
       }
@@ -706,6 +715,6 @@ module.exports = {
   run, verifyItem, rulesPass, ruleSuspect, ruleOnlyResponse, resolvePrefecture, titleFactsOk, isVictimSide, isJapaneseArrestee, isOverseas, natOccurrences,
   articleKey, ownText,
   setMunicipalities, loadMunicipalities, NAT_RE, CRIME_RE, CFG,
-  DOMESTIC_AIRPORTS, cleanPoliceAndResidence, resolveCrimeSceneInContext, verifyArticleContent,
+  DOMESTIC_AIRPORTS, DOMESTIC_LANDMARKS, cleanPoliceAndResidence, resolveCrimeSceneInContext, verifyArticleContent,
   nationalityLinkedToSuspect,
 };
