@@ -5,6 +5,13 @@ on:
     # 毎時17分（正時の混雑を避ける）
     - cron: '17 * * * *'
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/**'
+      - '.github/workflows/daily-news.yml'
+      - 'package.json'
+      - 'package-lock.json'
 
 # 実行の重なり（cron遅延など）でキャッシュ・Gitが競合しないようにする
 concurrency:
