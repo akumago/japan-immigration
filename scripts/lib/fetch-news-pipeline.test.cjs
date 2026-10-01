@@ -6,6 +6,7 @@ const os = require('os');
 const path = require('path');
 const gate = require('./ai-gate.cjs');
 const articleFetcher = require('./article-fetcher.cjs');
+const fetchNews = require('../fetch-news.cjs');
 
 const tmpDir = () => fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-test-'));
 
@@ -738,4 +739,260 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
       else process.env[k] = prevEnv[k];
     });
   }
+});
+
+test('pipeline 再試行 1: 短文記事の再取得と本文更新後合格', () => {
+  const now = 1_700_000_000_000;
+  const initialItem = {
+    id: 'item-short-1',
+    url: 'https://news.example.com/item1',
+    title: '大泉町で住宅侵入事件 男を逮捕',
+    pubDate: new Date(now - 3600_000).toISOString(),
+    firstSeen: new Date(now - 3600_000).toISOString(),
+    status: 'pending',
+    attempts: 1,
+    bodyHash: fetchNews.hashBody('短い本文です。'.repeat(5)), // 短文
+  };
+
+  // 初回: 短文による保留 -> scheduleQueueItem で12時間後に再試行予約
+  fetchNews.scheduleQueueItem(initialItem, { reason: 'insufficient_text_length' }, now);
+  assert.equal(initialItem.status, 'pending');
+  assert.equal(initialItem.nextAttemptAt, new Date(now + 12 * 3600 * 1000).toISOString());
+
+  // 12時間後: 再取得された本文（100文字以上、ブラジル国籍の男を逮捕）
+  const updatedBody = '群馬県大泉町で住宅侵入事件が発生しました。群馬県警はブラジル国籍の男（30）を住居侵入と窃盗の疑いで逮捕しました。警察は余罪についても詳しく調べています。捜査関係者によると容疑を認めているということです。';
+  const verifyRes = gate.verifyArticleContent(updatedBody, initialItem.title);
+  assert.equal(verifyRes.verified, true);
+  assert.equal(verifyRes.location, '群馬県');
+
+  // 本文ハッシュ更新検知
+  const newHash = fetchNews.hashBody(updatedBody);
+  assert.notEqual(newHash, initialItem.bodyHash);
+});
+
+test('pipeline 再試行 2: キャッシュ迂回確認 (forceRefresh によるバイパスと再試行上限)', async () => {
+  let fetchCallCount = 0;
+  const mockIo = {
+    get: async () => {
+      fetchCallCount++;
+      return {
+        status: 200,
+        headers: { 'content-type': 'text/html; charset=utf-8' },
+        body: '<html><body><article><p>群馬県大泉町で住宅侵入事件。群馬県警はブラジル国籍の男（30）を窃盗の疑いで逮捕しました。警察は余罪についても詳しく捜査しています。容疑者は容疑を認めています。</p></article></body></html>'
+      };
+    }
+  };
+
+  const testCachePath = path.join(tmpDir(), 'test-cache.json');
+  const scanner = articleFetcher.createScanner({
+    cachePath: testCachePath,
+    io: mockIo,
+    maxPerRun: 10,
+    findNationality: (s) => gate.ruleSuspect(s, ''),
+  });
+
+  const url = 'https://news.example.com/cached-test';
+  // 1回目: 新規取得
+  const item1 = { url, title: 'テスト1', forceRefresh: false };
+  await scanner.scan([item1]);
+  assert.equal(fetchCallCount, 1);
+
+  // 2回目: forceRefresh: false -> キャッシュがヒットしてフェッチは呼ばれない
+  const item2 = { url, title: 'テスト2', forceRefresh: false };
+  await scanner.scan([item2]);
+  assert.equal(fetchCallCount, 1);
+
+  // 3回目: forceRefresh: true -> キャッシュ迂回して新規フェッチ発行
+  const item3 = { url, title: 'テスト3', forceRefresh: true };
+  await scanner.scan([item3]);
+  assert.equal(fetchCallCount, 2);
+
+  // 2回目審査後の記事が scheduleQueueItem で unverified になり、それ以上再試行されないこと
+  const retryItem = {
+    id: 'item-retry-limit',
+    url,
+    attempts: 2, // 既に2回試行（初回＋再試行1回）
+    status: 'pending',
+  };
+  fetchNews.scheduleQueueItem(retryItem, { reason: 'suspect_identified_nationality_missing' });
+  assert.equal(retryItem.status, 'unverified', '2回試行済みの記事は unverified となり終了すること');
+});
+
+test('pipeline 再試行 3: 通信障害再試行の維持（指数バックオフと最大5回 gave_up）', () => {
+  const now = 1_700_000_000_000;
+  const errorReasons = ['timeout', 'http_429', 'http_403', 'fetch_failed', 'unreadable'];
+
+  for (const reason of errorReasons) {
+    const item = { id: `item-${reason}`, url: 'https://news.example.com/err', attempts: 1, status: 'pending' };
+
+    // 試行1回目失敗 -> +1h
+    fetchNews.scheduleQueueItem(item, { reason }, now);
+    assert.equal(item.status, 'pending');
+    assert.equal(item.nextAttemptAt, new Date(now + 1 * 3600 * 1000).toISOString());
+
+    // 試行2回目失敗 -> +3h
+    item.attempts = 2;
+    fetchNews.scheduleQueueItem(item, { reason }, now);
+    assert.equal(item.status, 'pending');
+    assert.equal(item.nextAttemptAt, new Date(now + 3 * 3600 * 1000).toISOString());
+
+    // 試行3回目失敗 -> +6h
+    item.attempts = 3;
+    fetchNews.scheduleQueueItem(item, { reason }, now);
+    assert.equal(item.status, 'pending');
+    assert.equal(item.nextAttemptAt, new Date(now + 6 * 3600 * 1000).toISOString());
+
+    // 試行4回目失敗 -> +12h
+    item.attempts = 4;
+    fetchNews.scheduleQueueItem(item, { reason }, now);
+    assert.equal(item.status, 'pending');
+    assert.equal(item.nextAttemptAt, new Date(now + 12 * 3600 * 1000).toISOString());
+
+    // 試行5回目失敗 -> gave_up
+    item.attempts = 5;
+    fetchNews.scheduleQueueItem(item, { reason }, now);
+    assert.equal(item.status, 'gave_up');
+    assert.equal(item.lastError, 'max_attempts_reached');
+  }
+});
+
+test('pipeline 再試行 4: 日本人被疑者スコープ限定（別件日本人による誤除外防止）', () => {
+  // 本文中に別件の日本人逮捕記述があるが、対象事件の被疑者はベトナム国籍
+  const textWithOtherJp = [
+    '東京都新宿区の路上で、ベトナム国籍の男（28）が強盗の疑いで警視庁に逮捕された。',
+    'なお、前日に発生した別の事件では日本人の男を逮捕している。'
+  ].join(' ');
+
+  const title = '新宿区の路上で強盗疑い 男を逮捕 警視庁';
+  const verifyRes = gate.verifyArticleContent(textWithOtherJp, title);
+  assert.equal(verifyRes.verified, true, '被疑者文が外国籍であれば別件日本人記述があっても合格すること');
+  assert.equal(verifyRes.location, '東京都');
+
+  // 国籍未記載の被疑者文があり、別件で日本人記述がある場合 -> rejected にならず suspect_identified_nationality_missing になること
+  const textNatMissing = [
+    '東京都新宿区の路上で、男（28）が強盗の疑いで警視庁に逮捕された。',
+    'なお、前日に発生した別の事件では日本人の男を逮捕している。'
+  ].join(' ');
+
+  const resNatMissing = gate.verifyArticleContent(textNatMissing, title);
+  assert.equal(resNatMissing.verified, false);
+  assert.equal(resNatMissing.rejected, false, '被疑者文に日本国籍が無ければ rejected にならないこと');
+  assert.equal(resNatMissing.pendingReason, 'suspect_identified_nationality_missing');
+});
+
+test('pipeline 再試行 5: 120時間TTLガード（残余12時間未満は再試行せず unverified）', () => {
+  const now = 1_700_000_000_000;
+
+  // 残余10時間（110時間経過）の記事
+  const oldItem = {
+    id: 'item-expiring-soon',
+    url: 'https://news.example.com/old',
+    pubDate: new Date(now - (110 * 3600 * 1000)).toISOString(),
+    attempts: 1,
+    status: 'pending',
+  };
+
+  fetchNews.scheduleQueueItem(oldItem, { reason: 'suspect_identified_nationality_missing' }, now);
+  assert.equal(oldItem.status, 'unverified', 'TTL残余12時間未満は再試行予約されず unverified になること');
+  assert.equal(oldItem.lastError, 'insufficient_ttl_for_retry');
+
+  // 残余24時間（96時間経過）の記事 -> 正常に再試行予約される
+  const validItem = {
+    id: 'item-valid-ttl',
+    url: 'https://news.example.com/valid',
+    pubDate: new Date(now - (96 * 3600 * 1000)).toISOString(),
+    attempts: 1,
+    status: 'pending',
+  };
+  fetchNews.scheduleQueueItem(validItem, { reason: 'suspect_identified_nationality_missing' }, now);
+  assert.equal(validItem.status, 'pending');
+  assert.equal(validItem.nextAttemptAt, new Date(now + 12 * 3600 * 1000).toISOString());
+});
+
+test('pipeline 再試行 6: 枠配分と上限厳守（再試行最大5件＋新規枠還元、合計最大20件）', () => {
+  const now = 1_700_000_000_000;
+  const maxScanPerRun = 20;
+
+  // ケースA: 再試行が7件、新規が25件ある場合
+  const eligibleItemsA = [];
+  for (let i = 0; i < 7; i++) {
+    eligibleItemsA.push({
+      id: `retry-${i}`,
+      url: `https://news.example.com/retry/${i}`,
+      attempts: 1,
+      status: 'pending',
+      nextAttemptAt: new Date(now - 1000).toISOString(),
+    });
+  }
+  for (let i = 0; i < 25; i++) {
+    eligibleItemsA.push({
+      id: `new-${i}`,
+      url: `https://news.example.com/new/${i}`,
+      attempts: 0,
+      status: 'pending',
+      candidateLane: i % 2 === 0 ? 'explicit' : 'broad',
+    });
+  }
+
+  const retriesA = eligibleItemsA.filter(i => i.attempts > 0 && (!i.nextAttemptAt || Date.parse(i.nextAttemptAt) <= now)).slice(0, 5);
+  const newLimitA = Math.max(0, maxScanPerRun - retriesA.length);
+  const selectedNewA = fetchNews.prioritizeCandidateLanes(eligibleItemsA.filter(i => i.attempts === 0), newLimitA);
+  const targetsA = [...retriesA, ...selectedNewA];
+
+  assert.equal(retriesA.length, 5, '再試行枠は最大5件に抑えられること');
+  assert.equal(selectedNewA.length, 15, '新規枠は 20 - 5 = 15件になること');
+  assert.equal(targetsA.length, 20, '合計は最大20件を厳守すること');
+
+  // ケースB: 再試行が2件、新規が25件ある場合（空き枠還元）
+  const eligibleItemsB = eligibleItemsA.slice(0, 2).concat(eligibleItemsA.slice(7));
+  const retriesB = eligibleItemsB.filter(i => i.attempts > 0 && (!i.nextAttemptAt || Date.parse(i.nextAttemptAt) <= now)).slice(0, 5);
+  const newLimitB = Math.max(0, maxScanPerRun - retriesB.length);
+  const selectedNewB = fetchNews.prioritizeCandidateLanes(eligibleItemsB.filter(i => i.attempts === 0), newLimitB);
+  const targetsB = [...retriesB, ...selectedNewB];
+
+  assert.equal(retriesB.length, 2);
+  assert.equal(selectedNewB.length, 18, '再試行の空き枠3件が新規枠へ還元されること');
+  assert.equal(targetsB.length, 20);
+});
+
+test('pipeline 再試行 7: sourceBody の除外（警察公式発表は再試行せず初回で終了）', () => {
+  const now = 1_700_000_000_000;
+  const policeItem = {
+    id: 'item-police-source',
+    url: 'https://police.pref.example.jp/bulletin/1',
+    sourceBody: '警察署発表。路上で窃盗事件発生、男を逮捕。',
+    attempts: 1,
+    status: 'pending',
+  };
+
+  // 国籍未記載等の根拠不足
+  fetchNews.scheduleQueueItem(policeItem, { reason: 'suspect_identified_nationality_missing' }, now);
+  assert.equal(policeItem.status, 'unverified', 'sourceBodyを持つ候補は再試行予約されず unverified で終了すること');
+  assert.equal(policeItem.nextAttemptAt, undefined);
+});
+
+test('pipeline 再試行 8: 状態分離の完全性（gave_up, rejected, unverified の混同防止）', () => {
+  const now = 1_700_000_000_000;
+
+  // 1. gave_up: 最大試行回数到達
+  const networkItem = { id: 'item-net', attempts: 5, status: 'pending' };
+  fetchNews.scheduleQueueItem(networkItem, { reason: 'timeout' }, now);
+  assert.equal(networkItem.status, 'gave_up');
+  assert.equal(networkItem.lastError, 'max_attempts_reached');
+
+  // 2. rejected: 海外事件（verifyArticleContent により除外確定）
+  const overseasBody = 'アメリカ警察はニューヨーク市内で男を逮捕しました。';
+  const rejectRes = gate.verifyArticleContent(overseasBody, 'ニューヨークで男逮捕');
+  assert.equal(rejectRes.rejected, true);
+  assert.equal(rejectRes.rejectReason, 'crime_outside_japan');
+  assert.equal(rejectRes.verified, false);
+
+  // 日本人被疑者の除外確認（isJapaneseArrestee）
+  const jpTitle = '中国人女性を暴行した疑い 日本人の男を逮捕';
+  assert.equal(gate.isJapaneseArrestee(jpTitle), true);
+
+  // 3. unverified: 容疑者役割不明、再試行不可、または再試行後の根拠不足
+  const unclearItem = { id: 'item-unclear', attempts: 1, status: 'pending' };
+  fetchNews.scheduleQueueItem(unclearItem, { reason: 'suspect_role_unclear_in_body' }, now);
+  assert.equal(unclearItem.status, 'unverified', '再試行対象外の根拠不足は unverified になること');
 });

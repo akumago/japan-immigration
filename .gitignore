@@ -30,6 +30,8 @@ data/aiDecisions.shadow.json
 data/shadowComparison.jsonl
 data/articleCache.json
 data/articleCache.json.tmp
+data/newsQueue.json
+data/newsQueue.json.tmp
 files (1)/
 files (2)/
 

@@ -651,7 +651,24 @@ function verifyArticleContent(text, title = '') {
 
   if (suspectIndex === -1) {
     result.insufficientEvidence = true;
-    result.pendingReason = 'suspect_or_nationality_unclear_in_body';
+
+    // 被疑者文（容疑者・逮捕等の記述）が存在するか文脈を精査
+    const SUSPECT_ACT_RE = /(?:男|女|男性|女性|少年|少女|容疑者|被告|工員|会社員|無職|自称|職業不詳|作業員|\d+歳|ら|[0-9０-９]+人組)[^、。]{0,25}?(?:が|を)[^、。]{0,35}?(?:逮捕|緊急逮捕|現行犯逮捕|送検|送致|書類送検|再逮捕)/;
+    const CRIME_NOUN_RE = /(?:窃盗|強盗|詐欺|暴行|傷害|殺人|覚醒剤|麻薬|密輸|不法残留|不法就労|盗撮|わいせつ|飲酒運転|ひき逃げ|横領|放火|侵入|賭博|売春|風営法|入管法)/;
+
+    const suspectSentence = sentences.find((s) => {
+      if (VICTIM_PASSIVE_RE.test(s) && !AGENT_PASSIVE_RE.test(s)) return false;
+      return SUSPECT_ACT_RE.test(s) && (CRIME_NOUN_RE.test(s) || (title && CRIME_NOUN_RE.test(title)));
+    });
+
+    // 日本人判定は、該当する被疑者文 (suspectSentence) のみにスコープを絞る
+    const isJpSuspectInContext = suspectSentence ? JP_ARRESTEE_RE.test(suspectSentence) : false;
+
+    if (suspectSentence && !isJpSuspectInContext) {
+      result.pendingReason = 'suspect_identified_nationality_missing';
+    } else {
+      result.pendingReason = 'suspect_role_unclear_in_body';
+    }
     return result;
   }
 

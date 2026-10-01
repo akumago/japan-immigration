@@ -69,6 +69,65 @@ function withinFiveDays(a, b) {
   return Number.isFinite(ta) && Number.isFinite(tb) && Math.abs(ta - tb) <= 5 * 24 * 60 * 60 * 1000;
 }
 
+// 候補記事の有効時刻を統一して判定（pubDate有効なら公開時刻、無効・未設定ならfirstSeen）
+function itemEffectiveTime(item) {
+  const pubTime = item.pubDate ? Date.parse(item.pubDate) : 0;
+  if (pubTime && !isNaN(pubTime)) return pubTime;
+  const firstSeenTime = item.firstSeen ? Date.parse(item.firstSeen) : 0;
+  return firstSeenTime && !isNaN(firstSeenTime) ? firstSeenTime : 0;
+}
+
+// 本文更新検知のための軽量ハッシュ（先頭16文字）
+function hashBody(text) {
+  if (!text) return null;
+  const normalized = text.replace(/\s+/g, ' ').trim();
+  return crypto.createHash('sha256').update(normalized).digest('hex').slice(0, 16);
+}
+
+// 2系統（通信障害 vs 続報確認）を厳密に分離した再試行スケジューラ
+function scheduleQueueItem(qItem, result, now = Date.now()) {
+  const reason = (result && result.reason) || '';
+  const NETWORK_ERROR_RE = /^(?:timeout|http_429|http_403|fetch_failed|google_network|empty_text|unreadable)$/;
+  const RETRYABLE_EDITORIAL_RE = /^(?:insufficient_text_length|suspect_identified_nationality_missing)$/;
+  const TTL_120H_MS = 120 * 60 * 60 * 1000;
+  const RETRY_INTERVAL_12H_MS = 12 * 60 * 60 * 1000;
+
+  // 1. 【系統A】通信障害再試行（指数バックオフ: 1h, 3h, 6h, 12h, 24h）
+  if (NETWORK_ERROR_RE.test(reason)) {
+    if (qItem.attempts < 5) {
+      const delays = [1, 3, 6, 12, 24].map((h) => h * 60 * 60 * 1000);
+      const delay = delays[Math.min(qItem.attempts - 1, delays.length - 1)];
+      qItem.status = 'pending';
+      qItem.nextAttemptAt = new Date(now + delay).toISOString();
+      return;
+    }
+    qItem.status = 'gave_up';
+    qItem.lastError = 'max_attempts_reached';
+    return;
+  }
+
+  // 2. 【系統B】続報確認再試行（短文または容疑者確定・国籍未記載）
+  // ※警察発表等(sourceBody)はURL再取得で本文更新されないため除外
+  if (!qItem.sourceBody && RETRYABLE_EDITORIAL_RE.test(reason)) {
+    const effectiveTime = itemEffectiveTime(qItem);
+    const ttlRemaining = effectiveTime > 0 ? (TTL_120H_MS - (now - effectiveTime)) : TTL_120H_MS;
+
+    // 初回審査後かつ120時間TTL残余が12時間以上ある場合のみ1回だけ再取得を予約
+    if (qItem.attempts < 2 && ttlRemaining >= RETRY_INTERVAL_12H_MS) {
+      qItem.status = 'pending';
+      qItem.nextAttemptAt = new Date(now + RETRY_INTERVAL_12H_MS).toISOString();
+      return;
+    }
+    // TTL残余不足で再試行できない場合の理由記録
+    if (qItem.attempts < 2 && ttlRemaining < RETRY_INTERVAL_12H_MS) {
+      qItem.lastError = 'insufficient_ttl_for_retry';
+    }
+  }
+
+  // 再試行対象外、または再試行後も合格しなかった保留記事は非掲載(unverified)終了
+  qItem.status = 'unverified';
+}
+
 // 同一事件の媒体違いを1件にまとめる際、Google News中継やポータルより元媒体URLを優先する。
 function publicationSourceRank(url) {
   try {
@@ -1649,7 +1708,7 @@ async function main() {
   }
 
   if (successCount === 0 && supplementalSuccessCount === 0) {
-    throw new Error('All news sources failed; refusing to report a successful empty collection.');
+    console.warn('⚠️ 一時的な通信障害等により、すべてのニュース取得元からの新着取得に失敗しました。キュー内の既存保留・再試行記事の審査を継続します。');
   }
 
   // --- 重複排除（正規化URLによる一意化） ---
@@ -1706,16 +1765,39 @@ async function main() {
   const now = Date.now();
   const TTL_120H_MS = 120 * 60 * 60 * 1000; // 5日間 (120時間)
 
-  // 1. キューのTTLパージ（初回検知 firstSeen から120時間経過したアイテムはステータスに関係なく完全削除）
+  // 1. キューのTTLパージ（pubDate または firstSeen から120時間経過したアイテムはステータスに関係なく完全削除）
   const initialQueueCount = queue.items.length;
   queue.items = queue.items.filter((item) => {
-    const firstSeenTime = item.firstSeen ? new Date(item.firstSeen).getTime() : 0;
-    if (!firstSeenTime || isNaN(firstSeenTime)) return false;
-    return (now - firstSeenTime) < TTL_120H_MS;
+    const effTime = itemEffectiveTime(item);
+    if (!effTime) return false;
+    return (now - effTime) < TTL_120H_MS;
   });
   const purgedCount = initialQueueCount - queue.items.length;
   if (purgedCount > 0) {
     console.log(`🗑️ キュー期限切れパージ: 120時間（5日間）を経過した ${purgedCount} 件を完全削除しました`);
+  }
+
+  // 1.5 既存の保留記事（insufficient_evidence）の安全な移行処理
+  let migratedCount = 0;
+  for (const item of queue.items) {
+    if (item.status === 'insufficient_evidence') {
+      const effTime = itemEffectiveTime(item);
+      const ttlRemaining = effTime > 0 ? (TTL_120H_MS - (now - effTime)) : TTL_120H_MS;
+      const isEligibleReason = item.reason === 'insufficient_text_length' ||
+                               item.reason === 'suspect_identified_nationality_missing' ||
+                               item.reason === 'suspect_or_nationality_unclear_in_body';
+      if (!item.sourceBody && isEligibleReason && ttlRemaining >= 12 * 60 * 60 * 1000) {
+        item.status = 'pending';
+        item.attempts = 1;
+        item.nextAttemptAt = new Date(now).toISOString(); // 即時再試行可能
+        migratedCount++;
+      } else {
+        item.status = 'unverified';
+      }
+    }
+  }
+  if (migratedCount > 0) {
+    console.log(`🔄 既存保留記事の移行: 救済可能な ${migratedCount} 件を再試行待機(pending)に移行しました`);
   }
 
   // 2. キューに存在するURLのSetを作成
@@ -1749,6 +1831,8 @@ async function main() {
       pendingReason: null,
       attempts: 0,
       lastAttemptAt: null,
+      nextAttemptAt: null,
+      bodyHash: null,
       audit: null,
       location: item.location,
       media: item.media,
@@ -1764,15 +1848,16 @@ async function main() {
   console.log(`📥 新規候補キュー登録: ${newlyEnqueued} 件 (キュー総数: ${queue.items.length} 件)`);
 
   // --- 本文スキャンと検証対象の選定 ---
-  // 上限強制クランプ（最大20件）
+  // 上限強制クランプ（最大20件、BODY_SCAN=0 の場合は本文スキャン停止）
+  const isBodyScanDisabled = process.env.BODY_SCAN === '0';
   const configuredMax = Number(process.env.BODY_SCAN_MAX) || 20;
-  const maxScanPerRun = Math.min(Math.max(1, configuredMax), 20);
+  const maxScanPerRun = isBodyScanDisabled ? 0 : Math.min(Math.max(1, configuredMax), 20);
 
   // 判定基準:
   // - status === 'pending'
   // - attempts < 5
-  // - pubDate が未来（+10分超）でないこと（時計ズレ・未来記事は保留）
-  // - 120時間以内であること（pubDate優先、なければfirstSeen）
+  // - 未来日時（+10分超）でないこと
+  // - itemEffectiveTime が 120時間以内であること
   const eligibleItems = queue.items.filter((item) => {
     if (item.status !== 'pending') return false;
     if (item.attempts >= 5) {
@@ -1781,34 +1866,35 @@ async function main() {
       return false;
     }
 
-    const pubDateTime = item.pubDate ? new Date(item.pubDate).getTime() : 0;
-    if (pubDateTime && !isNaN(pubDateTime)) {
-      if (pubDateTime > now + 10 * 60 * 1000) {
-        // 未来日時は保留
-        return false;
-      }
-      if (now - pubDateTime > TTL_120H_MS) {
-        item.status = 'gave_up';
-        item.pendingReason = 'expired_120h';
-        return false;
-      }
-    } else {
-      const firstSeenTime = item.firstSeen ? new Date(item.firstSeen).getTime() : 0;
-      if (firstSeenTime && (now - firstSeenTime > TTL_120H_MS)) {
-        item.status = 'gave_up';
-        item.pendingReason = 'expired_120h';
-        return false;
-      }
+    const effTime = itemEffectiveTime(item);
+    if (effTime > now + 10 * 60 * 1000) return false; // 未来日時は保留
+    if (effTime && (now - effTime > TTL_120H_MS)) {
+      item.status = 'gave_up';
+      item.pendingReason = 'expired_120h';
+      return false;
     }
-
     return true;
   });
 
-  const targetsToScan = prioritizeCandidateLanes(eligibleItems, maxScanPerRun);
-  console.log(`🔍 本文検証対象: ${targetsToScan.length} 件（1実行ハード上限 ${maxScanPerRun} 件）`);
+  // 再試行待ちアイテム（初回審査済み・再試行時刻到来・sourceBodyなし）: 最大5件
+  const retryCandidates = eligibleItems.filter((item) => {
+    if (item.attempts === 0) return false;
+    if (item.sourceBody) return false;
+    const nextAt = item.nextAttemptAt ? Date.parse(item.nextAttemptAt) : 0;
+    return !nextAt || nextAt <= now;
+  }).slice(0, 5);
+
+  // 新規アイテム枠: 最大 (maxScanPerRun - retryCandidates.length) 件（空き枠還元、新着15〜20件）
+  const newCandidatesLimit = Math.max(0, maxScanPerRun - retryCandidates.length);
+  const newCandidates = eligibleItems.filter((item) => item.attempts === 0);
+  const selectedNewCandidates = prioritizeCandidateLanes(newCandidates, newCandidatesLimit);
+
+  // 今回の審査対象を結合（最大20件厳守）
+  const targetsToScan = [...retryCandidates, ...selectedNewCandidates];
+  console.log(`🔍 本文検証対象: 合計 ${targetsToScan.length} 件 (再試行: ${retryCandidates.length} 件, 新着: ${selectedNewCandidates.length} 件 / 上限 ${maxScanPerRun} 件)`);
 
   // --- 本文スキャンと厳格検証の実行 ---
-  let stateChanged = purgedCount > 0 || newlyEnqueued > 0;
+  let stateChanged = purgedCount > 0 || newlyEnqueued > 0 || migratedCount > 0 || targetsToScan.length > 0;
 
   if (targetsToScan.length > 0) {
     const scanner = articleFetcher.createScanner({
@@ -1816,17 +1902,25 @@ async function main() {
       maxPerRun: maxScanPerRun,
     });
 
+    const retryMetrics = { retryCount: 0, bodyUpdatedCount: 0, verifiedFromRetryCount: 0 };
+
     for (const qItem of targetsToScan) {
+      const isRetry = qItem.attempts > 0;
+      if (isRetry) retryMetrics.retryCount++;
+
       qItem.attempts += 1;
       qItem.lastAttemptAt = new Date().toISOString();
 
-      console.log(`\n📄 [本文検証] 審査開始: ${qItem.title.slice(0, 40)}... (試行 ${qItem.attempts}回目)`);
+      console.log(`\n📄 [本文検証] 審査開始: ${qItem.title.slice(0, 40)}... (試行 ${qItem.attempts}回目${isRetry ? '・再取得' : ''})`);
 
       let scanResult;
       if (qItem.sourceBody) {
         scanResult = { ok: true, text: qItem.sourceBody, resolvedUrl: qItem.url };
       } else {
-        const scanItem = { url: qItem.url, title: qItem.title };
+        // 再試行時、既に resolvedUrl があれば直接元記事を取得し Google News 中継を回避
+        // また forceRefresh: true を付与して古い本文キャッシュをバイパス
+        const fetchUrl = (isRetry && qItem.resolvedUrl) ? qItem.resolvedUrl : qItem.url;
+        const scanItem = { url: fetchUrl, title: qItem.title, forceRefresh: isRetry };
         await scanner.scan([scanItem]);
         scanResult = scanItem._scanResult;
         if (scanItem.resolvedUrl) qItem.resolvedUrl = scanItem.resolvedUrl;
@@ -1835,25 +1929,31 @@ async function main() {
       if (!scanResult || !scanResult.ok) {
         const reason = (scanResult && scanResult.reason) || 'fetch_failed';
         console.log(`   ⚠️ 本文取得失敗: ${reason}`);
+        qItem.pendingReason = reason;
         if (reason === 'gone' || reason === 'invalid_url') {
           qItem.status = 'gave_up';
-          qItem.pendingReason = reason;
         } else {
-          // 一時的失敗（保留して次回再試行）
-          qItem.pendingReason = reason;
-          if (qItem.attempts >= 5) {
-            qItem.status = 'gave_up';
-          }
+          scheduleQueueItem(qItem, { reason }, now);
+          console.log(`   🔁 通信再試行予定: status=${qItem.status}, next=${qItem.nextAttemptAt || 'none'}`);
         }
         continue;
       }
 
       const bodyText = scanResult.text || '';
+      const currentBodyHash = hashBody(bodyText);
+
+      // 再試行時の更新検知
+      if (isRetry && qItem.bodyHash && currentBodyHash && qItem.bodyHash !== currentBodyHash) {
+        retryMetrics.bodyUpdatedCount++;
+        console.log(`   📝 本文更新検知: 前回ハッシュ ${qItem.bodyHash} -> 今回 ${currentBodyHash}`);
+      }
+      if (currentBodyHash) qItem.bodyHash = currentBodyHash;
+
       // 厳格フェイルクローズ: 本文100文字以上必須（メタ説明文・スニペットのみのすり抜けを完全遮断）
       if (!bodyText || bodyText.length < 100) {
         console.log(`   ⚠️ 本文抽出不足（100文字未満・メタ説明文遮断）: ${bodyText.length}文字`);
         qItem.pendingReason = 'insufficient_text_length';
-        if (qItem.attempts >= 5) qItem.status = 'gave_up';
+        scheduleQueueItem(qItem, { reason: 'insufficient_text_length' }, now);
         continue;
       }
 
@@ -1868,13 +1968,18 @@ async function main() {
         qItem.status = 'verified';
         qItem.location = verifyRes.location;
         qItem.audit = verifyRes.audit;
+        if (isRetry) retryMetrics.verifiedFromRetryCount++;
         console.log(`   ✅ 厳格合格！ 現場: ${verifyRes.location}`);
       } else {
-        // 根拠不足（保留）
-        qItem.status = 'insufficient_evidence';
+        // 根拠不足（保留）➔ 再試行スケジューラで判定
         qItem.pendingReason = verifyRes.pendingReason;
-        console.log(`   ⏳ 根拠不足（保留）: ${verifyRes.pendingReason}`);
+        scheduleQueueItem(qItem, { reason: verifyRes.pendingReason }, now);
+        console.log(`   ⏳ 根拠不足判定: ${verifyRes.pendingReason} -> status=${qItem.status}, next=${qItem.nextAttemptAt || 'none'}`);
       }
+    }
+
+    if (retryMetrics.retryCount > 0) {
+      console.log(`📊 再試行メトリクス: 実施 ${retryMetrics.retryCount} 件, 本文更新 ${retryMetrics.bodyUpdatedCount} 件, 合格救済 ${retryMetrics.verifiedFromRetryCount} 件`);
     }
 
     if (scanner.flush()) {
@@ -1900,7 +2005,8 @@ async function main() {
     counts[lane] = (counts[lane] || 0) + 1;
     return counts;
   }, {});
-  console.log(`📊 キュー状態: pending=${pendingItems.length}, verified=${queueStatusCounts.verified || 0}, insufficient=${queueStatusCounts.insufficient_evidence || 0}, rejected=${queueStatusCounts.rejected || 0}, gave_up=${queueStatusCounts.gave_up || 0}`);
+  const unverifiedCount = (queueStatusCounts.unverified || 0) + (queueStatusCounts.insufficient_evidence || 0);
+  console.log(`📊 キュー状態: pending=${pendingItems.length}, verified=${queueStatusCounts.verified || 0}, unverified=${unverifiedCount}, rejected=${queueStatusCounts.rejected || 0}, gave_up=${queueStatusCounts.gave_up || 0}`);
   console.log(`⏳ pending内訳: 明示外国籍=${laneCounts.explicit_foreign || 0}, 広域発見=${laneCounts.broad_discovery || 0}, 24時間以内に期限到来=${expiringWithin24h}, 最古=${oldestPendingHours === null ? 'なし' : `${oldestPendingHours}時間`}`);
   if (process.env.GITHUB_STEP_SUMMARY) {
     const summary = [
@@ -1914,7 +2020,7 @@ async function main() {
       `| pending: 広域発見候補 | ${laneCounts.broad_discovery || 0} |`,
       `| 24時間以内に120時間期限 | ${expiringWithin24h} |`,
       `| 最古のpending候補の経過時間 | ${oldestPendingHours === null ? 'なし' : `${oldestPendingHours}時間`} |`,
-      `| verified / insufficient / rejected / gave_up | ${queueStatusCounts.verified || 0} / ${queueStatusCounts.insufficient_evidence || 0} / ${queueStatusCounts.rejected || 0} / ${queueStatusCounts.gave_up || 0} |`,
+      `| verified / unverified / rejected / gave_up | ${queueStatusCounts.verified || 0} / ${unverifiedCount} / ${queueStatusCounts.rejected || 0} / ${queueStatusCounts.gave_up || 0} |`,
       '',
     ].join('\n');
     try { fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary); } catch (err) { console.warn(`キュー状況サマリーの記録失敗: ${err.message}`); }
@@ -2012,10 +2118,14 @@ async function main() {
   // 新着記事を日付降順に並べ替え
   acceptedNew.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  // 既存197件の配列の先頭に新着記事のみを結合（既存データの順序・内容は1ミリも改変しない）
+  // 既存データと新着記事を結合し、全体を日付降順（新しい日付が先頭）に並べ替え
+  // （過去記事が新着合格した場合でも、最新日付の上に誤って割り込むのを完全に防ぐ）
   const finalMerged = [...acceptedNew, ...frozenExisting];
+  finalMerged.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  fs.writeFileSync(newsDataPath, JSON.stringify(finalMerged, null, 2), 'utf-8');
+  const tmpNewsDataPath = `${newsDataPath}.tmp`;
+  fs.writeFileSync(tmpNewsDataPath, JSON.stringify(finalMerged, null, 2), 'utf-8');
+  fs.renameSync(tmpNewsDataPath, newsDataPath);
   console.log(`🚀 newsData.json を安全に更新しました。新着 ${acceptedNew.length} 件を追加（合計: ${finalMerged.length} 件）`);
 }
 
@@ -2038,6 +2148,9 @@ module.exports = {
   publicationSourceRank,
   prioritizeRecentCandidates,
   prioritizeCandidateLanes,
+  scheduleQueueItem,
+  itemEffectiveTime,
+  hashBody,
   // 公式ソース統合の単体検証用
   _policeBulletins: policeBulletins,
   _publisherListings: publisherListings,

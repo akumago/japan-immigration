@@ -447,7 +447,8 @@ function createScanner(opts = {}) {
     if (page.status !== 200) return { fail: `http_${page.status}`, decodeOk: true, decodedUrl: dec.url };
 
     const text = extractArticleText(decodeHtml(page.body, page.headers && page.headers['content-type']), title);
-    if (text.length < 35) return { fail: 'unreadable', decodeOk: true, decodedUrl: dec.url };
+    // テキストが空（抽出完全失敗）の場合のみ unreadable。本文が存在する場合は fetch-news.cjs の短文判定に委ねる
+    if (text.length === 0) return { fail: 'unreadable', decodeOk: true, decodedUrl: dec.url };
 
     if (typeof cfg.verifyArticle === 'function') {
       const v = cfg.verifyArticle(text, title);
@@ -479,7 +480,8 @@ function createScanner(opts = {}) {
 
     const queue = [];
     for (const [url, its] of byUrl) {
-      const e = cache.get(url);
+      const forceRefresh = its.some((i) => i.forceRefresh);
+      const e = forceRefresh ? null : cache.get(url);
       if (e && (e.st === 'nat' || e.st === 'verified')) { apply(its, e.snippet, e.scanResult, e.url); s.cached++; s.nat++; continue; }
       if (e && (e.st === 'no_nat' || e.st === 'rejected' || e.st === 'insufficient_evidence')) { apply(its, null, e.scanResult, e.url); s.cached++; s.noNat++; continue; }
       if (e && e.st === 'gone') { s.cached++; s.gone++; continue; }
