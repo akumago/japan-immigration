@@ -35,7 +35,9 @@ jobs:
 
       # ゲートの回帰テスト。落ちたらデプロイしない
       - name: Run gate regression tests
-        run: node --test "scripts/lib/*.test.cjs"
+        # Node 22 の隔離ワーカーで E2E のHTTPサーバーが異常終了する環境差を避ける。
+        # テストは共有状態に依存しないため、Actionsでも単一プロセスで実行する。
+        run: node --experimental-test-isolation=none --test "scripts/lib/*.test.cjs"
 
       # 候補キューおよび本文キャッシュの状態（新着0件の時間帯でも持ち越す）
       - name: Restore pipeline state cache
