@@ -306,6 +306,20 @@ test('本文判定: フィリピン人女性と逮捕された日本人男性を
   assert.notEqual(result.pendingReason, null);
 });
 
+test('本文判定: 文京区の空き家窃盗未遂・ベトナム国籍の男2人を同一事件文脈で通す', () => {
+  const body = '警視庁は1日、東京都文京区の空き家に侵入し金品を盗もうとしたとして、ベトナム国籍の解体工の男2人（24歳と27歳）を窃盗未遂などの疑いで逮捕しました。2人は隣接する解体工事現場で作業していた技能実習生で、調べに対し1人は容疑を認め、もう1人は否認しています。';
+  const result = gate.verifyArticleContent(body, '東京都文京区の空き家に侵入 ベトナム国籍の解体工の男2人を逮捕');
+  assert.equal(result.verified, true);
+  assert.equal(result.location, '東京都');
+});
+
+test('本文判定: 熱海市での覚醒剤所持と逮捕された韓国籍の男を本文で結び付ける', () => {
+  const body = '静岡県熱海市内で覚せい剤約0.1グラムを所持していた疑いで、名古屋市中村区在住の韓国籍の男（57）を覚醒剤取締法違反の疑いで逮捕しました。8月14日に男が別件で110番通報した際に警察官が不審な様子に気付き、所持品を確認していました。';
+  const result = gate.verifyArticleContent(body, '熱海市で覚醒剤所持疑い 韓国籍の男を逮捕');
+  assert.equal(result.verified, true);
+  assert.equal(result.location, '静岡県');
+});
+
 test('重複照合: 媒体が違っても同一の富士市・覚醒剤製造・イラン国籍事件は同じ指紋になる', () => {
   const fetchNews = require('../fetch-news.cjs');
   const livedoor = {
@@ -320,6 +334,33 @@ test('重複照合: 媒体が違っても同一の富士市・覚醒剤製造・
   };
   assert.equal(fetchNews.eventFingerprint(livedoor), fetchNews.eventFingerprint(fnn));
   assert.ok(fetchNews.eventFingerprint(livedoor));
+});
+
+test('重複照合: 新潟・三条市のタイヤ窃盗は媒体が違っても既存記事と同一事件として照合できる', () => {
+  const fetchNews = require('../fetch-news.cjs');
+  const existing = {
+    title: '住宅の車庫に侵入しタイヤ4本を盗んだ疑い ブラジル国籍の男（43）を3回目の逮捕 新潟・三条市',
+    date: '2026-10-01',
+  };
+  const syndicated = {
+    title: '三条市の住宅車庫からタイヤ4本窃盗疑い ブラジル国籍の男を逮捕',
+    date: '2026-10-01',
+    audit: { suspectRole: { evidence: '新潟県三条市で住宅の車庫からタイヤ4本を盗んだとして、ブラジル国籍の男が逮捕されました。' } },
+  };
+  assert.equal(fetchNews.eventFingerprint(existing), fetchNews.eventFingerprint(syndicated));
+});
+
+test('キュー選定: 公開日時の新しい未処理記事を先に審査し、古い候補に新着を埋もれさせない', () => {
+  const fetchNews = require('../fetch-news.cjs');
+  const queue = Array.from({ length: 25 }, (_, i) => ({
+    id: `old-${i}`,
+    pubDate: `2026-09-30T${String(i % 24).padStart(2, '0')}:00:00Z`,
+    attempts: 0,
+  }));
+  queue.push({ id: 'bunkyo-today', pubDate: '2026-10-01T03:00:00Z', attempts: 0 });
+  const selected = fetchNews.prioritizeRecentCandidates(queue).slice(0, 20);
+  assert.ok(selected.some((item) => item.id === 'bunkyo-today'));
+  assert.equal(selected[0].id, 'bunkyo-today');
 });
 
 test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2E パイプライン統合テスト', async () => {

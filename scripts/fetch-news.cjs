@@ -57,6 +57,19 @@ function withinFiveDays(a, b) {
   return Number.isFinite(ta) && Number.isFinite(tb) && Math.abs(ta - tb) <= 5 * 24 * 60 * 60 * 1000;
 }
 
+// 5日窓の候補は、キュー登録順ではなく公開日時が新しいものから審査する。
+// 41検索クエリ由来の古い候補が先頭を占有して新着を押し出すのを防ぐ。
+function prioritizeRecentCandidates(items) {
+  return [...items].sort((a, b) => {
+    const aDate = Date.parse(a.pubDate || a.firstSeen || '') || 0;
+    const bDate = Date.parse(b.pubDate || b.firstSeen || '') || 0;
+    if (aDate !== bDate) return bDate - aDate;
+    const attemptDiff = (a.attempts || 0) - (b.attempts || 0);
+    if (attemptDiff) return attemptDiff;
+    return String(a.id || '').localeCompare(String(b.id || ''));
+  });
+}
+
 // 都道府県リスト
 const PREFECTURES = [
   '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県',
@@ -1615,7 +1628,7 @@ async function main() {
     return true;
   });
 
-  const targetsToScan = eligibleItems.slice(0, maxScanPerRun);
+  const targetsToScan = prioritizeRecentCandidates(eligibleItems).slice(0, maxScanPerRun);
   console.log(`🔍 本文検証対象: ${targetsToScan.length} 件（1実行ハード上限 ${maxScanPerRun} 件）`);
 
   // --- 本文スキャンと厳格検証の実行 ---
@@ -1783,4 +1796,5 @@ module.exports = {
   isDomesticCrime,
   isOverseasOrEntertainmentMedia,
   eventFingerprint,
+  prioritizeRecentCandidates,
 };
