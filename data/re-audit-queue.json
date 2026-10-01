@@ -1,0 +1,4160 @@
+{
+  "version": 1,
+  "updatedAt": "2026-09-30T22:52:42.696Z",
+  "items": [
+    {
+      "id": "16916ebf92d28178",
+      "url": "https://kbc.co.jp/news/article.php?id=18239023&ymd=2026-09-30",
+      "title": "福岡空港で過去最大コカイン約1.2キロ密輸疑い ドミニカ国籍の男（29）を逮捕",
+      "currentLocation": "福岡県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 福岡空港では過去最大の押収量です。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 1．2キロものコカインをスーツケースに忍ばせ密輸しようとしたとして、ドミニカ国籍の男を逮捕です。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ドミニカ国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:01:48.327Z",
+      "resolvedUrl": "https://kbc.co.jp/news/article.php?id=18239023&ymd=2026-09-30"
+    },
+    {
+      "id": "8e84cc112e78802e",
+      "url": "https://news.livedoor.com/article/detail/32451849/",
+      "title": "ヤードで覚醒剤製造疑い イラン国籍の男ら3人を再逮捕 静岡・富士市",
+      "currentLocation": "静岡県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 静岡県内のヤードで覚醒剤を製造したとして、イラン国籍の男ら3人が神奈川県警などに逮捕されました。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 静岡県内のヤードで覚醒剤を製造したとして、イラン国籍の男ら3人が神奈川県警などに逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: イラン国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:01:51.562Z",
+      "resolvedUrl": "https://news.livedoor.com/article/detail/32451849/"
+    },
+    {
+      "id": "3138b061bfe7dbc1",
+      "url": "https://look.satv.co.jp/content_news/incident/99311",
+      "title": "「白タク」行為でフィリピン人の男を逮捕 男に名義貸しした女も逮捕 静岡・御殿場",
+      "currentLocation": "静岡県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: ４月と７月少なくとも２回、御殿場アウトレットでいわゆる「白タク」行為をしたとして、フィリピン国籍の男ら２人が逮捕されました。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: ４月と７月少なくとも２回、御殿場アウトレットでいわゆる「白タク」行為をしたとして、フィリピン国籍の男ら２人が逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: フィリピン国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:08:18.123Z",
+      "resolvedUrl": "https://look.satv.co.jp/content_news/incident/99311"
+    },
+    {
+      "id": "8552a90ec7bf1c41",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9sTDBQXzlKOVVIWUwycHVpU3ByY29UOGkwcWUtREFqYnZJbjZidXk1M29lYV9oeFJzWFl0Y05NSVlUdnpySWdnV0R6MDZaQl9uTXVlQTFLUQ?oc=5",
+      "title": "住宅の車庫に侵入しタイヤ4本を盗んだ疑い ブラジル国籍の男（43）を3回目の逮捕 新潟・三条市",
+      "currentLocation": "新潟県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 新潟県三条市で9月8日、住宅の車庫からタイヤ4本を盗んだとして、ブラジル国籍の男が9月30日に逮捕されました。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 新潟県三条市で9月8日、住宅の車庫からタイヤ4本を盗んだとして、ブラジル国籍の男が9月30日に逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ブラジル国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:05:23.922Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/-/2976854"
+    },
+    {
+      "id": "8a724494a6a1bdf1",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQTnNfNU9HSjNaS2JVT3l1dDZpT0ZwWThyNjk2bjJROFRvQ2RRbWlla3FDRGl6Z1JZaWtDOHhhQ3ZjSk0zSVFqbHN4WGJkWUN0ZktFd2k1T1o4VVpGNjJEdXZkM2FRcUczUkZreEtod19Gd2F2MFJzdlAwTGVOX3k4Z9IBgAFBVV95cUxQTnNfNU9HSjNaS2JVT3l1dDZpT0ZwWThyNjk2bjJROFRvQ2RRbWlla3FDRGl6Z1JZaWtDOHhhQ3ZjSk0zSVFqbHN4WGJkWUN0ZktFd2k1T1o4VVpGNjJEdXZkM2FRcUczUkZreEtod19Gd2F2MFJzdlAwTGVOX3k4Zw?oc=5",
+      "title": "空き家に侵入し窃盗図る ベトナム国籍の男3人を逮捕 山口・宇部署",
+      "currentLocation": "山口県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:05:30.487Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/amp/article/kry/region/kry-2026082901112318"
+    },
+    {
+      "id": "83d6a9f111d0fda5",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPb2N5bjVXSkN6OUZyVHJ1Vlc0c1VMNUlmQ3c5RVVCUEtuUkN0cWtyTUJ3WmxKSERjYkRMZ0pRSUxKMERJTDJvQ215UXJpMVpHYUF1dk0taUZzVkZxNHFzUWZLN3h3dDlVU0Z4eHRaX2NZcDc2TW10SU5fcjFPR1hMX9IBhgFBVV95cUxOTG1TVE54ZzEyU0JNN0h4WWxZOE0tLUpnZjJlMkNtM3FlVVBsS2kwOC00eVBSZkhzUE4yaXdzanprdklxd1RzN0RBRHE3eG5pUHBFRmJkaFdqaGo3SDdpQktrWHlBVkNhNlBVUmstLVVHMU01VjcwWUM4VGpwUEZnbFFSVFhWQQ?oc=5",
+      "title": "ベトナムから麻薬11キロを密輸入した疑いでベトナム国籍の男2人を告発 静岡・磐田",
+      "currentLocation": "静岡県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナムから麻薬11キロあまり密輸入した疑いで名古屋税関が29日、磐田市に住むベトナム国籍の男2人を告発（静岡）（静岡第一テレビ）名古屋税関は、ベトナムから麻薬"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナム国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:08:27.188Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/article/tvsdt/region/tvsdt-2026093005874686"
+    },
+    {
+      "id": "3471bea6b660b5a3",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5SZU5VX1QzRzdjQjFGT0FOenBNYzR1bDk0R3NBTU5iUzBnRTktYWlRbnppbXdLRDV6VnhGQ0tPbjZrY3pCWUdDVzlUNXhaaGM1a2FlMl9oVGJ2MXFDSzc0VExKVFhObzNma1k2dnlXWXk4cDIyaVlGUFo1ZU51RVk?oc=5",
+      "title": "特殊詐欺事件に関与した疑い 中国籍の男（37）を逮捕 広島・福山市",
+      "currentLocation": "広島県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 今年県内で初めてとみられる裁判で司法取引が適用された福山市での詐欺事件で警察は３０日中国籍の男を逮捕しました。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 今年県内で初めてとみられる裁判で司法取引が適用された福山市での詐欺事件で警察は３０日中国籍の男を逮捕しました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 中国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:08:32.918Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/2dc0ff883cdc540fbcaaa8340652ad4dbffc30de"
+    },
+    {
+      "id": "5c21f64003853747",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1kRGZjZ2ptdFZPVnRBem5zXzctYzJiekdaUWtnel9uc0hPYTh2MWdCTEk2NWh2VDhQcHBlbmoxQVVKdmJBblVpX0tXTGZnUFVrRUVtR2xHTUQ5VjNvV3pYN0JXM3VsdklVT2d6ZW5aV1RxUjUw0gF0QVVfeXFMTWREZmNnam10Vk9WdEF6bnNfNy1jMmJ6R1pRa2d6X25zSE9hOHYxZ0JMSTY1aHZUOFBwcGVuajFBVUp2YkFuVWlfS1dMZmdQVWtFRW1HbEdNRDlWM29Xelg3QlczdWx2SVVPZ3plblpXVHFSNTA?oc=5",
+      "title": "天然記念物オカヤドカリを密猟した疑い 中国籍の男2人の公判 鹿児島",
+      "currentLocation": "鹿児島県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:08:38.676Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/amp/article/mbc/region/mbc-2975253"
+    },
+    {
+      "id": "d21a8a8aa0a985c6",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5GVGp2djdyb21IbDZSWVlPckRTRnpia1g3d2lpTTdhaDRRSlozQks1OExCb0ZCaW91c0J0NlRhNjIyVVVlV3FPcGhvRDJFSDMzRHgtbDhNekM2VHppY2xZMjBYWm9tamNST1kydE1NTVN1OTlieXBidWxkN0FVOFU?oc=5",
+      "title": "私服警官に客引きをした疑いで中国籍の女（年齢不詳）を逮捕 静岡・浜松市",
+      "currentLocation": "静岡県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 浜松市中央区で客引き行為をしたとして、マッサージ店従業員の中国人の女（５４）が逮捕されました。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 浜松市中央区で客引き行為をしたとして、マッサージ店従業員の中国人の女（５４）が逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 中国人"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:08:44.258Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/680a80b8dff5edb3d944c0d7e0f451c59f8a90b4"
+    },
+    {
+      "id": "acb6271e80f65e60",
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE41cWFqUlZ3Rl9tVVpFRE5MbERKcDRZVGlsTjQ0Y0tmMWJQZ2JIQk5BMWREbmNYeURZbF85LUJrX19SdXNDMVNNT1l1WWlNNUdBeVZsVldtbEdrMWJiZW1tVmJoTQ?oc=5",
+      "title": "カンボジア拠点に活動か 警察官装い金をだまし取ろうとした疑い 男2人を逮捕 1人はグループのリーダー格とみて捜査 福岡県警",
+      "currentLocation": "福岡県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:16:32.625Z",
+      "resolvedUrl": "https://news.tnc.co.jp/news/articles/NID2026093032242",
+      "previousAudit": {
+        "status": "verified",
+        "audit": {
+          "japanCrime": {
+            "verified": true,
+            "evidence": "本文抜粋: 詐欺未遂の疑いで逮捕されたの…2026/09/30 06:00コカイン1.2キロ密輸の疑い ドミニカ国籍の男を逮捕 県内で過去最多の押収量 スーツケースにボトル"
+          },
+          "suspectRole": {
+            "verified": true,
+            "evidence": "本文抜粋: 詐欺未遂の疑いで逮捕されたの…2026/09/30 06:00コカイン1.2キロ密輸の疑い ドミニカ国籍の男を逮捕 県内で過去最多の押収量 スーツケースにボトル"
+          },
+          "foreignNationality": {
+            "verified": true,
+            "evidence": "本文抜粋: ドミニカ国籍"
+          }
+        },
+        "note": "旧判定: TNCのアクセスランキング(ドミニカ密輸)が本文に混入したことによる無効な合格判定"
+      },
+      "invalidationReason": "invalidated_due_to_related_news_contamination"
+    },
+    {
+      "id": "2a788b3df13e5c26",
+      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE90aFNwNF9DekVzLWRaeEl3MlB3LUdLcmFaSXQzRXo2SGFqUVZNbWFEYjJTU3hoNUhUVk5vVE1wekdqLWd3ZWFreFlZMTQtdw?oc=5",
+      "title": "ネット通販で不正購入疑い、ベトナム人夫婦を逮捕 荷物の国外発送役か 御殿場署",
+      "currentLocation": "静岡県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: インターネット通販サイトで他人名義のカード情報を使用して商品を不正購入し、盗んだとして御殿場署と県警サイバー捜査課は２９日、私電磁的記録不正作出・同供用と窃盗…"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナム人"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:22:35.223Z",
+      "resolvedUrl": "https://news.at-s.com/article/2065730"
+    },
+    {
+      "id": "c6b7544f9820652b",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1INkhENHZDeF9RRmthb25tZ0dZWjhsc3E2bEVjcW5PLUxtRks5LUVOX0xtUDk2MW5zakRBcElXN0xlTVBtRDlhVDJDNGlWZ245MVN1MFpmdmJlY0U?oc=5",
+      "title": "覚醒剤などの密売容疑で外国籍の男を計7回逮捕 栃木県警",
+      "currentLocation": "栃木県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:22:41.522Z",
+      "resolvedUrl": "https://www.shimotsuke.co.jp/articles/-/1430988"
+    },
+    {
+      "id": "eed06a31c689f15c",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9wRVZpX1NRZHh3ZksyXzVpSDFNa294OTlVQWJyaThIbkxWcDZ0T2xFZmd2ejQwTjV3TlRrdGhMVDJIYU5vb0stejQ3bVRJMldCallrQjBHWU5vQQ?oc=5",
+      "title": "「出し子」のベトナム国籍の男(26)を逮捕 大阪のATMで200万円引き出した疑い",
+      "currentLocation": "大阪府",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 警察官などを装う特殊詐欺事件で、現金を引き出す「出し子」を務めた、ベトナム国籍で無職の男(26)が、窃盗の疑いで9月29日に逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナム国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:22:46.822Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/itv/2975935"
+    },
+    {
+      "id": "7e8e5eae4aa92740",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9nSDVRZEtaekNzeUVhaVpaU2V2UC1TRVNpbUZwbE1RT1J3OXZlRUtnbDlrWFRwZzBEdG9vR2lNblpuTS1WRVNaNUFkb2dudko2SjU4QkhvMnp5NUJSbTVuUQ?oc=5",
+      "title": "窃盗の疑いでベトナム国籍の男を逮捕 愛媛・大洲署",
+      "currentLocation": "愛媛県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 大洲署は２９日、窃盗の疑いでベトナム国籍の住居不定、無職の男（２６）を逮捕した。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナム国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:22:53.401Z",
+      "resolvedUrl": "https://www.ehime-np.co.jp/article/news202609290229"
+    },
+    {
+      "id": "cf6c70a0765a75ac",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE91WjNNbHgyT2tfZTFkdFJoS285Y0xkcW92TXFza0k1T0tVVmNTUV9nRkg3Z0ZfZm1pem1FZ2hiU2JyNXh4cEkxU2NRaE95c3I1Z2g2Tk5yU09rejJsU0NlYldKNjNzeU4yODJhOFg0bXdWV2dQNjVXZjZUaWtOOUnSAX9BVV95cUxPdVozTWx4Mk9rX2UxZHRSaEtvOWNMZHFvdk1xc2tJNU9LVVZjU1FfZ0ZIN2dGX2ZtaXptRWdoYlNicjV4eHBJMVNjUWhPeXNyNWdoNk5OclNPa3oybFNDZWJXSjYzc3lOMjgyYThYNG13VldnUDY1V2Y2VGlrTjlJ?oc=5",
+      "title": "住宅から現金約230万円を盗んだ疑い 匿名・流動型犯罪グループ指示役のフィリピン籍の男を逮捕 大阪",
+      "currentLocation": "大阪府",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:22:59.388Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/amp/article/ktv_news/region/ktv_news-29933"
+    },
+    {
+      "id": "b02d4ab336ffcc0d",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE42VnVNMGw0MFhpdVk5VU9NV0ttZ2U4em9ZMUdPN3UwRmxucE52cGlwWmZGSWRKd1MwWEFoRkprMDFXZDZFdGpPRVVWMUxVcTR5WWpmUkN2dFFOeHJZRURWVDI1bVRQSk0?oc=5",
+      "title": "奄美大島でオカヤドカリ5200匹密漁疑い 中国籍の男２人に罰金70万円と60万円求刑「大阪の日本人に…」 鹿児島",
+      "currentLocation": "大阪府",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 奄美大島で国指定の天然記念物オカヤドカリを無許可で捕獲した罪に問われている中国籍の男2人の裁判が開かれ、検察はそれぞれ罰金70万円と60万円を求刑しました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 中国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:24:43.516Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/mbc/2975754?display=1"
+    },
+    {
+      "id": "62f748acd849ea72",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1rWEh3TWxXUzFWODQyVXZGQTNxU2lNbmgtd2VfLUNtM3Z6eGxYWUhFWHhOTDdONVBfM0JHUjE0LTBTVlR1dC1rUEpXUU1GYll4b0J3YlNHbk9PR3BENDJIYWRTRUtIeEU4SFBuUFNn?oc=5",
+      "title": "ネパール国籍の女性を“殺害” 知人のネパール国籍の女を起訴 他の男女2人は処分保留で釈放 福岡",
+      "currentLocation": "福岡県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 8月、福岡市の川でネパール国籍の女性の遺体が見つかった事件で、殺人の疑いで逮捕された知人の女が29日...8月、福岡市の川でネパール国籍の女性の遺体が見つかった"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ネパール国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:24:49.719Z",
+      "resolvedUrl": "http://www.excite.co.jp/news/article/tnc_1477572934416892550/"
+    },
+    {
+      "id": "34c424be798e67d0",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1ocHIwS2hUaF81ZVgydUxmOEs5ZExJR1JoOXp4ckp5QmVycG91MnA3d1M1NEp1TDJVNFJqQnJaelBxbW4zZUdFRzBMLWNjMUF5WW5BMnlIUl85S016QWwydXMwSTk3TzByMFBOWjBFS3Z0TkVublYyblFMR291aWc?oc=5",
+      "title": "1年6カ月間不法残留か…ベトナム人の41歳男逮捕 交通事故で発覚 静岡",
+      "currentLocation": "静岡県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 在留期間が過ぎていたにも関わらず、不法に残留した疑いで、ベトナム国籍の男が逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナム国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:24:55.772Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/97e375316d1bd613e6b09c342b58a4423cabe338"
+    },
+    {
+      "id": "a89575d794a9fecd",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9rSmNwX1hGd3BhN2t4S2FFMkZYWjJramk3ZlNwYkVfR01ac3N6MEpHTFV2THJBYlY2YTFicHljcDJIbXFKUUYyTVQzSnhsRWROWDdJc3ppOXJkdDdjaVdzZkNwcS1QLVZ3WFVlU2Nn?oc=5",
+      "title": "集合住宅で口論の末に男性流血死亡 殺人などの疑いで外国人グループの男2人が逃走中 神奈川・横浜",
+      "currentLocation": "神奈川県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 神奈川・横浜市の集合住宅で、男性が血を流して倒れているのが見つかり、その後、死亡が確認されました。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 外国人同士のトラブルによる殺人事件とみられています。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 外国人"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:25:01.864Z",
+      "resolvedUrl": "https://article.auone.jp/8794d834-3c0f-4ec2-b779-fa4609d179a7"
+    },
+    {
+      "id": "e81f4a9b2c3d5e67",
+      "url": "https://www.fnn.jp/articles/-/1122435",
+      "title": "中古車店からカメルーン輸出用タイヤホイール29本窃盗の疑い 韓国籍の運送業の男（29）を現行犯逮捕 神戸・西区",
+      "currentLocation": "兵庫県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:25:07.236Z",
+      "resolvedUrl": "https://www.fnn.jp/articles/-/1122435"
+    },
+    {
+      "id": "910d2c02e6c4e080",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5TOUFlYk1Zb3lYRUp6cEFRWVRodXo2WUF1REp3M2NRUm1XSlZzY01BLUxfbEZ6OWZiVmFHV2NmY18zdW9EcVR1OTRqN2wzVU1jUFZ4REl6TUJlRXBQN2UxVDJEcEdEMkRDU25CZGtR?oc=5",
+      "title": "横浜・保土ケ谷区の男性死亡、外国人のトラブルか 殺人事件で捜査",
+      "currentLocation": "神奈川県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "topic_mismatch_contamination",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:26:09.796Z",
+      "resolvedUrl": "https://www.kanaloco.jp/news/social/case/article-1308041.html"
+    },
+    {
+      "id": "450c275fc8487e1e",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5TQ1QxckZEMXFPUXFvdFhPU2JmeldDcFppbGJUUGpZSVRwZ3RSQTlveXB4WnNSazI1MV9fbmQzNTdvcjUxTFo3c25MX0luczRVWjJZU2pJT0hsZEZrbFNN?oc=5",
+      "title": "茨城県で住居侵入の疑い 奈良県警などが外国籍の容疑者を逮捕",
+      "currentLocation": "茨城県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 茨城県鹿嶋市の60代男性宅に侵入したとして、奈良県警捜査一課などは28日、住居侵入の疑いで、ペルー国籍の中古自動車販売業の容疑者(26)=群馬県伊勢崎市今泉町1"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ペルー国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:26:19.087Z",
+      "resolvedUrl": "https://www.nara-np.co.jp/news/20260928204851.html"
+    },
+    {
+      "id": "c99af5148cc9ca42",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBib2pfY1Z6T215N1ZOWGYwMlA1MjRJaWE4RkI4Wmx6UWQwT1M4cHA3bElIRlRFck14OTZlTHo2LTkydFNoMjBpdFRpVGVZeWpkWlhyREZ6NWh4Z1F5ZHJSSXhCVnozcmZwazBkRkZQYWpKLU02VFM5N1Zsc3poSUE?oc=5",
+      "title": "後ろから抱きつき体触る 市川の路上で痴漢疑い インド国籍の男逮捕（千葉日報オンライン）",
+      "currentLocation": "千葉県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 行徳署は26日、千葉県迷惑防止条例違反（痴漢）の疑いでインド国籍で八千代市、自称無職の男（36）を逮捕した。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: インド国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:26:25.462Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/6ad70bbfb28b48d7ab1573b02d9112cdd7e69bdd"
+    },
+    {
+      "id": "5d8b1ab1733e01cb",
+      "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1jeDJZNDYtY3pxTmRlXzNCYUp0NEMzZXVfbmZMUUxZZ09YM3B4Z3gtaUY1azBkWHZTUldXcEZfejBJV0g2WmxYUDZMQU1Objg?oc=5",
+      "title": "9/21（月）柏市高田で無免許で飲酒運転をしていたスリランカ国籍の38歳の男が逮捕",
+      "currentLocation": "千葉県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 9/21（月）柏市高田で無免許で飲酒運転をしていたスリランカ国籍の38歳の男が逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: スリランカ国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:26:31.551Z",
+      "resolvedUrl": "https://kashiwa-tsushin.com/27175.html"
+    },
+    {
+      "id": "d3a34914c5fb6277",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1jd2IwR0ZFZDJlRmxxQ2NZLVJkNG5TSFZOOFFfVGtjUkFzQzZJcVRUcmctTzN3SDZHWmxfaXYzQmR2UndMZU5rUDNaM3U2T3B3VmVJb3NNd3ZiVTk3RlE?oc=5",
+      "title": "「刑罰軽い」と来日のチリ国籍２人、民家でも790万円窃盗の疑い (2026年9月28日掲載)",
+      "currentLocation": "東京都",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 東京都中野区の時計店で高級腕時計が盗まれてチリ国籍の男２人が逮捕、起訴された事件で、警視庁は２８日、この事件の３日前にも都内の民家から腕時計などを盗んだとして、"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 東京都中野区の時計店で高級腕時計が盗まれてチリ国籍の男２人が逮捕、起訴された事件で、警視庁は２８日、この事件の３日前にも都内の民家から腕時計などを盗んだとして、"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: チリ国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:26:37.026Z",
+      "resolvedUrl": "https://news.livedoor.com/topics/detail/32432346/"
+    },
+    {
+      "id": "34ef817b28b47781",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOSnRocHV6UWFCdjBTc2hfWWlfOHBMM2g5OGVzWnBUcU5ySkMwRmhJaWRkUlpmbG5JdjB6T254WVNuTEJ6Q1VIc0pzbjVYT1pUU2pyZzRQblBpVzhONkRKN3B2c0U4ZVZDeTVYa0ZWdzFVWVQzdmdzZlM2UHI4ZmwwedIBgAFBVV95cUxOSnRocHV6UWFCdjBTc2hfWWlfOHBMM2g5OGVzWnBUcU5ySkMwRmhJaWRkUlpmbG5JdjB6T254WVNuTEJ6Q1VIc0pzbjVYT1pUU2pyZzRQblBpVzhONkRKN3B2c0U4ZVZDeTVYa0ZWdzFVWVQzdmdzZlM2UHI4ZmwweQ?oc=5",
+      "title": "韓国籍の49歳男を再逮捕「分からない」と否認…深夜の住宅に侵入したか　福島",
+      "currentLocation": "福島県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 韓国籍の49歳男を再逮捕「分からない」と否認…深夜の住宅に侵入したか 福島（福島中央テレビニュース）福島市の住宅に侵入したとして、49歳の男が再逮捕されました。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 韓国籍の49歳男を再逮捕「分からない」と否認…深夜の住宅に侵入したか 福島（福島中央テレビニュース）福島市の住宅に侵入したとして、49歳の男が再逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 韓国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:29:12.999Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/amp/article/fct/region/fct-2026092802543725"
+    },
+    {
+      "id": "22c4ccb3818b1ba8",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9wdXNvWHVJOWtxSC1yQ0I2UjloV05IQUtCMDdZT1Z6aHoteTVuRkxwUDBjNUU5azFPbFZjRlFtd1B1T1ZuQ0lLNjVWLTNnNkthMEpTcWxwdHlzRHFaem5oZg?oc=5",
+      "title": "中国籍の男に有罪判決 不法就労助長の罪 盛岡地裁",
+      "currentLocation": "岩手県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 不法残留外国人を雇用して就労させたとして、入管難民法違反（不法就労助長）の罪に問われた被告の判決公判は２８日、盛岡地裁で開かれた。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 不法残留"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:29:19.124Z",
+      "resolvedUrl": "https://www.iwate-np.co.jp/article/2026/9/28/197252"
+    },
+    {
+      "id": "644439c456ba0c15",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxORVQ0MkNuNVYxZ19FYWF6T0dJUEZVaWhzeG5RUkVqT0sxNXMwLVdLQlFVTXhqMDBvSVRDY19jeWF5ZGdsTmZRVVNFU0cwa05BY0k4bUxMRWtXdGl0TFl3R044d21NcWt5ekJXMmMzNzN0UWFMZV9YOWQxOGNDaS15N1B6U0pGcjg?oc=5",
+      "title": "カンボジアで“かけ子”か 男2人を逮捕へ うち1人はリーダー格？ 福岡県警（2026年9月28日掲載）｜FBS NEWS NNN",
+      "currentLocation": "福岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:29:25.039Z",
+      "resolvedUrl": "https://news.ntv.co.jp/n/fbs/category/society/fs5903df9125c446589642ab8541f5cf0b"
+    },
+    {
+      "id": "70d5cc644188f3f8",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1oM1dOTlVqOFpMZXFKMUU5MHdYNjBsaXRhWks2dWcwdTdfNEhFcGZ5MUd2ZWtncENLaDBYNEtEXzZUYnpKcmdHQ2VhVU1LMDBrUUlwekFmWFA?oc=5",
+      "title": "つくば 会社役員殺人未遂事件 新たに外国籍の容疑者を逮捕",
+      "currentLocation": "茨城県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 【NHK】今月、つくば市のアパートで会社役員の男性を刃物で刺したとして、雇用関係にあった６人が逮捕された事件で、警察は新たに外国籍の２９歳の容疑者を殺人未遂の疑"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 【NHK】今月、つくば市のアパートで会社役員の男性を刃物で刺したとして、雇用関係にあった６人が逮捕された事件で、警察は新たに外国籍の２９歳の容疑者を殺人未遂の疑"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 外国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:29:31.013Z",
+      "resolvedUrl": "https://news.web.nhk/newsweb/na/nb-1070031803"
+    },
+    {
+      "id": "697a85b08ed84e69",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1OdHdVR2w4eGlXYXFVTFd1OG5vOVpjUEc2MkhxTmt3dHp6N0RySXhaUkw2eTJIS1pwck5iaUlxdHAxaXFZRGhGM3FuN1JsamdhTW9yNjNYSQ?oc=5",
+      "title": "会社員を刃物で脅しバッグ奪ったか ブラジル国籍24歳男逮捕 防犯カメラなどの捜査で犯行特定＝静岡・森町",
+      "currentLocation": "静岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:29:36.869Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/-/2971884"
+    },
+    {
+      "id": "298cb09a01c39e5b",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1TcV9ZdWhINmdCWW1kZlBRdWVHNHUwLVA3bXhiaDU2S3B6NHprdzdIRHpRUkFFWW13dU5YNUJRZUg0Q2VQbUgybjJDbVF0eVE2b1FtOWJmYUdRZC1pbTZ2TVJIZ0ZBUzl2WGI4YktJX2JmN2NQ0gF0QVVfeXFMTVNxX1l1aEg2Z0JZbWRmUFF1ZUc0dTAtUDdteGJoNTZLcHo0emt3N0hEelFSQUVZbXd1Tlg1QlFlSDRDZVBtSDJuMkNtUXR5UTZvUW05YmZhR1FkLWltNnZNUkhnRkFTOXZYYjhiS0lfYmY3Y1A?oc=5",
+      "title": "11万円のギターに安い値札を付け替えてだまし取った疑い　ベトナム国籍の男を逮捕　すでに売却したか「ローンの支払い苦しかった」福岡",
+      "currentLocation": "福岡県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 11万円のギターに安い値札を付け替えてだまし取った疑い ベトナム国籍の男を逮捕 すでに売却したか「ローンの支払い苦しかった」福岡（テレビ西日本）小倉北警察署 リ"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナム国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:29:42.186Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/amp/article/tvnc/region/tvnc-32211"
+    },
+    {
+      "id": "263d77cac5aa2bc0",
+      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBkSHhxUTBuU0FSNjJuQkdXVkVPbnRhNzI4X1ZnNEdTYncySEhqNVFPWFM0UzBmWTVBUlJxVWY1R3BPcElSTzM4LTdrTlZ0SFpB?oc=5",
+      "title": "警察官を装う詐欺の疑いで台湾籍の男を逮捕 鳥取・米子",
+      "currentLocation": "鳥取県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 米子署は２８日、詐欺の疑いで台湾籍の２０代男＝他の詐欺未遂容疑で逮捕済み＝を再逮捕した。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 台湾籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:29:48.411Z",
+      "resolvedUrl": "https://www.nnn.co.jp/articles/-/805430"
+    },
+    {
+      "id": "fc5c126a05dff92c",
+      "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE56aEhyQmpfQzZIWjBIVUlpcFR2UzY5VEs1cDFVd0xNYXFGcm1LYmJqYWJjVFp2TWtVcUdBdjFFTTBvQXlYTTkxY0JBZw?oc=5",
+      "title": "つくばの殺人未遂 容疑でアルゼンチン国籍の男逮捕 7人目 茨城県警",
+      "currentLocation": "茨城県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 茨城県つくば市内のアパートで22日、住人の会社役員男性が雇用していた男6人に背中などを刺された殺人未遂事件で、県警つくば署と県警捜査1課は27日、同容疑で、アル"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 茨城県つくば市内のアパートで22日、住人の会社役員男性が雇用していた男6人に背中などを刺された殺人未遂事件で、県警つくば署と県警捜査1課は27日、同容疑で、アル"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: アルゼンチン国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:29:55.373Z",
+      "resolvedUrl": "https://www.47news.jp/15000729.html"
+    },
+    {
+      "id": "aa40cc67f4f3560f",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFB3TW50cXFGbjBlYWhiY1NaYk1FY25GWWtHNXd2YkpxNWZpQ21sSmxfUFRaeFJWRnFoeElvTEZPa2owUElUZHZ6SEVQcmpYMGRfVUVRRzVLWkZtb3ZVSUF2N3dldGFzVkJ5UVJqR3B0Z9IBdEFVX3lxTE8yS3RySFlQTzVnc21YU2VmcTVvUnJZS3d0NUlxdXp3QTIzcGRxNWI1TENrb3FnMEd0ak4wdUQ1VUdYejB2N0w2Z2d2a3Y2SEYtQjExQ00xTVI2MTRSUC1wZHd1aEV2blhSYnN5STBnbEVGYmpT?oc=5",
+      "title": "乗用車と大型オートバイが正面衝突し60代男性ライダー死亡　乗用車を運転のベトナム国籍の31歳男を過失運転致死容疑で逮捕　北海道音更町の片側1車線の直線道路",
+      "currentLocation": "北海道",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 乗用車と大型のオートバイが正面衝突し60代男性ライダー死亡 乗用車を運転のベトナム国籍の31歳男を過失運転致死容疑で逮捕 北海道音更町の片側1車線の直線道路（H"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナム国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:30:02.583Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/article/hbc/region/hbc-2970211"
+    },
+    {
+      "id": "e3b1c8f49a201d7e",
+      "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03772.html",
+      "title": "路上で20代女性に後方から抱きつき身体を触る 迷惑防止条例違反（痴漢）の疑いでインド国籍の男（36）を逮捕 千葉・市川",
+      "currentLocation": "千葉県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 最新事件・事故ファイル（2026年9月26日） | 千葉県警察 トップ 安全な暮らし 最新事件・事故ファイル 最新事件・事故ファイル（2026年9月26日） 安"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 最新事件・事故ファイル（2026年9月26日） | 千葉県警察 トップ 安全な暮らし 最新事件・事故ファイル 最新事件・事故ファイル（2026年9月26日） 安"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: インド国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:30:08.356Z",
+      "resolvedUrl": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03772.html"
+    },
+    {
+      "id": "77ccc47cd2358674",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9LSXJsZldwZkJrd0NuSlgyZHYyZGhxc05SM29mTDA1ZjlNNGpud3B5b0ZUWTlTUzRadm1aU1c1bmVPNDZFQ1JNR0s5WWFxWk9qRjg0RU5xR3BSdkZYa3Jj?oc=5",
+      "title": "不法滞在者「運転免許よこせ」地裁に提訴 背後に共産党 260912",
+      "currentLocation": "全国",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:30:11.327Z",
+      "resolvedUrl": "https://go2senkyo.com/seijika/165194/posts/1498876",
+      "previousAudit": {
+        "status": "verified",
+        "audit": {
+          "japanCrime": {
+            "verified": true,
+            "evidence": "本文抜粋: https://youtu.be/35kvhNJksU0都内に6店舗を展開する三ツ矢堂製麺 技能実習生のミャンマー人女性に3ヶ月で4万円しか払わず東京地裁から1"
+          },
+          "suspectRole": {
+            "verified": true,
+            "evidence": "本文抜粋: https://youtu.be/35kvhNJksU0都内に6店舗を展開する三ツ矢堂製麺 技能実習生のミャンマー人女性に3ヶ月で4万円しか払わず東京地裁から1"
+          },
+          "foreignNationality": {
+            "verified": true,
+            "evidence": "本文抜粋: 技能実習生"
+          }
+        },
+        "note": "旧判定: 賃金未払い被害者の技能実習生を被疑者と誤認したことによる無効な判定"
+      },
+      "invalidationReason": "invalidated_due_to_victim_suspect_confusion"
+    },
+    {
+      "id": "8f39a1c0d5e24b7a",
+      "url": "https://news.livedoor.com/article/detail/32413131/",
+      "title": "金塊1.8kg（約4258万円相当）詐取未遂 「だまされたふり作戦」で台湾出身の女（31）を現行犯逮捕 奈良市",
+      "currentLocation": "奈良県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 奈良市内に住む男性から金塊1.8キログラムをだまし取ろうとしたとして、台湾出身の女が逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 台湾出身"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:30:17.577Z",
+      "resolvedUrl": "https://news.livedoor.com/article/detail/32413131/"
+    },
+    {
+      "id": "2ffc9c3cbfd9cb70",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5CeVdfWS1uX0dsVzJRcXRCUE10dVJBazd5V0N4MzJWcWNnN3Uyd1FfenUtWXdIN196elNJckUyd0VjS0lVcmRtcUlLcFZZWHZyWnJIN1h1QQ?oc=5",
+      "title": "無免許運転の疑いでタイ人女逮捕 銚子署",
+      "currentLocation": "千葉県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "unreadable",
+      "attempts": 3,
+      "lastAttemptAt": "2026-09-30T22:50:49.632Z",
+      "resolvedUrl": "https://www.chibanippo.co.jp/articles/343861"
+    },
+    {
+      "id": "0699f85e4508de09",
+      "url": "https://www.saitama-np.co.jp/articles/216484",
+      "title": "関越道工事現場に乗用車突入 作業員2人死亡 過失運転致死の疑いでオザヒ・モハンマド容疑者（29＝イラン国籍）逮捕「話すことない」と供述一転・認否留保 埼玉・滑川町",
+      "currentLocation": "埼玉県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:30:31.645Z",
+      "resolvedUrl": "https://www.saitama-np.co.jp/articles/216484"
+    },
+    {
+      "id": "5d5d5ff341c76fe9",
+      "url": "https://www.fnn.jp/articles/-/1120914",
+      "title": "絶滅危惧種「アデレードアオジタトカゲ」無登録譲受の疑い ペットショップ経営の韓国籍の男（36）を逮捕 警視庁",
+      "currentLocation": "東京都",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:30:36.451Z",
+      "resolvedUrl": "https://www.fnn.jp/articles/-/1120914"
+    },
+    {
+      "id": "26aedeb00a9509d5",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBnR25aN1h6ckhwQXJPVk5OWmhTc1IxR05hd19Jc3dCSTU3b2pCdlhYYUk2YUFPcDdDQURPMjA0LWxETDNKYmQtS0NfVlh5Z0lBc0lHVEV3?oc=5",
+      "title": "ポール衝突後に蛇行運転 呼気検査拒否の疑いで中国籍の男（42）を現行犯逮捕 新潟・上越",
+      "currentLocation": "新潟県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 上越警察署は25日（金）午後10時22分、道路交通法違反の疑いで、上越市大豆2丁目在住で自称･農機具回収業の中上越警察署は25日（金）午後10時22分、道路交通"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 中国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:30:39.786Z",
+      "resolvedUrl": "https://joetsu.yukiguni.town/l-news/337669/"
+    },
+    {
+      "id": "0a12d22f536f20a8",
+      "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE4yZnF5cnZzNXVGZVFVdUdIMERZWEI4WGJzUnQ1cWMyZFNyOUdZbXlXbl9VSko4TUlxbUR3UXlXR1p4eVdPMlM2Rk5KVQ?oc=5",
+      "title": "詐欺未遂疑いで台湾出身の女逮捕 警察官かたり金地金を買わせる 奈良県警",
+      "currentLocation": "奈良県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 奈良市に住む80代の男性、だまされたふり作戦 奈良市に住む80代の男性から金品をだまし取ろうとしたとして、奈良県警組織犯罪対策課などは25日、詐欺未遂の疑いで、"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 台湾出身"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:30:45.516Z",
+      "resolvedUrl": "https://www.47news.jp/14993106.html"
+    },
+    {
+      "id": "ec0e0d290ac4e646",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFB3THRqRTV1RWRqNkhDOTFncThsZ3ItT2Znck1MTHhEYXV5NGhvOFhKWmUwa1VVclI0MVJLMDZjY1F6TFBIbTRPRFpsR1FRODE4X1daaUV4S2VRYjNPY3d4Sw?oc=5",
+      "title": "特殊詐欺で現金6000万円詐取か 受け子とみられる台湾籍の男を再逮捕 山形、岐阜両県警",
+      "currentLocation": "山形県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 山形、岐阜両県警は２４日、詐欺の疑いで、台湾籍で住居不詳、自称アルバイトの男（２７）を再逮捕したと発表した。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 台湾籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:30:52.602Z",
+      "resolvedUrl": "https://kahoku.news/articles/20260924khn000056.html"
+    },
+    {
+      "id": "0fa95327306221f2",
+      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE0tdjFlLVJNYTFRcGxTZ05TZzVmYUduX1Uyc2Ntak1ELWlvc1F2dXVEd0F1dU9scF90NEhEVDBiZDZjUVRFcWVWanNobVdqTlJYanp4NE83cmcxN2JsNHVFY3A1RWpuUER1UE14Q25xRG4zZw?oc=5",
+      "title": "液状大麻約8kg密輸・所持 ベトナム国籍の男女3人を逮捕 偽造在留カードも所持 佐賀・鳥栖",
+      "currentLocation": "佐賀県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 液状大麻などを所持していたとして、いずれもベトナム国籍で東京都の女子大学生、チャン・バオ・カイン容疑...液状大麻などを所持していたとして、いずれもベトナム国籍"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナム国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:30:58.441Z",
+      "resolvedUrl": "http://www.excite.co.jp/news/article/sagatv_1476175475859292639/"
+    },
+    {
+      "id": "9708aadf5e70c67d",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1CODkycF9ybHU2T1Z0eXRBa2ZLRWo2dmZZUUZKekVJX0dVdkM1X3QzcWVGY2RXTGszbWFNNTFVWWRPQjkxU3g2VWxmTk8xUy1YS25zMUozZFI?oc=5",
+      "title": "営利目的で大麻草を栽培か ベトナム国籍の容疑者再逮捕 足利",
+      "currentLocation": "栃木県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 【NHK】営利目的で大麻草を栽培したとして、栃木県に住むベトナム国籍の容疑者が再逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナム国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:31:04.317Z",
+      "resolvedUrl": "https://news.web.nhk/newsweb/na/nb-1060022808"
+    },
+    {
+      "id": "81a9c255ea19eb9e",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5mejc4cFFZUHJESmo1SHROaFVZM3J3M25XSlh5X0FZVkQtMS10MWdHR3hNTm53bERsei13S0lPN3VjeklySjFsa2FnR0QwX3ZyMWdpQzJYNnFNYVhjcmxYaXhyMlVmOEJwdE5icmhIUFRCdURMTXc?oc=5",
+      "title": "覚醒剤所持クルド人デニス被告に有罪判決 懲役2年執行猶予4年、東京地裁「悪質な犯行」 「移民」と日本人",
+      "currentLocation": "東京都",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 東京・新宿の路上で覚醒剤を隠し持っていたとして、覚醒剤取締法違反の罪に問われたトルコ国籍のクルド人で東京都目黒区の無職、イエンギン・デニス被告（47）の判決公判"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 東京・新宿の路上で覚醒剤を隠し持っていたとして、覚醒剤取締法違反の罪に問われたトルコ国籍のクルド人で東京都目黒区の無職、イエンギン・デニス被告（47）の判決公判"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: トルコ国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:31:10.402Z",
+      "resolvedUrl": "https://www.sankei.com/article/20260925-SAIGV6KY3RB5TOVOJLETHNRAYA/"
+    },
+    {
+      "id": "94c552bfd5de71b5",
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9MTEFpQkxwRE1rZ1p1MXRCZWY5YnNPeXhoYUlhZ2d2elNUdlQxRVNXUHd1T1AzXzFyUDQ2YmdwOVRobkFoSkFpQm53Vk5LYUFBTTJhZlNXOXlISlNzN2QtR2F0aw?oc=5",
+      "title": "フードデリバリー配達先で留守番女児に不同意わいせつ容疑 ウズベキスタン国籍の男（45）を逮捕 警視庁",
+      "currentLocation": "東京都",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: フードデリバリーの配達時に応対した小学生の女児にキスをしたなどとして、警視庁北沢署は２５日までに、不同意わいせつ容疑でウズベキスタン国籍の配達員ムーミノフ・ディ"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ウズベキスタン国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:31:15.770Z",
+      "resolvedUrl": "https://www.jiji.com/jc/article?k=2026092500674&g=soc"
+    },
+    {
+      "id": "8b9482c10fb00f51",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5QVFlVTDdNZEpXMW1YZ1BtOXdad3ZzQXA3M0ZLX2paV2lGRHlabDQwNWpRQ01KZS1LTnYyUnhJZVZ0eHFWVmx0cnpCRHdDcDUyQm9vM2ZLeXM2Zw?oc=5",
+      "title": "民家に侵入しネックレスなど盗む スリランカ国籍の男3人を逮捕 長野・箕輪町",
+      "currentLocation": "長野県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "topic_mismatch_contamination",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:31:21.292Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/sbc/2965940"
+    },
+    {
+      "id": "aaaae7aadb510034",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFB1ZThwdWZZNkpyX3BZV2c0dW9zVkZvaFhHel8waDJDREpWbHFnS1FQX2MyYlFxWW1WQzBfT0lLMFNnY3hZODhEZUk2TjZBN1VCQkUxNGkwdVJwODNaNTNEQnRIVUhFTzZ4d0FsUTBCc295NTUtaFRHeHRQMjhpZE0?oc=5",
+      "title": "名古屋市の67歳男性から1700万円詐取の疑い 受け子とみられる中国籍の男を逮捕 愛知県警（メ〜テレ（名古屋テレビ））",
+      "currentLocation": "愛知県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 株式投資の運用資金の名目で名古屋市に住む60代の男性から現金1700万円をだまし取ったとして中国籍の男が逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 中国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:31:28.056Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/ca8732414292ec90e21af1f2a06203fd1c8e005a"
+    },
+    {
+      "id": "95f9a343b9f98c6b",
+      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTFBqQU5vZXJwOGdRX1R6UmVianlwR1RDLU5wS3JwUW1qTGYtWlI1Ti1CRUZwRi1FSmlwWENnMHBRYldMX0NFWG01N0pVUEVMUzBqU0JaRC1mcU5SbUZzT0I3LUxkWVF1ZFd0NDd5eVNYOEtZUQ?oc=5",
+      "title": "自宅で大麻草207鉢を栽培か ベトナム国籍の男（33）を逮捕 栃木・群馬県警",
+      "currentLocation": "群馬県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 営利目的で大麻草を栽培した疑いでベトナム国籍の容疑者が逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナム国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:31:33.925Z",
+      "resolvedUrl": "https://news.tv-asahi.co.jp/news_society/articles/000535628.html"
+    },
+    {
+      "id": "18ce1c5bf32ac4c8",
+      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE45SUYxYUQtYmVGWnl3czdHMG9DMGRSUW5LOWFMR0xON01VN0tOcnoxcDhOYkw4dFVWb2Jvc2syNm5wZ0FIbnZnMXlqRFJKdmVVUktCcA?oc=5",
+      "title": "「あべちか」強盗事件 強盗殺人未遂の疑いで逮捕されたベトナム人女性（21）を不起訴 詐欺罪では起訴",
+      "currentLocation": "大阪府",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:31:39.256Z",
+      "resolvedUrl": "https://www.ktv.jp/news/articles/?id=29861"
+    },
+    {
+      "id": "f4a0abfc182e72f3",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOcjFud3pYTlZLYWpHbnlaOWc0Z0hnUTBTbkY5NmVuTVlCZlVDVUNycjhtbE1aQ3M1cWotM1U4SkJNN3E4UVNVdEtOeHM5eVRXWFh4UU1GN2JVRDZMNDcyUTRnU1VDa1lmZTJFWWg4WHNuN2VjbWM3bi11NmFMUndDc0NHN1daSmN4STc4ay13?oc=5",
+      "title": "タイ人の女を逮捕 およそ４年間不法残留していたか 静岡・伊東市を走行中に職務質問で発覚 (静岡朝日テレビ)",
+      "currentLocation": "静岡県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 伊東警察署 - Yahoo!ニュース(静岡朝日テレビ)伊東警察署 - Yahoo!ニュース(静岡朝日テレビ)伊東警察署 タイ人の女 およそ４年間不法残留していた"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: タイ人"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:31:44.711Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/23a6b2733e93e15566f981a7c33a8e9e75df1d5d/images/000"
+    },
+    {
+      "id": "67b4e976a7053a20",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBMYVdzUUlhVERGbGpscFlOanRHRWhmZzROSFQ0N2o2c1JFOHBLSFd1UVhCcGdzYWpkcUZ4czVLUVpXVE9YRTk0Z3V1Skd1bHg4SzI5MGctZlU2Zw?oc=5",
+      "title": "「受け子」か 詐欺疑いで台湾籍の男再逮捕 門別署",
+      "currentLocation": "北海道",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 【日高】門別署は24日、詐欺の疑いで、台湾籍で台湾在住、自称会社役員黎家畯容疑者（29）=詐欺未遂容疑で逮捕済み=を再逮捕した。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 台湾籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:31:50.720Z",
+      "resolvedUrl": "https://www.hokkaido-np.co.jp/article/1375911/"
+    },
+    {
+      "id": "565df1614ccf2299",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBvNnQyLUlIRW5XRXVBVjRJUjd5QXJ2dXNMWXRKaVp2ZnQ4Znl0MElPenBNR2R6SVRPMEpkOHJGTkttX0doQU1pbnhkU1k0NThhS1ItV2otM000Y0MxQThLaGJqbXM?oc=5",
+      "title": "女子中学生に授業中 わいせつな行為をした疑いでフィリピン国籍の英会話教師の男（34）を再逮捕【香川】",
+      "currentLocation": "香川県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 昨年（2025年）11月、香川県の中学校で、授業中に女子中学生にわいせつな行為をした疑いで、フィリピン国籍の英会話講師の男がきょう（9月24日）再逮捕されました"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: フィリピン国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:31:56.518Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/-/2964249?display=1"
+    },
+    {
+      "id": "456494ab0ad03912",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBNLTQ0WXpxamg5R3cxUUVSeWcySTZDT1VORVhKR002aUt6OWdnNTZ6dlFXNGxvSWNWMUNmZkFDU3ZKdE1tak83NU80Rk9lV2xVSWw5RWFGM2tMQQ?oc=5",
+      "title": "車内で知人女性を殴る暴行を加えた疑い 無職の中国籍の男を逮捕【香川】",
+      "currentLocation": "香川県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 20代の女性を複数回殴る暴行を加えた疑いで、高松市に住む中国籍で無職の男（28）が、きのう（23日）逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 中国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:32:02.746Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/rsk/2963141"
+    },
+    {
+      "id": "51af6bf7f2c94c06",
+      "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03768.html",
+      "title": "無免許かつ酒酔い運転の疑い スリランカ国籍の男（38）を現行犯逮捕 千葉県警柏署",
+      "currentLocation": "千葉県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 最新事件・事故ファイル（2026年9月22日） | 千葉県警察 トップ 安全な暮らし 最新事件・事故ファイル 最新事件・事故ファイル（2026年9月22日） 安"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: スリランカ国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:32:09.347Z",
+      "resolvedUrl": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03768.html"
+    },
+    {
+      "id": "aafc329f303fb661",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9zdTQ5TmQyMHRtNnR4U3Uycnk5Q0RHNW15QWZadk9aa1M5Rm04YzJKZGhaeWt2Z2V4UDNSN1hRMGhKdUk2d0FfdzE4YVh3VnUybElRT19yRUkzWXRSQjM4?oc=5",
+      "title": "90代男性から現金6000万円騙し取った疑い 台湾籍の男2人を逮捕 短期の在留資格で来日し犯行繰り返したか",
+      "currentLocation": "岐阜県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 警察官になりすまし、岐阜県の90代の男性から現金6000万円をだまし取ったとして、台湾籍の男2人が逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 台湾籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:32:12.759Z",
+      "resolvedUrl": "https://news.infoseek.co.jp/article/tokaitv_48444/"
+    },
+    {
+      "id": "e26f3b56321fae00",
+      "url": "https://www.kab.co.jp/news/article/16907930",
+      "title": "オクトーバーフェストで警備員を殴打 米国籍の男（27）を逮捕 横浜市中区",
+      "currentLocation": "神奈川県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 横浜市の赤レンガ倉庫のビールイベントで、酔って警備員の男性を殴ったとして、アメリカ国籍の男が逮捕されました。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 横浜市の赤レンガ倉庫のビールイベントで、酔って警備員の男性を殴ったとして、アメリカ国籍の男が逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: アメリカ国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:32:18.699Z",
+      "resolvedUrl": "https://www.kab.co.jp/news/article/16907930"
+    },
+    {
+      "id": "55897681b0191297",
+      "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03767.html",
+      "title": "京葉道路下り線で酒酔い運転 中国国籍の男（34）を現行犯逮捕 千葉県警",
+      "currentLocation": "千葉県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 」などとうそを言い、現金をだまし取った男(22)ら3人を9月21日逮捕 ・酒酔い運転で男を逮捕（高速道路交通警察隊） 9月21日午前1時35分頃、船橋市海神町南"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 中国国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:32:22.043Z",
+      "resolvedUrl": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03767.html"
+    },
+    {
+      "id": "3c00a0cf20c1a143",
+      "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03766.html",
+      "title": "液体コカインをスーツケースに隠匿し密輸か ドミニカ共和国国籍の男（26）を逮捕 成田国際空港警察署",
+      "currentLocation": "千葉県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:32:24.707Z",
+      "resolvedUrl": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03766.html"
+    },
+    {
+      "id": "eeaecc5de80130d8",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE4wbnZGUTJCSWh2bXdhQlotdmhyVDRLcXRLc1I3NmxFdFVIZUJVbTFjc3QzMm5vcVpDRFVrWEVBcG5fZEZCLUhvV3d1eXZ4ZUFhRGFhdVpLMjBJUm5wS2hhUQ?oc=5",
+      "title": "酒気帯び運転の疑い、ベトナム国籍の男逮捕 北上署",
+      "currentLocation": "岩手県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "unreadable",
+      "attempts": 3,
+      "lastAttemptAt": "2026-09-30T22:50:58.147Z",
+      "resolvedUrl": "https://www.iwate-np.co.jp/article/2026/9/21/197027"
+    },
+    {
+      "id": "8879970e5d7a1b96",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE0wQTgzTFBCOWs5el9vR2FGS2hEaGxzczlfcm5JcEI0cV95V0RZNzNPNWE4MXFxQlRKQ2JhVXlVUlgzSDJ4SlE1c2pBZVhrbW5iX0EwbzBDS1lkOEtOYUxNZg?oc=5",
+      "title": "「焼酎を朝1本、夜1本飲んだ」酒酔い運転の疑いでラオス国籍の67歳男を逮捕「蛇行運転」「看板に衝突」通報相次ぐ=静岡県警",
+      "currentLocation": "静岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:32:33.719Z",
+      "resolvedUrl": "https://www.at-s.com/snews/article/ats/2060287.html"
+    },
+    {
+      "id": "a6e69709c47f6bd5",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFAyQzFwbGdQUDR2M09zQ0V1ZTRCelNyT0hBVGFDTmVsSHZzLV9CZ0tXdWFsQWZySjVhX2I0OXV1SUtHNG5HWWJOdk40UG0xM0VzbTBkanE4cjlNY0JXZ2FZMg?oc=5",
+      "title": "「メロンを盗むつもりで入った」メロン栽培のハウスに侵入した疑いでベトナム国籍の男ら2人を逮捕 窃盗の容疑でも捜査=菊川署",
+      "currentLocation": "静岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:32:39.758Z",
+      "resolvedUrl": "https://www.at-s.com/snews/article/ats/2059976.html"
+    },
+    {
+      "id": "92f29c4fa2073e26",
+      "url": "https://look.satv.co.jp/content_news/incident/98490",
+      "title": "追突事故を起こし女性2人にけがを負わせ逃走 スリランカ国籍の男（31）を逮捕 静岡・袋井市",
+      "currentLocation": "静岡県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: １９日夜静岡県袋井市で、追突事故を起こし女性２人にけがをさせたまま現場から逃走したとしてスリランカ人の男が逮捕されました。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: １９日夜静岡県袋井市で、追突事故を起こし女性２人にけがをさせたまま現場から逃走したとしてスリランカ人の男が逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: スリランカ人"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:32:45.293Z",
+      "resolvedUrl": "https://look.satv.co.jp/content_news/incident/98490"
+    },
+    {
+      "id": "3d6b2b9186f8bbe5",
+      "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03765.html",
+      "title": "原付バイクと衝突し重傷を負わせた疑い 中国国籍の女（40）を逮捕 千葉県松戸市",
+      "currentLocation": "千葉県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 軽乗用車を運転していた中国国籍の女(40)を同日逮捕 ・ストーカー行為等の規制等に関する法律違反事件で女を逮捕（人身安全対策課） 7月28日、埼玉県警察本部長か"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 中国国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:32:49.459Z",
+      "resolvedUrl": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03765.html"
+    },
+    {
+      "id": "41ddae72738e1a40",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1DXzduM3FoOWVsbVRma0lYY1h1YUR6SUNWMEU0UFgtam1KcGhOVTI4WEZrOXJXdFF1cHhfdVNlQTRmTHI0UHZEdTBQaGZjelY0THE3Zll5TW5qTVNmLUFFY3RhdXd5WlhvSUtV?oc=5",
+      "title": "キャッシュカードを不正譲渡した疑い、ベトナム国籍の男逮捕 男の口座が詐欺被害金の振込先に 伊丹署",
+      "currentLocation": "兵庫県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "topic_mismatch_contamination",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:32:52.659Z",
+      "resolvedUrl": "http://www.kobe-np.co.jp/news/jiken/202609/0020836683.shtml"
+    },
+    {
+      "id": "9e8524c8028eca9d",
+      "url": "https://look.satv.co.jp/content_news/incident/66524",
+      "title": "3年9か月にわたり不法残留した疑い ネパール国籍の女（30）を現行犯逮捕 静岡・沼津市",
+      "currentLocation": "静岡県",
+      "status": "insufficient_evidence",
+      "isTruncated": true,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "truncated_suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:32:58.254Z",
+      "resolvedUrl": "https://look.satv.co.jp/content_news/incident/66524"
+    },
+    {
+      "id": "bb216ffd8e14c4fd",
+      "url": "https://www.police.pref.chiba.jp/incident/",
+      "title": "酒酔い運転でフィリピン国籍の女（44）を現行犯逮捕 千葉市中央区寒川町",
+      "currentLocation": "千葉県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:33:03.206Z",
+      "resolvedUrl": "https://www.police.pref.chiba.jp/incident/"
+    },
+    {
+      "id": "6cc02235533a113b",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1PdFZsS3FJaFBzREo4QVNIOE03eHFmWi1QQ0MyTTE2d09yQ2V6RklXMldlN09JYVV1em50OXY0R1dNZHJoSnJtQTkzaTZlZ3k1RkdaWkpvZU0?oc=5",
+      "title": "警察官かたる詐欺未遂か マレーシア国籍の受け子逮捕 松山",
+      "currentLocation": "愛媛県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:33:05.965Z",
+      "resolvedUrl": "https://news.web.nhk/newsweb/na/nb-8000027316"
+    },
+    {
+      "id": "4c6b1cb2a6c40e7a",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1hbW5ZNlBmUzVtUTh5WFRHUHAxbENCYnkyNmFiUURGbVFTTDQtTUpBSUJEODF4dkNTMmdabUZ6Rmd4TndMcmR6SWlZY1ZSbUZhT1FqUEpfLUlielY4NHhlV19fYWlWeUnSAWxBVV95cUxOdEpDZkY0Sk41NUpOMnJ2NUJuWWc2RmtvYy1pMWlrOHlod2gxU2dDbTNDZWQzaVA5NHZzRXMzaUUza0doTThjY3dWdWlUZEJha1hya0dxVXZpYWlxNEdMUlduYXEzenp2Z0dqcXc?oc=5",
+      "title": "警察官装い詐欺の受け子か 台湾出身の男逮捕",
+      "currentLocation": "東京都",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "topic_mismatch_contamination",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:33:11.730Z",
+      "resolvedUrl": "https://news.infoseek.co.jp/article/abematimes_10273863/"
+    },
+    {
+      "id": "826f82221bf321c9",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1LVHhDMlhMQjVBU0x1WWJ2VTN0YV9Pa2tiV3JaSzZ4VElOSXVuZTk3QVoxRzhyekE3Vmg5aWVLSHVZRHVJdTNRSXFvQS1UdWlxMnU2RE41c0ZlRU94M1EwNENqdzh4QlU?oc=5",
+      "title": "外国籍男性を不起訴 今別で「大麻グミ」所持疑い／青森地検",
+      "currentLocation": "青森県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 青森地検は１８日、大麻成分を含んだ「大麻グミ」を所持したとして、麻薬取締法違反（大麻所持）の疑いで逮捕された、外国籍の無職男性（２４）を不起訴処分とした。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 外国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:33:18.050Z",
+      "resolvedUrl": "https://www.daily-tohoku.news/archives/CNTS2026091802643"
+    },
+    {
+      "id": "a2d3f72c4b744eee",
+      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBOV2NTbHhWdEpJVkZHQXJvUXE2STBEVmlaVW5VeWtOSFpIUm5QdTR5UnpQYW11ZDdnazlDVDQ0cGtnQUFUZl9KWWEyT0JrbThINDlpU0FiLWdLNVNWdFdOdWlSb1d5VkhOU1dPWGFnRzlkeHJjb01WTQ?oc=5",
+      "title": "いぼ除去の医療行為、フィリピン国籍の女に有罪判決 地裁いわき支部",
+      "currentLocation": "福島県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:33:23.557Z",
+      "resolvedUrl": "https://article.auone.jp/article/c6e88be4-e55c-496a-931d-2ec9002a54b1"
+    },
+    {
+      "id": "14b475feafd6a687",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1zMVp4M012THpPZFZQcFREWnhFbnB4R2tSc3FMM09QekJQMFVsS1RaZ1NPd3g0cUItTlh5ZVFJRXRCcG9tYmdDbzV3Sm04MDhkV0JYWWEtOA?oc=5",
+      "title": "羽咋で銅線14トン窃盗疑い ベトナム籍5人逮捕 太陽光施設から 石川など6県警捜査",
+      "currentLocation": "石川県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "unreadable",
+      "attempts": 3,
+      "lastAttemptAt": "2026-09-30T22:51:04.231Z",
+      "resolvedUrl": "https://www.hokkoku.co.jp/articles/-/2233346"
+    },
+    {
+      "id": "c4469b9122b6c469",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE03dlRLOFI5Mzh3NUhUcFVUOUNsU2ZPRUViVWRvb29QUHRJeWNGV2MweW5KOWRyamZWaEx2YU9VSDJRT1NaSTZCdEtLVGJlT2JhS3NWaGVfLTYwLU1WeHEyMFp4ZVp4LVE?oc=5",
+      "title": "“ゾンビたばこ”など密輸しようとしたタイ国籍の女 拘禁刑5年の判決 大阪地裁",
+      "currentLocation": "大阪府",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:33:35.451Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/mbs/2957830?display=1"
+    },
+    {
+      "id": "94b291ef8b020a94",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQa1A4Z2RsdVYtNld3SE9wT1dHVXd1bGdwUmpjZ3F4Q0VQMTI3Z01oRWd2UmtFQnFZSkEyU0piMTRLa21EMjYzMU5oMU5RLXJvRU13ek5pVUtjREdQZzRNbHppY19PMXlTMG9jS0xtQjNpWm44Q0FLTzg0b3R1eWJOeDNwc0VlMEJ5YTdWTHdudTllMzRz0gGUAUFVX3lxTFBrUDhnZGx1Vi02V3dIT3BPV0dVd3VsZ3BSamNncXhDRVAxMjdnTWhFZ3ZSa0VCcVlKQTJTSmIxNEtrbUQyNjMxTmgxTlEtcm9FTXd6TmlVS2NER1BnNE1semljX08xeVMwb2NLTG1CM2labjhDQUtPODRvdHV5Yk54M3BzRWUwQnlhN1ZMd251OWUzNHM?oc=5",
+      "title": "「現金を玄関前に置いて」対面せず回収計画か　詐欺未遂疑い、台湾籍の男を逮捕　警視庁",
+      "currentLocation": "東京都",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 警察官などを装って現金をだまし取ろうとしたとして、警視庁小松川署は詐欺未遂の疑いで、台湾籍で住居不詳、無職の陳志豪警察官などを装って現金をだまし取ろうとしたとし"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 台湾籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:33:40.948Z",
+      "resolvedUrl": "https://news.infoseek.co.jp/amp/article/sankein__affairs_crime_3CHDQ2AZGVIKRBKKSNWRGMTDDM/"
+    },
+    {
+      "id": "1e56307e710ad8c0",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5Ma1lpN3NhaUtNVFRXNk93U2JrczZDd0xmb1BJemxoRFhQTXRnS3RTQktTN0l2Rms5clV6d1o3NVFtODN1UU5saXp3ZDdrN1lUV0RjdGEtU3ZZT0FSaEhCVFFGc3FDVnl6ajBacg?oc=5",
+      "title": "兵庫や大阪など13府県で空き巣疑い、ベトナム人2人逮捕 63件計1200万円相当の被害に関与か 県警",
+      "currentLocation": "大阪府",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 兵庫県警捜査３課と三田署などは１７日までに、住居侵入と窃盗などの疑いで、いずれも住所不定、無職でベトナム国籍の２４歳と２６歳の男２人を逮捕した。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナム国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:33:47.012Z",
+      "resolvedUrl": "https://www.kobe-np.co.jp/news/jiken/202609/0020830439.shtml"
+    },
+    {
+      "id": "a7d64ce8850766c2",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBaVTlZOEplSGxOV25IUFZLZG03X1BRRHFWczJLaV9OV254TmtULXVOc0FGa3NoTVRlem9wWV9VbkEyaTQ2MWJMb25MemNtSXRYNzF1OTNvQVBNVjNNSW03bTJ6cE1oYTY0NmowYlExZ3pheG9Yc2c?oc=5",
+      "title": "川口バイク19歳死亡事故、トルコ国籍男に実刑1年6月判決 さいたま地裁「危険な運転」 「移民」と日本人",
+      "currentLocation": "埼玉県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 埼玉県川口市で1月、信号無視でバイクの男性をはねて死なせたとして自動車運転処罰法違反（過失致死）の罪に問われたトルコ国籍で解体業、クルト・ハイリ被告（29）の判"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: トルコ国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:33:53.162Z",
+      "resolvedUrl": "https://www.sankei.com/article/20260917-M44USJ2ZWNHZNBRQAVFDW7EAMA/"
+    },
+    {
+      "id": "3af9ae7675528eaa",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBNZi1nZm9UaW1ZdzMxaFFGUVBZeW16Y01hVHJLblZBMmN4N0hsV1A5QVptR0RMV0c1VHd1QjRUejFFMldRYWlUbFZIa0NaMEJFV0Y5cWZyMGJIM2xma0h4N256QXM?oc=5",
+      "title": "不法残留疑い ３人摘発",
+      "currentLocation": "全国",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:33:59.234Z",
+      "resolvedUrl": "https://www.sannichi.co.jp/article/2026/09/17/80722662"
+    },
+    {
+      "id": "1be30bb476f760a5",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOeXZHOXFCbnNZak5YeFBrOGFzOWYzRFlXWmRmMmFxdENfTzVzY0hibFFkdDlzV2dXOXpmTjQ0Mkw4Z2JMbUE4OHd4MmtzZkhmcmtWajJVTU9xaUVSbzZvb0tUQy1fMVhEMEV6TUE0X3Z6YmNUalJkUmNoYkE4aHFJbGVOYmdMbk0?oc=5",
+      "title": "3年4か月にわたる不法滞在でパキスタン国籍の男逮捕 職務質問で発覚 山形（2026年9月16日掲載）｜YBC NEWS NNN",
+      "currentLocation": "山形県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 在留期間を過ぎて3年4か月以上に渡り不法滞在したとして、山形市で16日、パキスタン国籍の男が逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 不法滞在"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:34:05.306Z",
+      "resolvedUrl": "https://news.ntv.co.jp/n/ybc/category/society/yb9b4caa7f7ceb4c4094a753c267a526dd"
+    },
+    {
+      "id": "4511e21583e0c4cb",
+      "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9lcjlNWVlWNmY1eDdRSF9JZHFzdmlXcGhlY1BleGdkTERycHpOWC1ON2daaU1VeElrellMTHpxVjJvdlZLRkhBbTQ4a2pXcjU0SUV2cS1xUU95SXg5VERYWURR?oc=5",
+      "title": "２年前神戸市内の路上で女性にわいせつな行為をした疑いで16日セントレアへ入国してきた中国籍の男を兵庫県警が逮捕 男は容疑を否認",
+      "currentLocation": "兵庫県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: ２０２４年５月、神戸市中央区の路上で、女性の上半身を触ったなどの疑いで、兵庫県警は１６日、中部国際空港に入国した中国籍の男を逮捕しました。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: ２０２４年５月、神戸市中央区の路上で、女性の上半身を触ったなどの疑いで、兵庫県警は１６日、中部国際空港に入国した中国籍の男を逮捕しました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 中国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:34:11.080Z",
+      "resolvedUrl": "https://www.asahi.co.jp/webnews/pages/abc_62587.html"
+    },
+    {
+      "id": "7d340d1372fd939f",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1xbWtJSkdPUWFtdHlyY3B3enNVanIzWFItcGhGWWtzOTgxbFpvTU8wU2s0UHp4bzhMZFA3ZTJMRUFWVXZPbjhiaU1rNlVVbldTN1ctQzVjU0Z5dU1MaUpSRV9qRUVrXzlDV3ZEX3ZlSVVVU2djWTFqeU95Rkdodmc?oc=5",
+      "title": "不法残留容疑でベトナムと中国籍の男計１０人を現行犯逮捕…木造２階建て住宅で集団生活、グループの実態や関与した人物を調べる（読売新聞オンライン）",
+      "currentLocation": "全国",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:34:17.067Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/b3595e1116e9f3d8c47a8c532b3e1a90f98e450c"
+    },
+    {
+      "id": "0a5d803056ad26d6",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOaWN5THlvRG15aVBrSFpET0QxYnhtdERxYm1yaS1UYWYzdWpVNHJpTDNid2puWWpDSk5iUTRmMHpNcFhha3d1MDVTTzZtYWNNTmVMMDBnLVIzeFF0NU43U2ZTbkxCVjhSTF9Pc2NuM2tpVnlhXzFkbGVBdHF6R3pHam96ck9MZzYtRlByTldiQlI2aGYyLVlCSVZFZVptaFVSS29uRWZudzA?oc=5",
+      "title": "マッサージ装い性的サービスか タイ国籍の女ら逮捕",
+      "currentLocation": "茨城県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 茨城県坂東市でタイ古式マッサージ店を装い男性客に性的なサービスを提供したなどとして、タイ国籍の女ら3人が現行犯逮捕されました。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 茨城県坂東市でタイ古式マッサージ店を装い男性客に性的なサービスを提供したなどとして、タイ国籍の女ら3人が現行犯逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: タイ国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:34:22.568Z",
+      "resolvedUrl": "https://times.abema.tv/articles/-/10273446?utm_campaign=others_times&utm_medium=web&utm_source=abematimes"
+    },
+    {
+      "id": "dd5d10e2ee059198",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1pTWhHUjlFXzhWeXFWMUVHVkdxQk5hRlROUUdaNnlFWXRlUnRBdkJxYzMwMHhFSTZYQ1BMSXcyM1NDbTJmVnBqLTFRNWxhUklTYVRxUFVjNA?oc=5",
+      "title": "国の生活補助金受け取るためとウソ 通帳とキャッシュカード郵送させ回収しようとしたか 中国籍の女（43）逮捕 警視庁池上署",
+      "currentLocation": "東京都",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:34:28.635Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/-/2950927"
+    },
+    {
+      "id": "92f602c336c7e1c0",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQQ1JpOXExRF9RWFpvb042OE12cnpZMks0Z1hTT3hqaHBxSXhzSlFlUjZCNlc2OXVIZy1Qdldqc3RGOUMwc19VSjJRMlYxc1RmX0VqQmdZSERfS3hOV2I1NzJzVENYLU85bmVHb1U0WGthMFhTOWZPUFkwaVRFYkR5RXkxb9IBiAFBVV95cUxPOXYzb2oyaE94TVU0eGtxZmtPQ05zcHdSb2tXMXFVS21MZXNaOWJ0eVRfNU1MNVU4cXY3ZWdsbVF1eWw1Zi10VXpVTjYxbmZOV3BfX1l0dVo5TGtMei1xZzN4LVhOQW9mRW9iSE9PS0ZvUnUwb2hZNUlyNmpTTEVQcVM1NW1KM256?oc=5",
+      "title": "接触事故の聴取時に酒の臭い　酒酔い運転疑いで22歳米兵を逮捕　沖縄市",
+      "currentLocation": "沖縄県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 接触事故の聴取時に酒の臭い 酒酔い運転疑いで22歳米兵を逮捕 沖縄市（沖縄タイムス） 沖縄署は１６日、米軍キャンプ・ハンセン所属の海兵隊伍長の容疑者（２２）の男"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 米兵"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:34:34.722Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/article/okinawa/region/okinawa-20260917073700"
+    },
+    {
+      "id": "651e0da48d350765",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFA0RWFqLTRwd0JKQ0JFUWJ6emZkcDVoYXNycm9wT3N2clBTRWdNSHpDbGI0c29LNmNMbnJHb0ZxRkVxTFI5OXRUWHNlajM5cU5ldk1zVDQxSjQ?oc=5",
+      "title": "車3台絡む事故で2人けが “ひき逃げ”でベトナム国籍の男逮捕 千葉・匝瑳市 – Quebee キュエビー",
+      "currentLocation": "千葉県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:34:41.196Z",
+      "resolvedUrl": "https://www.qab.co.jp/quebee/video/000533932/"
+    },
+    {
+      "id": "97af04b9e290b4a6",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE0xSVlBWHRMWk83UzVwemxqS2M5QnBzYWJwTWMtWGxxbEhOdzIxdk82bUZaXzFvb2JZak84aEdNaUZWNGV6X3BzZlRQcUVWdXhtUkVIS1oxRkllb0x5aTQ5MFp3VzZOakpjWERJZG5yYmpFOHNtS3c?oc=5",
+      "title": "生活支援制度「代行」うたい通帳詐取か 中国籍の女逮捕 警視庁",
+      "currentLocation": "東京都",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 「生活支援制度の手続きを代行する」などとうたったSNSの動画を見た男性から通帳などをだまし取ろうとしたとして、警視庁池上署は16日、詐欺未遂の疑いで、中国籍の住"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 中国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:34:48.743Z",
+      "resolvedUrl": "https://www.sankei.com/article/20260916-SS4TVYE2KFPRDMKWAY5UITHWSA/"
+    },
+    {
+      "id": "04167bfb8dbe7d11",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5yaVRXVnoxcG5XU3loLVV4MWF5d2lpOXFrU3l2Z1FRb1ljcEJuc3cyajZTdDFycHJhamctdEhsajd3NDE2aWFKXzY4cGE3bHgxYm1yUXVSa2FRZw?oc=5",
+      "title": "外国人とみられる男2人が高齢女性を切り付け車を奪って逃走 警察署の目の前の店舗駐車場で強盗傷害事件=静岡県警",
+      "currentLocation": "静岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:34:55.295Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/sbs/2950452"
+    },
+    {
+      "id": "766b179d40fd6935",
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFA0LWlpN3RCWXlLWEhMSExiSmpUTW5FOVpfcVY0MWhLM0JHQ280RFFPNjNjc1ZaLVZ4UjN2ek5jd2hFbnNLTUtPS3lsb24wQmJVa0xWbV9OVy1xc3R3WjczQnRtWdIBY0FVX3lxTFA0LWlpN3RCWXlLWEhMSExiSmpUTW5FOVpfcVY0MWhLM0JHQ280RFFPNjNjc1ZaLVZ4UjN2ek5jd2hFbnNLTUtPS3lsb24wQmJVa0xWbV9OVy1xc3R3WjczQnRtWQ?oc=5",
+      "title": "娯楽施設の脱衣所で男性客の裸を撮影した疑い　台湾国籍の男を逮捕　香川県警",
+      "currentLocation": "香川県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 娯楽施設の脱衣所で男性客の裸を盗撮したとして、台湾国籍の自称会社員の男(42)が16日、性的姿態等撮影の疑いで逮捕娯楽施設の脱衣所で男性客の裸を盗撮したとして、"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 台湾国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:35:00.558Z",
+      "resolvedUrl": "https://news.infoseek.co.jp/amp/article/ksb_16892091/"
+    },
+    {
+      "id": "51a03cb460c53663",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5SQmY3X05OTjlRdGZ6dktCOXEtNXl6aEIxVVc0OVJuVXFnWldUeGZ4OVkyTnZTSERmeUJueUlRa1o4d3hMWjRiNVhMdTgxWXlQMUhXUVNQaGdhNzh6emM4UkYtRW4yNGJTdW80MW9R?oc=5",
+      "title": "高級車を盗んだ疑いでブラジル国籍の男を再逮捕",
+      "currentLocation": "山形県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_410",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:35:06.670Z",
+      "resolvedUrl": "http://www.excite.co.jp/news/article/khb_1472896831960302361/"
+    },
+    {
+      "id": "525e7cbb81832ba8",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFB1ZDA4NVZuVXdCYUIzLXdlVkw2XzFMQURKck9LYnpwLUZGR2s3Q29MVDFQVnNMSmxDN0tkbHU0UlZ3cW9TV29ZbFRtNnZvZzNPZENfOU1uOFpFY0NOZ3hOWnViMTFvMDVCVGQzaw?oc=5",
+      "title": "不法残留疑いで10人逮捕 20～30代のベトナム、中国籍の男 加東市の民家に20人で居住",
+      "currentLocation": "兵庫県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 兵庫県警外事課と加東署などは１６日、入管難民法違反（不法残留）の疑いで、加東市に住むベトナム国籍の男７人と中国籍の男３人を現行犯逮捕した。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 不法残留"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:35:12.734Z",
+      "resolvedUrl": "https://www.kobe-np.co.jp/news/jiken/202609/0020826968.shtml"
+    },
+    {
+      "id": "630526b22c716475",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9NRHltZFJTRXM2X0w4TmVwZ00zekZlZEVPYXVsSGVLWk8tamlLenVJVEJqYk4tSVljNXJpYlVKa0hScmFQMkdUaHRIYXQtVU5JMnJ6S2cxbUN0Zw?oc=5",
+      "title": "不審な動きをする男に職務質問して発覚 約5年3か月不法残留の疑い スリランカ国籍の男を逮捕＝静岡県警",
+      "currentLocation": "静岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:35:18.761Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/sbs/2947773"
+    },
+    {
+      "id": "a9449a7a1379ba12",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFBpVTN1emhSNmI4NUs3TndXVGZ5bUFjSXhkRGZGd0lWMzRvWUQwQkthdTV0QjdnR1poRE1jeVdVMmdMSU1PaHlHWnNCWXVieVBpRGwxdEVGWFc?oc=5",
+      "title": "成田空港でも“ゾンビたばこ”密輸か 台湾国籍の74歳男逮捕 – Quebee キュエビー",
+      "currentLocation": "千葉県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:35:23.975Z",
+      "resolvedUrl": "https://www.qab.co.jp/quebee/video/000533604/"
+    },
+    {
+      "id": "f5b701b29267c7b1",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBWNF8wN3ZRNk0ta1pESVQyRWYxbEh3ZndwaFUxOEZjMlRFRUdmM21hMG1zN0x5UnRnNjh5a3Q3Rnctc0VpUDJVd2F1VWFRenpBVE5WM2hRaWp3ZVRYVzA5V1IzZnk2SnNBLUR3?oc=5",
+      "title": "空き家に侵入し小切手1冊窃盗容疑、トルコ国籍の男3人再逮捕 兵庫県警",
+      "currentLocation": "兵庫県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 空き家に侵入して、小切手１冊を持ち去ったとして、兵庫県警捜査３課と東灘署などは１５日、邸宅侵入と窃盗の疑いで、いずれもトルコ国籍で愛知県大治町に住む職業不詳の男"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: トルコ国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:35:30.036Z",
+      "resolvedUrl": "http://www.kobe-np.co.jp/news/jiken/202609/0020823089.shtml"
+    },
+    {
+      "id": "6f14c7d2b203b274",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9LVWpYZUg0TUZaaVk2ZFVqX05BWXgtZVVDRWZ1WUVobWJibFBRZUdyZUhXR1NfWEZBRm1QLV9keFFFcDhIRmdNRDUyOUFzenpJOTR3OXl6ZEpkdWNB?oc=5",
+      "title": "“ゾンビたばこ”「エトミデート」を密輸か 台湾出身の女（23）を逮捕 「SNSでバイトに応募」 液体としての押収量は都内で最多 容疑を否認 警視庁",
+      "currentLocation": "東京都",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:35:35.839Z",
+      "resolvedUrl": "https://news.infoseek.co.jp/article/tbs_2945170/"
+    },
+    {
+      "id": "180b2676aa581ad2",
+      "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5PTTF2Qkl2T1ZHTklyTnRnSDNzTjBndm5DTmRIcldTMW8tN3czZkttaGZPejdGLU9iaXNqZDNqTkxZWktnM2ZXNDdOYw?oc=5",
+      "title": "酒酔い運転容疑で外国籍の男逮捕 鹿沼署",
+      "currentLocation": "栃木県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 新商品・技術、観光、B級グルメ、映画、音楽、新刊、心和む記事コーナーなど酒酔い運転容疑で外国籍の男逮捕 鹿沼署|47NEWS（よんななニュース） 新聞社 酒酔い"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 外国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:35:41.380Z",
+      "resolvedUrl": "https://www.47news.jp/14943740.html"
+    },
+    {
+      "id": "f07fb5f3ec2500b2",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9CMjE2Z1ljQjFLbTRYaHlCRGpmX09CaDdjTE5JV0ZuT0pXUWpXS1phczVhOUpZOFRNaTc1bGE4anBpZ2pPWUFzejBaZTJSZ0VuaTF2eVp3dm4tZDFRcm85RUtZREtrSVU?oc=5",
+      "title": "ベトナム人窃盗グループの銅線を闇で買い取りか…富山市の買取会社代表ら2人を送検 従業員の女を新たに逮捕で3人目",
+      "currentLocation": "富山県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:35:48.615Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/tut/2945049?display=1"
+    },
+    {
+      "id": "1977447cb9a0827f",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNMWJzZlppbnZlUjdiY1ZZNkZIVmRVYTluZ250MmZHMTJjcXh0UWcwdnFTYjJaS0hfWVJLQnFGNGlUVTRNV2h1THd2WXdNVm5FRC0tNUQ2djY3YU8tWGtEMkhyejJLczZnZmJuNjVNX2pCYUlodmlOU0QzU3lXSUJJYlpEc19TQTjSAYcBQVVfeXFMTTFic2ZaaW52ZVI3YmNWWTZGSFZkVWE5bmdudDJmRzEyY3F4dFFnMHZxU2IyWktIX1lSS0JxRjRpVFU0TVdodUx3dll3TVZuRUQtLTVENnY2N2FPLVhrRDJIcnoyS3M2Z2ZibjY1TV9qQmFJaHZpTlNEM1N5V0lCSWJaRHNfU0E4?oc=5",
+      "title": "１５０キロ近い大量のソーセージ等を密輸入か　フィリピン国籍の男女３人書類送検",
+      "currentLocation": "千葉県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: １５０キロ近い大量のソーセージ等を密輸入か フィリピン国籍の男女３人書類送検（チバテレ＋プラス） １５０キロ近くに上る大量のソーセージなどを密輸入しようとしたと"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: フィリピン国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:35:54.514Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/amp/article/chibatv/region/chibatv-2026092009418"
+    },
+    {
+      "id": "1444245428843bb7",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBCTnZzMHdvVjBTSWlCRk1fOFMyclJ2MXZOczRUSzVnT2c0cENqSDZtTHdLWk83czVlNS1ZVXFOTEd6Zk1LRTZiZVIyMDE0S0xMb1JFMVBuTnVkNC12YmlEcEZTZmgwVTZIY3JWVzJzdjlyUUgw?oc=5",
+      "title": "飲酒して玉突き事故 ボリビア国籍の５８歳の男を逮捕 群馬・大泉町(26/09/14)",
+      "currentLocation": "群馬県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:36:00.899Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/article/gtv/region/gtv-70ovnOHSvc8"
+    },
+    {
+      "id": "b6ba503552dc8c75",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE12SUhVS3labXFocllGODhiWGZ3bzVqVUtiOXhJUkR0Z1BDNlRlUmI3MGtJNEpfbDZxM0Q2LURldVRyU1c0eVJtalA0MGJZU3Q1RExOVzFMNHdVZzhXeVE?oc=5",
+      "title": "銅線売却時に偽名、ベトナム籍の男を４度目逮捕 容疑で６県警、三重の太陽光発電施設から窃取",
+      "currentLocation": "三重県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 福井や三重など６県警の合同・共同捜査班は１４日、組織犯罪処罰法違反（犯罪収益仮装）の疑いで、ベトナム籍で岐阜県各務原市、会社員の男（２７）を再逮捕した。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナム籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:36:06.918Z",
+      "resolvedUrl": "https://www.fukuishimbun.co.jp/articles/-/2698102"
+    },
+    {
+      "id": "53e134327f2616c5",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE16OHFQUlZ6R3h6LWNTamdyN1RDUXFFQmpCVHdNcEhKdEw2SGcyX2lobkloT3Rrczd6SEFralNUbVVVSDRNMkNPaS03VE9SOGJRaGVENWQxUDY?oc=5",
+      "title": "大泉町 危険運転傷害の疑いでボリビア国籍の派遣社員を逮捕",
+      "currentLocation": "群馬県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:36:13.385Z",
+      "resolvedUrl": "https://news.web.nhk/newsweb/na/nb-1060022775"
+    },
+    {
+      "id": "28d8e04728a801d0",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOYnJKc1NQZEM5YzJVUUl5WTBNS1VJUnpobTVvLVU2WDlORDVtWTVGekdfb1lyRXJNblZ6Y3hvb0F1VG40TXRKTkR6MndlODNwY0EyZnBJWlB1N3BRcWR5VEZ2c19mREFJZFZNN1FVSk1yMTNJQXdjU1ZmcDB1Z3dtcEg2N0ZfMXM?oc=5",
+      "title": "盗品と知りながら銅線ケーブル1100キロ買取りか 中国籍の男女逮捕 富山市婦中町",
+      "currentLocation": "富山県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:36:19.495Z",
+      "resolvedUrl": "https://news.ntv.co.jp/n/knb/category/society/kn6545c5dcddc5450f8f7e3d0464bc4316"
+    },
+    {
+      "id": "e59e0dc31c86b3ea",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFB0MU1RSzRfMTR4cFFVS2RVOGNvYlo2d2RJQlhuTEpLdHpuSlpmSW9aT0tQZXZSa2xlV3pXS2lYU3d6RWNTbGVIWTdMbm1ZNHFMc1lQVGNUZkQ3dw?oc=5",
+      "title": "鍵をかけたアパート自室に知人女性が…深夜の住居侵入容疑で逮捕 39歳中国籍の女「勝手に入った」容疑認める 富山",
+      "currentLocation": "富山県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:36:25.654Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/tut/2943198"
+    },
+    {
+      "id": "44ff5a53dbea01dc",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE8zTDlTNlpSRXYtYzFWNk5CV0tLZkE1S2IxSVlkRGlJTGtZZExHZzhWQ2NxRi03OWJ6c3ZNNkxhYnFPNEJpYjN5eGdpcUdWbTl2UXJHUm1qZW5BN2dhWEE?oc=5",
+      "title": "宝石展示会でダイヤなど3900万円相当を盗んだか コロンビア国籍の男逮捕 (2026年9月14日掲載)",
+      "currentLocation": "東京都",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:36:31.327Z",
+      "resolvedUrl": "https://news.livedoor.com/topics/detail/32318967/"
+    },
+    {
+      "id": "0139105363b81310",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBtWjQ1WWp5bFVUUUpDeE12N2ZOT1VOX1piNUtFZXEyREdhMlgtWEcxQjFlekNpQXVRSDRHZVpGYnNlUnhiRDhtdndSVmE0YWtWRmljVzV5OTVGdm1NOElwZE1aNGJrRkNmSzh2bEVB?oc=5",
+      "title": "「日本でお金を稼ぐためにネパールに帰りませんでした」不法残留の疑いなどでネパール国籍の男らを逮捕 福岡・南区",
+      "currentLocation": "福岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_410",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:36:38.058Z",
+      "resolvedUrl": "http://www.excite.co.jp/news/article/rkb_1472012271744106771/"
+    },
+    {
+      "id": "e8b41f23789a4561",
+      "url": "https://www.police.pref.nara.jp/0000000434.html",
+      "title": "被害者方に押し掛けるストーカー行為 フィリピン国籍の男（44）を逮捕 奈良県警高田署",
+      "currentLocation": "奈良県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "unreadable",
+      "attempts": 3,
+      "lastAttemptAt": "2026-09-30T22:51:10.579Z",
+      "resolvedUrl": "https://www.police.pref.nara.jp/0000000434.html"
+    },
+    {
+      "id": "af71600fbf56e6d7",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBFZWptOHUwSmF5T1VTeldrbGVnaGp5Z0g1V0F2NDE1cFdEcjFheVhicC1sRlVFaW1abFFVZWZnSjF6VWZGZlpFdmpvRXlmdjhMTnpfek9xUUIyUQ?oc=5",
+      "title": "無免許運転の疑いで外国籍の男逮捕 群馬県警大泉署",
+      "currentLocation": "群馬県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 群馬県警大泉署は12日までに、道交法違反（無免許運転）の疑いで、栃木県足利市のスリランカ国籍男の男（31）を現行犯逮捕した。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: スリランカ国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:36:46.468Z",
+      "resolvedUrl": "https://www.jomo-news.co.jp/articles/-/1021791"
+    },
+    {
+      "id": "074a99654800ade6",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5Ya3JFMF9LdzdQWC1aOVdzZUJacmREVXJiUFMyZW9WOUp6d08wTzktb09UeE11cUpoc3VuSk02LVNmcGplbGNSSUFvSUYtZ0R3OUhSN3djNlJXUQ?oc=5",
+      "title": "「少しの距離を運転しただけ」酒酔い運転の疑いでネパール国籍の介護士の男を逮捕 福岡・南区",
+      "currentLocation": "福岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:36:54.022Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/rkb/2940257"
+    },
+    {
+      "id": "720ee4eacbc9c7a0",
+      "url": "https://news.google.com/rss/articles/CBMi2wJBVV95cUxPR3VRVVNNNTFhWmZZTks5Rlhta1QyUFI5M1dIZTh3UThyMUZpN3BoWEZKcmp0NVNoQ295cGVXS0l3Z01mX1Z0U0NfSXFUb19OLU9aWU4wRE5GSDZCWjk4TVdKSC1rLVFzYkpkdDRrd21UNU9xal9EWEdvUl9SSFV1TnFSa3d2MzNLQmdiQ2k3UHhDMzQzVUh4NF9uTW1mQmkyVDNTejROT1E1QTY0QU50YndHWV80Y2EyckFxRkdjXzV4c25TdEpXTWJmTWpLQl95ZGI0TFM3eTl6ZzV2VWEyUkpOd28wLTNhQ3U0Zl9DSm5MY3RISmVMUGEyeVdQUDk0VDFaMVNRR0hDX0s1VnR5ZlVDa3g0dDZyVmY4amd0ZUEwSnYzODlieEs4SVgyWWRUOTBPa3FOSDlXSUVYSmNKczB2cmJfaXZGN3NRV3VON2Ziamo2U1FpVW1BTQ?oc=5",
+      "title": "13トン分の銅線盗んだか ベトナム国籍の会社員の男2人を逮捕 盗んだ一部は440万円で売却 広域窃盗グループの犯行とみて捜査 - fukui",
+      "currentLocation": "福井県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "topic_mismatch_contamination",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:36:59.360Z",
+      "resolvedUrl": "https://www.fukui-tv.co.jp/?fukui_news=13%E3%83%88%E3%83%B3%E5%88%86%E3%81%AE%E9%8A%85%E7%B7%9A%E7%9B%97%E3%82%93%E3%81%A0%E3%81%8B%E3%80%80%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E5%9B%BD%E7%B1%8D%E3%81%AE%E4%BC%9A%E7%A4%BE%E5%93%A1%E3%81%AE"
+    },
+    {
+      "id": "250362b3906dea8d",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE84aVFZZHZBOE5yUjN3OVltZ0tvMWhqQ0R0YUZyZzNzQktzY2xqYWp3R21KUTNUTFZDQ2kxelpUS2FIbGJReWRTcExKeGJsSkVKU3JIZWZlbGcwSkc0elVCdjQ1SWZ6ZHVBWkMwUWhhSFVQdEJjakhnOElWUml1Nms?oc=5",
+      "title": "スマホの不正契約を大学生に指示した疑い ベトナム国籍の男ら4人を逮捕 700台以上売却しインターネットバンキング送金に悪用か 警視庁（TBS NEWS DIG Powered by JNN）",
+      "currentLocation": "東京都",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:37:05.805Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/c4e0ae2237ac06944307a14743985ebd71b4d869"
+    },
+    {
+      "id": "994d822a318281dd",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9tUlpRSE9IM01QeThITHExT2Rva0xkSGo0Qm5odXY1T2VfN3JfQlRaRmNfQmJHR1ZEeEdNV0pJbmZ3WG04ZHJ5dWVlTzJDWk5jbGJyMlc5TkRfZ3gyQi1TaTVhOXdhd00?oc=5",
+      "title": "レンタカー横領の捜査で発覚 29歳ブラジル国籍の男を大麻使用の疑いで再逮捕「間違いありません」と容疑認める 富山",
+      "currentLocation": "富山県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:37:11.501Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/tut/2939812?display=1"
+    },
+    {
+      "id": "e60256ac76274b47",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5BZmJxTWNMZG9vbVhTWFg3Qng0eGhNRFZNVkFyT3hFY3pLOXVQazFtWDZlNXBSRThsRGhGVlJWT1dLQVVoZ1I0d2VBN2RUMWR6WjJZblZON1dNQQ?oc=5",
+      "title": "同僚を包丁で突き刺したとされるインドネシア国籍の男 初公判で起訴内容認める 検察は拘禁刑2年を求刑 山梨",
+      "currentLocation": "山梨県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 傷害の罪に問われているのは、山梨県韮崎市の会社員でインドネシア国籍のデニ フェルナンド ギンティン被告（2…一緒に生活している会社の同僚を複数回包丁で突き刺した"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: インドネシア国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:37:17.597Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/uty/2939033"
+    },
+    {
+      "id": "c459af21d2aee6e8",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE81XzdkVlJBQVRfYXM3azd0emlHdjNaNTBpOXIxYTQ1UjlCWWtCTEFfZnd3MmlIcVplbGo1Snk5VkdyQzNYaFdDNlVSSXhWbEdCUmlPNlIxdw?oc=5",
+      "title": "「お金がなく帰れませんでした」23歳ネパール国籍の女を不法残留の疑いで逮捕 在留期限を1か月近く超過",
+      "currentLocation": "福岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:37:23.854Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/-/2937781"
+    },
+    {
+      "id": "9c1f1424a659db96",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFBXbi12bE93MVlPYkRSakJ4MmJMNlNBSmxWVmRhWW9laldwUmhRcW1neElOLWl5b3gtMGFtSnhfNHFlaUk1R1JNZTA5NHlfOFBEMXRfRkE2aw?oc=5",
+      "title": "強盗致傷容疑でフィリピン人逮捕 松戸署",
+      "currentLocation": "千葉県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "unreadable",
+      "attempts": 3,
+      "lastAttemptAt": "2026-09-30T22:51:14.116Z",
+      "resolvedUrl": "https://www.chibanippo.co.jp/articles/846621"
+    },
+    {
+      "id": "b987e368b9ec133a",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBnZzVYWHdrS0tsdFdULUlDbkM4ZGRxWlBBTXpaQVdmSFl3NnNtZ015TjhVcHlBUHZhMkpGLXRILS02YXBVS1NJQnhVTFFGd3dLS1hNdE5qR240STIyZlNCaFJsM1k?oc=5",
+      "title": "埼玉強殺、ベトナム人の男再逮捕 入間、９１歳女性の首絞めた疑い",
+      "currentLocation": "埼玉県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 埼玉県飯能市の山林で同県入間市の丸山絹子さん＝当時（９１）＝の遺体が見つかった事件で、県警は８日、丸山さんを殺害して車を奪ったとして、強盗殺人と住居侵入の疑いで"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 埼玉県飯能市の山林で同県入間市の丸山絹子さん＝当時（９１）＝の遺体が見つかった事件で、県警は８日、丸山さんを殺害して車を奪ったとして、強盗殺人と住居侵入の疑いで"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナム国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:37:39.976Z",
+      "resolvedUrl": "https://www.saga-s.co.jp/articles/gallery/1787457?ph=1"
+    },
+    {
+      "id": "9dfce717a4432c60",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1TZUJUR3lKbnh6SGRwaHBXVDVFRkIxQm9jbkR0djRqOGQzWmNJb3VmTkdnamZiSzEzdmtIYkdyOHphRTJ6LVZXRllPV1huekZleEpFQWtCNjg?oc=5",
+      "title": "空き巣疑い中国籍２人逮捕 木更津署",
+      "currentLocation": "千葉県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 木更津署は１０日、住居侵入と窃盗（空き巣）の疑いで、いずれも中国籍の男木更津署は１０日、住居侵入と窃盗（空き巣）の疑いで、いずれも中国籍の男木更津署は１０日、住"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 中国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:37:46.396Z",
+      "resolvedUrl": "https://www.chibanippo.co.jp/articles/1665105"
+    },
+    {
+      "id": "f1a973d6801bdc81",
+      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1ETnd1OEFCWHBiLUZjWXQ3S3pUTXR2TEYtY3dpOUR3RXF3T0lwSmVGaGYxY1BQRWV3QXFZS3YxNVl3TFBVNVJaQTQ0ZnRuUQ?oc=5",
+      "title": "福岡・那珂川のネパール人留学生殺害、ロープ持ち込み・下見か 男女3人送検、計画性を捜査",
+      "currentLocation": "福岡県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 福岡市の那珂川で8月19日に遺体が見つかったネパール国籍の専門学校生、ラジバンシ・ラクスミさん（当時25）の殺福岡市の那珂川で8月19日に遺体が見つかったネパー"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ネパール国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:37:53.914Z",
+      "resolvedUrl": "https://coki.jp/article/column/92633/"
+    },
+    {
+      "id": "81324fff2caccb46",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE51bHFTWFBFODFHc05IbXFyYXV5VXBlcWhQeDdVQUVRS1ozTlFWZlhQWlZJcURJaWlnVGp3TnRXTlY3Vk9UQjRPZlVvcmJGV045b29VQWNyc2ZWOGQtVWZGc1dtaE5aT2c?oc=5",
+      "title": "38歳中国籍の妻、60代夫を電話機で暴行か 腕が腫れる傷害を負わせ逮捕 富山・南砺市",
+      "currentLocation": "富山県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 9日夕方、富山県南砺市内の自宅で60代の夫の腕を電話機で殴りけがをさせたとして、38歳の中国籍の女が傷害の疑いで警察に逮捕されました。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 9日夕方、富山県南砺市内の自宅で60代の夫の腕を電話機で殴りけがをさせたとして、38歳の中国籍の女が傷害の疑いで警察に逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 中国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:38:00.022Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/tut/2934139?display=1"
+    },
+    {
+      "id": "69ba5dfc5ebce154",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBGLUtlMjdqd2FRdHJ1U0todVhCWXhsN1Q3RmY3UEF6QlEtaUtrMVdodEhTbTFCbmIxNzBEVVRvd25MMFNHcGJwZFE1T3d5cXNnVFpLMFo0RGM0bGxMc0RvU1F0YWY?oc=5",
+      "title": "ホテルに13連泊…宿泊費など20万円を支払わず「後で支払う」と告げ音信不通に 韓国籍の男（46）を逮捕 大分",
+      "currentLocation": "大分県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:38:06.479Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/-/2935277?display=1"
+    },
+    {
+      "id": "f624f6b9b0a1941e",
+      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBkQUc2T0ZsTUhXOHprM0dkd0hNV0pSQXAtWEZSQWdOdFpHYTh2T0ItVGVtMUZmRGNMekxfWDBMLXMtaTNuLWd5clJOLUh5aUd0QjlUYm5HT3ZYZkVCWVIydFNfUjJKcFIta3NsSFdlbjRRLU9XX2xUMFJ5cFI?oc=5",
+      "title": "ベトナム人男女2人を再逮捕 合成麻薬「MDMA」と覚醒剤含む錠剤など営利目的所持か 埼玉県警",
+      "currentLocation": "埼玉県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:38:11.915Z",
+      "resolvedUrl": "https://news.ntv.co.jp/category/society/0ea882364c9b4dd6b3ce3a01edebf2ac"
+    },
+    {
+      "id": "d98a69a005069907",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9yX2htS3Q3N2t1cGRMMnRzSExjc0l1d2pVMy02amVMNVEwZnFieF9YWVBvbk4yZlRiMFRmUWxHVlRlMVdzRzFMRUR4Z2dYNnZ5bTVIQkt3OA?oc=5",
+      "title": "不法残留のベトナム人4人雇用か 解体会社社長のトルコ国籍の男逮捕 「雇ったのは間違いないが、オーバーステイと知らなかった」と一部否認",
+      "currentLocation": "埼玉県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:38:17.496Z",
+      "resolvedUrl": "https://www.saitama-np.co.jp/articles/213981"
+    },
+    {
+      "id": "ee170e02db81c1ad",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5NdnEyUkNja1ZTQmJ0X3hlR1NKai10WlZLSWpSc2Fzcm9ha0lkMkpsMzZmQkpFTEJWWWVHa1A2YlZiMnZTR29NLS13N00tNkVWai1XRXdVcw?oc=5",
+      "title": "乾燥大麻約30キロを営利目的で密輸か アメリカ国籍の女2人を逮捕 「航空券代や宿泊費が無料だと聞き魅力を感じた」 羽田税関の職員が発見 警視庁",
+      "currentLocation": "東京都",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:38:24.509Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/-/2931878"
+    },
+    {
+      "id": "21888fbd5487f73a",
+      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFA0NEs3YVc3UnZtc3BlS2FPeWFjU1pOTF9XeEhIMGZPM2hXQmdCVzhQUno2WUhSZ0NPaG85OEhfZ1cyQUNHN3hBR0dxNFNsdw?oc=5",
+      "title": "空き家を狙った外国人窃盗グループか スリランカ国籍の男ら４人を逮捕 余罪についても捜査〈宮城〉",
+      "currentLocation": "宮城県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:38:30.425Z",
+      "resolvedUrl": "https://www.fnn.jp/articles/-/1111131"
+    },
+    {
+      "id": "3023fb91ac88110a",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBpbWRXcjRTLV9xbzB4VUhqajBsYUZjY3JkZWR3d2VCT1BFQzVIU19GcncwbW1Hb0ZMX2FMclVqRkNIMENFQW1VSEtoT2FsT3BybUdDclhvXy11SVpFcG1vQ2k5Tm1EVVZDQURYX1d6RzNNck0?oc=5",
+      "title": "飲酒運転で車衝突 危険運転致傷容疑のタイ人逮捕 茨城県警つくば署",
+      "currentLocation": "茨城県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "unreadable",
+      "attempts": 3,
+      "lastAttemptAt": "2026-09-30T22:51:23.006Z",
+      "resolvedUrl": "https://ibarakinews.jp/news/newsdetail.php?f_jun=1788961143407400"
+    },
+    {
+      "id": "72bf003bd7878b91",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1LX3Nidlo5ZnQ4b2tiWm00QnRrYVZaSldEY0x6aXVXZW9PcndwaHZOMGlvSkw4U0d0aVpkWk81MW50SmlwaF94REFGQzVHaXNhRng4ZUFsaTVQY1hxaG1FUENWM05pMU0?oc=5",
+      "title": "会社役員と中国籍男女を逮捕 日本円を人民元に交換 無許可で12回為替取引の疑い 京都府警",
+      "currentLocation": "京都府",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:38:44.781Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/mbs/2933694?display=1"
+    },
+    {
+      "id": "1d01af4232616396",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBUanQtVF83RENVdUhZV0Uwcll3UjFjdU9WRW92aWVOaDZJWXdJOEllZDhLTHJfRzV1UTVDd0FHblh5dFczYllDdkFqNzhHXzYyOElKRkhzQlVRZ19DVG1LUWgyQkRudmFha2haak1oSndTWEtv0gF0QVVfeXFMUFRqdC1UXzdEQ1V1SFlXRTByWXdSMWN1T1ZFb3ZpZU5oNklZd0k4SWVkOEtMcl9HNXVRNUN3QUduWHl0VzNiWUN2QWo3OEdfNjI4SUpGSHNCVVFnX0NUbUtRaDJCRG52YWFraFpqTWhKd1NYS28?oc=5",
+      "title": "専門学校生殺害で下見、計画的か　逮捕のネパール人女、福岡",
+      "currentLocation": "福岡県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 福岡市中心部・天神の川で8月、ネパール国籍の女性（25）の遺体が見つかった事件で、殺人容疑で逮捕された同国籍の男女福岡市中心部・天神の川で8月、ネパール国籍の女"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 福岡市中心部・天神の川で8月、ネパール国籍の女性（25）の遺体が見つかった事件で、殺人容疑で逮捕された同国籍の男女福岡市中心部・天神の川で8月、ネパール国籍の女"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ネパール国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:38:50.685Z",
+      "resolvedUrl": "https://news.infoseek.co.jp/amp/article/kyodo_1470298178199191767/"
+    },
+    {
+      "id": "a0a8c4ee5f51c2a6",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5kcEN3LVdBeExWSFJrckk0OE9abW5vQVZ5LVF2SnlWRGhiRGl1TW9haWdWM245UWE1dGE5b2RIU1NzZ0ZyU0U5VUpRYkstYVdmYXFGTjdMa05QRjFDMjJCa2hselhJOFc3ZFNlQmpYX09hSDhFUkRjVU1nRy1zdFU?oc=5",
+      "title": "高齢女性から現金500万円だまし取ったとして逮捕された中国籍の男性を不起訴 東京地検（TBS NEWS DIG Powered by JNN）",
+      "currentLocation": "東京都",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:38:56.429Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/cbe437ba34c062afbe99103132aa994afec63dd2"
+    },
+    {
+      "id": "e8b52435734b1e4b",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1HbGZCLWUySGlCQXBhMG01SmMtTFdzSkJvZHBNV3dzZk16ejBQcGd3RHJqeXpvWjYxaDNrU3BZQkVBbUdzNFpnLWJUX1BqRmFFZXZTdjV4TEJFTGdJUWZvWG0wcEFQQXI4TGE3bkhnSHRLX1VXSjRtbzNZSkJoVlE?oc=5",
+      "title": "飲酒運転をして電柱に衝突 同乗者の１９歳女性にけがを負わせる ２６歳ベトナム国籍の男逮捕 岐阜県大垣市",
+      "currentLocation": "岐阜県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 大垣市の市道で、酒気を帯びた状態で乗用車を運転して電柱に衝突し、同乗者の女性にけがをさせたとして、２６歳のベトナム国籍の男が９日逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナム国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:39:02.580Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/5d648ea060b2f1ba4b7432dda3b318bfa525a4f1"
+    },
+    {
+      "id": "7c5e3a3bc91c026b",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFBXb3gyNlV0Q0tLZlU2TWFHSUtiSnVoTUF3ZUdiSERUUmdNa2RnMEhRWlNJalZ1NmpfZFFMRWdSNjJKSDMtUHdXN3RxX29EMmp5YmFLSmM5OA?oc=5",
+      "title": "ヤードで盗難車エンジン保管容疑 千葉県警、パキスタン人逮捕",
+      "currentLocation": "千葉県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "unreadable",
+      "attempts": 3,
+      "lastAttemptAt": "2026-09-30T22:51:31.449Z",
+      "resolvedUrl": "https://www.chibanippo.co.jp/articles/695122"
+    },
+    {
+      "id": "db2789191d37d414",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9VTnQ1Tkh5ZnFjTVE2WjJoZ3REUHFFSGRBbEJkdy00SXM4VmN2YWpldlM3NXdoNnFhRDZUZTZqQnlxY0Z0cnFRNjVQeXUxVWQzSkhEb1dLYU1MclNNZ01HNlh3QU7SAWRBVV95cUxPVU50NU5IeWZxY01RNloyaGd0RFBxRUhkQWxCZHctNElzOFZjdmFqZXZTNzV3aDZxYUQ2VGU2akJ5cWNGdHJxUTY1UHl1MVVkM0pIRG9XS2FNTHJTTWdNRzZYd0FO?oc=5",
+      "title": "関西空港から滋賀県内まで「白タク」でベトナム国籍女性送ったか　東近江市に住むベトナム国籍の男逮捕　組織的な「白タク」運営の可能性も",
+      "currentLocation": "大阪府",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:39:17.517Z",
+      "resolvedUrl": "https://news.infoseek.co.jp/amp/article/abcnews_62450/"
+    },
+    {
+      "id": "2f08d67bd1ce9680",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1BY29wekJMU2FWV2hMMnFPYzFPZDRNdFVRR3dUVmxlbzlTTmFPSkx3Rno2LXY0TFdKbGloLXpUc0QxdENVM0h0U1F2UHlpS0QtS0RSUTlBb2ItcW5JajR5SndQazZaLVpjc2xwRG53?oc=5",
+      "title": "実習先で面識のない30代女性に無理やりキスなど 不同意わいせつ容疑で21歳フィリピン人技能実習生の男を逮捕「友達になれたと思った」北海道函館市",
+      "currentLocation": "北海道",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_410",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:39:22.854Z",
+      "resolvedUrl": "http://www.excite.co.jp/news/article/hbc_1469966305681768553/"
+    },
+    {
+      "id": "a2279257b0ae85ed",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE52aHNlb1VwenJEQ2dXSzQ4TGJMWHIyREY5N1J1aW1hS0xCdkY0VmZsMi1LeEdrRVJfT1kxRmJCRFRST09KQXdwa3I5WkduMjF1QWVuS0VR?oc=5",
+      "title": "不法残留容疑のネパール国籍の20代男性、不起訴 佐賀地検",
+      "currentLocation": "佐賀県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:39:28.729Z",
+      "resolvedUrl": "https://www.saga-s.co.jp/articles/-/1787768"
+    },
+    {
+      "id": "771ad9ae04dff2df",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9fdjZ6WTRaXzJHeHNkQXdYaDA4Rl9VN3F2eGtFVXc4WmM3SW1oMDFZQ21FYkF5NFRqblF4YkZfbDBBbEdMcVpEaWVvemgwRHJPLWtBN1E0NDg4X25TSElNRVNTYXhwYkRtQms4Sk93?oc=5",
+      "title": "大崎市の90代の男性から金塊200グラム時価約580万相当をだまし取る マレーシア国籍の男逮捕",
+      "currentLocation": "宮城県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_410",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:39:34.771Z",
+      "resolvedUrl": "http://www.excite.co.jp/news/article/tbc_1470038555609170931/"
+    },
+    {
+      "id": "7b8e5c8e47f9a12b",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE13TXVia2NfSW1xR1JXbGU1QUZOc1MxVXotQzRKanMtTXFIRWR3RHRiTEpfTHl6dVFBOC1sQnNLWEdnTnQ2by1qT05hemo0QVFZanBjWWJ0bHh5S3M?oc=5",
+      "title": "無免許で酒気帯び運転疑い 外国籍の男逮捕 那須塩原署",
+      "currentLocation": "栃木県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:39:40.855Z",
+      "resolvedUrl": "https://www.shimotsuke.co.jp/articles/-/1417343"
+    },
+    {
+      "id": "de1c9d1de41fa840",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1Ja3JwamxmR2RVUlB2S0ZKNnV1eE5xRVVDSXVwUkNoZE1kUkZkUkVBNHI2RnREaXd6UjN5ZHNEOEI2OUdPSUNuYlBvM0RPSVV3Nm5XaEpwQm9vdnk5c2c?oc=5",
+      "title": "元技能実習生の男の初公判 同僚2人を切り付け殺そうとした罪 高松地裁 (2026年9月7日掲載)",
+      "currentLocation": "香川県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:39:47.317Z",
+      "resolvedUrl": "https://news.livedoor.com/topics/detail/32263282/"
+    },
+    {
+      "id": "1c91872236a7ea33",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE90eGpfTkNnMF8xUkJ4RV9XaEhSUzFFYThVZGtLOWV2TXY0MExCVE55V2hVS3N0cEIyWDdjeDR0V2E1VFk4T1E5WGNZLU9ra2I0RUp1bTg5c0pZYWVhSGc?oc=5",
+      "title": "右折車線を直進、米海兵隊上等兵を酒酔い運転容疑で現行犯逮捕 沖縄市",
+      "currentLocation": "沖縄県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:39:52.980Z",
+      "resolvedUrl": "https://www.okinawatimes.co.jp/articles/-/1918170"
+    },
+    {
+      "id": "7aa94261baa9dc90",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5YREZZWkRscDIxUXAxVk5XeHowc0M2b3NNMFV3cEVaWUhTNmFwVUJRVzlGLUQ0SXk5VEJLTTB1YnV3b25oN1U3WlQwWFE3SXhncXo2cExxMDA1UQ?oc=5",
+      "title": "コンビニに座り込んでいた男に警察が職務質問したところ覚せい剤の所持が発覚 ブラジル国籍の男逮捕＝静岡県警・浜松東署",
+      "currentLocation": "静岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:40:01.269Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/sbs/2923900"
+    },
+    {
+      "id": "1976526253d3449a",
+      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5rNmIxVER2eTVra08xWEtjUUhUa080TG05cV9PUjlOOXA5MWdpZEJjRGJoMm5qMUhJcnlVdGlCOEVvMEthZ2ZLMmNfSUVGdw?oc=5",
+      "title": "高校生の息子をベルトで殴りけがをさせた疑い フィリピン国籍の女を逮捕 「たたいたのはしつけ」と容疑を一部否認 静岡・熱海市",
+      "currentLocation": "静岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:40:06.897Z",
+      "resolvedUrl": "https://news.at-s.com/article/2050163"
+    },
+    {
+      "id": "ebe463ababae45e0",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE80Zl96bVNadTUya1QyWGY0LUFyUUJTNXZSbzc1S0RxbDdXYjhKUS1kYnZzOXRNU0dRTXp2TjZjMGZJMWVST0FQUGduTXJHaHdueHJwOHJoaEZxSEUwc3JYRg?oc=5",
+      "title": "８００万円強盗疑い 中国人を逮捕 １人は出国、東京・池袋",
+      "currentLocation": "東京都",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_405",
+      "attempts": 3,
+      "lastAttemptAt": "2026-09-30T22:51:40.211Z",
+      "resolvedUrl": "https://ryukyushimpo.jp/national/entry-5499385.html"
+    },
+    {
+      "id": "b35e866d46db4453",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFA3RGJHOU1aY2FYY0pGTUhrX082Umh0cllGSkZnQnNCYzdlcTVlVHotR0ZQQnJnbVlQYW5nN1NkMk41aThUZ2pfaktvX1JpTUhwbmM2d1RFMmlsd1Z6WmtyWVk0a3Z4aW84cVdMTVV3bWZZcHBy0gF6QVVfeXFMTkppUkN4Nlp2TElidHIwdUN2YVZ2bzFGN3pxRG9oekZMU2V3MEU0UVdrbTBoMlNZRTVaTFp0SmtsNC1mWWFnV0d4eFp2T0RiUEVCcUxXZXFsQ0Roc2pYVWRleHVmR1l5c1RxTGNuYzM5ZXMxMkNETjdsd2c?oc=5",
+      "title": "偽造した「昭和天皇の在位60年を記念した1万円銀貨」長野県内の金融機関で両替…中国籍の男2人が逮捕・起訴…使われた偽造銀貨は最終的に900枚以上か",
+      "currentLocation": "長野県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:40:18.103Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/article/sbc21/region/sbc21-2922488"
+    },
+    {
+      "id": "c3536b38f304d8cc",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1UaUN6d01oN0tfcWhnUG1vcklfcGFFT3BNMUpvVmdvV2sxcndDNHk5aFN0SFhpdmRhU2U0cWVJdG1VWG5yZDFWNFJkX01yY0g1MlhqZ3BhbU14Zw?oc=5",
+      "title": "愛知・豊川のイラン男性死亡事件 男女3人を強盗致死容疑で再逮捕 イラン国籍1人・ブラジル国籍2人 愛知県警",
+      "currentLocation": "愛知県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "google_not_found",
+      "attempts": 3,
+      "lastAttemptAt": "2026-09-30T22:51:45.719Z",
+      "resolvedUrl": null
+    },
+    {
+      "id": "70852411c312a3de",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOcG5tV0p0ckZhc2c4OHU1YjBqYmF6RmlqOGtJc1c3bkRndjA5ZVhLQU4wTVN1dUR4TWN6WmxDcUFjVFFXeV9lU3F3OU5nZzlsbzlyd0RkdW9tNWhXUjl0bXh5X0M2d3R5RmtmZ3ExZDJZWVhyTEswcTZWUkd4YkR3eU5vMUpZTXR1MUVmNWxWc21hMUE?oc=5",
+      "title": "知人のキャッシュカード使いATMから15万円引き出し盗んだ疑い カンボジア国籍の土木作業員の男（22）を逮捕 新潟県警",
+      "currentLocation": "新潟県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "google_not_found",
+      "attempts": 3,
+      "lastAttemptAt": "2026-09-30T22:51:48.322Z",
+      "resolvedUrl": null
+    },
+    {
+      "id": "a884b78c4509bdcf",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE94NFl5N2I0NlVfM09ocF8wbHh4bXlZUG5iX3V1bDV4NmFCSjFkd1QxREs0cTZkdkJkR0Z1QmV3Q0RQUjcxNVpuaFZvTWR2enRzX3pGNEF2Y1A0d0J5YWF6eXJtY3kyUGZ2Y1h0c3c?oc=5",
+      "title": "荷台からはみ出し走行中のトラック発見 無免許運転の疑いでパキスタン国籍の男（55）を現行犯逮捕 山形県警",
+      "currentLocation": "山形県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "google_http_400",
+      "attempts": 3,
+      "lastAttemptAt": "2026-09-30T22:52:22.798Z",
+      "resolvedUrl": null
+    },
+    {
+      "id": "b524e36f5120a950",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQaGl5RWs0V3pGVGx5OTUtSTdtVUp5Mkg3Y3RteXE3cmM3RndTTUNUcTlTdndfVWJ2SkJBdVhxNzR4b29JdVdMcU12YUFYb0pEYzNOaHAtM0dRTzdjcXB2aXcxZzRqYk92dEVpWTdPRlIzZ21qSUlDRWRETW1uUkt4MXFPRXUzTkJ40gGIAUFVX3lxTFBoaXlFazRXekZUbHk5NS1JN21VSnkySDdjdG15cTdyYzdGd1NNQ1RxOVN2d19VYnZKQkF1WHE3NHhvb0l1V0xxTXZhQVhvSkRjM05ocC0zR1FPN2NxcHZpdzFnNGpiT3Z0RWlZN09GUjNnbWpJSUNFZERNbW5SS3gxcU9FdTNOQng?oc=5",
+      "title": "取り調べ中に調書を引き裂いた疑いで逮捕されたブラジル国籍の42歳男性を不起訴処分　松江地検",
+      "currentLocation": "島根県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:45:15.779Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/amp/article/nkt_tv/region/nkt_tv-2026090407371466"
+    },
+    {
+      "id": "e3146d30f204447e",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFBHRngtcTdMbTZwdjNLbF9ubnFIYXJodVl5RV8zWVFUR1VBSERud1NBWERYU21DOXZVbERCTGkzUWtYNmNsaDJtbmQxQkpLZHhjUkNOaUNTSQ?oc=5",
+      "title": "千葉・山武市のヤードで盗難車を保管の疑いで逮捕のアフガニスタン国籍の男性2人を不起訴 千葉地検",
+      "currentLocation": "千葉県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:45:24.192Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/-/2919141"
+    },
+    {
+      "id": "c572dc93c32902be",
+      "url": "https://news.google.com/rss/articles/CBMiO0FVX3lxTE5JbTkxaTNJVE9UM1Q5MG91ZEttS3VVWVBWWWpnUm82OHItZkdkeEliUnZRR1BVdVdOVWlj?oc=5",
+      "title": "弟のパスポートで不法入国、15日間の短期滞在資格で26年在留した70代韓国籍男性を逮捕→静岡地検が不起訴「事案の性質や犯行後の状況も含めた関係証拠」",
+      "currentLocation": "静岡県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:45:30.123Z",
+      "resolvedUrl": "https://t.co/UoIyAQQle7"
+    },
+    {
+      "id": "faef711c26fec3ad",
+      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFBBVzdfMFlMUEt0bTZabmFqbE1PbFp1WDRhRDFWaFVGUzBiQ1BUb3ZST3BKSDZra3hGTGtiOENodTJoMmVHY3p2emVqcjhWZw?oc=5",
+      "title": "技能実習生の在留資格取り消し後も宇和島市に不法残留 ベトナム人男（34）逮捕 別事件の職務質問で判明 愛媛県警",
+      "currentLocation": "愛媛県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:45:36.253Z",
+      "resolvedUrl": "https://www.fnn.jp/articles/-/1107118"
+    },
+    {
+      "id": "c213b8350e92f612",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxObkNxT0FWZlFkQzM1bDJaV2FWME5LQVgxNEh2dVZRV0hLSkJBOVVnSGVmb2YxcGlnU1VDcmFRRXdFNFhEUEFyMXlsb2pUV0tCZTgzaml5WVF3YmtvbkZRUXpXd2RMVVNhQXRrdFAyYzMzMWtQQ1lNTzVDbXRmeUZlUDUtYWJiS2M?oc=5",
+      "title": "職務質問から発覚…旅券不携帯の疑いで自称カンボジア国籍の男（29）を現行犯逮捕 福島・郡山署",
+      "currentLocation": "福島県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:45:42.329Z",
+      "resolvedUrl": "https://news.ntv.co.jp/n/fct/category/society/fcde1908af59ab4325924527ffc88aa1b4"
+    },
+    {
+      "id": "1e4c7e61da323499",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9aMmhFOHNIcVRHNkgzYnhZOFBfWkR2WjlyRzA1dmJKaFotMzlyQ05keTZvT0ZEdHFpU3ZoT3dJT3FXbF9PcXFEMlE3dERVcC1jcGM3Q1JEY29LSnM5dWpHQWFJQTAzY1VXYnFvSVhQT3NTR28?oc=5",
+      "title": "小学生4人重軽傷ひき逃げで執行猶予中の中国籍男（44） 初公判で無免許運転の起訴内容認める さいたま地裁",
+      "currentLocation": "埼玉県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_410",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:45:48.067Z",
+      "resolvedUrl": "http://www.excite.co.jp/news/article/TBSNews_1468120920497684639/"
+    },
+    {
+      "id": "ed1be68c4bd63840",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1RZ3ZvNWtpUTRfaHc0a3g1XzhGajBmTE1YMktjeVA5djRuel95djFFaUYtcDlDRXp6RDlyZVZGU29qQzdfbWRreVhlUGRwaUF2SkxwSFNvREJfODI0emhtcXZiWl9aS3d6X054STJLeXEyN0py0gF0QVVfeXFMTVFndm81a2lRNF9odzRreDVfOEZqMGZMTVgyS2N5UDl2NG56X3l2MUVpRi1wOUNFenpEOXJlVkZTb2pDN19tZGt5WGVQZHBpQXZKTHBIU29EQl84MjR6aG1xdmJaX1pLd3pfTnhJMkt5cTI3SnI?oc=5",
+      "title": "浜松市の太陽光発電所で銅線ケーブル盗んだ疑い ラオス国籍の男（31）を逮捕 静岡県警",
+      "currentLocation": "静岡県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 太陽光発電所から銅線ケーブル盗んだか…31歳のラオス人の男を逮捕 「やっていない」と容疑を否認（LOOK） ２０２４年１０月、太陽光発電所から銅線ケーブルを盗ん"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ラオス人"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:45:53.602Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/amp/article/look/region/look-96957"
+    },
+    {
+      "id": "61c7ac547b07589a",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1aZUE1enhEcFNTX3h0Z0ctY3oyUE5CQ25IT0ZkdTdtM0VVa01wOVlQX0RETHN2VGlsU0k5R05RbjFCUUpXWGJMTU5DbTJjZk9Bd1lsMVJ1M2JlWFlQMkd1ZUxwMjRJZnJKUTdwT0tyRVdRbzFX0gF0QVVfeXFMTVplQTV6eERwU1NfeHRnRy1jejJQTkJDbkhPRmR1N20zRVVrTXA5WVBfRERMc3ZUaWxTSTlHTlFuMUJRSldYYkxNTkNtMmNmT0F3WWwxUnUzYmVYWVAyR3VlTHAyNElmckpRN3BPS3JFV1FvMVc?oc=5",
+      "title": "車を無免許運転して乗用車と衝突　大学生ら3人にケガをさせそのまま逃げたか　ひき逃げなどの容疑でブラジル人の男を逮捕　浜松市",
+      "currentLocation": "静岡県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 車を無免許運転して乗用車と衝突 大学生ら3人にケガをさせそのまま逃げたか ひき逃げなどの容疑でブラジル人の男を逮捕 浜松市（LOOK） 浜松市内を軽乗用車を無免"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 車を無免許運転して乗用車と衝突 大学生ら3人にケガをさせそのまま逃げたか ひき逃げなどの容疑でブラジル人の男を逮捕 浜松市（LOOK） 浜松市内を軽乗用車を無免"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ブラジル人"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:45:59.833Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/amp/article/look/region/look-96954"
+    },
+    {
+      "id": "1ef0b8f33e7afa55",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE0zbHN6bHhIbkI0dUc4WGRxeHFhX1UzYTJLYlNPRTE4dmZXTURSdWtLTlZNaHVxWHdvUkJmSmNnUmZsSVRzZEZFY3VhT0I3Q3M2RmNzYzhoaw?oc=5",
+      "title": "アパート空室に侵入し不正荷物受取か 中国籍の会社員の男（41）を邸宅侵入容疑で再逮捕 警視庁・栃木県警",
+      "currentLocation": "東京都",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:46:06.216Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/-/2916171"
+    },
+    {
+      "id": "eba203ac1b6fd7ab",
+      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE05MlUtcXNFWXg2TW12WFlGRVVESVN2QnY4QVJ5QzYxTDV2RENya3N5RklMSmZpYjJQNFRjWnQ2TXZ4MEYwb2x5d1hrNU1aZkFQMVFuSGhRU0Q5UFB2NjRVdjJqMHkxU2t1cVR5WVpyS2ZVUQ?oc=5",
+      "title": "高級車など時価1800万円相当盗んだか ブラジル国籍の男2人逮捕 埼玉・川口市",
+      "currentLocation": "埼玉県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:46:12.225Z",
+      "resolvedUrl": "https://news.tv-asahi.co.jp/news_society/articles/000530221.html"
+    },
+    {
+      "id": "373e00f06642145e",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1QR1FfY0Jwcm1iRkFzTkJaTW1LTWpaRFJJYmVid1BCOUlJUjNqY2FPaGRVU0diejNKNm03ak5RVGVSZmM4Uk9PX2V5Nk5Tc2UtSUd1dVBPZjEtWVNFT21Ua0hQVklRRkIzN1liclFRaw?oc=5",
+      "title": "名古屋の路上で女性の体触った不同意わいせつ容疑 ネパール国籍の専門学校生の男（25）を逮捕 愛知県警",
+      "currentLocation": "愛知県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:46:18.318Z",
+      "resolvedUrl": "https://locipo.jp/article/a52e8ef1-ba3d-4d92-9a0e-86965e7b6103"
+    },
+    {
+      "id": "6e007c9df7600298",
+      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE83REUzQWVEMnJudUhiWGZaYi1KN25oQVRvemhNczFyYi1nbXUwUmM5d1dKTHhpelZkbi1SNVE3T1VjSHZaSmVQMFAxMU5nQQ?oc=5",
+      "title": "「蹴ったのは片足だけ」インドネシア国籍の技能実習生の男（22） 元交際相手の20代女性への傷害の容疑で逮捕 北海道八雲町",
+      "currentLocation": "北海道",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:46:24.580Z",
+      "resolvedUrl": "https://www.fnn.jp/articles/-/1105248"
+    },
+    {
+      "id": "06cdab9803fd2084",
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9IR2JWOXQ2emoydFhEcjRVbnlIWkloLVppbS05b21PbTRrdVcyV2tjMXRMTjg5eFZpYzRuN0tpQWZ6ai1oZ1V4VlNaNERaWDN6VGh4RHNoRmNzWTY2b2RtdW9SNA?oc=5",
+      "title": "カタコトの日本語で「飲んでいない」酒を飲んで自転車を運転した疑い フィリピン国籍の49歳男を現行犯逮捕 福岡・朝倉市",
+      "currentLocation": "福岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:46:30.185Z",
+      "resolvedUrl": "https://news.tnc.co.jp/news/articles/NID2026090131881"
+    },
+    {
+      "id": "b9bcf019c72bcd41",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9QejlScEw3TVR0dkpTQ282VW1qcEVGQUJkTWNtYXF6Z0JORkpmcklvd0EyMGdXMlJCeXpiblVWZmU0azlGcFJkelpfNFFWZDlid1JTd2RPQTV1Zw?oc=5",
+      "title": "麻薬取締法違反の疑い、群馬・高崎市の米国籍ダンサーを逮捕 茨城県警",
+      "currentLocation": "茨城県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 茨城県警石岡署は30日までに、茨城県石岡市の路上で大麻を所持したとして、麻薬取締法違反（所持）の疑いで、群馬県高崎市、米国籍のダンサーの男（71）を逮捕した。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 茨城県警石岡署は30日までに、茨城県石岡市の路上で大麻を所持したとして、麻薬取締法違反（所持）の疑いで、群馬県高崎市、米国籍のダンサーの男（71）を逮捕した。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 米国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:46:36.216Z",
+      "resolvedUrl": "https://www.jomo-news.co.jp/articles/-/1012257"
+    },
+    {
+      "id": "f279256e52abe560",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPQk1OamR4VDQzVnRiYnV4b0pxWGN4MjRWTEhZOVlaYlJNdjBZRTBsVHpyNEJnQlQ1RkRBYW5NOEoybDBGbVdzd1pLSUdYOUQta1A4enYtWGRoRmxBdUdwai1UNEJLMXJsUlFxMFItYUZKbndzQXV4OHBIMUxHaXNVQ0xjTW9jRmM?oc=5",
+      "title": "南区時計店強盗 “受け取り役”とみられるインドネシア国籍の男を逮捕 愛知県警",
+      "currentLocation": "愛知県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:46:43.737Z",
+      "resolvedUrl": "https://news.ntv.co.jp/n/ctv/category/society/ctc52df3ae1a75492fa183bc82d237ed36"
+    },
+    {
+      "id": "d96439b2640e5082",
+      "url": "https://news.google.com/rss/articles/CBMiO0FVX3lxTE1kdUZXc183aW84eUQ5ZFZRU21lQXFPRnRENTNWNkZPTGNUQV9sYmpfalZKQkhJcUZRdFpB?oc=5",
+      "title": "マンション5階の20代女性宅にベランダから侵入、気付いた女性に追いかけられ刃物で脅す インドネシア国籍の技能実習生の男（２１）逮捕 岡山",
+      "currentLocation": "岡山県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "unreadable",
+      "attempts": 3,
+      "lastAttemptAt": "2026-09-30T22:52:23.101Z",
+      "resolvedUrl": "https://t.co/QytcqMMxUH"
+    },
+    {
+      "id": "539dc83db70930bf",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE95T3NLUHJZMEI3b1BqVGl4amVmaGtmQ083azlMWmZMVWthVHBjcEVxRS0zUG1ud1pvTWZlVXhSYmpwWW9qRy0tOFdxOVhDNVRxRjlOTG83c2xuRWVwQWYzdkQ2YkF1UnpCcDVEeTZn?oc=5",
+      "title": "フィリピン国籍の男（34）を現行犯逮捕 同僚の男性2人にかみつき、けがを負わせた疑い 秋田市",
+      "currentLocation": "秋田県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_410",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:46:56.670Z",
+      "resolvedUrl": "http://www.excite.co.jp/news/article/akt_1466680409072844989/"
+    },
+    {
+      "id": "7d58ac0b74cf7ac6",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1RYVA1aFZETlpIUERUQ3dSRDVWWjNnNm1GN0pFSjdWTUJqdEx0TDh5OEdodFpjTVRsbmhMWW9QREo1ZzlKajNYYzFON1dXZFVmdHpvaHM5cmJrMEZSWUNqVUhicmhveHRDdlBCN1dvbkRxNWJGQjdEQmZ2T1lfYlk?oc=5",
+      "title": "ブラジル人の男を乾燥大麻１袋を所持していた疑いで逮捕 「持っていたことは間違いない」と容疑認める 浜松市中央区",
+      "currentLocation": "静岡県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 浜松市中央区で乾燥大麻１袋を所持していたとして、ブラジル国籍の男（２３）が逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ブラジル国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:47:02.336Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/6599a44370bd495afcfb6e51c4b25f769c528d61"
+    },
+    {
+      "id": "57707ea5d12a6e86",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBISFZlU24wNEhjMWFaUnpIc1pfbm4tSVZGbUJnbWlWUGZDczA5SE91b28yUGs5RWZnVVNhb0NlN3V2YUU5LWx6LVRHVzJzR3RMZkViYVZidHI1MVlmc1pqSnlIUlE4VmJFRmpGZ1RtZ9IBdEFVX3lxTE82NVZGYTQ0TEtvRWVyb1Q4ejVGX1NNUFNnU3dpSmpvYUtIaWs1eDVQb3RRa09rd1JKRjJaYjA1ZUI1V1ZOSVpXVkY4R3ZTci00S2NGbFBVdnRPWmttc0h4SExSc2huZGJPODJuZ0xXbTFublVH?oc=5",
+      "title": "ミャンマー人の男を現行犯逮捕　静岡市駿河区のコンビニで洋生菓子１個を万引きした疑い",
+      "currentLocation": "静岡県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: ミャンマー人の男を現行犯逮捕 静岡市駿河区のコンビニで洋生菓子１個を万引きした疑い（LOOK） 静岡市駿河区のコンビニエンスストアで、洋生菓子１個を万引きしたと"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: ミャンマー人の男を現行犯逮捕 静岡市駿河区のコンビニで洋生菓子１個を万引きした疑い（LOOK） 静岡市駿河区のコンビニエンスストアで、洋生菓子１個を万引きしたと"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ミャンマー人"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:47:08.351Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/article/look/region/look-96482"
+    },
+    {
+      "id": "c6fa91e0c718d0cc",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5adlpnZ2dIbXl1dVJhRFg2NjllZkVoWDhWdm9qb2NQUGNydXk5dTZqWjlsY3h3TTNka3FsUlE1SlZUNjFTdjRpcmpmd3ExOFFRdDBOSFYyM2E1c012TTNmeHlCTlN0ek15SllUR0VMU2t6RHg0U2c?oc=5",
+      "title": "女性に性的暴行、助けの従業員にも傷害 米兵「一切覚えていない」 那覇地裁で被告人質問",
+      "currentLocation": "沖縄県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:47:14.508Z",
+      "resolvedUrl": "https://www.excite.co.jp/news/article/OkinawaTimes_1912437/image/1/"
+    },
+    {
+      "id": "47d223dfeeef74e0",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5ESXRudjNqTlRXTnJFR3dCZjlxT0FOcUFUZGxNQ3V6c3VrV3hEQTRzb01Qa05zdEpsUVZYWXV1T2JaNldUaVJwaUEzcFlhcE9aeUZqbXBHd19pVFUxUE1CaTVmTXdTNUxhUFd4TldVMjhoN00?oc=5",
+      "title": "中野の時計店で2億円の高級時計窃盗 来日4日のチリ人2人を逮捕 警視庁",
+      "currentLocation": "東京都",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "topic_mismatch_contamination",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:47:20.253Z",
+      "resolvedUrl": "https://news.nicovideo.jp/watch/nw19710091?news_ref=search_search"
+    },
+    {
+      "id": "5cad5f45f6aa13a5",
+      "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE9Lc0x2cHNpU0FGLXhZQ19WU1VjclRsM1MtVkFfeFR4a0o4VEFoeDQ2cGlyQjhZVFo1bFJRVzJ3ZjBxeXc0dkp4aXk5Yw?oc=5",
+      "title": "麻薬のケタミンを使用した疑い ベトナム人の女を逮捕 「全く身に覚えがない」と容疑を否認 神戸",
+      "currentLocation": "兵庫県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:47:26.000Z",
+      "resolvedUrl": "https://www.47news.jp/14856910.html"
+    },
+    {
+      "id": "58e3120c61a193d1",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBaSTFIb3BnLXNBaUVZX1o4WW82N1RsNmQ5WUp0N1lsRC11ZXNaZEdGSjBSc3U2T2hOWU5jWlEzeVI0dWlNUFJZSXV3TzE5T3pTYkEtQ3NUNGF3TlU?oc=5",
+      "title": "車に追突、女性にけが負わせて立ち去った疑い 外国籍の男逮捕 足利署",
+      "currentLocation": "栃木県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:47:32.943Z",
+      "resolvedUrl": "https://www.shimotsuke.co.jp/articles/-/1411224"
+    },
+    {
+      "id": "689990cc36bc756a",
+      "url": "https://news.google.com/rss/articles/CBMiO0FVX3lxTE1sUG45cTBIWGtEWThxRlJsREJ6XzFKcWJMOWNweHRVajBnN3J5OHhNMlhpZTE4RVZzTXhV?oc=5",
+      "title": "中国籍のタクシー運転手（５４）を逮捕 降車した女性客を追いかけ、集合住宅でわいせつ行為か 埼玉 : エックス速報",
+      "currentLocation": "埼玉県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "unreadable",
+      "attempts": 3,
+      "lastAttemptAt": "2026-09-30T22:52:31.000Z",
+      "resolvedUrl": "https://t.co/9CPchtrg42"
+    },
+    {
+      "id": "3ceb3085a78f4cb3",
+      "url": "https://www.kab.co.jp/news/article/16839885",
+      "title": "婦人科検診と偽り患者女性にわいせつ行為 台湾国籍のクリニック院長の男を逮捕 警視庁",
+      "currentLocation": "東京都",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:47:44.042Z",
+      "resolvedUrl": "https://www.kab.co.jp/news/article/16839885"
+    },
+    {
+      "id": "c401f3ea5d9f94a4",
+      "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03740.html",
+      "title": "タイ国籍の男女10人を不法残留容疑で一斉摘発 千葉県警 匝瑳市",
+      "currentLocation": "千葉県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:47:47.121Z",
+      "resolvedUrl": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03740.html"
+    },
+    {
+      "id": "3644e31a53d64c1d",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5ITF9sVHBabDczVW11X0ZJcXI0d3NiT196NWQ5Y3BIbDhOd0lBQTlSa0hreV9haHpCRjdCNjByZEZEOGhudlAwNS1id2pRUjEtYzJxUVhwUi04QQ?oc=5",
+      "title": "成田空港まで白タク行為疑い ベトナム国籍男を逮捕 群馬県警太田署",
+      "currentLocation": "千葉県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:47:50.455Z",
+      "resolvedUrl": "https://www.jomo-news.co.jp/articles/-/1009588"
+    },
+    {
+      "id": "43a928ed6465847a",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFByUnZvZDJRWjhRRjdlaml2ZG9ERkhiblFMUkNoM09zSWhNYW9vU2x1ZkxaZ0Z1TmozT21NTzRkcHIyc0JtRXpMNnh1Slp1dE51UThQYllOU1dRVnBUaVVqNmJNWTZTSVk?oc=5",
+      "title": "スコップで頭殴られ男性死亡 中国籍の建設作業員の男（53）逮捕 傷害致死の疑い 山梨県警",
+      "currentLocation": "山梨県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 建設作業員の男性の頭をスコップで殴ってケガをさせ、翌日、死亡させたとして、中国人の男が傷害致死容疑で逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 中国人"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:47:55.804Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/uty/2900545?display=1"
+    },
+    {
+      "id": "5666826fdc2ba200",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9BUWZnV2FRSk5WRy1aMnRhRTA3SzNObG1BdFRwNDllWjhjYUVvZzBKMDNRcEZTM1I0VkZIQmUyd2JiRFlSTlAxWDhUSllYZXp2eXRGNnln?oc=5",
+      "title": "他人名義のカード情報でイヤホン購入 ベトナム国籍の22歳女を再逮捕 佐賀県警",
+      "currentLocation": "佐賀県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:48:01.404Z",
+      "resolvedUrl": "https://www.saga-s.co.jp/articles/-/1778558"
+    },
+    {
+      "id": "beff825b2dcb540c",
+      "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE40WjhrR3BsNExCMVZ2VFFETEZCd1JPVkJETTR6Q21BV190X3U2V2xZN0xYaGxmQ2U4SmdfR2dDODRlZjhVTTdmeEJmSQ?oc=5",
+      "title": "氷見の銅線盗事件、新たにベトナム人技能実習生の男を窃盗容疑で逮捕 県警など",
+      "currentLocation": "富山県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:48:06.645Z",
+      "resolvedUrl": "https://webun.jp/articles/-/1081315"
+    },
+    {
+      "id": "0d0d40984edbd9d4",
+      "url": "https://www.pref.shizuoka.jp/police/about/kohomemo/2008985.html",
+      "title": "在留期限超過による不法残留容疑で外国籍の男を逮捕 富士署",
+      "currentLocation": "静岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:48:11.888Z",
+      "resolvedUrl": "https://www.pref.shizuoka.jp/police/about/kohomemo/2008985.html"
+    },
+    {
+      "id": "8f0254b60ce008b2",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBpMDczLW1ua1B5ZThjQmFucEhYa1dvclZrWklSTWdkZXFWQUdEb0kzNDV6NldiTGdsbHFFSTVzM3h5N1pzWEQtdGNrSy05QWZtdGMtNExNTmp6UQ?oc=5",
+      "title": "「高額な収入を得たい」弟のパスポートで入国、26年間不法在留か 韓国籍72歳男逮捕「日雇いのアルバイトなどで生活」＝静岡県警",
+      "currentLocation": "静岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:48:14.548Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/sbs/2898163"
+    },
+    {
+      "id": "54ef398309c771a4",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBiYy1uUDVqcTh5aS1naDUyd3JWdWsxU2Q1WHZkY01SS2FCMHBmTGc3MGYtOXRCM3VudEd5OGduWnc4NVJqSThMeXpmWVBOSlgwallXVmxSNWhiQ1dIYlR0ZTZyU0gtQVlnMlp5dkJNQVVibmN5RndYaEJSSmlTMmM?oc=5",
+      "title": "「免許行政を害する行為」松江在住の夫婦と共謀し運転免許証を不正取得 外国籍の男女5人を島根県警が検挙",
+      "currentLocation": "島根県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 島根県に住んでいないのに、虚偽の異動届を提出して住民票を取得し、それを使って運転免許証を不正に取得したなどの疑いで外国籍の男女5人が8月17日、逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 外国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:48:20.111Z",
+      "resolvedUrl": "https://news.ntv.co.jp/category/society/nk5bdc920c57ec4720860e755ec05d4823"
+    },
+    {
+      "id": "c48bce20a49d343c",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQWkF2em85OEY1ZTFTMXY3aGVqMFh0QldVMEpYQ2FZV1hKSDdTcmxYcHZ4ck8zRW9SeS1XZmZ2LTloaGFYWGZ2ZDAyS2ZYVEZ5emZISUp1SUM3RXNjTmpsUkgzVnhtM2wtZ2R0bWdCbndpN3hoWGhmOW1uSk5Ed1J3OW4wY9IBiAFBVV95cUxPbmpTSDJZR1FocWc4VEFScW9zUTJlLTBPQ3l1X2JGd2tzclRSZ09mb2lwQjhTY0J1dzRicUhpdGdLc0JXeERNeU5SYTc2eEZmYUZZbXJsc3FlQjhuS0kzeHctV3lGMGpwYTNMMGdrWFRPYlNOUjBIX0NPYXA0azlZREpGcmhPRUJp?oc=5",
+      "title": "不法滞在の男女23人摘発　茨城県警石岡署",
+      "currentLocation": "茨城県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:48:26.253Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/article/ibaraki/region/ibaraki-20260825190100"
+    },
+    {
+      "id": "cec8908e810b817c",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5vcU5GNkMtOVdwYnZCekRMRzFCaW96NW9hZmV4RkxhTUJwRk85eXRlSE9XSTNRTnJGV3VhcVZRaEJzdGw5M3MzTjl6U2dpYmNVOHFoOVdCa1o?oc=5",
+      "title": "海賊版ライブＤＶＤなど販売容疑 中国籍の夫婦再逮捕 三重",
+      "currentLocation": "三重県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:48:31.949Z",
+      "resolvedUrl": "https://news.web.nhk/newsweb/na/nb-3070019067"
+    },
+    {
+      "id": "94fff78772064a9e",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE82cHEwaV9Wd2dnY2xBR0RHMWJPQU12enlvY0ZTSXZaWUlSS3I1TDVnM1VzRU40Z2M3aURzX3A5WW5oU0RlWXBTLXR4TWZ1d2I0SFlVcU1Scw?oc=5",
+      "title": "覚醒剤使用の疑いでイラン国籍の男（57）逮捕 覚醒剤など密売していた可能性もあるとみて捜査 茨城県警",
+      "currentLocation": "茨城県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:48:37.910Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/-/2892392"
+    },
+    {
+      "id": "9a0c36d0c14da551",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNdFZlOWpydTBCSFkzOG45RzhWTnM2dGRrQWZMUHN0TmR1SUpnVkctdVl6a0xwWnJSaFZmOGdWZllCS2J4RnhMa0d0ZGRQWmVXVGFsamxPSWIzbmw5SXNtZElKcVNGX1FzN05ZMHN6Z2o0UTdYM3FWUzBzR0pNQzBFV1ZrQ0FlYUNvRGttNHdn?oc=5",
+      "title": "米兵、店からサングラス盗んだ疑いで逮捕 沖縄・那覇 (琉球新報)",
+      "currentLocation": "沖縄県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "image_caption_related_links_contamination",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:48:43.434Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/3e94ea961fb4f5874bacdf81270ec3ddd21f4a9e/images/000",
+      "previousAudit": {
+        "status": "verified",
+        "audit": {
+          "japanCrime": {
+            "verified": true,
+            "evidence": "本文抜粋: 那覇署（資料写真） - Yahoo!ニュース(琉球新報)那覇署（資料写真） - Yahoo!ニュース(琉球新報)那覇署（資料写真） （ The Ryukyu S"
+          },
+          "suspectRole": {
+            "verified": true,
+            "evidence": "本文抜粋: 那覇署（資料写真） - Yahoo!ニュース(琉球新報)那覇署（資料写真） - Yahoo!ニュース(琉球新報)那覇署（資料写真） （ The Ryukyu S"
+          },
+          "foreignNationality": {
+            "verified": true,
+            "evidence": "本文抜粋: 米兵"
+          }
+        },
+        "note": "旧判定: Yahoo画像キャプションページで【関連リンク】一覧の別事件見出しを本文と誤認したことによる無効な判定"
+      },
+      "invalidationReason": "invalidated_due_to_image_caption_contamination"
+    },
+    {
+      "id": "3b7349fb059c3446",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5memFJODZLTk1JUkpyVWZmMFYyM3FyQ2NCSGY1SzJwc2w2TlBVX0NxOEtoZmhIOE9hcVR0WllTdGwwSmVjLXQ4X2h1QmxpLWtZTS1NaG1vWFZtTXFSS3FwZDZNR29JNjg0Z2tvTXY5YmtkWFNhOHNsSHdQeE9NbDQ?oc=5",
+      "title": "不同意わいせつ未遂の疑い スリランカ国籍の専門学校生を逮捕 静岡・御殿場市",
+      "currentLocation": "静岡県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: １８日深夜富士市内でわいせつな行為をしようとしたとして、スリランカ国籍の専門学校生の男が逮捕されました。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: １８日深夜富士市内でわいせつな行為をしようとしたとして、スリランカ国籍の専門学校生の男が逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: スリランカ国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:48:49.805Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/41e310f894e8b7e18c928f3697115bbfb19a9f04"
+    },
+    {
+      "id": "c91f7e005146c79f",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOTG1QLVlNOGFTa2VHeGx3Z19pdDYwNmpzcTR2STJEQTB6U1NqWGtoWlBxbmpWSFNNZFZ0UTJLdWRYaEVmcDlWSEVEYjlETUNJNXM3UEwyS3V2c1dOZkY3ZnJQX29MRzhwUUwwRVVIeXdGaHRCWm9hWVdKV0F4TmJfQ9IBhgFBVV95cUxQT2pOdUhPVGsyVEMzUHZqUmZMd1hab1o0aEp0TUlBVEcyWDNFUUR6a0FVLXNCNTRGNTJURnRCejBQWlBFY3BKVmYya2lua0tGamN3YV9KV1o5UGYyUXdqNnAtSzliV01UcnRCUUxwSHVRNFRkbWVVTWFKWEI3QWNJcTN4SFF6dw?oc=5",
+      "title": "米兵が麻薬密輸疑い　那覇空港でリュックから　沖縄地区税関が告発",
+      "currentLocation": "沖縄県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:48:56.030Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/article/ryukyu/region/ryukyu-20260821050015"
+    },
+    {
+      "id": "44e3d6caa691cec2",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBGaGVhX0JhQ1NwaS1IU3dXZTVXdkNCdGc0MTJqMW8ydzZ0LVMwandrdHpiQ1BQNF84OTRUbDhjUkdYZUJUSHNJMjhDOERRZ0xtN0RWRU93?oc=5",
+      "title": "覚醒剤2.4キロ密輸容疑でベトナム国籍などの男女4人逮捕 福岡県警と門司税関",
+      "currentLocation": "福岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:49:01.853Z",
+      "resolvedUrl": "https://www.nishinippon.co.jp/item/1528862/"
+    },
+    {
+      "id": "6c5b4602c7957aac",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5qSlI3bnJZOGx4ZWl5TmZvTmdBbzgwVG12OWIwQkZHR0MxTzVfdWRYTExJX094NDVfNTZCc3M3M0JIUjFkdzNtX0NkSjN5QXMwUHlOMmlXZHo4czVteUE?oc=5",
+      "title": "「寝ていたら外国人」女性から110番 ベランダから侵入した容疑 米軍属の男を緊急逮捕 沖縄・西原町",
+      "currentLocation": "沖縄県",
+      "status": "verified",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 面識のない女性の自宅に正当な理由なく侵入したとして浦添署は１８日、西原町の米軍属の容疑者（２５）を住居侵入の疑いで緊急逮捕した。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 面識のない女性の自宅に正当な理由なく侵入したとして浦添署は１８日、西原町の米軍属の容疑者（２５）を住居侵入の疑いで緊急逮捕した。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 米軍属"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:49:07.621Z",
+      "resolvedUrl": "https://www.okinawatimes.co.jp/articles/-/1904929"
+    },
+    {
+      "id": "d2121c6ca64df49c",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBfVVdJSUxTSTFNb0k0RlFEbmJpQkkzNldOUjZSb3lUUmhOeVVwSVFpNWlIUjdGUXlWNGdTRlJBU2t6YUJZYnZvUktqRFpsQ2pLVkM1VFVraXJjMC1zSEVhS24ySHN1Nk5FV2RRckZXZnhPWnVZTU1ySjJKbnRDNnM?oc=5",
+      "title": "ケーブルカッターを違法に所持疑い カンボジア国籍の男が逮捕 6月施行の金属盗対策法で愛知初の逮捕者",
+      "currentLocation": "愛知県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:49:14.176Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/7a9e69fd8a6fb6411d43e49005d2bf2d2e967b9c"
+    },
+    {
+      "id": "a0281c21cb09e6e9",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBWODJLZzRpV0FmY0ZUdjhZZ2dkcy1kcmpJVkhwUWh6YnE1YWw4b2I3NGZCeU1Vdk0yakl4d1FRdVRPMXdSRXBYTlhXVnFZSFdySWN1LUtjbTNfWGM?oc=5",
+      "title": "東京・新宿区 強盗目的でハンマー所持か フィリピン国籍の男逮捕",
+      "currentLocation": "東京都",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:49:19.830Z",
+      "resolvedUrl": "https://abema.tv/video/episode/89-93_s10_p59484"
+    },
+    {
+      "id": "a37718317d3faedb",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE0yMVBCYkpkRVpxMzRxR3RrRG83MXN5T1VlTG02d0Rlc29wb2ViUnhxNjY1U3JOSlM1ODhUSW9ldEhBMzlBbXVwTnRpalRiZ0VncG4ySEN1RTVTczVNMTFQX2tROGVtaGRjMnF1WTFvTTV4NUI5cTQtc1BES0ptUkk?oc=5",
+      "title": "日本で有効な免許の取得歴はない…53歳のタイ人の女を無免許運転の容疑で逮捕 静岡・伊豆の国市",
+      "currentLocation": "静岡県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 静岡県伊豆の国市で軽乗用車を無免許運転したとして、タイ国籍の女が逮捕されました。"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: タイ国籍"
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "crime_location_unclear_in_context",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:49:25.663Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/afe00638fa59f9c1dcacb35d9a5c74f42b469a4d"
+    },
+    {
+      "id": "95a0ba63162c2390",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9GVE5qU2pkdElOaS1vMWZlaWMtbWJ0d2ZwdS1EVFV2OW9zQVM2VmZkenNLeDFyeUp2NFhMcXdlOTBlR3dhZ0kwTFB3RUN2ZGVfcDJnY0MyZmcyUQ?oc=5",
+      "title": "「ボコボコにしてやる」知人男性をSNSで脅迫の疑い フランス国籍の男逮捕 金銭トラブルが関係か＝静岡・熱海市",
+      "currentLocation": "静岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:49:31.319Z",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/sbs/2879473"
+    },
+    {
+      "id": "765742101bb8fae1",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBkWHh0Q1FfZHZLZE5jRTdReHdZY1BEZ3Vyb0NLX3hPMnNhOUNiR09KV2VVc1ZxOUV5eVViVkljYWRfdy11Wkt3b2V3M3cwWDRMT19OVXk1NGM3LVJDclFJ?oc=5",
+      "title": "ドラッグストアで医薬品を盗んで地面にたたきつけて割り、店の業務を妨害した疑い パキスタン国籍で無職の38歳男を逮捕《新潟》",
+      "currentLocation": "新潟県",
+      "status": "insufficient_evidence",
+      "isTruncated": false,
+      "audit": {
+        "japanCrime": {
+          "verified": false,
+          "evidence": null
+        },
+        "suspectRole": {
+          "verified": false,
+          "evidence": null
+        },
+        "foreignNationality": {
+          "verified": false,
+          "evidence": null
+        }
+      },
+      "rejectReason": null,
+      "pendingReason": "suspect_or_nationality_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:49:37.169Z",
+      "resolvedUrl": "https://news.livedoor.com/article/detail/32096345/"
+    },
+    {
+      "id": "26538ca7b5869214",
+      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5WNzE3WmFYS0NDVVB2NXJkUjZMdENpektmdndoRTlrMGZweUY1dEFOOVlaVmhCMGtrQ1g3YjZobXVCZkRWV0puNTluUEwyZVkwbnfSAWRBVV95cUxOWjF5SU96QnZLeG5kQlVxN2JuVDRlZFJ5TFZfUlZoclFwM2txQTlOdjk4UFp0RGdHSjBQVjBSaTlzYVNXQm9QUGtST3M2NUtQSmdya1pHWm9aVUVpaGx5V1J5X1VL?oc=5",
+      "title": "ドリフト走行した疑いでトルコ国籍の男を逮捕　愛知県警はアジア・アジアパラ大会へ取り締まり強化方針",
+      "currentLocation": "愛知県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_410",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:49:43.165Z",
+      "resolvedUrl": "https://www.nagoyatv.com/news/?id=036798"
+    },
+    {
+      "id": "be98e1ac19f9f298",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBpdUR0cEVTcXRqcDUzc25nWEdXY0JQdDZadFpJV3pCRzJadHVnSzF1RXotdUlVWFJycHo4UVd0eDJDZEtlT253eEJ5V2RxaFM5emtCVXFEOWU3R3dHOWNkUA?oc=5",
+      "title": "オカヤドカリを移動疑い、自称「中国在住」男3人を再逮捕 沖縄署",
+      "currentLocation": "沖縄県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_405",
+      "attempts": 3,
+      "lastAttemptAt": "2026-09-30T22:52:36.618Z",
+      "resolvedUrl": "https://ryukyushimpo.jp/national/entry-5462483.html"
+    },
+    {
+      "id": "72856a67373492ea",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFBPOVAwejRXSHYyZU5FeGstMEpqZ1doV19uRzJPOW5nM0dvMV9Ka1hnOGFralZpZmRvckdBR0NKWlpLOUYwem95d2ZrUzd4cUNoa3I5R2JJdms?oc=5",
+      "title": "三重 亀山 空き家で指輪盗んだか ベトナム人２人逮捕",
+      "currentLocation": "三重県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:49:55.004Z",
+      "resolvedUrl": "https://news.web.nhk/newsweb/na/nb-3000050451"
+    },
+    {
+      "id": "3f2ca65d2bdbf759",
+      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9vdlNITnlQcF9oS3Y2MVQzbzBGTF9qTGQ1U0p3cm5XLWs5TkZzT1huVDcwR1lVRXNpZkxkVjFnT3pwUFVGNjVUeGxwZmxHNTlMWWRKN2NZOVNsWjY4VWpWaS1YcS1LdDBP?oc=5",
+      "title": "邸宅侵入と盗みの疑いでベトナム国籍の男2人再逮捕:福島ニュース",
+      "currentLocation": "福島県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:50:01.220Z",
+      "resolvedUrl": "https://www.minyu-net.com/news/detail/2026081316013253548"
+    },
+    {
+      "id": "2b6a0ee9f550a45f",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9BRUx0U2hvUTROOEItS05yLXFHTlFNdTBlZ2RFaUI4VG1WX0JKS3RHRWhDakV5NVVZclhEZlZ2QmpRd1JhRW9rMk05c0E1RUMxSkh1LWFNRGxZSFU?oc=5",
+      "title": "自宅侵入、暴行し車に押し込む 営利略取などの疑いで外国人４人逮捕 栃木県警",
+      "currentLocation": "栃木県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:50:06.839Z",
+      "resolvedUrl": "https://www.shimotsuke.co.jp/articles/-/1402731"
+    },
+    {
+      "id": "65e00c594fa7ed09",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE0wNmFsTUtLeGJ3RFcxQm1VYUw4RzMwZVozTXZabENsZTV1djlqampqX29ILVFPWnF5N0FwXzdxTHVocXBPSGFhZlhONzRSQV8wZDJjTUtyQnFESHUydjlNbGpueDAxbXhJemJ6N3FrZ2psWEpUZ3VNbFhmbXlXVXM?oc=5",
+      "title": "7年あまり不法残留 スリランカ国籍の男(37)逮捕 交通事故捜査の過程で判明 いわき市・福島",
+      "currentLocation": "福島県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:50:12.146Z",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/53dc0901c781775f23cc34d66344413143e5e0a6"
+    },
+    {
+      "id": "43326710cf8fa205",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFB3NXFxb2RGd1haV09UeFEtMkFvU0NVSnZ0eEM4am85SE5jMmdiSzZMbGQ2a3lIMFdJY0tSaEsxOV95Q0VUNlpLNDY4RGdPeEdoN25DLUs0NGdSLTh5WVQ0?oc=5",
+      "title": "まるで治外法権！ 大阪・ミナミのベトナム人犯罪者巣窟ビルで違法薬物摘発し8人逮捕",
+      "currentLocation": "大阪府",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:50:18.333Z",
+      "resolvedUrl": "https://www.chiba-tv.com/plus/detail/2026081870065"
+    },
+    {
+      "id": "b1a3c27f131d17cf",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNTVVEMTRaSHZTWVZRSVZUdW1PdUFlTGo3alZXcmN2NjdmalNpaDU4cjQwZ2I0QXpWWFBRN25pSUNFMUpzb3Mxc3JJSHdoVm41cl9LMW5oaVBlb1A1dWUwOWg5UGdXWVp5SzY3cEtmLTFKSjhXakF6cFE5VEJ2YlJLTDU1Vk5FVknSAYwBQVVfeXFMTlF3Y0pIcmFqUlF0c1hqMmJ0ZW9oQmQ2aTFyUnRtXzA4ZUxlWEd2MlBPaDZvVF81ZGZVTlA2WGU0cEZLb1lFRER5N0VwWEFod09RQWFILXhjS0ZQWVBnSWtGb0t4U01YWkNrSl9hdDZFTjAtVHpXTHlPMEVSeXR3X3pkcl82NVNjUHpBVmk?oc=5",
+      "title": "日本で車7台が絡む多重事故を起こした韓国人インフルエンサーに過失運転致傷容疑を追加",
+      "currentLocation": "全国",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:50:24.195Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/article/japanesejoins/world/japanesejoins-353143"
+    },
+    {
+      "id": "255173066e33de1b",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE90bVpjS3J2OFVSTXlpbGNucWJjWVJoX2l2cU1nMDVsWThsNWlCcXphTnpEY3UwU2djbDRIVkRhMFBrMHNFeFRkVTEzRWk4aVdxdEJhMlBMS0VEb2NpV21RVEtmU2EyaUlqR1JtTldjRdIBdEFVX3lxTE5MVkNqM0lOWW1tUmE0WDFNUUNtVFNzbWs1WGYyZFg2Vl84UVJRenhIRVlmdUVvMzh6OHRnWW5MOTEwd0ZHZHBEbFdDalpFMml5ZVBZV3ZicjFOaVBpRFAwZDRIWmZWcFhQX19WR2ZaVUthTEVG?oc=5",
+      "title": "自転車を“酒酔い運転”　ネパール国籍の26歳男を逮捕　「ビールを1本半くらい飲んだ」　福岡・北九州市",
+      "currentLocation": "福岡県",
+      "status": "gave_up",
+      "isTruncated": false,
+      "audit": null,
+      "rejectReason": null,
+      "pendingReason": "http_404",
+      "attempts": 1,
+      "lastAttemptAt": "2026-09-30T22:50:30.043Z",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/article/tvnc/region/tvnc-31554"
+    }
+  ]
+}

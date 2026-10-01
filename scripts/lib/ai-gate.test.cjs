@@ -12,9 +12,6 @@ const item = (title, description = '', media = '') => ({ title, description, med
 const ai = (extra) => ({ index: 0, isValid: true, reason: 'ok', cleanTitle: '', suspectEvidence: '', locationEvidence: '', ...extra });
 const silent = { log() {}, warn() {} };
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'gate-'));
-const resp = (status, body) => ({ status, ok: status >= 200 && status < 300, json: async () => body });
-const gem = (arr) => resp(200, { candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(arr) }] } }] });
-const promptCount = (init) => (JSON.parse(init.body).contents[0].parts[0].text.match(/\[記事番号:/g) || []).length;
 
 // ── 場所の解決 ──
 test('大津市は滋賀県（「津市」=三重に引っ張られない）', () => assert.equal(gate.resolvePrefecture('大津市で外国籍の男を逮捕').pref, '滋賀県'));
@@ -125,168 +122,47 @@ test('米兵（国内）は採用できる', () => {
 });
 test('AIが不採用なら却下', () => assert.equal(gate.verifyItem(item(T), ai({ isValid: false, reason: '海外' })).code, 'ai_rejected'));
 
-// ── run(): 一次判定 → 最終精査 → 公開 ──
-const good = ai({ suspectEvidence: '台湾籍の男を逮捕', locationEvidence: '鳥取・米子', suspectNationality: 'foreign', crimeInJapan: 'yes' });
-const isAudit = (init) => JSON.parse(init.body).contents[0].parts[0].text.includes('最終校閲');
-const auditRes = (init, over = {}) => gem(Array.from({ length: promptCount(init) }, (_, i) => ({ index: i, verdict: 'keep', category: 'ok', evidence: '', locationOk: true, reason: 'ok', ...over })));
-/** 一次判定には triage、最終精査には audit を返す偽のGemini */
-const pipe = (triage, audit = (init) => auditRes(init)) => async (u, init) => (isAudit(init) ? audit(init, u) : gem(triage));
-const runOpts = (o) => ({ shadow: false, apiKey: 'k', log: silent, minIntervalMs: 0, ...o });
+// ── run(): ローカル審査 → 採用/却下/保留 → 記録 ──
+const runOpts = (o) => ({ shadow: false, log: silent, ...o });
 const stateOf = (sp, it) => JSON.parse(fs.readFileSync(sp, 'utf-8')).decisions[gate.articleKey(it)];
 
-test('429は中断して次回へ（記録せず、回数も数えない）', async () => {
-  const d = tmp();
-  const out = await gate.run(runOpts({ candidates: [item(T)], statePath: path.join(d, 's.json'), fetchImpl: async () => resp(429, {}) }));
-  assert.equal(out.summary.aborted.kind, 'transient');
-  assert.equal(out.accepted.length, 0);
-  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(d, 's.json'), 'utf-8')).decisions, {});
-});
-test('一次判定を通り、最終精査でも keep なら公開される', async () => {
+test('ローカル審査: 3要素が揃った正当記事は採用される', async () => {
   const sp = path.join(tmp(), 's.json');
   const it = item(T);
-  const out = await gate.run(runOpts({ candidates: [it], statePath: sp, fetchImpl: pipe([good]) }));
+  const out = await gate.run(runOpts({ candidates: [it], statePath: sp }));
   assert.equal(out.accepted.length, 1);
   assert.equal(out.accepted[0].location, '鳥取県');
   assert.equal(stateOf(sp, it).status, 'accepted');
 });
-test('一次判定を通っただけでは公開されない（最終精査が返るまで pending_audit）', async () => {
+
+test('ローカル審査: 国籍表現のない記事は却下される', async () => {
   const sp = path.join(tmp(), 's.json');
-  const it = item(T);
-  const out = await gate.run(runOpts({ candidates: [it], statePath: sp, fetchImpl: async (u, init) => (isAudit(init) ? resp(429, {}) : gem([good])) }));
+  const it = item('窃盗容疑で男を逮捕 鳥取・米子');
+  const out = await gate.run(runOpts({ candidates: [it], statePath: sp }));
   assert.equal(out.accepted.length, 0);
-  assert.equal(out.summary.pendingAudit, 1);
-  assert.equal(stateOf(sp, it).status, 'pending_audit');
+  assert.equal(out.summary.rejected, 1);
+  assert.equal(stateOf(sp, it).status, 'rejected');
 });
-test('精査待ちの記事は、次回は一次判定を呼ばず最終精査だけを再実行して公開する', async () => {
+
+test('ローカル審査: 採用済み記事は次回スキップされる', async () => {
   const sp = path.join(tmp(), 's.json');
   const it = item(T);
-  await gate.run(runOpts({ candidates: [it], statePath: sp, fetchImpl: async (u, init) => (isAudit(init) ? resp(429, {}) : gem([good])) }));
-  let triageCalls = 0;
-  const out = await gate.run(runOpts({ candidates: [it], statePath: sp, fetchImpl: async (u, init) => { if (!isAudit(init)) triageCalls++; return isAudit(init) ? auditRes(init) : gem([good]); } }));
-  assert.equal(triageCalls, 0);
-  assert.equal(out.accepted.length, 1);
-});
-test('最終精査は、一次判定と別のモデルを優先して使う', async () => {
-  const urls = [];
-  await gate.run(runOpts({ candidates: [item(T)], statePath: path.join(tmp(), 's.json'), fetchImpl: async (u, init) => { urls.push([isAudit(init), u]); return isAudit(init) ? auditRes(init) : gem([good]); } }));
-  const tri = urls.find((x) => !x[0])[1];
-  const aud = urls.find((x) => x[0])[1];
-  assert.notEqual(tri, aud);
-});
-test('最終精査が「海外」と根拠つきで除外 → 公開せず rejected', async () => {
-  const sp = path.join(tmp(), 's.json');
-  const it = item(T);
-  const out = await gate.run(runOpts({ candidates: [it], statePath: sp, fetchImpl: pipe([good], (init) => auditRes(init, { verdict: 'exclude', category: 'overseas', evidence: '台湾籍の男を逮捕', reason: '海外' })) }));
-  assert.equal(out.accepted.length, 0);
-  assert.equal(out.summary.auditExcluded, 1);
-  assert.equal(stateOf(sp, it).code, 'audit_overseas');
-});
-test('最終精査の除外に、原文に無い根拠しか無ければ公開せず review（AIの幻覚で消さず、通しもしない）', async () => {
-  const sp = path.join(tmp(), 's.json');
-  const it = item(T);
-  let calls = 0;
-  const fi = pipe([good], (init) => { calls++; return auditRes(init, { verdict: 'exclude', category: 'japanese_suspect', evidence: '日本人の男を逮捕', reason: '日本人' }); });
-  const out = await gate.run(runOpts({ candidates: [it], statePath: sp, fetchImpl: fi }));
-  assert.equal(out.accepted.length, 0);
-  assert.equal(stateOf(sp, it).status, 'review');
-  assert.equal(stateOf(sp, it).code, 'audit_unverified_exclusion');
-  const before = calls;
-  await gate.run(runOpts({ candidates: [it], statePath: sp, fetchImpl: fi }));
-  assert.equal(calls, before); // 再精査で空回りしない
-});
-test('最終精査が場所の食い違いを指摘したら、間違った県で出さず「場所不明」で公開', async () => {
-  const out = await gate.run(runOpts({ candidates: [item(T)], statePath: path.join(tmp(), 's.json'), fetchImpl: pipe([good], (init) => auditRes(init, { locationOk: false })) }));
-  assert.equal(out.accepted.length, 1);
-  assert.equal(out.accepted[0].location, '全国');
-});
-test('最終精査が5回続けて結果を返さない記事は review になり、公開されない', async () => {
-  const sp = path.join(tmp(), 's.json');
-  const it = item(T);
-  const fi = async (u, init) => (isAudit(init) ? gem([]) : gem([good]));
-  let out;
-  for (let i = 0; i < 6; i++) out = await gate.run(runOpts({ candidates: [it], statePath: sp, fetchImpl: fi }));
-  assert.equal(stateOf(sp, it).code, 'audit_attempts_exceeded');
-  assert.equal(out.accepted.length, 0);
-});
-test('APIキーなしは fail-closed（RULE_FALLBACK=1 のときだけ、最終精査なしで場所が確定する記事を採用）', async () => {
-  const off = await gate.run({ candidates: [item(T)], shadow: false, apiKey: '', log: silent, statePath: path.join(tmp(), 's.json') });
-  assert.equal(off.accepted.length, 0);
-  assert.equal(off.summary.aborted.kind, 'no_api_key');
-  process.env.RULE_FALLBACK = '1';
-  try {
-    const on = await gate.run({ candidates: [item(T), item('ブラジル国籍の男を窃盗容疑で逮捕')], shadow: false, apiKey: '', log: silent, statePath: path.join(tmp(), 's2.json') });
-    assert.equal(on.accepted.length, 1);
-  } finally { delete process.env.RULE_FALLBACK; }
-});
-test('モデルが恒久エラー(404等)のとき、既定では何も公開しない（AIの最終精査を通らない記事は出さない）', async () => {
-  const out = await gate.run(runOpts({ candidates: [item(T)], statePath: path.join(tmp(), 's.json'), fetchImpl: async () => resp(404, {}) }));
-  assert.equal(out.summary.aborted.kind, 'permanent');
-  assert.equal(out.accepted.length, 0);
-});
-test('場所不明でも、最終精査を通れば location「場所不明」で公開', async () => {
-  const it2 = item('フィリピン国籍の女を詐欺容疑で逮捕');
-  const g2 = ai({ suspectEvidence: 'フィリピン国籍の女を詐欺容疑で逮捕', locationEvidence: '', suspectNationality: 'foreign', crimeInJapan: 'yes' });
-  const out = await gate.run(runOpts({ candidates: [it2], statePath: path.join(tmp(), 's.json'), fetchImpl: pipe([g2]) }));
-  assert.equal(out.accepted.length, 1);
-  assert.equal(out.accepted[0].location, '全国');
-});
-test('review（strict時）は保存したAI応答で辞書更新後に再判定され、最終精査を通って公開される', async () => {
-  const sp = path.join(tmp(), 's.json');
-  const it2 = item('フィリピン国籍の女を詐欺容疑で逮捕 架空署');
-  const g2 = ai({ suspectEvidence: 'フィリピン国籍の女を詐欺容疑で逮捕', locationEvidence: '架空署', suspectNationality: 'foreign', crimeInJapan: 'yes' });
-  process.env.LOCATION_STRICT = '1';
-  try {
-    delete require.cache[require.resolve('./ai-gate.cjs')];
-    const gs = require('./ai-gate.cjs');
-    let triage = 0;
-    const fi = async (u, init) => { if (!isAudit(init)) triage++; return isAudit(init) ? auditRes(init) : gem([g2]); };
-    const first = await gs.run(runOpts({ candidates: [it2], statePath: sp, fetchImpl: fi }));
-    assert.equal(first.accepted.length, 0);
-    assert.equal(first.summary.review, 1);
-    gs.setMunicipalities({ '架空市': ['山形県'] });
-    const second = await gs.run(runOpts({ candidates: [it2], statePath: sp, fetchImpl: fi }));
-    assert.equal(second.accepted.length, 1);
-    assert.equal(second.accepted[0].location, '山形県');
-    assert.equal(triage, 1);
-  } finally { delete process.env.LOCATION_STRICT; delete require.cache[require.resolve('./ai-gate.cjs')]; }
-});
-test('解析失敗は分割して再試行し、正しい件だけ採用', async () => {
-  const items = [item(T), item('別の記事 台湾籍の男を逮捕 鳥取・米子')];
-  const bad = resp(200, { candidates: [{ finishReason: 'STOP', content: { parts: [{ text: 'not json' }] } }] });
-  const fi = async (u, init) => (isAudit(init) ? auditRes(init) : promptCount(init) > 1 ? bad : gem([good]));
-  const out = await gate.run(runOpts({ candidates: items, statePath: path.join(tmp(), 's.json'), fetchImpl: fi }));
-  assert.equal(out.accepted.length, 2);
-});
-test('AIが返さない記事は5回で review になり、以後は再送されない', async () => {
-  const sp = path.join(tmp(), 's.json');
-  const it = item(T);
-  let calls = 0;
-  const fi = async () => { calls++; return gem([]); };
-  for (let i = 0; i < 5; i++) await gate.run(runOpts({ candidates: [it], statePath: sp, fetchImpl: fi }));
-  const st = stateOf(sp, it);
-  assert.equal(st.status, 'review');
-  assert.equal(st.code, 'attempts_exceeded');
-  const before = calls;
-  await gate.run(runOpts({ candidates: [it], statePath: sp, fetchImpl: fi }));
-  assert.equal(calls, before);
-});
-test('採用済みは二度と審査しない', async () => {
-  const sp = path.join(tmp(), 's.json');
-  const it = item(T);
-  const a = await gate.run(runOpts({ candidates: [it], statePath: sp, fetchImpl: pipe([good]) }));
-  const b = await gate.run(runOpts({ candidates: [it], statePath: sp, fetchImpl: pipe([good]) }));
+  const a = await gate.run(runOpts({ candidates: [it], statePath: sp }));
+  const b = await gate.run(runOpts({ candidates: [it], statePath: sp }));
   assert.equal(a.accepted.length, 1);
   assert.equal(b.accepted.length, 0);
   assert.equal(b.summary.skipped, 1);
 });
-test('シャドー運転は比較ログを書き、旧の採否と突き合わせる（最終精査後の結果で）', async () => {
+
+test('ローカル審査: シャドー運転は比較ログを正しく書き出す', async () => {
   const d = tmp();
-  const out = await gate.run(runOpts({ candidates: [item(T)], shadow: true, legacyAccepted: [], statePath: path.join(d, 's.json'), shadowLogPath: path.join(d, 'c.jsonl'), fetchImpl: pipe([good]) }));
+  const out = await gate.run(runOpts({
+    candidates: [item(T)], shadow: true, legacyAccepted: [],
+    statePath: path.join(d, 's.json'), shadowLogPath: path.join(d, 'c.jsonl')
+  }));
   assert.equal(out.accepted.length, 1);
   const rec = JSON.parse(fs.readFileSync(path.join(d, 'c.jsonl'), 'utf-8').trim());
-  assert.equal(rec.legacy, 'rejected');
   assert.equal(rec.gate, 'accepted');
-  assert.equal(rec.agree, false);
 });
 
 // ── 強制排除: 海外・日本人被疑者・被害者のみ（AIの構造化フィールドとコード） ──
@@ -308,24 +184,6 @@ test('日本国籍・帰化と明記された被疑者は、外国出身でも�
 });
 test('日本人被疑者だけで国籍表現が無い記事は、国籍なしで却下（日本人の犯罪は構造的に通らない）', () => {
   assert.equal(verdict('日本人の男(30)を窃盗容疑で逮捕 愛知県警', '男(30)を窃盗容疑で逮捕', '愛知県警').code, 'no_nationality');
-});
-
-// ── 最終精査の応答評価 ──
-test('evalAudit: keep / 根拠つき exclude / 根拠なし exclude / 不正な応答', () => {
-  const it = item(T);
-  assert.equal(gate.evalAudit(it, { verdict: 'keep', locationOk: true }).action, 'keep');
-  assert.equal(gate.evalAudit(it, { verdict: 'keep', locationOk: false }).locationOk, false);
-  assert.equal(gate.evalAudit(it, { verdict: 'exclude', category: 'overseas', evidence: '台湾籍の男を逮捕' }).action, 'exclude');
-  assert.equal(gate.evalAudit(it, { verdict: 'exclude', category: 'overseas', evidence: '' }).action, 'review');
-  assert.equal(gate.evalAudit(it, { verdict: 'exclude', category: 'overseas', evidence: '原文に無い文' }).action, 'review');
-  assert.equal(gate.evalAudit(it, { verdict: '???' }).action, 'retry');
-  assert.equal(gate.evalAudit(it, undefined).action, 'retry');
-});
-test('最終精査のプロンプトは、一次判定の結果を載せ、根拠の引用を必須にしている', () => {
-  const pr = gate.buildAuditPrompt([{ item: item(T), s1: { suspectEvidence: '台湾籍の男を逮捕', pref: '鳥取県' } }]);
-  assert.match(pr, /最終校閲/);
-  assert.match(pr, /台湾籍の男を逮捕/);
-  assert.match(pr, /一字も変えずに/);
 });
 
 // ── 被疑者側/被害者側の判別（v3.1 追加）──
@@ -400,8 +258,7 @@ test('海外の地名が出ていても、日本の県警・地名があれば�
 
 test('場所がゲートで決まらなくても、取得側が決めた場所（全国以外）は残す', async () => {
   const it2 = { ...item('フィリピン国籍の女を詐欺容疑で逮捕'), location: '愛知県' };
-  const g2 = ai({ suspectEvidence: 'フィリピン国籍の女を詐欺容疑で逮捕', locationEvidence: '', suspectNationality: 'foreign', crimeInJapan: 'yes' });
-  const out = await gate.run(runOpts({ candidates: [it2], statePath: path.join(tmp(), 's.json'), fetchImpl: pipe([g2]) }));
+  const out = await gate.run(runOpts({ candidates: [it2], statePath: path.join(tmp(), 's.json') }));
   assert.equal(out.accepted[0].location, '愛知県');
   assert.match(out.accepted[0].summary, /愛知県で発生した/);
 });

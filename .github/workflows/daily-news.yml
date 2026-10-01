@@ -37,30 +37,27 @@ jobs:
       - name: Run gate regression tests
         run: node --test "scripts/lib/*.test.cjs"
 
-      # AI判定の状態（新着0件の時間帯でも持ち越す）
-      - name: Restore AI state cache
+      # 候補キューおよび本文キャッシュの状態（新着0件の時間帯でも持ち越す）
+      - name: Restore pipeline state cache
         uses: actions/cache/restore@v4
         with:
           path: |
-            data/aiDecisions.json
-            data/aiDecisions.shadow.json
-            data/shadowComparison.jsonl
             data/articleCache.json
-          key: ai-state-${{ github.run_id }}-${{ github.run_attempt }}
+            data/newsQueue.json
+          key: pipeline-state-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
-            ai-state-
+            pipeline-state-
 
       - name: Run Fetch News Script
         id: fetch-news
         run: node scripts/fetch-news.cjs
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
+          # Gemini完全撤去：完全ローカル・決定論的ルール判定のみで稼働（キー・モデル指定なし）
           # 既定は本番稼働。シャドーに戻すときはリポジトリ変数 SHADOW_MODE を 1 にする
           SHADOW_MODE: ${{ vars.SHADOW_MODE || '0' }}
           # 本文スキャン有効化（1:有効 / 0:無効）。障害時はリポジトリ変数 BODY_SCAN を 0 にするだけで即時停止可能
           BODY_SCAN: ${{ vars.BODY_SCAN || '1' }}
-          BODY_SCAN_MAX: ${{ vars.BODY_SCAN_MAX || '40' }}
+          BODY_SCAN_MAX: ${{ vars.BODY_SCAN_MAX || '20' }}
 
       # ニュースデータに変更があった時だけビルド・コミット・push（= Netlifyのデプロイ）を行う
       - name: Check for news data changes
@@ -106,16 +103,14 @@ jobs:
         run: node scripts/submit-indexnow.cjs
 
       # 成功した実行だけ状態を保存する（push失敗＝未公開なのに「済み」になるのを防ぐ）。変更が無ければ保存しない
-      - name: Save AI state cache
+      - name: Save pipeline state cache
         if: success() && steps.fetch-news.outputs.state_changed == 'true'
         uses: actions/cache/save@v4
         with:
           path: |
-            data/aiDecisions.json
-            data/aiDecisions.shadow.json
-            data/shadowComparison.jsonl
             data/articleCache.json
-          key: ai-state-${{ github.run_id }}-${{ github.run_attempt }}
+            data/newsQueue.json
+          key: pipeline-state-${{ github.run_id }}-${{ github.run_attempt }}
 
       # シャドー運転の比較ログ（累積）。Actions画面からいつでもダウンロードできる
       - name: Upload shadow comparison log

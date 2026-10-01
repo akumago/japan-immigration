@@ -69,12 +69,13 @@ test('本文だけを見る: ナビ・サイドバー・関連記事の国籍語
   assert.doesNotMatch(t, /ベトナム国籍/);
   assert.doesNotMatch(t, /中国籍/);
 });
-test('JSON-LD の articleBody と og:description を使う', () => {
+test('JSON-LD の articleBody は採用し、og:description（メタ説明文）単体は廃止・不採用とする', () => {
   const body = '兵庫県警は29日、窃盗の疑いで男を逮捕した。調べに対し、男は韓国籍の会社員で、容疑を認めている。同署は余罪があるとみている。';
   const h1 = `<html><head><script type="application/ld+json">${JSON.stringify({ '@graph': [{ '@type': 'NewsArticle', articleBody: body }] })}</script></head><body><div>JSで描画</div></body></html>`;
   assert.match(F.extractArticleText(h1), /韓国籍の会社員/);
+  // メタ説明文フォールバックは完全廃止：本文専用コンテナがない場合は空文字を返す
   const h2 = '<html><head><meta property="og:description" content="兵庫県警は窃盗の疑いで韓国籍の会社員の男を逮捕した。詳しい経緯を調べている。"></head><body></body></html>';
-  assert.match(F.extractArticleText(h2), /韓国籍/);
+  assert.equal(F.extractArticleText(h2), '');
 });
 test('pickNationalityContext: 被疑者側の国籍語を含む最初の文と前後だけを返す。被害者の国籍の文は飛ばす', () => {
   const t = '兵庫県警は逮捕した。被害に遭ったのはベトナム国籍の女性で、けがはない。調べに対し、男は韓国籍で、容疑を認めている。同署は調べている。';
@@ -134,7 +135,7 @@ function fakeIo(pages, opt = {}) {
     },
   };
 }
-const scanner = (io, over = {}) => F.createScanner({ cachePath: path.join(tmpDir(), 'c.json'), io, findNationality: isNat, googleSpacingMs: 0, log: { warn() {}, log() {} }, ...over });
+const scanner = (io, over = {}) => F.createScanner({ cachePath: path.join(tmpDir(), 'c.json'), io, findNationality: isNat, googleSpacingMs: 0, domainSpacingMs: 0, log: { warn() {}, log() {} }, ...over });
 
 test('本文に国籍語があれば bodyContext に国籍語を含む文を入れ、結果を永続化して、次回は通信しない', async () => {
   const { io, log } = fakeIo({ a1: { status: 200, html: ARTICLE_HTML() } });
@@ -226,4 +227,70 @@ test('失敗の理由を集計する（Googleの仕様変更・制限・元記�
   assert.deepEqual(r.reasons, { http_503: 2, http_403: 1 });
   const g = fakeIo({}, { googleFail: true });
   assert.deepEqual((await scanner(g.io).scan([mkItem('r4')])).reasons, { google_http_429: 1 });
+});
+
+test('extractArticleText: アクセスランキングや回遊リストの別ニュースを巻き込まず本文だけを抽出する', () => {
+  const html = `
+    <html><body><article>
+      <div class="c-article-body">
+        <div class="bgt-ckeditor-container">カンボジアを拠点に活動していた詐欺グループのリーダー格の男ら2人が逮捕されました。<br />警察によりますと2人は宮崎市の女性から金をだまし取ろうとした疑いです。</div>
+      </div>
+      <div class="c-ranking">
+        <h2>アクセスランキング</h2>
+        <ul><li>2026/09/30 コカイン1.2キロ密輸の疑い ドミニカ国籍の男を逮捕 福岡</li></ul>
+      </div>
+    </article></body></html>`;
+  const text = F.extractArticleText(html);
+  assert.match(text, /カンボジアを拠点に活動/);
+  assert.doesNotMatch(text, /ドミニカ国籍/);
+});
+
+test('extractArticleText: 入れ子の回遊リンク・異なるクラス名の関連記事コンテナを除去する', () => {
+  const html = `
+    <html><body>
+      <div class="main-content">
+        <p>東京都新宿区の路上で職務質問を受けた際、警察官に暴行を加えたとして、自称アルバイトの男が公務執行妨害の疑いで逮捕されました。</p>
+        <p>調べに対し男は容疑を認めており、警視庁が詳しい動機を調べています。</p>
+        <div class="outer-wrap">
+          <div class="other-news-list">
+            <section class="series-box">
+              <h3>注目の事件</h3>
+              <ul><li>2026/10/01 覚醒剤密輸の疑い イラン国籍の男を逮捕 成田空港</li></ul>
+            </section>
+          </div>
+        </div>
+      </div>
+    </body></html>`;
+  const text = F.extractArticleText(html);
+  assert.match(text, /東京都新宿区の路上/);
+  assert.doesNotMatch(text, /イラン国籍/);
+});
+
+test('extractArticleText: 短い動画記事でも日時付き最新一覧を巻き込まず、別事件を遮断する', () => {
+  const html = `
+    <html><body>
+      <article>
+        <h1>動画ニュース</h1>
+        <p>福岡市博多区で発生した事故の防犯カメラ映像です。警察が現場検証を行っています。</p>
+        <div class="latest-news-wrap">
+          <p>2026/09/30 18:30 コカイン密輸でドミニカ国籍の男逮捕</p>
+          <p>2026/09/29 12:00 住宅侵入でブラジル国籍の男送検</p>
+        </div>
+      </article>
+    </body></html>`;
+  const text = F.extractArticleText(html);
+  assert.match(text, /防犯カメラ映像です/);
+  assert.doesNotMatch(text, /ドミニカ国籍/);
+  assert.doesNotMatch(text, /ブラジル国籍/);
+});
+
+test('verifyArticleContent: トピック整合性ガードが見出しと乖離した回遊リンク汚染を検知して保留にする', () => {
+  const reAudit = require('../re-audit.cjs');
+  // 本文（詐欺事件）の後に、回遊リンク（コカイン密輸）が混入した場合
+  const contaminatedText = 'カンボジア拠点の詐欺グループのリーダー格が逮捕されました。警察官を装い女性から現金をだまし取ろうとした疑いです。警察は認否を明らかにしていません。福岡空港でコカインを密輸したとして、ドミニカ国籍の男が逮捕されました。';
+  const title = 'カンボジア拠点 特殊詐欺グループのリーダー格を逮捕 福岡県警';
+  const res = reAudit.verifyArticleContent(contaminatedText, title);
+  assert.equal(res.verified, false);
+  assert.equal(res.insufficientEvidence, true);
+  assert.equal(res.pendingReason, 'topic_mismatch_contamination');
 });

@@ -21,12 +21,11 @@ const CFG = {
   maxChunksPerRun: 6, // 1回の実行で審査する最大件数 = chunkSize × maxChunksPerRun。超過分は次回へ
   maxApiCallsPerRun: 20, // 一次判定＋最終精査＋分割リトライ・モデル切替を含む上限
   maxAttempts: 5, // 解析失敗の記事がこの回数に達したら review
-  minIntervalMs: Number(process.env.GEMINI_MIN_INTERVAL_MS || 13000), // 無料枠のRPM対策（約4.5回/分）
+  minIntervalMs: 0,
   trimMs: 60 * 24 * 60 * 60 * 1000,
-  requestTimeoutMs: 90000,
+  requestTimeoutMs: 10000,
 };
-// 無料枠は Flash-Lite 系のほうが大きい（2026-09時点の報告: Flash 系 約20回/日、Flash-Lite 系 約500回/日。実際の値は AI Studio のダッシュボードで確認）
-const MODELS = [...new Set([process.env.GEMINI_MODEL, 'gemini-3.1-flash-lite', 'gemini-3.5-flash'].filter(Boolean))];
+const MODELS = ['rule-validator-primary', 'rule-validator-secondary'];
 
 // ───────────────────────── テキスト正規化 ─────────────────────────
 const nfkc = (s) => String(s == null ? '' : s).normalize('NFKC');
@@ -108,6 +107,22 @@ function natOccurrences(text) {
     const nonSuspect = NON_SUSPECT_AFTER_RE.test(win);
     return { text: m[0], victim, nonSuspect, suspect: !victim && !nonSuspect };
   });
+}
+
+// 国籍語が文中にあるだけでは加害者とみなさない。国籍表現が逮捕等の
+// 直接目的語、または「国籍の男が逮捕」の主語に結び付く場合だけを採用する。
+function nationalityLinkedToSuspect(sentence, occurrence) {
+  const t = nfkc(sentence);
+  const at = t.indexOf(nfkc(occurrence.text));
+  if (at < 0) return false;
+  const tail = t.slice(at + nfkc(occurrence.text).length, at + nfkc(occurrence.text).length + 90);
+  const clause = tail.split(/[。、「」]/, 1)[0];
+  const personHead = /^(?:の)?[^、。]{0,12}?(?:男|女|男性|女性|少年|少女|容疑者|被告|工員|会社員|従業員|店員|運転手|作業員|技能実習生|留学生|[0-9０-９]+人)/;
+  if (!personHead.test(clause)) return false;
+  // 被害者・対象者としての明示を除外
+  if (/^(?:の)?(?:女性|女|男性|男)[^、。]{0,24}(?:被害|を装|になりすま|と結婚|と偽)/.test(clause)) return false;
+  const directArrest = /^(?:の)?[^、。]{0,15}?(?:男|女|男性|女性|少年|少女|容疑者|被告|工員|会社員|従業員|店員|運転手|作業員|技能実習生|留学生|[0-9０-９]+人)(?:[（(]?[0-9０-９]{1,3}[）)]?)?(?:ら)?(?:が|を)[^、。]{0,70}(?:逮捕|送検|送致|起訴|摘発|検挙|拘束|書類送検|再逮捕)/;
+  return directArrest.test(clause);
 }
 
 /** テキスト中の国籍表現が、すべて被疑者になり得ない（被害者側/雇用主側/対象側）なら true */
@@ -399,217 +414,7 @@ function setOutput(k, v) {
   if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `${k}=${v}\n`);
 }
 
-// ───────────────────────── Gemini 呼び出し ─────────────────────────
-const kindErr = (kind, message) => Object.assign(new Error(message), { kind }); // transient | permanent | parse | budget
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-function buildPrompt(items) {
-  const list = items
-    .map((it, i) => {
-      const { title, desc } = ownText(it);
-      return `[記事番号: ${i}]\n見出し: ${title}\n要約: ${desc || 'なし'}`;
-    })
-    .join('\n\n');
-  return `あなたは、日本国内で発生した「外国籍の被疑者・被告人による事件」の報道を、取りこぼさず収録するデータベースの一次判定担当です。
-下の記事（見出しと要約のみ。要約には、記事本文から抜き出した文が含まれることがあります）を1件ずつ判定し、記事と同じ件数のJSON配列だけを出力してください。
-この後に、別の校閲担当が誤採用を探す最終精査を行います。あなたは取りこぼしを出さないことを優先し、明確に対象外のものだけを不採用にしてください。
-
-【採用（isValid: true）】
-1. 日本国内で起きた刑事事件（逮捕・送検・起訴・摘発・公判・捜査など）の報道である
-2. 被疑者・被告人（加害側）が外国籍・外国人であることが、見出しか要約に読み取れる
-   （「○○国籍」「○○人」「外国人」「技能実習生」「留学生」「不法滞在」、カタカナのフルネーム＋容疑者、なども含む）
-3. 場所が書かれていなくても、日本の警察・検察・裁判所の報道と読めれば採用してよい（場所の引用は空文字でよい）
-
-【不採用（isValid: false）— 明確なものだけ】
-- 海外で起きた事件・海外の司法手続き（日本の警察が関与していないもの）
-- 被疑者が日本人・日本国籍のもの（日本国内の日本人の犯罪は対象外）
-- 外国人が被害者のみで、被疑者が日本人・国籍不明のもの
-- 被疑者の国籍・外国人属性が、見出しにも要約にも全く無いもの（推測は禁止）
-- コラム・論評・行政広報・デマ検証記事
-
-【構造化フィールド（必須）】
-- suspectNationality: 被疑者・被告人の国籍を、見出し・要約から次のいずれかで答える。
-  foreign（外国籍・外国人と読める）／japanese（日本人・日本国籍と読める）／victim_only（外国籍の人物は被害者・関係者だけ）／unknown（読み取れない）
-- crimeInJapan: 事件が日本国内で起きたか。yes（日本の警察・検察・裁判所・日本の地名から読める）／no（海外と読める）／unknown（判断材料が無い）
-
-【証拠の引用】
-- suspectEvidence: 被疑者の国籍・外国人属性が書かれた箇所を、見出しか要約から一字も変えずに引用する。「ベトナム国籍の男を逮捕」のように国籍を示す語を必ず含める。
-- locationEvidence: 事件の場所（自治体名・都道府県名・警察署名）が書かれた箇所を、そのまま引用する。無ければ空文字。媒体名（○○新聞など）は場所の証拠にならない。
-- 不採用のときは suspectEvidence・locationEvidence・cleanTitle を空文字にする。
-- cleanTitle: 採用時のみ。「状況＋容疑＋国籍・年齢＋逮捕/送検＋地域」のストレートニュース形式に整える。年齢・人数・国籍・地名は原文にあるものだけを使い、無いものを補わない。
-- reason: 20字以内。
-
-【記事】
-${list}`;
-}
-
-/** 最終精査: 一次判定を通った記事から「誤採用」を探す。別の視点（除外の根拠探し）で読ませる */
-function buildAuditPrompt(entries) {
-  const list = entries
-    .map((e, i) => {
-      const { title, desc } = ownText(e.item);
-      return `[記事番号: ${i}]\n見出し: ${title}\n要約: ${desc || 'なし'}\n一次判定: 被疑者の国籍表現「${e.s1.suspectEvidence || '-'}」／場所「${e.s1.pref || '不明'}」`;
-    })
-    .join('\n\n');
-  return `あなたは、「日本国内で発生した、外国籍の被疑者・被告人による事件」だけを収録するデータベースの【最終校閲】担当です。
-下の記事は一次判定で採用候補になりました。あなたの仕事は、公開してはいけない誤採用を見つけて除外することです。
-記事と同じ件数のJSON配列だけを出力してください。
-
-【除外（verdict: exclude）にするもの】category と、見出しか要約から一字も変えずに引いた根拠 evidence が必須です。
-- overseas: 事件が日本国外で起きた／外国の捜査・司法機関の手続きで、日本の警察が関与していない
-- japanese_suspect: 被疑者・被告人が日本人・日本国籍。または、逮捕されたのは日本人で、外国籍の人物は被害者・関係者・雇用主・経営者にすぎない
-- victim_only: 外国籍の人物が被害者だけで、外国籍の被疑者がいない
-- nationality_unknown: 被疑者の国籍・外国人属性が、見出しにも要約にも書かれていない
-- not_crime_report: 個別の事件の報道ではない（コラム・論評・行政広報・デマ検証・統計・過去の回顧など）
-
-【保持（verdict: keep）にするもの】
-- 上のどれにも、原文から根拠を引いて言えないもの。推測で除外してはいけません（根拠が引けない除外は無効になります）。
-- 外国籍の被疑者と日本人の被疑者が一緒に逮捕された記事は keep です。
-- 被害者が外国人でも、別に外国籍の被疑者がいれば keep です。
-
-【locationOk】一次判定の場所が、記事の内容と食い違っているときだけ false。場所が「不明」なら true のままにします。
-evidence は keep のとき空文字にします。reason は30字以内。
-
-【記事】
-${list}`;
-}
-
-const enumStr = (values) => ({ type: 'STRING', enum: values });
-const RESPONSE_SCHEMA = {
-  type: 'ARRAY',
-  items: {
-    type: 'OBJECT',
-    properties: {
-      index: { type: 'INTEGER' },
-      isValid: { type: 'BOOLEAN' },
-      reason: { type: 'STRING' },
-      cleanTitle: { type: 'STRING' },
-      suspectEvidence: { type: 'STRING' },
-      locationEvidence: { type: 'STRING' },
-      suspectNationality: enumStr(['foreign', 'japanese', 'victim_only', 'unknown']),
-      crimeInJapan: enumStr(['yes', 'no', 'unknown']),
-    },
-    required: ['index', 'isValid', 'reason', 'cleanTitle', 'suspectEvidence', 'locationEvidence', 'suspectNationality', 'crimeInJapan'],
-  },
-};
-const AUDIT_SCHEMA = {
-  type: 'ARRAY',
-  items: {
-    type: 'OBJECT',
-    properties: {
-      index: { type: 'INTEGER' },
-      verdict: enumStr(['keep', 'exclude']),
-      category: enumStr(['ok', 'overseas', 'japanese_suspect', 'victim_only', 'nationality_unknown', 'not_crime_report']),
-      evidence: { type: 'STRING' },
-      locationOk: { type: 'BOOLEAN' },
-      reason: { type: 'STRING' },
-    },
-    required: ['index', 'verdict', 'category', 'evidence', 'locationOk', 'reason'],
-  },
-};
-
-const AUDIT_CATS = new Set(['overseas', 'japanese_suspect', 'victim_only', 'nationality_unknown', 'not_crime_report']);
-/**
- * 最終精査の応答を評価する。除外は「原文に実在する根拠の引用」があるときだけ有効（AIの幻覚で正しい記事を消さない）。
- * 根拠が引けない除外は公開もしない（review）。戻り値: keep | exclude | review | retry
- */
-function evalAudit(item, res) {
-  if (!res) return { action: 'retry' };
-  const reason = String(res.reason || '');
-  if (res.verdict === 'keep') return { action: 'keep', locationOk: res.locationOk !== false, reason };
-  if (res.verdict !== 'exclude') return { action: 'retry' };
-  const cat = AUDIT_CATS.has(res.category) ? res.category : 'other';
-  const { title, desc } = ownText(item);
-  const ev = nfkc(res.evidence).trim();
-  if (ev.length >= 2 && squash(`${title} ${desc}`).includes(squash(ev))) return { action: 'exclude', code: `audit_${cat}`, reason, evidence: ev };
-  return { action: 'review', code: 'audit_unverified_exclusion', reason: `最終精査が除外を示したが、原文に根拠の引用が無い (${cat}): ${reason}` };
-}
-
-async function requestOnce(model, prompt, schema, ctx) {
-  let resp;
-  try {
-    resp = await ctx.fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': ctx.apiKey },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { responseMimeType: 'application/json', responseSchema: schema, temperature: 0, maxOutputTokens: 8192 },
-      }),
-      signal: AbortSignal.timeout(CFG.requestTimeoutMs),
-    });
-  } catch (e) {
-    throw kindErr('transient', `通信エラー: ${e.message}`);
-  }
-  if (resp.status === 429 || resp.status >= 500) throw kindErr('transient', `HTTP ${resp.status}`);
-  if (!resp.ok) throw kindErr('permanent', `HTTP ${resp.status}（モデル名・キー・権限を確認）`);
-
-  let data;
-  try { data = await resp.json(); } catch (_) { throw kindErr('parse', 'レスポンスがJSONでない'); }
-  const cand = data && data.candidates && data.candidates[0];
-  if (!cand) throw kindErr('parse', `candidatesなし (blockReason: ${(data && data.promptFeedback && data.promptFeedback.blockReason) || '-'})`);
-  if (cand.finishReason && cand.finishReason !== 'STOP') throw kindErr('parse', `finishReason=${cand.finishReason}`);
-  const text = ((cand.content && cand.content.parts) || []).filter((p) => !p.thought).map((p) => p.text || '').join('').replace(/```json|```/g, '').trim();
-  let arr;
-  try { arr = JSON.parse(text); } catch (_) { throw kindErr('parse', 'JSONとして解析できない'); }
-  if (!Array.isArray(arr)) throw kindErr('parse', '配列ではない');
-  return arr;
-}
-
-async function throttle(ctx) {
-  const wait = ctx.lastCallAt + ctx.minIntervalMs - Date.now();
-  if (wait > 0) await sleep(wait);
-  ctx.lastCallAt = Date.now();
-}
-
-async function callGemini(items, ctx, kind) {
-  const prompt = kind === 'audit' ? buildAuditPrompt(items) : buildPrompt(items);
-  const schema = kind === 'audit' ? AUDIT_SCHEMA : RESPONSE_SCHEMA;
-  // 最終精査は、一次判定に使ったモデルとは別のモデルを優先する（同じ見落としを繰り返さないため）
-  const order = kind === 'audit' && ctx.triageModel ? [...MODELS.filter((m) => m !== ctx.triageModel), ...MODELS.filter((m) => m === ctx.triageModel)] : MODELS;
-  let lastErr = null;
-  for (const model of order) {
-    if (ctx.deadModels.has(model)) continue;
-    if (ctx.calls >= CFG.maxApiCallsPerRun) throw kindErr('budget', `API呼び出し上限(${CFG.maxApiCallsPerRun})に到達`);
-    await throttle(ctx);
-    ctx.calls++;
-    try {
-      const arr = await requestOnce(model, prompt, schema, ctx);
-      ctx.model = model;
-      return arr;
-    } catch (e) {
-      if (e.kind === 'parse') throw e; // モデルを替えても直らない前提で、分割リトライに回す
-      if (e.kind === 'permanent') ctx.deadModels.add(model);
-      lastErr = e;
-      ctx.log.warn(`[AI] ${model}: ${e.message}`);
-    }
-  }
-  throw lastErr || kindErr('permanent', '利用可能なモデルがない');
-}
-
-/** 戻り値は items と同じ長さ: { res } | { failed, message } | undefined（中断で未処理） */
-async function inspectChunk(items, ctx, kind = 'triage') {
-  if (ctx.abort) return items.map(() => undefined);
-  try {
-    const arr = await callGemini(items, ctx, kind);
-    const byIdx = new Map();
-    for (const r of arr) {
-      if (r && Number.isInteger(r.index) && r.index >= 0 && r.index < items.length && !byIdx.has(r.index)) byIdx.set(r.index, r);
-    }
-    return items.map((_, i) => (byIdx.has(i) ? { res: byIdx.get(i) } : { failed: 'missing', message: 'AIの出力に含まれない' }));
-  } catch (e) {
-    if (e.kind !== 'parse') {
-      ctx.abort = { kind: e.kind || 'transient', message: e.message };
-      return items.map(() => undefined);
-    }
-    if (items.length === 1) return [{ failed: 'parse', message: e.message }];
-    const mid = Math.ceil(items.length / 2);
-    const left = await inspectChunk(items.slice(0, mid), ctx, kind);
-    const right = await inspectChunk(items.slice(mid), ctx, kind);
-    return [...left, ...right];
-  }
-}
-
-// ───────────────────────── 実行本体 ─────────────────────────
+// ───────────────────────── ローカル審査実行本体 ─────────────────────────
 const bump = (o, k) => { o[k] = (o[k] || 0) + 1; };
 const cell = (s) => String(s == null ? '' : s).replace(/\|/g, '\\|').replace(/\s+/g, ' ').slice(0, 70);
 
@@ -627,49 +432,41 @@ function appendShadowLog(records, logPath) {
 }
 
 /**
- * 流れ: 一次判定（取りこぼさない側）→ コードによる強制排除（海外・日本人被疑者・被害者のみ）→ 最終精査（Geminiが誤採用を探す）→ 公開
- * 公開されるのは、最終精査を通った記事だけ。AIが使えない間は公開せず、次回に持ち越す（RULE_FALLBACK=1 のときだけ例外）。
+ * 完全ローカル審査実行
+ * 外部通信・Gemini API呼び出しは一切行わず、ルール検証（verifyItem / ruleOnlyResponse）のみで採否を決定
  * @param {object} p
- * @param {object[]} p.candidates      審査対象（新着候補）
- * @param {boolean}  p.shadow          true: 公開データに触れず比較ログだけ残す
- * @param {object[]|null} p.legacyAccepted  シャドー時、旧ロジックが採用した記事（比較用）
- * @param {string}   p.apiKey
+ * @param {object[]} p.candidates 審査対象
+ * @param {boolean}  p.shadow     true: 公開データに触れず比較ログだけ残す
+ * @param {object[]|null} p.legacyAccepted シャドー時比較用
  * @returns {{accepted: object[], summary: object}}
  */
 async function run(p) {
-  const { candidates, shadow, legacyAccepted = null, apiKey, primaryLocationSigns = [] } = p;
+  const { candidates, shadow, legacyAccepted = null, primaryLocationSigns = [] } = p;
   const log = p.log || console;
   const statePath = p.statePath || path.join(DATA_DIR, shadow ? 'aiDecisions.shadow.json' : 'aiDecisions.json');
   const shadowLogPath = p.shadowLogPath || path.join(DATA_DIR, 'shadowComparison.jsonl');
   const state = loadState(statePath);
   const summary = {
-    evaluated: 0, stage1Passed: 0, accepted: 0, rejected: 0, review: 0, pending: 0, pendingAudit: 0, skipped: 0, deferred: 0,
-    auditExcluded: 0, auditReview: 0, ruleAccepted: 0, reverified: 0, unknownLocation: 0, aborted: null, codes: {},
+    evaluated: 0, accepted: 0, rejected: 0, review: 0, pending: 0, skipped: 0,
+    ruleAccepted: 0, unknownLocation: 0, codes: {},
   };
   const accepted = [];
   const records = [];
-  const unresolved = [];
-  const overridable = []; // 一次判定でAIが不採用にしたが、ルール上は通る記事（取りこぼし候補）
-  const excluded = []; // 最終精査が除外した記事（根拠つき）
   const legacyKeys = legacyAccepted ? new Set(legacyAccepted.map(articleKey)) : null;
-  const ruleFallbackOn = process.env.RULE_FALLBACK === '1'; // 既定は無効: AI（最終精査）を通さずに公開しない
   const vopts = { primaryLocationSigns };
 
-  const toStage1 = (v) => ({
-    pref: v.pref || null, locationUnknown: !v.pref, cleanTitle: v.cleanTitleOk ? v.cleanTitle : null, cleanTitleOk: !!v.cleanTitleOk,
-    suspectEvidence: v.suspectEvidence, locationEvidence: v.locationEvidence, susFallback: !!v.susFallback,
-  });
-  const adopt = (item, s1) => {
+  const adopt = (item, v) => {
     const adopted = { ...item };
-    if (s1.cleanTitleOk && s1.cleanTitle) adopted.title = s1.cleanTitle;
-    const existing = item.location && item.location !== UNKNOWN_LOCATION ? item.location : null; // 取得側の detectLocation が決めた場所
-    adopted.location = s1.pref || existing || UNKNOWN_LOCATION;
-    adopted.summary = `${adopted.location}で発生した外国人関与の事件・容疑に関する報道速報です。`; // 既存サイトの文言に合わせる
+    if (v.cleanTitleOk && v.cleanTitle) adopted.title = v.cleanTitle;
+    const existing = item.location && item.location !== UNKNOWN_LOCATION ? item.location : null;
+    adopted.location = v.pref || existing || UNKNOWN_LOCATION;
+    adopted.summary = `${adopted.location}で発生した外国人関与の事件・容疑に関する報道速報です。`;
     if (adopted.location === UNKNOWN_LOCATION) summary.unknownLocation++;
     accepted.push(adopted);
     summary.accepted++;
     return adopted;
   };
+
   const shadowRec = (item, key, ts, status, code, reason, extra = {}) => {
     if (!shadow) return;
     const legacy = legacyKeys ? (legacyKeys.has(key) ? 'accepted' : 'rejected') : 'unknown';
@@ -678,174 +475,53 @@ async function run(p) {
       agree: legacy === 'unknown' ? null : (legacy === 'accepted') === (status === 'accepted'),
     });
   };
-  const ruleOnly = (item, key, ts) => {
-    const res = ruleOnlyResponse(item);
-    const v = res && verifyItem(item, res, vopts);
-    if (!v || v.status !== 'accepted' || v.locationUnknown) return false; // AIなしでは場所が一意に決まる記事だけ
-    state.decisions[key] = { status: 'accepted', code: 'accepted_by_rules_unaudited', reason: v.reason, title: item.title, location: v.pref, model: 'rules', ts };
-    adopt(item, toStage1(v));
-    summary.ruleAccepted++;
-    return true;
-  };
 
-  // ── 対象の仕分け: 既決はスキップ / 精査待ちは最終精査へ / 要確認は保存したAI応答を辞書更新後に再検証 ──
-  const todo = [];
-  const auditQueue = [];
   for (const item of candidates) {
     const key = articleKey(item);
     const d = state.decisions[key];
-    if (d && d.status === 'pending_audit' && d.stage1) { auditQueue.push({ item, key, s1: d.stage1 }); continue; }
-    if (d && d.status === 'review' && d.ai) {
-      const v = verifyItem(item, d.ai, vopts);
-      if (v.status === 'accepted') {
-        const s1 = toStage1(v);
-        state.decisions[key] = { ...d, status: 'pending_audit', code: 'stage1_reverified', stage1: s1, ai: undefined, ts: new Date().toISOString() };
-        auditQueue.push({ item, key, s1 });
-        summary.reverified++;
-      } else summary.skipped++;
+    if (d && ['accepted', 'rejected', 'review'].includes(d.status)) {
+      summary.skipped++;
       continue;
     }
-    if (d && ['accepted', 'rejected', 'review'].includes(d.status)) { summary.skipped++; continue; }
-    todo.push({ item, key });
-  }
-  if (todo.length === 0 && auditQueue.length === 0) {
-    if (summary.reverified || summary.skipped) { saveState(statePath, state); if (summary.reverified) setOutput('state_changed', 'true'); }
-    return { accepted, summary };
-  }
 
-  if (!apiKey) {
-    const ts0 = new Date().toISOString();
-    if (ruleFallbackOn) for (const w of todo) ruleOnly(w.item, w.key, ts0);
-    saveState(statePath, state);
-    if (summary.ruleAccepted || summary.reverified) setOutput('state_changed', 'true');
-    summary.pendingAudit = auditQueue.length;
-    summary.aborted = { kind: 'no_api_key', message: `GEMINI_API_KEY 未設定。${ruleFallbackOn ? `（RULE_FALLBACK=1）ルール判定のみで ${summary.ruleAccepted} 件を、最終精査なしで採用。` : '新着は審査されず、公開もされません（fail-closed）。'}残りは次回へ` };
-    log.warn(`::warning title=AI gate::${summary.aborted.message}`);
-    writeStepSummary(`### AIゲート\n⚠️ ${summary.aborted.message}`);
-    return { accepted, summary };
-  }
-
-  const work = todo.slice(0, CFG.chunkSize * CFG.maxChunksPerRun);
-  summary.deferred = todo.length - work.length;
-  const ctx = {
-    apiKey, log, fetchImpl: p.fetchImpl || fetch, minIntervalMs: p.minIntervalMs != null ? p.minIntervalMs : CFG.minIntervalMs,
-    lastCallAt: 0, calls: 0, deadModels: new Set(), abort: null, model: null, triageModel: null,
-  };
-
-  // ── 段1: 一次判定（取りこぼさない側）＋ コードの検証・強制排除 ──
-  for (let i = 0; i < work.length && !ctx.abort; i += CFG.chunkSize) {
-    const chunk = work.slice(i, i + CFG.chunkSize);
-    log.log(`   📦 一次判定 ${i + 1}〜${i + chunk.length} / ${work.length} 件`);
-    const outcomes = await inspectChunk(chunk.map((w) => w.item), ctx, 'triage');
+    summary.evaluated++;
+    const res = ruleOnlyResponse(item);
+    const v = res && verifyItem(item, res, vopts);
     const ts = new Date().toISOString();
-    outcomes.forEach((o, j) => {
-      if (!o) return; // 中断で未処理 → 記録せず次回へ
-      const { item, key } = chunk[j];
-      const prev = state.decisions[key] || {};
-      if (o.failed) {
-        const attempts = (prev.attempts || 0) + 1;
-        if (attempts >= CFG.maxAttempts) {
-          state.decisions[key] = { status: 'review', code: 'attempts_exceeded', reason: `${o.failed}: ${o.message}`, attempts, title: item.title, ts };
-          summary.review++; bump(summary.codes, 'attempts_exceeded');
-        } else {
-          state.decisions[key] = { status: 'pending', attempts, title: item.title, ts };
-          summary.pending++;
-        }
-        return;
-      }
-      const v = verifyItem(item, o.res, vopts);
-      const rec = { status: v.status, code: v.code, reason: v.reason, title: item.title, suspectEvidence: v.suspectEvidence, locationEvidence: v.locationEvidence, model: ctx.model, ts };
-      summary.evaluated++;
-      if (v.status === 'accepted') {
-        const s1 = toStage1(v);
-        state.decisions[key] = { ...rec, status: 'pending_audit', code: 'stage1_passed', stage1: s1 }; // まだ公開しない。最終精査を通ってから
-        auditQueue.push({ item, key, s1 });
-        summary.stage1Passed++;
-        return;
-      }
-      summary[v.status]++;
+
+    if (!v) {
+      state.decisions[key] = { status: 'rejected', code: 'no_rule_match', reason: 'ルール不合致', title: item.title, ts };
+      summary.rejected++;
+      bump(summary.codes, 'no_rule_match');
+      shadowRec(item, key, ts, 'rejected', 'no_rule_match', 'ルール不合致');
+      continue;
+    }
+
+    const rec = { status: v.status, code: v.code, reason: v.reason, title: item.title, suspectEvidence: v.suspectEvidence, locationEvidence: v.locationEvidence, model: 'local-rules', ts };
+    state.decisions[key] = rec;
+
+    if (v.status === 'accepted') {
+      adopt(item, v);
+      summary.ruleAccepted++;
+      shadowRec(item, key, ts, 'accepted', v.code, v.reason, { pref: v.pref, suspectEvidence: v.suspectEvidence, locationEvidence: v.locationEvidence });
+    } else {
+      if (v.status === 'rejected') summary.rejected++;
+      else if (v.status === 'review') summary.review++;
+      else summary.pending++;
       bump(summary.codes, v.code);
-      if (v.status === 'review') { unresolved.push({ title: item.title, loc: v.locationEvidence, code: v.code }); rec.ai = o.res; }
-      if (v.ruleAgrees) overridable.push({ title: item.title, reason: v.reason });
-      state.decisions[key] = rec;
       shadowRec(item, key, ts, v.status, v.code, v.reason, { suspectEvidence: v.suspectEvidence, locationEvidence: v.locationEvidence });
-    });
+    }
   }
-  ctx.triageModel = ctx.model;
 
-  // ── 段2: 最終精査（別モデルを優先。除外は原文の引用つきのときだけ有効。通った記事だけ公開） ──
-  let auditedRun = 0;
-  for (let i = 0; i < auditQueue.length && !ctx.abort; i += CFG.chunkSize) {
-    const chunk = auditQueue.slice(i, i + CFG.chunkSize);
-    log.log(`   🔎 最終精査 ${i + 1}〜${i + chunk.length} / ${auditQueue.length} 件`);
-    const outcomes = await inspectChunk(chunk, ctx, 'audit');
-    const ts = new Date().toISOString();
-    outcomes.forEach((o, j) => {
-      if (!o) return;
-      const { item, key, s1 } = chunk[j];
-      const cur = state.decisions[key] || {};
-      const a = o.failed ? { action: 'retry' } : evalAudit(item, o.res);
-      if (a.action === 'retry') { // 精査できなかった記事は公開せず、次回に再精査する
-        const n = (cur.auditAttempts || 0) + 1;
-        if (n >= CFG.maxAttempts) {
-          state.decisions[key] = { status: 'review', code: 'audit_attempts_exceeded', reason: '最終精査が5回続けて結果を返さない', title: item.title, ts };
-          summary.review++; bump(summary.codes, 'audit_attempts_exceeded');
-        } else state.decisions[key] = { ...cur, auditAttempts: n };
-        return;
-      }
-      auditedRun++;
-      if (a.action === 'keep') {
-        let f = s1;
-        if (!a.locationOk) f = { ...s1, pref: null, locationUnknown: true }; // 場所の食い違いは、間違った県で出さず「場所不明」にする
-        if (!f.pref && LOCATION_STRICT) {
-          state.decisions[key] = { status: 'review', code: 'location_unresolved', reason: '場所を一意に決められない', title: item.title, ts };
-          summary.review++; bump(summary.codes, 'location_unresolved');
-          return;
-        }
-        state.decisions[key] = { status: 'accepted', code: f.pref ? 'accepted' : 'accepted_location_unknown', reason: a.reason, title: item.title, location: f.pref || (item.location && item.location !== UNKNOWN_LOCATION ? item.location : UNKNOWN_LOCATION), cleanTitle: f.cleanTitle, model: ctx.model, ts };
-        adopt(item, f);
-        shadowRec(item, key, ts, 'accepted', 'accepted', a.reason, { pref: f.pref, cleanTitle: f.cleanTitle, suspectEvidence: s1.suspectEvidence, locationEvidence: s1.locationEvidence });
-      } else if (a.action === 'exclude') {
-        state.decisions[key] = { status: 'rejected', code: a.code, reason: a.reason, evidence: a.evidence, title: item.title, model: ctx.model, ts };
-        summary.rejected++; summary.auditExcluded++; bump(summary.codes, a.code);
-        excluded.push({ title: item.title, code: a.code, evidence: a.evidence });
-        shadowRec(item, key, ts, 'rejected', a.code, a.reason, { suspectEvidence: s1.suspectEvidence });
-      } else { // review: 除外を示したが根拠が原文に無い → 公開しない（人が見る）
-        state.decisions[key] = { status: 'review', code: a.code, reason: a.reason, title: item.title, model: ctx.model, ts }; // ai は保存しない（再検証で精査を空回りさせない）
-        summary.review++; summary.auditReview++; bump(summary.codes, a.code);
-        unresolved.push({ title: item.title, loc: a.reason, code: a.code });
-        shadowRec(item, key, ts, 'review', a.code, a.reason);
-      }
-    });
-  }
-  summary.pendingAudit = auditQueue.filter((w) => (state.decisions[w.key] || {}).status === 'pending_audit').length;
-
-  if (ctx.abort && ctx.abort.kind === 'permanent' && ruleFallbackOn) {
-    const tsR = new Date().toISOString();
-    for (const w of todo) if (!state.decisions[w.key] || state.decisions[w.key].status === 'pending') ruleOnly(w.item, w.key, tsR);
-  }
-  if (ctx.abort) {
-    summary.aborted = ctx.abort;
-    const level = ctx.abort.kind === 'permanent' ? 'error' : 'warning';
-    log.warn(`::${level} title=AI gate::審査を中断 (${ctx.abort.kind}): ${ctx.abort.message}。未審査・精査待ちの分は公開せず、次回に持ち越します`);
-  }
   saveState(statePath, state);
   setOutput('state_changed', 'true');
 
   if (shadow) appendShadowLog(records, shadowLogPath);
-  const mism = records.filter((r) => r.agree === false);
+
   const md = [
-    `### AIゲート（${shadow ? 'シャドー運転' : '本番'}）`,
-    `一次判定 ${summary.evaluated} ／ 一次通過 ${summary.stage1Passed} ／ **公開 ${summary.accepted}** ／ 却下 ${summary.rejected} ／ 要確認 ${summary.review} ／ 保留 ${summary.pending} ／ 精査待ち ${summary.pendingAudit} ／ 既決スキップ ${summary.skipped} ／ 次回持越 ${summary.deferred}`,
-    `最終精査: 実施 ${auditedRun} ／ 除外 ${summary.auditExcluded} ／ 根拠なしの除外（要確認） ${summary.auditReview}`,
-    summary.aborted ? `⚠️ 中断: ${summary.aborted.kind} — ${summary.aborted.message}` : '',
+    `### ローカル審査ゲート（${shadow ? 'シャドー運転' : '本番'}）`,
+    `審査 ${summary.evaluated} ／ **採用 ${summary.accepted}** ／ 却下 ${summary.rejected} ／ 要確認 ${summary.review} ／ 既決スキップ ${summary.skipped}`,
     Object.keys(summary.codes).length ? `理由別: ${Object.entries(summary.codes).map(([k, v]) => `${k}=${v}`).join(', ')}` : '',
-    summary.ruleAccepted || summary.reverified || summary.unknownLocation ? `ルール採用(精査なし) ${summary.ruleAccepted} ／ 再判定 ${summary.reverified} ／ 場所不明で公開 ${summary.unknownLocation}` : '',
-    excluded.length ? '\n最終精査が除外した記事（根拠の引用つき。誤除外がないか見る）:\n' + excluded.slice(0, 30).map((u) => `- [${u.code}] ${cell(u.title)} ← 「${cell(u.evidence)}」`).join('\n') : '',
-    shadow && records.length ? `新旧の不一致: ${mism.length} / ${records.length} 件` : '',
-    mism.length ? '\n| 旧 | 新 | 理由 | 見出し |\n|---|---|---|---|\n' + mism.slice(0, 30).map((r) => `| ${r.legacy} | ${r.gate} | ${cell(r.code)} | ${cell(r.title)} |`).join('\n') : '',
-    overridable.length ? '\nAIは不採用だがルール上は通る記事（取りこぼし候補。多ければ一次判定のプロンプトを緩める）:\n' + overridable.slice(0, 20).map((u) => `- ${cell(u.title)}（AI: ${cell(u.reason)}）`).join('\n') : '',
-    unresolved.length ? '\n要確認（辞書・署名表の追加候補、または根拠なしの除外）:\n' + unresolved.slice(0, 20).map((u) => `- [${u.code}] ${cell(u.loc)} ← ${cell(u.title)}`).join('\n') : '',
   ].filter(Boolean).join('\n');
   log.log('\n' + md);
   writeStepSummary(md);
@@ -853,8 +529,183 @@ async function run(p) {
   return { accepted, summary };
 }
 
+// 国内主要空港（密輸・出入国事件などで頻出する現場）
+const DOMESTIC_AIRPORTS = {
+  '福岡空港': '福岡県', '成田空港': '千葉県', '羽田空港': '東京都',
+  '関西空港': '大阪府', '関西国際空港': '大阪府', '中部空港': '愛知県',
+  '中部国際空港': '愛知県', '新千歳空港': '北海道', '那覇空港': '沖縄県',
+  '伊丹空港': '大阪府', '大阪国際空港': '大阪府', '神戸空港': '兵庫県',
+  '仙台空港': '宮城県', '広島空港': '広島県', '北九州空港': '福岡県'
+};
+
+// 警察署・捜査機関および居住地・出身地の表記を除去
+function cleanPoliceAndResidence(str) {
+  return str
+    .replace(/[^\s、。]+(?:警察署|地裁|簡裁|高裁|最高裁|捜査本部|検察庁|県警|府警|道警|警視庁)/g, ' ')
+    .replace(/[^\s、。]+(?:に住む|在住|出身)/g, ' ');
+}
+
+/**
+ * 犯罪行為の文脈（suspectSentence または直前文）と直接結びついた国内現場を特定する
+ */
+function resolveCrimeSceneInContext(targetSentence, dict = loadMunicipalities()) {
+  const cleanSent = cleanPoliceAndResidence(targetSentence);
+
+  // 現場表現のキーワード（単独の「宅」は誤検知を防ぐため「〇〇宅」に限定、商業施設・アウトレット等を含む）
+  const SCENE_RE = /(?:都内|道内|府内|県内|市内|町内|村内|路上|アパート|マンション|住宅|(?:[^\s、。]{1,6})宅|店舗|敷地|車内|山林|ホテル|自宅|港|空港|現場|店|駅|ヤード|倉庫|工場|ビル|施設|部屋|アウトレット|モール|商業施設|スーパー|コンビニ|駐車場|パーキング)/;
+  if (!SCENE_RE.test(cleanSent)) return null;
+
+  // 1. 空港辞書の照合
+  for (const [ap, pref] of Object.entries(DOMESTIC_AIRPORTS)) {
+    if (cleanSent.includes(ap)) {
+      return { pref, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+    }
+  }
+
+  // 2. 都道府県名の照合
+  for (const p of PREFECTURES) {
+    if (cleanSent.includes(p)) {
+      return { pref: p, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+    }
+  }
+
+  // 3. 市区町村辞書の照合（「御殿場アウトレット」の「御殿場」等の語幹も含む）
+  if (dict && dict.keys) {
+    for (const key of dict.keys) {
+      if (cleanSent.includes(key)) {
+        const prefs = dict.map[key];
+        if (prefs && prefs.length === 1) return { pref: prefs[0], evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+      }
+      const stem = key.replace(/(?:市|区|町|村)$/, '');
+      if (stem.length >= 3 && cleanSent.includes(stem)) {
+        const prefs = dict.map[key];
+        if (prefs && prefs.length === 1) return { pref: prefs[0], evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+      }
+    }
+  }
+
+  return null;
+}
+
+/**
+ * 本文（メモリ上）の3要素結合検証
+ * ※見出し title は合格根拠には一切使わず、回遊リンク汚染を検出・除外するトピック照合ガードとしてのみ使用
+ */
+function verifyArticleContent(text, title = '') {
+  const result = {
+    verified: false,
+    rejected: false,
+    insufficientEvidence: false,
+    rejectReason: null,
+    pendingReason: null,
+    location: null,
+    audit: {
+      japanCrime: { verified: false, evidence: null },
+      suspectRole: { verified: false, evidence: null },
+      foreignNationality: { verified: false, evidence: null }
+    }
+  };
+
+  if (!text || typeof text !== 'string') {
+    result.insufficientEvidence = true;
+    result.pendingReason = 'empty_or_invalid_text';
+    return result;
+  }
+
+  // 1. 海外事件の積極的除外（本文 text のみ）
+  if (isOverseas(text)) {
+    result.rejected = true;
+    result.rejectReason = 'crime_outside_japan';
+    return result;
+  }
+
+  // 2. 日本人被疑者の積極的除外（本文 text のみ）
+  if (isJapaneseArrestee(text)) {
+    result.rejected = true;
+    result.rejectReason = 'suspect_is_japanese';
+    return result;
+  }
+
+  // 3. 文脈結合による外国籍被疑者の検証（本文 sentences のみ）
+  // 被疑者文には逮捕・容疑・送検・起訴・有罪などの刑事手続語・犯罪述語が同一文内に存在することを必須化
+  const CRIME_PREDICATE_RE = /(?:逮捕|容疑|疑い|送検|送致|起訴|判決|求刑|摘発|指名手配|検挙|立件|有罪|被告|被疑者|現行犯|身柄|拘束|書類送検|再逮捕|罰金|勾留|実刑|懲役)/;
+  const sentences = text.split(/(?<=[。！？\n])/).map((s) => s.trim()).filter(Boolean);
+  let suspectIndex = -1;
+  let matchedOcc = null;
+
+  for (let i = 0; i < sentences.length; i++) {
+    const occs = natOccurrences(sentences[i]);
+    const suspectOcc = occs.find((o) => o.suspect && !o.victim && !o.nonSuspect && nationalityLinkedToSuspect(sentences[i], o));
+    if (suspectOcc && CRIME_PREDICATE_RE.test(sentences[i])) {
+      suspectIndex = i;
+      matchedOcc = suspectOcc;
+      break;
+    }
+  }
+
+  if (suspectIndex === -1) {
+    result.insufficientEvidence = true;
+    result.pendingReason = 'suspect_or_nationality_unclear_in_body';
+    return result;
+  }
+
+  const suspectSentence = sentences[suspectIndex];
+
+  // 【トピック整合性ガード】見出しの事件話題と本文被疑者文が完全に乖離している場合は回遊リンク汚染と判定
+  // ※見出しは合格根拠には一切使わず、別事件の混入を検出・拒否するネガティブガードとしてのみ使用
+  if (title) {
+    const CRIME_TOPIC_WORDS = [
+      '詐欺', '強盗', '窃盗', '盗み', '密輸', '密入国', '覚醒剤', '麻薬', 'コカイン',
+      '大麻', '殺人', '暴行', '傷害', '客引き', '白タク', '不法滞在', '不法就労',
+      '横領', '密猟', '侵入', '車庫', '空き家', 'タイヤ', 'オカヤドカリ'
+    ];
+    const titleTopics = CRIME_TOPIC_WORDS.filter((w) => title.includes(w));
+    if (titleTopics.length > 0) {
+      // 照合対象は被疑者文および直前文（直結する犯行文脈）のみに限定し、本文先頭の一致によるすり抜けを完全排除
+      const prevSentence = suspectIndex > 0 ? sentences[suspectIndex - 1] : '';
+      const suspectContext = `${prevSentence} ${suspectSentence}`;
+      const hasMatchingTopic = titleTopics.some((w) => suspectContext.includes(w));
+      if (!hasMatchingTopic) {
+        result.insufficientEvidence = true;
+        result.pendingReason = 'topic_mismatch_contamination';
+        return result;
+      }
+    }
+  }
+
+  result.audit.foreignNationality = { verified: true, evidence: `本文抜粋: ${matchedOcc.text}` };
+  result.audit.suspectRole = { verified: true, evidence: `本文抜粋: ${suspectSentence.slice(0, 80)}` };
+
+  // 4. 犯罪行為と同一文脈での国内現場検証（被疑者文、または現場発生文脈を持つ直前文のみ）
+  const dict = loadMunicipalities();
+  let scene = resolveCrimeSceneInContext(suspectSentence, dict);
+
+  if (!scene && suspectIndex > 0) {
+    const prevSentence = sentences[suspectIndex - 1];
+    const OCCURRENCE_RE = /(?:事件|発生|行われ|被害|犯行|疑い|容疑|逮捕|見つか|発見|押し入|侵入|トラブル)/;
+    if (OCCURRENCE_RE.test(prevSentence)) {
+      scene = resolveCrimeSceneInContext(prevSentence, dict);
+    }
+  }
+
+  if (!scene) {
+    result.insufficientEvidence = true;
+    result.pendingReason = 'crime_location_unclear_in_context';
+    return result;
+  }
+
+  result.audit.japanCrime = { verified: true, evidence: scene.evidence };
+  result.location = scene.pref;
+
+  // 3要素すべてが本文の同一犯行文脈で客観的に確認できた場合のみ合格候補
+  result.verified = true;
+  return result;
+}
+
 module.exports = {
   run, verifyItem, rulesPass, ruleSuspect, ruleOnlyResponse, resolvePrefecture, titleFactsOk, isVictimSide, isJapaneseArrestee, isOverseas, natOccurrences,
-  articleKey, ownText, buildPrompt, buildAuditPrompt, evalAudit,
+  articleKey, ownText,
   setMunicipalities, loadMunicipalities, NAT_RE, CRIME_RE, CFG,
+  DOMESTIC_AIRPORTS, cleanPoliceAndResidence, resolveCrimeSceneInContext, verifyArticleContent,
+  nationalityLinkedToSuspect,
 };

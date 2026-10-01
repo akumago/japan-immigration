@@ -1,12 +1,61 @@
 const fs = require('fs');
 const path = require('path');
+const http = require('http');
 const https = require('https');
 const crypto = require('crypto');
 const gate = require('./lib/ai-gate.cjs');
 const articleFetcher = require('./lib/article-fetcher.cjs');
 const SHADOW_MODE = process.env.SHADOW_MODE === '1'; // 既定は本番稼働（1を明示したときだけシャドー）
 
-const NEWS_DATA_PATH = path.join(__dirname, '../data/newsData.json');
+const getNewsDataPath = () => process.env.NEWS_DATA_PATH || path.join(__dirname, '../data/newsData.json');
+const getQueuePath = () => process.env.NEWS_QUEUE_PATH || path.join(__dirname, '../data/newsQueue.json');
+
+function normalizeArticleUrl(rawUrl) {
+  if (!rawUrl || typeof rawUrl !== 'string') return '';
+  try {
+    const u = new URL(rawUrl);
+    u.hash = '';
+    const deleteKeys = [];
+    for (const key of u.searchParams.keys()) {
+      if (/^(?:utm_|ref|oc|hl|gl|ceid|fbclid|gclid)/i.test(key)) {
+        deleteKeys.push(key);
+      }
+    }
+    deleteKeys.forEach((k) => u.searchParams.delete(k));
+    let str = u.toString().replace(/\/+$/, '');
+    return str;
+  } catch (_) {
+    return rawUrl.trim();
+  }
+}
+
+// URLが異なる媒体違いの同一事件を、事件の具体項目が一致した場合だけ統合する。
+// 都道府県だけ・罪種だけでは同県の別事件を誤統合するため、市区町村・罪種・国籍を必須にする。
+function eventFingerprint(item) {
+  const title = String(item.title || '');
+  const evidence = [item.audit?.suspectRole?.evidence, item.audit?.japanCrime?.evidence]
+    .filter(Boolean).join(' ');
+  const text = `${title} ${evidence}`.replace(/^本文抜粋:\s*/, '');
+  const placeMatch = text.match(/[一-龥ぁ-んァ-ヴー]{2,10}(?:市|区|町|村)/g);
+  const placeRaw = placeMatch?.find((x) => !/(警察署|入管|地裁|地検|区検)$/.test(x)) || '';
+  const place = placeRaw.replace(/^(?:東京都|北海道|(?:京都|大阪)府|[一-龥]{2,3}県)/, '');
+  const crimeGroups = [
+    ['覚醒剤製造', /覚醒剤.{0,12}(?:製造|密造)|(?:製造|密造).{0,12}覚醒剤/],
+    ['薬物密輸', /(?:密輸|密輸入|輸入).{0,12}(?:麻薬|薬物|コカイン|大麻)|(?:麻薬|薬物|コカイン|大麻).{0,12}密輸/],
+    ['詐欺', /詐欺|だまし取/], ['窃盗', /窃盗|盗ん|盗み/], ['強盗', /強盗/],
+    ['暴行傷害', /暴行|傷害|切り付け|殴打/], ['殺人', /殺人|殺害/], ['不法就労', /不法就労/],
+  ];
+  const crime = crimeGroups.find(([, re]) => re.test(text))?.[0] || '';
+  const nat = text.match(/(?:中国|韓国|朝鮮|ベトナム|フィリピン|イラン|ブラジル|ネパール|タイ|カンボジア|ドミニカ(?:共和国)?|スリランカ|インド|パキスタン|バングラデシュ|ミャンマー|トルコ|ロシア)(?:国籍|籍|人)/)?.[0] || '';
+  if (!place || !crime || !nat) return null;
+  return `${place}|${crime}|${nat.replace(/(?:国籍|籍|人)$/, '')}`;
+}
+
+function withinFiveDays(a, b) {
+  const ta = new Date(a || '').getTime();
+  const tb = new Date(b || '').getTime();
+  return Number.isFinite(ta) && Number.isFinite(tb) && Math.abs(ta - tb) <= 5 * 24 * 60 * 60 * 1000;
+}
 
 // 都道府県リスト
 const PREFECTURES = [
@@ -374,7 +423,8 @@ const OVERSEAS_AGENCY_REGEX = /[（\(【\[](?:AFP|ＡＦＰ|ロイター|Reuters
 function fetchRSS(url, redirectCount = 0) {
   if (redirectCount > 5) return Promise.reject(new Error('Too many redirects'));
   return new Promise((resolve, reject) => {
-    https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' } }, (res) => {
+    const client = String(url).startsWith('http://') ? http : https;
+    client.get(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' } }, (res) => {
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
         resolve(fetchRSS(res.headers.location, redirectCount + 1));
         return;
@@ -1262,69 +1312,25 @@ function extractItemsFromRSS(xml) {
         }
       }
 
-      // 日本人被疑者・海外拠点特殊詐欺・日本人雇用主事案の完全排除（外国籍社長本人は保持）
-      const isForeignBoss = RE_FOREIGN_BOSS.test(title) || RE_FOREIGN_BOSS.test(rawDesc);
-      const isJapaneseEmployer = !isForeignBoss &&
-        !(/中国籍|ベトナム国籍|韓国籍|フィリピン国籍|タイ国籍/.test(title) && /男女|男ら|女ら/.test(title)) &&
-        /(?:派遣会社社長|建設会社社長|解体会社社長|会社社長|社長|経営者)[男女代性0-9０-９（）\(\)\sの歳]*[をが]?(?:逮捕|容疑|送検|起訴|書類送検)/.test(title);
+      // 海外メディアや芸能ニュースは除外
+      if (isOverseasOrEntertainmentMedia(media)) {
+        continue;
+      }
 
-      // 外国籍の明記がない不法就労助長ブローカー逮捕・店舗経営者への判決（被疑者・被告が日本人の事案）
-      const hasExplicitForeignSuspect = new RegExp(ALL_FOREIGN_SUSPECT_PATTERN).test(title) || new RegExp(ALL_FOREIGN_SUSPECT_PATTERN).test(rawDesc);
-      const isIllegalEmploymentBroker = /不法就労助長/.test(title) && !hasExplicitForeignSuspect;
-      const isShopOwnerWithForeignVictim = /(?:店主|店長|経営の男|経営の女|経営者)[男女代性0-9０-９（）\(\)\sの歳]*に.*(?:判決|拘禁刑|懲役)/.test(title);
-      // 偽装結婚・在留資格の斡旋・仲介ブローカー（日本人側）の逮捕事案を100%遮断
-      const isBrokerSuspect = /(?:偽装結婚|在留資格|不法就労).*(?:斡旋|あっせん|紹介|仲介)/.test(title) ||
-                              /(?:斡旋|あっせん|紹介|仲介).*疑いで逮捕/.test(title) ||
-                              /(?:飲食店経営|会社経営|無職|男２人|男ら).*(?:フィリピン|ベトナム|中国|タイ).*紹介/.test(title);
-
+      // 日本人被疑者・海外拠点特殊詐欺・日本人雇用主事案の完全排除
       const isJapaneseSuspect = /(?:日本人|日本国籍)[の男女代性0-9０-９（）\s]*[をが]?(?:逮捕|容疑|送検|起訴|書類送検)/.test(title) ||
                                 /(?:逮捕|容疑|送検)[の男女代性0-9０-９（）\s]*[は、\s]*(?:日本人|日本国籍)/.test(title) ||
                                 /日本人(?:女|男|男女|ら|グループ|容疑者)/.test(title) ||
-                                // 日本人夫婦・家族事件の除外（外国籍の夫婦は「ベトナム人夫婦」等と国籍が付く）
-                                /(?:京都市|東京都|大阪府|[一-龥]{2,4}[市区町村])?の?夫婦を(?:逮捕|容疑|送検|書類送検)/.test(title) ||
-                                /(?:自営業|会社員|無職|パート|アルバイト)[の男女代性0-9０-９（）\s]*(?:男性|女性|男|女)[男女代性0-9０-９（）\s]*と妻/.test(title) ||
-                                // 日本人社員による中国企業・外国企業への機密流出・スパイ事案を100%遮断
-                                /(?:中国企業|外国企業|中国側)[へのに]*(?:流出|漏洩|漏えい|提供|持ち出)/.test(title) ||
-                                /(?:半導体|機密|営業秘密).*(?:流出|漏洩|漏えい).*(?:元社員|元従業員|元開発責任者)/.test(title) ||
-                                /旭化成/.test(title) ||
-                                /(?:口座|通帳|キャッシュカード|SIM).*売り渡/.test(title) ||
-                                /(?:中国人|外国人)らのグループへ(?:譲渡|売却)/.test(title) ||
-                                (/(?:カンボジア|フィリピン|タイ|インドネシア|ミャンマー|ベトナム|ラオス)[\s\S]{0,15}拠点[\s\S]{0,20}(?:特殊詐欺|詐欺|かけ子)/.test(title) || /(?:特殊詐欺|詐欺|かけ子)[\s\S]{0,25}(?:カンボジア|フィリピン|タイ|インドネシア|ミャンマー|ベトナム|ラオス)[\s\S]{0,15}拠点/.test(title)) ||
-                                /[JＪ][PＰ]ドラゴン/.test(title) ||
-                                /フィリピンを拠点に「かけ子」/.test(title) ||
-                                /公開手配の男/.test(title) ||
-                                /医師書類送検.*患者側も/.test(title) ||
-                                /建設会社を書類送検/.test(title) ||
-                                /町議/.test(title) ||
-                                /ベトナム食材.*(?:男1人逮捕|男逮捕)/.test(title) ||
-                                /有償で乗車させた疑い\s*31歳男逮捕/.test(title);
+                                /(?:カンボジア|フィリピン|タイ|インドネシア|ミャンマー|ベトナム|ラオス)[\s\S]{0,15}拠点[\s\S]{0,20}(?:特殊詐欺|詐欺|かけ子)/.test(title) ||
+                                /JPドラゴン/.test(title) ||
+                                /フィリピンを拠点に「かけ子」/.test(title);
       if (isJapaneseSuspect) {
         continue;
       }
-      // 雇用主・斡旋役・店主の判定は語彙ベースで、外国籍の斡旋役なども巻き込む。新ルールが被疑者側の外国籍と認めるものはAIに回す
-      if (isJapaneseEmployer || isIllegalEmploymentBroker || isShopOwnerWithForeignVictim || isBrokerSuspect) {
-        if (!strongByRules()) continue;
-        soft = true;
-      }
-      // 行政啓蒙・周知・コラム・意見・動画・省庁施策・受入企業側の労基法違反等の排除（外国人本人の個別事件報道ではないもの）
-      const isAwarenessOrColumn = /チラシで周知|協力を.*呼びかけ|注意を呼びかけ|防犯教室|啓発|連載|金難民|録画[０-９0-9]|覚えているだろうか|デイリー新潮|薬師寺の国宝|立ち入り|摘発[をの]?強化|他省庁.*(?:合同|参加|調査)|法務省.*不法就労|実施へ|団体交渉|不当徴収|謝罪|農業法人と交渉|賃金支払いも求める|監督指導|送検等の状況|監督対象|受入企業|受入れ企業|是正勧告|安全基準違反|労基法違反|重大・悪質.*件を送検/.test(title);
+      // 行政啓蒙・周知・コラム・意見等の排除
+      const isAwarenessOrColumn = /チラシで周知|協力を.*呼びかけ|注意を呼びかけ|防犯教室|啓発|連載|覚えているだろうか|デイリー新潮|薬師寺の国宝|立ち入り調査|摘発強化へ|他省庁と合同|実施へ/.test(title);
       if (isAwarenessOrColumn) {
         continue;
-      }
-
-      // 外国人が被害者側の記事（ひき逃げ・交通事故被害、性被害、暴行被害、特殊詐欺被害等）を確実に排除
-      const isForeignVictim = /(インドネシア|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|台湾|外国)(人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[をはがの]?(頭蓋骨|骨折|意識不明|重傷|軽傷|死亡|重体|刺され|被害|だまし取られ|下着|暴行|はね|撥ね|轢き|ひき逃げ)/.test(title) ||
-                              /(外国人|外国籍|実習生|留学生|ミャンマー人|ベトナム人|中国籍|中国人)[にへの]?[の男女代性0-9０-９歳（）\s]*(日常的暴行|暴行|傷害|性的暴行|差別|対する|賃金|給料|低賃金|搾取|働かせ|賃金を支払わ|下着|私物|部屋に侵入|はねられ|轢かれ)/.test(title) ||
-                              /(?:被害男性|被害者).*外国人の可能性/.test(title) ||
-                              /(?:自転車の)?(?:ベトナム|中国|外国人|外国籍|ミャンマー|インドネシア|フィリピン|タイ|韓国)(?:人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[をはがの]?(?:死亡ひき逃げ|ひき逃げ|はねられ|はねて|死亡)/.test(title) ||
-                              /(?:タイ|ベトナム|中国|フィリピン|インドネシア|韓国|外国)(?:人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*(?:少女|女児|女性|少年|児童|生徒)に.*(?:みだら|性交|性的|わいせつ|売春|買春)/.test(title) ||
-                              /技能実習生の女性.*盗んだ/.test(title) ||
-                              /天神に留学生の遺体|専門学校生の遺体発見/.test(title);
-      const isForeignPerpetrator = RE_FOREIGN_PERPETRATOR.test(title) || RE_FOREIGN_PERPETRATOR.test(rawDesc);
-      if (isForeignVictim && !isForeignPerpetrator) {
-        // 「ベトナム人の男 暴行容疑で逮捕」のように、国籍の直後に罪名が来る加害者の見出しも、この正規表現は被害者と誤判定する
-        if (!strongByRules()) continue;
-        soft = true;
       }
 
       let location = detectLocation(title);
@@ -1337,211 +1343,109 @@ function extractItemsFromRSS(xml) {
 
       // 日本標準時（JST = UTC+9時間）に補正して日付文字列（YYYY-MM-DD）を生成
       const parsedDate = new Date(pubDate);
-      const jstDate = !isNaN(parsedDate.getTime()) 
-        ? new Date(parsedDate.getTime() + 9 * 60 * 60 * 1000) 
-        : new Date(Date.now() + 9 * 60 * 60 * 1000);
+      const validDate = !isNaN(parsedDate.getTime()) ? parsedDate : new Date();
+      const jstDate = new Date(validDate.getTime() + 9 * 60 * 60 * 1000);
       const dateStr = jstDate.toISOString().split('T')[0];
 
+      const normUrl = normalizeArticleUrl(link);
+      const itemId = crypto.createHash('md5').update(normUrl || title).digest('hex').substring(0, 16);
+
       items.push({
-        id: crypto.createHash('md5').update(title + dateStr).digest('hex').substring(0, 16),
+        id: itemId,
         title: title,
+        pubDate: validDate.toISOString(),
         date: dateStr,
         location: location,
         media: media,
         url: link,
         description: rawDesc.substring(0, 150),
-        summary: `${location}で発生した外国人関与の事件・容疑に関する報道速報です。`,
-        ...(soft ? { _soft: true } : {}),
-        ...(needsBody ? { _needsBody: true, _bodyPriority: isDomestic ? 1 : 0 } : {})
+        summary: `${location}で発生した外国人関与の事件・容疑に関する報道速報です。`
       });
     }
   }
   return items;
 }
 
-// === 【AI最終検閲＆自動整形ゲート（マルチモデル自動検知＆厳格フェイルセーフ）】 ===
-let workingGeminiModel = null; // 一度成功した稼働モデルをキャッシュ
-
-async function inspectAndFormatWithAI(title, media, description = '') {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    const isDomestic = isDomesticCrime(title, media);
-    return { isValid: isDomestic, cleanTitle: title, reason: isDomestic ? 'Rule-based (No API Key)' : 'Rejected Overseas (No API Key)' };
-  }
-
-  // 試行するモデル候補リスト（確実に稼働確認済みの gemini-3.5-flash を最優先とし、404エラー試行の無駄をゼロ化）
-  const candidateModels = workingGeminiModel 
-    ? [workingGeminiModel] 
-    : [process.env.GEMINI_MODEL, 'gemini-3.1-flash-lite', 'gemini-3.5-flash', 'gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-2.0-flash'].filter(Boolean);
-
-  const prompt = `あなたは「日本国内の外国人治安・事件報道データベース」の厳格な主任校閲デスクです。
-以下のニュース記事の「タイトル」「媒体名」「記事要約スニペット」を精査し、指定のJSON形式のみで出力してください。
-
-【採否基準（isValid）】
-◆ 採用（true）にするもの:
-・日本国内で発生した、外国籍（外国人・米兵・技能実習生・留学生など）の被疑者・被告人に関する刑事事件・警察発表・摘発・公判報道。
-・見出しに国籍が明記されていなくても、記事要約スニペット等から外国籍被疑者と判断できる場合は積極的に採用してください。
-・タイトルに都道府県名が直接書かれていなくても、媒体名や内容から日本国内の事件と判断できる場合は積極的に採用してください。
-
-◆ 不採用（false）にするもの:
-・海外現地で発生した出来事・海外国内の裁判や訴訟（例：米国の送還訴訟、韓国済州島の摘発など）
-・海外の出来事が日本に関連しているだけの記事（例：日本人が海外で被害に遭ったニュースなど）
-・SNS上のデマや偽情報を検証したファクトチェック記事（例：「〜と誤認させる偽情報拡散」など）
-・日本人が加害者のヘイト犯罪・礼拝所放火事案
-・テレビ番組表、コラム、オピニオン、行政の啓蒙キャンペーン
-
-【整形指示（cleanTitle）】
-採用の場合、読者が一目で事件の概要・重大性を把握できるよう、端正なストレートニュース形式に整形してください。見出しに国籍が欠けていて要約に記載がある場合は国籍を補完してください。
-形式: 「発生状況や手口 ＋ 容疑 ＋ 国籍・年齢 ＋ 逮捕/送検 ＋ 発生地域」
-（例：「ポール衝突後に蛇行運転 呼気検査拒否の疑いで中国籍の男（42）を現行犯逮捕 新潟・上越」）
-
-【出力フォーマット】
-説明文は一切含めず、以下のJSONのみを出力してください:
-{
-  "isValid": true または false,
-  "reason": "採否の理由（一言）",
-  "cleanTitle": "整形後のタイトル（不採用なら空文字）",
-  "location": "推定都道府県名（例：新潟県。不明なら全国）"
-}
-
-対象記事見出し: 「${title}」
-媒体名: 「${media || '不明'}」
-記事要約スニペット: 「${description ? description.substring(0, 150) : 'なし'}」`;
-
-  for (const model of candidateModels) {
-    try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: {
-            responseMimeType: "application/json",
-            temperature: 0.1
-          }
-        })
-      });
-
-      if (!response.ok) {
-        console.warn(`[AI Warning] Model ${model} returned status ${response.status}. Trying next model...`);
-        continue;
-      }
-
-      if (!workingGeminiModel) {
-        console.log(`✨ [AI Connected] Successfully established connection with Gemini Model: ${model}`);
-        workingGeminiModel = model;
-      }
-
-      const data = await response.json();
-      let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-      text = text.replace(/```json|```/g, '').trim();
-
-      let result;
-      try {
-        result = JSON.parse(text);
-      } catch (parseError) {
-        console.warn(`[AI Warning] JSON parse failed on ${model}. Raw: ${text.substring(0, 200)}`);
-        const isDomestic = isDomesticCrime(title, media);
-        return { isValid: isDomestic, cleanTitle: title, reason: 'JSON Parse Error (Rule Fallback)' };
-      }
-      return result;
-
-    } catch (error) {
-      console.warn(`[AI Warning] Inspection failed on ${model} (${error.message}).`);
-    }
-  }
-
-  // 全モデル試行失敗時：海外記事のすり抜けを完全防止するため、国内確証判定（isDomesticCrime）を厳格適用
-  const isDomestic = isDomesticCrime(title, media);
-  return { 
-    isValid: isDomestic, 
-    cleanTitle: title, 
-    reason: isDomestic ? 'All AI Models Failed (Domestic Rule Passed)' : 'All AI Models Failed (Overseas Rejected)' 
-  };
-}
-
 async function main() {
-  console.log('🤖 GEMINI_API_KEY status:', process.env.GEMINI_API_KEY ? 'CONFIGURED (length: ' + process.env.GEMINI_API_KEY.length + ')' : 'MISSING (Not configured)');
-  console.log('Fetching daily foreign crime news with Expanded 41-queries (72h window), high-precision location mapping & entity deduplication...');
+  console.log('Fetching daily foreign crime news with Expanded 41-queries (5-day window), strict local body-only verification & deduplication...');
 
   const searchQueries = [
     // === 基本クエリ（外国人×犯罪の幅広い網） ===
-    encodeURIComponent('外国人 逮捕 when:3d'),
-    encodeURIComponent('外国人 容疑 when:3d'),
-    encodeURIComponent('外国籍 逮捕 when:3d'),
-    encodeURIComponent('国籍 逮捕 when:3d'),
-    encodeURIComponent('外国人 書類送検 OR 追送検 when:3d'),
-    encodeURIComponent('外国人 摘発 OR 指名手配 when:3d'),
+    encodeURIComponent('外国人 逮捕 when:5d'),
+    encodeURIComponent('外国人 容疑 when:5d'),
+    encodeURIComponent('外国籍 逮捕 when:5d'),
+    encodeURIComponent('国籍 逮捕 when:5d'),
+    encodeURIComponent('外国人 書類送検 OR 追送検 when:5d'),
+    encodeURIComponent('外国人 摘発 OR 指名手配 when:5d'),
 
     // === 国籍別クエリ（主要在日外国人コミュニティ） ===
-    encodeURIComponent('ベトナム 逮捕 OR 摘発 when:3d'),
-    encodeURIComponent('中国籍 OR 中国人 逮捕 when:3d'),
-    encodeURIComponent('ブラジル 逮捕 OR 摘発 when:3d'),
-    encodeURIComponent('タイ人 OR タイ国籍 逮捕 when:3d'),
-    encodeURIComponent('フィリピン人 逮捕 OR 摘発 when:3d'),
-    encodeURIComponent('インドネシア 逮捕 OR 摘発 when:3d'),
-    encodeURIComponent('スリランカ OR カンボジア OR ネパール 逮捕 when:3d'),
-    encodeURIComponent('韓国人 OR 韓国籍 逮捕 when:3d'),
-    encodeURIComponent('ペルー 逮捕 OR 摘発 when:3d'),
-    encodeURIComponent('パキスタン OR バングラデシュ 逮捕 when:3d'),
-    encodeURIComponent('モンゴル OR ナイジェリア 逮捕 when:3d'),
-    encodeURIComponent('トルコ国籍 OR クルド人 逮捕 when:3d'),
-    encodeURIComponent('アメリカ人 OR 米国籍 逮捕 when:3d'),
-    encodeURIComponent('白タク 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('不法入国 逮捕 when:3d'),
+    encodeURIComponent('ベトナム 逮捕 OR 摘発 when:5d'),
+    encodeURIComponent('中国籍 OR 中国人 逮捕 when:5d'),
+    encodeURIComponent('ブラジル 逮捕 OR 摘発 when:5d'),
+    encodeURIComponent('タイ人 OR タイ国籍 逮捕 when:5d'),
+    encodeURIComponent('フィリピン人 逮捕 OR 摘発 when:5d'),
+    encodeURIComponent('インドネシア 逮捕 OR 摘発 when:5d'),
+    encodeURIComponent('スリランカ OR カンボジア OR ネパール 逮捕 when:5d'),
+    encodeURIComponent('韓国人 OR 韓国籍 逮捕 when:5d'),
+    encodeURIComponent('ペルー 逮捕 OR 摘発 when:5d'),
+    encodeURIComponent('パキスタン OR バングラデシュ 逮捕 when:5d'),
+    encodeURIComponent('モンゴル OR ナイジェリア 逮捕 when:5d'),
+    encodeURIComponent('トルコ国籍 OR クルド人 逮捕 when:5d'),
+    encodeURIComponent('アメリカ人 OR 米国籍 逮捕 when:5d'),
+    encodeURIComponent('白タク 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('不法入国 逮捕 when:5d'),
 
     // === 在留資格・入管制度別クエリ ===
-    encodeURIComponent('技能実習生 OR 元技能実習生 OR 特定技能 逮捕 when:3d'),
-    encodeURIComponent('仮放免 逮捕 OR 容疑 when:3d'),
-    encodeURIComponent('不法滞在 OR 不法残留 OR オーバーステイ 逮捕 OR 摘発 when:3d'),
-    encodeURIComponent('退去強制 OR 強制送還 when:3d'),
-    encodeURIComponent('不法就労 逮捕 OR 摘発 when:3d'),
-    encodeURIComponent('不法在留 逮捕 OR 摘発 when:3d'),
-    encodeURIComponent('留学生 逮捕 OR 摘発 when:3d'),
-    encodeURIComponent('在留資格 OR 偽装結婚 逮捕 when:3d'),
+    encodeURIComponent('技能実習生 OR 元技能実習生 OR 特定技能 逮捕 when:5d'),
+    encodeURIComponent('仮放免 逮捕 OR 容疑 when:5d'),
+    encodeURIComponent('不法滞在 OR 不法残留 OR オーバーステイ 逮捕 OR 摘発 when:5d'),
+    encodeURIComponent('退去強制 OR 強制送還 when:5d'),
+    encodeURIComponent('不法就労 逮捕 OR 摘発 when:5d'),
+    encodeURIComponent('不法在留 逮捕 OR 摘発 when:5d'),
+    encodeURIComponent('留学生 逮捕 OR 摘発 when:5d'),
+    encodeURIComponent('在留資格 OR 偽装結婚 逮捕 when:5d'),
 
     // === 犯罪類型別クエリ（外国人キーワード付きで精度向上） ===
-    encodeURIComponent('密輸 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('コカイン OR 覚醒剤 密輸 when:3d'),
-    encodeURIComponent('危険運転 外国人 OR 外国籍 OR 米兵 逮捕 when:3d'),
-    encodeURIComponent('銅線 OR 太陽光 外国人 OR 技能実習生 逮捕 OR 窃盗 when:3d'),
-    encodeURIComponent('立てこもり 逮捕 OR 再逮捕 when:3d'),
-    encodeURIComponent('車上ねらい OR 車上荒らし 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('わいせつ 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('住居侵入 OR 侵入窃盗 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('傷害致死 OR 殺人 外国 逮捕 when:3d'),
-    encodeURIComponent('詐欺 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('窃盗 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('白タク 外国人 OR 外国籍 逮捕 when:3d'),
+    encodeURIComponent('密輸 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('コカイン OR 覚醒剤 密輸 when:5d'),
+    encodeURIComponent('危険運転 外国人 OR 外国籍 OR 米兵 逮捕 when:5d'),
+    encodeURIComponent('銅線 OR 太陽光 外国人 OR 技能実習生 逮捕 OR 窃盗 when:5d'),
+    encodeURIComponent('立てこもり 逮捕 OR 再逮捕 when:5d'),
+    encodeURIComponent('車上ねらい OR 車上荒らし 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('わいせつ 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('住居侵入 OR 侵入窃盗 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('傷害致死 OR 殺人 外国 逮捕 when:5d'),
+    encodeURIComponent('詐欺 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('窃盗 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('白タク 外国人 OR 外国籍 逮捕 when:5d'),
 
     // === 犯罪ジャンル別特化クエリ（多様な犯罪のすくい上げ） ===
-    encodeURIComponent('放火 OR 殺人未遂 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('死体遺棄 OR 遺棄 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('ひき逃げ OR 無免許 OR 飲酒運転 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('公務執行妨害 OR 銃刀法 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('不法投棄 OR ヤード 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('地下銀行 OR 偽造 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('外国人観光客 OR 訪日客 逮捕 OR 容疑 when:3d'),
+    encodeURIComponent('放火 OR 殺人未遂 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('死体遺棄 OR 遺棄 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('ひき逃げ OR 無免許 OR 飲酒運転 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('公務執行妨害 OR 銃刀法 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('不法投棄 OR ヤード 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('地下銀行 OR 偽造 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('外国人観光客 OR 訪日客 逮捕 OR 容疑 when:5d'),
 
     // === 追加国籍クエリ（取り漏らし防止） ===
-    encodeURIComponent('ミャンマー国籍 OR ミャンマー人 逮捕 when:3d'),
-    encodeURIComponent('インド人 OR インド国籍 逮捕 when:3d'),
-    encodeURIComponent('切りつけ 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('台湾人 OR 台湾籍 OR 台湾国籍 OR 台湾出身 逮捕 when:3d'),
-    encodeURIComponent('ロシア人 OR ロシア国籍 逮捕 when:3d'),
-    encodeURIComponent('米兵 OR 米軍 逮捕 OR 容疑 OR 摘発 when:3d'),
-    encodeURIComponent('ラオス人 OR ラオス国籍 逮捕 when:3d'),
-    encodeURIComponent('マレーシア人 OR マレーシア国籍 逮捕 when:3d'),
-    encodeURIComponent('イラン人 OR イラン国籍 逮捕 when:3d'),
-    encodeURIComponent('ウズベキスタン OR カザフスタン 逮捕 when:3d'),
-    encodeURIComponent('コロンビア OR アルゼンチン 逮捕 when:3d'),
-    encodeURIComponent('飲酒運転 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('死亡事故 OR 危険運転 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('過失運転致死 OR 危険運転致死 外国人 OR 外国籍 when:3d'),
-    encodeURIComponent('迷惑防止条例 OR 痴漢 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('不同意性交 OR 不同意わいせつ 外国人 OR 外国籍 逮捕 when:3d'),
-    encodeURIComponent('殺人 OR 殺人未遂 外国人 OR 外国籍 逮捕 when:3d')
+    encodeURIComponent('ミャンマー国籍 OR ミャンマー人 逮捕 when:5d'),
+    encodeURIComponent('インド人 OR インド国籍 逮捕 when:5d'),
+    encodeURIComponent('切りつけ 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('台湾人 OR 台湾籍 OR 台湾国籍 OR 台湾出身 逮捕 when:5d'),
+    encodeURIComponent('ロシア人 OR ロシア国籍 逮捕 when:5d'),
+    encodeURIComponent('米兵 OR 米軍 逮捕 OR 容疑 OR 摘発 when:5d'),
+    encodeURIComponent('ラオス人 OR ラオス国籍 逮捕 when:5d'),
+    encodeURIComponent('マレーシア人 OR マレーシア国籍 逮捕 when:5d'),
+    encodeURIComponent('イラン人 OR イラン国籍 逮捕 when:5d'),
+    encodeURIComponent('ウズベキスタン OR カザフスタン 逮捕 when:5d'),
+    encodeURIComponent('コロンビア OR アルゼンチン 逮捕 when:5d'),
+    encodeURIComponent('飲酒運転 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('死亡事故 OR 危険運転 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('過失運転致死 OR 危険運転致死 外国人 OR 外国籍 when:5d'),
+    encodeURIComponent('迷惑防止条例 OR 痴漢 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('不同意性交 OR 不同意わいせつ 外国人 OR 外国籍 逮捕 when:5d'),
+    encodeURIComponent('殺人 OR 殺人未遂 外国人 OR 外国籍 逮捕 when:5d')
   ];
 
   let fetchedItems = [];
@@ -1549,8 +1453,12 @@ async function main() {
 
   const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-  for (const query of searchQueries) {
-    const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=ja&gl=JP&ceid=JP:ja`;
+  const queriesToRun = process.env.TEST_SEARCH_QUERIES ? JSON.parse(process.env.TEST_SEARCH_QUERIES) : searchQueries;
+  const rssBaseUrl = process.env.RSS_BASE_URL || 'https://news.google.com/rss/search';
+  const queryDelay = process.env.TEST_SEARCH_QUERIES ? 0 : 800;
+
+  for (const query of queriesToRun) {
+    const rssUrl = process.env.RSS_BASE_URL ? `${rssBaseUrl}?q=${query}` : `${rssBaseUrl}?q=${query}&hl=ja&gl=JP&ceid=JP:ja`;
     try {
       const xml = await fetchRSS(rssUrl);
       const items = extractItemsFromRSS(xml);
@@ -1559,367 +1467,320 @@ async function main() {
     } catch (err) {
       console.error('Failed to fetch RSS:', err.message);
     }
-    await sleep(800);
+    if (queryDelay > 0) await sleep(queryDelay);
   }
 
   if (successCount === 0) {
     throw new Error('All RSS fetch attempts failed.');
   }
 
-  // --- 重複排除（一次報道メディア優先保持）＆ 続報・供述後追い防止 ---
+  // --- 重複排除（正規化URLによる一意化） ---
   const uniqueItems = [];
+  const seenUrls = new Set();
   for (const item of fetchedItems) {
-    const isFollowUp = /(?:続報|供述|供述か|供述している|とみられる|新たに判明|解剖の結果|追送検)/.test(item.title);
-    const idx = uniqueItems.findIndex(existing => isSameEvent(existing, item));
-    if (idx === -1) {
+    const norm = normalizeArticleUrl(item.url);
+    if (!norm) continue;
+    if (!seenUrls.has(norm)) {
+      seenUrls.add(norm);
       uniqueItems.push(item);
-    } else {
-      // 続報・後追い記事の場合は、一次報道（逮捕・送検速報）を上書きせずスキップ
-      if (isFollowUp) {
-        continue;
-      }
-      if (getMediaPriority(item.media) > getMediaPriority(uniqueItems[idx].media)) {
-        uniqueItems[idx] = item;
-      }
     }
   }
+  console.log(`📡 RSS取得完了: ${fetchedItems.length} 件取得 -> URL一意化後: ${uniqueItems.length} 件`);
 
-  let existingData = [];
-  if (fs.existsSync(NEWS_DATA_PATH)) {
+  // --- 既存の公開データ（197件）の完全凍結ロード ---
+  const newsDataPath = getNewsDataPath();
+  const queuePath = getQueuePath();
+
+  let frozenExisting = [];
+  if (fs.existsSync(newsDataPath)) {
     try {
-      existingData = JSON.parse(fs.readFileSync(NEWS_DATA_PATH, 'utf-8'));
+      frozenExisting = JSON.parse(fs.readFileSync(newsDataPath, 'utf-8'));
     } catch (e) {
-      existingData = [];
+      console.error('既存ニュースデータの読み込みに失敗しました:', e);
+      frozenExisting = [];
+    }
+  }
+  console.log(`🔒 既存公開データ保護: ${frozenExisting.length} 件を完全凍結保持`);
+
+  // 既存記事のURL（元URL・解決後URL）をSet化
+  const existingNormUrls = new Set();
+  for (const ex of frozenExisting) {
+    if (ex.url) existingNormUrls.add(normalizeArticleUrl(ex.url));
+    if (ex.resolvedUrl) existingNormUrls.add(normalizeArticleUrl(ex.resolvedUrl));
+  }
+
+  // --- キュー（data/newsQueue.json）の読み込みと管理 ---
+  let queue = { version: 1, updatedAt: new Date().toISOString(), items: [] };
+  if (fs.existsSync(queuePath)) {
+    try {
+      queue = JSON.parse(fs.readFileSync(queuePath, 'utf-8'));
+      if (!Array.isArray(queue.items)) queue.items = [];
+    } catch (e) {
+      console.warn(`キューファイル読み込み警告: ${e.message}。初期化します。`);
+      queue = { version: 1, updatedAt: new Date().toISOString(), items: [] };
     }
   }
 
-  // --- 既存データクリーンアップ（市町村名からの地域再マッピング含む） ---
-  const cleanExisting = [];
-  for (const item of existingData) {
-    if (!item.audited && !isDomesticCrime(item.title, item.media)) {
-      console.log(`Removed overseas item: ${item.title}`);
-      continue;
-    }
-    const hasExcludeKw = EXCLUDE_KEYWORDS.some(kw => item.title.includes(kw));
-    if (hasExcludeKw && !item.audited) {
-      console.log(`Removed excluded item: ${item.title}`);
-      continue;
-    }
-    // 「中国道」「中国地方」「中国電力」等の国内固有名詞を外国人判定から除外
-    const titleWithoutDomesticChugoku = item.title.replace(/中国(道|自動車道|地方|電力|銀行|新聞|バス|管区)/g, '');
+  const now = Date.now();
+  const TTL_120H_MS = 120 * 60 * 60 * 1000; // 5日間 (120時間)
 
-    const hasForeignKw = FOREIGN_KEYWORDS.some(kw => titleWithoutDomesticChugoku.includes(kw));
-    const hasCrimeKw = CRIME_KEYWORDS.some(kw => item.title.includes(kw));
-    if (!item.audited && (!hasForeignKw || !hasCrimeKw)) {
-      console.log(`Removed non-foreign or non-crime item: ${item.title}`);
-      continue;
-    }
-
-    // 日本人被疑者・海外拠点特殊詐欺・日本人雇用主事案の完全排除（外国籍社長本人は保持）
-    const isForeignBossItem = RE_FOREIGN_BOSS.test(item.title);
-    const isJapaneseEmployerItem = !isForeignBossItem &&
-      !(/中国籍|ベトナム国籍|韓国籍|フィリピン国籍|タイ国籍/.test(item.title) && /男女|男ら|女ら/.test(item.title)) &&
-      /(?:派遣会社社長|建設会社社長|解体会社社長|会社社長|社長|経営者)[男女代性0-9０-９（）\(\)\sの歳]*[をが]?(?:逮捕|容疑|送検|起訴|書類送検)/.test(item.title);
-
-    // 外国籍の明記がない不法就労助長ブローカー逮捕・店舗経営者への判決（被疑者・被告が日本人の事案）
-    const hasExplicitForeignSuspectItem = new RegExp(ALL_FOREIGN_SUSPECT_PATTERN).test(item.title);
-    const isIllegalEmploymentBrokerItem = /不法就労助長/.test(item.title) && !hasExplicitForeignSuspectItem;
-    const isShopOwnerWithForeignVictimItem = /(?:店主|店長|経営の男|経営の女|経営者)[男女代性0-9０-９（）\(\)\sの歳]*に.*(?:判決|拘禁刑|懲役)/.test(item.title);
-
-    const isJapaneseSuspectItem = /(?:日本人|日本国籍)[の男女代性0-9０-９（）\s]*[をが]?(?:逮捕|容疑|送検|起訴|書類送検)/.test(item.title) ||
-                                  /(?:逮捕|容疑|送検)[の男女代性0-9０-９（）\s]*[は、\s]*(?:日本人|日本国籍)/.test(item.title) ||
-                                  /日本人(?:女|男|男女|ら|グループ|容疑者)/.test(item.title) ||
-                                  /(?:市|町|村|区)の[0-9０-９男女歳代\s]+[にへがはを]*(?:判決|求刑|逮捕|起訴|送検|認める)/.test(item.title) ||
-                                  /(?:モスク|礼拝所).*(?:放火|求刑|判決|逮捕)/.test(item.title) ||
-                                  /(?:追い出してやろう|懲らしめてやろう|嫌悪感を抱いた男)/.test(item.title) ||
-                                  isJapaneseEmployerItem ||
-                                  isIllegalEmploymentBrokerItem ||
-                                  isShopOwnerWithForeignVictimItem ||
-                                  (/(?:カンボジア|フィリピン|タイ|インドネシア|ミャンマー|ベトナム|ラオス)[\s\S]{0,15}拠点[\s\S]{0,20}(?:特殊詐欺|詐欺|かけ子)/.test(item.title) || /(?:特殊詐欺|詐欺|かけ子)[\s\S]{0,25}(?:カンボジア|フィリピン|タイ|インドネシア|ミャンマー|ベトナム|ラオス)[\s\S]{0,15}拠点/.test(item.title)) ||
-                                  /[JＪ][PＰ]ドラゴン/.test(item.title) ||
-                                  /フィリピンを拠点に「かけ子」/.test(item.title) ||
-                                  /公開手配の男/.test(item.title) ||
-                                  /医師書類送検.*患者側も/.test(item.title) ||
-                                  /建設会社を書類送検/.test(item.title) ||
-                                  /町議/.test(item.title) ||
-                                  /ベトナム食材.*(?:男1人逮捕|男逮捕)/.test(item.title) ||
-                                  /有償で乗車させた疑い\s*31歳男逮捕/.test(item.title);
-    if (isJapaneseSuspectItem && !item.audited) {
-      console.log(`Removed Japanese suspect item: ${item.title}`);
-      continue;
-    }
-    // 行政啓蒙・周知・コラム・意見・動画・省庁施策・デマ検証記事の排除
-    const isAwarenessOrColumn = /チラシで周知|協力を.*呼びかけ|注意を呼びかけ|防犯教室|啓発|連載|金難民|録画[０-９0-9]|覚えているだろうか|デイリー新潮|薬師寺の国宝|立ち入り|摘発[をの]?強化|他省庁.*(?:合同|参加|調査)|法務省.*不法就労|実施へ|団体交渉|不当徴収|謝罪|農業法人と交渉|賃金支払いも求める|監督指導|送検等の状況|偽情報|ファクトチェック|誤認させる|デマ情報/.test(item.title);
-    if (isAwarenessOrColumn && !item.audited) {
-      console.log(`Removed awareness/column item: ${item.title}`);
-      continue;
-    }
-    // 外国人が被害者側の記事（性被害・児童福祉法違反被害、特殊詐欺被害、暴行被害、盗難被害、搾取ルポ等）を確実に排除
-    const isForeignVictim = /(インドネシア|ベトナム|中国|韓国|フィリピン|タイ|ブラジル|ミャンマー|台湾|外国)(人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[はがの]?(頭蓋骨|骨折|意識不明|重傷|軽傷|死亡|重体|刺され|被害|だまし取られ|下着|暴行)/.test(item.title) ||
-                            /(外国人|外国籍|実習生|留学生|ミャンマー人|ベトナム人|中国籍|中国人)[にへの]?[の男女代性0-9０-９歳（）\s]*(日常的暴行|暴行|傷害|性的暴行|差別|対する|賃金|給料|低賃金|搾取|働かせ|賃金を支払わ|下着|私物|部屋に侵入)/.test(item.title) ||
-                            /(?:被害男性|被害者).*外国人の可能性/.test(item.title) ||
-                            /(?:外国人|外国籍|実習生|留学生|女性|労働者)[をに]?(?:絞れるだけ|食い物に|搾取|逃げ場のない|働かせ)/.test(item.title) ||
-                            /(?:タイ|ベトナム|中国|フィリピン|インドネシア|韓国|外国)(?:人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*(?:少女|女児|女性|少年|児童|生徒)に.*(?:みだら|性交|性的|わいせつ|売春|買春)/.test(item.title) ||
-                            /技能実習生の女性.*盗んだ/.test(item.title) ||
-                            /天神に留学生の遺体|専門学校生の遺体発見/.test(item.title);
-    const isForeignPerpetrator = RE_FOREIGN_PERPETRATOR.test(item.title);
-    if (isForeignVictim && !isForeignPerpetrator && !item.audited) {
-      console.log(`Removed victim-side item: ${item.title}`);
-      continue;
-    }
-
-    // 過去の受信チャンク分断で発生した破損文字（\ufffd）の完全修復
-    if (item.title.includes('\ufffd')) {
-      item.title = item.title
-        .replace(/胸を\ufffd+丁で/, '胸を包丁で')
-        .replace(/暴行の疑\ufffd+「怖かった」/, '暴行の疑い「怖かった」')
-        .replace(/ベトナ\ufffd+料理店/, 'ベトナム料理店')
-        .replace(/男女2人殺\ufffd+しようとした/, '男女2人殺害しようとした')
-        .replace(/東京都\ufffd+の被害急増/, '東京都内の被害急増')
-        .replace(/\ufffd+/g, '');
-    }
-
-    // 見出しのノイズ除去と要約・簡潔化
-    item.title = cleanTitleText(item.title);
-
-    // 地域分類の最新化
-    let updatedLoc = detectLocation(item.title);
-    if (updatedLoc === '全国' && item.media) {
-      updatedLoc = detectLocation(item.media);
-    }
-    if (updatedLoc !== '全国') {
-      item.location = updatedLoc;
-    }
-    if (!item.id || item.id.length < 16 || !/^[0-9a-f]{16}$/.test(item.id)) {
-      item.id = crypto.createHash('md5').update(item.title + (item.date || '')).digest('hex').substring(0, 16);
-    }
-    item.summary = `${item.location}で発生した外国人関与の事件・容疑に関する報道速報です。`
-
-    const dupIdx = cleanExisting.findIndex(ex => isSameEvent(ex, item));
-    if (dupIdx === -1) {
-      cleanExisting.push(item);
-    } else {
-      // 重複時：地域が特定されている方（全国より都道府県）、または一次報道メディアを優先
-      if (cleanExisting[dupIdx].location === '全国' && item.location !== '全国') {
-        cleanExisting[dupIdx] = item;
-      } else if (cleanExisting[dupIdx].location === item.location && getMediaPriority(item.media) > getMediaPriority(cleanExisting[dupIdx].media)) {
-        cleanExisting[dupIdx] = item;
-      }
-    }
+  // 1. キューのTTLパージ（初回検知 firstSeen から120時間経過したアイテムはステータスに関係なく完全削除）
+  const initialQueueCount = queue.items.length;
+  queue.items = queue.items.filter((item) => {
+    const firstSeenTime = item.firstSeen ? new Date(item.firstSeen).getTime() : 0;
+    if (!firstSeenTime || isNaN(firstSeenTime)) return false;
+    return (now - firstSeenTime) < TTL_120H_MS;
+  });
+  const purgedCount = initialQueueCount - queue.items.length;
+  if (purgedCount > 0) {
+    console.log(`🗑️ キュー期限切れパージ: 120時間（5日間）を経過した ${purgedCount} 件を完全削除しました`);
   }
 
-  const trulyNew = [];
+  // 2. キューに存在するURLのSetを作成
+  const queueNormUrls = new Set();
+  for (const qItem of queue.items) {
+    if (qItem.url) queueNormUrls.add(normalizeArticleUrl(qItem.url));
+    if (qItem.resolvedUrl) queueNormUrls.add(normalizeArticleUrl(qItem.resolvedUrl));
+  }
+
+  // 3. RSS新規アイテムをキューに登録（既存掲載済み・既存キュー登録済みでないもの）
+  let newlyEnqueued = 0;
   for (const item of uniqueItems) {
-    const isFollowUp = /(?:続報|供述|供述か|供述している|とみられる|新たに判明|解剖の結果|追送検)/.test(item.title);
-    const dupIdx = cleanExisting.findIndex(ex => isSameEvent(ex, item));
-    if (dupIdx !== -1) {
-      if (isFollowUp) {
-        console.log(`⏩ 既報事件の続報・後追い記事のためスキップ: ${item.title}`);
-        continue;
+    const norm = normalizeArticleUrl(item.url);
+    if (!norm) continue;
+    if (existingNormUrls.has(norm) || queueNormUrls.has(norm)) {
+      continue;
+    }
+
+    queueNormUrls.add(norm);
+    queue.items.push({
+      id: item.id,
+      url: item.url,
+      resolvedUrl: null,
+      title: item.title,
+      pubDate: item.pubDate,
+      firstSeen: new Date().toISOString(),
+      status: 'pending',
+      rejectReason: null,
+      pendingReason: null,
+      attempts: 0,
+      lastAttemptAt: null,
+      audit: null,
+      location: item.location,
+      media: item.media,
+      date: item.date,
+    });
+    newlyEnqueued++;
+  }
+  console.log(`📥 新規候補キュー登録: ${newlyEnqueued} 件 (キュー総数: ${queue.items.length} 件)`);
+
+  // --- 本文スキャンと検証対象の選定 ---
+  // 上限強制クランプ（最大20件）
+  const configuredMax = Number(process.env.BODY_SCAN_MAX) || 20;
+  const maxScanPerRun = Math.min(Math.max(1, configuredMax), 20);
+
+  // 判定基準:
+  // - status === 'pending'
+  // - attempts < 5
+  // - pubDate が未来（+10分超）でないこと（時計ズレ・未来記事は保留）
+  // - 120時間以内であること（pubDate優先、なければfirstSeen）
+  const eligibleItems = queue.items.filter((item) => {
+    if (item.status !== 'pending') return false;
+    if (item.attempts >= 5) {
+      item.status = 'gave_up';
+      item.pendingReason = 'max_attempts_reached';
+      return false;
+    }
+
+    const pubDateTime = item.pubDate ? new Date(item.pubDate).getTime() : 0;
+    if (pubDateTime && !isNaN(pubDateTime)) {
+      if (pubDateTime > now + 10 * 60 * 1000) {
+        // 未来日時は保留
+        return false;
       }
-      // 既存記事が「全国」で新着記事の地域が特定されている場合は補正更新
-      if (cleanExisting[dupIdx].location === '全国' && item.location !== '全国') {
-        console.log(`🗺️ 既存記事の地域を特定更新: ${cleanExisting[dupIdx].location} -> ${item.location} (${item.title})`);
-        cleanExisting[dupIdx].location = item.location;
-        cleanExisting[dupIdx].summary = `${item.location}で発生した外国人関与の事件・容疑に関する報道速報です。`;
+      if (now - pubDateTime > TTL_120H_MS) {
+        item.status = 'gave_up';
+        item.pendingReason = 'expired_120h';
+        return false;
       }
     } else {
-      trulyNew.push(item);
-    }
-  }
-
-  // --- [本文スキャン] 見出しに国籍語が無い事件記事の本文を確認する（Gemini API は使わない） ---
-  const bodyTargets = trulyNew.filter(i => i._needsBody);
-  if (bodyTargets.length > 0) {
-    if (process.env.BODY_SCAN === '0') {
-      console.log(`📰 [本文スキャン] 無効(BODY_SCAN=0)。本文確認の対象 ${bodyTargets.length} 件は候補にしません`);
-    } else {
-      const scanner = articleFetcher.createScanner({
-        findNationality: (sentence) => !!gate.ruleSuspect(sentence, ''),
-        maxPerRun: Number(process.env.BODY_SCAN_MAX) || 40,
-      });
-      const st = await scanner.scan(bodyTargets);
-      console.log(`📰 [本文スキャン] 対象${st.total}件 | 国籍語あり ${st.nat} / なし ${st.noNat} / 保留(取得失敗) ${st.pending} / 404 ${st.gone} / 断念 ${st.gaveUp} | キャッシュ ${st.cached} / 再試行待ち ${st.skippedBackoff} / 上限超過 ${st.skippedCap}${st.breaker ? ' | ⚠️ Googleの連続失敗のため打ち切り' : ''}${Object.keys(st.reasons).length ? ' | 失敗理由 ' + Object.entries(st.reasons).map(([k, v]) => `${k}=${v}`).join(', ') : ''}`);
-      if (scanner.flush() && process.env.GITHUB_OUTPUT) {
-        try { fs.appendFileSync(process.env.GITHUB_OUTPUT, 'state_changed=true\n'); } catch (_) { /* 出力に失敗してもキャッシュは次回読める */ }
+      const firstSeenTime = item.firstSeen ? new Date(item.firstSeen).getTime() : 0;
+      if (firstSeenTime && (now - firstSeenTime > TTL_120H_MS)) {
+        item.status = 'gave_up';
+        item.pendingReason = 'expired_120h';
+        return false;
       }
     }
-    // 本文で国籍語を確認できた記事だけを候補に残す。確認できなかった記事（国籍語なし・取得失敗・保留・上限超過）は今回の候補から外す。
-    // 取得失敗・上限超過は、RSSの窓（3日）の間は毎時再登場し、キャッシュの間隔に従って再試行される（国籍なしとして確定はしない）。
-    for (let i = trulyNew.length - 1; i >= 0; i--) {
-      const it = trulyNew[i];
-      if (!it._needsBody) continue;
-      if (it.bodyContext) {
-        delete it._needsBody;
-        // 見出しで地名が決まらなかった記事は、本文から都道府県を解決する
-        if (it.location === '全国') {
-          const locRes = gate.resolvePrefecture(it.bodyContext, { primaryLocationSigns: PRIMARY_LOCATION_SIGNS });
-          if (locRes && locRes.pref) {
-            it.location = locRes.pref;
-            it.summary = `${it.location}で発生した外国人関与の事件・容疑に関する報道速報です。`;
-            console.log(`🗺️ [本文スキャン] 地域を特定: ${it.location} (${it.title})`);
-          }
-        }
-      } else {
-        trulyNew.splice(i, 1);
-      }
-    }
-  }
 
-  // --- AIゲート ---
-  const candidatesBeforeLegacy = trulyNew.slice();
-
-  // 旧AI審査は、シャドー運転中だけ実行する（公開データを現行どおりに保つため）
-  if (SHADOW_MODE && trulyNew.length > 0 && process.env.GEMINI_API_KEY) {
-    console.log(`\n🤖 === [シャドー運転] 旧AI審査を実行中 (${trulyNew.length} 件) ===`);
-    const aiVettedNew = [];
-    for (const item of trulyNew.filter(i => !i._soft)) { // _soft は旧ルールが落としていた記事。旧AIには渡さず、新ゲートの比較ログにだけ出す
-      const aiResult = await inspectAndFormatWithAI(item.title, item.media, item.description);
-      await sleep(1000); // 15 RPM (1分間15回) 無料枠制限を完全防衛
-      if (aiResult.isValid) {
-        if (aiResult.cleanTitle && aiResult.cleanTitle.trim().length > 0) {
-          console.log(`   ✨ [旧AI採用・整形] 前: ${item.title}\n                     後: ${aiResult.cleanTitle}`);
-          item.title = aiResult.cleanTitle;
-        } else {
-          console.log(`   ✅ [旧AI採用] ${item.title}`);
-        }
-        // 「全国」のときだけ慎重にAI推定地域で補正
-        if (aiResult.location && aiResult.location !== '全国' && item.location === '全国') {
-          item.location = aiResult.location;
-          item.summary = `${item.location}で発生した外国人関与の事件・容疑に関する報道速報です。`;
-        }
-        aiVettedNew.push(item);
-      } else {
-        console.log(`   ⛔ [旧AI却下] 理由: ${aiResult.reason} | 見出し: ${item.title}`);
-      }
-    }
-    trulyNew.length = 0;
-    trulyNew.push(...aiVettedNew);
-  }
-
-  const gateOut = await gate.run({
-    candidates: SHADOW_MODE ? candidatesBeforeLegacy : trulyNew.slice(),
-    shadow: SHADOW_MODE,
-    legacyAccepted: SHADOW_MODE ? trulyNew : null, // 旧ロジックの採否と比較するため
-    apiKey: process.env.GEMINI_API_KEY,
-    primaryLocationSigns: typeof PRIMARY_LOCATION_SIGNS !== 'undefined' ? PRIMARY_LOCATION_SIGNS : [],
+    return true;
   });
 
-  if (!SHADOW_MODE) {
-    trulyNew.length = 0;
-    // 新ゲート（一次判定→最終精査）を通ったものだけが公開される。audited は、以後の旧regex掃除・第2チェックで再び落とさない印
-    trulyNew.push(...gateOut.accepted.map(({ _soft, _needsBody, _bodyPriority, bodyContext, ...rest }) => ({ ...rest, audited: true })));
-  }
+  const targetsToScan = eligibleItems.slice(0, maxScanPerRun);
+  console.log(`🔍 本文検証対象: ${targetsToScan.length} 件（1実行ハード上限 ${maxScanPerRun} 件）`);
 
-  // 最新日付（2026-08-26 → 2026-08-25 ...）順に厳密ソート
-  const rawMerged = [...trulyNew, ...cleanExisting]
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 10000);
+  // --- 本文スキャンと厳格検証の実行 ---
+  let stateChanged = purgedCount > 0 || newlyEnqueued > 0;
 
-  // === 【第2チェックシステム：最終審査ゲート（セカンドバリデーター）】 ===
-  // 外部API・手動確認を一切使わず、サイトデータ書き込み直前の最終防衛線として
-  // 被害者トラップ・日本人ブローカー・企業違反・重複を完全自動スキャン
-  function runSecondStageQualityGate(articles) {
-    console.log('\n🛡️ === [第2チェックシステム] 最終審査ゲート（セカンドバリデーター）起動 ===');
-    const vettedArticles = [];
-    const rejectedLog = [];
+  if (targetsToScan.length > 0) {
+    const scanner = articleFetcher.createScanner({
+      findNationality: (sentence) => !!gate.ruleSuspect(sentence, ''),
+      maxPerRun: maxScanPerRun,
+    });
 
-    for (const item of articles) {
-      const title = item.title;
+    for (const qItem of targetsToScan) {
+      qItem.attempts += 1;
+      qItem.lastAttemptAt = new Date().toISOString();
 
-      // 1. 【失格判定①】被害者トラップ（外国人が被害者、加害者が日本人の事案）の完全遮断
-      const isVictimPattern = /(?:自転車の)?(?:ベトナム|中国|外国人|外国籍|ミャンマー|インドネシア|フィリピン|タイ|韓国|台湾)(?:人|国籍|籍)?[の男女代性0-9０-９歳（）\s]*[をにへ]?(?:死亡ひき逃げ|ひき逃げ|はねられ|はねて|死亡|重傷|被害)/.test(title) ||
-                              /(?:ベトナム|中国|フィリピン|タイ|インドネシア|韓国|外国)(?:人|国籍|籍)?[男女代性0-9０-９歳（）\s]*[をにへ].*(?:はね|撥ね|轢き|ひき逃げ|暴行|殺害され|刺され|だまし取られ)/.test(title);
-      const hasExplicitForeignPerpetrator = RE_FOREIGN_PERPETRATOR.test(title);
-      if (isVictimPattern && !hasExplicitForeignPerpetrator && !item.audited) {
-        rejectedLog.push({ reason: '被害者トラップ（加害者が日本人・被害者が外国人）', title });
-        continue;
+      console.log(`\n📄 [本文検証] 審査開始: ${qItem.title.slice(0, 40)}... (試行 ${qItem.attempts}回目)`);
+
+      const scanItem = { url: qItem.url, title: qItem.title };
+      await scanner.scan([scanItem]);
+
+      const scanResult = scanItem._scanResult;
+      if (scanItem.resolvedUrl) {
+        qItem.resolvedUrl = scanItem.resolvedUrl;
       }
 
-      // 2. 【失格判定②】日本人斡旋・紹介・ブローカー事案の完全遮断
-      const isBrokerPattern = /(?:偽装結婚|在留資格|不法就労).*(?:斡旋|あっせん|紹介|仲介)/.test(title) ||
-                              /(?:斡旋|あっせん|紹介|仲介).*疑いで逮捕/.test(title) ||
-                              /(?:飲食店経営|会社役員|会社経営|無職|男２人|男ら).*(?:フィリピン|ベトナム|中国|タイ).*紹介/.test(title);
-      if (isBrokerPattern && !item.audited) {
-        rejectedLog.push({ reason: '日本人ブローカー（斡旋・紹介・仲介役が日本人）', title });
-        continue;
-      }
-
-      // 3. 【失格判定③】受入企業側・行政処分・労基法違反統計の完全遮断
-      const isCorporateLaborViolation = /監督対象|監督指導|安衛法|是正勧告|安全基準違反|労基法違反|受入企業|受入れ企業|重大・悪質.*件を送検|送検等の状況/.test(title);
-      if (isCorporateLaborViolation) {
-        rejectedLog.push({ reason: '受入企業側の労基法違反・行政処分統計', title });
-        continue;
-      }
-
-      // 4. 【失格判定④】日本人社員によるスパイ・機密流出・海外逃亡拠点の完全遮断
-      const isJapaneseSpyOrOverseasBase = /旭化成/.test(title) ||
-                                          /(?:中国企業|外国企業|中国側)[へのに]*(?:流出|漏洩|漏えい|提供|持ち出)/.test(title) ||
-                                          /(?:半導体|機密|営業秘密).*(?:流出|漏洩|漏えい).*(?:元社員|元従業員|元開発責任者)/.test(title) ||
-                                          /[JＪ][PＰ]ドラゴン/.test(title) ||
-                                          /フィリピンを拠点に「かけ子」/.test(title);
-      if (isJapaneseSpyOrOverseasBase) {
-        rejectedLog.push({ reason: '日本人社員のスパイ流出または日本人海外拠点', title });
-        continue;
-      }
-
-      // 6. 【失格判定⑥】具体的刑事手続き・事件性の欠如および海外政治・コラム・論考の完全遮断
-      const hasConcreteLegalAction = /(?:逮捕|容疑|疑い|送検|起訴|判決|摘発|指名手配|家宅捜索|検挙|公判|地裁|地検|簡裁|高裁|書類送検|追送検|不起訴|拘禁刑|懲役|実刑|罰金|強盗|窃盗|傷害|暴行|殺害|殺人|ひき逃げ)/.test(title);
-      const isNonCrimeMediaOrReport = /(?:画像・写真|写真：|調査同行|実態を告白|報奨金制度|コラム|連載|ルポ|回顧|昔は|が明かす|大統領|トランプ|バイデン|伸びない理由|阻むもの)/.test(title);
-      const isOverseasPoliticsOrMedia = /(?:東洋経済|プレジデント|ダイヤモンド|現代ビジネス|NEWSポストセブン|ポストセブン|週刊女性|FLASH|FRIDAY|文春|日刊ゲンダイ|新潮|夕刊フジ|SPA)/.test(item.media || '') || /アメリカ移民|米国移民|トランプ政権/.test(title);
-      if (!hasConcreteLegalAction || isNonCrimeMediaOrReport || isOverseasPoliticsOrMedia) {
-        rejectedLog.push({ reason: '非事件記事（海外政治・コラム・週刊誌ルポ・回顧・大統領・調査同行・刑事手続き欠如）', title });
-        continue;
-      }
-
-      vettedArticles.push(item);
-    }
-
-    // 5. 【失格判定⑤】最終配列レベルでの同一事件・別メディア重複の強制一本化（高品質一次メディア優先）
-    const finalUniqueArticles = [];
-    for (const item of vettedArticles) {
-      const existingIdx = finalUniqueArticles.findIndex(ex => isSameEvent(ex, item));
-      if (existingIdx === -1) {
-        finalUniqueArticles.push(item);
-      } else {
-        const existing = finalUniqueArticles[existingIdx];
-        const isHigherPriority = getMediaPriority(item.media) > getMediaPriority(existing.media);
-        const isMoreDetailed = item.title.length > existing.title.length;
-        // 日付は常に新しい方を維持（古い記事で置換されて日付が巻き戻るのを100%防止）
-        const latestDate = new Date(existing.date) >= new Date(item.date) ? existing.date : item.date;
-
-        if (isHigherPriority || (getMediaPriority(item.media) === getMediaPriority(existing.media) && isMoreDetailed)) {
-          rejectedLog.push({ reason: `重複記事の一本化統合（置換）: ${existing.title}`, title: item.title });
-          finalUniqueArticles[existingIdx] = { ...item, date: latestDate };
+      if (!scanResult || !scanResult.ok) {
+        const reason = (scanResult && scanResult.reason) || 'fetch_failed';
+        console.log(`   ⚠️ 本文取得失敗: ${reason}`);
+        if (reason === 'gone' || reason === 'invalid_url') {
+          qItem.status = 'gave_up';
+          qItem.pendingReason = reason;
         } else {
-          rejectedLog.push({ reason: `重複記事の一本化統合（除外）: ${item.title}`, title: existing.title });
-          finalUniqueArticles[existingIdx] = { ...existing, date: latestDate };
+          // 一時的失敗（保留して次回再試行）
+          qItem.pendingReason = reason;
+          if (qItem.attempts >= 5) {
+            qItem.status = 'gave_up';
+          }
         }
+        continue;
+      }
+
+      const bodyText = scanResult.text || '';
+      // 厳格フェイルクローズ: 本文100文字以上必須（メタ説明文・スニペットのみのすり抜けを完全遮断）
+      if (!bodyText || bodyText.length < 100) {
+        console.log(`   ⚠️ 本文抽出不足（100文字未満・メタ説明文遮断）: ${bodyText.length}文字`);
+        qItem.pendingReason = 'insufficient_text_length';
+        if (qItem.attempts >= 5) qItem.status = 'gave_up';
+        continue;
+      }
+
+      // 本文の3要素結合検証（見出しはトピックガードのみに使用）
+      const verifyRes = gate.verifyArticleContent(bodyText, qItem.title);
+
+      if (verifyRes.rejected) {
+        qItem.status = 'rejected';
+        qItem.rejectReason = verifyRes.rejectReason;
+        console.log(`   ❌ 厳格除外: 理由 ${verifyRes.rejectReason}`);
+      } else if (verifyRes.verified) {
+        qItem.status = 'verified';
+        qItem.location = verifyRes.location;
+        qItem.audit = verifyRes.audit;
+        console.log(`   ✅ 厳格合格！ 現場: ${verifyRes.location}`);
+      } else {
+        // 根拠不足（保留）
+        qItem.status = 'insufficient_evidence';
+        qItem.pendingReason = verifyRes.pendingReason;
+        console.log(`   ⏳ 根拠不足（保留）: ${verifyRes.pendingReason}`);
       }
     }
 
-    if (rejectedLog.length > 0) {
-      console.log(`⚠️ 第2チェックシステムにより ${rejectedLog.length} 件の不適格・重複記事を自動排除しました:`);
-      rejectedLog.forEach((log, i) => {
-        console.log(`   [${i+1}] 【${log.reason}】 ${log.title}`);
-      });
-    } else {
-      console.log('✅ 第2チェックシステム全件通過：不適格記事・重複ゼロを確認。');
+    if (scanner.flush()) {
+      stateChanged = true;
     }
-
-    // 重複置換後も、最終的に最新日付順（降順）であることを100%保証
-    finalUniqueArticles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-    return finalUniqueArticles;
   }
 
-  const finalMerged = runSecondStageQualityGate(rawMerged);
+  // キューの保存
+  queue.updatedAt = new Date().toISOString();
+  const tmpQueuePath = `${queuePath}.tmp`;
+  fs.writeFileSync(tmpQueuePath, JSON.stringify(queue, null, 2), 'utf-8');
+  fs.renameSync(tmpQueuePath, queuePath);
 
-  fs.writeFileSync(NEWS_DATA_PATH, JSON.stringify(finalMerged, null, 2), 'utf-8');
-  console.log(`Ultimate Filtering & Mapping Complete! newsData.json updated. Total entries: ${finalMerged.length}`);
+  if (stateChanged && process.env.GITHUB_OUTPUT) {
+    try {
+      fs.appendFileSync(process.env.GITHUB_OUTPUT, 'state_changed=true\n');
+    } catch (_) {}
+  }
+
+  // --- 合格記事の抽出と重複照合（同一バッチ内＆既存データ） ---
+  const newlyVerified = queue.items.filter((item) => item.status === 'verified');
+  const acceptedNew = [];
+  const seenBatchUrls = new Set();
+  const knownEvents = frozenExisting.map((item) => ({ fingerprint: eventFingerprint(item), date: item.date }));
+
+  for (const v of newlyVerified) {
+    const normUrl = normalizeArticleUrl(v.url);
+    const normResolved = v.resolvedUrl ? normalizeArticleUrl(v.resolvedUrl) : null;
+
+    // 1. 既存掲載データとの照合
+    if (existingNormUrls.has(normUrl) || (normResolved && existingNormUrls.has(normResolved))) {
+      continue;
+    }
+
+    // 2. 今回バッチ内の合格記事同士の重複照合
+    if (seenBatchUrls.has(normUrl) || (normResolved && seenBatchUrls.has(normResolved))) {
+      console.log(`   ⏩ バッチ内重複除外: ${v.title}`);
+      continue;
+    }
+
+    // 媒体違いの同一事件を除外。具体的な市区町村・罪種・国籍がすべて一致し、
+    // 公開日も5日以内の場合に限る。根拠が足りない記事は統合せず、誤統合を避ける。
+    const fingerprint = eventFingerprint(v);
+    if (fingerprint && knownEvents.some((e) => e.fingerprint === fingerprint && withinFiveDays(e.date, v.date))) {
+      console.log(`   ⏩ 別媒体の同一事件を重複除外: ${v.title}`);
+      continue;
+    }
+    if (fingerprint) knownEvents.push({ fingerprint, date: v.date });
+
+    seenBatchUrls.add(normUrl);
+    if (normResolved) seenBatchUrls.add(normResolved);
+
+    // 公開データ用オブジェクト作成（本文抜粋 audit は著作権保護のため絶対に含めない！）
+    acceptedNew.push({
+      id: v.id,
+      title: v.title,
+      date: v.date,
+      location: v.location,
+      media: v.media,
+      url: v.url,
+      summary: `${v.location}で発生した外国人関与の事件・容疑に関する報道速報です。`,
+      audited: true
+    });
+  }
+
+  console.log(`\n🎉 新規合格・掲載対象記事: ${acceptedNew.length} 件`);
+
+  // --- 既存データとの結合と保存（差分ゼロ保護） ---
+  if (acceptedNew.length === 0) {
+    console.log('✅ 新着の合格記事はありませんでした。newsData.json の更新をスキップします（差分ゼロ保護）。');
+    return;
+  }
+
+  // 新着記事を日付降順に並べ替え
+  acceptedNew.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  // 既存197件の配列の先頭に新着記事のみを結合（既存データの順序・内容は1ミリも改変しない）
+  const finalMerged = [...acceptedNew, ...frozenExisting];
+
+  fs.writeFileSync(newsDataPath, JSON.stringify(finalMerged, null, 2), 'utf-8');
+  console.log(`🚀 newsData.json を安全に更新しました。新着 ${acceptedNew.length} 件を追加（合計: ${finalMerged.length} 件）`);
 }
 
-main().catch(err => {
-  console.error('Fatal error during news update:', err);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch(err => {
+    console.error('Fatal error during news update:', err);
+    process.exit(1);
+  });
+}
+
+module.exports = {
+  main,
+  fetchRSS,
+  extractItemsFromRSS,
+  cleanTitleText,
+  normalizeArticleUrl,
+  isDomesticCrime,
+  isOverseasOrEntertainmentMedia,
+  eventFingerprint,
+};
