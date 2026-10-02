@@ -106,30 +106,26 @@ function itemEffectiveTime(item) {
 }
 
 function shouldRetainQueueItem(item, now = Date.now()) {
-  // 未処理候補は先に expireStalePendingItems() で終端化する。終端後は30日監査保持。
+  // 未処理候補は処理完了まで保持する。120時間は検索・続報確認の窓であり、審査放棄期限ではない。
   if (item?.status === 'pending') return true;
   const effective = Date.parse(item?.terminalAt || item?.updatedAt || '') || itemEffectiveTime(item);
   if (!effective) return true;
   return now - effective < 30 * 24 * 60 * 60 * 1000;
 }
 
-function expireStalePendingItems(items, now = Date.now()) {
-  const ttlMs = 120 * 60 * 60 * 1000;
-  let expired = 0;
-  const terminalAt = new Date(now).toISOString();
+function recoverExpiredPendingItems(items, now = Date.now()) {
+  let recovered = 0;
   for (const item of items) {
-    if (item.status !== 'pending') continue;
-    const effective = itemEffectiveTime(item);
-    if (!effective || now - effective < ttlMs) continue;
-    item.status = 'unverified';
-    item.pendingReason = 'queue_expired_after_120h';
-    item.lastError = 'queue_ttl_elapsed';
-    item.terminalAt = terminalAt;
-    item.nextAttemptAt = null;
+    if (item.status !== 'unverified' || item.pendingReason !== 'queue_expired_after_120h') continue;
+    item.status = 'pending';
+    item.pendingReason = null;
+    item.lastError = null;
+    item.terminalAt = null;
+    item.nextAttemptAt = new Date(now).toISOString();
     item.sourceBody = null;
-    expired++;
+    recovered++;
   }
-  return expired;
+  return recovered;
 }
 
 function retrySlotLimit(scanLimit) {
@@ -246,16 +242,29 @@ function candidateLane(item) {
     : 'broad_discovery';
 }
 
-// レーン内は公開時刻の新しい順に審査する。
-// 古い候補を先に混ぜると大量キューで新着が1レーンあたり1件しか通らず、
-// 実際の今日の報道が公開前に120時間TTLで消えるため、期限順の交互選択はしない。
-function prioritizeBeforeExpiry(items) {
-  return prioritizeRecentCandidates(items);
+// 各レーンの審査枠の75%を新着、25%を最古の未処理候補に配り、
+// 速報性と滞留解消を両立する。枠が小さい場合も新着枠を最低1件確保する。
+function prioritizeWithBacklog(items, limit) {
+  if (limit <= 0 || items.length === 0) return [];
+  const ordered = prioritizeRecentCandidates(items);
+  if (ordered.length <= limit) return ordered;
+  const backlogSlots = limit >= 4 ? Math.max(1, Math.floor(limit * 0.25)) : 0;
+  const recentSlots = limit - backlogSlots;
+  const recent = ordered.slice(0, recentSlots);
+  const recentSet = new Set(recent);
+  const oldest = ordered.slice(recentSlots).reverse()
+    .filter((item) => !recentSet.has(item))
+    .slice(0, backlogSlots);
+  return [...recent, ...oldest];
+}
+
+function prioritizeBeforeExpiry(items, limit = items.length) {
+  return prioritizeWithBacklog(items, limit);
 }
 
 function prioritizeCandidateLanes(items, limit) {
-  const explicit = prioritizeBeforeExpiry(items.filter((item) => candidateLane(item) === 'explicit_foreign'));
-  const broad = prioritizeBeforeExpiry(items.filter((item) => candidateLane(item) === 'broad_discovery'));
+  const explicit = items.filter((item) => candidateLane(item) === 'explicit_foreign');
+  const broad = items.filter((item) => candidateLane(item) === 'broad_discovery');
   // 同じ日・同じ正規化見出しが媒体違いで大量に並ぶと、同一事件が審査枠を占有する。
   // 事件類似度では統合せず、完全一致に近い見出しだけを「今回の取得対象」から1件に畳む。
   const uniqueHeadlines = (laneItems) => {
@@ -268,14 +277,18 @@ function prioritizeCandidateLanes(items, limit) {
       return true;
     });
   };
-  const uniqueExplicit = uniqueHeadlines(explicit);
-  const uniqueBroad = uniqueHeadlines(broad);
+  // 重複候補は先に新着・元媒体優先で整列してから畳み、良い代表記事を残す。
+  const uniqueExplicit = uniqueHeadlines(prioritizeRecentCandidates(explicit));
+  const uniqueBroad = uniqueHeadlines(prioritizeRecentCandidates(broad));
   const explicitSlots = Math.ceil(limit * 0.75);
   const broadSlots = limit - explicitSlots;
-  const selected = [...uniqueExplicit.slice(0, explicitSlots), ...uniqueBroad.slice(0, broadSlots)];
+  const selected = [
+    ...prioritizeBeforeExpiry(uniqueExplicit, explicitSlots),
+    ...prioritizeBeforeExpiry(uniqueBroad, broadSlots),
+  ];
   if (selected.length < limit) {
     const selectedIds = new Set(selected);
-    const overflow = prioritizeBeforeExpiry([...uniqueExplicit, ...uniqueBroad].filter((item) => !selectedIds.has(item)));
+    const overflow = prioritizeRecentCandidates([...uniqueExplicit, ...uniqueBroad].filter((item) => !selectedIds.has(item)));
     selected.push(...overflow.slice(0, limit - selected.length));
   }
   return selected;
@@ -1866,13 +1879,13 @@ async function main() {
   }
 
   const now = Date.now();
-  const TTL_120H_MS = 120 * 60 * 60 * 1000; // 5日間 (120時間)
+  const TTL_120H_MS = 120 * 60 * 60 * 1000; // 5日間の候補・続報確認窓
 
-  // 未処理候補は5日間、新着優先で審査する。期限を超えた記事は削除せず
-  // 「期限切れ・未掲載」として理由を記録し、監査用に終端から30日保持する。
-  const expiredPendingCount = expireStalePendingItems(queue.items, now);
-  if (expiredPendingCount > 0) {
-    console.warn(`⌛ 120時間経過で未掲載終了: ${expiredPendingCount} 件を監査保持へ移行しました`);
+  // 旧版で120時間経過を理由に終了扱いとなった候補を復帰させる。
+  // 未処理候補は取得窓の経過だけを理由に捨てず、審査枠で順次処理する。
+  const recoveredExpiredPendingCount = recoverExpiredPendingItems(queue.items, now);
+  if (recoveredExpiredPendingCount > 0) {
+    console.warn(`♻️ 旧120時間期限切れ候補を再審査キューへ復帰: ${recoveredExpiredPendingCount} 件`);
   }
   const initialQueueCount = queue.items.length;
   queue.items = queue.items.filter((item) => {
@@ -1996,7 +2009,7 @@ async function main() {
   console.log(`🔍 本文検証対象: 合計 ${targetsToScan.length} 件 (再試行: ${retryCandidates.length} 件, 新着: ${selectedNewCandidates.length} 件 / 上限 ${maxScanPerRun} 件)`);
 
   // --- 本文スキャンと厳格検証の実行 ---
-  let stateChanged = expiredPendingCount > 0 || purgedCount > 0 || newlyEnqueued > 0 || migratedCount > 0 || targetsToScan.length > 0;
+  let stateChanged = recoveredExpiredPendingCount > 0 || purgedCount > 0 || newlyEnqueued > 0 || migratedCount > 0 || targetsToScan.length > 0;
 
   if (targetsToScan.length > 0) {
     const scanner = articleFetcher.createScanner({
@@ -2132,7 +2145,7 @@ async function main() {
       '|---|---:|',
       `| 今回の本文審査 | ${targetsToScan.length} |`,
       `| 未審査 pending | ${pendingItems.length} |`,
-      `| 120時間経過・未掲載終了（今回） | ${expiredPendingCount} |`,
+      `| 旧期限切れから再審査キューへ復帰 | ${recoveredExpiredPendingCount} |`,
       `| pending: 明示的な外国籍手掛かり | ${laneCounts.explicit_foreign || 0} |`,
       `| pending: 広域発見候補 | ${laneCounts.broad_discovery || 0} |`,
       `| 96時間を超えた審査待ち候補 | ${olderThan96h} |`,
@@ -2280,7 +2293,7 @@ async function main() {
         newlyEnqueued,
         scanned: targetsToScan.length,
         retries: retryCandidates.length,
-        expired: expiredPendingCount,
+        recoveredExpired: recoveredExpiredPendingCount,
         published: acceptedNew.length,
         pending: pendingItems.length,
         verified: queueStatusCounts.verified || 0,
@@ -2354,7 +2367,8 @@ module.exports = {
   scheduleQueueItem,
   itemEffectiveTime,
   shouldRetainQueueItem,
-  expireStalePendingItems,
+  recoverExpiredPendingItems,
+  prioritizeWithBacklog,
   retrySlotLimit,
   hashBody,
   // 公式ソース統合の単体検証用

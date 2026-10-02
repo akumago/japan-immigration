@@ -10,7 +10,7 @@ const fetchNews = require('../fetch-news.cjs');
 
 const tmpDir = () => fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-test-'));
 
-test('pipeline: pendingは120時間で理由付き未掲載終了、終端から30日監査保持する', () => {
+test('pipeline: 120時間を過ぎたpendingも捨てず、終端レコードだけ30日監査保持する', () => {
   const now = 1_000_000_000_000;
   const dayMs = 24 * 3600 * 1000;
 
@@ -21,17 +21,25 @@ test('pipeline: pendingは120時間で理由付き未掲載終了、終端から
   const oldNewsRecentlyTerminal = { pubDate: new Date(now - 60 * dayMs).toISOString(), terminalAt: new Date(now - 2 * dayMs).toISOString(), status: 'unverified' };
   const undatedPending = { status: 'pending' };
 
-  assert.equal(fetchNews.expireStalePendingItems([overduePending, recentPending, undatedPending], now), 1);
-  assert.equal(overduePending.status, 'unverified');
-  assert.equal(overduePending.pendingReason, 'queue_expired_after_120h');
-  assert.equal(overduePending.sourceBody, null, '監査保持に本文全文を残さない');
-  assert.equal(overduePending.terminalAt, new Date(now).toISOString());
-  assert.equal(fetchNews.shouldRetainQueueItem(overduePending, now), true, '期限切れ直後は監査保持する');
-  assert.equal(recentPending.status, 'pending', '120時間未満の記事は処理対象に残す');
+  assert.equal(fetchNews.shouldRetainQueueItem(overduePending, now), true, '120時間経過後も未処理候補を保持する');
+  assert.equal(overduePending.status, 'pending');
+  assert.equal(recentPending.status, 'pending', '120時間未満の記事も処理対象に残す');
   assert.equal(undatedPending.status, 'pending', '日時不明の記事は勝手に期限切れにしない');
   assert.equal(fetchNews.shouldRetainQueueItem(recentTerminal, now), true, '終端レコードは監査のため30日保持');
   assert.equal(fetchNews.shouldRetainQueueItem(oldTerminal, now), false, '古い終端レコードだけ整理対象');
   assert.equal(fetchNews.shouldRetainQueueItem(oldNewsRecentlyTerminal, now), true, '古い記事でも終端化から30日は監査保持');
+});
+
+test('pipeline: 旧仕様で120時間期限切れになった候補を再審査キューへ復帰する', () => {
+  const now = 1_000_000_000_000;
+  const legacyExpired = { status: 'unverified', pendingReason: 'queue_expired_after_120h', terminalAt: 'old', sourceBody: null };
+  const unrelated = { status: 'unverified', pendingReason: 'suspect_role_unclear_in_body' };
+  assert.equal(fetchNews.recoverExpiredPendingItems([legacyExpired, unrelated], now), 1);
+  assert.equal(legacyExpired.status, 'pending');
+  assert.equal(legacyExpired.pendingReason, null);
+  assert.equal(legacyExpired.terminalAt, null);
+  assert.equal(legacyExpired.nextAttemptAt, new Date(now).toISOString());
+  assert.equal(unrelated.status, 'unverified');
 });
 
 test('pipeline: 本文審査の既定上限は100、設定値も1〜100に制限する', () => {
@@ -674,10 +682,26 @@ test('キュー選定: 大量の古い候補があっても直近の複数新着
   ];
   const selected = fetchNews.prioritizeCandidateLanes(queue, 15);
   assert.equal(selected.length, 15);
-  assert.deepEqual(selected.map((item) => item.id), [
+  assert.deepEqual(selected.slice(0, 8).map((item) => item.id), [
     'today-7', 'today-6', 'today-5', 'today-4', 'today-3', 'today-2', 'today-1', 'today-0',
-    'old-0', 'old-1', 'old-10', 'old-11', 'old-12', 'old-13', 'old-14',
   ]);
+  assert.ok(selected.slice(8).every((item) => item.id.startsWith('old-')), '残りの枠で滞留候補も消化する');
+});
+
+test('キュー選定: 各レーンで最新候補と最古候補の両方を選び、古いpendingの飢餓を防ぐ', () => {
+  const fetchNews = require('../fetch-news.cjs');
+  const old = Array.from({ length: 20 }, (_, i) => ({
+    id: `old-${i}`, candidateLane: 'explicit_foreign',
+    pubDate: new Date(Date.UTC(2026, 0, 1) + i * 60_000).toISOString(), attempts: 0,
+  }));
+  const fresh = Array.from({ length: 8 }, (_, i) => ({
+    id: `fresh-${i}`, candidateLane: 'explicit_foreign',
+    pubDate: new Date(Date.UTC(2026, 9, 2) + i * 60_000).toISOString(), attempts: 0,
+  }));
+  const selected = fetchNews.prioritizeCandidateLanes([...old, ...fresh], 12);
+  assert.equal(selected.length, 12);
+  assert.ok(selected.some((item) => item.id === 'old-0'), '最古の未処理候補を拾う');
+  assert.ok(selected.some((item) => item.id === 'fresh-7'), '直近ニュースを優先する');
 });
 
 test('キュー選定: 同日・同一見出しの媒体違いは1回の審査枠を共有し、別事件を残す', () => {
@@ -718,6 +742,12 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
         <div>関連ニュース一覧</div>
       </body>
     </html>`;
+
+  const recoveredArticleHtml = `
+    <!DOCTYPE html>
+    <html><body><article class="article-body">
+      <p>静岡県浜松市の住宅で金品を盗んだとして、ペルー国籍の男（35）が窃盗の疑いで逮捕されました。男は現場から逃走していましたが、警察の捜査で関与が浮上し、容疑を認めているということです。警察は周辺の余罪も調べています。</p>
+    </article></body></html>`;
 
   // 99文字記事（3要素を満たすが、抽出後の実測文字数が99文字のため本番判定で厳密に遮断される）
   const article99Html = `
@@ -809,6 +839,9 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
       } else if (u.pathname === '/article-100') {
         res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
         res.end(article100Html);
+      } else if (u.pathname === '/article-recovered') {
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(recoveredArticleHtml);
       } else {
         res.writeHead(404);
         res.end('Not Found');
@@ -830,6 +863,18 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
     { id: 'initial-2', date: '2026-09-19', title: '過去の外国人犯罪事件2', location: '大阪府' },
   ];
   fs.writeFileSync(testNewsDataPath, JSON.stringify(initialExisting, null, 2), 'utf-8');
+  fs.writeFileSync(testQueuePath, JSON.stringify({ version: 1, items: [{
+    id: 'legacy-expired-item',
+    url: `http://127.0.0.1:${serverPort}/article-recovered`,
+    resolvedUrl: null,
+    title: '浜松市の住宅窃盗 ペルー国籍の男を逮捕',
+    pubDate: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString(),
+    firstSeen: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString(),
+    status: 'unverified',
+    pendingReason: 'queue_expired_after_120h',
+    attempts: 0,
+    terminalAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+  }] }, null, 2), 'utf-8');
 
   // 環境変数を設定して本番の main() を実行
   const prevEnv = {
@@ -849,12 +894,12 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
     await fetchNews.main();
 
     // 1. 公開データ（newsData.json）の検証
-    // 正当事件2件（長文記事は媒体違い候補を1件に統合 + 100文字境界記事）が追加され、合計4件になること
+    // 正当記事3件（通常長文＋100文字境界＋旧期限切れから復帰）だけが追加され、合計5件になること
     const updatedData = JSON.parse(fs.readFileSync(testNewsDataPath, 'utf-8'));
-    assert.equal(updatedData.length, 4, '通常長文記事と100文字記事の2件のみが追加され合計4件になること');
+    assert.equal(updatedData.length, 5, '通常長文・100文字境界・旧期限切れ復帰の記事のみが追加されること');
 
-    // 既存データの完全不変保持（index 2以降）
-    assert.deepEqual(updatedData.slice(2), initialExisting, '既存の過去データが1ビットも改変されていないこと');
+    // 既存データの完全不変保持（index 3以降）
+    assert.deepEqual(updatedData.slice(3), initialExisting, '既存の過去データが1ビットも改変されていないこと');
 
     // 2. メタ説明文のみの記事は newsData に追加されていないことを検証
     const metaAdded = updatedData.some((a) => a.title.includes('中国籍'));
@@ -863,6 +908,9 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
     // 3. キュー（newsQueue.json）の検証
     const updatedQueue = JSON.parse(fs.readFileSync(testQueuePath, 'utf-8'));
     assert.ok(updatedQueue.items.length >= 3, '候補がキューに登録されていること');
+    const recoveredItem = updatedQueue.items.find((item) => item.id === 'legacy-expired-item');
+    assert.equal(recoveredItem.status, 'verified', '旧120時間期限切れ候補を本番main()で再審査し、合格へ復帰させる');
+    assert.ok(updatedData.some((item) => item.id === 'legacy-expired-item'), '復帰した旧候補を公開データへ反映する');
 
     // 4. 【本番99文字境界の検証】99文字記事は本番 main() で確実に遮断され、公開データに追加されないこと
     const added99 = updatedData.some((a) => a.url && a.url.includes('article-99'));
