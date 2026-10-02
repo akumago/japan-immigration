@@ -91,7 +91,7 @@ const VICTIM_OBJECT_RE =
 // 国籍表現が加害者ではない役割: 雇われた側・装われた側・対象（向け/相手）
 // 「インド人の男に襲われ」: 人物名詞＋「に」＋受身 は、国籍側が動作主（加害者）。「男性 車にはねられ」の「車に」は該当しない
 const AGENT_PASSIVE_RE = /^(?:の)?(?:男性|女性|男|女|少年|少女|グループ|集団|客|ら|\d+人組|容疑者)(?:\(\d+\))?(?:ら)?に[^、。]{0,6}?(?:刺され|襲われ|襲撃され|殴られ|蹴られ|切りつけられ|脅され|だまし取られ|盗まれ|奪われ|連れ去られ|監禁され)/;
-const NON_SUSPECT_AFTER_RE = /^(?:被害者|被害女性|被害男性|を装|になりすま|風の|向け|相手|の相談|の支援|に(?:不法|違法|働か|就労|雇)|と偽)/;
+const NON_SUSPECT_AFTER_RE = /^(?:被害者|被害女性|被害男性|を装|になりすま|風の|向け|相手|の相談|の支援|に(?:不法|違法|働か|就労|雇)|と偽|の?(?:男|女|男性|女性)は(?:現場にいた|事件を目撃|目撃していた|同乗していた|同行していた|立ち会っていた))/;
 // ここに達したら被疑者側の述語に入ったとみなして、被害者語彙の探索を打ち切る
 const CLAUSE_STOP_RE = /[。]|逮捕|送検|送致|起訴|容疑|疑い|摘発|検挙|立件|書類送検/;
 
@@ -117,13 +117,18 @@ function nationalityLinkedToSuspect(sentence, occurrence) {
   const t = nfkc(sentence);
   const at = t.indexOf(nfkc(occurrence.text));
   if (at < 0) return false;
-  const tail = t.slice(at + nfkc(occurrence.text).length, at + nfkc(occurrence.text).length + 90);
-  const clause = tail.split(/[。、「」]/, 1)[0];
+  const tail = t.slice(at + nfkc(occurrence.text).length, at + nfkc(occurrence.text).length + 140);
+  // 速報本文は「容疑者は○日、現場で…」のように読点で主語述語が離れる。
+  // 読点で切ると、同一文に明記された犯罪行為を取りこぼすため文末・引用符だけで区切る。
+  const clause = tail.split(/[。「」]/, 1)[0];
+  // 同じ文に「逮捕されたのは日本人」など、実際の被疑者が別人だと明示されているときは、
+  // 前半の外国籍人物を逮捕対象へ誤結合しない（共犯を並列で逮捕した構文は除外しない）。
+  if (/(?:逮捕|送検|送致|起訴)[^。]{0,24}(?:されたのは|したのは)\s*日本(?:人|国籍)/.test(clause)) return false;
   const personHead = /^(?:の)?[^、。]{0,12}?(?:男|女|男性|女性|少年|少女|容疑者|被告|工員|会社員|従業員|店員|運転手|作業員|技能実習生|留学生|[0-9０-９]+人)/;
   if (!personHead.test(clause)) return false;
   // 被害者・対象者としての明示を除外
   if (/^(?:の)?(?:女性|女|男性|男)[^、。]{0,24}(?:被害|を装|になりすま|と結婚|と偽)/.test(clause)) return false;
-  const directArrest = /^(?:の)?[^、。]{0,15}?(?:男|女|男性|女性|少年|少女|容疑者|被告|工員|会社員|従業員|店員|運転手|作業員|技能実習生|留学生|[0-9０-９]+人)(?:ら)?(?:[0-9０-９]+人)?(?:[（(][^）)]{1,20}[）)])?(?:が|を)[^、。]{0,70}(?:逮捕|送検|送致|起訴|摘発|検挙|拘束|書類送検|再逮捕)/;
+  const directArrest = /^(?:の)?[^、。]{0,15}?(?:男|女|男性|女性|少年|少女|容疑者|被告|工員|会社員|従業員|店員|運転手|作業員|技能実習生|留学生|[0-9０-９]+人)(?:ら)?(?:[0-9０-９]+人)?(?:[（(][^）)]{1,20}[）)])?(?:が|を|は)[^。]{0,120}(?:逮捕|送検|送致|起訴|摘発|検挙|拘束|書類送検|再逮捕|(?:盗ん|窃盗|強盗|詐欺|暴行|侵入|密輸|所持|販売|製造|撮影)[^。]{0,20}疑い)/;
   return directArrest.test(clause);
 }
 
@@ -151,7 +156,9 @@ const JP_AUTH_RE = /警視庁|(?:道|府|県)警|警察署|[一-龥ぁ-んァ-�
 const OVERSEAS_PLACE_RE = new RegExp(`(?:${COUNTRY_ALT})(?:国内|で(?:起き|発生|の事件)|の(?:首都|州|都市))|(?:ニューヨーク|ロサンゼルス|ロンドン|パリ|ソウル|北京|上海|バンコク|マニラ|ジャカルタ|ハノイ|シドニー|ベルリン|モスクワ|ドバイ|台北|プノンペン|ヤンゴン)(?:市警|で|市内)`);
 const isOverseas = (t) => {
   const x = nfkc(t);
-  return (FOREIGN_ARREST_RE.test(x) || OVERSEAS_PLACE_RE.test(x)) && !JP_AUTH_RE.test(x) && !resolvePrefecture(x).pref;
+  // 日本の捜査機関への言及だけで海外発生の明記を打ち消さない。
+  // 海外の犯行場所が明記されていれば、後日の日本での逮捕記事でも海外事件として除外する。
+  return (FOREIGN_ARREST_RE.test(x) || OVERSEAS_PLACE_RE.test(x)) && !resolvePrefecture(cleanPoliceAndResidence(x)).pref;
 };
 
 // ───────────────────────── 場所の決定（辞書・最長一致・曖昧なら null） ─────────────────────────
@@ -541,12 +548,16 @@ const DOMESTIC_AIRPORTS = {
 };
 
 // 地名辞書の語幹（例: 江戸川区→江戸川）が別地名の一部に偶然含まれるケースを補正する。
-const DOMESTIC_LANDMARKS = { '江戸川台駅': '千葉県' };
+const DOMESTIC_LANDMARKS = {
+  '江戸川台駅': '千葉県',
+  // 多摩川〜武蔵小杉のような都県境を越える区間は、誤った都県を割り当てず全国扱いにする。
+  '東急東横線': '全国',
+};
 
 // 警察署・捜査機関および居住地・出身地の表記を除去
 function cleanPoliceAndResidence(str) {
   return str
-    .replace(/[^\s、。]+(?:警察署|地裁|簡裁|高裁|最高裁|捜査本部|検察庁|県警|府警|道警|警視庁)/g, ' ')
+    .replace(/[^\s、。]*(?:警察署|地裁|簡裁|高裁|最高裁|捜査本部|検察庁|県警|府警|道警|警視庁)/g, ' ')
     .replace(/[^\s、。]+(?:に住む|在住|出身)/g, ' ');
 }
 
@@ -680,14 +691,15 @@ function verifyArticleContent(text, title = '') {
     const CRIME_TOPIC_WORDS = [
       '詐欺', '強盗', '窃盗', '盗み', '密輸', '密入国', '覚醒剤', '麻薬', 'コカイン',
       '大麻', '殺人', '暴行', '傷害', '客引き', '白タク', '不法滞在', '不法就労',
-      '横領', '密猟', '侵入', '車庫', '空き家', 'タイヤ', 'オカヤドカリ'
+      '横領', '密猟', '侵入', '車庫', '空き家', 'タイヤ', 'オカヤドカリ', '商標法', '偽サプリ', 'すり'
     ];
     const titleTopics = CRIME_TOPIC_WORDS.filter((w) => title.includes(w));
     if (titleTopics.length > 0) {
       // 照合対象は被疑者文および直前文（直結する犯行文脈）のみに限定し、本文先頭の一致によるすり抜けを完全排除
       const prevSentence = suspectIndex > 0 ? sentences[suspectIndex - 1] : '';
       const suspectContext = `${prevSentence} ${suspectSentence}`;
-      const hasMatchingTopic = titleTopics.some((w) => suspectContext.includes(w));
+      const TOPIC_EQUIVALENTS = { '窃盗': /窃盗|盗み|盗ん/, 'すり': /すり|盗み|盗ん/, '商標法': /商標|偽物|偽サプリ/ };
+      const hasMatchingTopic = titleTopics.some((w) => (TOPIC_EQUIVALENTS[w] || new RegExp(w)).test(suspectContext));
       if (!hasMatchingTopic) {
         result.insufficientEvidence = true;
         result.pendingReason = 'topic_mismatch_contamination';
@@ -712,9 +724,16 @@ function verifyArticleContent(text, title = '') {
   }
 
   if (!scene) {
-    result.insufficientEvidence = true;
-    result.pendingReason = 'crime_location_unclear_in_context';
-    return result;
+    // 国内の警察・検察が被疑者を逮捕/送検した報道は、事件県を本文から特定できない場合も
+    // 国内事件としてのみ扱い、都道府県を推測せず「全国」にする。
+    // 明示的な海外発生は上段 isOverseas で先に除外する。
+    if (JP_AUTH_RE.test(suspectSentence) && /(?:逮捕|送検|送致|起訴|再逮捕)/.test(suspectSentence)) {
+      scene = { pref: '全国', evidence: `本文抜粋: ${suspectSentence.slice(0, 80)}` };
+    } else {
+      result.insufficientEvidence = true;
+      result.pendingReason = 'crime_location_unclear_in_context';
+      return result;
+    }
   }
 
   result.audit.japanCrime = { verified: true, evidence: scene.evidence };

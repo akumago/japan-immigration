@@ -321,6 +321,35 @@ test('本文判定: 熱海市での覚醒剤所持と逮捕された韓国籍の
   assert.equal(result.location, '静岡県');
 });
 
+test('本文判定: 読点で離れた東横線車内窃盗の被疑者を認識し、都県境区間は全国扱いにする', () => {
+  const body = '警察によりますと、中国籍のジン・レイ容疑者はことし8月、東急東横線の多摩川駅から武蔵小杉駅の間を走行中の電車内で、女性のショルダーバッグから現金およそ3万円などが入った財布を盗んだ疑いがもたれています。調べに対し容疑を認めました。';
+  const result = gate.verifyArticleContent(body, '東急東横線で中国籍の男を窃盗容疑で逮捕');
+  assert.equal(result.verified, true);
+  assert.equal(result.location, '全国');
+  assert.match(result.audit.suspectRole.evidence, /ジン・レイ容疑者/);
+});
+
+test('本文判定: 警視庁の国内事件は場所を推測せず全国扱いにする', () => {
+  const body = '「雪印メグミルク」の健康サプリメントの偽物が販売されていた事件で、警視庁は商標法違反の疑いで、偽物を輸入・販売していたとみられる中国籍の女を逮捕しました。商標法違反の疑いで逮捕されたのは、中国籍の石梨容疑者（38）です。石容疑者は去年10月、健康サプリの偽物3袋を販売し商標権を侵害した疑いがもたれています。';
+  const result = gate.verifyArticleContent(body, '中国籍の女を商標法違反の疑いで逮捕');
+  assert.equal(result.verified, true);
+  assert.equal(result.location, '全国');
+});
+
+test('本文判定: 現場にいた外国籍人物と逮捕された日本人を混同しない', () => {
+  const body = '東京都新宿区の店舗で発生した窃盗事件で、中国籍の男は現場にいたが、窃盗の疑いで逮捕されたのは日本人の男です。';
+  const result = gate.verifyArticleContent(body, '新宿区窃盗 中国籍の男');
+  assert.equal(result.verified, false);
+  assert.notEqual(result.audit.foreignNationality.verified, true);
+});
+
+test('本文判定: 日本の警察に逮捕されても、本文で犯行地が海外と明記された事件は除外する', () => {
+  const body = '中国国内で発生した窃盗事件について、警視庁は中国籍の男を逮捕しました。容疑者は犯行を認めています。';
+  const result = gate.verifyArticleContent(body, '中国国内の窃盗事件で中国籍の男を逮捕');
+  assert.equal(result.verified, false);
+  assert.equal(result.rejectReason, 'crime_outside_japan');
+});
+
 test('本文判定: 「台湾の男」を認識し、本文の別件で日本人が逮捕されても対象外国籍被疑者を落とさない', () => {
   const body = '東京都新宿区の住宅に侵入して金品を盗んだとして、台湾の男（57）を窃盗容疑で逮捕しました。別の事件では日本人の男も逮捕されたと発表されました。';
   const result = gate.verifyArticleContent(body, '新宿区の住宅侵入 台湾の男を逮捕');
@@ -389,6 +418,16 @@ test('直接メディア巡回: 時事通信の記事IDクエリを保持し、�
   const fnnItems = listings.parseListing('<a href="/articles/-/123456">浜松市で中国籍の男を窃盗容疑で逮捕</a>', fnn);
   assert.equal(fnnItems.length, 1);
   assert.equal(fnnItems[0].url, 'https://www.fnn.jp/articles/-/123456');
+});
+
+test('直接メディア巡回: FM GUNMAの事件記事を取得し、ページ送りリンクは候補にしない', () => {
+  const listings = require('./publisher-listings.cjs');
+  const source = listings.SOURCES.find((s) => s.id === 'fm-gunma-news');
+  const html = '<a href="/fmgnews/?p=12045">群馬県伊勢崎市でブラジル国籍の男をひき逃げ容疑で逮捕</a><a href="/fmgnews/?paged=2">次のページ</a><a href="/fmgnews/?p=12046">県内企業の景況調査</a>';
+  const items = listings.parseListing(html, source, { now: Date.parse('2026-10-02T00:00:00Z') });
+  assert.equal(items.length, 1);
+  assert.equal(items[0].url, 'https://www.fmgunma.com/fmgnews/?p=12045');
+  assert.match(items[0].title, /ひき逃げ容疑/);
 });
 
 test('独立RSS取得元: Yahoo国内・地域、NHK、NNN、FNNがGoogle検索とは別に登録される', () => {
@@ -530,6 +569,16 @@ test('キュー選定: 大量の古い候補があっても直近の複数新着
     'today-7', 'today-6', 'today-5', 'today-4', 'today-3', 'today-2', 'today-1', 'today-0',
     'old-0', 'old-1', 'old-10', 'old-11', 'old-12', 'old-13', 'old-14',
   ]);
+});
+
+test('キュー選定: 同日・同一見出しの媒体違いは1回の審査枠を共有し、別事件を残す', () => {
+  const queue = [
+    { id: 'syndicated-a', candidateLane: 'explicit_foreign', pubDate: '2026-10-02T01:00:00Z', title: '中国籍の女を商標法違反の疑いで逮捕 雪印メグミルク商品' },
+    { id: 'syndicated-b', candidateLane: 'explicit_foreign', pubDate: '2026-10-02T01:05:00Z', title: '中国籍の女を商標法違反の疑いで逮捕 雪印メグミルク商品（FNN）' },
+    { id: 'different-crime', candidateLane: 'explicit_foreign', pubDate: '2026-10-02T01:06:00Z', title: '中国籍の男を窃盗の疑いで逮捕 東急東横線車内で財布' },
+  ];
+  const selected = fetchNews.prioritizeCandidateLanes(queue, 3);
+  assert.deepEqual(selected.map((item) => item.id), ['different-crime', 'syndicated-b']);
 });
 
 test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2E パイプライン統合テスト', async () => {

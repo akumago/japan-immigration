@@ -9,6 +9,7 @@ const SOURCES = [
   { id: 'tv-asahi-society', name: 'テレ朝NEWS（事件・社会）', url: 'https://news.tv-asahi.co.jp/news_society/', host: 'news.tv-asahi.co.jp', path: /\/news_society\/articles\// },
   { id: 'jiji-society', name: '時事通信（社会）', url: 'https://www.jiji.com/jc/c?g=soc', host: 'www.jiji.com', path: /\/jc\/article/, preserveQuery: true },
   { id: 'fnn-shizuoka', name: 'FNNプライムオンライン（テレビ静岡）', url: 'https://www.fnn.jp/category/news-sut', host: 'www.fnn.jp', path: /\/articles\/-\// },
+  { id: 'fm-gunma-news', name: 'FM GUNMA NEWS（群馬県内）', url: 'https://www.fmgunma.com/fmgnews/', host: 'www.fmgunma.com', path: /\/fmgnews\/?$/, preserveQuery: true, queryIdParam: 'p', pageParam: 'paged', pages: 3 },
 ];
 
 const CRIME_RE = /逮捕|再逮捕|起訴|書類送検|送検|送致|摘発|検挙|容疑|疑い|事件|窃盗|強盗|詐欺|暴行|傷害|殺人|覚醒剤|麻薬|密輸|不法残留|不法就労|盗撮|わいせつ|飲酒運転|ひき逃げ|横領|放火|侵入|賭博|売春|風営法|入管法/;
@@ -36,6 +37,7 @@ function parseListing(html, source, { now = Date.now() } = {}) {
     let url;
     try { url = new URL(rawUrl, source.url); } catch (_) { continue; }
     if (url.hostname !== source.host || !source.path.test(url.pathname)) continue;
+    if (source.queryIdParam && !/^\d+$/.test(url.searchParams.get(source.queryIdParam) || '')) continue;
     const title = textOf(m[4]);
     if (title.length < 12 || !CRIME_RE.test(title)) continue;
     const normalized = source.preserveQuery && url.search ? `${url.origin}${url.pathname}${url.search}` : `${url.origin}${url.pathname}`;
@@ -72,7 +74,7 @@ async function collectPublisherCandidates(httpRequest, { sources = SOURCES, now 
     let sourceCount = 0;
     for (let page = 1; page <= (source.pages || 1); page++) {
       const pageUrl = new URL(source.url);
-      if (page > 1) pageUrl.searchParams.set('page', String(page));
+      if (page > 1) pageUrl.searchParams.set(source.pageParam || 'page', String(page));
       if (page > 1) await new Promise((resolve) => setTimeout(resolve, 2500));
       try {
         const response = await httpRequest(pageUrl.href, { timeoutMs: 12000, maxBytes: 1500000 });

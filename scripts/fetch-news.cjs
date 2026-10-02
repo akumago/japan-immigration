@@ -175,15 +175,38 @@ function prioritizeBeforeExpiry(items) {
 function prioritizeCandidateLanes(items, limit) {
   const explicit = prioritizeBeforeExpiry(items.filter((item) => candidateLane(item) === 'explicit_foreign'));
   const broad = prioritizeBeforeExpiry(items.filter((item) => candidateLane(item) === 'broad_discovery'));
+  // 同じ日・同じ正規化見出しが媒体違いで大量に並ぶと、同一事件が審査枠を占有する。
+  // 事件類似度では統合せず、完全一致に近い見出しだけを「今回の取得対象」から1件に畳む。
+  const uniqueHeadlines = (laneItems) => {
+    const seen = new Set();
+    return laneItems.filter((item) => {
+      const key = candidateScanDedupeKey(item);
+      if (!key) return true;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  };
+  const uniqueExplicit = uniqueHeadlines(explicit);
+  const uniqueBroad = uniqueHeadlines(broad);
   const explicitSlots = Math.ceil(limit * 0.75);
   const broadSlots = limit - explicitSlots;
-  const selected = [...explicit.slice(0, explicitSlots), ...broad.slice(0, broadSlots)];
+  const selected = [...uniqueExplicit.slice(0, explicitSlots), ...uniqueBroad.slice(0, broadSlots)];
   if (selected.length < limit) {
     const selectedIds = new Set(selected);
-    const overflow = prioritizeBeforeExpiry([...explicit, ...broad].filter((item) => !selectedIds.has(item)));
+    const overflow = prioritizeBeforeExpiry([...uniqueExplicit, ...uniqueBroad].filter((item) => !selectedIds.has(item)));
     selected.push(...overflow.slice(0, limit - selected.length));
   }
   return selected;
+}
+
+function candidateScanDedupeKey(item) {
+  const title = normalizeTitle(item.title || '')
+    .replace(/[「」『』【】・、。！？!?：:＝=～〜\-‐]/g, '');
+  if (title.length < 20) return null;
+  const timestamp = Date.parse(item.pubDate || item.firstSeen || '');
+  if (!Number.isFinite(timestamp)) return null;
+  return `${new Date(timestamp).toISOString().slice(0, 10)}|${title}`;
 }
 
 // 都道府県リスト
@@ -2139,6 +2162,7 @@ module.exports = {
   eventFingerprint,
   publicationSourceRank,
   prioritizeRecentCandidates,
+  candidateScanDedupeKey,
   prioritizeCandidateLanes,
   scheduleQueueItem,
   itemEffectiveTime,
