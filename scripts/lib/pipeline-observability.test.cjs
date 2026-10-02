@@ -2,7 +2,7 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { appendRun, sourceHealthTrend, markdownTrend } = require('./pipeline-observability.cjs');
+const { appendRun, sourceHealthTrend, sumCountMaps, markdownTrend } = require('./pipeline-observability.cjs');
 
 test('observability: source-level outcomes and queue counts are retained for 30 days', () => {
   const now = Date.parse('2026-10-02T12:00:00.000Z');
@@ -11,10 +11,14 @@ test('observability: source-level outcomes and queue counts are retained for 30 
     completedAt: new Date(now).toISOString(),
     sources: [{ id: 'local-rss', ok: false, candidates: 3, error: 'http_503\nretry' }],
     counts: { scanned: 20, pending: 100, published: 2 },
+    candidatesByMedia: { 'Local paper': 3 },
+    publishedByPrefecture: { '東京都': 2 },
   }, now);
   assert.equal(result.runs.length, 1);
   assert.deepEqual(result.runs[0].counts, { scanned: 20, pending: 100, published: 2 });
   assert.equal(result.runs[0].sources[0].error, 'http_503 retry');
+  assert.deepEqual(result.runs[0].candidatesByMedia, { 'Local paper': 3 });
+  assert.deepEqual(sumCountMaps(result.runs, 'publishedByPrefecture', now), [['東京都', 2]]);
 });
 
 test('observability: 24-hour source trend reports success rate, last success, and candidates', () => {
@@ -30,7 +34,7 @@ test('observability: 24-hour source trend reports success rate, last success, an
   assert.equal(trend[0].attempts, 2);
   assert.equal(trend[0].successRate, 0.5);
   assert.equal(trend[0].candidates, 4);
-  assert.match(markdownTrend(trend), /nhk \| 1\/2 \(50%\)/);
+  assert.match(markdownTrend(trend, runs, now), /nhk \| 1\/2 \(50%\)/);
 });
 
 test('observability: history is bounded to 30 days and 1000 records', () => {

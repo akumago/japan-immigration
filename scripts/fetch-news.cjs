@@ -2247,6 +2247,17 @@ async function main() {
 
   console.log(`\n🎉 新規合格・掲載対象記事: ${acceptedNew.length} 件`);
 
+  const candidatesByMedia = uniqueItems.reduce((counts, item) => {
+    const media = String(item.media || item.sourceId || '報道元不明').trim().slice(0, 100);
+    counts[media] = (counts[media] || 0) + 1;
+    return counts;
+  }, {});
+  const publishedByPrefecture = acceptedNew.reduce((counts, item) => {
+    const prefecture = String(item.location || '地域不明').trim().slice(0, 30);
+    counts[prefecture] = (counts[prefecture] || 0) + 1;
+    return counts;
+  }, {});
+
   // Keep a compact rolling record of source health and queue throughput. It is
   // cached by Actions, excluded from site builds, and contains no article text or URLs.
   if (!process.env.TEST_SEARCH_QUERIES) {
@@ -2261,6 +2272,8 @@ async function main() {
       startedAt: runStartedAt,
       completedAt: new Date().toISOString(),
       sources: sourceHealth,
+      candidatesByMedia,
+      publishedByPrefecture,
       counts: {
         fetchedCandidates: fetchedItems.length,
         uniqueCandidates: uniqueItems.length,
@@ -2284,7 +2297,7 @@ async function main() {
     fs.writeFileSync(metricsTmp, JSON.stringify(metrics, null, 2), 'utf-8');
     fs.renameSync(metricsTmp, metricsPath);
     if (process.env.GITHUB_STEP_SUMMARY) {
-      try { fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, observability.markdownTrend(observability.sourceHealthTrend(metrics.runs))); }
+      try { fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, observability.markdownTrend(observability.sourceHealthTrend(metrics.runs), metrics.runs)); }
       catch (err) { console.warn(`取得元履歴サマリーの記録失敗: ${err.message}`); }
     }
     if (process.env.GITHUB_OUTPUT) {
