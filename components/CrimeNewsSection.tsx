@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import newsData from '../data/newsData.json';
-import { filterNewsForJapanDay, japanCalendarDate } from '../lib/dailyNewsDate.js';
 
 interface NewsItem {
   id: string;
@@ -15,9 +14,11 @@ interface NewsItem {
 
 export const CrimeNewsSection: React.FC = () => {
   const items: NewsItem[] = newsData as NewsItem[];
-  // 検索・重複照合は5日窓だが、トップには日本時間の当日報道分だけを表示する。
-  const todayJst = japanCalendarDate();
-  const displayedItems = filterNewsForJapanDay(items);
+  // 直近（最新日）の事件は件数に関わらず漏れなく全件表示（最低4件保証）
+  const latestDate = items[0]?.date;
+  const latestDateNewsCount = items.filter(item => item.date === latestDate).length;
+  const displayCount = Math.max(4, latestDateNewsCount);
+  const displayedItems = items.slice(0, displayCount);
 
   return (
     <section className="mb-20">
@@ -51,7 +52,7 @@ export const CrimeNewsSection: React.FC = () => {
         <div className="space-y-4 relative z-10">
           {displayedItems.length === 0 ? (
             <div className="text-center py-12 bg-[#0d1117]/60 rounded-2xl border border-white/5">
-              <p className="text-gray-400 text-sm">本日（{todayJst}）に報道された対象ニュースはまだありません。過去の記事はアーカイブで確認できます。</p>
+              <p className="text-gray-400 text-sm">直近の新規報道事案は検出されていません。過去の記事はアーカイブで確認できます。</p>
             </div>
           ) : (
             displayedItems.map((item, idx) => (
