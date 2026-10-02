@@ -374,6 +374,18 @@
     "summary": "静岡県で発生した外国人関与の事件・容疑に関する報道速報です。"
   },
   {
+    "id": "d3fd835a2a07cf3940f8",
+    "sourceRecordId": "chiba-police:d3fd835a2a07cf3940f8",
+    "title": "不同意わいせつ事件で男を逮捕（習志野警察署）",
+    "date": "2026-09-28",
+    "location": "千葉県",
+    "media": "千葉県警察",
+    "eventKey": "event-v1:44b09500c2699a2fa7f2141b0e9c9a7348ce293a68b6a902cf3766bc0e076de0",
+    "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03774.html",
+    "summary": "千葉県で発生した外国人関与の事件・容疑に関する報道速報です。",
+    "audited": true
+  },
+  {
     "id": "6410a1b0e24b5c18",
     "title": "警察になりすまし現金をだまし取った疑い 台湾国籍の男(24)を逮捕",
     "date": "2026-09-28",
