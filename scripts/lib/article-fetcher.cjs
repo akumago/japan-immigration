@@ -335,7 +335,7 @@ function pickNationalityContext(text, isNat, maxLen = 300) {
 function createScanner(opts = {}) {
   const cfg = {
     cachePath: CACHE_DEFAULT, io: defaultIo, findNationality: () => false, now: () => Date.now(), log: console,
-    concurrency: 3, maxPerRun: 20, googleSpacingMs: 1000, domainSpacingMs: 1500, breakerThreshold: 5, ttlDays: 5, maxAttempts: 6,
+    concurrency: 3, maxPerRun: 60, googleSpacingMs: 1000, domainSpacingMs: 1500, breakerThreshold: 5, ttlDays: 5, maxAttempts: 6,
     backoffMinutes: [60, 180, 360, 720, 1440], sleep: undefined, verifyArticle: null, ...opts,
   };
   const spacer = createSpacer(cfg.googleSpacingMs, cfg.sleep);

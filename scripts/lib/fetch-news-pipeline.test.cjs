@@ -10,26 +10,29 @@ const fetchNews = require('../fetch-news.cjs');
 
 const tmpDir = () => fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-test-'));
 
-test('pipeline: 120時間TTL（5日間）境界で期限切れアイテムが完全パージされる', () => {
+test('pipeline: 審査待ち候補は120時間超でも保持し、終端レコードだけ30日後に整理する', () => {
   const now = 1_000_000_000_000;
-  const TTL_MS = 120 * 3600 * 1000;
+  const dayMs = 24 * 3600 * 1000;
 
-  const queue = {
-    version: 1,
-    items: [
-      { id: 'fresh1', firstSeen: new Date(now - TTL_MS + 60000).toISOString(), status: 'pending' },
-      { id: 'expired1', firstSeen: new Date(now - TTL_MS - 60000).toISOString(), status: 'pending' },
-      { id: 'expired2', firstSeen: new Date(now - TTL_MS - 3600000).toISOString(), status: 'verified' },
-    ]
-  };
+  const overduePending = { firstSeen: new Date(now - 6 * dayMs).toISOString(), status: 'pending' };
+  const recentTerminal = { firstSeen: new Date(now - 6 * dayMs).toISOString(), status: 'verified' };
+  const oldTerminal = { firstSeen: new Date(now - 31 * dayMs).toISOString(), status: 'verified' };
+  const undatedPending = { status: 'pending' };
 
-  const remaining = queue.items.filter((item) => {
-    const firstSeenTime = item.firstSeen ? new Date(item.firstSeen).getTime() : 0;
-    return (now - firstSeenTime) < TTL_MS;
-  });
+  assert.equal(fetchNews.shouldRetainQueueItem(overduePending, now), true, '未処理候補は120時間超でも消さない');
+  assert.equal(fetchNews.shouldRetainQueueItem(recentTerminal, now), true, '終端レコードは監査のため30日保持');
+  assert.equal(fetchNews.shouldRetainQueueItem(oldTerminal, now), false, '古い終端レコードだけ整理対象');
+  assert.equal(fetchNews.shouldRetainQueueItem(undatedPending, now), true, '日時不明の未処理候補も消さない');
+});
 
-  assert.equal(remaining.length, 1);
-  assert.equal(remaining[0].id, 'fresh1');
+test('pipeline: 本文審査の既定上限は60、設定値も1〜60に制限する', () => {
+  assert.equal(fetchNews.maxBodyScanPerRun(undefined), 60);
+  assert.equal(fetchNews.maxBodyScanPerRun('45'), 45);
+  assert.equal(fetchNews.maxBodyScanPerRun('999'), 60);
+  assert.equal(fetchNews.maxBodyScanPerRun('-4'), 1);
+  assert.equal(fetchNews.retrySlotLimit(60), 5);
+  assert.equal(fetchNews.retrySlotLimit(2), 2, '設定上限2件を再試行枠が超えない');
+  assert.equal(fetchNews.retrySlotLimit(0), 0, '本文審査停止時は再試行枠も0');
 });
 
 test('pipeline: 未来日時のアイテムは即時処理せず保留する', () => {
@@ -1043,9 +1046,9 @@ test('pipeline 再試行 5: 120時間TTLガード（残余12時間未満は再�
   assert.equal(validItem.nextAttemptAt, new Date(now + 12 * 3600 * 1000).toISOString());
 });
 
-test('pipeline 再試行 6: 枠配分と上限厳守（再試行最大5件＋新規枠還元、合計最大20件）', () => {
+test('pipeline 再試行 6: 枠配分と上限厳守（再試行最大5件＋新規枠還元、合計最大60件）', () => {
   const now = 1_700_000_000_000;
-  const maxScanPerRun = 20;
+  const maxScanPerRun = 60;
 
   // ケースA: 再試行が7件、新規が25件ある場合
   const eligibleItemsA = [];
@@ -1058,7 +1061,7 @@ test('pipeline 再試行 6: 枠配分と上限厳守（再試行最大5件＋新
       nextAttemptAt: new Date(now - 1000).toISOString(),
     });
   }
-  for (let i = 0; i < 25; i++) {
+  for (let i = 0; i < 100; i++) {
     eligibleItemsA.push({
       id: `new-${i}`,
       url: `https://news.example.com/new/${i}`,
@@ -1074,8 +1077,8 @@ test('pipeline 再試行 6: 枠配分と上限厳守（再試行最大5件＋新
   const targetsA = [...retriesA, ...selectedNewA];
 
   assert.equal(retriesA.length, 5, '再試行枠は最大5件に抑えられること');
-  assert.equal(selectedNewA.length, 15, '新規枠は 20 - 5 = 15件になること');
-  assert.equal(targetsA.length, 20, '合計は最大20件を厳守すること');
+  assert.equal(selectedNewA.length, 55, '新規枠は 60 - 5 = 55件になること');
+  assert.equal(targetsA.length, 60, '合計は最大60件を厳守すること');
 
   // ケースB: 再試行が2件、新規が25件ある場合（空き枠還元）
   const eligibleItemsB = eligibleItemsA.slice(0, 2).concat(eligibleItemsA.slice(7));
@@ -1085,8 +1088,8 @@ test('pipeline 再試行 6: 枠配分と上限厳守（再試行最大5件＋新
   const targetsB = [...retriesB, ...selectedNewB];
 
   assert.equal(retriesB.length, 2);
-  assert.equal(selectedNewB.length, 18, '再試行の空き枠3件が新規枠へ還元されること');
-  assert.equal(targetsB.length, 20);
+  assert.equal(selectedNewB.length, 58, '再試行の空き枠3件が新規枠へ還元されること');
+  assert.equal(targetsB.length, 60);
 });
 
 test('pipeline 再試行 7: sourceBody の除外（警察公式発表は再試行せず初回で終了）', () => {

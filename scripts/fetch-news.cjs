@@ -104,6 +104,18 @@ function itemEffectiveTime(item) {
   return firstSeenTime && !isNaN(firstSeenTime) ? firstSeenTime : 0;
 }
 
+function shouldRetainQueueItem(item, now = Date.now()) {
+  // 未処理候補は無期限保持し、処理能力不足や一時障害で候補を失わない。
+  if (item?.status === 'pending') return true;
+  const effective = itemEffectiveTime(item);
+  if (!effective) return true;
+  return now - effective < 30 * 24 * 60 * 60 * 1000;
+}
+
+function retrySlotLimit(scanLimit) {
+  return Math.min(5, Math.max(0, Number(scanLimit) || 0));
+}
+
 // 本文更新検知のための軽量ハッシュ（先頭16文字）
 function hashBody(text) {
   if (!text) return null;
@@ -203,7 +215,7 @@ function prioritizeRecentCandidates(items) {
 }
 
 // 明示的な外国籍候補と、見出しでは国籍が分からない広域発見候補を分け、
-// 20件の審査枠を前者75%・後者25%で確保する。片方が不足した枠はもう片方に回す。
+// 審査枠を前者75%・後者25%で確保する。片方が不足した枠はもう片方に回す。
 function candidateLane(item) {
   if (item.candidateLane === 'explicit_foreign') return 'explicit_foreign';
   if (item.candidateLane === 'broad_discovery') return 'broad_discovery';
@@ -1835,16 +1847,19 @@ async function main() {
   const now = Date.now();
   const TTL_120H_MS = 120 * 60 * 60 * 1000; // 5日間 (120時間)
 
-  // 1. キューのTTLパージ（pubDate または firstSeen から120時間経過したアイテムはステータスに関係なく完全削除）
+  // 未処理候補は、審査枠不足で120時間を超えても消さない。
+  // RSSの新規発見窓は5日だが、一度キューへ入った候補は審査が終わるまで永続保持する。
+  // 終端状態だけ30日後に整理し、急増時のサイレントドロップを防止する。
   const initialQueueCount = queue.items.length;
   queue.items = queue.items.filter((item) => {
     const effTime = itemEffectiveTime(item);
-    if (!effTime) return false;
-    return (now - effTime) < TTL_120H_MS;
+    if (item.status === 'pending') return true;
+    if (!effTime) return true;
+    return shouldRetainQueueItem(item, now);
   });
   const purgedCount = initialQueueCount - queue.items.length;
   if (purgedCount > 0) {
-    console.log(`🗑️ キュー期限切れパージ: 120時間（5日間）を経過した ${purgedCount} 件を完全削除しました`);
+    console.log(`🗑️ 終端キューレコード整理（30日保持）: ${purgedCount} 件を削除しました`);
   }
 
   // 1.5 既存の保留記事（insufficient_evidence）の安全な移行処理
@@ -1918,16 +1933,16 @@ async function main() {
   console.log(`📥 新規候補キュー登録: ${newlyEnqueued} 件 (キュー総数: ${queue.items.length} 件)`);
 
   // --- 本文スキャンと検証対象の選定 ---
-  // 上限強制クランプ（最大20件、BODY_SCAN=0 の場合は本文スキャン停止）
+  // 上限強制クランプ（最大60件、BODY_SCAN=0 の場合は本文スキャン停止）。
+  // 最大60件/時でも記事取得先への負荷はarticle-fetcherの同時接続・ドメイン間隔・遮断器が制御する。
   const isBodyScanDisabled = process.env.BODY_SCAN === '0';
-  const configuredMax = Number(process.env.BODY_SCAN_MAX) || 20;
-  const maxScanPerRun = isBodyScanDisabled ? 0 : Math.min(Math.max(1, configuredMax), 20);
+  const maxScanPerRun = isBodyScanDisabled ? 0 : module.exports.maxBodyScanPerRun();
 
   // 判定基準:
   // - status === 'pending'
   // - attempts < 5
   // - 未来日時（+10分超）でないこと
-  // - itemEffectiveTime が 120時間以内であること
+  // - キュー登録済みなら120時間を過ぎても審査対象にする（TTLは新規発見窓であり破棄期限ではない）
   const eligibleItems = queue.items.filter((item) => {
     if (item.status !== 'pending') return false;
     if (item.attempts >= 5) {
@@ -1938,28 +1953,24 @@ async function main() {
 
     const effTime = itemEffectiveTime(item);
     if (effTime > now + 10 * 60 * 1000) return false; // 未来日時は保留
-    if (effTime && (now - effTime > TTL_120H_MS)) {
-      item.status = 'gave_up';
-      item.pendingReason = 'expired_120h';
-      return false;
-    }
     return true;
   });
 
   // 再試行待ちアイテム（初回審査済み・再試行時刻到来・sourceBodyなし）: 最大5件
+  const maxRetrySlotsThisRun = retrySlotLimit(maxScanPerRun);
   const retryCandidates = eligibleItems.filter((item) => {
     if (item.attempts === 0) return false;
     if (item.sourceBody) return false;
     const nextAt = item.nextAttemptAt ? Date.parse(item.nextAttemptAt) : 0;
     return !nextAt || nextAt <= now;
-  }).slice(0, 5);
+  }).slice(0, maxRetrySlotsThisRun);
 
-  // 新規アイテム枠: 最大 (maxScanPerRun - retryCandidates.length) 件（空き枠還元、新着15〜20件）
+  // 新規アイテム枠: 最大 (maxScanPerRun - retryCandidates.length) 件（空き枠還元）
   const newCandidatesLimit = Math.max(0, maxScanPerRun - retryCandidates.length);
   const newCandidates = eligibleItems.filter((item) => item.attempts === 0);
   const selectedNewCandidates = prioritizeCandidateLanes(newCandidates, newCandidatesLimit);
 
-  // 今回の審査対象を結合（最大20件厳守）
+  // 今回の審査対象を結合（最大60件厳守）
   const targetsToScan = [...retryCandidates, ...selectedNewCandidates];
   console.log(`🔍 本文検証対象: 合計 ${targetsToScan.length} 件 (再試行: ${retryCandidates.length} 件, 新着: ${selectedNewCandidates.length} 件 / 上限 ${maxScanPerRun} 件)`);
 
@@ -2067,7 +2078,7 @@ async function main() {
     const timestamp = Date.parse(item.pubDate || item.firstSeen || '');
     return Number.isFinite(timestamp) ? now - timestamp : null;
   }).filter((age) => age !== null && age >= 0);
-  const expiringWithin24h = pendingAges.filter((age) => age >= TTL_120H_MS - 24 * 60 * 60 * 1000).length;
+  const olderThan96h = pendingAges.filter((age) => age >= TTL_120H_MS - 24 * 60 * 60 * 1000).length;
   const oldestPendingHours = pendingAges.length
     ? Math.floor(pendingAges.reduce((oldest, age) => Math.max(oldest, age), 0) / (60 * 60 * 1000))
     : null;
@@ -2076,9 +2087,22 @@ async function main() {
     counts[lane] = (counts[lane] || 0) + 1;
     return counts;
   }, {});
+  const dayMs = 24 * 60 * 60 * 1000;
+  const arrivalsLast24h = queue.items.filter((item) => {
+    const seen = Date.parse(item.firstSeen || '');
+    return Number.isFinite(seen) && seen > now - dayMs && seen <= now;
+  }).length;
+  const freshCapacityPerHour = isBodyScanDisabled
+    ? 0
+    : Math.max(0, maxScanPerRun - retrySlotLimit(maxScanPerRun));
+  const arrivalRatePerHour = arrivalsLast24h / 24;
+  const netDrainPerHour = freshCapacityPerHour - arrivalRatePerHour;
+  const estimatedDrainHours = pendingItems.length === 0 ? 0
+    : netDrainPerHour > 0 ? Math.ceil(pendingItems.length / netDrainPerHour) : null;
   const unverifiedCount = (queueStatusCounts.unverified || 0) + (queueStatusCounts.insufficient_evidence || 0);
   console.log(`📊 キュー状態: pending=${pendingItems.length}, verified=${queueStatusCounts.verified || 0}, unverified=${unverifiedCount}, rejected=${queueStatusCounts.rejected || 0}, gave_up=${queueStatusCounts.gave_up || 0}`);
-  console.log(`⏳ pending内訳: 明示外国籍=${laneCounts.explicit_foreign || 0}, 広域発見=${laneCounts.broad_discovery || 0}, 24時間以内に期限到来=${expiringWithin24h}, 最古=${oldestPendingHours === null ? 'なし' : `${oldestPendingHours}時間`}`);
+  console.log(`⏳ pending内訳: 明示外国籍=${laneCounts.explicit_foreign || 0}, 広域発見=${laneCounts.broad_discovery || 0}, 96時間超=${olderThan96h}, 最古=${oldestPendingHours === null ? 'なし' : `${oldestPendingHours}時間`}`);
+  console.log(`📈 容量監視: 直近24時間の候補流入=${arrivalsLast24h}件（${arrivalRatePerHour.toFixed(1)}件/時）, 新規審査上限=${freshCapacityPerHour}件/時, 現在のpending解消予測=${estimatedDrainHours === null ? '流入が審査能力以上' : `${estimatedDrainHours}時間`}`);
   if (process.env.GITHUB_STEP_SUMMARY) {
     const summary = [
       '\n## 候補キュー・本文審査状況',
@@ -2089,8 +2113,11 @@ async function main() {
       `| 未審査 pending | ${pendingItems.length} |`,
       `| pending: 明示的な外国籍手掛かり | ${laneCounts.explicit_foreign || 0} |`,
       `| pending: 広域発見候補 | ${laneCounts.broad_discovery || 0} |`,
-      `| 24時間以内に120時間期限 | ${expiringWithin24h} |`,
+      `| 96時間を超えた審査待ち候補 | ${olderThan96h} |`,
       `| 最古のpending候補の経過時間 | ${oldestPendingHours === null ? 'なし' : `${oldestPendingHours}時間`} |`,
+      `| 直近24時間の候補流入 | ${arrivalsLast24h} (${arrivalRatePerHour.toFixed(1)}件/時) |`,
+      `| 新規候補の審査能力 | ${freshCapacityPerHour}件/時 |`,
+      `| pending解消予測（直近流入が継続すると仮定） | ${estimatedDrainHours === null ? '能力超過・滞留増加' : `${estimatedDrainHours}時間`} |`,
       `| verified / unverified / rejected / gave_up | ${queueStatusCounts.verified || 0} / ${unverifiedCount} / ${queueStatusCounts.rejected || 0} / ${queueStatusCounts.gave_up || 0} |`,
       '',
     ].join('\n');
@@ -2242,8 +2269,11 @@ module.exports = {
   prioritizeRecentCandidates,
   candidateScanDedupeKey,
   prioritizeCandidateLanes,
+  maxBodyScanPerRun: (configured = process.env.BODY_SCAN_MAX) => Math.min(Math.max(1, Number(configured) || 60), 60),
   scheduleQueueItem,
   itemEffectiveTime,
+  shouldRetainQueueItem,
+  retrySlotLimit,
   hashBody,
   // 公式ソース統合の単体検証用
   _policeBulletins: policeBulletins,
