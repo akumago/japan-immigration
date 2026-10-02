@@ -105,11 +105,30 @@ function itemEffectiveTime(item) {
 }
 
 function shouldRetainQueueItem(item, now = Date.now()) {
-  // 未処理候補は無期限保持し、処理能力不足や一時障害で候補を失わない。
+  // 未処理候補は先に expireStalePendingItems() で終端化する。終端後は30日監査保持。
   if (item?.status === 'pending') return true;
-  const effective = itemEffectiveTime(item);
+  const effective = Date.parse(item?.terminalAt || item?.updatedAt || '') || itemEffectiveTime(item);
   if (!effective) return true;
   return now - effective < 30 * 24 * 60 * 60 * 1000;
+}
+
+function expireStalePendingItems(items, now = Date.now()) {
+  const ttlMs = 120 * 60 * 60 * 1000;
+  let expired = 0;
+  const terminalAt = new Date(now).toISOString();
+  for (const item of items) {
+    if (item.status !== 'pending') continue;
+    const effective = itemEffectiveTime(item);
+    if (!effective || now - effective < ttlMs) continue;
+    item.status = 'unverified';
+    item.pendingReason = 'queue_expired_after_120h';
+    item.lastError = 'queue_ttl_elapsed';
+    item.terminalAt = terminalAt;
+    item.nextAttemptAt = null;
+    item.sourceBody = null;
+    expired++;
+  }
+  return expired;
 }
 
 function retrySlotLimit(scanLimit) {
@@ -1847,14 +1866,14 @@ async function main() {
   const now = Date.now();
   const TTL_120H_MS = 120 * 60 * 60 * 1000; // 5日間 (120時間)
 
-  // 未処理候補は、審査枠不足で120時間を超えても消さない。
-  // RSSの新規発見窓は5日だが、一度キューへ入った候補は審査が終わるまで永続保持する。
-  // 終端状態だけ30日後に整理し、急増時のサイレントドロップを防止する。
+  // 未処理候補は5日間、新着優先で審査する。期限を超えた記事は削除せず
+  // 「期限切れ・未掲載」として理由を記録し、監査用に終端から30日保持する。
+  const expiredPendingCount = expireStalePendingItems(queue.items, now);
+  if (expiredPendingCount > 0) {
+    console.warn(`⌛ 120時間経過で未掲載終了: ${expiredPendingCount} 件を監査保持へ移行しました`);
+  }
   const initialQueueCount = queue.items.length;
   queue.items = queue.items.filter((item) => {
-    const effTime = itemEffectiveTime(item);
-    if (item.status === 'pending') return true;
-    if (!effTime) return true;
     return shouldRetainQueueItem(item, now);
   });
   const purgedCount = initialQueueCount - queue.items.length;
@@ -1975,7 +1994,7 @@ async function main() {
   console.log(`🔍 本文検証対象: 合計 ${targetsToScan.length} 件 (再試行: ${retryCandidates.length} 件, 新着: ${selectedNewCandidates.length} 件 / 上限 ${maxScanPerRun} 件)`);
 
   // --- 本文スキャンと厳格検証の実行 ---
-  let stateChanged = purgedCount > 0 || newlyEnqueued > 0 || migratedCount > 0 || targetsToScan.length > 0;
+  let stateChanged = expiredPendingCount > 0 || purgedCount > 0 || newlyEnqueued > 0 || migratedCount > 0 || targetsToScan.length > 0;
 
   if (targetsToScan.length > 0) {
     const scanner = articleFetcher.createScanner({
@@ -2111,6 +2130,7 @@ async function main() {
       '|---|---:|',
       `| 今回の本文審査 | ${targetsToScan.length} |`,
       `| 未審査 pending | ${pendingItems.length} |`,
+      `| 120時間経過・未掲載終了（今回） | ${expiredPendingCount} |`,
       `| pending: 明示的な外国籍手掛かり | ${laneCounts.explicit_foreign || 0} |`,
       `| pending: 広域発見候補 | ${laneCounts.broad_discovery || 0} |`,
       `| 96時間を超えた審査待ち候補 | ${olderThan96h} |`,
@@ -2273,6 +2293,7 @@ module.exports = {
   scheduleQueueItem,
   itemEffectiveTime,
   shouldRetainQueueItem,
+  expireStalePendingItems,
   retrySlotLimit,
   hashBody,
   // 公式ソース統合の単体検証用

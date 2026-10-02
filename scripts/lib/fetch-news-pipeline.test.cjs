@@ -10,19 +10,28 @@ const fetchNews = require('../fetch-news.cjs');
 
 const tmpDir = () => fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-test-'));
 
-test('pipeline: 審査待ち候補は120時間超でも保持し、終端レコードだけ30日後に整理する', () => {
+test('pipeline: pendingは120時間で理由付き未掲載終了、終端から30日監査保持する', () => {
   const now = 1_000_000_000_000;
   const dayMs = 24 * 3600 * 1000;
 
-  const overduePending = { firstSeen: new Date(now - 6 * dayMs).toISOString(), status: 'pending' };
+  const overduePending = { pubDate: new Date(now - 6 * dayMs).toISOString(), firstSeen: new Date(now - 6 * dayMs).toISOString(), status: 'pending', sourceBody: 'body' };
+  const recentPending = { pubDate: new Date(now - 119 * 3600 * 1000).toISOString(), status: 'pending' };
   const recentTerminal = { firstSeen: new Date(now - 6 * dayMs).toISOString(), status: 'verified' };
   const oldTerminal = { firstSeen: new Date(now - 31 * dayMs).toISOString(), status: 'verified' };
+  const oldNewsRecentlyTerminal = { pubDate: new Date(now - 60 * dayMs).toISOString(), terminalAt: new Date(now - 2 * dayMs).toISOString(), status: 'unverified' };
   const undatedPending = { status: 'pending' };
 
-  assert.equal(fetchNews.shouldRetainQueueItem(overduePending, now), true, '未処理候補は120時間超でも消さない');
+  assert.equal(fetchNews.expireStalePendingItems([overduePending, recentPending, undatedPending], now), 1);
+  assert.equal(overduePending.status, 'unverified');
+  assert.equal(overduePending.pendingReason, 'queue_expired_after_120h');
+  assert.equal(overduePending.sourceBody, null, '監査保持に本文全文を残さない');
+  assert.equal(overduePending.terminalAt, new Date(now).toISOString());
+  assert.equal(fetchNews.shouldRetainQueueItem(overduePending, now), true, '期限切れ直後は監査保持する');
+  assert.equal(recentPending.status, 'pending', '120時間未満の記事は処理対象に残す');
+  assert.equal(undatedPending.status, 'pending', '日時不明の記事は勝手に期限切れにしない');
   assert.equal(fetchNews.shouldRetainQueueItem(recentTerminal, now), true, '終端レコードは監査のため30日保持');
   assert.equal(fetchNews.shouldRetainQueueItem(oldTerminal, now), false, '古い終端レコードだけ整理対象');
-  assert.equal(fetchNews.shouldRetainQueueItem(undatedPending, now), true, '日時不明の未処理候補も消さない');
+  assert.equal(fetchNews.shouldRetainQueueItem(oldNewsRecentlyTerminal, now), true, '古い記事でも終端化から30日は監査保持');
 });
 
 test('pipeline: 本文審査の既定上限は100、設定値も1〜100に制限する', () => {
