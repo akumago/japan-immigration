@@ -386,6 +386,14 @@ test('本文判定: 伊勢崎署・住所・自宅付近の市道を同一被疑
   assert.match(result.audit.japanCrime.evidence, /自宅付近の市道/);
 });
 
+test('本文判定: 福山港での事件を容疑者の埼玉県住所と取り違えない', () => {
+  const body = '広島・福山港に不法に上陸し、残留した疑いで、埼玉県川口市の無職で中国籍の男（44）を逮捕しました。';
+  const result = gate.verifyArticleContent(body, '広島・福山港に不法上陸 中国籍の男を逮捕');
+  assert.equal(result.verified, true);
+  assert.equal(result.location, '広島県');
+  assert.match(result.audit.japanCrime.evidence, /福山港/);
+});
+
 test('本文判定: 日本の警察に逮捕されても、本文で犯行地が海外と明記された事件は除外する', () => {
   const body = '中国国内で発生した窃盗事件について、警視庁は中国籍の男を逮捕しました。容疑者は犯行を認めています。';
   const result = gate.verifyArticleContent(body, '中国国内の窃盗事件で中国籍の男を逮捕');
