@@ -1,11 +1,22 @@
 [
   {
-    "id": "ef1398e1a3967a10",
+    "id": "de4a9dd7630b47fd",
+    "title": "「日本中をまわった」1都10県で200件超空き巣繰り返し6900万円相当盗んだか ベトナム国籍の男（31）を逮捕　警視庁は共犯者の行方を捜査",
+    "date": "2026-10-02",
+    "location": "新潟県",
+    "media": "ｄメニューニュース",
+    "eventKey": "event-v1:e82fcb5a2175c20265c43d98fef4498f8cd460c64ce94c43977bb32b6314df75",
+    "url": "https://topics.smt.docomo.ne.jp/amp/article/tbs/nation/tbs-2984808",
+    "summary": "新潟県で発生した外国人関与の事件・容疑に関する報道速報です。",
+    "audited": true
+  },
+  {
+    "id": "10d7c8c4a7c2549e",
     "title": "東急東横線の電車内で女性のバッグから財布盗んだ疑い、中国籍の男逮捕　短期滞在ビザで来日し犯行か",
     "date": "2026-10-02",
     "location": "全国",
-    "media": "ライブドアニュース",
-    "url": "https://news.livedoor.com/article/detail/32469803/",
+    "media": "日テレNEWS NNN",
+    "url": "https://news.ntv.co.jp/category/society/e409433018b24871a03d51a40267df5f",
     "summary": "全国で発生した外国人関与の事件・容疑に関する報道速報です。",
     "audited": true
   },
@@ -16,16 +27,6 @@
     "location": "全国",
     "media": "ライブドアニュース",
     "url": "https://news.livedoor.com/article/detail/32469762/",
-    "summary": "全国で発生した外国人関与の事件・容疑に関する報道速報です。",
-    "audited": true
-  },
-  {
-    "id": "10d7c8c4a7c2549e",
-    "title": "東急東横線の電車内で女性のバッグから財布盗んだ疑い、中国籍の男逮捕　短期滞在ビザで来日し犯行か",
-    "date": "2026-10-02",
-    "location": "全国",
-    "media": "日テレNEWS NNN",
-    "url": "https://news.ntv.co.jp/category/society/e409433018b24871a03d51a40267df5f",
     "summary": "全国で発生した外国人関与の事件・容疑に関する報道速報です。",
     "audited": true
   },
@@ -423,6 +424,17 @@
     "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1ocHIwS2hUaF81ZVgydUxmOEs5ZExJR1JoOXp4ckp5QmVycG91MnA3d1M1NEp1TDJVNFJqQnJaelBxbW4zZUdFRzBMLWNjMUF5WW5BMnlIUl85S016QWwydXMwSTk3TzByMFBOWjBFS3Z0TkVublYyblFMR291aWc?oc=5",
     "description": "<a href=\"https://news.google.com/rss/articles/CBMif0FVX3lxTE1ocHIwS2hUaF81ZVgydUxmOEs5ZExJR1JoOXp4ckp5QmVycG91MnA3d1M1NEp1TDJVNFJqQnJaelBxbW4zZUdFRzBM",
     "summary": "静岡県で発生した外国人関与の事件・容疑に関する報道速報です。"
+  },
+  {
+    "id": "4dff534a2934afc8",
+    "title": "中野の事件前にも腕時計盗んだか＝チリ国籍の男２人再逮捕―警視庁",
+    "date": "2026-09-28",
+    "location": "東京都",
+    "media": "時事通信ニュース",
+    "eventKey": "event-v1:dd8f1f5804772f7082cebd00ebab971621e0129d960a1dfabaa7ccaf9191e0d0",
+    "url": "https://sp.m.jiji.com/article/show/3877061?free=1",
+    "summary": "東京都で発生した外国人関与の事件・容疑に関する報道速報です。",
+    "audited": true
   },
   {
     "id": "d3fd835a2a07cf3940f8",
