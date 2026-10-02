@@ -133,17 +133,47 @@ function reconcileQueuedPublicationDate(item, queueItems, now = Date.now()) {
 }
 
 function shouldRetainQueueItem(item, now = Date.now()) {
-  // 未処理候補は処理完了まで保持する。120時間は検索・続報確認の窓であり、審査放棄期限ではない。
-  if (item?.status === 'pending') return true;
+  // 未処理候補も公開日時（なければ初回検知）から120時間で審査対象を終了する。
+  // 古い候補が当日分の審査枠を占有し続けないようにする。
+  if (item?.status === 'pending') {
+    const effective = itemEffectiveTime(item);
+    return !effective || effective > now || now - effective < 120 * 60 * 60 * 1000;
+  }
   const effective = Date.parse(item?.terminalAt || item?.updatedAt || '') || itemEffectiveTime(item);
   if (!effective) return true;
   return now - effective < 30 * 24 * 60 * 60 * 1000;
+}
+
+function expireStalePendingItems(items, now = Date.now()) {
+  let expired = 0;
+  const TTL_120H_MS = 120 * 60 * 60 * 1000;
+  for (const item of items) {
+    if (item?.status !== 'pending') continue;
+    const effective = itemEffectiveTime(item);
+    // 日時不明・未来日時は時計やフィード異常の可能性があるため、自動終了しない。
+    if (!effective || effective > now || now - effective < TTL_120H_MS) continue;
+    item.status = 'gave_up';
+    item.pendingReason = 'candidate_expired_after_120h';
+    item.lastError = 'candidate_expired_after_120h';
+    item.terminalAt = new Date(now).toISOString();
+    item.nextAttemptAt = null;
+    expired++;
+  }
+  return expired;
 }
 
 function recoverExpiredPendingItems(items, now = Date.now()) {
   let recovered = 0;
   for (const item of items) {
     if (item.status !== 'unverified' || item.pendingReason !== 'queue_expired_after_120h') continue;
+    const effective = itemEffectiveTime(item);
+    if (!effective || effective > now || now - effective >= 120 * 60 * 60 * 1000) {
+      item.status = 'gave_up';
+      item.pendingReason = 'candidate_expired_after_120h';
+      item.lastError = 'candidate_expired_after_120h';
+      item.terminalAt = new Date(now).toISOString();
+      continue;
+    }
     item.status = 'pending';
     item.pendingReason = null;
     item.lastError = null;
@@ -1918,8 +1948,12 @@ async function main() {
   const now = Date.now();
   const TTL_120H_MS = 120 * 60 * 60 * 1000; // 5日間の候補・続報確認窓
 
-  // 旧版で120時間経過を理由に終了扱いとなった候補を復帰させる。
-  // 未処理候補は取得窓の経過だけを理由に捨てず、審査枠で順次処理する。
+  // 検索・続報確認窓（120時間）を過ぎた候補は審査対象から終了し、旧キューを整理する。
+  const expiredPendingCount = expireStalePendingItems(queue.items, now);
+  if (expiredPendingCount > 0) {
+    console.log(`⌛ 120時間経過した候補を審査終了: ${expiredPendingCount} 件`);
+  }
+  // 旧版で期限切れ扱いになった候補も、120時間以内のものだけ復帰させる。
   const recoveredExpiredPendingCount = recoverExpiredPendingItems(queue.items, now);
   if (recoveredExpiredPendingCount > 0) {
     console.warn(`♻️ 旧120時間期限切れ候補を再審査キューへ復帰: ${recoveredExpiredPendingCount} 件`);
@@ -2008,8 +2042,8 @@ async function main() {
   if (refreshedUndatedQueueCount) console.log(`🗓️ 配信日時が後から確認できた候補を再審査へ復帰: ${refreshedUndatedQueueCount} 件`);
 
   // --- 本文スキャンと検証対象の選定 ---
-  // 上限強制クランプ（最大100件、BODY_SCAN=0 の場合は本文スキャン停止）。
-  // 最大100件/時でも記事取得先への負荷はarticle-fetcherの同時接続・ドメイン間隔・遮断器が制御する。
+  // 上限強制クランプ（最大150件、BODY_SCAN=0 の場合は本文スキャン停止）。
+  // 直近24時間の実流入（約81件/時）とピーク（約107件/時）を上回る審査余力を確保。
   const isBodyScanDisabled = process.env.BODY_SCAN === '0';
   const maxScanPerRun = isBodyScanDisabled ? 0 : module.exports.maxBodyScanPerRun();
 
@@ -2045,12 +2079,12 @@ async function main() {
   const newCandidates = eligibleItems.filter((item) => item.attempts === 0);
   const selectedNewCandidates = prioritizeCandidateLanes(newCandidates, newCandidatesLimit);
 
-  // 今回の審査対象を結合（最大100件厳守）
+  // 今回の審査対象を結合（最大150件厳守）
   const targetsToScan = [...retryCandidates, ...selectedNewCandidates];
   console.log(`🔍 本文検証対象: 合計 ${targetsToScan.length} 件 (再試行: ${retryCandidates.length} 件, 新着: ${selectedNewCandidates.length} 件 / 上限 ${maxScanPerRun} 件)`);
 
   // --- 本文スキャンと厳格検証の実行 ---
-  let stateChanged = recoveredExpiredPendingCount > 0 || purgedCount > 0 || newlyEnqueued > 0 || refreshedUndatedQueueCount > 0 || migratedCount > 0 || targetsToScan.length > 0;
+  let stateChanged = expiredPendingCount > 0 || recoveredExpiredPendingCount > 0 || purgedCount > 0 || newlyEnqueued > 0 || refreshedUndatedQueueCount > 0 || migratedCount > 0 || targetsToScan.length > 0;
 
   if (targetsToScan.length > 0) {
     const scanner = articleFetcher.createScanner({
@@ -2185,6 +2219,7 @@ async function main() {
       '| 指標 | 件数 / 値 |',
       '|---|---:|',
       `| 今回の本文審査 | ${targetsToScan.length} |`,
+      `| 120時間経過で審査終了 | ${expiredPendingCount} |`,
       `| 未審査 pending | ${pendingItems.length} |`,
       `| 旧期限切れから再審査キューへ復帰 | ${recoveredExpiredPendingCount} |`,
       `| pending: 明示的な外国籍手掛かり | ${laneCounts.explicit_foreign || 0} |`,
@@ -2406,10 +2441,11 @@ module.exports = {
   prioritizeRecentCandidates,
   candidateScanDedupeKey,
   prioritizeCandidateLanes,
-  maxBodyScanPerRun: (configured = process.env.BODY_SCAN_MAX) => Math.min(Math.max(1, Number(configured) || 100), 100),
+  maxBodyScanPerRun: (configured = process.env.BODY_SCAN_MAX) => Math.min(Math.max(1, Number(configured) || 150), 150),
   scheduleQueueItem,
   itemEffectiveTime,
   shouldRetainQueueItem,
+  expireStalePendingItems,
   recoverExpiredPendingItems,
   prioritizeWithBacklog,
   retrySlotLimit,

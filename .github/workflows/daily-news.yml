@@ -67,7 +67,7 @@ jobs:
           SHADOW_MODE: ${{ vars.SHADOW_MODE || '0' }}
           # 本文スキャン有効化（1:有効 / 0:無効）。障害時はリポジトリ変数 BODY_SCAN を 0 にするだけで即時停止可能
           BODY_SCAN: ${{ vars.BODY_SCAN || '1' }}
-          BODY_SCAN_MAX: ${{ vars.BODY_SCAN_MAX || '100' }}
+          BODY_SCAN_MAX: ${{ vars.BODY_SCAN_MAX || '150' }}
 
       # トップはJST当日分だけを表示するため、ニュース0件の日も日付切替後に静的HTMLを更新する。
       - name: Refresh static page for Japan date rollover
