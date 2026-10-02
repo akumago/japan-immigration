@@ -164,9 +164,10 @@ const JP_AUTH_RE = /警視庁|(?:道|府|県)警|警察署|[一-龥ぁ-んァ-�
 const OVERSEAS_PLACE_RE = new RegExp(`(?:${COUNTRY_ALT})(?:国内|で(?:起き|発生|の事件)|の(?:首都|州|都市))|(?:ニューヨーク|ロサンゼルス|ロンドン|パリ|ソウル|北京|上海|バンコク|マニラ|ジャカルタ|ハノイ|シドニー|ベルリン|モスクワ|ドバイ|台北|プノンペン|ヤンゴン)(?:市警|で|市内)`);
 const isOverseas = (t) => {
   const x = nfkc(t);
-  // 日本の捜査機関への言及だけで海外発生の明記を打ち消さない。
-  // 海外の犯行場所が明記されていれば、後日の日本での逮捕記事でも海外事件として除外する。
-  return (FOREIGN_ARREST_RE.test(x) || OVERSEAS_PLACE_RE.test(x)) && !resolvePrefecture(cleanPoliceAndResidence(x)).pref;
+  // 記事の別段落にある日本の地名・住所・逮捕場所が、海外で起きた犯行を
+  // 国内事件へ反転させない。海外の事件場所・外国当局の執行が本文に明記
+  // されている場合は、本文のどこかに都道府県名があるかで打ち消さない。
+  return FOREIGN_ARREST_RE.test(x) || OVERSEAS_PLACE_RE.test(x);
 };
 
 // ───────────────────────── 場所の決定（辞書・最長一致・曖昧なら null） ─────────────────────────
@@ -642,14 +643,7 @@ function verifyArticleContent(text, title = '') {
     return result;
   }
 
-  // 1. 海外事件の積極的除外（本文 text のみ）
-  if (isOverseas(text)) {
-    result.rejected = true;
-    result.rejectReason = 'crime_outside_japan';
-    return result;
-  }
-
-  // 2. 文脈結合による外国籍被疑者の検証（本文 sentences のみ）
+  // 1. 文脈結合による外国籍被疑者の検証（本文 sentences のみ）
   // 記事全体に対する「日本人逮捕」判定は使わない。別件・共犯者・引用中の日本人記述で
   // 外国籍被疑者の記事全体を誤って落とし得るため、外国籍表現ごとに同一文内の役割を確認する。
   // 被疑者文には逮捕・容疑・送検・起訴・有罪などの刑事手続語・犯罪述語が同一文内に存在することを必須化
@@ -669,6 +663,13 @@ function verifyArticleContent(text, title = '') {
   }
 
   if (suspectIndex === -1) {
+    // 外国当局・海外発生が本文に明記され、国内の外国籍被疑者文が確認できない場合は除外確定。
+    // 被疑者文が見つかった場合は、下段でその文脈だけを使って海外事件か判定する。
+    if (isOverseas(text)) {
+      result.rejected = true;
+      result.rejectReason = 'crime_outside_japan';
+      return result;
+    }
     result.insufficientEvidence = true;
 
     // 被疑者文（容疑者・逮捕等の記述）が存在するか文脈を精査
@@ -692,6 +693,17 @@ function verifyArticleContent(text, title = '') {
   }
 
   const suspectSentence = sentences[suspectIndex];
+
+  // 海外事件の検出も本文全体ではなく、被疑者文と直前の事件文脈に限定する。
+  // 記事ページの別記事・過去事件への言及に海外地名があっても対象事件を誤除外しない。
+  const previousSentence = suspectIndex > 0 ? sentences[suspectIndex - 1] : '';
+  const hasEventContext = /(?:事件|発生|行われ|被害|犯行|疑い|容疑|逮捕|見つか|発見|押し入|侵入|窃盗|強盗|詐欺|暴行|傷害|密輸|所持|販売|製造)/.test(previousSentence);
+  const overseasContext = `${hasEventContext ? previousSentence : ''} ${suspectSentence}`;
+  if (isOverseas(overseasContext)) {
+    result.rejected = true;
+    result.rejectReason = 'crime_outside_japan';
+    return result;
+  }
 
   // 【トピック整合性ガード】見出しの事件話題と本文被疑者文が完全に乖離している場合は回遊リンク汚染と判定
   // ※見出しは合格根拠には一切使わず、別事件の混入を検出・拒否するネガティブガードとしてのみ使用

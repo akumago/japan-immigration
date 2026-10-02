@@ -382,6 +382,21 @@ test('本文判定: 日本の警察に逮捕されても、本文で犯行地が
   const result = gate.verifyArticleContent(body, '中国国内の窃盗事件で中国籍の男を逮捕');
   assert.equal(result.verified, false);
   assert.equal(result.rejectReason, 'crime_outside_japan');
+
+  // 記事後段に国内の発表場所があるだけで、海外の犯行が国内扱いに反転しないこと。
+  const withUnrelatedDomesticMention = `${body} 発表は東京都内の警視庁本部で行われました。`;
+  const resultWithDomesticMention = gate.verifyArticleContent(withUnrelatedDomesticMention, '中国国内の窃盗事件で中国籍の男を逮捕');
+  assert.equal(resultWithDomesticMention.verified, false);
+  assert.equal(resultWithDomesticMention.rejectReason, 'crime_outside_japan');
+
+  // 海外事件の話題が本文の別段落にあるだけなら、対象の国内事件を誤除外しないこと。
+  const domesticTargetWithOtherOverseasStory = [
+    '東京都新宿区の店舗で窃盗をしたとして、ベトナム国籍の男が窃盗容疑で警視庁に逮捕されました。',
+    '関連記事では、中国国内で発生した別の窃盗事件について報じています。',
+  ].join(' ');
+  const domesticResult = gate.verifyArticleContent(domesticTargetWithOtherOverseasStory, '新宿区の店舗窃盗でベトナム国籍の男を逮捕');
+  assert.equal(domesticResult.verified, true);
+  assert.equal(domesticResult.location, '東京都');
 });
 
 test('本文判定: 「台湾の男」を認識し、本文の別件で日本人が逮捕されても対象外国籍被疑者を落とさない', () => {
