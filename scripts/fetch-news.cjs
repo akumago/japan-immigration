@@ -355,9 +355,95 @@ function candidateScanDedupeKey(item) {
   const title = normalizeTitle(item.title || '')
     .replace(/[「」『』【】・、。！？!?：:＝=～〜\-‐]/g, '');
   if (title.length < 20) return null;
-  const timestamp = Date.parse(item.pubDate || item.firstSeen || '');
-  if (!Number.isFinite(timestamp)) return null;
-  return `${new Date(timestamp).toISOString().slice(0, 10)}|${title}`;
+  const publication = parsePublicationDate(item.pubDate || item.firstSeen || '');
+  if (!publication) return null;
+  return `${publication.jstDate}|${title}`;
+}
+
+// Queue-level coalescing is deliberately narrower than publication dedupe:
+// only same-JST-day, effectively identical, specific foreign-crime headlines
+// share a queue slot. Broad-discovery candidates are never dropped here.
+function candidateSyndicationKey(item) {
+  if (candidateLane(item) !== 'explicit_foreign') return null;
+  const key = candidateScanDedupeKey(item);
+  if (!key) return null;
+  const title = normalizeTitle(item.title || '').replace(/[「」『』【】・、。！？!?：:＝=～〜\-‐\s]/g, '');
+  if (title.length < 28) return null;
+  const hasCrime = CRIME_KEYWORDS.some((word) => title.includes(word));
+  const hasForeignClue = FOREIGN_KEYWORDS.some((word) => title.includes(word));
+  const hasSpecificDetail = /(?:[一-龥ぁ-んァ-ヴー]{2,}(?:市|区|町|村|空港|駅|線)|\d{1,4}(?:歳|人|件|万円|億円|キロ|ｋｇ|kg)|(?:商品|腕時計|サプリ|タイヤ|コンテナ|ヤード))/.test(title);
+  return hasCrime && hasForeignClue && hasSpecificDetail ? key : null;
+}
+
+function addCandidateAlternative(queueItem, candidate) {
+  if (!queueItem || !candidate?.url || normalizeArticleUrl(queueItem.url) === normalizeArticleUrl(candidate.url)) return false;
+  const alternatives = Array.isArray(queueItem.alternateSources) ? queueItem.alternateSources : [];
+  const normalized = normalizeArticleUrl(candidate.url);
+  if (alternatives.some((source) => normalizeArticleUrl(source.url) === normalized)) return false;
+  // Keep a bounded set of alternate official/publisher links for failover.
+  if (alternatives.length >= 8) return false;
+  alternatives.push({
+    url: candidate.url,
+    title: candidate.title,
+    media: candidate.media || null,
+    sourceId: candidate.sourceId || null,
+    sourceType: candidate.sourceType || null,
+    sourceRecordId: candidate.sourceRecordId || null,
+  });
+  queueItem.alternateSources = alternatives;
+
+  // Prefer a direct publisher URL over an aggregator when no fetch attempt has
+  // started; preserve the previous representative as a failover source.
+  if (queueItem.status === 'pending' && (queueItem.attempts || 0) === 0
+    && publicationSourceRank(candidate.url) > publicationSourceRank(queueItem.url)
+    && !queueItem.sourceBody) {
+    const previous = {
+      url: queueItem.url,
+      title: queueItem.title,
+      media: queueItem.media || null,
+      sourceId: queueItem.sourceId || null,
+      sourceType: queueItem.sourceType || null,
+      sourceRecordId: queueItem.sourceRecordId || null,
+    };
+    alternatives.pop();
+    if (previous.url && !alternatives.some((source) => normalizeArticleUrl(source.url) === normalizeArticleUrl(previous.url))) {
+      alternatives.unshift(previous);
+    }
+    queueItem.url = candidate.url;
+    queueItem.title = candidate.title;
+    queueItem.media = candidate.media || queueItem.media;
+    queueItem.sourceId = candidate.sourceId || queueItem.sourceId;
+    queueItem.sourceType = candidate.sourceType || queueItem.sourceType;
+    queueItem.sourceRecordId = candidate.sourceRecordId || queueItem.sourceRecordId;
+  }
+  return true;
+}
+
+function selectCandidateSource(queueItem) {
+  const sources = [
+    { url: queueItem.url, media: queueItem.media || null },
+    ...(Array.isArray(queueItem.alternateSources) ? queueItem.alternateSources : []),
+  ].filter((source) => source?.url);
+  const tried = new Set((queueItem.sourceAttemptUrls || []).map(normalizeArticleUrl));
+  const next = sources.find((source) => !tried.has(normalizeArticleUrl(source.url)))
+    || sources[Math.max(0, ((queueItem.attempts || 1) - 1) % sources.length)];
+  if (!next) return null;
+  queueItem.activeSourceUrl = next.url;
+  queueItem.activeSourceMedia = next.media || queueItem.media || null;
+  queueItem.sourceAttemptUrls = [...new Set([...(queueItem.sourceAttemptUrls || []), normalizeArticleUrl(next.url)])];
+  return next;
+}
+
+function scheduleCandidateSourceFallback(queueItem, reason, now = Date.now()) {
+  const tried = new Set((queueItem.sourceAttemptUrls || []).map(normalizeArticleUrl));
+  const hasUntriedAlternative = (queueItem.alternateSources || [])
+    .some((source) => source.url && !tried.has(normalizeArticleUrl(source.url)));
+  if (!hasUntriedAlternative) return false;
+  queueItem.status = 'pending';
+  queueItem.pendingReason = `source_fallback_after_${reason || 'unreadable'}`;
+  queueItem.nextAttemptAt = new Date(now).toISOString();
+  queueItem.terminalAt = null;
+  return true;
 }
 
 // 都道府県リスト
@@ -1996,10 +2082,20 @@ async function main() {
     if (qItem.sourceRecordId) queueNormUrls.add(`source:${qItem.sourceRecordId}`);
     if (qItem.url) queueNormUrls.add(normalizeArticleUrl(qItem.url));
     if (qItem.resolvedUrl) queueNormUrls.add(normalizeArticleUrl(qItem.resolvedUrl));
+    for (const source of qItem.alternateSources || []) {
+      if (source.sourceRecordId) queueNormUrls.add(`source:${source.sourceRecordId}`);
+      if (source.url) queueNormUrls.add(normalizeArticleUrl(source.url));
+    }
+  }
+  const queueSyndicationKeys = new Map();
+  for (const qItem of queue.items) {
+    const key = candidateSyndicationKey(qItem);
+    if (key && !queueSyndicationKeys.has(key)) queueSyndicationKeys.set(key, qItem);
   }
 
   // 3. RSS新規アイテムをキューに登録（既存掲載済み・既存キュー登録済みでないもの）
   let newlyEnqueued = 0;
+  let syndicatedAlternativesAttached = 0;
   let refreshedUndatedQueueCount = 0;
   for (const item of uniqueItems) {
     const norm = normalizeArticleUrl(item.url);
@@ -2010,8 +2106,32 @@ async function main() {
       continue;
     }
 
+    const syndicationKey = candidateSyndicationKey(item);
+    const groupedCandidate = syndicationKey ? queueSyndicationKeys.get(syndicationKey) : null;
+    if (groupedCandidate) {
+      // Keep the second publisher's URL for fallback if the representative
+      // article is unavailable. Never group broad-discovery candidates or
+      // merely similar headlines.
+      if (groupedCandidate.status !== 'rejected' && addCandidateAlternative(groupedCandidate, item)) {
+        if (groupedCandidate.status === 'gave_up') {
+          const effective = itemEffectiveTime(groupedCandidate);
+          if (effective && effective <= now && now - effective < TTL_120H_MS) {
+            groupedCandidate.status = 'pending';
+            groupedCandidate.attempts = 0;
+            groupedCandidate.pendingReason = null;
+            groupedCandidate.lastError = null;
+            groupedCandidate.terminalAt = null;
+            groupedCandidate.nextAttemptAt = new Date(now).toISOString();
+          }
+        }
+        queueNormUrls.add(identity);
+        syndicatedAlternativesAttached++;
+        continue;
+      }
+    }
+
     queueNormUrls.add(identity);
-    queue.items.push({
+    const queuedItem = {
       id: item.id,
       url: item.url,
       resolvedUrl: null,
@@ -2035,10 +2155,14 @@ async function main() {
       sourceId: item.sourceId || null,
       sourceBody: item.sourceBody || null,
       candidateLane: candidateLane(item),
-    });
+      alternateSources: [],
+      sourceAttemptUrls: [],
+    };
+    queue.items.push(queuedItem);
+    if (syndicationKey && (!groupedCandidate || groupedCandidate.status === 'rejected')) queueSyndicationKeys.set(syndicationKey, queuedItem);
     newlyEnqueued++;
   }
-  console.log(`📥 新規候補キュー登録: ${newlyEnqueued} 件 (キュー総数: ${queue.items.length} 件)`);
+  console.log(`📥 新規事件候補キュー登録: ${newlyEnqueued} 件 (同一見出しの別媒体を代替元として統合: ${syndicatedAlternativesAttached} 件, キュー総数: ${queue.items.length} 件)`);
   if (refreshedUndatedQueueCount) console.log(`🗓️ 配信日時が後から確認できた候補を再審査へ復帰: ${refreshedUndatedQueueCount} 件`);
 
   // --- 本文スキャンと検証対象の選定 ---
@@ -2084,7 +2208,7 @@ async function main() {
   console.log(`🔍 本文検証対象: 合計 ${targetsToScan.length} 件 (再試行: ${retryCandidates.length} 件, 新着: ${selectedNewCandidates.length} 件 / 上限 ${maxScanPerRun} 件)`);
 
   // --- 本文スキャンと厳格検証の実行 ---
-  let stateChanged = expiredPendingCount > 0 || recoveredExpiredPendingCount > 0 || purgedCount > 0 || newlyEnqueued > 0 || refreshedUndatedQueueCount > 0 || migratedCount > 0 || targetsToScan.length > 0;
+  let stateChanged = expiredPendingCount > 0 || recoveredExpiredPendingCount > 0 || purgedCount > 0 || newlyEnqueued > 0 || syndicatedAlternativesAttached > 0 || refreshedUndatedQueueCount > 0 || migratedCount > 0 || targetsToScan.length > 0;
 
   if (targetsToScan.length > 0) {
     const scanner = articleFetcher.createScanner({
@@ -2110,18 +2234,24 @@ async function main() {
       } else {
         // 再試行時、既に resolvedUrl があれば直接元記事を取得し Google News 中継を回避
         // また forceRefresh: true を付与して古い本文キャッシュをバイパス
-        const fetchUrl = (isRetry && qItem.resolvedUrl) ? qItem.resolvedUrl : qItem.url;
+        const activeSource = selectCandidateSource(qItem);
+        const fetchUrl = (isRetry && activeSource?.url === qItem.url && qItem.resolvedUrl)
+          ? qItem.resolvedUrl
+          : activeSource?.url || qItem.url;
         const scanItem = { url: fetchUrl, title: qItem.title, forceRefresh: isRetry };
         await scanner.scan([scanItem]);
         scanResult = scanItem._scanResult;
         if (scanItem.resolvedUrl) qItem.resolvedUrl = scanItem.resolvedUrl;
+        if (activeSource?.media) qItem.activeSourceMedia = activeSource.media;
       }
 
       if (!scanResult || !scanResult.ok) {
         const reason = (scanResult && scanResult.reason) || 'fetch_failed';
         console.log(`   ⚠️ 本文取得失敗: ${reason}`);
         qItem.pendingReason = reason;
-        if (reason === 'gone' || reason === 'invalid_url') {
+        if (scheduleCandidateSourceFallback(qItem, reason, now)) {
+          console.log(`   🔀 代替媒体へ切替予定: ${qItem.pendingReason}`);
+        } else if (reason === 'gone' || reason === 'invalid_url') {
           qItem.status = 'gave_up';
         } else {
           scheduleQueueItem(qItem, { reason }, now);
@@ -2159,12 +2289,17 @@ async function main() {
         qItem.status = 'verified';
         qItem.location = verifyRes.location;
         qItem.audit = verifyRes.audit;
+        if (qItem.activeSourceMedia) qItem.media = qItem.activeSourceMedia;
         if (isRetry) retryMetrics.verifiedFromRetryCount++;
         console.log(`   ✅ 厳格合格！ 現場: ${verifyRes.location}`);
       } else {
         // 根拠不足（保留）➔ 再試行スケジューラで判定
         qItem.pendingReason = verifyRes.pendingReason;
-        scheduleQueueItem(qItem, { reason: verifyRes.pendingReason }, now);
+        if (scheduleCandidateSourceFallback(qItem, verifyRes.pendingReason, now)) {
+          console.log(`   🔀 根拠不足のため別媒体を確認予定: ${qItem.pendingReason}`);
+        } else {
+          scheduleQueueItem(qItem, { reason: verifyRes.pendingReason }, now);
+        }
         console.log(`   ⏳ 根拠不足判定: ${verifyRes.pendingReason} -> status=${qItem.status}, next=${qItem.nextAttemptAt || 'none'}`);
       }
     }
@@ -2219,6 +2354,7 @@ async function main() {
       '| 指標 | 件数 / 値 |',
       '|---|---:|',
       `| 今回の本文審査 | ${targetsToScan.length} |`,
+      `| 同一候補グループへ束ねた別媒体URL | ${syndicatedAlternativesAttached} |`,
       `| 120時間経過で審査終了 | ${expiredPendingCount} |`,
       `| 未審査 pending | ${pendingItems.length} |`,
       `| 旧期限切れから再審査キューへ復帰 | ${recoveredExpiredPendingCount} |`,
@@ -2367,6 +2503,7 @@ async function main() {
         fetchedCandidates: fetchedItems.length,
         uniqueCandidates: uniqueItems.length,
         newlyEnqueued,
+        syndicatedAlternativesAttached,
         scanned: targetsToScan.length,
         retries: retryCandidates.length,
         recoveredExpired: recoveredExpiredPendingCount,
@@ -2433,6 +2570,10 @@ module.exports = {
   isDomesticCrime,
   isOverseasOrEntertainmentMedia,
   eventFingerprint,
+  candidateSyndicationKey,
+  addCandidateAlternative,
+  selectCandidateSource,
+  scheduleCandidateSourceFallback,
   publicationSourceRank,
   publicationHeadlineKey,
   dedupeExistingHeadlines,

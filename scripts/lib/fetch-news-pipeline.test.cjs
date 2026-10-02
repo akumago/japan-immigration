@@ -394,6 +394,43 @@ test('キュー選定: 同じ公開時刻ならGoogle News中継より元媒体�
   assert.equal(selected[0].id, 'direct');
 });
 
+test('候補圧縮: 詳細一致の明示的外国籍候補だけを同一JST日で束ね、広域候補や曖昧な見出しは残す', () => {
+  const explicitA = {
+    candidateLane: 'explicit_foreign',
+    title: '中国籍の女を商標法違反の疑いで逮捕 雪印メグミルク商品',
+    pubDate: '2026-10-01T15:30:00Z', // JSTでは10月2日
+    url: 'https://news.google.com/rss/articles/a',
+  };
+  const explicitB = {
+    ...explicitA,
+    pubDate: '2026-10-02T02:00:00Z',
+    url: 'https://news.example.jp/story/b',
+  };
+  assert.equal(fetchNews.candidateSyndicationKey(explicitA), fetchNews.candidateSyndicationKey(explicitB));
+  assert.equal(fetchNews.candidateSyndicationKey({ ...explicitB, candidateLane: 'broad_discovery' }), null,
+    '国籍手掛かりのない広域発見候補は候補段階で統合しない');
+  assert.equal(fetchNews.candidateSyndicationKey({ ...explicitB, title: '中国籍の男を逮捕' }), null,
+    '具体性の低い短い見出しは別候補として保持する');
+
+  const grouped = { url: explicitA.url, media: 'Google News', status: 'pending', attempts: 1, alternateSources: [], sourceAttemptUrls: [explicitA.url] };
+  assert.equal(fetchNews.addCandidateAlternative(grouped, { ...explicitB, media: '地方テレビ局' }), true);
+  assert.equal(fetchNews.scheduleCandidateSourceFallback(grouped, 'gone', 1_800_000_000_000), true,
+    '404でも代替媒体が未試行なら事件候補を終了させない');
+  assert.equal(grouped.status, 'pending');
+  assert.equal(grouped.nextAttemptAt, new Date(1_800_000_000_000).toISOString());
+  assert.equal(fetchNews.selectCandidateSource(grouped).url, explicitB.url,
+    '代表記事に失敗した次回は、同一見出しグループの別媒体を試す');
+  assert.equal(fetchNews.selectCandidateSource(grouped).url, explicitA.url,
+    '全媒体を一度試した後は通信再試行で元記事へ戻る');
+  assert.equal(fetchNews.scheduleCandidateSourceFallback(grouped, 'gone'), false,
+    '代替媒体を試し終えた後は通常の終了・再試行ルールに戻す');
+
+  const preferred = { url: explicitA.url, title: explicitA.title, media: 'Google News', status: 'pending', attempts: 0, alternateSources: [], sourceAttemptUrls: [] };
+  fetchNews.addCandidateAlternative(preferred, { ...explicitB, media: '地方テレビ局' });
+  assert.equal(preferred.url, explicitB.url, '未審査なら元媒体を代表記事にする');
+  assert.equal(preferred.alternateSources[0].url, explicitA.url, 'Google中継URLはフォールバックとして保持する');
+});
+
 test('本文判定: 現場にいた外国籍人物と逮捕された日本人を混同しない', () => {
   const body = '東京都新宿区の店舗で発生した窃盗事件で、中国籍の男は現場にいたが、窃盗の疑いで逮捕されたのは日本人の男です。';
   const result = gate.verifyArticleContent(body, '新宿区窃盗 中国籍の男');
@@ -846,8 +883,14 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
             <channel>
               <title>Google News Test</title>
               <item>
-                <title>群馬・大泉町で住宅侵入 ブラジル国籍の男を逮捕 群馬県警</title>
-                <link>http://127.0.0.1:${server.address().port}/article-legit</link>
+                <title>群馬県大泉町の住宅侵入・窃盗容疑、ブラジル国籍の男（32）を現行犯逮捕</title>
+                <link>http://127.0.0.1:${server.address().port}/article-legit-primary-missing</link>
+                <pubDate>${new Date().toUTCString()}</pubDate>
+                <description>群馬県大泉町で住宅侵入 ブラジル国籍の男を現行犯逮捕</description>
+              </item>
+              <item>
+                <title>群馬県大泉町の住宅侵入・窃盗容疑、ブラジル国籍の男（32）を現行犯逮捕</title>
+                <link>http://127.0.0.1:${server.address().port}/article-legit-duplicate</link>
                 <pubDate>${new Date().toUTCString()}</pubDate>
                 <description>群馬県大泉町で住宅侵入 ブラジル国籍の男を現行犯逮捕</description>
               </item>
@@ -868,12 +911,6 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
                 <link>http://127.0.0.1:${server.address().port}/article-100</link>
                 <pubDate>${new Date().toUTCString()}</pubDate>
                 <description>群馬県前橋市でブラジル国籍の男逮捕</description>
-              </item>
-              <item>
-                <title>大泉町の住宅侵入 ブラジル国籍の工員を窃盗容疑で逮捕（別媒体配信）</title>
-                <link>http://127.0.0.1:${server.address().port}/article-legit-duplicate</link>
-                <pubDate>${new Date().toUTCString()}</pubDate>
-                <description>群馬県大泉町の住宅侵入、ブラジル国籍の男を逮捕</description>
               </item>
               <item>
                 <title>群馬県大泉町でブラジル国籍の男を窃盗容疑で逮捕 日時未記載</title>
@@ -960,6 +997,8 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
   try {
     // 本番 fetch-news.cjs のメイン処理を実行！
     await fetchNews.main();
+    // 代表元が404の場合、同じ厳密一致グループに保持した別媒体へ次回巡回で切り替える。
+    await fetchNews.main();
 
     // 1. 公開データ（newsData.json）の検証
     // 正当記事3件（通常長文＋100文字境界＋5日窓内の旧候補）だけが追加され、合計5件になること
@@ -1011,15 +1050,16 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
     assert.equal(qItem100.location, '群馬県');
 
     // 通常の長文正当記事の検証
-    const legitQueueItem = updatedQueue.items.find((i) => i.title.includes('ブラジル国籍の男を逮捕 群馬県警'));
+    const legitQueueItem = updatedQueue.items.find((i) => i.url.includes('article-legit-primary-missing'));
     assert.ok(legitQueueItem, '正当記事がキューに存在すること');
     assert.equal(legitQueueItem.status, 'verified', '正当記事は verified になること');
 
-    const duplicateQueueItem = updatedQueue.items.find((i) => i.url.includes('article-legit-duplicate'));
-    assert.ok(duplicateQueueItem, '別媒体相当の同一事件候補がキューに登録されること');
-    assert.equal(duplicateQueueItem.status, 'verified', '同一事件候補も本文根拠で verified になること');
-    assert.equal(updatedData.filter((a) => /article-legit(?:-duplicate)?/.test(a.url || '')).length, 1,
-      '媒体違いの同一事件は公開配列に1件だけ残ること');
+    assert.ok(legitQueueItem.alternateSources.some((source) => source.url.includes('article-legit-duplicate')),
+      '同一候補グループの別媒体URLを捨てずに保持すること');
+    assert.equal(updatedQueue.items.filter((item) => /article-legit-primary-missing|article-legit-duplicate/.test(item.url || '')).length, 1,
+      '同じ詳細見出し・同一JST日の媒体違いはキュー枠を1件だけ使うこと');
+    assert.equal(updatedData.filter((a) => /article-legit-primary-missing|article-legit-duplicate/.test(a.url || '')).length, 1,
+      '代表元404後に代替媒体で審査し、事件の公開行を1件だけ作ること');
     assert.ok(updatedData.slice(0, 2).every((article) => /^event-v1:[a-f0-9]{64}$/.test(article.eventKey || '')),
       '新規記事の事件指紋ハッシュが後続実行用に保存されること');
 
