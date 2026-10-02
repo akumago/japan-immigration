@@ -698,7 +698,13 @@ function verifyArticleContent(text, title = '') {
       // 照合対象は被疑者文および直前文（直結する犯行文脈）のみに限定し、本文先頭の一致によるすり抜けを完全排除
       const prevSentence = suspectIndex > 0 ? sentences[suspectIndex - 1] : '';
       const suspectContext = `${prevSentence} ${suspectSentence}`;
-      const TOPIC_EQUIVALENTS = { '窃盗': /窃盗|盗み|盗ん/, 'すり': /すり|盗み|盗ん/, '商標法': /商標|偽物|偽サプリ/ };
+      const TOPIC_EQUIVALENTS = {
+        '窃盗': /窃盗|盗み|盗ん/,
+        'すり': /すり|盗み|盗ん/,
+        '空き巣': /空き巣|住居侵入|侵入|窃盗|盗み|盗ん/,
+        '偽サプリ': /商標|偽物|偽.{0,3}サプリ|健康サプリ/,
+        '商標法': /商標|偽物|偽サプリ|健康サプリ/,
+      };
       const hasMatchingTopic = titleTopics.some((w) => (TOPIC_EQUIVALENTS[w] || new RegExp(w)).test(suspectContext));
       if (!hasMatchingTopic) {
         result.insufficientEvidence = true;

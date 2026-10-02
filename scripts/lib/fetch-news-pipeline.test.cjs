@@ -336,6 +336,21 @@ test('本文判定: 警視庁の国内事件は場所を推測せず全国扱い
   assert.equal(result.location, '全国');
 });
 
+test('本文判定: 2026-10-02雪印偽サプリ事件の実際の本文と配信見出しを通す', () => {
+  const body = '「雪印メグミルク」の健康サプリメントの偽物が販売されていた事件で、警視庁は商標法違反の疑いで、偽物を輸入・販売していたとみられる中国籍の女を逮捕しました。商標法違反の疑いで逮捕されたのは、中国籍の石梨容疑者（38）です。石容疑者は去年10月、「雪印メグミルク」が販売する健康サプリの偽物3袋を販売するなどして、商標権を侵害した疑いがもたれています。警視庁によりますと、石容疑者は偽物を中国から輸入していたとみられ、共犯者らとともに、フリマアプリで正規品より1000円ほど安く販売して、去年7月からの5か月間でおよそ150万円を売り上げていたということです。取り調べに対し、石容疑者は容疑を否認しています。';
+  const result = gate.verifyArticleContent(body, '「雪印」偽サプリ 販売指示か 「正規品より大きい」中国籍の女逮捕');
+  assert.equal(result.verified, true);
+  assert.equal(result.location, '全国');
+  assert.match(result.audit.suspectRole.evidence, /中国籍の女を逮捕/);
+});
+
+test('キュー選定: 同じ公開時刻ならGoogle News中継より元媒体記事を先に審査する', () => {
+  const google = { id: 'google', candidateLane: 'explicit_foreign', pubDate: '2026-10-02T03:00:00Z', title: '同一の外国籍窃盗事件について報じる同じ長さの見出し', url: 'https://news.google.com/rss/articles/example' };
+  const direct = { id: 'direct', candidateLane: 'explicit_foreign', pubDate: google.pubDate, title: google.title, url: 'https://newsdig.tbs.co.jp/articles/123' };
+  const selected = fetchNews.prioritizeCandidateLanes([google, direct], 2);
+  assert.equal(selected[0].id, 'direct');
+});
+
 test('本文判定: 現場にいた外国籍人物と逮捕された日本人を混同しない', () => {
   const body = '東京都新宿区の店舗で発生した窃盗事件で、中国籍の男は現場にいたが、窃盗の疑いで逮捕されたのは日本人の男です。';
   const result = gate.verifyArticleContent(body, '新宿区窃盗 中国籍の男');

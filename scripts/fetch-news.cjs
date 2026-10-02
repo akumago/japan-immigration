@@ -147,6 +147,10 @@ function prioritizeRecentCandidates(items) {
     const aDate = Date.parse(a.pubDate || a.firstSeen || '') || 0;
     const bDate = Date.parse(b.pubDate || b.firstSeen || '') || 0;
     if (aDate !== bDate) return bDate - aDate;
+    // 同一時刻に同じ事件が複数経路から届いた場合、Google News中継より
+    // 元媒体URLを先に審査する。抽出本文の質と追跡可能性を優先する。
+    const sourceRankDiff = publicationSourceRank(b.resolvedUrl || b.url) - publicationSourceRank(a.resolvedUrl || a.url);
+    if (sourceRankDiff) return sourceRankDiff;
     const attemptDiff = (a.attempts || 0) - (b.attempts || 0);
     if (attemptDiff) return attemptDiff;
     return String(a.id || '').localeCompare(String(b.id || ''));
