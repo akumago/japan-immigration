@@ -9,6 +9,7 @@ const policeBulletins = require('./lib/police-bulletins.cjs');
 const publisherListings = require('./lib/publisher-listings.cjs');
 const rssSources = require('./lib/rss-sources.cjs');
 const SHADOW_MODE = process.env.SHADOW_MODE === '1'; // 既定は本番稼働（1を明示したときだけシャドー）
+const BODY_GATE_VERSION = 'strict-2026-10-02.2';
 
 const getNewsDataPath = () => process.env.NEWS_DATA_PATH || path.join(__dirname, '../data/newsData.json');
 const getQueuePath = () => process.env.NEWS_QUEUE_PATH || path.join(__dirname, '../data/newsQueue.json');
@@ -44,6 +45,10 @@ function eventFingerprint(item) {
   const placeMatch = text.match(/[一-龥ぁ-んァ-ヴー]{2,10}(?:市|区|町|村)/g);
   const placeRaw = placeMatch?.find((x) => !/(警察署|入管|地裁|地検|区検)$/.test(x)) || '';
   const place = placeRaw.replace(/^(?:東京都|北海道|(?:京都|大阪)府|[一-龥]{2,3}県)/, '');
+  // 市区町村名が本文にない鉄道内事件は、本文根拠の路線＋駅間を場所キーにする。
+  // 路線名だけでは別の事件を統合し得るため、両駅が取れた場合に限って採用する。
+  const transit = text.match(/((?:東急|京王|小田急|ＪＲ|JR|東京メトロ|都営|西武|東武|京急|京成|阪急|阪神|近鉄|名鉄|西鉄|南海|相鉄)[一-龥ぁ-んァ-ヴーA-Za-z0-9・]{0,10}線(?:の)?[一-龥ぁ-んァ-ヴーA-Za-z0-9・]{1,12}駅から[一-龥ぁ-んァ-ヴーA-Za-z0-9・]{1,12}駅)/);
+  const eventPlace = place || (transit ? transit[1] : '');
   const crimeGroups = [
     ['覚醒剤製造', /覚醒剤.{0,12}(?:製造|密造)|(?:製造|密造).{0,12}覚醒剤/],
     ['薬物密輸', /(?:密輸|密輸入|輸入).{0,12}(?:麻薬|薬物|コカイン|大麻)|(?:麻薬|薬物|コカイン|大麻).{0,12}密輸/],
@@ -58,9 +63,31 @@ function eventFingerprint(item) {
   const verifiedNationality = String(item.audit?.foreignNationality?.evidence || '')
     .replace(/^本文抜粋:\s*/, '').trim();
   const nat = verifiedNationality || text.match(EVENT_NATIONALITY_RE)?.[0] || '';
-  if (!place || !crime || !nat) return null;
-  const signature = `${place}|${crime}|${nat.replace(/(?:国籍|籍|人|出身)$/, '')}`;
+  if (!eventPlace || !crime || !nat) return null;
+  const signature = `${eventPlace}|${crime}|${nat.replace(/(?:国籍|籍|人|出身)$/, '')}`;
   return `event-v1:${crypto.createHash('sha256').update(signature).digest('hex')}`;
+}
+
+function publicationHeadlineKey(item) {
+  const title = normalizeTitle(item.title || '').replace(/[「」『』【】・、。！？!?：:＝=～〜\-‐\s]/g, '');
+  if (title.length < 20 || !item.date) return null;
+  return `${item.date}|${title}`;
+}
+
+function dedupeExistingHeadlines(items) {
+  const out = [];
+  const byKey = new Map();
+  for (const item of items) {
+    const key = publicationHeadlineKey(item);
+    if (!key || !byKey.has(key)) {
+      if (key) byKey.set(key, out.length);
+      out.push(item);
+      continue;
+    }
+    const index = byKey.get(key);
+    if (publicationSourceRank(item.url) > publicationSourceRank(out[index].url)) out[index] = item;
+  }
+  return out;
 }
 
 function withinFiveDays(a, b) {
@@ -82,6 +109,24 @@ function hashBody(text) {
   if (!text) return null;
   const normalized = text.replace(/\s+/g, ' ').trim();
   return crypto.createHash('sha256').update(normalized).digest('hex').slice(0, 16);
+}
+
+// 役割判定ロジックを直した場合、TTL内の同理由unverifiedだけを一度再審査へ戻す。
+// 旧ルールの誤保留を救済しつつ、毎時同じ記事を再取得し続けない。
+function requeueRuleVersionFailures(items, now = Date.now()) {
+  let count = 0;
+  const retryableReasons = new Set(['suspect_role_unclear_in_body']);
+  for (const item of items) {
+    if (item.status !== 'unverified' || item.gateVersion === BODY_GATE_VERSION
+      || !retryableReasons.has(item.pendingReason) || item.sourceBody || (item.attempts || 0) >= 5) continue;
+    const effective = itemEffectiveTime(item);
+    if (!effective || effective > now + 10 * 60 * 1000 || now - effective >= 120 * 60 * 60 * 1000) continue;
+    item.status = 'pending';
+    item.nextAttemptAt = new Date(now).toISOString();
+    item.gateVersion = BODY_GATE_VERSION;
+    count++;
+  }
+  return count;
 }
 
 // 2系統（通信障害 vs 続報確認）を厳密に分離した再試行スケジューラ
@@ -1757,6 +1802,12 @@ async function main() {
       frozenExisting = [];
     }
   }
+  const existingCountBeforeDedupe = frozenExisting.length;
+  frozenExisting = dedupeExistingHeadlines(frozenExisting);
+  const removedExistingHeadlineDuplicates = existingCountBeforeDedupe - frozenExisting.length;
+  if (removedExistingHeadlineDuplicates > 0) {
+    console.log(`🧹 公開済み重複見出しを統合: 同日・同一見出しの ${removedExistingHeadlineDuplicates} 件を除外`);
+  }
   console.log(`🔒 既存公開データ保護: ${frozenExisting.length} 件を完全凍結保持`);
 
   // 既存記事のURL（元URL・解決後URL）をSet化
@@ -1797,7 +1848,7 @@ async function main() {
   }
 
   // 1.5 既存の保留記事（insufficient_evidence）の安全な移行処理
-  let migratedCount = 0;
+  let migratedCount = requeueRuleVersionFailures(queue.items, now);
   for (const item of queue.items) {
     if (item.status === 'insufficient_evidence') {
       const effTime = itemEffectiveTime(item);
@@ -1929,6 +1980,7 @@ async function main() {
 
       qItem.attempts += 1;
       qItem.lastAttemptAt = new Date().toISOString();
+      qItem.gateVersion = BODY_GATE_VERSION;
 
       console.log(`\n📄 [本文検証] 審査開始: ${qItem.title.slice(0, 40)}... (試行 ${qItem.attempts}回目${isRetry ? '・再取得' : ''})`);
 
@@ -2062,7 +2114,18 @@ async function main() {
   const acceptedNew = [];
   const seenBatchUrls = new Set();
   const batchEvents = new Map();
-  const knownEvents = frozenExisting.map((item) => ({ fingerprint: eventFingerprint(item), date: item.date }));
+  const knownEvents = frozenExisting.map((item) => {
+    const norm = normalizeArticleUrl(item.url || '');
+    const queueEvidence = queue.items.find((q) => q.status === 'verified'
+      && [q.url, q.resolvedUrl].filter(Boolean).some((url) => normalizeArticleUrl(url) === norm));
+    return {
+      fingerprint: eventFingerprint(queueEvidence ? { ...item, audit: queueEvidence.audit } : item),
+      headlineKey: publicationHeadlineKey(item),
+      date: item.date,
+    };
+  });
+  const knownHeadlineKeys = new Set(knownEvents.map((event) => event.headlineKey).filter(Boolean));
+  const batchHeadlineKeys = new Set();
 
   for (const v of newlyVerified) {
     const normUrl = normalizeArticleUrl(v.url);
@@ -2082,6 +2145,12 @@ async function main() {
     // 媒体違いの同一事件を統合。具体的な市区町村・罪種・国籍が一致し、
     // 公開日も5日以内の場合に限る。既存掲載分との一致は新規掲載しない。
     const fingerprint = eventFingerprint(v);
+    const headlineKey = publicationHeadlineKey(v);
+    if ((headlineKey && knownHeadlineKeys.has(headlineKey))
+      || (headlineKey && batchHeadlineKeys.has(headlineKey))) {
+      console.log(`   ⏩ 同日・同一見出しの媒体違いを重複除外: ${v.title}`);
+      continue;
+    }
     if (fingerprint && knownEvents.some((e) => e.fingerprint === fingerprint && withinFiveDays(e.date, v.date))) {
       console.log(`   ⏩ 別媒体の同一事件を重複除外: ${v.title}`);
       continue;
@@ -2124,12 +2193,13 @@ async function main() {
 
     // 公開データ用レコード。本文抜粋は保存せず、事件指紋ハッシュだけで後続実行の重複を照合。
     acceptedNew.push(publication);
+    if (headlineKey) batchHeadlineKeys.add(headlineKey);
   }
 
   console.log(`\n🎉 新規合格・掲載対象記事: ${acceptedNew.length} 件`);
 
   // --- 既存データとの結合と保存（差分ゼロ保護） ---
-  if (acceptedNew.length === 0) {
+  if (acceptedNew.length === 0 && removedExistingHeadlineDuplicates === 0) {
     console.log('✅ 新着の合格記事はありませんでした。newsData.json の更新をスキップします（差分ゼロ保護）。');
     return;
   }
@@ -2165,6 +2235,10 @@ module.exports = {
   isOverseasOrEntertainmentMedia,
   eventFingerprint,
   publicationSourceRank,
+  publicationHeadlineKey,
+  dedupeExistingHeadlines,
+  BODY_GATE_VERSION,
+  requeueRuleVersionFailures,
   prioritizeRecentCandidates,
   candidateScanDedupeKey,
   prioritizeCandidateLanes,

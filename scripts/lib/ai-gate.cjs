@@ -117,10 +117,18 @@ function nationalityLinkedToSuspect(sentence, occurrence) {
   const t = nfkc(sentence);
   const at = t.indexOf(nfkc(occurrence.text));
   if (at < 0) return false;
+  const prefix = t.slice(Math.max(0, at - 55), at);
   const tail = t.slice(at + nfkc(occurrence.text).length, at + nfkc(occurrence.text).length + 140);
   // 速報本文は「容疑者は○日、現場で…」のように読点で主語述語が離れる。
   // 読点で切ると、同一文に明記された犯罪行為を取りこぼすため文末・引用符だけで区切る。
   const clause = tail.split(/[。「」]/, 1)[0];
+  // 「逮捕されたのは、ベトナム国籍で住居不定、無職のチャン容疑者」のように、
+  // 国籍語と人物語の間に属性が挟まる報道文を同一の逮捕対象として結び付ける。
+  // 直前に逮捕対象導入語があり、後続にも容疑者/被告等がある場合に限る。
+  const introducedArrestee = /(?:逮捕|送検|送致|起訴|書類送検|再逮捕)[^。]{0,24}されたのは[、\s]*$/.test(prefix)
+    && /^(?:で[、，]?\s*)?[^。]{0,75}(?:容疑者|被告|男|女|男性|女性|少年|少女)/.test(clause)
+    && /(?:逮捕|送検|送致|起訴|窃盗|強盗|詐欺|暴行|侵入|密輸|所持|販売|製造)[^。]{0,100}(?:疑い|容疑|逮捕|容疑者|被告)/.test(clause);
+  if (introducedArrestee && !/(?:日本人|日本国籍)[^、。]{0,12}(?:逮捕|容疑者|被告)/.test(prefix + clause)) return true;
   // 同じ文に「逮捕されたのは日本人」など、実際の被疑者が別人だと明示されているときは、
   // 前半の外国籍人物を逮捕対象へ誤結合しない（共犯を並列で逮捕した構文は除外しない）。
   if (/(?:逮捕|送検|送致|起訴)[^。]{0,24}(?:されたのは|したのは)\s*日本(?:人|国籍)/.test(clause)) return false;

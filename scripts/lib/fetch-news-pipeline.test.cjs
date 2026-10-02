@@ -336,6 +336,14 @@ test('本文判定: 警視庁の国内事件は場所を推測せず全国扱い
   assert.equal(result.location, '全国');
 });
 
+test('本文判定: TBSの実本文「ベトナム国籍で、住居不定…容疑者」を容疑者として認識する', () => {
+  const body = '1都10県で200件以上空き巣を繰り返したとみられるグループの男が警視庁に逮捕されました。住居侵入と窃盗の疑いで逮捕されたのは、ベトナム国籍で、住居不定、無職のチャン・タイン・ハイ容疑者（31）で、去年10月、新潟県・三条市の住宅に侵入し、現金およそ10万円を盗んだ疑いがもたれています。警視庁によりますと、チャン容疑者は運転役でほかにベトナム国籍の男ら3人が犯行に関わったとみられています。チャン容疑者は2022年に技能実習生として来日しましたが、その翌年から不法残留の状態だったということです。';
+  const result = gate.verifyArticleContent(body, '「日本中をまわった」1都10県で200件超空き巣繰り返し ベトナム国籍の男を逮捕');
+  assert.equal(result.verified, true);
+  assert.equal(result.location, '新潟県');
+  assert.match(result.audit.suspectRole.evidence, /ベトナム国籍で、住居不定/);
+});
+
 test('本文判定: 2026-10-02雪印偽サプリ事件の実際の本文と配信見出しを通す', () => {
   const body = '「雪印メグミルク」の健康サプリメントの偽物が販売されていた事件で、警視庁は商標法違反の疑いで、偽物を輸入・販売していたとみられる中国籍の女を逮捕しました。商標法違反の疑いで逮捕されたのは、中国籍の石梨容疑者（38）です。石容疑者は去年10月、「雪印メグミルク」が販売する健康サプリの偽物3袋を販売するなどして、商標権を侵害した疑いがもたれています。警視庁によりますと、石容疑者は偽物を中国から輸入していたとみられ、共犯者らとともに、フリマアプリで正規品より1000円ほど安く販売して、去年7月からの5か月間でおよそ150万円を売り上げていたということです。取り調べに対し、石容疑者は容疑を否認しています。';
   const result = gate.verifyArticleContent(body, '「雪印」偽サプリ 販売指示か 「正規品より大きい」中国籍の女逮捕');
@@ -555,6 +563,48 @@ test('同一事件の掲載元選定: Google News中継よりポータル、ポ�
     < fetchNews.publicationSourceRank('https://news.livedoor.com/article/detail/123/'));
   assert.ok(fetchNews.publicationSourceRank('https://news.livedoor.com/article/detail/123/')
     < fetchNews.publicationSourceRank('https://www.fnn.jp/articles/-/123'));
+});
+
+test('重複照合: 東横線の同一車内窃盗を本文中の路線・駅間・罪種・国籍で統合する', () => {
+  const fetchNews = require('../fetch-news.cjs');
+  const base = {
+    title: '東急東横線の電車内で女性のバッグから財布盗んだ疑い、中国籍の男逮捕 短期滞在ビザで来日し犯行か',
+    date: '2026-10-02',
+    audit: {
+      suspectRole: { evidence: '本文抜粋: 警察によりますと、中国籍のジン・レイ容疑者はことし8月、東急東横線の多摩川駅から武蔵小杉駅の間を走行中の電車内で、財布を盗んだ疑いがもたれています。' },
+      foreignNationality: { evidence: '本文抜粋: 中国籍' },
+    },
+  };
+  const syndicated = { ...base, title: '東急東横線車内で財布窃盗疑い 中国籍の男を逮捕' };
+  assert.equal(fetchNews.eventFingerprint(base), fetchNews.eventFingerprint(syndicated));
+});
+
+test('既存公開データ重複除去: 同日・同一見出しは元報道機関URLを残して1件にする', () => {
+  const fetchNews = require('../fetch-news.cjs');
+  const base = { date: '2026-10-02', title: '東急東横線の電車内で女性のバッグから財布盗んだ疑い、中国籍の男逮捕 短期滞在ビザで来日し犯行か' };
+  const duplicated = [
+    { ...base, url: 'https://news.livedoor.com/article/detail/32469803/', media: 'ライブドアニュース' },
+    { ...base, url: 'https://news.ntv.co.jp/category/society/e409433018b24871a03d51a40267df5f', media: '日テレNEWS NNN' },
+  ];
+  const result = fetchNews.dedupeExistingHeadlines(duplicated);
+  assert.equal(result.length, 1);
+  assert.equal(result[0].media, '日テレNEWS NNN');
+});
+
+test('キューマイグレーション: 修正対象の旧役割判定unverifiedだけを一度再審査へ戻す', () => {
+  const fetchNews = require('../fetch-news.cjs');
+  const now = Date.parse('2026-10-02T09:00:00Z');
+  const items = [
+    { status: 'unverified', pendingReason: 'suspect_role_unclear_in_body', attempts: 1, pubDate: '2026-10-02T03:00:00Z' },
+    { status: 'unverified', pendingReason: 'topic_mismatch_contamination', attempts: 1, pubDate: '2026-10-02T03:00:00Z' },
+    { status: 'unverified', pendingReason: 'suspect_role_unclear_in_body', attempts: 1, pubDate: '2026-09-20T03:00:00Z' },
+  ];
+  assert.equal(fetchNews.requeueRuleVersionFailures(items, now), 1);
+  assert.equal(items[0].status, 'pending');
+  assert.equal(items[0].attempts, 1);
+  assert.equal(items[1].status, 'unverified');
+  assert.equal(items[2].status, 'unverified');
+  assert.equal(fetchNews.requeueRuleVersionFailures(items, now), 0, '同一ルールバージョンで二度再キューしないこと');
 });
 
 test('キュー配分: 明示外国籍候補75%・広域発見候補25%を確保し、各枠で新しい候補を優先する', () => {
