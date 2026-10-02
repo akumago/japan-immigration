@@ -165,19 +165,11 @@ function candidateLane(item) {
     : 'broad_discovery';
 }
 
-// 新着を最低1件先頭に置き、残りは期限の近い古い候補から消化して5日TTLでの飢餓を避ける。
+// レーン内は公開時刻の新しい順に審査する。
+// 古い候補を先に混ぜると大量キューで新着が1レーンあたり1件しか通らず、
+// 実際の今日の報道が公開前に120時間TTLで消えるため、期限順の交互選択はしない。
 function prioritizeBeforeExpiry(items) {
-  const recent = prioritizeRecentCandidates(items);
-  if (recent.length < 2) return recent;
-  const oldestFirst = recent.slice(1).sort((a, b) => {
-    const aDate = Date.parse(a.pubDate || a.firstSeen || '') || 0;
-    const bDate = Date.parse(b.pubDate || b.firstSeen || '') || 0;
-    if (aDate !== bDate) return aDate - bDate;
-    const attemptDiff = (a.attempts || 0) - (b.attempts || 0);
-    if (attemptDiff) return attemptDiff;
-    return String(a.id || '').localeCompare(String(b.id || ''));
-  });
-  return [recent[0], ...oldestFirst];
+  return prioritizeRecentCandidates(items);
 }
 
 function prioritizeCandidateLanes(items, limit) {

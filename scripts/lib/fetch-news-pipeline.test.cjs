@@ -494,7 +494,7 @@ test('同一事件の掲載元選定: Google News中継よりポータル、ポ�
     < fetchNews.publicationSourceRank('https://www.fnn.jp/articles/-/123'));
 });
 
-test('キュー配分: 明示外国籍候補75%・広域発見候補25%を確保し、各枠の古い候補も審査する', () => {
+test('キュー配分: 明示外国籍候補75%・広域発見候補25%を確保し、各枠で新しい候補を優先する', () => {
   const fetchNews = require('../fetch-news.cjs');
   const queue = [
     { id: 'explicit-new', candidateLane: 'explicit_foreign', pubDate: '2026-10-02T01:00:00Z' },
@@ -505,20 +505,31 @@ test('キュー配分: 明示外国籍候補75%・広域発見候補25%を確保
   ];
   const selected = fetchNews.prioritizeCandidateLanes(queue, 4);
   assert.equal(selected.length, 4);
-  assert.deepEqual(selected.map((item) => item.id), ['explicit-new', 'explicit-old', 'explicit-mid', 'broad-new']);
+  assert.deepEqual(selected.map((item) => item.id), ['explicit-new', 'explicit-mid', 'explicit-old', 'broad-new']);
 });
 
-test('キュー選定: 公開日時の新しい未処理記事を先に審査し、古い候補に新着を埋もれさせない', () => {
+test('キュー選定: 大量の古い候補があっても直近の複数新着を審査枠に入れる', () => {
   const fetchNews = require('../fetch-news.cjs');
-  const queue = Array.from({ length: 25 }, (_, i) => ({
-    id: `old-${i}`,
-    pubDate: `2026-09-30T${String(i % 24).padStart(2, '0')}:00:00Z`,
-    attempts: 0,
-  }));
-  queue.push({ id: 'bunkyo-today', pubDate: '2026-10-01T03:00:00Z', attempts: 0 });
-  const selected = fetchNews.prioritizeRecentCandidates(queue).slice(0, 20);
-  assert.ok(selected.some((item) => item.id === 'bunkyo-today'));
-  assert.equal(selected[0].id, 'bunkyo-today');
+  const queue = [
+    ...Array.from({ length: 100 }, (_, i) => ({
+      id: `old-${i}`,
+      candidateLane: 'explicit_foreign',
+      pubDate: '2026-09-30T00:00:00Z',
+      attempts: 0,
+    })),
+    ...Array.from({ length: 8 }, (_, i) => ({
+      id: `today-${i}`,
+      candidateLane: 'explicit_foreign',
+      pubDate: `2026-10-02T${String(i).padStart(2, '0')}:00:00Z`,
+      attempts: 0,
+    })),
+  ];
+  const selected = fetchNews.prioritizeCandidateLanes(queue, 15);
+  assert.equal(selected.length, 15);
+  assert.deepEqual(selected.map((item) => item.id), [
+    'today-7', 'today-6', 'today-5', 'today-4', 'today-3', 'today-2', 'today-1', 'today-0',
+    'old-0', 'old-1', 'old-10', 'old-11', 'old-12', 'old-13', 'old-14',
+  ]);
 });
 
 test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2E パイプライン統合テスト', async () => {
