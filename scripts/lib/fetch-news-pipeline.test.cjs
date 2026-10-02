@@ -555,6 +555,46 @@ test('RSS 1.0: RDF形式の日テレ公式フィードも候補として解析�
   assert.equal(new Date(items[0].pubDate).toISOString(), '2026-10-01T01:00:00.000Z');
 });
 
+test('日付厳格化: RSSに日時がない・不正な場合は今日に偽装せず日付未確定にする', () => {
+  const fetchNews = require('../fetch-news.cjs');
+  const undated = '<rss><channel><item><title>静岡県で中国籍の男を窃盗容疑で逮捕</title><link>https://example.test/a</link></item></channel></rss>';
+  const invalid = '<rss><channel><item><title>静岡県で中国籍の男を窃盗容疑で逮捕</title><link>https://example.test/b</link><pubDate>not-a-date</pubDate></item></channel></rss>';
+  for (const xml of [undated, invalid]) {
+    const [item] = fetchNews.extractItemsFromRSS(xml);
+    assert.equal(item.pubDate, null);
+    assert.equal(item.date, null);
+  }
+  assert.deepEqual(fetchNews.parsePublicationDate('2026-10-01T15:00:00Z'), {
+    iso: '2026-10-01T15:00:00.000Z',
+    jstDate: '2026-10-02',
+  });
+});
+
+test('日付厳格化: RSSの初回公開日時を優先し、更新日時で古い記事を今日扱いしない', () => {
+  const fetchNews = require('../fetch-news.cjs');
+  const xml = '<rss><channel><item><title>静岡県で中国籍の男を窃盗容疑で逮捕</title><link>https://example.test/updated</link><updated>2026-10-02T10:00:00Z</updated><published>2026-09-30T10:00:00Z</published></item></channel></rss>';
+  const [item] = fetchNews.extractItemsFromRSS(xml);
+  assert.equal(item.date, '2026-09-30', 'updated が新しくても初回 published 日に分類する');
+});
+
+test('日付厳格化: 同一候補に後続巡回で正しい配信日時が届けば安全に再審査へ戻す', () => {
+  const fetchNews = require('../fetch-news.cjs');
+  const now = Date.parse('2026-10-02T03:00:00Z');
+  const queued = [{
+    url: 'https://example.test/a?utm_source=rss', status: 'unverified', pendingReason: 'publication_date_missing',
+    attempts: 0, terminalAt: new Date(now).toISOString(),
+  }];
+  const changed = fetchNews.reconcileQueuedPublicationDate({
+    url: 'https://example.test/a', pubDate: '2026-10-01T15:00:00Z',
+  }, queued, now);
+  assert.equal(changed, true);
+  assert.equal(queued[0].pubDate, '2026-10-01T15:00:00.000Z');
+  assert.equal(queued[0].date, '2026-10-02');
+  assert.equal(queued[0].status, 'pending');
+  assert.equal(queued[0].pendingReason, null);
+  assert.equal(queued[0].nextAttemptAt, new Date(now).toISOString());
+});
+
 test('重複照合: 媒体が違っても同一の富士市・覚醒剤製造・イラン国籍事件は同じ指紋になる', () => {
   const fetchNews = require('../fetch-news.cjs');
   const livedoor = {
@@ -820,6 +860,11 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
                 <pubDate>${new Date().toUTCString()}</pubDate>
                 <description>群馬県大泉町の住宅侵入、ブラジル国籍の男を逮捕</description>
               </item>
+              <item>
+                <title>群馬県大泉町でブラジル国籍の男を窃盗容疑で逮捕 日時未記載</title>
+                <link>http://127.0.0.1:${server.address().port}/article-undated</link>
+                <description>群馬県大泉町でブラジル国籍の男を窃盗容疑で逮捕</description>
+              </item>
             </channel>
           </rss>`;
         res.writeHead(200, { 'Content-Type': 'application/xml; charset=utf-8' });
@@ -911,6 +956,14 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
     const recoveredItem = updatedQueue.items.find((item) => item.id === 'legacy-expired-item');
     assert.equal(recoveredItem.status, 'verified', '旧120時間期限切れ候補を本番main()で再審査し、合格へ復帰させる');
     assert.ok(updatedData.some((item) => item.id === 'legacy-expired-item'), '復帰した旧候補を公開データへ反映する');
+
+    const undatedItem = updatedQueue.items.find((item) => item.url && item.url.includes('article-undated'));
+    assert.ok(undatedItem, '配信日時のない記事も候補台帳に残ること');
+    assert.equal(undatedItem.status, 'unverified', '配信日時がない記事は本文審査・公開に進めないこと');
+    assert.equal(undatedItem.pendingReason, 'publication_date_missing');
+    assert.equal(undatedItem.pubDate, null);
+    assert.equal(updatedData.some((item) => item.url && item.url.includes('article-undated')), false,
+      '配信日時がない記事を今日の日付に偽装して公開しないこと');
 
     // 4. 【本番99文字境界の検証】99文字記事は本番 main() で確実に遮断され、公開データに追加されないこと
     const added99 = updatedData.some((a) => a.url && a.url.includes('article-99'));

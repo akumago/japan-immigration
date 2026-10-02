@@ -105,6 +105,33 @@ function itemEffectiveTime(item) {
   return firstSeenTime && !isNaN(firstSeenTime) ? firstSeenTime : 0;
 }
 
+function parsePublicationDate(value) {
+  if (!value || typeof value !== 'string') return null;
+  const timestamp = Date.parse(value);
+  if (!Number.isFinite(timestamp)) return null;
+  const date = new Date(timestamp);
+  const jstDate = new Date(timestamp + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  return { iso: date.toISOString(), jstDate };
+}
+
+function reconcileQueuedPublicationDate(item, queueItems, now = Date.now()) {
+  const incomingDate = parsePublicationDate(item.pubDate);
+  const itemUrl = normalizeArticleUrl(item.url || '');
+  const queued = queueItems.find((q) => (item.sourceRecordId && q.sourceRecordId === item.sourceRecordId)
+    || (itemUrl && [q.url, q.resolvedUrl].filter(Boolean).some((url) => normalizeArticleUrl(url) === itemUrl)));
+  if (!queued) return false;
+  if (!incomingDate || parsePublicationDate(queued.pubDate)) return false;
+  queued.pubDate = incomingDate.iso;
+  queued.date = incomingDate.jstDate;
+  queued.pendingReason = null;
+  queued.terminalAt = null;
+  queued.lastError = null;
+  queued.attempts = 0;
+  queued.nextAttemptAt = new Date(now).toISOString();
+  queued.status = 'pending';
+  return true;
+}
+
 function shouldRetainQueueItem(item, now = Date.now()) {
   // 未処理候補は処理完了まで保持する。120時間は検索・続報確認の窓であり、審査放棄期限ではない。
   if (item?.status === 'pending') return true;
@@ -1515,14 +1542,19 @@ function extractItemsFromRSS(xml) {
   for (const itemXml of itemMatches) {
     const titleMatch = itemXml.match(/<title>([\s\S]*?)<\/title>/i);
     const linkMatch = itemXml.match(/<link>([\s\S]*?)<\/link>/i);
-    const pubDateMatch = itemXml.match(/<(?:pubDate|dc:date|date|updated|published)\b[^>]*>([\s\S]*?)<\/(?:pubDate|dc:date|date|updated|published)>/i);
+    // 初回報道日時を優先し、記事更新日時が元の公開日を上書きして「今日扱い」になるのを防ぐ。
+    const pubDateMatch = itemXml.match(/<pubDate\b[^>]*>([\s\S]*?)<\/pubDate>/i)
+      || itemXml.match(/<published\b[^>]*>([\s\S]*?)<\/published>/i)
+      || itemXml.match(/<dc:date\b[^>]*>([\s\S]*?)<\/dc:date>/i)
+      || itemXml.match(/<date\b[^>]*>([\s\S]*?)<\/date>/i)
+      || itemXml.match(/<updated\b[^>]*>([\s\S]*?)<\/updated>/i);
     const descMatch = itemXml.match(/<description>([\s\S]*?)<\/description>/i);
 
     if (titleMatch && (linkMatch || /\brdf:about=["'][^"']+["']/i.test(itemXml))) {
       let rawTitle = titleMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim();
       const aboutMatch = itemXml.match(/\brdf:about=["']([^"']+)["']/i);
       let link = (linkMatch ? linkMatch[1] : aboutMatch[1]).replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim();
-      let pubDate = pubDateMatch ? pubDateMatch[1].trim() : new Date().toUTCString();
+      let pubDate = pubDateMatch ? pubDateMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim() : null;
       let rawDesc = descMatch ? descMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').replace(/<[^>]+>/g, '').trim() : '';
 
       rawTitle = rawTitle.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
@@ -1605,10 +1637,7 @@ function extractItemsFromRSS(xml) {
       }
 
       // 日本標準時（JST = UTC+9時間）に補正して日付文字列（YYYY-MM-DD）を生成
-      const parsedDate = new Date(pubDate);
-      const validDate = !isNaN(parsedDate.getTime()) ? parsedDate : new Date();
-      const jstDate = new Date(validDate.getTime() + 9 * 60 * 60 * 1000);
-      const dateStr = jstDate.toISOString().split('T')[0];
+      const publicationDate = parsePublicationDate(pubDate);
 
       const normUrl = normalizeArticleUrl(link);
       const itemId = crypto.createHash('md5').update(normUrl || title).digest('hex').substring(0, 16);
@@ -1616,8 +1645,8 @@ function extractItemsFromRSS(xml) {
       items.push({
         id: itemId,
         title: title,
-        pubDate: validDate.toISOString(),
-        date: dateStr,
+        pubDate: publicationDate?.iso || null,
+        date: publicationDate?.jstDate || null,
         location: location,
         media: media,
         url: link,
@@ -1823,14 +1852,22 @@ async function main() {
 
   // --- 重複排除（正規化URLによる一意化） ---
   const uniqueItems = [];
-  const seenUrls = new Set();
+  const uniqueIndexes = new Map();
   for (const item of fetchedItems) {
     const norm = normalizeArticleUrl(item.url);
     const identity = item.sourceRecordId || norm;
     if (!identity) continue;
-    if (!seenUrls.has(identity)) {
-      seenUrls.add(identity);
+    if (!uniqueIndexes.has(identity)) {
+      uniqueIndexes.set(identity, uniqueItems.length);
       uniqueItems.push(item);
+    } else {
+      const index = uniqueIndexes.get(identity);
+      const current = uniqueItems[index];
+      const currentDate = parsePublicationDate(current.pubDate);
+      const incomingDate = parsePublicationDate(item.pubDate);
+      if ((!currentDate && incomingDate) || (currentDate && incomingDate && incomingDate.iso > currentDate.iso)) {
+        uniqueItems[index] = item;
+      }
     }
   }
   console.log(`📡 RSS取得完了: ${fetchedItems.length} 件取得 -> URL一意化後: ${uniqueItems.length} 件`);
@@ -1929,11 +1966,13 @@ async function main() {
 
   // 3. RSS新規アイテムをキューに登録（既存掲載済み・既存キュー登録済みでないもの）
   let newlyEnqueued = 0;
+  let refreshedUndatedQueueCount = 0;
   for (const item of uniqueItems) {
     const norm = normalizeArticleUrl(item.url);
     const identity = item.sourceRecordId ? `source:${item.sourceRecordId}` : norm;
     if (!identity) continue;
     if ((item.sourceRecordId ? existingIds.has(item.sourceRecordId) || existingIds.has(item.id) : existingNormUrls.has(norm)) || queueNormUrls.has(identity)) {
+      if (reconcileQueuedPublicationDate(item, queue.items, now)) refreshedUndatedQueueCount++;
       continue;
     }
 
@@ -1945,9 +1984,9 @@ async function main() {
       title: item.title,
       pubDate: item.pubDate,
       firstSeen: new Date().toISOString(),
-      status: 'pending',
+      status: parsePublicationDate(item.pubDate) ? 'pending' : 'unverified',
       rejectReason: null,
-      pendingReason: null,
+      pendingReason: parsePublicationDate(item.pubDate) ? null : 'publication_date_missing',
       attempts: 0,
       lastAttemptAt: null,
       nextAttemptAt: null,
@@ -1956,6 +1995,7 @@ async function main() {
       location: item.location,
       media: item.media,
       date: item.date,
+      ...(parsePublicationDate(item.pubDate) ? {} : { terminalAt: new Date(now).toISOString() }),
       sourceRecordId: item.sourceRecordId || null,
       sourceType: item.sourceType || null,
       sourceId: item.sourceId || null,
@@ -1965,6 +2005,7 @@ async function main() {
     newlyEnqueued++;
   }
   console.log(`📥 新規候補キュー登録: ${newlyEnqueued} 件 (キュー総数: ${queue.items.length} 件)`);
+  if (refreshedUndatedQueueCount) console.log(`🗓️ 配信日時が後から確認できた候補を再審査へ復帰: ${refreshedUndatedQueueCount} 件`);
 
   // --- 本文スキャンと検証対象の選定 ---
   // 上限強制クランプ（最大100件、BODY_SCAN=0 の場合は本文スキャン停止）。
@@ -2009,7 +2050,7 @@ async function main() {
   console.log(`🔍 本文検証対象: 合計 ${targetsToScan.length} 件 (再試行: ${retryCandidates.length} 件, 新着: ${selectedNewCandidates.length} 件 / 上限 ${maxScanPerRun} 件)`);
 
   // --- 本文スキャンと厳格検証の実行 ---
-  let stateChanged = recoveredExpiredPendingCount > 0 || purgedCount > 0 || newlyEnqueued > 0 || migratedCount > 0 || targetsToScan.length > 0;
+  let stateChanged = recoveredExpiredPendingCount > 0 || purgedCount > 0 || newlyEnqueued > 0 || refreshedUndatedQueueCount > 0 || migratedCount > 0 || targetsToScan.length > 0;
 
   if (targetsToScan.length > 0) {
     const scanner = articleFetcher.createScanner({
@@ -2350,6 +2391,8 @@ module.exports = {
   main,
   fetchRSS,
   extractItemsFromRSS,
+  parsePublicationDate,
+  reconcileQueuedPublicationDate,
   cleanTitleText,
   normalizeArticleUrl,
   isDomesticCrime,

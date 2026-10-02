@@ -14,11 +14,12 @@ interface NewsItem {
 
 export const CrimeNewsSection: React.FC = () => {
   const items: NewsItem[] = newsData as NewsItem[];
-  // 最新日（本日）の事件は件数に関わらず漏れなく全件表示（最低4件保証）
-  const latestDate = items[0]?.date;
-  const todayNewsCount = items.filter(item => item.date === latestDate).length;
-  const displayCount = Math.max(4, todayNewsCount);
-  const displayedItems = items.slice(0, displayCount);
+  // 検索・重複照合は5日窓だが、トップには日本時間の当日報道分だけを表示する。
+  const todayParts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).formatToParts(new Date());
+  const todayJst = `${todayParts.find(part => part.type === 'year')?.value}-${todayParts.find(part => part.type === 'month')?.value}-${todayParts.find(part => part.type === 'day')?.value}`;
+  const displayedItems = items.filter(item => item.date === todayJst);
 
   return (
     <section className="mb-20">
@@ -50,9 +51,9 @@ export const CrimeNewsSection: React.FC = () => {
         </div>
 
         <div className="space-y-4 relative z-10">
-          {items.length === 0 ? (
+          {displayedItems.length === 0 ? (
             <div className="text-center py-12 bg-[#0d1117]/60 rounded-2xl border border-white/5">
-              <p className="text-gray-400 text-sm">直近24時間以内の新規報道事案は検出されていません。</p>
+              <p className="text-gray-400 text-sm">本日（{todayJst}）に報道された対象ニュースはまだありません。過去の記事はアーカイブで確認できます。</p>
             </div>
           ) : (
             displayedItems.map((item, idx) => (

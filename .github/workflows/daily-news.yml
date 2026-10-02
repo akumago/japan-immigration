@@ -69,24 +69,43 @@ jobs:
           BODY_SCAN: ${{ vars.BODY_SCAN || '1' }}
           BODY_SCAN_MAX: ${{ vars.BODY_SCAN_MAX || '100' }}
 
-      # ニュースデータに変更があった時だけビルド・コミット・push（= Netlifyのデプロイ）を行う
+      # トップはJST当日分だけを表示するため、ニュース0件の日も日付切替後に静的HTMLを更新する。
+      - name: Refresh static page for Japan date rollover
+        id: site-date
+        run: |
+          today="$(TZ=Asia/Tokyo date +%F)"
+          previous="$(cat data/site-build-date.txt 2>/dev/null || true)"
+          if [ "$today" != "$previous" ]; then
+            printf '%s\n' "$today" > data/site-build-date.txt
+            echo "date_changed=true" >> "$GITHUB_OUTPUT"
+            echo "Japan date changed to $today; refreshing static homepage."
+          else
+            echo "date_changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # ニュース更新またはJST日付切替時にビルド・コミット・push（= Netlifyのデプロイ）を行う
       - name: Check for news data changes
         id: check-diff
         run: |
           if [ -n "$(git status --porcelain data/newsData.json)" ]; then
             echo "has_news_changes=true" >> "$GITHUB_OUTPUT"
-            echo "News data changed. Proceeding to build and commit."
           else
             echo "has_news_changes=false" >> "$GITHUB_OUTPUT"
-            echo "No news data changes. Skipping build, commit and deploy."
+          fi
+          if [ "${{ steps.site-date.outputs.date_changed }}" = "true" ] || [ "$(git status --porcelain data/newsData.json data/site-build-date.txt)" != "" ]; then
+            echo "has_site_changes=true" >> "$GITHUB_OUTPUT"
+            echo "Site data changed. Proceeding to build and deploy."
+          else
+            echo "has_site_changes=false" >> "$GITHUB_OUTPUT"
+            echo "No site changes. Skipping build, commit and deploy."
           fi
 
       - name: Build and Prerender Static Pages
-        if: steps.check-diff.outputs.has_news_changes == 'true'
+        if: steps.check-diff.outputs.has_site_changes == 'true'
         run: npm run build
 
       - name: Commit, Sync and Push
-        if: steps.check-diff.outputs.has_news_changes == 'true'
+        if: steps.check-diff.outputs.has_site_changes == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
