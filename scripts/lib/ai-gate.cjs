@@ -724,6 +724,20 @@ function verifyArticleContent(text, title = '') {
   }
 
   if (!scene) {
+    // 被疑者の住所と「男は自宅付近の市道で…」が隣接する続き文に明示された場合だけ、
+    // 住所を犯行現場そのものとは扱わず、「自宅付近」の本文根拠と結合して場所を確定する。
+    const nearbySubjectContext = sentences.slice(suspectIndex, Math.min(sentences.length, suspectIndex + 3)).join(' ');
+    if (/(?:男|女|容疑者)は[^。]{0,80}自宅(?:付近|近く)/.test(nearbySubjectContext) && /(?:市道|県道|国道|路上|走行中)/.test(nearbySubjectContext)) {
+      scene = resolveCrimeSceneInContext(nearbySubjectContext, dict);
+      if (scene) {
+        const sceneAt = nearbySubjectContext.search(/自宅(?:付近|近く)/);
+        const excerptStart = Math.max(0, sceneAt - 90);
+        scene.evidence = `本文抜粋: ${nearbySubjectContext.slice(excerptStart, excerptStart + 150)}`;
+      }
+    }
+  }
+
+  if (!scene) {
     // 国内の警察・検察が被疑者を逮捕/送検した報道は、事件県を本文から特定できない場合も
     // 国内事件としてのみ扱い、都道府県を推測せず「全国」にする。
     // 明示的な海外発生は上段 isOverseas で先に除外する。

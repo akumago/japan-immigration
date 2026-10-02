@@ -38,7 +38,10 @@ function parseListing(html, source, { now = Date.now() } = {}) {
     try { url = new URL(rawUrl, source.url); } catch (_) { continue; }
     if (url.hostname !== source.host || !source.path.test(url.pathname)) continue;
     if (source.queryIdParam && !/^\d+$/.test(url.searchParams.get(source.queryIdParam) || '')) continue;
-    const title = textOf(m[4]);
+    const linkHtml = m[4];
+    const heading = linkHtml.match(/<h[1-6]\b[^>]*class=["'][^"']*\bentry-card-title\b[^"']*["'][^>]*>([\s\S]*?)<\/h[1-6]>/i);
+    const attrTitle = `${m[1]} ${m[3]}`.match(/\btitle=["']([^"']+)["']/i);
+    const title = textOf(heading?.[1] || attrTitle?.[1] || linkHtml);
     if (title.length < 12 || !CRIME_RE.test(title)) continue;
     const normalized = source.preserveQuery && url.search ? `${url.origin}${url.pathname}${url.search}` : `${url.origin}${url.pathname}`;
     if (seen.has(normalized)) continue;
@@ -49,10 +52,15 @@ function parseListing(html, source, { now = Date.now() } = {}) {
     const remainder = String(html).slice(re.lastIndex);
     const nextAnchor = remainder.search(/<a\b/i);
     const nearby = remainder.slice(0, nextAnchor < 0 ? 240 : Math.min(nextAnchor, 240));
+    const dateAttribute = linkHtml.match(/<time\b[^>]*datetime=["']([^"']+)["'][^>]*>/i);
+    const dateText = textOf(linkHtml).match(/\b(20\d{2})[./年-](\d{1,2})[./月-](\d{1,2})日?/);
     const age = nearby.match(/(?:<time\b[^>]*datetime=["']([^"']+)["'][^>]*>)|(?:([0-9]+)\s*(分|時間|日)前)/i);
     let publishedAt = now;
-    if (age?.[1]) {
-      const parsed = Date.parse(age[1]);
+    if (dateAttribute?.[1] || age?.[1]) {
+      const parsed = Date.parse(dateAttribute?.[1] || age[1]);
+      if (Number.isFinite(parsed) && parsed <= now + 10 * 60 * 1000) publishedAt = parsed;
+    } else if (dateText) {
+      const parsed = Date.parse(`${dateText[1]}-${String(dateText[2]).padStart(2, '0')}-${String(dateText[3]).padStart(2, '0')}T00:00:00+09:00`);
       if (Number.isFinite(parsed) && parsed <= now + 10 * 60 * 1000) publishedAt = parsed;
     } else if (age?.[2]) {
       const unitMs = age[3] === '分' ? 60_000 : age[3] === '時間' ? 3_600_000 : 86_400_000;

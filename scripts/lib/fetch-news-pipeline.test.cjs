@@ -343,6 +343,14 @@ test('本文判定: 現場にいた外国籍人物と逮捕された日本人を
   assert.notEqual(result.audit.foreignNationality.verified, true);
 });
 
+test('本文判定: 伊勢崎署・住所・自宅付近の市道を同一被疑者の本文文脈で結び、現場県を確定する', () => {
+  const body = '路上にいた男女２人を車で跳ねて現場から逃走したとして、ブラジル人の男が１日、伊勢崎警察署に逮捕されました。道路交通法違反のひき逃げなどの疑いで逮捕されたのは、伊勢崎市西久保町のアルバイトでブラジル国籍の男（４０）です。警察によりますと男は３０日午後１０時２０分ごろ、自宅付近の市道を車で走行中、路上で立ち話をしていた５７歳の男性と２５歳の女性を跳ねてケガを負わせ、現場から逃走した疑いが持たれています。';
+  const result = gate.verifyArticleContent(body, '伊勢崎市でブラジル国籍の男をひき逃げ容疑で逮捕');
+  assert.equal(result.verified, true);
+  assert.equal(result.location, '群馬県');
+  assert.match(result.audit.japanCrime.evidence, /自宅付近の市道/);
+});
+
 test('本文判定: 日本の警察に逮捕されても、本文で犯行地が海外と明記された事件は除外する', () => {
   const body = '中国国内で発生した窃盗事件について、警視庁は中国籍の男を逮捕しました。容疑者は犯行を認めています。';
   const result = gate.verifyArticleContent(body, '中国国内の窃盗事件で中国籍の男を逮捕');
@@ -423,11 +431,12 @@ test('直接メディア巡回: 時事通信の記事IDクエリを保持し、�
 test('直接メディア巡回: FM GUNMAの事件記事を取得し、ページ送りリンクは候補にしない', () => {
   const listings = require('./publisher-listings.cjs');
   const source = listings.SOURCES.find((s) => s.id === 'fm-gunma-news');
-  const html = '<a href="/fmgnews/?p=12045">群馬県伊勢崎市でブラジル国籍の男をひき逃げ容疑で逮捕</a><a href="/fmgnews/?paged=2">次のページ</a><a href="/fmgnews/?p=12046">県内企業の景況調査</a>';
+  const html = '<a href="/fmgnews/?p=12045" title="男女２人を車で跳ね、逃走した疑い ブラジル人の男逮捕 伊勢崎市の市道"><article><h2 class="entry-card-title">男女２人を車で跳ね、逃走した疑い　ブラジル人の男逮捕　伊勢崎市の市道</h2><div class="entry-card-snippet">群馬県伊勢崎市でブラジル国籍の男をひき逃げ容疑で逮捕しました。</div><span class="entry-date">2026.10.01</span></article></a><a href="/fmgnews/?paged=2">次のページ</a><a href="/fmgnews/?p=12046">県内企業の景況調査</a>';
   const items = listings.parseListing(html, source, { now: Date.parse('2026-10-02T00:00:00Z') });
   assert.equal(items.length, 1);
   assert.equal(items[0].url, 'https://www.fmgunma.com/fmgnews/?p=12045');
-  assert.match(items[0].title, /ひき逃げ容疑/);
+  assert.equal(items[0].title, '男女２人を車で跳ね、逃走した疑い ブラジル人の男逮捕 伊勢崎市の市道');
+  assert.equal(items[0].date, '2026-10-01');
 });
 
 test('独立RSS取得元: Yahoo国内・地域、NHK、NNN、FNNがGoogle検索とは別に登録される', () => {
