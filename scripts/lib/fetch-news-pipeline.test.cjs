@@ -25,10 +25,10 @@ test('pipeline: 審査待ち候補は120時間超でも保持し、終端レコ�
   assert.equal(fetchNews.shouldRetainQueueItem(undatedPending, now), true, '日時不明の未処理候補も消さない');
 });
 
-test('pipeline: 本文審査の既定上限は60、設定値も1〜60に制限する', () => {
-  assert.equal(fetchNews.maxBodyScanPerRun(undefined), 60);
+test('pipeline: 本文審査の既定上限は100、設定値も1〜100に制限する', () => {
+  assert.equal(fetchNews.maxBodyScanPerRun(undefined), 100);
   assert.equal(fetchNews.maxBodyScanPerRun('45'), 45);
-  assert.equal(fetchNews.maxBodyScanPerRun('999'), 60);
+  assert.equal(fetchNews.maxBodyScanPerRun('999'), 100);
   assert.equal(fetchNews.maxBodyScanPerRun('-4'), 1);
   assert.equal(fetchNews.retrySlotLimit(60), 5);
   assert.equal(fetchNews.retrySlotLimit(2), 2, '設定上限2件を再試行枠が超えない');
@@ -1046,9 +1046,9 @@ test('pipeline 再試行 5: 120時間TTLガード（残余12時間未満は再�
   assert.equal(validItem.nextAttemptAt, new Date(now + 12 * 3600 * 1000).toISOString());
 });
 
-test('pipeline 再試行 6: 枠配分と上限厳守（再試行最大5件＋新規枠還元、合計最大60件）', () => {
+test('pipeline 再試行 6: 枠配分と上限厳守（再試行最大5件＋新規枠還元、合計最大100件）', () => {
   const now = 1_700_000_000_000;
-  const maxScanPerRun = 60;
+  const maxScanPerRun = 100;
 
   // ケースA: 再試行が7件、新規が25件ある場合
   const eligibleItemsA = [];
@@ -1061,7 +1061,7 @@ test('pipeline 再試行 6: 枠配分と上限厳守（再試行最大5件＋新
       nextAttemptAt: new Date(now - 1000).toISOString(),
     });
   }
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 160; i++) {
     eligibleItemsA.push({
       id: `new-${i}`,
       url: `https://news.example.com/new/${i}`,
@@ -1077,8 +1077,8 @@ test('pipeline 再試行 6: 枠配分と上限厳守（再試行最大5件＋新
   const targetsA = [...retriesA, ...selectedNewA];
 
   assert.equal(retriesA.length, 5, '再試行枠は最大5件に抑えられること');
-  assert.equal(selectedNewA.length, 55, '新規枠は 60 - 5 = 55件になること');
-  assert.equal(targetsA.length, 60, '合計は最大60件を厳守すること');
+  assert.equal(selectedNewA.length, 95, '新規枠は 100 - 5 = 95件になること');
+  assert.equal(targetsA.length, 100, '合計は最大100件を厳守すること');
 
   // ケースB: 再試行が2件、新規が25件ある場合（空き枠還元）
   const eligibleItemsB = eligibleItemsA.slice(0, 2).concat(eligibleItemsA.slice(7));
@@ -1088,8 +1088,8 @@ test('pipeline 再試行 6: 枠配分と上限厳守（再試行最大5件＋新
   const targetsB = [...retriesB, ...selectedNewB];
 
   assert.equal(retriesB.length, 2);
-  assert.equal(selectedNewB.length, 58, '再試行の空き枠3件が新規枠へ還元されること');
-  assert.equal(targetsB.length, 60);
+  assert.equal(selectedNewB.length, 98, '再試行の空き枠3件が新規枠へ還元されること');
+  assert.equal(targetsB.length, 100);
 });
 
 test('pipeline 再試行 7: sourceBody の除外（警察公式発表は再試行せず初回で終了）', () => {

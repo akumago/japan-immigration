@@ -66,7 +66,7 @@ jobs:
           SHADOW_MODE: ${{ vars.SHADOW_MODE || '0' }}
           # 本文スキャン有効化（1:有効 / 0:無効）。障害時はリポジトリ変数 BODY_SCAN を 0 にするだけで即時停止可能
           BODY_SCAN: ${{ vars.BODY_SCAN || '1' }}
-          BODY_SCAN_MAX: ${{ vars.BODY_SCAN_MAX || '60' }}
+          BODY_SCAN_MAX: ${{ vars.BODY_SCAN_MAX || '100' }}
 
       # ニュースデータに変更があった時だけビルド・コミット・push（= Netlifyのデプロイ）を行う
       - name: Check for news data changes

@@ -1933,8 +1933,8 @@ async function main() {
   console.log(`📥 新規候補キュー登録: ${newlyEnqueued} 件 (キュー総数: ${queue.items.length} 件)`);
 
   // --- 本文スキャンと検証対象の選定 ---
-  // 上限強制クランプ（最大60件、BODY_SCAN=0 の場合は本文スキャン停止）。
-  // 最大60件/時でも記事取得先への負荷はarticle-fetcherの同時接続・ドメイン間隔・遮断器が制御する。
+  // 上限強制クランプ（最大100件、BODY_SCAN=0 の場合は本文スキャン停止）。
+  // 最大100件/時でも記事取得先への負荷はarticle-fetcherの同時接続・ドメイン間隔・遮断器が制御する。
   const isBodyScanDisabled = process.env.BODY_SCAN === '0';
   const maxScanPerRun = isBodyScanDisabled ? 0 : module.exports.maxBodyScanPerRun();
 
@@ -1970,7 +1970,7 @@ async function main() {
   const newCandidates = eligibleItems.filter((item) => item.attempts === 0);
   const selectedNewCandidates = prioritizeCandidateLanes(newCandidates, newCandidatesLimit);
 
-  // 今回の審査対象を結合（最大60件厳守）
+  // 今回の審査対象を結合（最大100件厳守）
   const targetsToScan = [...retryCandidates, ...selectedNewCandidates];
   console.log(`🔍 本文検証対象: 合計 ${targetsToScan.length} 件 (再試行: ${retryCandidates.length} 件, 新着: ${selectedNewCandidates.length} 件 / 上限 ${maxScanPerRun} 件)`);
 
@@ -2269,7 +2269,7 @@ module.exports = {
   prioritizeRecentCandidates,
   candidateScanDedupeKey,
   prioritizeCandidateLanes,
-  maxBodyScanPerRun: (configured = process.env.BODY_SCAN_MAX) => Math.min(Math.max(1, Number(configured) || 60), 60),
+  maxBodyScanPerRun: (configured = process.env.BODY_SCAN_MAX) => Math.min(Math.max(1, Number(configured) || 100), 100),
   scheduleQueueItem,
   itemEffectiveTime,
   shouldRetainQueueItem,
