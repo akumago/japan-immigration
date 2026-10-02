@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import newsData from '../data/newsData.json';
+import { filterNewsForJapanDay, japanCalendarDate } from '../lib/dailyNewsDate.js';
 
 interface NewsItem {
   id: string;
@@ -15,11 +16,8 @@ interface NewsItem {
 export const CrimeNewsSection: React.FC = () => {
   const items: NewsItem[] = newsData as NewsItem[];
   // 検索・重複照合は5日窓だが、トップには日本時間の当日報道分だけを表示する。
-  const todayParts = new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit',
-  }).formatToParts(new Date());
-  const todayJst = `${todayParts.find(part => part.type === 'year')?.value}-${todayParts.find(part => part.type === 'month')?.value}-${todayParts.find(part => part.type === 'day')?.value}`;
-  const displayedItems = items.filter(item => item.date === todayJst);
+  const todayJst = japanCalendarDate();
+  const displayedItems = filterNewsForJapanDay(items);
 
   return (
     <section className="mb-20">
