@@ -8,6 +8,7 @@ const articleFetcher = require('./lib/article-fetcher.cjs');
 const policeBulletins = require('./lib/police-bulletins.cjs');
 const publisherListings = require('./lib/publisher-listings.cjs');
 const rssSources = require('./lib/rss-sources.cjs');
+const observability = require('./lib/pipeline-observability.cjs');
 const SHADOW_MODE = process.env.SHADOW_MODE === '1'; // 既定は本番稼働（1を明示したときだけシャドー）
 const BODY_GATE_VERSION = 'strict-2026-10-02.2';
 
@@ -1617,6 +1618,7 @@ function extractItemsFromRSS(xml) {
 }
 
 async function main() {
+  const runStartedAt = new Date().toISOString();
   console.log('Fetching daily foreign crime news with Expanded 41-queries (5-day window), strict local body-only verification & deduplication...');
 
   const searchQueries = [
@@ -2244,6 +2246,52 @@ async function main() {
   }
 
   console.log(`\n🎉 新規合格・掲載対象記事: ${acceptedNew.length} 件`);
+
+  // Keep a compact rolling record of source health and queue throughput. It is
+  // cached by Actions, excluded from site builds, and contains no article text or URLs.
+  if (!process.env.TEST_SEARCH_QUERIES) {
+    const metricsPath = process.env.PIPELINE_METRICS_PATH || path.join(path.dirname(queuePath), 'pipelineMetrics.json');
+    let history = { version: 1, runs: [] };
+    try {
+      if (fs.existsSync(metricsPath)) history = JSON.parse(fs.readFileSync(metricsPath, 'utf-8'));
+    } catch (err) {
+      console.warn(`取得状況履歴の読み込み失敗、空履歴から開始: ${err.message}`);
+    }
+    const metrics = observability.appendRun(history, {
+      startedAt: runStartedAt,
+      completedAt: new Date().toISOString(),
+      sources: sourceHealth,
+      counts: {
+        fetchedCandidates: fetchedItems.length,
+        uniqueCandidates: uniqueItems.length,
+        newlyEnqueued,
+        scanned: targetsToScan.length,
+        retries: retryCandidates.length,
+        expired: expiredPendingCount,
+        published: acceptedNew.length,
+        pending: pendingItems.length,
+        verified: queueStatusCounts.verified || 0,
+        unverified: unverifiedCount,
+        rejected: queueStatusCounts.rejected || 0,
+        gaveUp: queueStatusCounts.gave_up || 0,
+        arrivalsLast24h,
+        freshCapacityPerHour,
+        oldestPendingHours: oldestPendingHours ?? -1,
+      },
+    });
+    fs.mkdirSync(path.dirname(metricsPath), { recursive: true });
+    const metricsTmp = `${metricsPath}.tmp`;
+    fs.writeFileSync(metricsTmp, JSON.stringify(metrics, null, 2), 'utf-8');
+    fs.renameSync(metricsTmp, metricsPath);
+    if (process.env.GITHUB_STEP_SUMMARY) {
+      try { fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, observability.markdownTrend(observability.sourceHealthTrend(metrics.runs))); }
+      catch (err) { console.warn(`取得元履歴サマリーの記録失敗: ${err.message}`); }
+    }
+    if (process.env.GITHUB_OUTPUT) {
+      try { fs.appendFileSync(process.env.GITHUB_OUTPUT, 'state_changed=true\n'); }
+      catch (_) {}
+    }
+  }
 
   // --- 既存データとの結合と保存（差分ゼロ保護） ---
   if (acceptedNew.length === 0 && removedExistingHeadlineDuplicates === 0) {

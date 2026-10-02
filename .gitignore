@@ -32,6 +32,8 @@ data/articleCache.json
 data/articleCache.json.tmp
 data/newsQueue.json
 data/newsQueue.json.tmp
+data/pipelineMetrics.json
+data/pipelineMetrics.json.tmp
 files (1)/
 files (2)/
 

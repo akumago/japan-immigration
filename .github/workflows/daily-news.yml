@@ -53,6 +53,7 @@ jobs:
           path: |
             data/articleCache.json
             data/newsQueue.json
+            data/pipelineMetrics.json
           key: pipeline-state-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             pipeline-state-
@@ -119,6 +120,7 @@ jobs:
           path: |
             data/articleCache.json
             data/newsQueue.json
+            data/pipelineMetrics.json
           key: pipeline-state-${{ github.run_id }}-${{ github.run_attempt }}
 
       # シャドー運転の比較ログ（累積）。Actions画面からいつでもダウンロードできる
@@ -130,3 +132,11 @@ jobs:
           path: data/shadowComparison.jsonl
           retention-days: 14
           overwrite: true
+
+      - name: Upload pipeline coverage metrics
+        if: always() && hashFiles('data/pipelineMetrics.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-coverage-${{ github.run_number }}
+          path: data/pipelineMetrics.json
+          retention-days: 14
