@@ -5,6 +5,7 @@ const https = require('https');
 const crypto = require('crypto');
 const gate = require('./lib/ai-gate.cjs');
 const articleFetcher = require('./lib/article-fetcher.cjs');
+const eventDedupe = require('./lib/event-dedupe.cjs');
 const policeBulletins = require('./lib/police-bulletins.cjs');
 const publisherListings = require('./lib/publisher-listings.cjs');
 const rssSources = require('./lib/rss-sources.cjs');
@@ -2389,7 +2390,7 @@ async function main() {
 
   // --- 合格記事の抽出と重複照合（同一バッチ内＆既存データ） ---
   const newlyVerified = queue.items.filter((item) => item.status === 'verified');
-  const acceptedNew = [];
+  let acceptedNew = [];
   const seenBatchUrls = new Set();
   const batchEvents = new Map();
   const knownEvents = frozenExisting.map((item) => {
@@ -2404,6 +2405,15 @@ async function main() {
   });
   const knownHeadlineKeys = new Set(knownEvents.map((event) => event.headlineKey).filter(Boolean));
   const batchHeadlineKeys = new Set();
+  const auditByUrl = new Map();
+  for (const q of queue.items) {
+    if (q.status !== 'verified' || !q.audit) continue;
+    [q.url, q.resolvedUrl].filter(Boolean).forEach((u) => auditByUrl.set(normalizeArticleUrl(u), q.audit));
+  }
+  const withQueueAudit = (item) => {
+    const audit = auditByUrl.get(normalizeArticleUrl(item.url || ''));
+    return audit ? { ...item, audit } : item;
+  };
 
   for (const v of newlyVerified) {
     const normUrl = normalizeArticleUrl(v.url);
@@ -2429,30 +2439,9 @@ async function main() {
       console.log(`   ⏩ 同日・同一見出しの媒体違いを重複除外: ${v.title}`);
       continue;
     }
-    const isSemanticDuplicate = (existing, incoming) => {
-      if (!withinFiveDays(existing.date, incoming.date)) return false;
-      const exTitle = String(existing.title || '');
-      const inTitle = String(incoming.title || '');
-      const sameLoc = !existing.location || !incoming.location || existing.location === '全国' || incoming.location === '全国' || existing.location === incoming.location;
-      if (!sameLoc) return false;
-      const pairs = [
-        ['上田市', /(?:逃走|横転|赤信号)/],
-        ['雪印', /(?:サプリ|偽物|偽サプリ)/],
-        ['東横線', /(?:財布|スリ|窃盗)/],
-        ['短期滞在', /(?:財布|スリ|窃盗)/],
-        ['福山港', /(?:不法上陸|不法残留)/],
-        ['ユニホ', /(?:偽|商標法)/],
-      ];
-      for (const [kw, re] of pairs) {
-        if (exTitle.includes(kw) && re.test(exTitle) && inTitle.includes(kw) && re.test(inTitle)) {
-          return true;
-        }
-      }
-      return false;
-    };
-
+    const sameAsExisting = frozenExisting.find((e) => eventDedupe.sameEventReason(withQueueAudit(e), v));
     if ((fingerprint && knownEvents.some((e) => e.fingerprint === fingerprint && withinFiveDays(e.date, v.date)))
-      || frozenExisting.some((e) => isSemanticDuplicate(e, v))) {
+      || sameAsExisting) {
       console.log(`   ⏩ 別媒体の同一事件を重複除外: ${v.title}`);
       continue;
     }
@@ -2559,8 +2548,18 @@ async function main() {
     }
   }
 
+  // --- 自己修復: 直近5日分で同一事件が複数掲載されていれば初報だけ残す ---
+  const healed = eventDedupe.healRecentDuplicates([...acceptedNew, ...frozenExisting], {
+    auditOf: (item) => auditByUrl.get(normalizeArticleUrl(item.url || '')) || null,
+    windowDays: 5, now, rank: publicationSourceRank,
+  });
+  healed.removed.forEach((r) => console.log(`   🧹 同一事件を自動統合 [${r.reason}] 残: ${r.kept} / 消: ${r.removed}`));
+  const healedSet = new Set(healed.items);
+  acceptedNew = acceptedNew.filter((x) => healedSet.has(x));
+  frozenExisting = frozenExisting.filter((x) => healedSet.has(x));
+
   // --- 既存データとの結合と保存（差分ゼロ保護） ---
-  if (acceptedNew.length === 0 && removedExistingHeadlineDuplicates === 0) {
+  if (acceptedNew.length === 0 && removedExistingHeadlineDuplicates === 0 && healed.removed.length === 0) {
     console.log('✅ 新着の合格記事はありませんでした。newsData.json の更新をスキップします（差分ゼロ保護）。');
     return;
   }
