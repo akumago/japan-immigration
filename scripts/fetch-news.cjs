@@ -2459,21 +2459,17 @@ async function main() {
       audited: true
     };
 
-    if (fingerprint) {
-      const sameBatchEvents = batchEvents.get(fingerprint) || [];
-      const duplicate = sameBatchEvents.find((event) => withinFiveDays(event.date, v.date));
-      if (duplicate) {
-        if (publicationSourceRank(publication.url) > publicationSourceRank(duplicate.publication.url)) {
-          acceptedNew[duplicate.index] = publication;
-          duplicate.publication = publication;
-          console.log(`   🔁 同一事件の出典を元メディアへ置換: ${v.title}`);
-        } else {
-          console.log(`   ⏩ 別媒体の同一事件を重複除外: ${v.title}`);
-        }
-        continue;
+    // バッチ内で既に採用された合格記事との同一事件照合（汎用判定エンジンを使用）
+    const sameInBatchIndex = acceptedNew.findIndex((a) => eventDedupe.sameEventReason(a, v));
+    if (sameInBatchIndex !== -1) {
+      const duplicate = acceptedNew[sameInBatchIndex];
+      if (publicationSourceRank(publication.url) > publicationSourceRank(duplicate.url)) {
+        acceptedNew[sameInBatchIndex] = publication;
+        console.log(`   🔁 同一事件の出典を元メディアへ置換: ${v.title}`);
+      } else {
+        console.log(`   ⏩ 別媒体の同一事件を重複除外: ${v.title}`);
       }
-      sameBatchEvents.push({ date: v.date, index: acceptedNew.length, publication });
-      batchEvents.set(fingerprint, sameBatchEvents);
+      continue;
     }
 
     if (!v.sourceRecordId) {
