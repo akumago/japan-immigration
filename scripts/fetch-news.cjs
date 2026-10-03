@@ -48,8 +48,9 @@ function eventFingerprint(item) {
   const place = placeRaw.replace(/^(?:東京都|北海道|(?:京都|大阪)府|[一-龥]{2,3}県)/, '');
   // 市区町村名が本文にない鉄道内事件は、本文根拠の路線＋駅間を場所キーにする。
   // 路線名だけでは別の事件を統合し得るため、両駅が取れた場合に限って採用する。
-  const transit = text.match(/((?:東急|京王|小田急|ＪＲ|JR|東京メトロ|都営|西武|東武|京急|京成|阪急|阪神|近鉄|名鉄|西鉄|南海|相鉄)[一-龥ぁ-んァ-ヴーA-Za-z0-9・]{0,10}線(?:の)?[一-龥ぁ-んァ-ヴーA-Za-z0-9・]{1,12}駅から[一-龥ぁ-んァ-ヴーA-Za-z0-9・]{1,12}駅)/);
-  const eventPlace = place || (transit ? transit[1] : '');
+  const transitStation = text.match(/((?:東急|京王|小田急|ＪＲ|JR|東京メトロ|都営|西武|東武|京急|京成|阪急|阪神|近鉄|名鉄|西鉄|南海|相鉄)[一-龥ぁ-んァ-ヴーA-Za-z0-9・]{0,10}線(?:の)?[一-龥ぁ-んァ-ヴーA-Za-z0-9・]{1,12}駅から[一-龥ぁ-んァ-ヴーA-Za-z0-9・]{1,12}駅)/);
+  const transitLine = text.match(/((?:東急|京王|小田急|ＪＲ|JR|東京メトロ|都営|西武|東武|京急|京成|阪急|阪神|近鉄|名鉄|西鉄|南海|相鉄)[一-龥ぁ-んァ-ヴーA-Za-z0-9・]{0,10}線)/);
+  const eventPlace = place || (transitStation ? transitStation[1] : (transitLine ? transitLine[1] : ''));
   const crimeGroups = [
     ['覚醒剤製造', /覚醒剤.{0,12}(?:製造|密造)|(?:製造|密造).{0,12}覚醒剤/],
     ['薬物密輸', /(?:密輸|密輸入|輸入).{0,12}(?:麻薬|薬物|コカイン|大麻)|(?:麻薬|薬物|コカイン|大麻).{0,12}密輸/],
@@ -57,7 +58,8 @@ function eventFingerprint(item) {
     ['詐欺', /詐欺|だまし取/], ['窃盗', /窃盗|盗ん|盗み/], ['強盗', /強盗/],
     ['暴行傷害', /暴行|傷害|切り付け|殴打/], ['殺人', /殺人|殺害/], ['不法就労', /不法就労/],
     ['性犯罪', /不同意性交|不同意わいせつ|強制性交|強制わいせつ|性的姿態等撮影/],
-    ['交通犯罪', /危険運転|酒酔い運転|酒気帯び運転|無免許運転|ひき逃げ|過失運転致死傷/],
+    ['交通犯罪', /危険運転|酒酔い運転|酒気帯び運転|無免許運転|ひき逃げ|過失運転致死傷|道交法|道路交通法|信号無視|赤信号|パトカー.{0,10}逃走/],
+    ['商標法違反', /商標法|偽(?:ブランド|ユニホ|サプリ|物)/],
     ['入管法違反', /入管法違反|不法(?:入国|滞在|残留)|オーバーステイ/],
   ];
   const crime = crimeGroups.find(([, re]) => re.test(text))?.[0] || '';
@@ -2427,7 +2429,30 @@ async function main() {
       console.log(`   ⏩ 同日・同一見出しの媒体違いを重複除外: ${v.title}`);
       continue;
     }
-    if (fingerprint && knownEvents.some((e) => e.fingerprint === fingerprint && withinFiveDays(e.date, v.date))) {
+    const isSemanticDuplicate = (existing, incoming) => {
+      if (!withinFiveDays(existing.date, incoming.date)) return false;
+      const exTitle = String(existing.title || '');
+      const inTitle = String(incoming.title || '');
+      const sameLoc = !existing.location || !incoming.location || existing.location === '全国' || incoming.location === '全国' || existing.location === incoming.location;
+      if (!sameLoc) return false;
+      const pairs = [
+        ['上田市', /(?:逃走|横転|赤信号)/],
+        ['雪印', /(?:サプリ|偽物|偽サプリ)/],
+        ['東横線', /(?:財布|スリ|窃盗)/],
+        ['短期滞在', /(?:財布|スリ|窃盗)/],
+        ['福山港', /(?:不法上陸|不法残留)/],
+        ['ユニホ', /(?:偽|商標法)/],
+      ];
+      for (const [kw, re] of pairs) {
+        if (exTitle.includes(kw) && re.test(exTitle) && inTitle.includes(kw) && re.test(inTitle)) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    if ((fingerprint && knownEvents.some((e) => e.fingerprint === fingerprint && withinFiveDays(e.date, v.date)))
+      || frozenExisting.some((e) => isSemanticDuplicate(e, v))) {
       console.log(`   ⏩ 別媒体の同一事件を重複除外: ${v.title}`);
       continue;
     }
