@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-03T23:15:29.152Z",
+  "updatedAt": "2026-10-03T23:40:43.964Z",
   "items": [
     {
       "id": "e9e219e339a8c509",
@@ -3104,17 +3104,36 @@
       "title": "「空き家だと簡単」窃盗未遂容疑でベトナム人2人逮捕、不法滞在 埼玉の4件にも関与か",
       "pubDate": "2026-10-01T03:38:43.000Z",
       "firstSeen": "2026-10-01T07:15:20.206Z",
-      "status": "pending",
+      "status": "verified",
       "rejectReason": null,
       "pendingReason": "unreadable",
-      "attempts": 1,
-      "lastAttemptAt": "2026-10-02T10:22:23.170Z",
-      "audit": null,
-      "location": "埼玉県",
+      "attempts": 2,
+      "lastAttemptAt": "2026-10-03T23:39:51.074Z",
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 逮捕容疑は7月6日午後5時ごろ、東京都文京区の50代女性が所有する空き家に侵入し、金品を盗もうとしたとしている。"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 空き家に侵入して金品を盗もうとしたとして、警視庁捜査3課は窃盗未遂と邸宅侵入の疑いで、いずれもベトナム国籍で住所不詳の、解体工のボ・テ・ホアン容疑者（27）とフ"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: ベトナム国籍"
+        }
+      },
+      "location": "東京都",
       "media": "産経ニュース",
       "date": "2026-10-01",
       "gateVersion": "strict-2026-10-02.2",
-      "nextAttemptAt": "2026-10-02T11:21:58.299Z"
+      "nextAttemptAt": "2026-10-02T11:21:58.299Z",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5qVGtydG1ud0FyRlNrZzBBbzVYWDBUaFdFZEZkQjBqdE43TkFLZlZhTDBtQmRQOUV4N0FneTNiTnNrTXRaem5uOTVER3pNR1FPTjNvU1A4bzVGOURlNURJOEV6ejNrQzlFaVZHdHdyc3I1WEJVR2c?oc=5",
+      "activeSourceMedia": "産経ニュース",
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMidkFVX3lxTE5qVGtydG1ud0FyRlNrZzBBbzVYWDBUaFdFZEZkQjBqdE43TkFLZlZhTDBtQmRQOUV4N0FneTNiTnNrTXRaem5uOTVER3pNR1FPTjNvU1A4bzVGOURlNURJOEV6ejNrQzlFaVZHdHdyc3I1WEJVR2c"
+      ],
+      "bodyHash": "e9620f1fbee57be0"
     },
     {
       "id": "ec395a620e4e52b0",
@@ -3205,14 +3224,19 @@
       "status": "pending",
       "rejectReason": null,
       "pendingReason": "unreadable",
-      "attempts": 2,
-      "lastAttemptAt": "2026-10-02T11:20:27.681Z",
+      "attempts": 3,
+      "lastAttemptAt": "2026-10-03T23:39:52.508Z",
       "audit": null,
       "location": "静岡県",
       "media": "au Webポータル",
       "date": "2026-09-30",
       "gateVersion": "strict-2026-10-02.2",
-      "nextAttemptAt": "2026-10-02T14:20:25.010Z"
+      "nextAttemptAt": "2026-10-04T05:39:44.557Z",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1mZmYtdDVuSE5VdUkwT3gzRnpxbDFDQUl3TGV2ckVmSTlyNEJOVGVmRHYxU21MWUhtT0NYR21WXy1jYUVHVGd3dll0ODFhV0tuUVRaZGhQOVNLVlQyZTFhWG9JQ2N4ZHRHX1hONWJR?oc=5",
+      "activeSourceMedia": "au Webポータル",
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMibkFVX3lxTE1mZmYtdDVuSE5VdUkwT3gzRnpxbDFDQUl3TGV2ckVmSTlyNEJOVGVmRHYxU21MWUhtT0NYR21WXy1jYUVHVGd3dll0ODFhV0tuUVRaZGhQOVNLVlQyZTFhWG9JQ2N4ZHRHX1hONWJR"
+      ]
     },
     {
       "id": "1fccff654b2073db",
@@ -3224,14 +3248,19 @@
       "status": "pending",
       "rejectReason": null,
       "pendingReason": "http_403",
-      "attempts": 2,
-      "lastAttemptAt": "2026-10-02T11:20:29.185Z",
+      "attempts": 3,
+      "lastAttemptAt": "2026-10-03T23:39:53.487Z",
       "audit": null,
       "location": "全国",
       "media": "Excite エキサイト",
       "date": "2026-09-30",
       "gateVersion": "strict-2026-10-02.2",
-      "nextAttemptAt": "2026-10-02T14:20:25.010Z"
+      "nextAttemptAt": "2026-10-04T05:39:44.557Z",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMibkFVX3lxTE8yS2dvc1VvV3JqaW5yazFJMDNCbVAwSXpDZFhhemNQemJOV1hDRWRreGNobnNNQ1V2bTNPTWhmN2lQeUZMZEIzbW5VdlZaZXRNWWJLLXVOTUo1MEJTc0IyVkw0ZXM5cmpvM3hLekpR?oc=5",
+      "activeSourceMedia": "Excite エキサイト",
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMibkFVX3lxTE8yS2dvc1VvV3JqaW5yazFJMDNCbVAwSXpDZFhhemNQemJOV1hDRWRreGNobnNNQ1V2bTNPTWhmN2lQeUZMZEIzbW5VdlZaZXRNWWJLLXVOTUo1MEJTc0IyVkw0ZXM5cmpvM3hLekpR"
+      ]
     },
     {
       "id": "444b5247020fe71f",
@@ -3240,17 +3269,22 @@
       "title": "架空の株式投資で現金だまし取ろうとしたか 中国籍の男含む3人を通報で警戒中の警察官が逮捕＝静岡市葵区",
       "pubDate": "2026-10-01T00:25:00.000Z",
       "firstSeen": "2026-10-01T07:15:20.206Z",
-      "status": "pending",
+      "status": "unverified",
       "rejectReason": null,
-      "pendingReason": "unreadable",
-      "attempts": 1,
-      "lastAttemptAt": "2026-10-02T11:03:15.584Z",
+      "pendingReason": "http_404",
+      "attempts": 2,
+      "lastAttemptAt": "2026-10-03T23:39:53.601Z",
       "audit": null,
       "location": "静岡県",
       "media": "TBS NEWS DIG",
       "date": "2026-10-01",
       "gateVersion": "strict-2026-10-02.2",
-      "nextAttemptAt": "2026-10-02T12:02:54.694Z"
+      "nextAttemptAt": "2026-10-02T12:02:54.694Z",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFBjMWZmSElCalo4eWd0dktRTHBDc1JzdHJSczd0cnBvbnRSY2ZSTG9vcjRVZDlnbE9ESVFNWG1ZdTRBb2FwV0hGX0NMTlVmTUIyMjYydFBXWQ?oc=5",
+      "activeSourceMedia": "TBS NEWS DIG",
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMiV0FVX3lxTFBjMWZmSElCalo4eWd0dktRTHBDc1JzdHJSczd0cnBvbnRSY2ZSTG9vcjRVZDlnbE9ESVFNWG1ZdTRBb2FwV0hGX0NMTlVmTUIyMjYydFBXWQ"
+      ]
     },
     {
       "id": "d43ccde70d8e2a73",
@@ -3259,17 +3293,36 @@
       "title": "「騙されたふり作戦」で受け子の埼玉の男と中国人2人を現行犯逮捕 架空の投資話で70代女性から現金だまし取ろうとしたか ３人とも容疑を否認 静岡市",
       "pubDate": "2026-10-01T02:04:12.000Z",
       "firstSeen": "2026-10-01T07:15:20.206Z",
-      "status": "pending",
+      "status": "verified",
       "rejectReason": null,
       "pendingReason": "unreadable",
-      "attempts": 2,
-      "lastAttemptAt": "2026-10-02T10:51:01.673Z",
-      "audit": null,
+      "attempts": 3,
+      "lastAttemptAt": "2026-10-03T23:39:54.513Z",
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 被害者が語るその手口…ニセ警察官に呼び出されホテルに監禁 新たな形の特殊詐欺か 静岡県 特殊詐欺未遂の疑いで逮捕されたのは、埼玉県川越市に住む無職の男（６１）と"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 被害者が語るその手口…ニセ警察官に呼び出されホテルに監禁 新たな形の特殊詐欺か 静岡県 特殊詐欺未遂の疑いで逮捕されたのは、埼玉県川越市に住む無職の男（６１）と"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: 中国国籍"
+        }
+      },
       "location": "静岡県",
       "media": "Yahoo!ニュース",
       "date": "2026-10-01",
       "gateVersion": "strict-2026-10-02.2",
-      "nextAttemptAt": "2026-10-02T13:50:58.156Z"
+      "nextAttemptAt": "2026-10-02T13:50:58.156Z",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMif0FVX3lxTE80ZTNjUUJ6NEJ5YXN6Rm1SUEU5Y0o0N2VQelRMWlZxbnN2eWFPYWY1S2R3d1lvSHllMkJqcGZZOEJKTDJHS0prbmNqRVFDczJNMTJhclM3d29uVTJ0b014MXRpcG9GXzMzczZmME1QbWYyZ2tsT0NNTFp5bzBNcjQ?oc=5",
+      "activeSourceMedia": "Yahoo!ニュース",
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMif0FVX3lxTE80ZTNjUUJ6NEJ5YXN6Rm1SUEU5Y0o0N2VQelRMWlZxbnN2eWFPYWY1S2R3d1lvSHllMkJqcGZZOEJKTDJHS0prbmNqRVFDczJNMTJhclM3d29uVTJ0b014MXRpcG9GXzMzczZmME1QbWYyZ2tsT0NNTFp5bzBNcjQ"
+      ],
+      "bodyHash": "d205c6e2a435652a"
     },
     {
       "id": "b16fa8a854a30b1c",
@@ -4949,19 +5002,27 @@
     {
       "id": "d3f4564a59f64394",
       "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1nQlRONGZtUzF6RTBlc1NKZkVMajlDTVJDWjlwZXJWakM2Zkl0UVJTZlU4WkxIU0FZaHVhNVpYOHpGMGdVRi1ZalRCVW9OaklUekdNRmRvdlBoSGlja0MwUEV0cDFUQ1dURmR2ZV9aQjdPaDJSQ2E1NHN0WGhXQjA?oc=5",
-      "resolvedUrl": null,
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/008f69ad2b223a015ca6dc01d3a101770ccfa10f",
       "title": "20歳女が金属バットで20代男性の太もも殴打…コンビニ駐車場で左大腿部打撲の傷害事件 福島",
       "pubDate": "2026-09-29T00:44:00.000Z",
       "firstSeen": "2026-10-01T07:15:20.207Z",
-      "status": "pending",
+      "status": "unverified",
       "rejectReason": null,
-      "pendingReason": null,
-      "attempts": 0,
-      "lastAttemptAt": null,
+      "pendingReason": "suspect_identified_nationality_missing",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:42.389Z",
       "audit": null,
       "location": "福島県",
       "media": "Yahoo!ニュース",
-      "date": "2026-09-29"
+      "date": "2026-09-29",
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1nQlRONGZtUzF6RTBlc1NKZkVMajlDTVJDWjlwZXJWakM2Zkl0UVJTZlU4WkxIU0FZaHVhNVpYOHpGMGdVRi1ZalRCVW9OaklUekdNRmRvdlBoSGlja0MwUEV0cDFUQ1dURmR2ZV9aQjdPaDJSQ2E1NHN0WGhXQjA?oc=5",
+      "activeSourceMedia": "Yahoo!ニュース",
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMif0FVX3lxTE1nQlRONGZtUzF6RTBlc1NKZkVMajlDTVJDWjlwZXJWakM2Zkl0UVJTZlU4WkxIU0FZaHVhNVpYOHpGMGdVRi1ZalRCVW9OaklUekdNRmRvdlBoSGlja0MwUEV0cDFUQ1dURmR2ZV9aQjdPaDJSQ2E1NHN0WGhXQjA"
+      ],
+      "bodyHash": "fa4ba999b849c12e",
+      "lastError": "insufficient_ttl_for_retry"
     },
     {
       "id": "37af752d1862eab2",
@@ -4985,19 +5046,26 @@
     {
       "id": "7cf0596bd0ef4d92",
       "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNV1dKdlVqN2oza19DenpIM1Zwc3ZIaUtlLU80YThqQ2FrZG1ERWM0ck5lZXNXTTB0NjVTZDJreW9yY3cyTlJ6NTJ6MHpLVEpsdmtYWWcxUWRXbTE1a2poSDJMQXZ6akZ6bTFWMmhqOEdpTFBHcXpsbGRWbThVS1hUU01zZTNHWWxXdHlpM0d3?oc=5",
-      "resolvedUrl": null,
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/edf2cca0e530dec7b20834e8773b157d75a7b012",
       "title": "所持金あるのに食料品2点(764円)万引きか…56歳男を現行犯逮捕 福島 (福島中央テレビ)",
       "pubDate": "2026-09-29T00:51:00.000Z",
       "firstSeen": "2026-10-01T07:15:20.207Z",
-      "status": "pending",
+      "status": "unverified",
       "rejectReason": null,
-      "pendingReason": null,
-      "attempts": 0,
-      "lastAttemptAt": null,
+      "pendingReason": "suspect_role_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:39.763Z",
       "audit": null,
       "location": "福島県",
       "media": "Yahoo!ニュース",
-      "date": "2026-09-29"
+      "date": "2026-09-29",
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNV1dKdlVqN2oza19DenpIM1Zwc3ZIaUtlLU80YThqQ2FrZG1ERWM0ck5lZXNXTTB0NjVTZDJreW9yY3cyTlJ6NTJ6MHpLVEpsdmtYWWcxUWRXbTE1a2poSDJMQXZ6akZ6bTFWMmhqOEdpTFBHcXpsbGRWbThVS1hUU01zZTNHWWxXdHlpM0d3?oc=5",
+      "activeSourceMedia": "Yahoo!ニュース",
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMijgFBVV95cUxNV1dKdlVqN2oza19DenpIM1Zwc3ZIaUtlLU80YThqQ2FrZG1ERWM0ck5lZXNXTTB0NjVTZDJreW9yY3cyTlJ6NTJ6MHpLVEpsdmtYWWcxUWRXbTE1a2poSDJMQXZ6akZ6bTFWMmhqOEdpTFBHcXpsbGRWbThVS1hUU01zZTNHWWxXdHlpM0d3"
+      ],
+      "bodyHash": "32bf3f81d81fa739"
     },
     {
       "id": "c14612e36a0e4fd3",
@@ -5071,19 +5139,27 @@
     {
       "id": "97810f81e38797aa",
       "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOeVBhbEFYMmRaUTdUc0JraWQxR3htY3ZMbE5nck4zOUFUSUhQOXVWSEpKbVBfTjBrM05oSEF0SVgxSENscW9LT1BoQ0tQQmYyRDR0UUdyYVdTV3ZPakpNVy04MGEybzEzMGpFSm9tSXhsc1Y0cTJOMEczV1p0U3NiRNIBgAFBVV95cUxOeVBhbEFYMmRaUTdUc0JraWQxR3htY3ZMbE5nck4zOUFUSUhQOXVWSEpKbVBfTjBrM05oSEF0SVgxSENscW9LT1BoQ0tQQmYyRDR0UUdyYVdTV3ZPakpNVy04MGEybzEzMGpFSm9tSXhsc1Y0cTJOMEczV1p0U3NiRA?oc=5",
-      "resolvedUrl": null,
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/amp/article/fct/region/fct-2026092906385826",
       "title": "レンタカー返さず又貸しか　会社員の48歳男を横領容疑で逮捕　福島",
       "pubDate": "2026-09-29T01:52:00.000Z",
       "firstSeen": "2026-10-01T07:15:20.207Z",
-      "status": "pending",
+      "status": "unverified",
       "rejectReason": null,
-      "pendingReason": null,
-      "attempts": 0,
-      "lastAttemptAt": null,
+      "pendingReason": "suspect_identified_nationality_missing",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:37.823Z",
       "audit": null,
       "location": "福島県",
       "media": "ｄメニューニュース",
-      "date": "2026-09-29"
+      "date": "2026-09-29",
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOeVBhbEFYMmRaUTdUc0JraWQxR3htY3ZMbE5nck4zOUFUSUhQOXVWSEpKbVBfTjBrM05oSEF0SVgxSENscW9LT1BoQ0tQQmYyRDR0UUdyYVdTV3ZPakpNVy04MGEybzEzMGpFSm9tSXhsc1Y0cTJOMEczV1p0U3NiRNIBgAFBVV95cUxOeVBhbEFYMmRaUTdUc0JraWQxR3htY3ZMbE5nck4zOUFUSUhQOXVWSEpKbVBfTjBrM05oSEF0SVgxSENscW9LT1BoQ0tQQmYyRDR0UUdyYVdTV3ZPakpNVy04MGEybzEzMGpFSm9tSXhsc1Y0cTJOMEczV1p0U3NiRA?oc=5",
+      "activeSourceMedia": "ｄメニューニュース",
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMigAFBVV95cUxOeVBhbEFYMmRaUTdUc0JraWQxR3htY3ZMbE5nck4zOUFUSUhQOXVWSEpKbVBfTjBrM05oSEF0SVgxSENscW9LT1BoQ0tQQmYyRDR0UUdyYVdTV3ZPakpNVy04MGEybzEzMGpFSm9tSXhsc1Y0cTJOMEczV1p0U3NiRNIBgAFBVV95cUxOeVBhbEFYMmRaUTdUc0JraWQxR3htY3ZMbE5nck4zOUFUSUhQOXVWSEpKbVBfTjBrM05oSEF0SVgxSENscW9LT1BoQ0tQQmYyRDR0UUdyYVdTV3ZPakpNVy04MGEybzEzMGpFSm9tSXhsc1Y0cTJOMEczV1p0U3NiRA"
+      ],
+      "bodyHash": "00632015c3e5feda",
+      "lastError": "insufficient_ttl_for_retry"
     },
     {
       "id": "cdf40eb84c341d5b",
@@ -5303,19 +5379,27 @@
     {
       "id": "0582922628e6ea0f",
       "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQcGw2djA4NjB2YW9vZlVGanFxQmgwcFItR0lNUFpPdHVLV1RxUG9ENUFZWGxXQ3Z0cTRFeW9HcGIzeXhLTnBzSzZ6ZjRzb3YwY2ZkVzVYckdpelM3UFhraExCXzNpZmpkWE0wclBJOEk1Q3FWcGdtNUhROW1yc2dhQU9MMktLTEczbWJvTWR3ambSAZABQVVfeXFMUHBsNnYwODYwdmFvb2ZVRmpxcUJoMHBSLUdJTVBaT3R1S1dUcVBvRDVBWVhsV0N2dHE0RXlvR3BiM3l4S05wc0s2emY0c292MGNmZFc1WHJHaXpTN1BYa2hMQl8zaWZqZFhNMHJQSThJNUNxVnBnbTVIUTltcnNnYUFPTDJLS0xHM21ib01kd2pm?oc=5",
-      "resolvedUrl": null,
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/amp/article/kyodo_nor/nation/kyodo_nor-2026092901001661",
       "title": "組織的詐欺疑い男2人逮捕　かけ子勧誘役ら比から移送",
       "pubDate": "2026-09-29T09:42:00.000Z",
       "firstSeen": "2026-10-01T07:15:20.207Z",
-      "status": "pending",
+      "status": "unverified",
       "rejectReason": null,
-      "pendingReason": null,
-      "attempts": 0,
-      "lastAttemptAt": null,
+      "pendingReason": "suspect_identified_nationality_missing",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:28.057Z",
       "audit": null,
       "location": "全国",
       "media": "ｄメニューニュース",
-      "date": "2026-09-29"
+      "date": "2026-09-29",
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQcGw2djA4NjB2YW9vZlVGanFxQmgwcFItR0lNUFpPdHVLV1RxUG9ENUFZWGxXQ3Z0cTRFeW9HcGIzeXhLTnBzSzZ6ZjRzb3YwY2ZkVzVYckdpelM3UFhraExCXzNpZmpkWE0wclBJOEk1Q3FWcGdtNUhROW1yc2dhQU9MMktLTEczbWJvTWR3ambSAZABQVVfeXFMUHBsNnYwODYwdmFvb2ZVRmpxcUJoMHBSLUdJTVBaT3R1S1dUcVBvRDVBWVhsV0N2dHE0RXlvR3BiM3l4S05wc0s2emY0c292MGNmZFc1WHJHaXpTN1BYa2hMQl8zaWZqZFhNMHJQSThJNUNxVnBnbTVIUTltcnNnYUFPTDJLS0xHM21ib01kd2pm?oc=5",
+      "activeSourceMedia": "ｄメニューニュース",
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMikAFBVV95cUxQcGw2djA4NjB2YW9vZlVGanFxQmgwcFItR0lNUFpPdHVLV1RxUG9ENUFZWGxXQ3Z0cTRFeW9HcGIzeXhLTnBzSzZ6ZjRzb3YwY2ZkVzVYckdpelM3UFhraExCXzNpZmpkWE0wclBJOEk1Q3FWcGdtNUhROW1yc2dhQU9MMktLTEczbWJvTWR3ambSAZABQVVfeXFMUHBsNnYwODYwdmFvb2ZVRmpxcUJoMHBSLUdJTVBaT3R1S1dUcVBvRDVBWVhsV0N2dHE0RXlvR3BiM3l4S05wc0s2emY0c292MGNmZFc1WHJHaXpTN1BYa2hMQl8zaWZqZFhNMHJQSThJNUNxVnBnbTVIUTltcnNnYUFPTDJLS0xHM21ib01kd2pm"
+      ],
+      "bodyHash": "9f51cfa8e65e2d1b",
+      "lastError": "insufficient_ttl_for_retry"
     },
     {
       "id": "0005f5495f373b3c",
@@ -10743,19 +10827,26 @@
     {
       "id": "63cfc0987172042c",
       "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1PMmpoeU1HT0hoOFlFVnhHa09ZZ3JiVXpwWUNtOUJWZDBxNWhCSzRjZVkzRnhsZnphX0JzUjh6YVhueldENHp2ay1KSE5BWklhakp4RWVGeVV4UQ?oc=5",
-      "resolvedUrl": null,
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/tut/2973881",
       "title": "富山・石川で連続侵入…84歳男を再逮捕 高岡市の放火・窃盗に続き今回3度目 金沢市の住宅で現金やスマホを盗んだ疑い",
       "pubDate": "2026-09-29T02:48:00.000Z",
       "firstSeen": "2026-10-01T07:15:20.210Z",
-      "status": "pending",
+      "status": "unverified",
       "rejectReason": null,
-      "pendingReason": null,
-      "attempts": 0,
-      "lastAttemptAt": null,
+      "pendingReason": "suspect_role_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:35.376Z",
       "audit": null,
       "location": "富山県",
       "media": "TBS NEWS DIG",
-      "date": "2026-09-29"
+      "date": "2026-09-29",
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1PMmpoeU1HT0hoOFlFVnhHa09ZZ3JiVXpwWUNtOUJWZDBxNWhCSzRjZVkzRnhsZnphX0JzUjh6YVhueldENHp2ay1KSE5BWklhakp4RWVGeVV4UQ?oc=5",
+      "activeSourceMedia": "TBS NEWS DIG",
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1PMmpoeU1HT0hoOFlFVnhHa09ZZ3JiVXpwWUNtOUJWZDBxNWhCSzRjZVkzRnhsZnphX0JzUjh6YVhueldENHp2ay1KSE5BWklhakp4RWVGeVV4UQ"
+      ],
+      "bodyHash": "9b3b43ccd69e5712"
     },
     {
       "id": "f95ff7e1332610d0",
@@ -54719,17 +54810,17 @@
     {
       "id": "c90f69f505268922",
       "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPU2JQaHFLMmZwekZGa08xelNXWVdlSmVLdzZIaklOaEN5ZGtaNHFwbnBQc1k3djh3blhrY1I4RFNlQ1ZHTzM1YzhtanpaeHpDWDNsMFlYN0hSbTBfM2I5TTRxVkxhZFRReHFFWE5kVkg1dlVLSlFhenRjUkR5MS13UVdRbFpDOGtOanJ1YzZR?oc=5",
-      "resolvedUrl": null,
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/a451a3c49c2814d5fd24c1e35c81c29f398fc3ce",
       "title": "「湘南美容クリニック」のグループ会社元社員逮捕 背任の疑い-警視庁 (日テレNEWS NNN)",
       "pubDate": "2026-09-29T04:00:00.000Z",
       "firstSeen": "2026-10-02T08:41:02.713Z",
-      "status": "pending",
+      "status": "unverified",
       "rejectReason": null,
-      "pendingReason": null,
-      "attempts": 0,
-      "lastAttemptAt": null,
+      "pendingReason": "suspect_role_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:33.042Z",
       "nextAttemptAt": null,
-      "bodyHash": null,
+      "bodyHash": "52ddbaa6f2c3156c",
       "audit": null,
       "location": "東京都",
       "media": "Yahoo!ニュース",
@@ -54738,7 +54829,13 @@
       "sourceType": null,
       "sourceId": null,
       "sourceBody": null,
-      "candidateLane": "broad_discovery"
+      "candidateLane": "broad_discovery",
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPU2JQaHFLMmZwekZGa08xelNXWVdlSmVLdzZIaklOaEN5ZGtaNHFwbnBQc1k3djh3blhrY1I4RFNlQ1ZHTzM1YzhtanpaeHpDWDNsMFlYN0hSbTBfM2I5TTRxVkxhZFRReHFFWE5kVkg1dlVLSlFhenRjUkR5MS13UVdRbFpDOGtOanJ1YzZR?oc=5",
+      "activeSourceMedia": "Yahoo!ニュース",
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMijgFBVV95cUxPU2JQaHFLMmZwekZGa08xelNXWVdlSmVLdzZIaklOaEN5ZGtaNHFwbnBQc1k3djh3blhrY1I4RFNlQ1ZHTzM1YzhtanpaeHpDWDNsMFlYN0hSbTBfM2I5TTRxVkxhZFRReHFFWE5kVkg1dlVLSlFhenRjUkR5MS13UVdRbFpDOGtOanJ1YzZR"
+      ]
     },
     {
       "id": "787e0b6fed3b8051",
@@ -55546,17 +55643,17 @@
     {
       "id": "870c274563a3bb5a",
       "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBmU0p6SXJ0X3RnRUJvVmJUMWpudHo5bkxvVHMzMnlady1rMU90eGpHN2Z0alBwZVpxWEowVDhweUFMb3NEUWlsaDBSX2gxOWM0NmwwTUdOS2twZGNrRmw4ZVQzVDdZaE5ZSFV5bDlFYmhSUGw4cTI4amxfLUVXaVU?oc=5",
-      "resolvedUrl": null,
+      "resolvedUrl": "https://news.ntv.co.jp/category/society/st8f7d790024044904a34abcea90c1c392",
       "title": "自転車で女性の上半身さわる 不同意わいせつで男を逮捕 付近で同様の事件…余罪を追及 北海道札幌市",
       "pubDate": "2026-09-29T10:11:00.000Z",
       "firstSeen": "2026-10-02T09:07:45.989Z",
-      "status": "pending",
+      "status": "unverified",
       "rejectReason": null,
-      "pendingReason": null,
-      "attempts": 0,
-      "lastAttemptAt": null,
+      "pendingReason": "suspect_identified_nationality_missing",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:24.941Z",
       "nextAttemptAt": null,
-      "bodyHash": null,
+      "bodyHash": "cb6118066907b22f",
       "audit": null,
       "location": "北海道",
       "media": "日テレNEWS NNN",
@@ -55565,7 +55662,14 @@
       "sourceType": null,
       "sourceId": null,
       "sourceBody": null,
-      "candidateLane": "broad_discovery"
+      "candidateLane": "broad_discovery",
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBmU0p6SXJ0X3RnRUJvVmJUMWpudHo5bkxvVHMzMnlady1rMU90eGpHN2Z0alBwZVpxWEowVDhweUFMb3NEUWlsaDBSX2gxOWM0NmwwTUdOS2twZGNrRmw4ZVQzVDdZaE5ZSFV5bDlFYmhSUGw4cTI4amxfLUVXaVU?oc=5",
+      "activeSourceMedia": "日テレNEWS NNN",
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMif0FVX3lxTFBmU0p6SXJ0X3RnRUJvVmJUMWpudHo5bkxvVHMzMnlady1rMU90eGpHN2Z0alBwZVpxWEowVDhweUFMb3NEUWlsaDBSX2gxOWM0NmwwTUdOS2twZGNrRmw4ZVQzVDdZaE5ZSFV5bDlFYmhSUGw4cTI4amxfLUVXaVU"
+      ],
+      "lastError": "insufficient_ttl_for_retry"
     },
     {
       "id": "024b76c99a206c15",
@@ -73345,17 +73449,17 @@
     {
       "id": "f534f1ce8831f8f4",
       "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9nZ01pM01KQ1J2d3g0UER3elBuczFkaVl1MzNKRVBNWWRLYTkwNFdsbkJUeUkzWHBSY1dkMWRycWFhV0NoTUlHeE1ocVpULWtu?oc=5",
-      "resolvedUrl": null,
+      "resolvedUrl": "https://news.ksb.co.jp/article/16923030",
       "title": "16歳未満の少女にわいせつな行為で逮捕・起訴された岡山市の小学校教諭を懲戒免職処分",
       "pubDate": "2026-09-29T06:54:00.000Z",
       "firstSeen": "2026-10-03T09:41:27.260Z",
-      "status": "pending",
+      "status": "unverified",
       "rejectReason": null,
-      "pendingReason": null,
-      "attempts": 0,
-      "lastAttemptAt": null,
+      "pendingReason": "suspect_identified_nationality_missing",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:29.922Z",
       "nextAttemptAt": null,
-      "bodyHash": null,
+      "bodyHash": "001c37f7d26c97bf",
       "audit": null,
       "location": "岡山県",
       "media": "KSBニュース",
@@ -73366,7 +73470,13 @@
       "sourceBody": null,
       "candidateLane": "broad_discovery",
       "alternateSources": [],
-      "sourceAttemptUrls": []
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9nZ01pM01KQ1J2d3g0UER3elBuczFkaVl1MzNKRVBNWWRLYTkwNFdsbkJUeUkzWHBSY1dkMWRycWFhV0NoTUlHeE1ocVpULWtu"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9nZ01pM01KQ1J2d3g0UER3elBuczFkaVl1MzNKRVBNWWRLYTkwNFdsbkJUeUkzWHBSY1dkMWRycWFhV0NoTUlHeE1ocVpULWtu?oc=5",
+      "activeSourceMedia": "KSBニュース",
+      "lastError": "insufficient_ttl_for_retry"
     },
     {
       "id": "8749bafa3c9880d7",
@@ -80187,16 +80297,16 @@
     {
       "id": "dc9bf240ce15f4de",
       "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFByWWNqV3hXbzdmOTVwb2FJSlItX3BlMXFPU0pJYzRHTlNQR1Nabm16QkNiblowVjZhNVh1alQyQk1TV1QyakhBWkRFVTNpQUpUNXQ0QVVwalFCZzFja0sxdUF1QzZxaGVQY2laeFlB?oc=5",
-      "resolvedUrl": null,
+      "resolvedUrl": "https://article.auone.jp/e1324b80-a0eb-4da7-a725-5fb99cb38dc8",
       "title": "カメ4匹密輸未遂疑い、夫婦逮捕 スーツケースに隠したか",
       "pubDate": "2026-09-30T03:52:00.000Z",
       "firstSeen": "2026-10-03T20:03:12.100Z",
       "status": "pending",
       "rejectReason": null,
-      "pendingReason": null,
-      "attempts": 0,
-      "lastAttemptAt": null,
-      "nextAttemptAt": null,
+      "pendingReason": "unreadable",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:23.659Z",
+      "nextAttemptAt": "2026-10-04T00:39:44.557Z",
       "bodyHash": null,
       "audit": null,
       "location": "全国",
@@ -80208,7 +80318,12 @@
       "sourceBody": null,
       "candidateLane": "broad_discovery",
       "alternateSources": [],
-      "sourceAttemptUrls": []
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMibkFVX3lxTFByWWNqV3hXbzdmOTVwb2FJSlItX3BlMXFPU0pJYzRHTlNQR1Nabm16QkNiblowVjZhNVh1alQyQk1TV1QyakhBWkRFVTNpQUpUNXQ0QVVwalFCZzFja0sxdUF1QzZxaGVQY2laeFlB"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMibkFVX3lxTFByWWNqV3hXbzdmOTVwb2FJSlItX3BlMXFPU0pJYzRHTlNQR1Nabm16QkNiblowVjZhNVh1alQyQk1TV1QyakhBWkRFVTNpQUpUNXQ0QVVwalFCZzFja0sxdUF1QzZxaGVQY2laeFlB?oc=5",
+      "activeSourceMedia": "au Webポータル"
     },
     {
       "id": "18f7621c1a6c28d9",
@@ -80818,16 +80933,16 @@
     {
       "id": "8d3770496820da98",
       "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1xYXpmczd2NEtkS2RhRUc3VUlMeXF1b3dzVTFTbnlGSFE0UkViU1NwdmRkcTY5eVgxT2phX09mRlNVWDJtWm5mQkdGWm9yQURqeWJPUTcxX2dVMDMyaUpxZzZOMzJzSDg?oc=5",
-      "resolvedUrl": null,
+      "resolvedUrl": "https://news.line.me/detail/oa-ryukyushimpo/ykyirsbs3x9z",
       "title": "米兵逮捕、強盗殺人疑い 普天間基地所属の海兵隊員 那覇ホテル（琉球新報）",
       "pubDate": "2026-10-03T22:30:00.000Z",
       "firstSeen": "2026-10-03T23:13:06.575Z",
       "status": "pending",
       "rejectReason": null,
-      "pendingReason": null,
-      "attempts": 0,
-      "lastAttemptAt": null,
-      "nextAttemptAt": null,
+      "pendingReason": "unreadable",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:05.031Z",
+      "nextAttemptAt": "2026-10-04T00:39:44.557Z",
       "bodyHash": null,
       "audit": null,
       "location": "沖縄県",
@@ -80839,7 +80954,12 @@
       "sourceBody": null,
       "candidateLane": "explicit_foreign",
       "alternateSources": [],
-      "sourceAttemptUrls": []
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1xYXpmczd2NEtkS2RhRUc3VUlMeXF1b3dzVTFTbnlGSFE0UkViU1NwdmRkcTY5eVgxT2phX09mRlNVWDJtWm5mQkdGWm9yQURqeWJPUTcxX2dVMDMyaUpxZzZOMzJzSDg"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1xYXpmczd2NEtkS2RhRUc3VUlMeXF1b3dzVTFTbnlGSFE0UkViU1NwdmRkcTY5eVgxT2phX09mRlNVWDJtWm5mQkdGWm9yQURqeWJPUTcxX2dVMDMyaUpxZzZOMzJzSDg?oc=5",
+      "activeSourceMedia": "news.line.me"
     },
     {
       "id": "7b02374c6c6affa7",
@@ -81748,7 +81868,16 @@
       "sourceId": null,
       "sourceBody": null,
       "candidateLane": "explicit_foreign",
-      "alternateSources": [],
+      "alternateSources": [
+        {
+          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9sV0FPdUlzVy1BajRULWVjRGhINXpPUXhoX05lLXcxNExfMnlfeWZkRFhPX3lQYW9BUXZpM2pDX3RwRUNsc1RlMmpHSmVFWTJjcXRHNXpPb0dJeEFSZjdaVDBRWVNGOUhGN1FITnRyR01vejM2R1E?oc=5",
+          "title": "米兵を強盗殺人容疑で緊急逮捕 那覇市のホテルでの女性遺体発見で 普天間飛行場所属の海兵隊上等兵",
+          "media": "Infoseek",
+          "sourceId": null,
+          "sourceType": null,
+          "sourceRecordId": null
+        }
+      ],
       "sourceAttemptUrls": [
         "https://news.google.com/rss/articles/CBMid0FVX3lxTFBHcldRYnNyRDhnS1F3NWJFQXA1dlExd2FUSTRZb3FxU2E0c194ZWZ6UEUzaVFSTUJOcWdGdlU4ekZ2QVlrWTVGRkd2cWwwSzh3MkpZWHRfMXpKMlhMTjZDUlpNblhXSkFRU1BBODhBb25La0tpS1c0"
       ],
@@ -82155,37 +82284,6 @@
       "activeSourceMedia": "ミヤギテレビ"
     },
     {
-      "id": "8754bc2d5713cfa4",
-      "url": "https://news.yahoo.co.jp/articles/b4008f5a6d57080438cfe464d9ad54207b771ec4?source=rss",
-      "resolvedUrl": "https://news.yahoo.co.jp/articles/b4008f5a6d57080438cfe464d9ad54207b771ec4?source=rss",
-      "title": "ニデック、決算開示延期　品質不正など響く(日刊工業新聞電子版)",
-      "pubDate": "2026-08-06T02:51:17.000Z",
-      "firstSeen": "2026-10-03T23:13:09.764Z",
-      "status": "unverified",
-      "rejectReason": null,
-      "pendingReason": "suspect_role_unclear_in_body",
-      "attempts": 1,
-      "lastAttemptAt": "2026-10-03T23:14:28.985Z",
-      "nextAttemptAt": null,
-      "bodyHash": "41f0f58a1b82ef0c",
-      "audit": null,
-      "location": "全国",
-      "media": "日刊工業新聞電子版",
-      "date": "2026-08-06",
-      "sourceRecordId": null,
-      "sourceType": "publisher_rss",
-      "sourceId": "yahoo-media-nkogyo",
-      "sourceBody": null,
-      "candidateLane": "broad_discovery",
-      "alternateSources": [],
-      "sourceAttemptUrls": [
-        "https://news.yahoo.co.jp/articles/b4008f5a6d57080438cfe464d9ad54207b771ec4?source=rss"
-      ],
-      "gateVersion": "strict-2026-10-02.2",
-      "activeSourceUrl": "https://news.yahoo.co.jp/articles/b4008f5a6d57080438cfe464d9ad54207b771ec4?source=rss",
-      "activeSourceMedia": "日刊工業新聞電子版"
-    },
-    {
       "id": "77d5801c2e1ebf14",
       "url": "https://news.yahoo.co.jp/articles/1600155f16ccb42be0ceca60ae2940382a236f7d?source=rss",
       "resolvedUrl": "https://news.yahoo.co.jp/articles/1600155f16ccb42be0ceca60ae2940382a236f7d?source=rss",
@@ -82530,6 +82628,526 @@
       "gateVersion": "strict-2026-10-02.2",
       "activeSourceUrl": "https://news.tv-asahi.co.jp/news_society/articles/900201121.html",
       "activeSourceMedia": "テレ朝NEWS（事件・社会）"
+    },
+    {
+      "id": "6565950e298bee8a",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9uWUVOaUxJX29nUWhSandPYXZWYzZKYTlYU25DQVhOVFFqTW9Uckp1SnNPQk1VS3M0ME5ZbGR3RTFMbHA2emZQd1BjWmVtTERWcG9EMFE4c1Y2bERyYzJRZzVxektONXc?oc=5",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/mbs/2983756?display=1",
+      "title": "自動車盗で男ら3人を逮捕・起訴 車の位置情報取得を妨害する「GPSジャマー」使用か 大阪・奈良など8都府県で約8200万円相当の被害",
+      "pubDate": "2026-10-01T12:19:24.000Z",
+      "firstSeen": "2026-10-03T23:39:44.794Z",
+      "status": "pending",
+      "rejectReason": null,
+      "pendingReason": "suspect_identified_nationality_missing",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:13.860Z",
+      "nextAttemptAt": "2026-10-04T11:39:44.557Z",
+      "bodyHash": "112232c297a618f1",
+      "audit": null,
+      "location": "大阪府",
+      "media": "TBS NEWS DIG",
+      "date": "2026-10-01",
+      "sourceRecordId": null,
+      "sourceType": null,
+      "sourceId": null,
+      "sourceBody": null,
+      "candidateLane": "broad_discovery",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9uWUVOaUxJX29nUWhSandPYXZWYzZKYTlYU25DQVhOVFFqTW9Uckp1SnNPQk1VS3M0ME5ZbGR3RTFMbHA2emZQd1BjWmVtTERWcG9EMFE4c1Y2bERyYzJRZzVxektONXc"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9uWUVOaUxJX29nUWhSandPYXZWYzZKYTlYU25DQVhOVFFqTW9Uckp1SnNPQk1VS3M0ME5ZbGR3RTFMbHA2emZQd1BjWmVtTERWcG9EMFE4c1Y2bERyYzJRZzVxektONXc?oc=5",
+      "activeSourceMedia": "TBS NEWS DIG"
+    },
+    {
+      "id": "9e9806390a3352cd",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5ha25DczRxQ3BOSGdncS1ackhUc1Z6cmIxMkNKQ25qTVl6R3BZaXlCNUpvYnptcTNWRTJRdWJ3SDFHVmF3RWpDMWViUmJUeldPVS0zQkhQSTE5c3lPUVpCSmZGNkRhTFVpU3ctQm9yLTJJLVpQbllsZmVhYTlBS3M?oc=5",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/4853559c1689f09a2f8f74fb3f499145bde305c9",
+      "title": "「顔面を突っ込め」公衆トイレの便器に･･･25歳自営業の男を傷害容疑で逮捕【新潟】（UX新潟テレビ21）",
+      "pubDate": "2026-10-01T07:03:45.000Z",
+      "firstSeen": "2026-10-03T23:39:45.677Z",
+      "status": "pending",
+      "rejectReason": null,
+      "pendingReason": "suspect_identified_nationality_missing",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:16.807Z",
+      "nextAttemptAt": "2026-10-04T11:39:44.557Z",
+      "bodyHash": "29c91901c0f59b7d",
+      "audit": null,
+      "location": "新潟県",
+      "media": "news.yahoo.co.jp",
+      "date": "2026-10-01",
+      "sourceRecordId": null,
+      "sourceType": null,
+      "sourceId": null,
+      "sourceBody": null,
+      "candidateLane": "broad_discovery",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMif0FVX3lxTE5ha25DczRxQ3BOSGdncS1ackhUc1Z6cmIxMkNKQ25qTVl6R3BZaXlCNUpvYnptcTNWRTJRdWJ3SDFHVmF3RWpDMWViUmJUeldPVS0zQkhQSTE5c3lPUVpCSmZGNkRhTFVpU3ctQm9yLTJJLVpQbllsZmVhYTlBS3M"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5ha25DczRxQ3BOSGdncS1ackhUc1Z6cmIxMkNKQ25qTVl6R3BZaXlCNUpvYnptcTNWRTJRdWJ3SDFHVmF3RWpDMWViUmJUeldPVS0zQkhQSTE5c3lPUVpCSmZGNkRhTFVpU3ctQm9yLTJJLVpQbllsZmVhYTlBS3M?oc=5",
+      "activeSourceMedia": "news.yahoo.co.jp"
+    },
+    {
+      "id": "426939ca416757aa",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBCM1IxTnlwQnk5OEYyNEhDczhlSjVESWdVUWVUbUpLbk0wY1ZfYTlNcGRPcm1xQnBtSkNVbWFob2d1OUxYMVpEYWpKR2RDQ1lpTUVrNmVNZEtyQmRmSFBQaE1UZF9QV2JPa2tQcHpn?oc=5",
+      "resolvedUrl": "https://article.auone.jp/7ca90131-aff6-4bf4-90c3-29e93d6d9c0e",
+      "title": "生後11か月の娘の首をタオルで･･･殺人未遂の疑いで27歳の父親を逮捕 容疑を否認",
+      "pubDate": "2026-09-30T21:46:00.000Z",
+      "firstSeen": "2026-10-03T23:39:45.814Z",
+      "status": "pending",
+      "rejectReason": null,
+      "pendingReason": "unreadable",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:19.108Z",
+      "nextAttemptAt": "2026-10-04T00:39:44.557Z",
+      "bodyHash": null,
+      "audit": null,
+      "location": "全国",
+      "media": "au Webポータル",
+      "date": "2026-10-01",
+      "sourceRecordId": null,
+      "sourceType": null,
+      "sourceId": null,
+      "sourceBody": null,
+      "candidateLane": "broad_discovery",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMibkFVX3lxTFBCM1IxTnlwQnk5OEYyNEhDczhlSjVESWdVUWVUbUpLbk0wY1ZfYTlNcGRPcm1xQnBtSkNVbWFob2d1OUxYMVpEYWpKR2RDQ1lpTUVrNmVNZEtyQmRmSFBQaE1UZF9QV2JPa2tQcHpn"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBCM1IxTnlwQnk5OEYyNEhDczhlSjVESWdVUWVUbUpLbk0wY1ZfYTlNcGRPcm1xQnBtSkNVbWFob2d1OUxYMVpEYWpKR2RDQ1lpTUVrNmVNZEtyQmRmSFBQaE1UZF9QV2JPa2tQcHpn?oc=5",
+      "activeSourceMedia": "au Webポータル"
+    },
+    {
+      "id": "3dcba4ed3f6d9806",
+      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1SUEdYLWZiaXhrWWQwTTVjRkZiVXpjWGlMbDNESVRtZHBoSkM0WVBTUU1qaDlMaVo0aHhDTXJoZ2YzeDBkemJUdUNiTE01QQ?oc=5",
+      "resolvedUrl": "https://www.fnn.jp/articles/-/1124374",
+      "title": "治療中の女性患者にわいせつ行為の疑い 目にタオルかけて顔に下半身押し付けたか 63歳の歯科医師の男を逮捕 余罪を捜査 福岡",
+      "pubDate": "2026-09-30T20:15:00.000Z",
+      "firstSeen": "2026-10-03T23:39:46.386Z",
+      "status": "pending",
+      "rejectReason": null,
+      "pendingReason": "suspect_identified_nationality_missing",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:20.567Z",
+      "nextAttemptAt": "2026-10-04T11:39:44.557Z",
+      "bodyHash": "54e8cb76535f9258",
+      "audit": null,
+      "location": "福岡県",
+      "media": "FNNプライムオンライン",
+      "date": "2026-10-01",
+      "sourceRecordId": null,
+      "sourceType": null,
+      "sourceId": null,
+      "sourceBody": null,
+      "candidateLane": "broad_discovery",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1SUEdYLWZiaXhrWWQwTTVjRkZiVXpjWGlMbDNESVRtZHBoSkM0WVBTUU1qaDlMaVo0aHhDTXJoZ2YzeDBkemJUdUNiTE01QQ"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1SUEdYLWZiaXhrWWQwTTVjRkZiVXpjWGlMbDNESVRtZHBoSkM0WVBTUU1qaDlMaVo0aHhDTXJoZ2YzeDBkemJUdUNiTE01QQ?oc=5",
+      "activeSourceMedia": "FNNプライムオンライン"
+    },
+    {
+      "id": "21b08f1073ac7f2f",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFAtajQtb0dwOGFUTE16Y3BSaEk0TXZMZDh5Q1VINTI0UEhHLXpRM1FWX01yakt4aGNvcFhDOFpRWXVsbmR4UFEzU2ltTG1vbUNzeUVfYUk2UHBidnhPMzI4Y0hHWmtDd0Z6MGxMbXUwTdIBdEFVX3lxTE5WOGVVYUMwQkdkc0Z3MlY5ODBGYldBd2s5Z0xTWC1PV2lQRWN3WV95ZW1lYjV2SkZTTjZ0c1NsdG9MUmpxLVdyV09pMEpTdWM5UGhxUTlpUk1TMVFQSDNIdERScVlLWGpYYVlENGt5dTRYdjZP?oc=5",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/article/rcc/region/rcc-2983586",
+      "title": "「覚えていません」女子児童の体触るなどわいせつ行為か 自営業の男(64)を逮捕 不同意わいせつの疑い 広島",
+      "pubDate": "2026-10-01T21:07:19.000Z",
+      "firstSeen": "2026-10-03T23:39:46.417Z",
+      "status": "pending",
+      "rejectReason": null,
+      "pendingReason": "suspect_identified_nationality_missing",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:12.288Z",
+      "nextAttemptAt": "2026-10-04T11:39:44.557Z",
+      "bodyHash": "bf653d4f00e55aaa",
+      "audit": null,
+      "location": "広島県",
+      "media": "topics.smt.docomo.ne.jp",
+      "date": "2026-10-02",
+      "sourceRecordId": null,
+      "sourceType": null,
+      "sourceId": null,
+      "sourceBody": null,
+      "candidateLane": "broad_discovery",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMib0FVX3lxTFAtajQtb0dwOGFUTE16Y3BSaEk0TXZMZDh5Q1VINTI0UEhHLXpRM1FWX01yakt4aGNvcFhDOFpRWXVsbmR4UFEzU2ltTG1vbUNzeUVfYUk2UHBidnhPMzI4Y0hHWmtDd0Z6MGxMbXUwTdIBdEFVX3lxTE5WOGVVYUMwQkdkc0Z3MlY5ODBGYldBd2s5Z0xTWC1PV2lQRWN3WV95ZW1lYjV2SkZTTjZ0c1NsdG9MUmpxLVdyV09pMEpTdWM5UGhxUTlpUk1TMVFQSDNIdERScVlLWGpYYVlENGt5dTRYdjZP"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMib0FVX3lxTFAtajQtb0dwOGFUTE16Y3BSaEk0TXZMZDh5Q1VINTI0UEhHLXpRM1FWX01yakt4aGNvcFhDOFpRWXVsbmR4UFEzU2ltTG1vbUNzeUVfYUk2UHBidnhPMzI4Y0hHWmtDd0Z6MGxMbXUwTdIBdEFVX3lxTE5WOGVVYUMwQkdkc0Z3MlY5ODBGYldBd2s5Z0xTWC1PV2lQRWN3WV95ZW1lYjV2SkZTTjZ0c1NsdG9MUmpxLVdyV09pMEpTdWM5UGhxUTlpUk1TMVFQSDNIdERScVlLWGpYYVlENGt5dTRYdjZP?oc=5",
+      "activeSourceMedia": "topics.smt.docomo.ne.jp"
+    },
+    {
+      "id": "6c6607f2785e10dd",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFB5c2huX3ZfWUZsaGpFNUk4Nl9FVzFEc2ZJaDhvRjRTWnl5TGttMGRHaTk4LU95NG9QZnZ1MEdaTzF0bG1PblZwYjgxOU5lblJiY1NZWFp4VEZOYzExaW9FRU9BaVUtR2c?oc=5",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/rbc/2987738?display=1",
+      "title": "米海兵隊員を強盗殺人の疑いで逮捕 「私は知りません」と否認 那覇市のホテルに女性遺体",
+      "pubDate": "2026-10-03T22:37:00.000Z",
+      "firstSeen": "2026-10-03T23:39:46.555Z",
+      "status": "pending",
+      "rejectReason": null,
+      "pendingReason": "suspect_identified_nationality_missing",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:03.655Z",
+      "nextAttemptAt": "2026-10-04T11:39:44.557Z",
+      "bodyHash": "36b31591c3a88135",
+      "audit": null,
+      "location": "沖縄県",
+      "media": "TBS NEWS DIG",
+      "date": "2026-10-04",
+      "sourceRecordId": null,
+      "sourceType": null,
+      "sourceId": null,
+      "sourceBody": null,
+      "candidateLane": "explicit_foreign",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFB5c2huX3ZfWUZsaGpFNUk4Nl9FVzFEc2ZJaDhvRjRTWnl5TGttMGRHaTk4LU95NG9QZnZ1MEdaTzF0bG1PblZwYjgxOU5lblJiY1NZWFp4VEZOYzExaW9FRU9BaVUtR2c"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFB5c2huX3ZfWUZsaGpFNUk4Nl9FVzFEc2ZJaDhvRjRTWnl5TGttMGRHaTk4LU95NG9QZnZ1MEdaTzF0bG1PblZwYjgxOU5lblJiY1NZWFp4VEZOYzExaW9FRU9BaVUtR2c?oc=5",
+      "activeSourceMedia": "TBS NEWS DIG"
+    },
+    {
+      "id": "a4a24475672db7b1",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPTkNCazdrYVRJRklKU3Y3NXo1cW02SlV4Zy1UVG1TTlAxUXctemVXVVpxb2FBRUtObmpsS05PSEtVcXczeGpWamdlN3hGNlNDb1h2dzgyOGtXUElhN0ZJNkhiN24xZ2R5TzBpUXhzN3R4YjN5VmI1eTE4R0hWWnhLWmM4Y9IBiAFBVV95cUxPWjNXTzI4MU44cWtqcXNNUl9YeDlubmwtY1NkSFByYUhGNE9UR3BwUWFsZk1IcTlsYzhFQmd1MmhXWjhMVGhrODZzMDBjZWNzNnF1TlZFanFrMmFmQTdPNWVEdFAwaVRaZC1lZW1jRy1ycmdDQ2hreWhBZDlmOHJxckxEVUNNTjVN?oc=5",
+      "resolvedUrl": "https://topics.smt.docomo.ne.jp/article/okinawa/region/okinawa-20261002130700",
+      "title": "「許さない」「会いたい」沖縄の女子中学生にストーカー行為か　自称北海道の23歳男を逮捕",
+      "pubDate": "2026-10-02T04:07:00.000Z",
+      "firstSeen": "2026-10-03T23:39:46.599Z",
+      "status": "unverified",
+      "rejectReason": null,
+      "pendingReason": "suspect_role_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:10.193Z",
+      "nextAttemptAt": null,
+      "bodyHash": "8b8aaad4541df2e6",
+      "audit": null,
+      "location": "北海道",
+      "media": "topics.smt.docomo.ne.jp",
+      "date": "2026-10-02",
+      "sourceRecordId": null,
+      "sourceType": null,
+      "sourceId": null,
+      "sourceBody": null,
+      "candidateLane": "broad_discovery",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMigwFBVV95cUxPTkNCazdrYVRJRklKU3Y3NXo1cW02SlV4Zy1UVG1TTlAxUXctemVXVVpxb2FBRUtObmpsS05PSEtVcXczeGpWamdlN3hGNlNDb1h2dzgyOGtXUElhN0ZJNkhiN24xZ2R5TzBpUXhzN3R4YjN5VmI1eTE4R0hWWnhLWmM4Y9IBiAFBVV95cUxPWjNXTzI4MU44cWtqcXNNUl9YeDlubmwtY1NkSFByYUhGNE9UR3BwUWFsZk1IcTlsYzhFQmd1MmhXWjhMVGhrODZzMDBjZWNzNnF1TlZFanFrMmFmQTdPNWVEdFAwaVRaZC1lZW1jRy1ycmdDQ2hreWhBZDlmOHJxckxEVUNNTjVN"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPTkNCazdrYVRJRklKU3Y3NXo1cW02SlV4Zy1UVG1TTlAxUXctemVXVVpxb2FBRUtObmpsS05PSEtVcXczeGpWamdlN3hGNlNDb1h2dzgyOGtXUElhN0ZJNkhiN24xZ2R5TzBpUXhzN3R4YjN5VmI1eTE4R0hWWnhLWmM4Y9IBiAFBVV95cUxPWjNXTzI4MU44cWtqcXNNUl9YeDlubmwtY1NkSFByYUhGNE9UR3BwUWFsZk1IcTlsYzhFQmd1MmhXWjhMVGhrODZzMDBjZWNzNnF1TlZFanFrMmFmQTdPNWVEdFAwaVRaZC1lZW1jRy1ycmdDQ2hreWhBZDlmOHJxckxEVUNNTjVN?oc=5",
+      "activeSourceMedia": "topics.smt.docomo.ne.jp"
+    },
+    {
+      "id": "127a349e0aa4820d",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9IM3A1RlBfNzRjYndBT2hnLW12d0I5enZ4X09Xc1VCWHgzZGJsb3g5b0VVQ2tnVjktLTVON0Q5SWhtOFNCSlI4N3BZVTdYLXhWZ0RsanlZcVdmNWN4WnJMSzJDMDFmZmJDRkFpYlZNQXVUS2hsWVHSAYoBQVVfeXFMTjh4bzhaaEdES3BGb0dfQmpXRmZjZ0M5YjlmR21TM2xzR1k1QTFZYzl5OFg4TTN0eG1rbmREYm5WV1FQSDAyTzd0RmR0TTNBYktvOWM2QlhqbE9XOXJwRXpSYUlwQUQ5Qjl6MUoxV1R3NFJlZFdvZnBqblVTYXBJTHJLMWpqcmNKT19B?oc=5",
+      "resolvedUrl": "https://www.sanspo.com/article/20261004-YYWFRHOZT5I6DLU6FOXOFIWGNE/",
+      "title": "強盗殺人容疑で米兵逮捕　那覇のホテルに女性遺体",
+      "pubDate": "2026-10-03T23:13:00.000Z",
+      "firstSeen": "2026-10-03T23:39:47.727Z",
+      "status": "verified",
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:39:56.152Z",
+      "nextAttemptAt": null,
+      "bodyHash": "e17ffde081e4677d",
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 那覇市のホテルで3日に女性の遺体が見つかった事件で、沖縄県警は4日、強盗殺人容疑で米軍普天間飛行場（宜野湾市）所属の海兵隊上等兵デビン・ジェイコブ・バラード容疑"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 那覇市のホテルで3日に女性の遺体が見つかった事件で、沖縄県警は4日、強盗殺人容疑で米軍普天間飛行場（宜野湾市）所属の海兵隊上等兵デビン・ジェイコブ・バラード容疑"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: デビン・ジェイコブ・バラード"
+        }
+      },
+      "location": "沖縄県",
+      "media": "sanspo.com",
+      "date": "2026-10-04",
+      "sourceRecordId": null,
+      "sourceType": null,
+      "sourceId": null,
+      "sourceBody": null,
+      "candidateLane": "explicit_foreign",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMidkFVX3lxTE9IM3A1RlBfNzRjYndBT2hnLW12d0I5enZ4X09Xc1VCWHgzZGJsb3g5b0VVQ2tnVjktLTVON0Q5SWhtOFNCSlI4N3BZVTdYLXhWZ0RsanlZcVdmNWN4WnJMSzJDMDFmZmJDRkFpYlZNQXVUS2hsWVHSAYoBQVVfeXFMTjh4bzhaaEdES3BGb0dfQmpXRmZjZ0M5YjlmR21TM2xzR1k1QTFZYzl5OFg4TTN0eG1rbmREYm5WV1FQSDAyTzd0RmR0TTNBYktvOWM2QlhqbE9XOXJwRXpSYUlwQUQ5Qjl6MUoxV1R3NFJlZFdvZnBqblVTYXBJTHJLMWpqcmNKT19B"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9IM3A1RlBfNzRjYndBT2hnLW12d0I5enZ4X09Xc1VCWHgzZGJsb3g5b0VVQ2tnVjktLTVON0Q5SWhtOFNCSlI4N3BZVTdYLXhWZ0RsanlZcVdmNWN4WnJMSzJDMDFmZmJDRkFpYlZNQXVUS2hsWVHSAYoBQVVfeXFMTjh4bzhaaEdES3BGb0dfQmpXRmZjZ0M5YjlmR21TM2xzR1k1QTFZYzl5OFg4TTN0eG1rbmREYm5WV1FQSDAyTzd0RmR0TTNBYktvOWM2QlhqbE9XOXJwRXpSYUlwQUQ5Qjl6MUoxV1R3NFJlZFdvZnBqblVTYXBJTHJLMWpqcmNKT19B?oc=5",
+      "activeSourceMedia": "sanspo.com"
+    },
+    {
+      "id": "86156ad016216aa5",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5XZGpnTUdac2NxUW1sSmpFMm1SMExPbDZBZU43LXlhblFfczJjeTZCTGpBNFVmVlhfM3hBZzE0d2VwbTl0cXlrd0dxVndZZnFETGxtUXU4bndBUFhUam9mMGdyMDRvbjZiMXByanBsMGdpUnFnckJ6Rzh1MGZJelU?oc=5",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/cd28859de81423b451ac7ff940cc042f6d42309e",
+      "title": "強盗殺人容疑で普天間基地の米兵を緊急逮捕 ホテルで女性殺害疑い",
+      "pubDate": "2026-10-03T23:10:35.000Z",
+      "firstSeen": "2026-10-03T23:39:47.737Z",
+      "status": "verified",
+      "rejectReason": null,
+      "pendingReason": null,
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:39:59.857Z",
+      "nextAttemptAt": null,
+      "bodyHash": "0477b4a216049731",
+      "audit": {
+        "japanCrime": {
+          "verified": true,
+          "evidence": "本文抜粋: 沖縄県警は4日、ホテルで女性を殺害し財布を奪ったとして、アメリカ軍普天間基地（宜野湾市）所属の海兵隊上等兵、デビン・ジェイコブ・バラード容疑者（20）を強盗殺人"
+        },
+        "suspectRole": {
+          "verified": true,
+          "evidence": "本文抜粋: 沖縄県警は4日、ホテルで女性を殺害し財布を奪ったとして、アメリカ軍普天間基地（宜野湾市）所属の海兵隊上等兵、デビン・ジェイコブ・バラード容疑者（20）を強盗殺人"
+        },
+        "foreignNationality": {
+          "verified": true,
+          "evidence": "本文抜粋: デビン・ジェイコブ・バラード"
+        }
+      },
+      "location": "沖縄県",
+      "media": "news.yahoo.co.jp",
+      "date": "2026-10-04",
+      "sourceRecordId": null,
+      "sourceType": null,
+      "sourceId": null,
+      "sourceBody": null,
+      "candidateLane": "explicit_foreign",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMif0FVX3lxTE5XZGpnTUdac2NxUW1sSmpFMm1SMExPbDZBZU43LXlhblFfczJjeTZCTGpBNFVmVlhfM3hBZzE0d2VwbTl0cXlrd0dxVndZZnFETGxtUXU4bndBUFhUam9mMGdyMDRvbjZiMXByanBsMGdpUnFnckJ6Rzh1MGZJelU"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5XZGpnTUdac2NxUW1sSmpFMm1SMExPbDZBZU43LXlhblFfczJjeTZCTGpBNFVmVlhfM3hBZzE0d2VwbTl0cXlrd0dxVndZZnFETGxtUXU4bndBUFhUam9mMGdyMDRvbjZiMXByanBsMGdpUnFnckJ6Rzh1MGZJelU?oc=5",
+      "activeSourceMedia": "news.yahoo.co.jp"
+    },
+    {
+      "id": "8b761909b4951886",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxORG9rVDBzT0Z5VkZMWEE3TlFBY1R6Ym9UWWtjajNra2ZNVnR3SzJxX3h2MTVYOE5WbGN6SndQb0N3YlRhRmdwd3RGb2w0YnNONEVKOWRnSFc1RzVadlN6ZllOckpYYXk3T3JCRWdrV3dDajlPWTJ5U002Mlk0cXEwMg?oc=5",
+      "resolvedUrl": "https://portal.uqmobile.jp/detail/1/2/2/10398_2_r_20261004_1791067442038214",
+      "title": "那覇の女性遺体、強盗殺人容疑で米兵逮捕",
+      "pubDate": "2026-10-03T23:11:16.000Z",
+      "firstSeen": "2026-10-03T23:39:47.737Z",
+      "status": "pending",
+      "rejectReason": null,
+      "pendingReason": "unreadable",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:39:58.235Z",
+      "nextAttemptAt": "2026-10-04T00:39:44.557Z",
+      "bodyHash": null,
+      "audit": null,
+      "location": "沖縄県",
+      "media": "portal.uqmobile.jp",
+      "date": "2026-10-04",
+      "sourceRecordId": null,
+      "sourceType": null,
+      "sourceId": null,
+      "sourceBody": null,
+      "candidateLane": "explicit_foreign",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://news.google.com/rss/articles/CBMigAFBVV95cUxORG9rVDBzT0Z5VkZMWEE3TlFBY1R6Ym9UWWtjajNra2ZNVnR3SzJxX3h2MTVYOE5WbGN6SndQb0N3YlRhRmdwd3RGb2w0YnNONEVKOWRnSFc1RzVadlN6ZllOckpYYXk3T3JCRWdrV3dDajlPWTJ5U002Mlk0cXEwMg"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.google.com/rss/articles/CBMigAFBVV95cUxORG9rVDBzT0Z5VkZMWEE3TlFBY1R6Ym9UWWtjajNra2ZNVnR3SzJxX3h2MTVYOE5WbGN6SndQb0N3YlRhRmdwd3RGb2w0YnNONEVKOWRnSFc1RzVadlN6ZllOckpYYXk3T3JCRWdrV3dDajlPWTJ5U002Mlk0cXEwMg?oc=5",
+      "activeSourceMedia": "portal.uqmobile.jp"
+    },
+    {
+      "id": "40919b79fe223a20",
+      "url": "https://news.livedoor.com/article/detail/32483051/",
+      "resolvedUrl": "https://news.livedoor.com/article/detail/32483051/",
+      "title": "警視庁と高校生がタッグ　特殊詐欺など防犯呼びかけ「まずは警察に相談して」",
+      "pubDate": "2026-10-03T21:18:00.000Z",
+      "firstSeen": "2026-10-03T23:39:48.033Z",
+      "status": "unverified",
+      "rejectReason": null,
+      "pendingReason": "suspect_role_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:08.864Z",
+      "nextAttemptAt": null,
+      "bodyHash": "9b27fcfdecca4727",
+      "audit": null,
+      "location": "東京都",
+      "media": "ライブドアニュース",
+      "date": "2026-10-04",
+      "sourceRecordId": null,
+      "sourceType": "publisher_rss",
+      "sourceId": "livedoor-domestic",
+      "sourceBody": null,
+      "candidateLane": "broad_discovery",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://news.livedoor.com/article/detail/32483051"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.livedoor.com/article/detail/32483051/",
+      "activeSourceMedia": "ライブドアニュース"
+    },
+    {
+      "id": "6478352f898386ba",
+      "url": "https://news.livedoor.com/article/detail/32483004/",
+      "resolvedUrl": "https://news.livedoor.com/article/detail/32483004/",
+      "title": "那覇市のホテルで39歳女性が死亡、強盗殺人事件として特別捜査本部を設置",
+      "pubDate": "2026-10-03T21:11:00.000Z",
+      "firstSeen": "2026-10-03T23:39:48.033Z",
+      "status": "unverified",
+      "rejectReason": null,
+      "pendingReason": "suspect_role_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:07.770Z",
+      "nextAttemptAt": null,
+      "bodyHash": "b78cf6bd69c9144e",
+      "audit": null,
+      "location": "沖縄県",
+      "media": "ライブドアニュース",
+      "date": "2026-10-04",
+      "sourceRecordId": null,
+      "sourceType": "publisher_rss",
+      "sourceId": "livedoor-domestic",
+      "sourceBody": null,
+      "candidateLane": "explicit_foreign",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://news.livedoor.com/article/detail/32483004"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.livedoor.com/article/detail/32483004/",
+      "activeSourceMedia": "ライブドアニュース"
+    },
+    {
+      "id": "b0a1661580836115",
+      "url": "https://news.ntv.co.jp/n/fbs/category/society/fs372e3350c91f46d8a974c7d77e9405ed",
+      "resolvedUrl": "https://news.ntv.co.jp/n/fbs/category/society/fs372e3350c91f46d8a974c7d77e9405ed",
+      "title": "「ぶつかっただろ」面識ない男性にケガさせ現金奪う　男女3人が逃走　強盗致傷事件として捜査　北九州市",
+      "pubDate": "2026-10-03T23:17:00.000Z",
+      "firstSeen": "2026-10-03T23:39:48.404Z",
+      "status": "unverified",
+      "rejectReason": null,
+      "pendingReason": "suspect_role_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:07.857Z",
+      "nextAttemptAt": null,
+      "bodyHash": "507194768a51a42d",
+      "audit": null,
+      "location": "福岡県",
+      "media": "日テレNEWS NNN",
+      "date": "2026-10-04",
+      "sourceRecordId": null,
+      "sourceType": "publisher_rss",
+      "sourceId": "nnn-latest",
+      "sourceBody": null,
+      "candidateLane": "broad_discovery",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://news.ntv.co.jp/n/fbs/category/society/fs372e3350c91f46d8a974c7d77e9405ed"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.ntv.co.jp/n/fbs/category/society/fs372e3350c91f46d8a974c7d77e9405ed",
+      "activeSourceMedia": "日テレNEWS NNN"
+    },
+    {
+      "id": "8754bc2d5713cfa4",
+      "url": "https://news.yahoo.co.jp/articles/b4008f5a6d57080438cfe464d9ad54207b771ec4?source=rss",
+      "resolvedUrl": "https://news.yahoo.co.jp/articles/b4008f5a6d57080438cfe464d9ad54207b771ec4?source=rss",
+      "title": "ニデック、決算開示延期　品質不正など響く(日刊工業新聞電子版)",
+      "pubDate": "2026-08-06T02:51:17.000Z",
+      "firstSeen": "2026-10-03T23:39:49.755Z",
+      "status": "unverified",
+      "rejectReason": null,
+      "pendingReason": "suspect_role_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:43.947Z",
+      "nextAttemptAt": null,
+      "bodyHash": "41f0f58a1b82ef0c",
+      "audit": null,
+      "location": "全国",
+      "media": "日刊工業新聞電子版",
+      "date": "2026-08-06",
+      "sourceRecordId": null,
+      "sourceType": "publisher_rss",
+      "sourceId": "yahoo-media-nkogyo",
+      "sourceBody": null,
+      "candidateLane": "broad_discovery",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://news.yahoo.co.jp/articles/b4008f5a6d57080438cfe464d9ad54207b771ec4?source=rss"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://news.yahoo.co.jp/articles/b4008f5a6d57080438cfe464d9ad54207b771ec4?source=rss",
+      "activeSourceMedia": "日刊工業新聞電子版"
+    },
+    {
+      "id": "6f40abe6513e7c94",
+      "url": "https://newsdig.tbs.co.jp/articles/-/2987738",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/-/2987738",
+      "title": "【速報】米海兵隊員を強盗殺人の疑いで逮捕 「私は知りません」と否認 那覇市のホテルに女性遺体 1時間前",
+      "pubDate": "2026-10-03T22:37:00.000Z",
+      "firstSeen": "2026-10-03T23:39:50.759Z",
+      "status": "pending",
+      "rejectReason": null,
+      "pendingReason": "suspect_identified_nationality_missing",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:02.380Z",
+      "nextAttemptAt": "2026-10-04T11:39:44.557Z",
+      "bodyHash": "783775cae6a545ac",
+      "audit": null,
+      "media": "TBS NEWS DIG（JNN地域局）",
+      "date": "2026-10-04",
+      "sourceRecordId": null,
+      "sourceType": "publisher_listing",
+      "sourceId": "tbs-domestic",
+      "sourceBody": null,
+      "candidateLane": "explicit_foreign",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://newsdig.tbs.co.jp/articles/-/2987738"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://newsdig.tbs.co.jp/articles/-/2987738",
+      "activeSourceMedia": "TBS NEWS DIG（JNN地域局）"
+    },
+    {
+      "id": "395285259799669e",
+      "url": "https://newsdig.tbs.co.jp/articles/-/2986574",
+      "resolvedUrl": "https://newsdig.tbs.co.jp/articles/-/2986574",
+      "title": "６０代男性ショック…１２００万円騙し取られる スマホに「＋」から始まる電話…警察官名乗る男から「あなた名義の銀行口座に特殊詐欺のお金が振り込まれている」 布袋に入れた現金なくなる 大阪府警に電話して詐欺に気づく 2時間前",
+      "pubDate": "2026-10-03T21:01:00.000Z",
+      "firstSeen": "2026-10-03T23:39:50.795Z",
+      "status": "unverified",
+      "rejectReason": null,
+      "pendingReason": "suspect_role_unclear_in_body",
+      "attempts": 1,
+      "lastAttemptAt": "2026-10-03T23:40:09.281Z",
+      "nextAttemptAt": null,
+      "bodyHash": "9445808ffb4656b9",
+      "audit": null,
+      "media": "TBS NEWS DIG（JNN地域局）",
+      "date": "2026-10-04",
+      "sourceRecordId": null,
+      "sourceType": "publisher_listing",
+      "sourceId": "tbs-domestic",
+      "sourceBody": null,
+      "candidateLane": "broad_discovery",
+      "alternateSources": [],
+      "sourceAttemptUrls": [
+        "https://newsdig.tbs.co.jp/articles/-/2986574"
+      ],
+      "gateVersion": "strict-2026-10-02.2",
+      "activeSourceUrl": "https://newsdig.tbs.co.jp/articles/-/2986574",
+      "activeSourceMedia": "TBS NEWS DIG（JNN地域局）"
     }
   ]
 }
