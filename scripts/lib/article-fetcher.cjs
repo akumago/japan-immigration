@@ -202,7 +202,75 @@ function findArticleBody(node, depth = 0) {
 }
 
 const AUDIT_CACHE_FILE_VERSION = 2; // ファイル形式バージョン
-const AUDIT_RULE_VERSION = 'v2.2-strict'; // 判定ルール・抽出器バージョン
+const BODY_CLASS_RE = /(?:ckeditor|article[-_]body|entry[-_]content|news[-_]detail|c-article|content[-_]main|post[-_]content|main[-_]content|story[-_]body|article[-_]text|article[-_]main|articleBody|news[-_]body|detail[-_]body|main[-_]body|article__body|entry__body|news__body|detail__body|article_main|entry_main|articleContent)/i;
+const BODY_CLASS_EXCLUDE_RE = /(?:title|header|head(?:line)?|date|time|thumb|share|sns|related|ranking|recommend|banner|caption|author|tag|nav)(?:$|[\s_-])/i;
+
+/** 開始位置のタグから、同名タグの入れ子を数えて対応する終了タグまでを返す */
+function sliceBalancedElement(html, start) {
+  const open = html.slice(start).match(/^<(div|article|section|main)\b/i);
+  if (!open) return '';
+  const tag = open[1].toLowerCase();
+  const re = new RegExp(`<(/?)${tag}\\b[^>]*>`, 'gi');
+  re.lastIndex = start;
+  let depth = 0;
+  let m;
+  while ((m = re.exec(html))) {
+    if (m[1]) { depth--; if (depth === 0) return html.slice(start, re.lastIndex); }
+    else if (!/\/>$/.test(m[0])) depth++;
+  }
+  return html.slice(start);
+}
+
+/** 本文候補コンテナを文書順に返す */
+function findBodyContainers(html) {
+  const out = [];
+  const re = /<(div|article|section|main)\b[^>]*\bclass=["']([^"']*)["'][^>]*>/gi;
+  let m;
+  while ((m = re.exec(html))) {
+    const cls = m[2];
+    if (!BODY_CLASS_RE.test(cls) || BODY_CLASS_EXCLUDE_RE.test(cls)) continue;
+    const el = sliceBalancedElement(html, m.index);
+    if (el) out.push(el);
+    if (out.length >= 6) break;
+  }
+  return out;
+}
+
+function headlineMatchesTitle(headline, title) {
+  const h = clean(headline).replace(/\s+/g, '');
+  const t = clean(title).replace(/\s+/g, '').replace(/[（(][^）)]{1,30}[）)]$/, '');
+  if (!h || !t) return false;
+  const k = Math.min(15, h.length, t.length);
+  return k >= 8 && (h.includes(t.slice(0, k)) || t.includes(h.slice(0, k)));
+}
+
+/** NewsArticle の見出しが記事タイトルと一致する場合だけ、その description（リード文）を返す */
+function findNewsArticleLead(node, title, depth = 0) {
+  if (!node || depth > 6) return null;
+  if (Array.isArray(node)) { for (const n of node) { const r = findNewsArticleLead(n, title, depth + 1); if (r) return r; } return null; }
+  if (typeof node !== 'object') return null;
+  const type = [].concat(node['@type'] || []).join(' ');
+  if (/NewsArticle|ReportageNewsArticle|Article/.test(type) && typeof node.headline === 'string' && typeof node.description === 'string') {
+    const desc = clean(node.description);
+    if (desc.length >= 60 && headlineMatchesTitle(node.headline, title)) return desc;
+  }
+  if (node['@graph']) return findNewsArticleLead(node['@graph'], title, depth + 1);
+  return null;
+}
+
+/** 写真ページURLを、同じ記事の本文ページURLへ戻す */
+function photoPageToArticleUrl(url) {
+  let u;
+  try { u = new URL(url); } catch (_) { return null; }
+  const p = u.pathname;
+  let m;
+  if (u.hostname === 'news.yahoo.co.jp' && (m = p.match(/^(\/articles\/[0-9a-f]{20,})\/images\/\d+\/?$/))) return `${u.origin}${m[1]}`;
+  if (/(?:^|\.)sankei\.com$/.test(u.hostname) && (m = p.match(/^(\/article\/[^/]+)\/photo\/[^/]+\/?$/))) return `${u.origin}${m[1]}/`;
+  if (/(?:^|\.)373news\.com$/.test(u.hostname) && (m = p.match(/^\/news\/([a-z]+)\/photo\/(\d+)\/?$/))) return `${u.origin}/news/${m[1]}/${m[2]}/`;
+  return null;
+}
+
+const AUDIT_RULE_VERSION = 'v2.3-strict'; // 判定ルール・抽出器バージョン（v2.3: 入れ子対応の本文抽出・場所判定拡張）
 
 /** 
  * 本文だけを取り出す。
@@ -226,6 +294,7 @@ function extractArticleText(html, optsOrMaxChars = 8000, legacyMaxChars = 8000) 
   }
 
   // 1. JSON-LD の検査（headline または見出し主要単語との整合性を厳格照合）
+  let ledLead = '';
   for (const m of html.matchAll(/<script\b[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)) {
     try {
       const parsed = JSON.parse(m[1]);
@@ -254,6 +323,12 @@ function extractArticleText(html, optsOrMaxChars = 8000, legacyMaxChars = 8000) 
           }
         }
       }
+      // articleBody が無い NewsArticle でも、見出しが記事タイトルと一致する場合に限り
+      // 発行元自身が構造化データに載せたリード文を最終手段として保持する（og/meta説明文は使わない）。
+      if (!ledLead && title) {
+        const lead = findNewsArticleLead(parsed, title);
+        if (lead) ledLead = lead.slice(0, maxChars);
+      }
     } catch (_) {}
   }
 
@@ -264,11 +339,15 @@ function extractArticleText(html, optsOrMaxChars = 8000, legacyMaxChars = 8000) 
     .replace(/<(?:div|section)\b[^>]*class=["'][^"']*(?:other[-_]news[-_]list|series[-_]box|latest[-_]news[-_]wrap|c-ranking)[^"']*["'][\s\S]*?<\/(?:div|section)>/gi, ' ');
 
   // 本文専用コンテナの特定（存在しない場合は回遊汚染防止のため不採用）
+  // 入れ子の </div> で途中終了しないよう、開始タグから対応する終了タグまでを深さで数えて切り出す。
   let containerHtml = '';
-  const bodyContainer = h.match(/<(?:div|article|section)\b[^>]*class=["'][^"']*(?:ckeditor|article[-_]body|entry[-_]content|news[-_]detail|c-article|content[-_]main|post[-_]content|main[-_]content)[^"']*["'][\s\S]*?<\/(?:div|article|section)>/i);
-  if (bodyContainer) {
-    containerHtml = bodyContainer[0];
-  } else {
+  for (const candidate of findBodyContainers(h)) {
+    const probe = candidate.replace(/<br\s*[\/]?>/gi, '\n');
+    const probePs = [...probe.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => clean(m[1])).filter((t) => t.length >= 10);
+    const probeText = probePs.length ? probePs.join('') : clean(probe);
+    if (probeText.length >= 35) { containerHtml = candidate; break; }
+  }
+  if (!containerHtml) {
     const art = h.match(/<article\b[\s\S]*?<\/article>/i);
     if (art && art[0].length < 15000) {
       containerHtml = art[0];
@@ -276,7 +355,7 @@ function extractArticleText(html, optsOrMaxChars = 8000, legacyMaxChars = 8000) 
   }
 
   if (!containerHtml) {
-    return ''; // 本文専用コンテナが特定できないHTMLは即座に保留（メタ説明文フォールバックは完全廃止）
+    return ledLead || ''; // 本文専用コンテナが特定できないHTMLは、見出し一致した構造化データのリードのみ採用（メタ説明文は不採用）
   }
 
   // コンテナ内からさらに回遊・関連記事・最新一覧コンテナを除去
@@ -316,7 +395,7 @@ function extractArticleText(html, optsOrMaxChars = 8000, legacyMaxChars = 8000) 
   // 本文領域から十分な長さ（35文字以上）が取れた場合のみ採用（meta description フォールバックは完全廃止）
   if (bodyText.length >= 35) return bodyText.slice(0, maxChars);
 
-  return '';
+  return ledLead || '';
 }
 
 /** 国籍語（被疑者側になり得るもの）を含む最初の文と、その前後の文を返す。isNat: (文) => boolean */
@@ -431,7 +510,9 @@ function createScanner(opts = {}) {
     if (!dec.ok) return { fail: dec.reason, googleFail: dec.google };
 
     if (/\/(?:images|photo|photos)\//i.test(dec.url)) {
-      return { unavailable: true, reason: 'image_page', decodeOk: true, decodedUrl: dec.url };
+      const articleUrl = photoPageToArticleUrl(dec.url);
+      if (!articleUrl) return { unavailable: true, reason: 'image_page', decodeOk: true, decodedUrl: dec.url };
+      dec.url = articleUrl;
     }
 
     const fetched = await fetchWithDomainSpacing(dec.url, 10000);
@@ -546,4 +627,4 @@ function createScanner(opts = {}) {
   return { scan, flush, _cache: cache };
 }
 
-module.exports = { createScanner, resolveGoogleNewsUrl, decodeLegacyId, parseBatchResponse, decodeHtml, extractArticleText, pickNationalityContext, httpRequest, createSpacer };
+module.exports = { createScanner, resolveGoogleNewsUrl, decodeLegacyId, parseBatchResponse, decodeHtml, extractArticleText, pickNationalityContext, httpRequest, createSpacer, photoPageToArticleUrl };
