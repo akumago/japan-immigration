@@ -1,20 +1,20 @@
 [
   {
-    "id": "edc4536d41406d03",
-    "title": "那覇のホテル女性遺体、強盗殺人容疑で米兵を逮捕",
+    "id": "13e4bed9a90b5f1e",
+    "title": "那覇強殺 逮捕の米兵は容疑否認",
     "date": "2026-10-04",
     "location": "沖縄県",
-    "media": "SmartNews",
-    "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89",
-    "url": "https://www.smartnews.com/news/article/4997337927466877934-%E9%82%A3%E8%A6%87%E3%81%AE%E3%83%9B%E3%83%86%E3%83%AB%E5%A5%B3%E6%80%A7%E9%81%BA%E4%BD%93%E3%80%81%E5%BC%B7%E7%9B%97%E6%AE%BA%E4%BA%BA%E5%AE%B9%E7%96%91%E3%81%A7%E7%B1%B3%E5%85%B5%E3%82%92%E9%80%AE%E6%8D%95",
-    "summary": "沖縄県で発生し、デビン・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "media": "Yahoo!ニュース",
+    "eventKey": "event-v1:5c06b13c62aa635b2d34860f10bfbd5013e592d13709a57f767bd44d60efbab8",
+    "url": "https://news.yahoo.co.jp/pickup/6597475?source=rss",
+    "summary": "沖縄県で発生し、米兵の被疑者に刑事手続が取られたことを本文で確認した報道です。",
     "evidence": {
-      "suspect": "本文抜粋: 那覇市のホテルで女性の遺体が見つかった事件で、沖縄県警は4日、強盗殺人の疑いで米軍普天間飛行場所属の海兵隊上等兵デビン・バラード容疑者を逮捕しました。",
-      "nationality": "本文抜粋: デビン・バラード"
+      "suspect": "本文抜粋: 【速報】米兵を強盗殺人容疑で緊急逮捕 那覇市のホテルでの女性遺体発見で",
+      "nationality": "本文抜粋: 米兵"
     },
-    "locationBasis": "本文抜粋: 那覇市のホテルで女性の遺体が見つかった事件で、沖縄県警は4日、強盗殺人の疑いで米軍普天間飛行場所属の海兵隊上等兵デビン・バラード容疑者を逮捕しました。",
+    "locationBasis": "本文抜粋: 【速報】米兵を強盗殺人容疑で緊急逮捕 那覇市のホテルでの女性遺体発見で",
     "gateVersion": "strict-2026-10-02.2",
-    "judgedAt": "2026-10-04T09:59:50.728Z",
+    "judgedAt": "2026-10-04T02:11:59.786Z",
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,
@@ -704,6 +704,27 @@
     "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1ocHIwS2hUaF81ZVgydUxmOEs5ZExJR1JoOXp4ckp5QmVycG91MnA3d1M1NEp1TDJVNFJqQnJaelBxbW4zZUdFRzBMLWNjMUF5WW5BMnlIUl85S016QWwydXMwSTk3TzByMFBOWjBFS3Z0TkVublYyblFMR291aWc?oc=5",
     "description": "<a href=\"https://news.google.com/rss/articles/CBMif0FVX3lxTE1ocHIwS2hUaF81ZVgydUxmOEs5ZExJR1JoOXp4ckp5QmVycG91MnA3d1M1NEp1TDJVNFJqQnJaelBxbW4zZUdFRzBM",
     "summary": "静岡県で発生した外国人関与の事件・容疑に関する報道速報です。"
+  },
+  {
+    "id": "54703d6d1c231833",
+    "title": "中野2億円腕時計窃盗事件 チリ国籍の男2人再逮捕 「日本は刑罰が緩いと聞いた」と供述",
+    "date": "2026-09-28",
+    "location": "東京都",
+    "media": "ｄメニューニュース",
+    "eventKey": "event-v1:dd8f1f5804772f7082cebd00ebab971621e0129d960a1dfabaa7ccaf9191e0d0",
+    "url": "https://topics.smt.docomo.ne.jp/article/tvasahinews/nation/tvasahinews-000536442",
+    "summary": "東京都で発生し、チリ国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 東京・中野区で2億円相当の腕時計を盗んだとして逮捕されたチリ国籍の男2人が事件の前にも別の住宅で高級腕時計3本などを盗んだ疑いで再逮捕されました。",
+      "nationality": "本文抜粋: チリ国籍"
+    },
+    "locationBasis": "本文抜粋: 東京・中野区で2億円相当の腕時計を盗んだとして逮捕されたチリ国籍の男2人が事件の前にも別の住宅で高級腕時計3本などを盗んだ疑いで再逮捕されました。",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-02T10:52:07.567Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
   },
   {
     "id": "d595f489f6f98425",
