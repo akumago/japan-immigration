@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-04T21:56:18.486Z",
+  "updatedAt": "2026-10-04T22:12:21.765Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -862,6 +862,48 @@
       },
       "reason": "国籍+年齢+場所/罪種",
       "recordedAt": "2026-10-04T21:56:18.486Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "fe33e0f26444633e",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で米兵逮捕、那覇 ホテルに女性遺体",
+        "date": "2026-10-04",
+        "url": "https://www.nnn.co.jp/articles/-/808786",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "4a343d2372eb0144",
+        "sourceRecordId": null,
+        "title": "那覇のホテル女性殺害、強盗殺人容疑で米兵を逮捕",
+        "date": "2026-10-04",
+        "url": "https://www.smartnews.com/news/article/4997403315751879073-%E9%82%A3%E8%A6%87%E3%81%AE%E3%83%9B%E3%83%86%E3%83%AB%E5%A5%B3%E6%80%A7%E6%AE%BA%E5%AE%B3%E3%80%81%E5%BC%B7%E7%9B%97%E6%AE%BA%E4%BA%BA%E5%AE%B9%E7%96%91%E3%81%A7%E7%B1%B3%E5%85%B5%E3%82%92%E9%80%AE%E6%8D%95",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "本文の容疑者氏名+年齢+罪種+同日同県",
+      "recordedAt": "2026-10-04T22:12:21.765Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "fe33e0f26444633e",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で米兵逮捕、那覇 ホテルに女性遺体",
+        "date": "2026-10-04",
+        "url": "https://www.nnn.co.jp/articles/-/808786",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "958ce637777c539d",
+        "sourceRecordId": null,
+        "title": "米兵逮捕 女性は窒息死 古謝知事「政府に抗議」 沖縄",
+        "date": "2026-10-05",
+        "url": "https://www.fnn.jp/articles/-/1126537",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-04T22:12:21.765Z"
     }
   ]
 }
