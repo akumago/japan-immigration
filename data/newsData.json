@@ -1,20 +1,83 @@
 [
   {
-    "id": "13e4bed9a90b5f1e",
-    "title": "那覇強殺 逮捕の米兵は容疑否認",
+    "id": "76f3a2cb90566775",
+    "title": "那覇市ホテルで女性が窒息死、米海兵隊員が強盗殺人の疑いで逮捕",
+    "date": "2026-10-05",
+    "location": "沖縄県",
+    "media": "ライブドアニュース",
+    "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89",
+    "url": "https://news.livedoor.com/article/detail/32487755/",
+    "summary": "沖縄県で発生し、デビン・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 強盗殺人の疑いで逮捕されたのは アメリカ 海兵隊 の上等兵デビン・バラード容疑者（20）です。",
+      "nationality": "本文抜粋: デビン・バラード"
+    },
+    "locationBasis": "本文抜粋: 沖縄・ 那覇市 の ホテル で女性が殺害され、 アメリカ 海兵隊 の男が強盗殺人の容疑で逮捕された事件で、 警察 は4日、女性の死因は窒息と発表しました。",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-04T19:46:52.705Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "a8c62fc9fced73c5",
+    "title": "那覇ホテルの女性強盗殺人、米軍普天間飛行場所属の海兵隊員の男を容疑で緊急逮捕",
     "date": "2026-10-04",
     "location": "沖縄県",
-    "media": "Yahoo!ニュース",
-    "eventKey": "event-v1:5c06b13c62aa635b2d34860f10bfbd5013e592d13709a57f767bd44d60efbab8",
-    "url": "https://news.yahoo.co.jp/pickup/6597475?source=rss",
-    "summary": "沖縄県で発生し、米兵の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "media": "読売新聞",
+    "eventKey": "event-v1:c9cfdb084a731e2158eb2c3e074893a9808d09a7a58fc8029d6ed43776b88420",
+    "url": "https://www.yomiuri.co.jp/national/20261004-GYT1T00106/",
+    "summary": "沖縄県で発生し、デビン・ジェイコブ・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
     "evidence": {
-      "suspect": "本文抜粋: 【速報】米兵を強盗殺人容疑で緊急逮捕 那覇市のホテルでの女性遺体発見で",
-      "nationality": "本文抜粋: 米兵"
+      "suspect": "本文抜粋: 那覇市のホテルの一室で同市の女性（３９）の遺体が見つかった強盗殺人事件で、沖縄県警は４日、米軍普天間飛行場（沖縄県宜野湾市）所属の米海兵隊上等兵、デビン・ジェイ",
+      "nationality": "本文抜粋: デビン・ジェイコブ・バラード"
     },
-    "locationBasis": "本文抜粋: 【速報】米兵を強盗殺人容疑で緊急逮捕 那覇市のホテルでの女性遺体発見で",
+    "locationBasis": "本文抜粋: 那覇市のホテルの一室で同市の女性（３９）の遺体が見つかった強盗殺人事件で、沖縄県警は４日、米軍普天間飛行場（沖縄県宜野湾市）所属の米海兵隊上等兵、デビン・ジェイ",
     "gateVersion": "strict-2026-10-02.2",
-    "judgedAt": "2026-10-04T02:11:59.786Z",
+    "judgedAt": "2026-10-04T02:12:31.872Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "05993cca702429cf",
+    "title": "普天間所属の米海兵隊員が那覇市のホテルで強盗殺人の疑いで逮捕",
+    "date": "2026-10-04",
+    "location": "沖縄県",
+    "media": "ライブドアニュース",
+    "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89",
+    "url": "https://news.livedoor.com/article/detail/32483613/",
+    "summary": "沖縄県で発生し、デビン・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 那覇市 の ホテル で3日に女性の遺体が見つかった事件で、 沖縄県 警は4日、強盗殺人の疑いで 米軍 普天間飛行場（宜野湾市）所属の 海兵隊 上等兵デビン・バラ",
+      "nationality": "本文抜粋: デビン・バラード"
+    },
+    "locationBasis": "本文抜粋: 那覇市 の ホテル で3日に女性の遺体が見つかった事件で、 沖縄県 警は4日、強盗殺人の疑いで 米軍 普天間飛行場（宜野湾市）所属の 海兵隊 上等兵デビン・バラ",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-04T02:28:20.249Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "868aef447611b204",
+    "title": "強盗殺人容疑で米兵逮捕、那覇 普天間所属、ホテルに女性遺体",
+    "date": "2026-10-04",
+    "location": "沖縄県",
+    "media": "新潟日報",
+    "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89",
+    "url": "https://www.niigata-nippo.co.jp/articles/-/918191",
+    "summary": "沖縄県で発生し、デビン・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 那覇市のホテルで３日未明に女性の遺体が見つかった事件で、沖縄県警は４日、強盗殺人の疑いで米軍普天間飛行場（宜野湾市）所属の海兵隊上等兵デビン・バラード容疑者（２",
+      "nationality": "本文抜粋: デビン・バラード"
+    },
+    "locationBasis": "本文抜粋: 那覇市のホテルで３日未明に女性の遺体が見つかった事件で、沖縄県警は４日、強盗殺人の疑いで米軍普天間飛行場（宜野湾市）所属の海兵隊上等兵デビン・バラード容疑者（２",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-04T10:02:13.044Z",
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,

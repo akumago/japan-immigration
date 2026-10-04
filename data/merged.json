@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-04T15:30:48.678Z",
+  "updatedAt": "2026-10-04T19:48:24.025Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -358,6 +358,342 @@
       },
       "reason": "国籍+罪種+場所/年齢+見出し類似0.81",
       "recordedAt": "2026-10-04T15:30:48.678Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "86156ad016216aa5",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で普天間基地の米兵を緊急逮捕 ホテルで女性殺害疑い",
+        "date": "2026-10-04",
+        "url": "https://news.yahoo.co.jp/articles/cd28859de81423b451ac7ff940cc042f6d42309e",
+        "eventKey": "event-v1:caa6f68faee16d900fdb9c4da26cc8be67af2c017f7915310388bb61efc0b0ca"
+      },
+      "reason": "本文の容疑者氏名+年齢+罪種+同日同県",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "28f18161f994e1eb",
+        "sourceRecordId": null,
+        "title": "那覇のホテル女性殺害、強盗殺人容疑で米兵を逮捕",
+        "date": "2026-10-04",
+        "url": "https://www.smartnews.com/news/article/4997337927466877934-%E9%82%A3%E8%A6%87%E3%81%AE%E3%83%9B%E3%83%86%E3%83%AB%E5%A5%B3%E6%80%A7%E6%AE%BA%E5%AE%B3%E3%80%81%E5%BC%B7%E7%9B%97%E6%AE%BA%E4%BA%BA%E5%AE%B9%E7%96%91%E3%81%A7%E7%B1%B3%E5%85%B5%E3%82%92%E9%80%AE%E6%8D%95",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "本文の容疑者氏名+年齢+罪種+同日同県",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "2a837220e40ea2a9",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で米兵逮捕、那覇 ホテルに女性遺体",
+        "date": "2026-10-04",
+        "url": "https://www.saga-s.co.jp/articles/-/1804005",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "国籍+罪種+場所/年齢+見出し類似0.67",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "0b9d387d86e645f1",
+        "sourceRecordId": null,
+        "title": "ホテル女性遺体、米海兵隊の男逮捕 強盗殺人容疑「知りません」―沖縄県警",
+        "date": "2026-10-04",
+        "url": "https://www.jiji.com/jc/article?k=2026100400094&g=soc",
+        "eventKey": "event-v1:c9cfdb084a731e2158eb2c3e074893a9808d09a7a58fc8029d6ed43776b88420"
+      },
+      "reason": "本文の容疑者氏名+年齢+罪種+同日同県",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "361ca799d161ab94",
+        "sourceRecordId": null,
+        "title": "那覇のホテルで女性遺体 強盗殺人容疑で米兵を緊急逮捕",
+        "date": "2026-10-04",
+        "url": "https://news.yahoo.co.jp/articles/63a7b2374ab976fabee871425c04919008a683bc",
+        "eventKey": "event-v1:c9cfdb084a731e2158eb2c3e074893a9808d09a7a58fc8029d6ed43776b88420"
+      },
+      "reason": "本文の容疑者氏名+年齢+罪種+同日同県",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "976656e87b06e812",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で普天間基地の米兵を緊急逮捕 ホテルで女性殺害疑い [沖縄県]",
+        "date": "2026-10-04",
+        "url": "https://www.asahi.com/articles/ASVB37QNYVB3TPOB001M.html?iref=comtop_BreakingNews_list",
+        "eventKey": "event-v1:caa6f68faee16d900fdb9c4da26cc8be67af2c017f7915310388bb61efc0b0ca"
+      },
+      "reason": "本文の容疑者氏名+年齢+罪種+同日同県",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "d809bd948c35e766",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で米兵逮捕、那覇",
+        "date": "2026-10-04",
+        "url": "https://www.daily.co.jp/society/national/2026/10/04/0020891310.shtml",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "本文の容疑者氏名+年齢+罪種+同日同県",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "afe4be847a455174",
+        "sourceRecordId": null,
+        "title": "那覇ホテル強盗殺人事件　米海兵隊員を緊急逮捕　沖縄市の歓楽街で“特徴とよく似た男”を見つけ…「私は知りません」と容疑否認　沖縄",
+        "date": "2026-10-04",
+        "url": "https://news.livedoor.com/article/detail/32484520/",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "本文の容疑者氏名+年齢+罪種+同日同県",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "e2ffddf6367e3955",
+        "sourceRecordId": null,
+        "title": "「私は運転してない」と否認する逮捕者も… 沖縄で米兵の飲酒運転相次ぐ 2人逮捕(RBC琉球放送)",
+        "date": "2026-10-04",
+        "url": "https://news.yahoo.co.jp/articles/34ee5a2f257b7545c9442232683b8fc0d2757ddc?source=rss",
+        "eventKey": "event-v1:4b01dc67618ff70f40cbdfc4e1f9415abb4a8795c94f74cff9eaca09de452791"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "edc4536d41406d03",
+        "sourceRecordId": null,
+        "title": "那覇のホテル女性遺体、強盗殺人容疑で米兵を逮捕",
+        "date": "2026-10-04",
+        "url": "https://www.smartnews.com/news/article/4997337927466877934-%E9%82%A3%E8%A6%87%E3%81%AE%E3%83%9B%E3%83%86%E3%83%AB%E5%A5%B3%E6%80%A7%E9%81%BA%E4%BD%93%E3%80%81%E5%BC%B7%E7%9B%97%E6%AE%BA%E4%BA%BA%E5%AE%B9%E7%96%91%E3%81%A7%E7%B1%B3%E5%85%B5%E3%82%92%E9%80%AE%E6%8D%95",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "a3c7655ab0ece5cf",
+        "sourceRecordId": null,
+        "title": "米海兵隊の上等兵が那覇市のホテルで女性を殺害し財布を奪った疑い",
+        "date": "2026-10-04",
+        "url": "https://news.livedoor.com/article/detail/32484508/",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "本文の容疑者氏名+年齢+罪種+同日同県",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "2c5c8792c19930c3",
+        "sourceRecordId": null,
+        "title": "米海兵隊の20歳男を強盗殺人容疑で逮捕 那覇市のホテルで女性殺害し…",
+        "date": "2026-10-04",
+        "url": "https://www.fnn.jp/articles/-/1126311",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "本文の容疑者氏名+年齢+罪種+同日同県",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "44c5bf748e0f26d9",
+        "sourceRecordId": null,
+        "title": "那覇市強盗殺人事件　米海兵隊員の男逮捕　被害女性の死因は首を絞められたことによる「窒息死」",
+        "date": "2026-10-04",
+        "url": "https://news.ntv.co.jp/category/society/829c95522dfd4659920a0d9980442380",
+        "eventKey": "event-v1:c9cfdb084a731e2158eb2c3e074893a9808d09a7a58fc8029d6ed43776b88420"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "22d06f6832f4e43f",
+        "sourceRecordId": null,
+        "title": "那覇市ホテルで女性が窒息死、米海兵隊の20歳上等兵が強盗殺人の疑いで逮捕",
+        "date": "2026-10-04",
+        "url": "https://news.livedoor.com/article/detail/32485988/",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "本文の容疑者氏名+年齢+罪種+同日同県",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "13e4bed9a90b5f1e",
+        "sourceRecordId": null,
+        "title": "那覇強殺 逮捕の米兵は容疑否認",
+        "date": "2026-10-04",
+        "url": "https://news.yahoo.co.jp/pickup/6597475?source=rss",
+        "eventKey": "event-v1:5c06b13c62aa635b2d34860f10bfbd5013e592d13709a57f767bd44d60efbab8"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "11ef00e4ae8df3f0",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 2026 年 10 月 4 日 11:56",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "ea3b86fdae4909b5",
+        "sourceRecordId": null,
+        "title": "米兵 強盗殺人疑い逮捕 女性窒息死 財布奪う 那覇の事件 県警 沖縄市で確保",
+        "date": "2026-10-05",
+        "url": "https://www.okinawatimes.co.jp/articles/-/1937892",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-04T19:48:24.025Z"
     }
   ]
 }
