@@ -88,6 +88,28 @@
     "stage": "再逮捕"
   },
   {
+    "id": "a8c62fc9fced73c5",
+    "title": "那覇ホテルの女性強盗殺人、米軍普天間飛行場所属の海兵隊員の男を容疑で緊急逮捕",
+    "date": "2026-10-04",
+    "location": "沖縄県",
+    "media": "読売新聞",
+    "eventKey": "event-v1:c9cfdb084a731e2158eb2c3e074893a9808d09a7a58fc8029d6ed43776b88420",
+    "url": "https://www.yomiuri.co.jp/national/20261004-GYT1T00106/",
+    "summary": "沖縄県で発生し、デビン・ジェイコブ・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 那覇市のホテルの一室で同市の女性（３９）の遺体が見つかった強盗殺人事件で、沖縄県警は４日、米軍普天間飛行場（沖縄県宜野湾市）所属の米海兵隊上等兵、デビン・ジェイ",
+      "nationality": "本文抜粋: デビン・ジェイコブ・バラード"
+    },
+    "locationBasis": "本文抜粋: 那覇市のホテルの一室で同市の女性（３９）の遺体が見つかった強盗殺人事件で、沖縄県警は４日、米軍普天間飛行場（沖縄県宜野湾市）所属の米海兵隊上等兵、デビン・ジェイ",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-04T02:12:31.872Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true,
+    "stage": "逮捕"
+  },
+  {
     "id": "0ca8d6544a0c75fe",
     "title": "福山港から不法上陸疑い、中国籍の男を逮捕(中国新聞デジタル)",
     "date": "2026-10-03",

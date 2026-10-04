@@ -11,6 +11,34 @@ const fetchNews = require('../fetch-news.cjs');
 
 const tmpDir = () => fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-test-'));
 
+test('pipeline: 地域補完で複製された重複統合の勝者を記事IDで保持し、誤って消さない', () => {
+  const articles = [
+    {
+      id: 'coarse-location-survivor', date: '2026-10-04', location: '愛知県',
+      title: '住宅で窃盗疑い、中国籍の男（30）を逮捕', url: 'https://news.example.jp/first',
+    },
+    {
+      id: 'detailed-location-duplicate', date: '2026-10-05', location: '愛知県名古屋市中区',
+      title: '住宅で窃盗疑い、中国籍の男（30）を逮捕', url: 'https://news.example.jp/update',
+    },
+  ];
+  const healed = eventDedupe.healRecentDuplicates(articles, {
+    windowDays: 5,
+    now: Date.parse('2026-10-05T12:00:00+09:00'),
+  });
+
+  assert.equal(healed.removed.length, 1, '同一事件の記事を1件に統合する');
+  assert.equal(healed.items[0].id, 'coarse-location-survivor');
+  assert.equal(healed.items[0].location, '愛知県名古屋市中区', '勝者により詳細な地域を引き継ぐ');
+  assert.notEqual(healed.items[0], articles[0], '地域補完では勝者が新しいオブジェクトになる');
+
+  const persisted = fetchNews.replaceWithHealedItems(articles, healed.items);
+  assert.equal(persisted.length, 1, '元配列との参照差により勝者を消さない');
+  assert.equal(persisted[0].id, 'coarse-location-survivor');
+  assert.equal(persisted[0].location, '愛知県名古屋市中区');
+  assert.equal(persisted[0].title, articles[0].title, '報道タイトルを勝者から維持する');
+});
+
 test('pipeline: 72時間超のpendingは審査対象から外し、終端レコードは30日監査保持する', () => {
   const now = 1_000_000_000_000;
   const dayMs = 24 * 3600 * 1000;

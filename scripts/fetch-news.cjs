@@ -36,6 +36,25 @@ function normalizeArticleUrl(rawUrl) {
   }
 }
 
+function publicationIdentity(item) {
+  if (item?.id) return `id:${item.id}`;
+  if (item?.sourceRecordId) return `source:${item.sourceRecordId}`;
+  const url = normalizeArticleUrl(item?.url || '');
+  return url ? `url:${url}` : '';
+}
+
+// healRecentDuplicates may return a cloned keeper after enriching its location.
+// Reconcile by stable article identity, never object reference, so enrichment
+// does not accidentally make the surviving public record disappear.
+function replaceWithHealedItems(originalItems, healedItems) {
+  const byIdentity = new Map(healedItems
+    .map((item) => [publicationIdentity(item), item])
+    .filter(([identity]) => identity));
+  return originalItems
+    .map((item) => byIdentity.get(publicationIdentity(item)))
+    .filter(Boolean);
+}
+
 // URLが異なる媒体違いの同一事件を、事件の具体項目が一致した場合だけ統合する。
 // 都道府県だけ・罪種だけでは同県の別事件を誤統合するため、市区町村・罪種・国籍を必須にする。
 function eventFingerprint(item) {
@@ -2811,9 +2830,8 @@ async function main() {
     windowDays: 5, now, rank: publicationSourceRank,
   });
   healed.removed.forEach((r) => console.log(`   🧹 同一事件を自動統合 [${r.reason}] 残: ${r.kept} / 消: ${r.removed}`));
-  const healedSet = new Set(healed.items);
-  acceptedNew = acceptedNew.filter((x) => healedSet.has(x));
-  frozenExisting = frozenExisting.filter((x) => healedSet.has(x));
+  acceptedNew = replaceWithHealedItems(acceptedNew, healed.items);
+  frozenExisting = replaceWithHealedItems(frozenExisting, healed.items);
 
   mergeRecords.push(...healed.removed.map((record) => ({
     kind: 'automatic_merge', kept: ledgerArticleRef(record.keptItem),
@@ -2937,6 +2955,8 @@ module.exports = {
   reconcileQueuedPublicationDate,
   cleanTitleText,
   normalizeArticleUrl,
+  publicationIdentity,
+  replaceWithHealedItems,
   isDomesticCrime,
   isOverseasOrEntertainmentMedia,
   eventFingerprint,
