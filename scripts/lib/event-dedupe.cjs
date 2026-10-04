@@ -68,11 +68,13 @@ function daysApart(a, b) {
 }
 
 /** 同一事件なら判定理由（文字列）、別事件なら null */
-function sameEventReason(a, b, { maxDays = 3 } = {}) {
+function sameEventReason(a, b, { maxDays = 5 } = {}) {
   if (daysApart(a.date, b.date) > maxDays) return null;
   const sa = a._sig || signals(a); const sb = b._sig || signals(b);
-  const sim = dice(sa.grams, sb.grams);
-  if (sim >= 0.6) return `見出し類似${sim.toFixed(2)}`;
+  // A similar headline alone is not an event identity: repeated crime types
+  // often use nearly identical headlines. Require the suspect nationality to
+  // agree and reject explicit age, gender, municipality, or prefecture conflicts
+  // before considering headline similarity.
   if (!sa.nats.size || !sb.nats.size || !intersects(sa.nats, sb.nats)) return null;
   const sameAge = intersects(sa.ages, sb.ages);
   const samePlace = intersects(sa.places, sb.places);
@@ -83,6 +85,8 @@ function sameEventReason(a, b, { maxDays = 3 } = {}) {
   const placesConflict = sa.places.size && sb.places.size && !samePlace;
   if (agesConflict || placesConflict) return null;
   if (sa.genders.size && sb.genders.size && !intersects(sa.genders, sb.genders)) return null;
+  const sim = dice(sa.grams, sb.grams);
+  if (sim >= 0.6 && sameCrime && (samePlace || sameAge)) return `国籍+罪種+場所/年齢+見出し類似${sim.toFixed(2)}`;
   const csim = dice(sa.content, sb.content);
   if (sameAge && (samePlace || sameCrime)) return '国籍+年齢+場所/罪種';
   if (samePlace && sameCrime) return '国籍+場所+罪種';
