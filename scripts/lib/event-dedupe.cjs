@@ -51,7 +51,7 @@ function signals(item) {
     .replace(/再逮捕|逮捕|送検|起訴|容疑|疑い|の男|の女|男性|女性|男ら|女ら|自称|無職|会社員|会社役員|現行犯|警察|警視庁|県警|府警|道警|署|事件|だまし取った|だまし取|取った|盗んだ|現金|した|された|して|か$|など|ニュース|NEWS|掲載|日掲載|月|年|#/g, '');
   const content = new Set();
   for (let i = 0; i < c.length - 1; i++) content.add(c.slice(i, i + 2));
-  return { nats, ages, genders, places, crimes, grams, content, location: item.location || '' };
+  return { nats, ages, genders, places, crimes, grams, content, suspectNames: suspectNames(item), location: item.location || '' };
 }
 
 const intersects = (a, b) => [...a].some((x) => b.has(x));
@@ -67,6 +67,22 @@ function daysApart(a, b) {
   return Math.abs(ta - tb) / 86400000;
 }
 
+function suspectNames(item) {
+  const text = String(item.audit?.suspectRole?.evidence || '')
+    .replace(/本文抜粋:\s*/g, '')
+    .normalize('NFKC');
+  const names = new Set();
+  // Names are extracted only from the suspect-role evidence, not from a headline.
+  // Splitting at Japanese list punctuation avoids absorbing ranks or affiliations.
+  for (const part of text.split(/[、，,。；;：:\n]/)) {
+    for (const match of part.matchAll(/([一-龥々ぁ-んァ-ヶA-Za-z・･ー]{2,32}?)(?:容疑者|被疑者|被告)/g)) {
+      const name = match[1].replace(/[・･ー]/g, '').trim();
+      if (name.length >= 4) names.add(name);
+    }
+  }
+  return names;
+}
+
 /** 同一事件なら判定理由（文字列）、別事件なら null */
 function sameEventReason(a, b, { maxDays = 5 } = {}) {
   if (daysApart(a.date, b.date) > maxDays) return null;
@@ -76,15 +92,22 @@ function sameEventReason(a, b, { maxDays = 5 } = {}) {
   // agree and reject explicit age, gender, municipality, or prefecture conflicts
   // before considering headline similarity.
   if (!sa.nats.size || !sb.nats.size || !intersects(sa.nats, sb.nats)) return null;
+  if (sa.suspectNames?.size && sb.suspectNames?.size && !intersects(sa.suspectNames, sb.suspectNames)) return null;
   const sameAge = intersects(sa.ages, sb.ages);
   const samePlace = intersects(sa.places, sb.places);
   const sameCrime = intersects(sa.crimes, sb.crimes);
+  const sameNamedSuspect = intersects(sa.suspectNames || new Set(), sb.suspectNames || new Set())
+    && sameAge
+    && sameCrime
+    && a.date === b.date
+    && a.location === b.location;
   const locConflict = sa.location && sb.location && sa.location !== '全国' && sb.location !== '全国' && sa.location !== sb.location;
-  if (locConflict && !samePlace) return null;
+  if (locConflict && !samePlace && !sameNamedSuspect) return null;
   const agesConflict = sa.ages.size && sb.ages.size && !sameAge;
   const placesConflict = sa.places.size && sb.places.size && !samePlace;
-  if (agesConflict || placesConflict) return null;
+  if (agesConflict || (placesConflict && !sameNamedSuspect)) return null;
   if (sa.genders.size && sb.genders.size && !intersects(sa.genders, sb.genders)) return null;
+  if (sameNamedSuspect) return '本文の容疑者氏名+年齢+罪種+同日同県';
   const sim = dice(sa.grams, sb.grams);
   if (sim >= 0.6 && sameCrime && (samePlace || sameAge)) return `国籍+罪種+場所/年齢+見出し類似${sim.toFixed(2)}`;
   const csim = dice(sa.content, sb.content);
