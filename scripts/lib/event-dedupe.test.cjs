@@ -26,7 +26,6 @@ test('地域階層: 同じ事件の県表示と市区表示は重複候補にな
   assert.equal(healed.items.length, 1);
   assert.equal(healed.items[0].location, '愛知県名古屋市中区');
 });
-
 // ── 同一事件判定のテスト（統合すべき組） ──
 
 test('福山港の不法上陸・残留（見出し違いの媒体重複）が同一事件と判定される', () => {
@@ -372,4 +371,76 @@ test('healRecentDuplicates: 直近ウィンドウ内の重複を初報に統合�
   assert.ok(!res.items.some((x) => x.id === '1'));
   // ウィンドウ外の過去記事は保持される
   assert.ok(res.items.some((x) => x.id === '3'));
+});
+
+test('同一事件の段階進展: 逮捕から公判・判決へ進んだ記事は統合されず残る', () => {
+  const arrest = { id: 'arr', title: '新宿区の空き巣事件、中国籍の男を逮捕', date: '2026-10-01', location: '東京都' };
+  const trial = { id: 'tri', title: '新宿区の空き巣事件、中国籍の男の初公判 東京地裁', date: '2026-10-03', location: '東京都' };
+  const verdict = { id: 'ver', title: '新宿区の空き巣事件、中国籍の被告に懲役2年の判決 東京地裁', date: '2026-10-05', location: '東京都' };
+
+  assert.equal(dedupe.procedureStage(arrest), '逮捕');
+  assert.equal(dedupe.procedureStage(trial), '公判');
+  assert.equal(dedupe.procedureStage(verdict), '判決');
+
+  assert.equal(dedupe.isFollowUp(arrest, trial), true, '逮捕→公判は段階進展');
+  assert.equal(dedupe.isFollowUp(trial, verdict), true, '公判→判決は段階進展');
+  assert.equal(dedupe.isFollowUp(arrest, verdict), true, '逮捕→判決は段階進展');
+
+  const result = dedupe.healRecentDuplicates([arrest, trial, verdict]);
+  assert.equal(result.items.length, 3, '段階が進んだ記事はすべて保持される');
+  assert.equal(result.removed.length, 0);
+});
+
+test('同一事件の同段階・同日重複: 同じ段階の記事は1件に統合される', () => {
+  const trial1 = {
+    id: 't1', title: '鹿児島 オカヤドカリ密猟 中国籍の男2人の初公判、起訴内容認める 鹿児島地裁',
+    date: '2026-10-03', location: '鹿児島県',
+    audit: {
+      suspectRole: { evidence: '本文抜粋: 種の保存法違反の罪に問われた中国籍の男（32）の初公判が鹿児島地裁で開かれた' },
+      foreignNationality: { evidence: '本文抜粋: 中国籍' },
+    },
+  };
+  const trial2 = {
+    id: 't2', title: '奄美のオカヤドカリ密猟事件、中国籍の男2人の初公判 鹿児島地裁 検察側が求刑',
+    date: '2026-10-03', location: '鹿児島県',
+    audit: {
+      suspectRole: { evidence: '本文抜粋: 種の保存法違反の罪に問われた中国籍の男（32）に対し、検察は懲役1年を求刑' },
+      foreignNationality: { evidence: '本文抜粋: 中国籍' },
+    },
+  };
+
+  assert.equal(dedupe.procedureStage(trial1), '公判');
+  assert.equal(dedupe.procedureStage(trial2), '公判');
+  assert.equal(dedupe.isFollowUp(trial1, trial2), false, '同段階は進展ではない');
+
+  const result = dedupe.healRecentDuplicates([trial1, trial2], {
+    windowDays: 5,
+    now: Date.parse('2026-10-03T12:00:00Z'),
+    auditOf: (item) => item.audit,
+  });
+  assert.equal(result.removed.length, 1, '同段階・同一事件は1件に統合される');
+  assert.equal(result.items.length, 1);
+});
+
+test('5日窓超えの事件: 窓を超える場合は同一事件理由がnullになり単独記事として扱われる', () => {
+  const arrest = { id: 'arr', title: '新宿区の空き巣事件、中国籍の男を逮捕', date: '2026-09-20', location: '東京都' };
+  const trial = { id: 'tri', title: '新宿区の空き巣事件、中国籍の男の初公判 東京地裁', date: '2026-10-03', location: '東京都' };
+
+  assert.equal(dedupe.sameEventReason(arrest, trial, { maxDays: 5 }), null, '5日を超えた同一事件は統合理由なし（単独掲載）');
+});
+
+test('手続段階: 本文根拠に含まれる過去の公判・逮捕語で見出し段階を誤分類しない', () => {
+  const arrest = {
+    title: '中国籍の男を窃盗容疑で逮捕', date: '2026-10-01',
+    audit: { suspectRole: { evidence: '男は過去の公判で有罪判決を受けていた。今回、窃盗容疑で逮捕された。' } },
+  };
+  const trial = {
+    title: '中国籍の男の初公判、起訴内容を認める', date: '2026-10-03',
+    audit: { suspectRole: { evidence: '以前、窃盗容疑で逮捕された男の初公判が開かれた。' } },
+  };
+  assert.equal(dedupe.procedureStage(arrest), '逮捕');
+  assert.equal(dedupe.procedureStage(trial), '公判');
+  assert.equal(dedupe.isFollowUp(arrest, trial), true);
+  assert.equal(dedupe.procedureStage({ title: '外国籍被告の事件報道' }), null,
+    '手続段階語がない見出しに逮捕段階を推測付与しない');
 });

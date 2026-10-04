@@ -35,7 +35,6 @@ test('複数県が出たら決めない（県警側があればそちら）', ()
   assert.equal(gate.resolvePrefecture('茨城県と栃木県で').pref, null);
   assert.equal(gate.resolvePrefecture('埼玉県警は東京都内で').pref, '埼玉県');
 });
-
 // ── 検証 ──
 const T = '警察官を装う詐欺の疑い 台湾籍の男を逮捕 鳥取・米子';
 test('正常系', () => {
@@ -319,4 +318,31 @@ test('本文ゲート: 外国籍被疑者が確認できず日本人被疑者と
   const result = gate.verifyArticleContent(text, '東京都新宿区の暴行事件');
   assert.equal(result.rejected, true);
   assert.equal(result.rejectReason, 'suspect_is_japanese');
+});
+
+test('本文ゲート: 国籍付きの公判記事（中国籍の男2人の公判）が合格する', () => {
+  const text = '東京都内で起きた空き巣事件で、窃盗の罪に問われた中国籍の男2人の初公判が東京地裁で開かれました。検察側は冒頭陳述で手口を指摘しました。被告側は起訴内容を認めました。';
+  const result = gate.verifyArticleContent(text, '空き巣事件 中国籍の男2人の初公判 東京地裁');
+  assert.equal(result.verified, true);
+  assert.equal(result.location, '東京都');
+  assert.match(result.audit.foreignNationality.evidence, /中国/);
+});
+
+test('本文ゲート: 国籍付きの判決記事（求刑・懲役判決）が合格する', () => {
+  const text = '大阪市内で知人から現金をだまし取ったとして詐欺罪に問われたベトナム国籍の被告に対し、大阪地裁は懲役2年の実刑判決を言い渡しました。';
+  const result = gate.verifyArticleContent(text, '詐欺罪 ベトナム国籍の被告に判決 大阪地裁');
+  assert.equal(result.verified, true);
+  assert.equal(result.location, '大阪府');
+  assert.match(result.audit.foreignNationality.evidence, /ベトナム/);
+});
+
+test('determineStage: 逮捕/送検/起訴/公判/判決を正確に分類する', () => {
+  assert.equal(gate.determineStage('中国籍の男を強盗容疑で逮捕'), '逮捕');
+  assert.equal(gate.determineStage('強盗容疑で逮捕の男を送検'), '送検');
+  assert.equal(gate.determineStage('強盗罪で男を起訴 地検'), '起訴');
+  assert.equal(gate.determineStage('中国籍の男2人の初公判 東京地裁'), '公判');
+  assert.equal(gate.determineStage('被告に懲役3年の判決 名古屋地裁'), '判決');
+  assert.equal(gate.determineStage('外国籍被告の事件報道'), null);
+  assert.equal(gate.determineStage({ title: '中国籍の男を逮捕', audit: { suspectRole: { evidence: '男は初公判で起訴内容を認めた' } } }), '逮捕',
+    '本文中の過去・補足情報で見出しの手続段階を上書きしない');
 });

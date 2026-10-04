@@ -2693,6 +2693,10 @@ async function main() {
       console.log(`🚫 除外台帳により公開を抑止: ${v.title}`);
       continue;
     }
+    if (publicationLedger.isMergedAway(v, mergedLedger)) {
+      console.log(`⏩ 統合済み記事の再掲載を抑止: ${v.title}`);
+      continue;
+    }
 
     // 1. 既存掲載データとの照合
     if (existingIds.has(v.id) || (v.sourceRecordId && existingIds.has(v.sourceRecordId)) || (!v.sourceRecordId && (existingNormUrls.has(normUrl) || (normResolved && existingNormUrls.has(normResolved))))) {
@@ -2731,6 +2735,7 @@ async function main() {
       continue;
     }
 
+    const currentStage = eventDedupe.procedureStage(v);
     const publication = {
       id: v.id,
       ...(v.sourceRecordId ? { sourceRecordId: v.sourceRecordId } : {}),
@@ -2738,6 +2743,7 @@ async function main() {
       date: v.date,
       location: v.location,
       media: v.media,
+      stage: currentStage,
       ...(fingerprint ? { eventKey: fingerprint } : {}),
       url: v.resolvedUrl || v.url,
       summary: v.verificationMode === 'headline_only'
@@ -2762,7 +2768,7 @@ async function main() {
     if (isFollowUp) {
       publication.followUp = true;
       publication.followUpOf = priorEvent.id || priorEvent.sourceRecordId || null;
-      publication.followUpStage = eventDedupe.procedureStage(v);
+      publication.followUpStage = currentStage;
     }
 
     // バッチ内で既に採用された合格記事との同一事件照合（汎用判定エンジンを使用）
@@ -2773,6 +2779,7 @@ async function main() {
         publication.followUp = true;
         publication.followUpOf = duplicate.id || duplicate.sourceRecordId || null;
         publication.followUpStage = eventDedupe.procedureStage(v);
+        publication.stage = eventDedupe.procedureStage(v);
         acceptedNew.push(publication);
         console.log(`   📰 同一事件の続報として別記事掲載: ${v.title}`);
         continue;

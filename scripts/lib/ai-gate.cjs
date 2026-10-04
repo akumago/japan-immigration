@@ -81,7 +81,7 @@ const NAT_SOURCE =
   `|不法(?:滞在|残留|入国)|不法就労(?!助長|さ[せ]|をさせ)|オーバーステイ|仮放免|偽造在留カード`;
 const NAT_RE = new RegExp(NAT_SOURCE);
 const NAT_RE_G = new RegExp(NAT_SOURCE, 'g'); // matchAll 用（g 必須。付け忘れると TypeError）
-const CRIME_RE = /(?:逮捕|容疑|疑い|送検|送致|起訴|判決|求刑|摘発|指名手配|検挙|立件|勾留|拘禁刑|懲役|実刑|有罪|被告|家宅捜索|捜査|被疑者|補導|現行犯|身柄|確保|拘束|事情聴取|取り調べ|書類送検|再逮捕|追送検|罰金|略式|不起訴|起訴猶予)/;
+const CRIME_RE = /(?:逮捕|容疑|疑い|送検|送致|起訴|判決|求刑|初公判|公判|冒頭陳述|結審|摘発|指名手配|検挙|立件|勾留|拘禁刑|懲役|実刑|有罪|被告|家宅捜索|捜査|被疑者|補導|現行犯|身柄|確保|拘束|事情聴取|取り調べ|書類送検|再逮捕|追送検|罰金|略式|不起訴|起訴猶予)/;
 // 被害者になった側の述語だけ（「けがをさせた」「死亡事故で逮捕」は容疑者側なので入れない）
 const VICTIM_PASSIVE_RE =
   /(?:刺され|襲われ|はねられ|撥ねられ|轢かれ|ひかれ|殺害され|殺され|だまし取られ|騙し取られ|盗まれ|奪われ|連れ去られ|監禁され|搾取され|殴られ|蹴られ|切りつけられ|脅され|襲撃され|暴行を受け|被害に遭|被害を受け|[がは]被害(?![額総者])|[がは]被害者|重傷を負(?!わせ)|けがを負(?!わせ)|[がは](?:死亡|亡くな|重体|重傷|軽傷|けが)(?!を?負わせ|させ)|遺体で)/;
@@ -93,7 +93,7 @@ const VICTIM_OBJECT_RE =
 const AGENT_PASSIVE_RE = /^(?:の)?(?:男性|女性|男|女|少年|少女|グループ|集団|客|ら|\d+人組|容疑者)(?:\(\d+\))?(?:ら)?に[^、。]{0,6}?(?:刺され|襲われ|襲撃され|殴られ|蹴られ|切りつけられ|脅され|だまし取られ|盗まれ|奪われ|連れ去られ|監禁され)/;
 const NON_SUSPECT_AFTER_RE = /^(?:被害者|被害女性|被害男性|を装|になりすま|風の|向け|相手|の相談|の支援|に(?:不法|違法|働か|就労|雇)|と偽|の?(?:男|女|男性|女性)は(?:現場にいた|事件を目撃|目撃していた|同乗していた|同行していた|立ち会っていた))/;
 // ここに達したら被疑者側の述語に入ったとみなして、被害者語彙の探索を打ち切る
-const CLAUSE_STOP_RE = /[。]|逮捕|送検|送致|起訴|容疑|疑い|摘発|検挙|立件|書類送検/;
+const CLAUSE_STOP_RE = /[。]|逮捕|送検|送致|起訴|初公判|公判|求刑|判決|有罪|容疑|疑い|摘発|検挙|立件|書類送検/;
 
 /** NAT の各出現を「被疑者になり得る」か判定する。スペースで窓を切らない（見出しは述語の前に空白が入る） */
 const VICTIM_HEAD_RE = /(?:被害者|被害に遭った|被害を受けた|襲われたのは|けがをしたのは|刺されたのは|殺害されたのは|亡くなったのは|死亡したのは|盗まれたのは)[^。、]{0,10}$/;
@@ -139,26 +139,26 @@ function nationalityLinkedToSuspect(sentence, occurrence) {
   const personMatch = new RegExp(`^(?:[、，で]|の|で[^\s、。]+[、，]|[\s])?[^。]{0,80}?${PERSON_NOUN}`).test(clause);
 
   // 3. 導入構文: prefixに「逮捕されたのは」「起訴されたのは」等があり、後続に人物名詞
-  const isIntro = /(?:逮捕|送検|送致|起訴|書類送検|再逮捕|摘発)[^。]{0,35}されたのは/.test(prefix);
+  const isIntro = /(?:逮捕|送検|送致|起訴|書類送検|再逮捕|摘発|初公判|公判|求刑|判決|有罪)[^。]{0,35}されたのは/.test(prefix);
   if (isIntro && personMatch && !/(?:日本人|日本国籍)[^、。]{0,12}(?:逮捕|容疑者|被告)/.test(prefix + clause)) {
     return true;
   }
 
   // 4. 直前逮捕・起訴修飾構文: prefixの直前で「〜逮捕された[国籍]の[人物]」
-  const arrestInPrefix = /(?:逮捕|再逮捕|送検|書類送検|起訴|指名手配)[^。]{0,12}(?:された|した)[^。]{0,10}$/.test(prefix);
+  const arrestInPrefix = /(?:逮捕|再逮捕|送検|書類送検|起訴|指名手配|初公判|公判|求刑|判決)[^。]{0,12}(?:された|した)[^。]{0,10}$/.test(prefix);
   if (arrestInPrefix && personMatch && !/(?:日本人|日本国籍)/.test(prefix)) {
     return true;
   }
 
   // 5. 罪名＋疑いで逮捕構文: prefixに容疑・罪名があり、clauseで人物〜逮捕
   const chargeInPrefix = /(?:疑い|容疑|違反)[^。]{0,20}(?:で|として)/.test(prefix);
-  if (chargeInPrefix && personMatch && /(?:逮捕|送検|送致|起訴|再逮捕|現行犯逮捕)/.test(clause)) {
+  if (chargeInPrefix && personMatch && /(?:逮捕|送検|送致|起訴|再逮捕|現行犯逮捕|初公判|公判|求刑|判決|有罪)/.test(clause)) {
     return true;
   }
 
   // 6. 直接逮捕・起訴・容疑者構文: 国籍の後に人物名詞があり、同一節で逮捕・送検・起訴・不起訴・容疑者等
   if (!personMatch) return false;
-  const directPredicate = new RegExp(`(?:逮捕|送検|送致|起訴|不起訴|書類送検|再逮捕|現行犯逮捕|指名手配|身柄確保|摘発|検挙|拘束|容疑者|被告|(?:盗ん|窃盗|強盗|詐欺|暴行|侵入|密輸|所持|販売|製造|密造|撮影|運転)[^。]{0,20}疑い)`);
+  const directPredicate = new RegExp(`(?:逮捕|送検|送致|起訴|不起訴|書類送検|再逮捕|現行犯逮捕|指名手配|身柄確保|摘発|検挙|拘束|容疑者|被告|初公判|公判|求刑|判決|有罪|実刑|懲役|禁錮|拘禁刑|罰金|(?:盗ん|窃盗|強盗|詐欺|暴行|侵入|密輸|所持|販売|製造|密造|撮影|運転)[^。]{0,20}疑い)`);
   return directPredicate.test(clause);
 }
 
@@ -169,7 +169,7 @@ function isVictimSide(text) {
 }
 
 // 逮捕されたのが日本人で、外国籍の側は被害者・関係者にすぎない（「中国人女性を暴行した疑い 日本人の男を逮捕」）
-const ARREST = '(?:逮捕|送検|送致|起訴|書類送検)';
+const ARREST = '(?:逮捕|送検|送致|起訴|書類送検|初公判|公判|求刑|判決|有罪)';
 const JP_ARRESTEE_RE = new RegExp(`日本(?:人|国籍)[^、。を]{0,12}を(?:(?!日本人)[^、。]){0,15}?${ARREST}`);
 const FOREIGN_ARRESTEE_RE = new RegExp(`(?:${NAT_SOURCE})(?:(?!日本人)[^、。を]){0,24}?を(?:(?!日本人)[^、。]){0,15}?${ARREST}`);
 // 「中国籍の男と日本人の男を逮捕」のように並列なら、外国籍側も被疑者（混成グループ）
@@ -675,7 +675,7 @@ function verifyArticleContent(text, title = '') {
   // 記事全体に対する「日本人逮捕」判定は使わない。別件・共犯者・引用中の日本人記述で
   // 外国籍被疑者の記事全体を誤って落とし得るため、外国籍表現ごとに同一文内の役割を確認する。
   // 被疑者文には逮捕・容疑・送検・起訴・有罪などの刑事手続語・犯罪述語が同一文内に存在することを必須化
-  const CRIME_PREDICATE_RE = /(?:逮捕|容疑|疑い|送検|送致|起訴|不起訴|処分|判決|求刑|摘発|指名手配|検挙|立件|有罪|被告|被疑者|現行犯|身柄|拘束|書類送検|再逮捕|罰金|勾留|実刑|懲役)/;
+  const CRIME_PREDICATE_RE = /(?:逮捕|容疑|疑い|送検|送致|起訴|不起訴|処分|判決|求刑|初公判|公判|冒頭陳述|結審|罪状認否|摘発|指名手配|検挙|立件|有罪|被告|被疑者|現行犯|身柄|拘束|書類送検|再逮捕|罰金|勾留|実刑|懲役)/;
   const sentences = text.split(/(?<=[。！？\n])/).map((s) => s.trim()).filter(Boolean);
   let suspectIndex = -1;
   let matchedOcc = null;
@@ -701,7 +701,7 @@ function verifyArticleContent(text, title = '') {
     result.insufficientEvidence = true;
 
     // 被疑者文（容疑者・逮捕等の記述）が存在するか文脈を精査
-    const SUSPECT_ACT_RE = /(?:男|女|男性|女性|少年|少女|容疑者|被告|工員|会社員|無職|自称|職業不詳|作業員|\d+歳|ら|[0-9０-９]+人組)[^、。]{0,25}?(?:が|を)[^、。]{0,35}?(?:逮捕|緊急逮捕|現行犯逮捕|送検|送致|書類送検|再逮捕)/;
+    const SUSPECT_ACT_RE = /(?:男|女|男性|女性|少年|少女|容疑者|被告|工員|会社員|無職|自称|職業不詳|作業員|\d+歳|ら|[0-9０-９]+人組)[^、。]{0,25}?(?:が|を)[^、。]{0,35}?(?:逮捕|緊急逮捕|現行犯逮捕|送検|送致|書類送検|再逮捕|初公判|公判|求刑|判決|有罪)/;
     const CRIME_NOUN_RE = /(?:窃盗|強盗|詐欺|暴行|傷害|殺人|覚醒剤|麻薬|密輸|不法残留|不法就労|盗撮|わいせつ|飲酒運転|ひき逃げ|横領|放火|侵入|賭博|売春|風営法|入管法)/;
 
     const suspectSentence = sentences.find((s) => {
@@ -862,7 +862,7 @@ function verifyHeadlineOnly(title) {
     out.pendingReason = 'headline_suspect_nationality_unclear';
     return out;
   }
-  const criminalProcedure = /逮捕|再逮捕|現行犯|送検|送致|起訴|追起訴|摘発|検挙|書類送検|容疑|疑い/;
+  const criminalProcedure = /逮捕|再逮捕|現行犯|送検|送致|起訴|追起訴|摘発|検挙|書類送検|容疑|疑い|初公判|公判|求刑|判決|有罪/;
   const crimeTopic = /窃盗|盗み|盗ん|強盗|詐欺|暴行|傷害|殺人|殺害|覚醒剤|覚せい剤|麻薬|大麻|コカイン|密輸|侵入|盗撮|わいせつ|不法(?:入国|残留|滞在|就労)|入管法|商標法|偽造|横領|放火|賭博|売春|ひき逃げ|無免許|酒気帯び|酒酔い/;
   if (!criminalProcedure.test(headline) || !crimeTopic.test(headline)
     || VICTIM_PASSIVE_RE.test(headline) || VICTIM_OBJECT_RE.test(headline)) {
@@ -885,10 +885,29 @@ function verifyHeadlineOnly(title) {
   return out;
 }
 
+/**
+ * 記事の手続段階を判定する (逮捕/送検/起訴/公判/判決)
+ */
+function determineStage(itemOrText) {
+  const text = typeof itemOrText === 'string'
+    ? itemOrText
+    : itemOrText?.title || '';
+  const t = nfkc(text);
+  if (/判決|実刑|禁錮刑|拘禁刑|有罪判決|無罪判決|執行猶予(?:付き)?(?:の)?判決|罰金刑/.test(t)) return '判決';
+  if (/初公判|公判|求刑|結審|冒頭陳述|被告人質問|罪状認否/.test(t)) return '公判';
+  if (/不起訴|処分保留/.test(t)) return '不起訴';
+  if (/(?:追起訴|起訴|在宅起訴|略式起訴)(?!猶予)/.test(t)) return '起訴';
+  if (/(?:書類)?送検|送致|追送検/.test(t)) return '送検';
+  if (/再逮捕/.test(t)) return '再逮捕';
+  if (/逮捕|現行犯|身柄確保/.test(t)) return '逮捕';
+  return null;
+}
+
 module.exports = {
   run, verifyItem, rulesPass, ruleSuspect, ruleOnlyResponse, resolvePrefecture, titleFactsOk, isVictimSide, isJapaneseArrestee, isOverseas, natOccurrences,
   articleKey, ownText,
   setMunicipalities, loadMunicipalities, NAT_RE, CRIME_RE, CFG,
   DOMESTIC_AIRPORTS, DOMESTIC_LANDMARKS, cleanPoliceAndResidence, resolveCrimeSceneInContext, verifyArticleContent, verifyHeadlineOnly,
   nationalityLinkedToSuspect,
+  determineStage,
 };

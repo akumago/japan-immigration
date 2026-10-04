@@ -18,6 +18,16 @@ test('publication ledger: suppression recognizes IDs and event keys', () => {
   assert.ok(ledger.isSuppressed({ eventKey: 'event-1' }, { items: [{ eventKey: 'event-1' }] }));
 });
 
+test('publication ledger: previously merged article is blocked by its exact ID/URL but not a later follow-up sharing eventKey', () => {
+  const ledgerData = { items: [{ kind: 'automatic_merge', kept: { id: 'kept-1' }, removed: {
+    id: 'removed-1', url: 'https://example.jp/duplicate?utm_source=rss', eventKey: 'event-1',
+  } }] };
+  assert.ok(ledger.isMergedAway({ id: 'removed-1', url: 'https://example.jp/other' }, ledgerData));
+  assert.ok(ledger.isMergedAway({ id: 'other', url: 'https://example.jp/duplicate' }, ledgerData));
+  assert.equal(ledger.isMergedAway({ id: 'follow-up', url: 'https://example.jp/follow-up', eventKey: 'event-1' }, ledgerData), undefined,
+    '事件キーだけの一致では続報を抑止しない');
+});
+
 test('publication ledger: removed event also terminates already-queued candidates', () => {
   const fetchNews = require('../fetch-news.cjs');
   const item = { id: 'q-1', url: 'https://example.test/story', title: '東京都新宿区で窃盗、ブラジル国籍の男を逮捕', status: 'pending', attempts: 0 };

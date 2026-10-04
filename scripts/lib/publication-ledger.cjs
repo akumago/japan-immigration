@@ -72,4 +72,18 @@ function isSuppressed(item, ledger) {
     || (entry.eventKey && entry.eventKey === item.eventKey));
 }
 
-module.exports = { normalizeUrl, loadLedger, recordKey, appendRecords, writeLedger, isSuppressed };
+// 自動統合で落とした記事は、再度キューから掲載されないよう正確な記事ID/URLだけで照合する。
+// eventKey は続報にも共通し得るため、ここでは抑止条件に使わない。
+function isMergedAway(item, ledger) {
+  const urls = new Set([item.url, item.resolvedUrl, ...(item.alternateSources || []).map((source) => source.url)]
+    .filter(Boolean).map(normalizeUrl));
+  return ledger.items.find((entry) => {
+    if (!entry.removed) return false;
+    const removed = entry.removed;
+    return (removed.id && (removed.id === item.id || removed.id === item.sourceRecordId))
+      || (removed.sourceRecordId && removed.sourceRecordId === item.sourceRecordId)
+      || (removed.url && urls.has(normalizeUrl(removed.url)));
+  });
+}
+
+module.exports = { normalizeUrl, loadLedger, recordKey, appendRecords, writeLedger, isSuppressed, isMergedAway };

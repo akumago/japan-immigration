@@ -63,24 +63,40 @@ function moreSpecificLocation(a, b) {
   return score(y) > score(x) ? (typeof b === 'string' ? b : b.location) : (typeof a === 'string' ? a : a.location);
 }
 
+const STAGE_ORDER = {
+  arrest: 1, 逮捕: 1,
+  rearrest: 1.5, 再逮捕: 1.5,
+  referral: 2, 送検: 2,
+  indictment: 3, 起訴: 3,
+  disposition: 3, 不起訴: 3,
+  trial: 4, 公判: 4,
+  verdict: 5, 判決: 5,
+};
+
 function procedureStage(item) {
-  const title = nfkc(item?.title || '');
-  if (/再逮捕/.test(title)) return 'rearrest';
-  if (/(?:書類)?送検|送致/.test(title)) return 'referral';
-  if (/追起訴|起訴/.test(title)) return 'indictment';
-  if (/不起訴|処分保留/.test(title)) return 'disposition';
-  if (/初公判|公判|求刑|判決|有罪判決|無罪判決/.test(title)) return 'trial';
-  if (/逮捕|身柄確保/.test(title)) return 'arrest';
+  if (item?.stage && STAGE_ORDER[item.stage]) return item.stage;
+  // 本文根拠や要約には過去経緯・関連記事が混ざることがあるため、
+  // 記事自身が報じる段階はまず見出しだけから読む。
+  const t = nfkc(item?.title || '');
+  if (/判決|実刑|禁錮刑|拘禁刑|有罪判決|無罪判決|執行猶予(?:付き)?(?:の)?判決|罰金刑/.test(t)) return '判決';
+  if (/初公判|公判|求刑|結審|冒頭陳述|被告人質問|罪状認否|懲役/.test(t)) return '公判';
+  if (/不起訴|処分保留/.test(t)) return '不起訴';
+  if (/(?:追起訴|起訴|在宅起訴|略式起訴)(?!猶予)/.test(t)) return '起訴';
+  if (/(?:書類)?送検|送致|追送検/.test(t)) return '送検';
+  if (/再逮捕/.test(t)) return '再逮捕';
+  if (/逮捕|現行犯|身柄確保/.test(t)) return '逮捕';
   return null;
 }
 
 function isFollowUp(older, newer) {
   const olderStage = procedureStage(older);
   const newerStage = procedureStage(newer);
+  const orderA = STAGE_ORDER[olderStage] || 0;
+  const orderB = STAGE_ORDER[newerStage] || 0;
   const olderDate = Date.parse(older?.date || '');
   const newerDate = Date.parse(newer?.date || '');
-  return Boolean(olderStage && newerStage && olderStage !== newerStage
-    && Number.isFinite(olderDate) && Number.isFinite(newerDate) && newerDate > olderDate);
+  return Boolean(olderStage && newerStage && orderB > orderA
+    && Number.isFinite(olderDate) && Number.isFinite(newerDate) && newerDate >= olderDate);
 }
 
 function signals(item) {
@@ -210,7 +226,7 @@ function healRecentDuplicates(items, { auditOf = () => null, windowDays = 5, now
       const a = { ...recent[i].item, _sig: recent[i].sig }; const b = { ...recent[j].item, _sig: recent[j].sig };
       const reason = sameEventReason(a, b);
       if (!reason) continue;
-      if (isFollowUp(recent[i].item, recent[j].item)) continue;
+      if (isFollowUp(recent[i].item, recent[j].item) || recent[j].item.followUp) continue;
       // 同日なら報道元の格付けが高い方を残す
       const keepJ = recent[i].item.date === recent[j].item.date && rank(recent[j].item.url) > rank(recent[i].item.url);
       const loser = keepJ ? recent[i].item : recent[j].item;
@@ -230,4 +246,4 @@ function healRecentDuplicates(items, { auditOf = () => null, windowDays = 5, now
   return { items: enriched, removed };
 }
 
-module.exports = { signals, procedureStage, isFollowUp, compareLocations, locationHierarchy, moreSpecificLocation, sameEventReason, healRecentDuplicates };
+module.exports = { signals, procedureStage, isFollowUp, compareLocations, locationHierarchy, moreSpecificLocation, sameEventReason, healRecentDuplicates, STAGE_ORDER };

@@ -11,6 +11,7 @@ interface NewsItem {
   media: string;
   url: string;
   summary: string;
+  stage?: string;
   followUp?: boolean;
   followUpOf?: string | null;
   provisionalHeadlineOnly?: boolean;
@@ -78,9 +79,9 @@ export const CrimeNewsSection: React.FC = () => {
                   <span className="text-xs text-gray-400">
                     • 出典: <strong className="text-gray-300 font-normal">{item.media}</strong>
                   </span>
-                  {item.followUp && (
+                  {(item.followUp || item.stage === '公判' || item.stage === '判決' || item.stage === 'trial' || item.stage === 'verdict') && (
                     <span className="inline-flex items-center gap-1.5 rounded-md border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-xs font-semibold text-amber-300">
-                      続報
+                      {(item.stage === '公判' || item.stage === '判決' || item.stage === 'trial' || item.stage === 'verdict') ? '裁判' : '続報'}
                       {item.followUpOf && itemsById.get(item.followUpOf)?.url && (
                         <a
                           href={itemsById.get(item.followUpOf)?.url}
