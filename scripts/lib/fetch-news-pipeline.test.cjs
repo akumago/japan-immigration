@@ -696,6 +696,9 @@ test('同一事件の掲載元選定: Google News中継よりポータル、ポ�
   const fetchNews = require('../fetch-news.cjs');
   assert.ok(fetchNews.publicationSourceRank('https://news.google.com/rss/articles/example')
     < fetchNews.publicationSourceRank('https://news.livedoor.com/article/detail/123/'));
+  assert.equal(fetchNews.publicationSourceRank('https://www.smartnews.com/news/article/example'),
+    fetchNews.publicationSourceRank('https://news.livedoor.com/article/detail/123/'),
+  'SmartNews転載は他のニュースポータルと同じ順位にし、元報道元を優先する');
   assert.ok(fetchNews.publicationSourceRank('https://news.livedoor.com/article/detail/123/')
     < fetchNews.publicationSourceRank('https://www.fnn.jp/articles/-/123'));
 });

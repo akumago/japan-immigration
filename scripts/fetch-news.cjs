@@ -266,7 +266,7 @@ function publicationSourceRank(url) {
   try {
     const host = new URL(url).hostname.toLowerCase().replace(/^www\./, '');
     if (host === 'news.google.com') return 0;
-    if (/^(?:news\.yahoo\.co\.jp|news\.livedoor\.com|topics\.smt\.docomo\.ne\.jp|news\.infoseek\.co\.jp)$/.test(host)) return 1;
+    if (/^(?:news\.yahoo\.co\.jp|news\.livedoor\.com|topics\.smt\.docomo\.ne\.jp|news\.infoseek\.co\.jp|smartnews\.com)$/.test(host)) return 1;
     return 2;
   } catch (_) {
     return 0;

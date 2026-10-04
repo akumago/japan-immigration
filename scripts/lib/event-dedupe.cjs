@@ -72,13 +72,27 @@ function suspectNames(item) {
     .replace(/本文抜粋:\s*/g, '')
     .normalize('NFKC');
   const names = new Set();
-  // Names are extracted only from the suspect-role evidence, not from a headline.
-  // Splitting at Japanese list punctuation avoids absorbing ranks or affiliations.
-  for (const part of text.split(/[、，,。；;：:\n]/)) {
-    for (const match of part.matchAll(/([一-龥々ぁ-んァ-ヶA-Za-z・･ー]{2,32}?)(?:容疑者|被疑者|被告)/g)) {
-      const name = match[1].replace(/[・･ー]/g, '').trim();
-      if (name.length >= 4) names.add(name);
+  // Extract a name immediately before the legal-role suffix. Do not include
+  // preceding military ranks/affiliations (e.g. "海兵隊上等兵") in the name.
+  const addName = (raw) => {
+    const parts = raw.split(/[・･ー\s　]+/).map((part) => part.trim()).filter(Boolean);
+    const normalized = raw.replace(/[・･ー\s　]/g, '');
+    if (normalized.length >= 3) names.add(`full:${normalized}`);
+    // Some outlets omit a middle name. Matching the same first and last
+    // katakana components is sufficient when the rest of the event evidence
+    // (age, crime, date and prefecture) also agrees.
+    const katakanaParts = parts.filter((part) => /^[ァ-ヶ]{2,}$/.test(part));
+    if (katakanaParts.length >= 2) {
+      names.add(`katakana-ends:${katakanaParts[0]}|${katakanaParts[katakanaParts.length - 1]}`);
     }
+  };
+  // Katakana names (often preceded by a kanji military rank) and Japanese
+  // kanji names are handled separately to avoid swallowing role text.
+  for (const match of text.matchAll(/([ァ-ヿ]{2,}(?:[・･ー][ァ-ヿ]{2,}){0,3})(?:容疑者|被疑者|被告)/g)) {
+    addName(match[1]);
+  }
+  for (const match of text.matchAll(/([一-龥々]{2,8})(?:容疑者|被疑者|被告)/g)) {
+    addName(match[1]);
   }
   return names;
 }

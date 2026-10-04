@@ -133,6 +133,41 @@ test('公開中の那覇ホテル強盗殺人: 所属基地の宜野湾市と犯
   assert.match(dedupe.sameEventReason(a, b) || '', /容疑者氏名/);
 });
 
+test('公開中の実データ: SmartNewsの省略名「デビン・バラード」とテレ朝のフルネームを同一事件として統合する', () => {
+  const smartnews = {
+    id: 'smartnews-naha',
+    title: '那覇のホテル女性殺害、強盗殺人容疑で米兵を逮捕',
+    date: '2026-10-04', location: '沖縄県',
+    url: 'https://www.smartnews.com/news/article/example',
+    audit: {
+      suspectRole: { evidence: '本文抜粋: 那覇市のホテルで3日に女性の遺体が見つかった事件で、沖縄県警は4日、強盗殺人の疑いで米軍普天間飛行場（宜野湾市）所属の海兵隊上等兵デビン・バラード容疑者（20）' },
+      japanCrime: { evidence: '本文抜粋: 那覇市のホテルで3日に女性の遺体が見つかった事件で、沖縄県警は4日、強盗殺人の疑いで米軍普天間飛行場（宜野湾市）所属の海兵隊上等兵デビン・バラード容疑者（20）' },
+      foreignNationality: { evidence: '本文抜粋: デビン・バラード' },
+    },
+  };
+  const tvAsahi = {
+    id: 'tv-asahi-naha',
+    title: '沖縄・那覇市 ホテルに女性遺体 強盗殺人の疑いで米海兵隊員の男逮捕',
+    date: '2026-10-04', location: '沖縄県',
+    url: 'https://news.tv-asahi.co.jp/news_society/articles/example.html',
+    audit: {
+      suspectRole: { evidence: '本文抜粋: 米軍普天間基地所属のアメリカ海兵隊、デビン・ジェイコブ・バラード容疑者（20）は、那覇市若狭にあるホテルで女性を強盗殺人' },
+      japanCrime: { evidence: '本文抜粋: 米軍普天間基地所属のアメリカ海兵隊、デビン・ジェイコブ・バラード容疑者（20）は、那覇市若狭にあるホテルで女性を強盗殺人' },
+      foreignNationality: { evidence: '本文抜粋: デビン・ジェイコブ・バラード' },
+    },
+  };
+
+  const result = dedupe.healRecentDuplicates([smartnews, tvAsahi], {
+    windowDays: 5,
+    now: Date.parse('2026-10-04T12:00:00+09:00'),
+    auditOf: (item) => item.audit,
+    rank: (url) => url.includes('smartnews.com') ? 1 : 2,
+  });
+
+  assert.equal(result.removed.length, 1, '同一容疑者・年齢・罪種・日付・都道府県の重複は一件にまとまる');
+  assert.deepEqual(result.items.map((item) => item.id), ['tv-asahi-naha'], '一次報道元を残し、SmartNewsの転載を除く');
+});
+
 test('誤統合防止: 別人の同日同県・同じ罪種の事件は容疑者年齢が同じでも統合しない', () => {
   const base = {
     date: '2026-10-04', location: '沖縄県',
