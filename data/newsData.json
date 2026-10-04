@@ -232,6 +232,17 @@
     "summary": "東京都で発生した外国籍の被疑者が関与する事件報道です。"
   },
   {
+    "id": "7b4726bc60a3997e",
+    "title": "京葉道路で酒酔い運転の疑い、中国籍の男逮捕 「酒は抜けていると思った」 千葉県警高速隊（千葉日報オンライン）",
+    "date": "2026-09-30",
+    "location": "千葉県",
+    "media": "Yahoo!ニュース",
+    "eventKey": "event-v1:76afe70681d1f1a02182c10ff5f7dcf0a4ba0567d9fee73f2f47a53e99f1d870",
+    "url": "https://news.yahoo.co.jp/articles/02a6c26da20eaa51f7983f96fd9e2bf9047b8bd7",
+    "summary": "千葉県で発生した外国人関与の事件・容疑に関する報道速報です。",
+    "audited": true
+  },
+  {
     "id": "f972450c7f33eb10",
     "title": "静岡県内で覚醒剤の錠剤を製造か イラン国籍の男3人を再逮捕（tvkニュース（テレビ神奈川））",
     "date": "2026-09-30",
