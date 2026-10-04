@@ -21,28 +21,6 @@
     "audited": true
   },
   {
-    "id": "fe33e0f26444633e",
-    "title": "強盗殺人容疑で米兵逮捕、那覇 ホテルに女性遺体",
-    "date": "2026-10-04",
-    "location": "沖縄県",
-    "media": "nnn.co.jp",
-    "stage": "逮捕",
-    "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89",
-    "url": "https://www.nnn.co.jp/articles/-/808786",
-    "summary": "沖縄県で発生し、デビン・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 那覇市のホテルで３日に女性の遺体が見つかった事件で、沖縄県警は４日、強盗殺人の疑いで米軍普天間飛行場（宜野湾市）所属の海兵隊上等兵デビン・バラード容疑者（２０）",
-      "nationality": "本文抜粋: デビン・バラード"
-    },
-    "locationBasis": "本文抜粋: 那覇市のホテルで３日に女性の遺体が見つかった事件で、沖縄県警は４日、強盗殺人の疑いで米軍普天間飛行場（宜野湾市）所属の海兵隊上等兵デビン・バラード容疑者（２０）",
-    "gateVersion": "strict-2026-10-02.2",
-    "judgedAt": "2026-10-04T02:12:25.881Z",
-    "legacy": false,
-    "verificationMode": "body",
-    "provisionalHeadlineOnly": false,
-    "audited": true
-  },
-  {
     "id": "d8847e02819696cb",
     "title": "盗難高級車保管疑い、逮捕　パキスタン国籍3人、茨城",
     "date": "2026-10-04",

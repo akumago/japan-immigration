@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-04T22:12:21.765Z",
+  "updatedAt": "2026-10-04T22:23:36.819Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -904,6 +904,27 @@
       },
       "reason": "国籍+年齢+場所/罪種",
       "recordedAt": "2026-10-04T22:12:21.765Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "a8c62fc9fced73c5",
+        "sourceRecordId": null,
+        "title": "那覇ホテルの女性強盗殺人、米軍普天間飛行場所属の海兵隊員の男を容疑で緊急逮捕",
+        "date": "2026-10-04",
+        "url": "https://www.yomiuri.co.jp/national/20261004-GYT1T00106/",
+        "eventKey": "event-v1:c9cfdb084a731e2158eb2c3e074893a9808d09a7a58fc8029d6ed43776b88420"
+      },
+      "removed": {
+        "id": "fe33e0f26444633e",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で米兵逮捕、那覇 ホテルに女性遺体",
+        "date": "2026-10-04",
+        "url": "https://www.nnn.co.jp/articles/-/808786",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-04T22:23:36.813Z"
     }
   ]
 }
