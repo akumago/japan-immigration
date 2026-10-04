@@ -1,5 +1,46 @@
 [
   {
+    "id": "edc4536d41406d03",
+    "title": "那覇のホテル女性遺体、強盗殺人容疑で米兵を逮捕",
+    "date": "2026-10-04",
+    "location": "沖縄県",
+    "media": "SmartNews",
+    "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89",
+    "url": "https://www.smartnews.com/news/article/4997337927466877934-%E9%82%A3%E8%A6%87%E3%81%AE%E3%83%9B%E3%83%86%E3%83%AB%E5%A5%B3%E6%80%A7%E9%81%BA%E4%BD%93%E3%80%81%E5%BC%B7%E7%9B%97%E6%AE%BA%E4%BA%BA%E5%AE%B9%E7%96%91%E3%81%A7%E7%B1%B3%E5%85%B5%E3%82%92%E9%80%AE%E6%8D%95",
+    "summary": "沖縄県で発生し、デビン・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 那覇市のホテルで女性の遺体が見つかった事件で、沖縄県警は4日、強盗殺人の疑いで米軍普天間飛行場所属の海兵隊上等兵デビン・バラード容疑者を逮捕しました。",
+      "nationality": "本文抜粋: デビン・バラード"
+    },
+    "locationBasis": "本文抜粋: 那覇市のホテルで女性の遺体が見つかった事件で、沖縄県警は4日、強盗殺人の疑いで米軍普天間飛行場所属の海兵隊上等兵デビン・バラード容疑者を逮捕しました。",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-04T09:59:50.728Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "d8847e02819696cb",
+    "title": "盗難高級車保管疑い、逮捕　パキスタン国籍3人、茨城",
+    "date": "2026-10-04",
+    "location": "茨城県",
+    "media": "ライブドアニュース",
+    "url": "https://news.livedoor.com/article/detail/32486504/",
+    "summary": "茨城県で発生し、パキスタン国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 車解体の作業場「ヤード」で、盗まれた物と知りながら高級車1台を保管したとして、茨城県警と警視庁など10都府県警の合同捜査班は4日、盗品等保管の疑いでいずれもパキ",
+      "nationality": "本文抜粋: パキスタン国籍"
+    },
+    "locationBasis": "本文抜粋: 車解体の作業場「ヤード」で、盗まれた物と知りながら高級車1台を保管したとして、茨城県警と警視庁など10都府県警の合同捜査班は4日、盗品等保管の疑いでいずれもパキ",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-04T14:45:42.537Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "39fc78302b60edf0",
     "title": "飲酒運転疑いで米兵2人を逮捕 沖縄県警 沖縄市と那覇市で",
     "date": "2026-10-04",
@@ -42,14 +83,23 @@
     "audited": true
   },
   {
-    "id": "700a494e43fa3f61",
-    "title": "【速報】沖縄・那覇市 ホテルに女性遺体 強盗殺人の疑いで米海兵隊員の男逮捕 2026 年 10 月 4 日 07:15",
-    "date": "2026-10-04",
-    "location": "沖縄県",
-    "media": "テレ朝NEWS（事件・社会）",
-    "eventKey": "event-v1:c9cfdb084a731e2158eb2c3e074893a9808d09a7a58fc8029d6ed43776b88420",
-    "url": "https://news.tv-asahi.co.jp/news_society/articles/000537789.html",
-    "summary": "沖縄県で発生した外国人関与の事件・容疑に関する報道速報です。",
+    "id": "0ca8d6544a0c75fe",
+    "title": "福山港から不法上陸疑い、中国籍の男を逮捕(中国新聞デジタル)",
+    "date": "2026-10-03",
+    "location": "埼玉県",
+    "media": "中国新聞デジタル",
+    "url": "https://news.yahoo.co.jp/articles/4025470d6f18621dcbcdb73271aca8ac8bfcd37d?source=rss",
+    "summary": "埼玉県で発生し、中国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 広島県警福山東署などは2日、中国籍の埼玉県川口市の無職男（44）を入管難民法違反（不法上陸、不法在留）の疑いで逮捕した。",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "本文抜粋: 広島県警福山東署などは2日、中国籍の埼玉県川口市の無職男（44）を入管難民法違反（不法上陸、不法在留）の疑いで逮捕した。",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-03T12:35:25.535Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
     "audited": true
   },
   {
@@ -70,6 +120,26 @@
     "media": "Yahoo!ニュース",
     "url": "https://news.yahoo.co.jp/articles/d21bfe00a8ea06207a4923e0c2ef2b5575fdce69",
     "summary": "長野県で発生した外国人関与の事件・容疑に関する報道速報です。",
+    "audited": true
+  },
+  {
+    "id": "e91f1f46e8388667",
+    "title": "「全く心当たりがありません」同居男性に包丁振り上げ「お前を殺してやる」と脅迫か 28歳ネパール国籍の男を逮捕 1時間前",
+    "date": "2026-10-02",
+    "location": "福岡県",
+    "media": "TBS NEWS DIG（JNN地域局）",
+    "url": "https://newsdig.tbs.co.jp/articles/-/2983842",
+    "summary": "福岡県で発生し、ネパール国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 9月30日夜、福岡市東区の自宅で、同居していた25歳のネパール国籍の男性に包丁を振り上げ「お前を殺してやる」と脅したとして、28歳のネパール国籍の男が逮捕されま",
+      "nationality": "本文抜粋: ネパール国籍"
+    },
+    "locationBasis": "本文抜粋: 9月30日夜、福岡市東区の自宅で、同居していた25歳のネパール国籍の男性に包丁を振り上げ「お前を殺してやる」と脅したとして、28歳のネパール国籍の男が逮捕されま",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-04T14:44:46.953Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
     "audited": true
   },
   {
@@ -634,6 +704,132 @@
     "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1ocHIwS2hUaF81ZVgydUxmOEs5ZExJR1JoOXp4ckp5QmVycG91MnA3d1M1NEp1TDJVNFJqQnJaelBxbW4zZUdFRzBMLWNjMUF5WW5BMnlIUl85S016QWwydXMwSTk3TzByMFBOWjBFS3Z0TkVublYyblFMR291aWc?oc=5",
     "description": "<a href=\"https://news.google.com/rss/articles/CBMif0FVX3lxTE1ocHIwS2hUaF81ZVgydUxmOEs5ZExJR1JoOXp4ckp5QmVycG91MnA3d1M1NEp1TDJVNFJqQnJaelBxbW4zZUdFRzBM",
     "summary": "静岡県で発生した外国人関与の事件・容疑に関する報道速報です。"
+  },
+  {
+    "id": "d595f489f6f98425",
+    "title": "世界で横行「窃盗ツーリズム」の手口とは 中野ブロードウェイ時計店窃盗 チリ国籍の男2人を再逮捕【Nスタ解説】",
+    "date": "2026-09-28",
+    "location": "東京都",
+    "media": "Yahoo!ニュース",
+    "eventKey": "event-v1:dd8f1f5804772f7082cebd00ebab971621e0129d960a1dfabaa7ccaf9191e0d0",
+    "url": "https://news.yahoo.co.jp/articles/cd80722d6463fb4ee968ab50181915a334571a76",
+    "summary": "東京都で発生し、チリ国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 東京・中野区の時計店から、2億円相当の腕時計を盗んだとして逮捕されたチリ国籍の男2人が、都内の別の窃盗事件に関与したとして再逮捕されました。",
+      "nationality": "本文抜粋: チリ国籍"
+    },
+    "locationBasis": "本文抜粋: 東京・中野区の時計店から、2億円相当の腕時計を盗んだとして逮捕されたチリ国籍の男2人が、都内の別の窃盗事件に関与したとして再逮捕されました。",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-03T09:41:30.932Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "4176faf3a38b612a",
+    "title": "中野の事件前にも腕時計盗んだか 「日本は刑罰緩いと聞いた」―チリ国籍の男２人再逮捕・警視庁",
+    "date": "2026-09-28",
+    "location": "東京都",
+    "media": "時事ドットコム",
+    "eventKey": "event-v1:dd8f1f5804772f7082cebd00ebab971621e0129d960a1dfabaa7ccaf9191e0d0",
+    "url": "https://www.jiji.com/jc/article?k=2026092800504&g=soc",
+    "summary": "東京都で発生し、チリ国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 東京都中野区の商業施設「中野ブロードウェイ」の時計店から高級腕時計４本（販売価格計約２億円相当）が盗まれた事件で逮捕されたチリ国籍の男２人が、事件の３日前にも大",
+      "nationality": "本文抜粋: チリ国籍"
+    },
+    "locationBasis": "本文抜粋: 東京都中野区の商業施設「中野ブロードウェイ」の時計店から高級腕時計４本（販売価格計約２億円相当）が盗まれた事件で逮捕されたチリ国籍の男２人が、事件の３日前にも大",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-02T10:52:53.354Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "6d158fc2161c00ff",
+    "title": "中野ブロードウェイ時計店窃盗事件のチリ国籍男2人を再逮捕 3日前の大田区の住宅で800万円相当窃盗か 「ヨーロッパ中で窃盗」とも供述 欧米で問題の「SATG」か",
+    "date": "2026-09-28",
+    "location": "東京都",
+    "media": "TBS NEWS DIG",
+    "eventKey": "event-v1:dd8f1f5804772f7082cebd00ebab971621e0129d960a1dfabaa7ccaf9191e0d0",
+    "url": "https://newsdig.tbs.co.jp/articles/-/2972911",
+    "summary": "東京都で発生し、チリ国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 東京・中野区の時計店から2億円相当の腕時計を盗んだとして逮捕されたチリ国籍の男2人が、都内の別の窃盗事件に関与したとして再逮捕されました。",
+      "nationality": "本文抜粋: チリ国籍"
+    },
+    "locationBasis": "本文抜粋: 東京・中野区の時計店から2億円相当の腕時計を盗んだとして逮捕されたチリ国籍の男2人が、都内の別の窃盗事件に関与したとして再逮捕されました。",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-02T10:52:16.855Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "3ed8421824d28512",
+    "title": "中野・高級腕時計の窃盗犯「刑罰軽いと聞き」来日、事件３日前にも民家で７９０万円相当窃盗…チリ国籍２人再逮捕",
+    "date": "2026-09-28",
+    "location": "東京都",
+    "media": "ｄメニューニュース",
+    "eventKey": "event-v1:dd8f1f5804772f7082cebd00ebab971621e0129d960a1dfabaa7ccaf9191e0d0",
+    "url": "https://topics.smt.docomo.ne.jp/amp/article/yomiuri/nation/20260928-567-GYT1T00289",
+    "summary": "東京都で発生し、チリ国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 東京都中野区の時計店で高級腕時計が盗まれてチリ国籍の男２人が逮捕、起訴された事件で、警視庁は２８日、この事件の３日前にも都内の民家から腕時計などを盗んだとして、",
+      "nationality": "本文抜粋: チリ国籍"
+    },
+    "locationBasis": "本文抜粋: 東京都中野区の時計店で高級腕時計が盗まれてチリ国籍の男２人が逮捕、起訴された事件で、警視庁は２８日、この事件の３日前にも都内の民家から腕時計などを盗んだとして、",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-02T11:21:06.978Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "e88df3ffc29ee1a5",
+    "title": "中野ブロードウェイの高級腕時計窃盗事件で逮捕のチリ人男2人、別の窃盗事件で再逮捕 住宅に侵入し高級腕時計3本など盗んだ疑い",
+    "date": "2026-09-28",
+    "location": "東京都",
+    "media": "FNNプライムオンライン",
+    "eventKey": "event-v1:dd8f1f5804772f7082cebd00ebab971621e0129d960a1dfabaa7ccaf9191e0d0",
+    "url": "https://www.fnn.jp/articles/-/1122504",
+    "summary": "東京都で発生し、チリ人の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 東京・中野区の時計店で高級腕時計2億円相当が盗まれた事件で、すでに逮捕・起訴されていたチリ人の男2人が事件の3日前に別の窃盗事件を起こしたとして、再逮捕されまし",
+      "nationality": "本文抜粋: チリ人"
+    },
+    "locationBasis": "本文抜粋: 東京・中野区の時計店で高級腕時計2億円相当が盗まれた事件で、すでに逮捕・起訴されていたチリ人の男2人が事件の3日前に別の窃盗事件を起こしたとして、再逮捕されまし",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-02T11:04:01.186Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "93500576141d85ad",
+    "title": "中野2億円腕時計窃盗事件 チリ国籍の男2人を再逮捕 「ヨーロッパ中で窃盗していた」 欧米で社会問題の「SATG」か 「1日3～4件やった日も」 警視庁",
+    "date": "2026-09-28",
+    "location": "東京都",
+    "media": "ライブドアニュース",
+    "eventKey": "event-v1:dd8f1f5804772f7082cebd00ebab971621e0129d960a1dfabaa7ccaf9191e0d0",
+    "url": "https://news.livedoor.com/article/detail/32430423/",
+    "summary": "東京都で発生し、チリ国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 東京・中野区の時計店から2億円相当の 腕時計 を盗んだとして逮捕されたチリ国籍の男2人が、この事件の3日前に大田区の住宅で800万円相当の 腕時計 や現金などを",
+      "nationality": "本文抜粋: チリ国籍"
+    },
+    "locationBasis": "本文抜粋: 東京・中野区の時計店から2億円相当の 腕時計 を盗んだとして逮捕されたチリ国籍の男2人が、この事件の3日前に大田区の住宅で800万円相当の 腕時計 や現金などを",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-02T11:04:21.582Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
   },
   {
     "id": "05a9ae1ce36169f6",
