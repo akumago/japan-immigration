@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-04T19:48:24.025Z",
+  "updatedAt": "2026-10-04T21:47:46.481Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -694,6 +694,27 @@
       },
       "reason": "国籍+年齢+場所/罪種",
       "recordedAt": "2026-10-04T19:48:24.025Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "05993cca702429cf",
+        "sourceRecordId": null,
+        "title": "普天間所属の米海兵隊員が那覇市のホテルで強盗殺人の疑いで逮捕",
+        "date": "2026-10-04",
+        "url": "https://news.livedoor.com/article/detail/32483613/",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "76f3a2cb90566775",
+        "sourceRecordId": null,
+        "title": "那覇市ホテルで女性が窒息死、米海兵隊員が強盗殺人の疑いで逮捕",
+        "date": "2026-10-05",
+        "url": "https://news.livedoor.com/article/detail/32487755/",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "国籍+罪種+場所/年齢+見出し類似0.67",
+      "recordedAt": "2026-10-04T21:47:46.481Z"
     }
   ]
 }
