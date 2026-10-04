@@ -10,6 +10,7 @@ const policeBulletins = require('./lib/police-bulletins.cjs');
 const publisherListings = require('./lib/publisher-listings.cjs');
 const rssSources = require('./lib/rss-sources.cjs');
 const observability = require('./lib/pipeline-observability.cjs');
+const publicationLedger = require('./lib/publication-ledger.cjs');
 const SHADOW_MODE = process.env.SHADOW_MODE === '1'; // 既定は本番稼働（1を明示したときだけシャドー）
 const BODY_GATE_VERSION = 'strict-2026-10-02.2';
 
@@ -38,7 +39,9 @@ function normalizeArticleUrl(rawUrl) {
 // URLが異なる媒体違いの同一事件を、事件の具体項目が一致した場合だけ統合する。
 // 都道府県だけ・罪種だけでは同県の別事件を誤統合するため、市区町村・罪種・国籍を必須にする。
 function eventFingerprint(item) {
-  if (/^event-v1:[a-f0-9]{64}$/.test(String(item.eventKey || ''))) return item.eventKey;
+  if (/^event-v1:[a-f0-9]{64}$/.test(String(item.eventKey || ''))) {
+    return item.eventKey;
+  }
   const title = String(item.title || '');
   const evidence = [item.audit?.suspectRole?.evidence, item.audit?.japanCrime?.evidence]
     .filter(Boolean).join(' ');
@@ -78,7 +81,19 @@ function publicationHeadlineKey(item) {
   return `${item.date}|${title}`;
 }
 
-function dedupeExistingHeadlines(items) {
+function ledgerArticleRef(item) {
+  if (!item) return null;
+  return {
+    id: item.id || null,
+    sourceRecordId: item.sourceRecordId || null,
+    title: item.title || null,
+    date: item.date || null,
+    url: item.url || null,
+    eventKey: item.eventKey || null,
+  };
+}
+
+function dedupeExistingHeadlines(items, onMerge = () => {}) {
   const out = [];
   const byKey = new Map();
   for (const item of items) {
@@ -89,7 +104,10 @@ function dedupeExistingHeadlines(items) {
       continue;
     }
     const index = byKey.get(key);
-    if (publicationSourceRank(item.url) > publicationSourceRank(out[index].url)) out[index] = item;
+    const previous = out[index];
+    const replace = publicationSourceRank(item.url) > publicationSourceRank(previous.url);
+    onMerge({ kept: replace ? item : previous, removed: replace ? previous : item, reason: 'same_date_same_normalized_headline' });
+    if (replace) out[index] = item;
   }
   return out;
 }
@@ -124,23 +142,26 @@ function reconcileQueuedPublicationDate(item, queueItems, now = Date.now()) {
     || (itemUrl && [q.url, q.resolvedUrl].filter(Boolean).some((url) => normalizeArticleUrl(url) === itemUrl)));
   if (!queued) return false;
   if (!incomingDate || parsePublicationDate(queued.pubDate)) return false;
+  const ageState = publicationAgeState(incomingDate.iso, now);
   queued.pubDate = incomingDate.iso;
   queued.date = incomingDate.jstDate;
-  queued.pendingReason = null;
-  queued.terminalAt = null;
+  queued.pendingReason = ageState.reason;
+  queued.terminalAt = ageState.status === 'pending' ? null : new Date(now).toISOString();
   queued.lastError = null;
   queued.attempts = 0;
-  queued.nextAttemptAt = new Date(now).toISOString();
-  queued.status = 'pending';
+  queued.nextAttemptAt = ageState.status === 'pending' ? new Date(now).toISOString() : null;
+  queued.status = ageState.status;
   return true;
 }
 
 function shouldRetainQueueItem(item, now = Date.now()) {
-  // 未処理候補も公開日時（なければ初回検知）から120時間で審査対象を終了する。
+  if (item?.headlineReviewPending) return true;
+  // 未処理候補も公開日時（なければ初回検知）から設定TTLで審査対象を終了する。
   // 古い候補が当日分の審査枠を占有し続けないようにする。
   if (item?.status === 'pending') {
     const effective = itemEffectiveTime(item);
-    return !effective || effective > now || now - effective < 120 * 60 * 60 * 1000;
+    const ttlMs = Math.max(1, Number(process.env.PENDING_TTL_HOURS) || 72) * 60 * 60 * 1000;
+    return !effective || effective > now || now - effective < ttlMs;
   }
   const effective = Date.parse(item?.terminalAt || item?.updatedAt || '') || itemEffectiveTime(item);
   if (!effective) return true;
@@ -149,15 +170,15 @@ function shouldRetainQueueItem(item, now = Date.now()) {
 
 function expireStalePendingItems(items, now = Date.now()) {
   let expired = 0;
-  const TTL_120H_MS = 120 * 60 * 60 * 1000;
+  const pendingTtlMs = Math.max(1, Number(process.env.PENDING_TTL_HOURS) || 72) * 60 * 60 * 1000;
   for (const item of items) {
     if (item?.status !== 'pending') continue;
     const effective = itemEffectiveTime(item);
     // 日時不明・未来日時は時計やフィード異常の可能性があるため、自動終了しない。
-    if (!effective || effective > now || now - effective < TTL_120H_MS) continue;
-    item.status = 'gave_up';
-    item.pendingReason = 'candidate_expired_after_120h';
-    item.lastError = 'candidate_expired_after_120h';
+    if (!effective || effective > now || now - effective < pendingTtlMs) continue;
+    item.status = 'expired';
+    item.pendingReason = 'candidate_expired_after_72h';
+    item.lastError = 'candidate_expired_after_72h';
     item.terminalAt = new Date(now).toISOString();
     item.nextAttemptAt = null;
     expired++;
@@ -170,10 +191,11 @@ function recoverExpiredPendingItems(items, now = Date.now()) {
   for (const item of items) {
     if (item.status !== 'unverified' || item.pendingReason !== 'queue_expired_after_120h') continue;
     const effective = itemEffectiveTime(item);
-    if (!effective || effective > now || now - effective >= 120 * 60 * 60 * 1000) {
-      item.status = 'gave_up';
-      item.pendingReason = 'candidate_expired_after_120h';
-      item.lastError = 'candidate_expired_after_120h';
+    const ttlMs = Math.max(1, Number(process.env.PENDING_TTL_HOURS) || 72) * 60 * 60 * 1000;
+    if (!effective || effective > now || now - effective >= ttlMs) {
+      item.status = 'expired';
+      item.pendingReason = 'candidate_expired_after_72h';
+      item.lastError = 'candidate_expired_after_72h';
       item.terminalAt = new Date(now).toISOString();
       continue;
     }
@@ -261,6 +283,52 @@ function scheduleQueueItem(qItem, result, now = Date.now()) {
   qItem.status = 'unverified';
 }
 
+function publicationAgeState(pubDate, now = Date.now()) {
+  const parsed = parsePublicationDate(pubDate);
+  if (!parsed) return { status: 'unverified', reason: 'publication_date_missing' };
+  const age = now - Date.parse(parsed.iso);
+  if (age < -10 * 60 * 1000) return { status: 'unverified', reason: 'publication_date_in_future' };
+  const maxAgeMs = 72 * 3600000;
+  if (age > maxAgeMs) return { status: 'expired', reason: 'publication_older_than_72h' };
+  return { status: 'pending', reason: null };
+}
+
+function withinDays(a, b, days) {
+  const ta = Date.parse(a || ''); const tb = Date.parse(b || '');
+  return Number.isFinite(ta) && Number.isFinite(tb) && Math.abs(ta - tb) <= days * 86400000;
+}
+
+function acceptHeadlineFallback(qItem, now = Date.now()) {
+  const headlineResult = gate.verifyHeadlineOnly(qItem.title);
+  if (!headlineResult.verified) return false;
+  qItem.status = 'verified';
+  qItem.location = headlineResult.location;
+  qItem.audit = headlineResult.audit;
+  qItem.verificationMode = 'headline_only';
+  qItem.headlineOnlyPublished = true;
+  qItem.headlineReviewPending = true;
+  qItem.headlinePublishedAt = qItem.headlinePublishedAt || new Date(now).toISOString();
+  qItem.headlineQuarantineAt = new Date(Date.parse(qItem.headlinePublishedAt) + Math.max(1, Number(process.env.HEADLINE_PROVISIONAL_TTL_HOURS) || 48) * 60 * 60 * 1000).toISOString();
+  qItem.headlineReviewAttempts = qItem.headlineReviewAttempts || 0;
+  qItem.headlineReviewNextAt = new Date(now + 6 * 60 * 60 * 1000).toISOString();
+  qItem.pendingReason = 'headline_verified_body_review_pending';
+  return true;
+}
+
+function isHeadlineProvisionalExpired(item, now = Date.now()) {
+  const deadline = Date.parse(item?.headlineQuarantineAt || '');
+  return Boolean(item?.headlineReviewPending && Number.isFinite(deadline) && deadline <= now);
+}
+
+function nextHeadlineReviewAt(item, now = Date.now()) {
+  const hours = Math.min(24, Math.max(6, (item?.headlineReviewAttempts || 0) * 6));
+  return new Date(now + hours * 60 * 60 * 1000).toISOString();
+}
+
+function shouldUseCachedSourceBody(item, isHeadlineReview) {
+  return Boolean(item?.sourceBody && !isHeadlineReview);
+}
+
 // 同一事件の媒体違いを1件にまとめる際、Google News中継やポータルより元媒体URLを優先する。
 function publicationSourceRank(url) {
   try {
@@ -300,6 +368,32 @@ function candidateLane(item) {
   return FOREIGN_KEYWORDS.some((keyword) => text.includes(keyword))
     ? 'explicit_foreign'
     : 'broad_discovery';
+}
+
+function isCaseNewsSignal(text) {
+  return /逮捕|再逮捕|書類送検|送検|送致|起訴|追起訴|求刑|判決|有罪|容疑|被疑者|容疑者|被告|指名手配|捜査中|摘発|検挙|立件|書類送付/.test(String(text || ''));
+}
+
+function isCourtOnlyCoverage(text) {
+  const s = String(text || '').normalize('NFKC');
+  return /初公判|公判|求刑|判決|有罪判決|無罪判決|控訴審|上告審/.test(s)
+    && !/再?逮捕|現行犯|(?:書類)?送検|送致|追?起訴(?!内容|状)|指名手配|摘発|検挙/.test(s);
+}
+
+function suppressRemovedQueueItems(items, removedLedger, now = Date.now()) {
+  let suppressed = 0;
+  for (const item of items) {
+    const keyedItem = { ...item, eventKey: item.eventKey || eventFingerprint(item) };
+    if (!publicationLedger.isSuppressed(keyedItem, removedLedger)) continue;
+    if (item.status === 'rejected' && item.rejectReason === 'manual_removal_tombstone') continue;
+    item.status = 'rejected';
+    item.rejectReason = 'manual_removal_tombstone';
+    item.pendingReason = null;
+    item.nextAttemptAt = null;
+    item.terminalAt = new Date(now).toISOString();
+    suppressed++;
+  }
+  return suppressed;
 }
 
 // 各レーンの審査枠の75%を新着、25%を最古の未処理候補に配り、
@@ -937,9 +1031,15 @@ function detectLocation(title) {
   // 1. まず直接の「〇〇県」「〇〇府」「東京都」「北海道」を検索
   for (const pref of PREFECTURES) {
     if (title.includes(pref)) {
-      return pref;
+      const explicitHits = PREFECTURES.filter((candidate) => title.includes(candidate));
+      return explicitHits.length === 1 ? explicitHits[0] : '全国';
     }
   }
+
+  // 市町村辞書には都道府県名そのもの（例: 大阪、鹿児島）もあるため、
+  // 複数地域が見出しにあるときは辞書の列挙順で一県を選ばず不確定にする。
+  const shortRegionHits = PREFECTURES.filter((candidate) => title.includes(candidate.replace(/[都府県]$/, '')));
+  if (shortRegionHits.length > 1) return '全国';
 
   // 2. 市町村名・主要警察署名辞書から逆引き
   for (const [muni, pref] of Object.entries(MUNICIPALITY_MAP)) {
@@ -956,7 +1056,8 @@ function detectLocation(title) {
   for (const pref of PREFECTURES) {
     const shortName = pref.replace(/[都府県]$/, '');
     if (title.includes(shortName)) {
-      return pref;
+      const shortHits = PREFECTURES.filter((candidate) => title.includes(candidate.replace(/[都府県]$/, '')));
+      return shortHits.length === 1 ? shortHits[0] : '全国';
     }
   }
 
@@ -1709,6 +1810,7 @@ function extractItemsFromRSS(xml) {
       const hasForeignKw = FOREIGN_KEYWORDS.some(kw => titleWithoutDomesticChugoku.includes(kw)) ||
                            FOREIGN_KEYWORDS.some(kw => descWithoutDomesticChugoku.includes(kw));
       const hasCrimeKw = CRIME_KEYWORDS.some(kw => title.includes(kw)) || CRIME_KEYWORDS.some(kw => rawDesc.includes(kw));
+      const hasProcedureSignal = isCaseNewsSignal(`${title} ${rawDesc}`);
       const hasExcludeKw = EXCLUDE_KEYWORDS.some(kw => title.includes(kw));
       const isDomestic = isDomesticCrime(title, media);
 
@@ -1734,6 +1836,9 @@ function extractItemsFromRSS(xml) {
       if (isOverseasOrEntertainmentMedia(media)) {
         continue;
       }
+      // Crime-topic explanation, prevention, data and policy articles do not enter the suspect review queue.
+      // This is a case-news filter only; it does not decide nationality or publication eligibility.
+      if (!hasProcedureSignal || isCourtOnlyCoverage(`${title} ${rawDesc}`)) continue;
 
       // タイトルに日本人被疑者の記述があっても、外国人・国籍語が併記される記事は捨てず、
       // 本文で外国籍の共犯者が実際に被疑者側かを確認する。タイトルだけで採否は決めない。
@@ -1753,9 +1858,7 @@ function extractItemsFromRSS(xml) {
       if (location === '全国') {
         location = detectLocation(rawTitle);
       }
-      if (location === '全国' && media) {
-        location = detectLocation(media);
-      }
+      // 配信元の地域は事件発生地の証拠ではない。場所不明は本文ゲートで保留する。
 
       // 日本標準時（JST = UTC+9時間）に補正して日付文字列（YYYY-MM-DD）を生成
       const publicationDate = parsePublicationDate(pubDate);
@@ -1996,6 +2099,15 @@ async function main() {
   // --- 既存の公開データ（197件）の完全凍結ロード ---
   const newsDataPath = getNewsDataPath();
   const queuePath = getQueuePath();
+  const dataDir = path.dirname(newsDataPath);
+  const removedPath = process.env.REMOVED_LEDGER_PATH || path.join(dataDir, 'removed.json');
+  const mergedPath = process.env.MERGED_LEDGER_PATH || path.join(dataDir, 'merged.json');
+  const quarantinePath = process.env.QUARANTINE_LEDGER_PATH || path.join(dataDir, 'quarantine.json');
+  const removedLedger = publicationLedger.loadLedger(removedPath, 'removed');
+  const mergedLedger = publicationLedger.loadLedger(mergedPath, 'merged');
+  const quarantineLedger = publicationLedger.loadLedger(quarantinePath, 'quarantine');
+  let ledgerChanged = false;
+  const mergeRecords = [];
 
   let frozenExisting = [];
   if (fs.existsSync(newsDataPath)) {
@@ -2006,8 +2118,17 @@ async function main() {
       frozenExisting = [];
     }
   }
+  const removedExisting = frozenExisting.filter((item) => publicationLedger.isSuppressed(item, removedLedger));
+  if (removedExisting.length) {
+    frozenExisting = frozenExisting.filter((item) => !publicationLedger.isSuppressed(item, removedLedger));
+    console.log(`🚫 除外台帳に一致する公開記事を除外: ${removedExisting.length} 件`);
+  }
   const existingCountBeforeDedupe = frozenExisting.length;
-  frozenExisting = dedupeExistingHeadlines(frozenExisting);
+  frozenExisting = dedupeExistingHeadlines(frozenExisting, ({ kept, removed, reason }) => {
+    mergeRecords.push({
+      kind: 'existing_headline_merge', kept: ledgerArticleRef(kept), removed: ledgerArticleRef(removed), reason,
+    });
+  });
   const removedExistingHeadlineDuplicates = existingCountBeforeDedupe - frozenExisting.length;
   if (removedExistingHeadlineDuplicates > 0) {
     console.log(`🧹 公開済み重複見出しを統合: 同日・同一見出しの ${removedExistingHeadlineDuplicates} 件を除外`);
@@ -2037,13 +2158,48 @@ async function main() {
   }
 
   const now = Date.now();
-  const TTL_120H_MS = 120 * 60 * 60 * 1000; // 5日間の候補・続報確認窓
+  const removedQueueCount = suppressRemovedQueueItems(queue.items, removedLedger, now);
+  if (removedQueueCount) console.log(`🚫 除外台帳に一致するキュー候補を停止: ${removedQueueCount} 件`);
+  // 続報の紐づけ窓は30日。未審査候補の有効期限（下記72時間）とは別管理。
+  const FOLLOW_UP_WINDOW_DAYS = 30;
 
-  // 検索・続報確認窓（120時間）を過ぎた候補は審査対象から終了し、旧キューを整理する。
+  // 72時間を過ぎた未審査候補は審査対象から終了し、旧キューを整理する。
   const expiredPendingCount = expireStalePendingItems(queue.items, now);
   if (expiredPendingCount > 0) {
-    console.log(`⌛ 120時間経過した候補を審査終了: ${expiredPendingCount} 件`);
+    console.log(`⌛ ${Math.max(1, Number(process.env.PENDING_TTL_HOURS) || 72)}時間経過した候補を審査終了: ${expiredPendingCount} 件`);
   }
+  // Migrate old headline-only entries and quarantine them after their configurable display deadline.
+  let quarantinedHeadlineCount = 0;
+  let quarantineLedgerChanged = false;
+  for (const item of queue.items) {
+    if (!item.headlineOnlyPublished || !item.headlineReviewPending) continue;
+    const publication = frozenExisting.find((entry) => entry.id === item.id
+      || (item.sourceRecordId && entry.sourceRecordId === item.sourceRecordId)
+      || normalizeArticleUrl(entry.url) === normalizeArticleUrl(item.resolvedUrl || item.url));
+    if (!item.headlinePublishedAt) item.headlinePublishedAt = item.firstSeen || item.lastAttemptAt || (publication?.date ? new Date(`${publication.date}T00:00:00+09:00`).toISOString() : new Date(now).toISOString());
+    if (!item.headlineQuarantineAt) item.headlineQuarantineAt = new Date(Date.parse(item.headlinePublishedAt) + Math.max(1, Number(process.env.HEADLINE_PROVISIONAL_TTL_HOURS) || 48) * 60 * 60 * 1000).toISOString();
+    if (!publication || !isHeadlineProvisionalExpired(item, now)) continue;
+    frozenExisting = frozenExisting.filter((entry) => entry !== publication);
+    if (publication.id) existingIds.delete(publication.id);
+    if (publication.sourceRecordId) existingIds.delete(publication.sourceRecordId);
+    if (publication.url) existingNormUrls.delete(normalizeArticleUrl(publication.url));
+    item.status = 'quarantined';
+    item.quarantinedAt = item.quarantinedAt || new Date(now).toISOString();
+    item.headlineReviewNextAt = new Date(now + 24 * 60 * 60 * 1000).toISOString();
+    const appended = publicationLedger.appendRecords(quarantineLedger, [{
+      id: publication.id, sourceRecordId: publication.sourceRecordId || null,
+      url: publication.url, title: publication.title, date: publication.date,
+      eventKey: publication.eventKey || eventFingerprint(publication),
+      reason: 'headline_only_body_unconfirmed_after_deadline', status: 'quarantined',
+    }]);
+    if (appended.added) {
+      publicationLedger.writeLedger(quarantinePath, appended.ledger);
+      quarantineLedger.items = appended.ledger.items;
+      quarantineLedgerChanged = true;
+    }
+    quarantinedHeadlineCount++;
+  }
+  if (quarantinedHeadlineCount) console.log(`🛑 本文未確認の見出し仮掲載を隔離: ${quarantinedHeadlineCount} 件（非表示、本文再確認は継続）`);
   // 旧版で期限切れ扱いになった候補も、120時間以内のものだけ復帰させる。
   const recoveredExpiredPendingCount = recoverExpiredPendingItems(queue.items, now);
   if (recoveredExpiredPendingCount > 0) {
@@ -2063,7 +2219,7 @@ async function main() {
   for (const item of queue.items) {
     if (item.status === 'insufficient_evidence') {
       const effTime = itemEffectiveTime(item);
-      const ttlRemaining = effTime > 0 ? (TTL_120H_MS - (now - effTime)) : TTL_120H_MS;
+      const ttlRemaining = effTime > 0 ? (Math.min(TTL_120H_MS, 72 * 60 * 60 * 1000) - (now - effTime)) : TTL_120H_MS;
       const isEligibleReason = item.reason === 'insufficient_text_length' ||
                                item.reason === 'suspect_identified_nationality_missing' ||
                                item.reason === 'suspect_or_nationality_unclear_in_body';
@@ -2103,6 +2259,11 @@ async function main() {
   let syndicatedAlternativesAttached = 0;
   let refreshedUndatedQueueCount = 0;
   for (const item of uniqueItems) {
+    const candidateWithEventKey = { ...item, eventKey: item.eventKey || eventFingerprint(item) };
+    if (publicationLedger.isSuppressed(candidateWithEventKey, removedLedger)) {
+      console.log(`🚫 除外台帳により候補を抑止: ${item.title}`);
+      continue;
+    }
     const norm = normalizeArticleUrl(item.url);
     const identity = item.sourceRecordId ? `source:${item.sourceRecordId}` : norm;
     if (!identity) continue;
@@ -2120,7 +2281,7 @@ async function main() {
       if (groupedCandidate.status !== 'rejected' && addCandidateAlternative(groupedCandidate, item)) {
         if (groupedCandidate.status === 'gave_up') {
           const effective = itemEffectiveTime(groupedCandidate);
-          if (effective && effective <= now && now - effective < TTL_120H_MS) {
+          if (effective && effective <= now && now - effective < Math.min(TTL_120H_MS, 72 * 60 * 60 * 1000)) {
             groupedCandidate.status = 'pending';
             groupedCandidate.attempts = 0;
             groupedCandidate.pendingReason = null;
@@ -2136,6 +2297,7 @@ async function main() {
     }
 
     queueNormUrls.add(identity);
+    const pubState = publicationAgeState(item.pubDate, now);
     const queuedItem = {
       id: item.id,
       url: item.url,
@@ -2143,9 +2305,9 @@ async function main() {
       title: item.title,
       pubDate: item.pubDate,
       firstSeen: new Date().toISOString(),
-      status: parsePublicationDate(item.pubDate) ? 'pending' : 'unverified',
+      status: pubState.status,
       rejectReason: null,
-      pendingReason: parsePublicationDate(item.pubDate) ? null : 'publication_date_missing',
+      pendingReason: pubState.reason,
       attempts: 0,
       lastAttemptAt: null,
       nextAttemptAt: null,
@@ -2154,7 +2316,7 @@ async function main() {
       location: item.location,
       media: item.media,
       date: item.date,
-      ...(parsePublicationDate(item.pubDate) ? {} : { terminalAt: new Date(now).toISOString() }),
+      ...(pubState.status === 'pending' ? {} : { terminalAt: new Date(now).toISOString() }),
       sourceRecordId: item.sourceRecordId || null,
       sourceType: item.sourceType || null,
       sourceId: item.sourceId || null,
@@ -2206,14 +2368,24 @@ async function main() {
   // 新規アイテム枠: 最大 (maxScanPerRun - retryCandidates.length) 件（空き枠還元）
   const newCandidatesLimit = Math.max(0, maxScanPerRun - retryCandidates.length);
   const newCandidates = eligibleItems.filter((item) => item.attempts === 0);
-  const selectedNewCandidates = prioritizeCandidateLanes(newCandidates, newCandidatesLimit);
+  // 見出しだけで限定合格した記事の本文再確認は最大5件を予約する。
+  // これは新着上限の中で枠を共有し、合計審査数のハード上限を超えない。
+  const headlineReviewLimit = Math.min(5, Math.max(0, maxScanPerRun - retryCandidates.length));
+  const headlineReviewCandidates = prioritizeRecentCandidates(queue.items.filter((item) =>
+    (item.status === 'verified' || item.status === 'quarantined') && item.verificationMode === 'headline_only'
+      && item.headlineReviewPending && Date.parse(item.headlineReviewNextAt || '') <= now
+  )).slice(0, headlineReviewLimit);
+
+  // 再確認枠を引いた残りを新着へ戻す。
+  const adjustedNewLimit = Math.max(0, newCandidatesLimit - headlineReviewCandidates.length);
+  const adjustedNewCandidates = prioritizeCandidateLanes(newCandidates, adjustedNewLimit);
 
   // 今回の審査対象を結合（最大150件厳守）
-  const targetsToScan = [...retryCandidates, ...selectedNewCandidates];
-  console.log(`🔍 本文検証対象: 合計 ${targetsToScan.length} 件 (再試行: ${retryCandidates.length} 件, 新着: ${selectedNewCandidates.length} 件 / 上限 ${maxScanPerRun} 件)`);
+  const targetsToScan = [...retryCandidates, ...headlineReviewCandidates, ...adjustedNewCandidates];
+  console.log(`🔍 本文検証対象: 合計 ${targetsToScan.length} 件 (通信再試行: ${retryCandidates.length} 件, 見出し合格後再確認: ${headlineReviewCandidates.length} 件, 新着: ${adjustedNewCandidates.length} 件 / 上限 ${maxScanPerRun} 件)`);
 
   // --- 本文スキャンと厳格検証の実行 ---
-  let stateChanged = expiredPendingCount > 0 || recoveredExpiredPendingCount > 0 || purgedCount > 0 || newlyEnqueued > 0 || syndicatedAlternativesAttached > 0 || refreshedUndatedQueueCount > 0 || migratedCount > 0 || targetsToScan.length > 0;
+  let stateChanged = removedQueueCount > 0 || expiredPendingCount > 0 || recoveredExpiredPendingCount > 0 || purgedCount > 0 || newlyEnqueued > 0 || syndicatedAlternativesAttached > 0 || refreshedUndatedQueueCount > 0 || migratedCount > 0 || targetsToScan.length > 0;
 
   if (targetsToScan.length > 0) {
     const scanner = articleFetcher.createScanner({
@@ -2224,17 +2396,19 @@ async function main() {
     const retryMetrics = { retryCount: 0, bodyUpdatedCount: 0, verifiedFromRetryCount: 0 };
 
     for (const qItem of targetsToScan) {
-      const isRetry = qItem.attempts > 0;
+      const isHeadlineReview = (qItem.status === 'verified' || qItem.status === 'quarantined') && qItem.verificationMode === 'headline_only';
+      const isRetry = isHeadlineReview || qItem.attempts > 0;
       if (isRetry) retryMetrics.retryCount++;
 
-      qItem.attempts += 1;
+      if (isHeadlineReview) qItem.headlineReviewAttempts = (qItem.headlineReviewAttempts || 0) + 1;
+      else qItem.attempts += 1;
       qItem.lastAttemptAt = new Date().toISOString();
-      qItem.gateVersion = BODY_GATE_VERSION;
+      if (!isHeadlineReview) qItem.gateVersion = BODY_GATE_VERSION;
 
       console.log(`\n📄 [本文検証] 審査開始: ${qItem.title.slice(0, 40)}... (試行 ${qItem.attempts}回目${isRetry ? '・再取得' : ''})`);
 
       let scanResult;
-      if (qItem.sourceBody) {
+      if (shouldUseCachedSourceBody(qItem, isHeadlineReview)) {
         scanResult = { ok: true, text: qItem.sourceBody, resolvedUrl: qItem.url };
       } else {
         // 再試行時、既に resolvedUrl があれば直接元記事を取得し Google News 中継を回避
@@ -2253,6 +2427,11 @@ async function main() {
       if (!scanResult || !scanResult.ok) {
         const reason = (scanResult && scanResult.reason) || 'fetch_failed';
         console.log(`   ⚠️ 本文取得失敗: ${reason}`);
+        if (isHeadlineReview) {
+          qItem.headlineReviewNextAt = nextHeadlineReviewAt(qItem, now);
+          qItem.lastReviewError = reason;
+          continue;
+        }
         qItem.pendingReason = reason;
         if (scheduleCandidateSourceFallback(qItem, reason, now)) {
           console.log(`   🔀 代替媒体へ切替予定: ${qItem.pendingReason}`);
@@ -2260,6 +2439,10 @@ async function main() {
           qItem.status = 'gave_up';
         } else {
           scheduleQueueItem(qItem, { reason }, now);
+          if (acceptHeadlineFallback(qItem, now)) {
+            console.log('   🟡 本文取得不能だが厳格な見出し条件を満たすため、本文再確認付きで仮掲載候補');
+            continue;
+          }
           console.log(`   🔁 通信再試行予定: status=${qItem.status}, next=${qItem.nextAttemptAt || 'none'}`);
         }
         continue;
@@ -2278,8 +2461,16 @@ async function main() {
       // 厳格フェイルクローズ: 本文100文字以上必須（メタ説明文・スニペットのみのすり抜けを完全遮断）
       if (!bodyText || bodyText.length < 100) {
         console.log(`   ⚠️ 本文抽出不足（100文字未満・メタ説明文遮断）: ${bodyText.length}文字`);
+        if (isHeadlineReview) {
+          qItem.headlineReviewNextAt = nextHeadlineReviewAt(qItem, now);
+          qItem.lastReviewError = 'insufficient_text_length';
+          continue;
+        }
         qItem.pendingReason = 'insufficient_text_length';
         scheduleQueueItem(qItem, { reason: 'insufficient_text_length' }, now);
+        if (acceptHeadlineFallback(qItem, now)) {
+          console.log('   🟡 短文のため、厳格な見出し条件を満たすものは本文再確認付きで仮掲載候補');
+        }
         continue;
       }
 
@@ -2289,15 +2480,38 @@ async function main() {
       if (verifyRes.rejected) {
         qItem.status = 'rejected';
         qItem.rejectReason = verifyRes.rejectReason;
+        if (isHeadlineReview) { qItem.headlineOnlyRejected = true; qItem.headlineReviewPending = false; }
         console.log(`   ❌ 厳格除外: 理由 ${verifyRes.rejectReason}`);
       } else if (verifyRes.verified) {
         qItem.status = 'verified';
         qItem.location = verifyRes.location;
         qItem.audit = verifyRes.audit;
+        qItem.verificationMode = 'body';
+        qItem.headlineReviewPending = false;
+        qItem.headlineReviewNextAt = null;
+        for (const entry of quarantineLedger.items) {
+          if (entry.id === qItem.id || (qItem.sourceRecordId && entry.sourceRecordId === qItem.sourceRecordId)) {
+            entry.status = 'restored_after_body_verification';
+            entry.restoredAt = new Date(now).toISOString();
+            quarantineLedgerChanged = true;
+          }
+        }
         if (qItem.activeSourceMedia) qItem.media = qItem.activeSourceMedia;
         if (isRetry) retryMetrics.verifiedFromRetryCount++;
         console.log(`   ✅ 厳格合格！ 現場: ${verifyRes.location}`);
       } else {
+        if (isHeadlineReview) {
+          if (verifyRes.pendingReason === 'topic_mismatch_contamination') {
+            qItem.status = 'rejected';
+            qItem.rejectReason = 'headline_body_topic_mismatch';
+            qItem.headlineOnlyRejected = true;
+            qItem.headlineReviewPending = false;
+            continue;
+          }
+          qItem.headlineReviewNextAt = nextHeadlineReviewAt(qItem, now);
+          qItem.lastReviewError = verifyRes.pendingReason || 'body_review_insufficient_evidence';
+          continue;
+        }
         // 根拠不足（保留）➔ 再試行スケジューラで判定
         qItem.pendingReason = verifyRes.pendingReason;
         if (scheduleCandidateSourceFallback(qItem, verifyRes.pendingReason, now)) {
@@ -2309,13 +2523,67 @@ async function main() {
       }
     }
 
-    if (retryMetrics.retryCount > 0) {
+  if (retryMetrics.retryCount > 0) {
       console.log(`📊 再試行メトリクス: 実施 ${retryMetrics.retryCount} 件, 本文更新 ${retryMetrics.bodyUpdatedCount} 件, 合格救済 ${retryMetrics.verifiedFromRetryCount} 件`);
     }
 
     if (scanner.flush()) {
       stateChanged = true;
     }
+  }
+
+  if (quarantineLedgerChanged) publicationLedger.writeLedger(quarantinePath, {
+    version: quarantineLedger.version || 1, updatedAt: new Date().toISOString(), items: quarantineLedger.items,
+  });
+
+  // 見出し限定で先行掲載した記事は、本文を取得できた時点で表示根拠を置き換える。
+  const headlineQueueById = new Map(queue.items.filter((item) => item.headlineOnlyPublished)
+    .map((item) => [item.id, item]));
+  let refinedHeadlineCount = 0;
+  for (const existing of frozenExisting) {
+    const qItem = headlineQueueById.get(existing.id) || headlineQueueById.get(existing.sourceRecordId);
+    if (!qItem || qItem.status !== 'verified' || qItem.verificationMode !== 'body' || !existing.provisionalHeadlineOnly) continue;
+    existing.location = qItem.location || existing.location;
+    existing.summary = `${existing.location}で発生し、${String(qItem.audit?.foreignNationality?.evidence || '外国籍').replace(/^本文抜粋:\s*/, '')}の被疑者に刑事手続が取られたことを本文で確認した報道です。`;
+    existing.evidence = { suspect: qItem.audit?.suspectRole?.evidence || null, nationality: qItem.audit?.foreignNationality?.evidence || null };
+    existing.locationBasis = qItem.audit?.japanCrime?.evidence || null;
+    existing.gateVersion = qItem.gateVersion || BODY_GATE_VERSION;
+    existing.judgedAt = qItem.lastAttemptAt || new Date().toISOString();
+    existing.verificationMode = 'body';
+    existing.provisionalHeadlineOnly = false;
+    refinedHeadlineCount++;
+  }
+
+  // 本文で見出し判定が明確に否定された場合は、その公開レコードだけを除き、再掲載も抑止する。
+  const rejectedHeadlineReviews = queue.items.filter((item) => item.headlineOnlyRejected);
+  let removedByBodyReview = 0;
+  if (rejectedHeadlineReviews.length) {
+    for (const qItem of rejectedHeadlineReviews) {
+      const removed = frozenExisting.filter((item) => item.id === qItem.id
+        || (qItem.sourceRecordId && item.sourceRecordId === qItem.sourceRecordId)
+        || normalizeArticleUrl(item.url) === normalizeArticleUrl(qItem.resolvedUrl || qItem.url));
+      if (!removed.length) continue;
+      removedByBodyReview += removed.length;
+      const tombstones = removed.map((item) => ({
+        id: item.id, sourceRecordId: item.sourceRecordId || null, url: item.url,
+        title: item.title, date: item.date, reason: `headline_provisional_rejected_by_body:${qItem.rejectReason || 'body_rejected'}`,
+        eventKey: item.eventKey || eventFingerprint({ ...item, audit: item.audit || qItem.audit }),
+        actor: 'pipeline_body_review',
+      }));
+      const appended = publicationLedger.appendRecords(removedLedger, tombstones);
+      if (appended.added) {
+        publicationLedger.writeLedger(removedPath, appended.ledger);
+        removedLedger.items = appended.ledger.items;
+        ledgerChanged = true;
+      }
+      for (const item of removed) {
+        frozenExisting = frozenExisting.filter((candidate) => candidate !== item);
+        if (item.id) existingIds.delete(item.id);
+        if (item.sourceRecordId) existingIds.delete(item.sourceRecordId);
+        if (item.url) existingNormUrls.delete(normalizeArticleUrl(item.url));
+      }
+    }
+    if (removedByBodyReview) stateChanged = true;
   }
 
   const queueStatusCounts = queue.items.reduce((counts, item) => {
@@ -2327,7 +2595,8 @@ async function main() {
     const timestamp = Date.parse(item.pubDate || item.firstSeen || '');
     return Number.isFinite(timestamp) ? now - timestamp : null;
   }).filter((age) => age !== null && age >= 0);
-  const olderThan96h = pendingAges.filter((age) => age >= TTL_120H_MS - 24 * 60 * 60 * 1000).length;
+  const pendingTtlMs = Math.max(1, Number(process.env.PENDING_TTL_HOURS) || 72) * 60 * 60 * 1000;
+  const olderThanTtlBuffer = pendingAges.filter((age) => age >= pendingTtlMs - 24 * 60 * 60 * 1000).length;
   const oldestPendingHours = pendingAges.length
     ? Math.floor(pendingAges.reduce((oldest, age) => Math.max(oldest, age), 0) / (60 * 60 * 1000))
     : null;
@@ -2343,14 +2612,14 @@ async function main() {
   }).length;
   const freshCapacityPerHour = isBodyScanDisabled
     ? 0
-    : Math.max(0, maxScanPerRun - retrySlotLimit(maxScanPerRun));
+    : Math.max(0, maxScanPerRun - retrySlotLimit(maxScanPerRun) - headlineReviewCandidates.length);
   const arrivalRatePerHour = arrivalsLast24h / 24;
   const netDrainPerHour = freshCapacityPerHour - arrivalRatePerHour;
   const estimatedDrainHours = pendingItems.length === 0 ? 0
     : netDrainPerHour > 0 ? Math.ceil(pendingItems.length / netDrainPerHour) : null;
   const unverifiedCount = (queueStatusCounts.unverified || 0) + (queueStatusCounts.insufficient_evidence || 0);
   console.log(`📊 キュー状態: pending=${pendingItems.length}, verified=${queueStatusCounts.verified || 0}, unverified=${unverifiedCount}, rejected=${queueStatusCounts.rejected || 0}, gave_up=${queueStatusCounts.gave_up || 0}`);
-  console.log(`⏳ pending内訳: 明示外国籍=${laneCounts.explicit_foreign || 0}, 広域発見=${laneCounts.broad_discovery || 0}, 96時間超=${olderThan96h}, 最古=${oldestPendingHours === null ? 'なし' : `${oldestPendingHours}時間`}`);
+  console.log(`⏳ pending内訳: 明示外国籍=${laneCounts.explicit_foreign || 0}, 広域発見=${laneCounts.broad_discovery || 0}, TTL残り24時間未満=${olderThanTtlBuffer}, 最古=${oldestPendingHours === null ? 'なし' : `${oldestPendingHours}時間`}`);
   console.log(`📈 容量監視: 直近24時間の候補流入=${arrivalsLast24h}件（${arrivalRatePerHour.toFixed(1)}件/時）, 新規審査上限=${freshCapacityPerHour}件/時, 現在のpending解消予測=${estimatedDrainHours === null ? '流入が審査能力以上' : `${estimatedDrainHours}時間`}`);
   if (process.env.GITHUB_STEP_SUMMARY) {
     const summary = [
@@ -2360,12 +2629,12 @@ async function main() {
       '|---|---:|',
       `| 今回の本文審査 | ${targetsToScan.length} |`,
       `| 同一候補グループへ束ねた別媒体URL | ${syndicatedAlternativesAttached} |`,
-      `| 120時間経過で審査終了 | ${expiredPendingCount} |`,
+      `| 72時間経過で審査終了 | ${expiredPendingCount} |`,
       `| 未審査 pending | ${pendingItems.length} |`,
       `| 旧期限切れから再審査キューへ復帰 | ${recoveredExpiredPendingCount} |`,
       `| pending: 明示的な外国籍手掛かり | ${laneCounts.explicit_foreign || 0} |`,
       `| pending: 広域発見候補 | ${laneCounts.broad_discovery || 0} |`,
-      `| 96時間を超えた審査待ち候補 | ${olderThan96h} |`,
+      `| TTL残り24時間未満の審査待ち候補 | ${olderThanTtlBuffer} |`,
       `| 最古のpending候補の経過時間 | ${oldestPendingHours === null ? 'なし' : `${oldestPendingHours}時間`} |`,
       `| 直近24時間の候補流入 | ${arrivalsLast24h} (${arrivalRatePerHour.toFixed(1)}件/時) |`,
       `| 新規候補の審査能力 | ${freshCapacityPerHour}件/時 |`,
@@ -2401,6 +2670,7 @@ async function main() {
       fingerprint: eventFingerprint(queueEvidence ? { ...item, audit: queueEvidence.audit } : item),
       headlineKey: publicationHeadlineKey(item),
       date: item.date,
+      item: queueEvidence ? { ...item, audit: queueEvidence.audit } : item,
     };
   });
   const knownHeadlineKeys = new Set(knownEvents.map((event) => event.headlineKey).filter(Boolean));
@@ -2418,6 +2688,11 @@ async function main() {
   for (const v of newlyVerified) {
     const normUrl = normalizeArticleUrl(v.url);
     const normResolved = v.resolvedUrl ? normalizeArticleUrl(v.resolvedUrl) : null;
+
+    if (publicationLedger.isSuppressed({ ...v, eventKey: eventFingerprint(v) }, removedLedger)) {
+      console.log(`🚫 除外台帳により公開を抑止: ${v.title}`);
+      continue;
+    }
 
     // 1. 既存掲載データとの照合
     if (existingIds.has(v.id) || (v.sourceRecordId && existingIds.has(v.sourceRecordId)) || (!v.sourceRecordId && (existingNormUrls.has(normUrl) || (normResolved && existingNormUrls.has(normResolved))))) {
@@ -2439,9 +2714,19 @@ async function main() {
       console.log(`   ⏩ 同日・同一見出しの媒体違いを重複除外: ${v.title}`);
       continue;
     }
-    const sameAsExisting = frozenExisting.find((e) => eventDedupe.sameEventReason(withQueueAudit(e), v));
-    if ((fingerprint && knownEvents.some((e) => e.fingerprint === fingerprint && withinFiveDays(e.date, v.date)))
-      || sameAsExisting) {
+    const sameFingerprintEvent = fingerprint
+      ? knownEvents.find((e) => e.fingerprint === fingerprint)
+      : null;
+    const sameAsExisting = frozenExisting.find((e) => eventDedupe.sameEventReason(withQueueAudit(e), v, { maxDays: FOLLOW_UP_WINDOW_DAYS }));
+    const sameKnownEvent = knownEvents.find((e) => eventDedupe.sameEventReason(e.item, v, { maxDays: FOLLOW_UP_WINDOW_DAYS }));
+    const priorEvent = sameAsExisting || sameKnownEvent?.item || sameFingerprintEvent?.item || null;
+    const priorRelation = priorEvent && eventDedupe.sameEventReason(withQueueAudit(priorEvent), v, { maxDays: 5 });
+    const followUpRelation = priorEvent && eventDedupe.isFollowUp(priorEvent, v)
+      && (eventDedupe.sameEventReason(withQueueAudit(priorEvent), v, { maxDays: FOLLOW_UP_WINDOW_DAYS })
+        || (sameFingerprintEvent && sameFingerprintEvent.item === priorEvent));
+    const isFollowUp = Boolean(followUpRelation);
+    const fingerprintIsRecentDuplicate = sameFingerprintEvent && withinFiveDays(sameFingerprintEvent.date, v.date) && !isFollowUp;
+    if (fingerprintIsRecentDuplicate || (priorRelation && !isFollowUp)) {
       console.log(`   ⏩ 別媒体の同一事件を重複除外: ${v.title}`);
       continue;
     }
@@ -2455,14 +2740,43 @@ async function main() {
       media: v.media,
       ...(fingerprint ? { eventKey: fingerprint } : {}),
       url: v.resolvedUrl || v.url,
-      summary: `${v.location}で発生した外国人関与の事件・容疑に関する報道速報です。`,
+      summary: v.verificationMode === 'headline_only'
+        ? `${v.location}の事件として見出しから確認。本文は取得でき次第再確認します。`
+        : `${v.location}で発生し、${String(v.audit?.foreignNationality?.evidence || '外国籍').replace(/^本文抜粋:\s*/, '')}の被疑者に刑事手続が取られたことを本文で確認した報道です。`,
+      evidence: {
+        suspect: v.audit?.suspectRole?.evidence || null,
+        nationality: v.audit?.foreignNationality?.evidence || null,
+      },
+      locationBasis: v.audit?.japanCrime?.evidence || null,
+      gateVersion: v.gateVersion || BODY_GATE_VERSION,
+      judgedAt: v.lastAttemptAt || new Date().toISOString(),
+      legacy: false,
+      verificationMode: v.verificationMode || 'body',
+      provisionalHeadlineOnly: v.verificationMode === 'headline_only',
+      ...(v.verificationMode === 'headline_only' ? {
+        headlinePublishedAt: v.headlinePublishedAt || new Date().toISOString(),
+        headlineQuarantineAt: v.headlineQuarantineAt || new Date(Date.now() + Math.max(1, Number(process.env.HEADLINE_PROVISIONAL_TTL_HOURS) || 48) * 60 * 60 * 1000).toISOString(),
+      } : {}),
       audited: true
     };
+    if (isFollowUp) {
+      publication.followUp = true;
+      publication.followUpOf = priorEvent.id || priorEvent.sourceRecordId || null;
+      publication.followUpStage = eventDedupe.procedureStage(v);
+    }
 
     // バッチ内で既に採用された合格記事との同一事件照合（汎用判定エンジンを使用）
     const sameInBatchIndex = acceptedNew.findIndex((a) => eventDedupe.sameEventReason(a, v));
     if (sameInBatchIndex !== -1) {
       const duplicate = acceptedNew[sameInBatchIndex];
+      if (eventDedupe.isFollowUp(duplicate, v)) {
+        publication.followUp = true;
+        publication.followUpOf = duplicate.id || duplicate.sourceRecordId || null;
+        publication.followUpStage = eventDedupe.procedureStage(v);
+        acceptedNew.push(publication);
+        console.log(`   📰 同一事件の続報として別記事掲載: ${v.title}`);
+        continue;
+      }
       if (publicationSourceRank(publication.url) > publicationSourceRank(duplicate.url)) {
         acceptedNew[sameInBatchIndex] = publication;
         console.log(`   🔁 同一事件の出典を元メディアへ置換: ${v.title}`);
@@ -2484,6 +2798,34 @@ async function main() {
 
   console.log(`\n🎉 新規合格・掲載対象記事: ${acceptedNew.length} 件`);
 
+  // --- 自己修復: 直近5日分で同一事件が複数掲載されていれば初報だけ残す ---
+  const healed = eventDedupe.healRecentDuplicates([...acceptedNew, ...frozenExisting], {
+    auditOf: (item) => auditByUrl.get(normalizeArticleUrl(item.url || '')) || null,
+    windowDays: 5, now, rank: publicationSourceRank,
+  });
+  healed.removed.forEach((r) => console.log(`   🧹 同一事件を自動統合 [${r.reason}] 残: ${r.kept} / 消: ${r.removed}`));
+  const healedSet = new Set(healed.items);
+  acceptedNew = acceptedNew.filter((x) => healedSet.has(x));
+  frozenExisting = frozenExisting.filter((x) => healedSet.has(x));
+
+  mergeRecords.push(...healed.removed.map((record) => ({
+    kind: 'automatic_merge', kept: ledgerArticleRef(record.keptItem),
+    removed: ledgerArticleRef(record.removedItem), reason: record.reason,
+  })));
+  if (mergeRecords.length) {
+    const appended = publicationLedger.appendRecords(mergedLedger, mergeRecords);
+    if (appended.added) {
+      publicationLedger.writeLedger(mergedPath, appended.ledger);
+      ledgerChanged = true;
+    }
+  }
+  if (quarantineLedgerChanged) publicationLedger.writeLedger(quarantinePath, {
+    version: quarantineLedger.version || 1, updatedAt: new Date().toISOString(), items: quarantineLedger.items,
+  });
+  if (ledgerChanged && process.env.GITHUB_OUTPUT) {
+    try { fs.appendFileSync(process.env.GITHUB_OUTPUT, 'ledger_changed=true\n'); } catch (_) {}
+  }
+
   const candidatesByMedia = uniqueItems.reduce((counts, item) => {
     const media = String(item.media || item.sourceId || '報道元不明').trim().slice(0, 100);
     counts[media] = (counts[media] || 0) + 1;
@@ -2495,8 +2837,8 @@ async function main() {
     return counts;
   }, {});
 
-  // Keep a compact rolling record of source health and queue throughput. It is
-  // cached by Actions, excluded from site builds, and contains no article text or URLs.
+  // Metrics are recorded after automatic deduplication so "published" means
+  // articles that actually remain in the public dataset.
   if (!process.env.TEST_SEARCH_QUERIES) {
     const metricsPath = process.env.PIPELINE_METRICS_PATH || path.join(path.dirname(queuePath), 'pipelineMetrics.json');
     let history = { version: 1, runs: [] };
@@ -2517,9 +2859,16 @@ async function main() {
         newlyEnqueued,
         syndicatedAlternativesAttached,
         scanned: targetsToScan.length,
+        processed: targetsToScan.length,
+        expiredPending: expiredPendingCount,
+        quarantinedHeadline: quarantinedHeadlineCount,
         retries: retryCandidates.length,
         recoveredExpired: recoveredExpiredPendingCount,
         published: acceptedNew.length,
+        merged: mergeRecords.length,
+        removedByTombstone: removedExisting.length,
+        rejectedHeadlineReviewRemovals: removedByBodyReview,
+        refinedHeadlineRecords: refinedHeadlineCount,
         pending: pendingItems.length,
         verified: queueStatusCounts.verified || 0,
         unverified: unverifiedCount,
@@ -2539,23 +2888,13 @@ async function main() {
       catch (err) { console.warn(`取得元履歴サマリーの記録失敗: ${err.message}`); }
     }
     if (process.env.GITHUB_OUTPUT) {
-      try { fs.appendFileSync(process.env.GITHUB_OUTPUT, 'state_changed=true\n'); }
-      catch (_) {}
+      try { fs.appendFileSync(process.env.GITHUB_OUTPUT, 'state_changed=true\n'); } catch (_) {}
     }
   }
 
-  // --- 自己修復: 直近5日分で同一事件が複数掲載されていれば初報だけ残す ---
-  const healed = eventDedupe.healRecentDuplicates([...acceptedNew, ...frozenExisting], {
-    auditOf: (item) => auditByUrl.get(normalizeArticleUrl(item.url || '')) || null,
-    windowDays: 5, now, rank: publicationSourceRank,
-  });
-  healed.removed.forEach((r) => console.log(`   🧹 同一事件を自動統合 [${r.reason}] 残: ${r.kept} / 消: ${r.removed}`));
-  const healedSet = new Set(healed.items);
-  acceptedNew = acceptedNew.filter((x) => healedSet.has(x));
-  frozenExisting = frozenExisting.filter((x) => healedSet.has(x));
-
   // --- 既存データとの結合と保存（差分ゼロ保護） ---
-  if (acceptedNew.length === 0 && removedExistingHeadlineDuplicates === 0 && healed.removed.length === 0) {
+  if (acceptedNew.length === 0 && removedExisting.length === 0 && quarantinedHeadlineCount === 0 && removedExistingHeadlineDuplicates === 0
+    && removedByBodyReview === 0 && refinedHeadlineCount === 0 && healed.removed.length === 0) {
     console.log('✅ 新着の合格記事はありませんでした。newsData.json の更新をスキップします（差分ゼロ保護）。');
     return;
   }
@@ -2586,6 +2925,8 @@ module.exports = {
   fetchRSS,
   extractItemsFromRSS,
   parsePublicationDate,
+  publicationAgeState,
+  detectLocation,
   reconcileQueuedPublicationDate,
   cleanTitleText,
   normalizeArticleUrl,
@@ -2606,6 +2947,13 @@ module.exports = {
   prioritizeCandidateLanes,
   maxBodyScanPerRun: (configured = process.env.BODY_SCAN_MAX) => Math.min(Math.max(1, Number(configured) || 150), 150),
   scheduleQueueItem,
+  acceptHeadlineFallback,
+  isHeadlineProvisionalExpired,
+  nextHeadlineReviewAt,
+  shouldUseCachedSourceBody,
+  isCaseNewsSignal,
+  isCourtOnlyCoverage,
+  suppressRemovedQueueItems,
   itemEffectiveTime,
   shouldRetainQueueItem,
   expireStalePendingItems,

@@ -27,11 +27,70 @@ const CRIME_GROUPS = [
 
 const nfkc = (s) => String(s || '').normalize('NFKC');
 
+// 地域は文字列一致ではなく階層として比較する。含有関係・不明は矛盾にしない。
+function locationHierarchy(item = {}) {
+  const evidence = [item.location, item.title, item.audit?.japanCrime?.evidence,
+    item.audit?.suspectRole?.evidence].filter(Boolean).join(' ').replace(/本文抜粋:\s*/g, '').normalize('NFKC');
+  const prefMatch = evidence.match(/北海道|東京都|京都府|大阪府|(?:青森|岩手|宮城|秋田|山形|福島|茨城|栃木|群馬|埼玉|千葉|神奈川|新潟|富山|石川|福井|山梨|長野|岐阜|静岡|愛知|三重|滋賀|兵庫|奈良|和歌山|鳥取|島根|岡山|広島|山口|徳島|香川|愛媛|高知|福岡|佐賀|長崎|熊本|大分|宮崎|鹿児島|沖縄)県/);
+  const shortPref = evidence.match(/(?:^|[・\s　])(?:北海道|東京|京都|大阪|青森|岩手|宮城|秋田|山形|福島|茨城|栃木|群馬|埼玉|千葉|神奈川|新潟|富山|石川|福井|山梨|長野|岐阜|静岡|愛知|三重|滋賀|兵庫|奈良|和歌山|鳥取|島根|岡山|広島|山口|徳島|香川|愛媛|高知|福岡|佐賀|長崎|熊本|大分|宮崎|鹿児島|沖縄)(?=[・\s　])/);
+  const pref = prefMatch?.[0] || (shortPref ? `${shortPref[0].trim()}${['東京'].includes(shortPref[0].trim()) ? '都' : ['京都','大阪'].includes(shortPref[0].trim()) ? '府' : '県'}` : null);
+  const localityText = evidence.replace(/北海道|東京都|京都府|大阪府|(?:青森|岩手|宮城|秋田|山形|福島|茨城|栃木|群馬|埼玉|千葉|神奈川|新潟|富山|石川|福井|山梨|長野|岐阜|静岡|愛知|三重|滋賀|兵庫|奈良|和歌山|鳥取|島根|岡山|広島|山口|徳島|香川|愛媛|高知|福岡|佐賀|長崎|熊本|大分|宮崎|鹿児島|沖縄)県/g, ' ');
+  const localityMatches = [...localityText.matchAll(/([一-龥々ァ-ヶー]{1,10}市(?:[一-龥々ァ-ヶー]{1,8}区)?|[一-龥々ァ-ヶー]{1,8}区|[一-龥々ァ-ヶー]{1,8}[町村])/g)];
+  const locality = localityMatches.map((m) => m[1]).find((x) => !/(警察署|入管|地裁|地検|区検|市役所)$/.test(x)) || null;
+  return { pref, locality };
+}
+
+function compareLocations(a, b) {
+  const x = locationHierarchy(typeof a === 'string' ? { location: a } : a);
+  const y = locationHierarchy(typeof b === 'string' ? { location: b } : b);
+  if (x.pref && y.pref && x.pref !== y.pref) return 'conflict';
+  if (x.locality && y.locality) {
+    if (x.locality === y.locality || x.locality.startsWith(y.locality) || y.locality.startsWith(x.locality)) return 'compatible';
+    return 'conflict';
+  }
+  if (x.pref && y.pref && x.pref === y.pref) return 'compatible';
+  if (x.pref && y.locality && y.locality.startsWith(x.pref.replace(/[都道府県]$/, ''))) return 'compatible';
+  if (y.pref && x.locality && x.locality.startsWith(y.pref.replace(/[都道府県]$/, ''))) return 'compatible';
+  return 'unknown';
+}
+
+function moreSpecificLocation(a, b) {
+  const x = locationHierarchy(typeof a === 'string' ? { location: a } : a);
+  const y = locationHierarchy(typeof b === 'string' ? { location: b } : b);
+  const score = (v) => (v.pref ? 1 : 0) + (v.locality ? 2 : 0);
+  const chosen = score(y) > score(x) ? y : x;
+  if (chosen.pref && chosen.locality) return `${chosen.pref}${chosen.locality}`;
+  return score(y) > score(x) ? (typeof b === 'string' ? b : b.location) : (typeof a === 'string' ? a : a.location);
+}
+
+function procedureStage(item) {
+  const title = nfkc(item?.title || '');
+  if (/再逮捕/.test(title)) return 'rearrest';
+  if (/(?:書類)?送検|送致/.test(title)) return 'referral';
+  if (/追起訴|起訴/.test(title)) return 'indictment';
+  if (/不起訴|処分保留/.test(title)) return 'disposition';
+  if (/初公判|公判|求刑|判決|有罪判決|無罪判決/.test(title)) return 'trial';
+  if (/逮捕|身柄確保/.test(title)) return 'arrest';
+  return null;
+}
+
+function isFollowUp(older, newer) {
+  const olderStage = procedureStage(older);
+  const newerStage = procedureStage(newer);
+  const olderDate = Date.parse(older?.date || '');
+  const newerDate = Date.parse(newer?.date || '');
+  return Boolean(olderStage && newerStage && olderStage !== newerStage
+    && Number.isFinite(olderDate) && Number.isFinite(newerDate) && newerDate > olderDate);
+}
+
 function signals(item) {
   const evidence = [item.audit?.suspectRole?.evidence, item.audit?.japanCrime?.evidence, item.audit?.foreignNationality?.evidence]
     .filter(Boolean).join(' ').replace(/本文抜粋:\s*/g, '');
   const title = nfkc(item.title).replace(/\s*\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*\d{1,2}:\d{2}\s*$/, '').replace(/\s*\d+(?:分|時間)前\s*$/, '');
   const text = `${nfkc(evidence)} ${title}`;
+  // 手続段階が見出しで明示されている場合は、同じ事件の続報も別記事として残す。
+  // 本文中の過去経緯（「再逮捕」等）で段階を誤分類しないよう、まず見出しだけを見る。
+  const stage = procedureStage(item);
   const nats = new Set([...text.matchAll(NAT_RE)].map((m) => NAT_ALIAS[m[1]] || m[1]));
   if (US_MILITARY_RE.test(text)) nats.add('アメリカ');
   const ages = new Set([...text.matchAll(/(?:[（(](\d{2})[）)]|(\d{2})歳)/g)].map((m) => m[1] || m[2]));
@@ -51,7 +110,7 @@ function signals(item) {
     .replace(/再逮捕|逮捕|送検|起訴|容疑|疑い|の男|の女|男性|女性|男ら|女ら|自称|無職|会社員|会社役員|現行犯|警察|警視庁|県警|府警|道警|署|事件|だまし取った|だまし取|取った|盗んだ|現金|した|された|して|か$|など|ニュース|NEWS|掲載|日掲載|月|年|#/g, '');
   const content = new Set();
   for (let i = 0; i < c.length - 1; i++) content.add(c.slice(i, i + 2));
-  return { nats, ages, genders, places, crimes, grams, content, suspectNames: suspectNames(item), location: item.location || '' };
+  return { nats, ages, genders, places, crimes, grams, content, suspectNames: suspectNames(item), location: item.location || '', procedureStage: stage };
 }
 
 const intersects = (a, b) => [...a].some((x) => b.has(x));
@@ -115,10 +174,11 @@ function sameEventReason(a, b, { maxDays = 5 } = {}) {
     && sameCrime
     && a.date === b.date
     && a.location === b.location;
-  const locConflict = sa.location && sb.location && sa.location !== '全国' && sb.location !== '全国' && sa.location !== sb.location;
-  if (locConflict && !samePlace && !sameNamedSuspect) return null;
+  const locationRelation = compareLocations(a, b);
+  if (locationRelation === 'conflict' && !sameNamedSuspect) return null;
   const agesConflict = sa.ages.size && sb.ages.size && !sameAge;
-  const placesConflict = sa.places.size && sb.places.size && !samePlace;
+  const placesConflict = locationRelation === 'conflict'
+    || (locationRelation === 'unknown' && sa.places.size && sb.places.size && !samePlace);
   if (agesConflict || (placesConflict && !sameNamedSuspect)) return null;
   if (sa.genders.size && sb.genders.size && !intersects(sa.genders, sb.genders)) return null;
   if (sameNamedSuspect) return '本文の容疑者氏名+年齢+罪種+同日同県';
@@ -150,16 +210,24 @@ function healRecentDuplicates(items, { auditOf = () => null, windowDays = 5, now
       const a = { ...recent[i].item, _sig: recent[i].sig }; const b = { ...recent[j].item, _sig: recent[j].sig };
       const reason = sameEventReason(a, b);
       if (!reason) continue;
+      if (isFollowUp(recent[i].item, recent[j].item)) continue;
       // 同日なら報道元の格付けが高い方を残す
       const keepJ = recent[i].item.date === recent[j].item.date && rank(recent[j].item.url) > rank(recent[i].item.url);
       const loser = keepJ ? recent[i].item : recent[j].item;
       const winner = keepJ ? recent[j].item : recent[i].item;
       drop.add(loser);
-      removed.push({ kept: winner.title, removed: loser.title, reason });
+      removed.push({ kept: winner.title, removed: loser.title, reason, keptItem: winner, removedItem: loser });
       if (keepJ) break;
     }
   }
-  return { items: items.filter((x) => !drop.has(x)), removed };
+  const kept = items.filter((x) => !drop.has(x));
+  const enriched = kept.map((item) => {
+    const merged = removed.find((r) => r.keptItem === item && locationHierarchy(r.removedItem).locality);
+    if (!merged || locationHierarchy(item).locality) return item;
+    const location = moreSpecificLocation(item, merged.removedItem);
+    return location && location !== item.location ? { ...item, location } : item;
+  });
+  return { items: enriched, removed };
 }
 
-module.exports = { signals, sameEventReason, healRecentDuplicates };
+module.exports = { signals, procedureStage, isFollowUp, compareLocations, locationHierarchy, moreSpecificLocation, sameEventReason, healRecentDuplicates };

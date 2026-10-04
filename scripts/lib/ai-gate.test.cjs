@@ -294,3 +294,29 @@ test('bodyContext の国籍が被害者のものだけなら却下', () => {
   const it2 = { ...item('傷害容疑で男を逮捕 兵庫県警'), bodyContext: '被害に遭ったのはベトナム国籍の女性(25)で、' };
   assert.equal(gate.verifyItem(it2, ai({ suspectEvidence: 'ベトナム国籍の女性(25)', locationEvidence: '兵庫県警' })).status, 'rejected');
 });
+
+test('見出し限定ゲート: 明示国籍・被疑者・犯罪・国内地名が揃うと本文未取得の限定判定を許可', () => {
+  const result = gate.verifyHeadlineOnly('群馬県大泉町で住宅侵入、ブラジル国籍の男を逮捕');
+  assert.equal(result.verified, true);
+  assert.equal(result.location, '群馬県');
+  assert.match(result.audit.foreignNationality.evidence, /^見出し根拠:/);
+  assert.match(result.audit.japanCrime.evidence, /^見出し根拠:/);
+});
+
+test('見出し限定ゲート: 国内地名が無い事件、被害者側、海外事件は本文なしでは通さない', () => {
+  assert.equal(gate.verifyHeadlineOnly('中国籍の男を窃盗容疑で逮捕').verified, false);
+  assert.equal(gate.verifyHeadlineOnly('ベトナム国籍の女性が路上で刺され死亡').verified, false);
+  assert.equal(gate.verifyHeadlineOnly('タイ国内でタイ国籍の男を窃盗容疑で逮捕').verified, false);
+});
+
+test('見出し限定ゲート: 夫婦のカメ密輸見出しは国籍・被疑者側の明示がなく仮掲載しない', () => {
+  const result = gate.verifyHeadlineOnly('国際希少野生動植物種を密輸しようとした疑いで京都市の夫婦を逮捕 関西国際空港');
+  assert.equal(result.verified, false);
+});
+
+test('本文ゲート: 外国籍被疑者が確認できず日本人被疑者と明示されたら明確に却下する', () => {
+  const text = '東京都新宿区の路上で暴行事件がありました。警視庁は日本人の男を傷害容疑で逮捕し、詳しい経緯を調べています。現場では目撃者への聞き取りも行われました。';
+  const result = gate.verifyArticleContent(text, '東京都新宿区の暴行事件');
+  assert.equal(result.rejected, true);
+  assert.equal(result.rejectReason, 'suspect_is_japanese');
+});

@@ -4,16 +4,24 @@ import newsData from '../data/newsData.json';
 
 interface NewsItem {
   id: string;
+  sourceRecordId?: string;
   title: string;
   date: string;
   location: string;
   media: string;
   url: string;
   summary: string;
+  followUp?: boolean;
+  followUpOf?: string | null;
+  provisionalHeadlineOnly?: boolean;
 }
 
 export const CrimeNewsSection: React.FC = () => {
   const items: NewsItem[] = newsData as NewsItem[];
+  const itemsById = new Map(items.flatMap((item) => [
+    [item.id, item] as const,
+    ...(item.sourceRecordId ? [[item.sourceRecordId, item] as const] : []),
+  ]));
   // 直近（最新日）の事件は件数に関わらず漏れなく全件表示（最低4件保証）
   const latestDate = items[0]?.date;
   const latestDateNewsCount = items.filter(item => item.date === latestDate).length;
@@ -70,6 +78,27 @@ export const CrimeNewsSection: React.FC = () => {
                   <span className="text-xs text-gray-400">
                     • 出典: <strong className="text-gray-300 font-normal">{item.media}</strong>
                   </span>
+                  {item.followUp && (
+                    <span className="inline-flex items-center gap-1.5 rounded-md border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-xs font-semibold text-amber-300">
+                      続報
+                      {item.followUpOf && itemsById.get(item.followUpOf)?.url && (
+                        <a
+                          href={itemsById.get(item.followUpOf)?.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline underline-offset-2 hover:text-amber-100"
+                          aria-label="初報を開く"
+                        >
+                          初報
+                        </a>
+                      )}
+                    </span>
+                  )}
+                  {item.provisionalHeadlineOnly && (
+                    <span className="inline-flex items-center rounded-md border border-sky-500/40 bg-sky-500/10 px-2 py-0.5 text-xs font-semibold text-sky-300">
+                      見出しで先行掲載・本文確認中
+                    </span>
+                  )}
                 </div>
 
                 <h3 className="text-lg md:text-xl font-bold text-gray-100 group-hover/card:text-red-400 transition-colors mb-2 leading-snug">

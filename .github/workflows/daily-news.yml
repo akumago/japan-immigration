@@ -68,6 +68,8 @@ jobs:
           # 本文スキャン有効化（1:有効 / 0:無効）。障害時はリポジトリ変数 BODY_SCAN を 0 にするだけで即時停止可能
           BODY_SCAN: ${{ vars.BODY_SCAN || '1' }}
           BODY_SCAN_MAX: ${{ vars.BODY_SCAN_MAX || '150' }}
+          PENDING_TTL_HOURS: ${{ vars.PENDING_TTL_HOURS || '72' }}
+          HEADLINE_PROVISIONAL_TTL_HOURS: ${{ vars.HEADLINE_PROVISIONAL_TTL_HOURS || '48' }}
 
       # トップはJST当日分だけを表示するため、ニュース0件の日も日付切替後に静的HTMLを更新する。
       - name: Refresh static page for Japan date rollover
@@ -92,6 +94,11 @@ jobs:
           else
             echo "has_news_changes=false" >> "$GITHUB_OUTPUT"
           fi
+          if [ -n "$(git status --porcelain data/removed.json data/merged.json data/quarantine.json)" ]; then
+            echo "has_ledger_changes=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_ledger_changes=false" >> "$GITHUB_OUTPUT"
+          fi
           if [ "${{ steps.site-date.outputs.date_changed }}" = "true" ] || [ "$(git status --porcelain data/newsData.json data/site-build-date.txt)" != "" ]; then
             echo "has_site_changes=true" >> "$GITHUB_OUTPUT"
             echo "Site data changed. Proceeding to build and deploy."
@@ -105,7 +112,7 @@ jobs:
         run: npm run build
 
       - name: Commit, Sync and Push
-        if: steps.check-diff.outputs.has_site_changes == 'true'
+        if: steps.check-diff.outputs.has_site_changes == 'true' || steps.check-diff.outputs.has_ledger_changes == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"

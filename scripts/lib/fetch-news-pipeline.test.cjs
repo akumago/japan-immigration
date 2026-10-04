@@ -6,50 +6,51 @@ const os = require('os');
 const path = require('path');
 const gate = require('./ai-gate.cjs');
 const articleFetcher = require('./article-fetcher.cjs');
+const eventDedupe = require('./event-dedupe.cjs');
 const fetchNews = require('../fetch-news.cjs');
 
 const tmpDir = () => fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-test-'));
 
-test('pipeline: 120時間超のpendingは審査対象から外し、終端レコードは30日監査保持する', () => {
+test('pipeline: 72時間超のpendingは審査対象から外し、終端レコードは30日監査保持する', () => {
   const now = 1_000_000_000_000;
   const dayMs = 24 * 3600 * 1000;
 
   const overduePending = { pubDate: new Date(now - 6 * dayMs).toISOString(), firstSeen: new Date(now - 6 * dayMs).toISOString(), status: 'pending', sourceBody: 'body' };
-  const recentPending = { pubDate: new Date(now - 119 * 3600 * 1000).toISOString(), status: 'pending' };
+  const recentPending = { pubDate: new Date(now - 71 * 3600 * 1000).toISOString(), status: 'pending' };
   const recentTerminal = { firstSeen: new Date(now - 6 * dayMs).toISOString(), status: 'verified' };
   const oldTerminal = { firstSeen: new Date(now - 31 * dayMs).toISOString(), status: 'verified' };
   const oldNewsRecentlyTerminal = { pubDate: new Date(now - 60 * dayMs).toISOString(), terminalAt: new Date(now - 2 * dayMs).toISOString(), status: 'unverified' };
   const undatedPending = { status: 'pending' };
 
-  assert.equal(fetchNews.shouldRetainQueueItem(overduePending, now), false, '120時間超のpendingは保持しない');
+  assert.equal(fetchNews.shouldRetainQueueItem(overduePending, now), false, '72時間超のpendingは保持しない');
   assert.equal(overduePending.status, 'pending', '保持判定自体は入力を書き換えない');
-  assert.equal(recentPending.status, 'pending', '120時間未満の記事も処理対象に残す');
+  assert.equal(fetchNews.shouldRetainQueueItem(recentPending, now), true, '72時間未満の記事は処理対象に残す');
   assert.equal(undatedPending.status, 'pending', '日時不明の記事は勝手に期限切れにしない');
   assert.equal(fetchNews.shouldRetainQueueItem(recentTerminal, now), true, '終端レコードは監査のため30日保持');
   assert.equal(fetchNews.shouldRetainQueueItem(oldTerminal, now), false, '古い終端レコードだけ整理対象');
   assert.equal(fetchNews.shouldRetainQueueItem(oldNewsRecentlyTerminal, now), true, '古い記事でも終端化から30日は監査保持');
 });
 
-test('pipeline: 古いpendingを120時間で終了し、当日分の審査枠を保護する', () => {
+test('pipeline: 古いpendingを72時間で終了し、当日分の審査枠を保護する', () => {
   const now = 1_000_000_000_000;
   const old = { pubDate: new Date(now - 121 * 3600 * 1000).toISOString(), firstSeen: new Date(now - 121 * 3600 * 1000).toISOString(), status: 'pending' };
   const fresh = { pubDate: new Date(now - 24 * 3600 * 1000).toISOString(), status: 'pending' };
   const undated = { status: 'pending' };
   assert.equal(fetchNews.expireStalePendingItems([old, fresh, undated], now), 1);
-  assert.equal(old.status, 'gave_up');
-  assert.equal(old.pendingReason, 'candidate_expired_after_120h');
+  assert.equal(old.status, 'expired');
+  assert.equal(old.pendingReason, 'candidate_expired_after_72h');
   assert.equal(old.terminalAt, new Date(now).toISOString());
   assert.equal(fresh.status, 'pending');
   assert.equal(undated.status, 'pending', '日時不明は誤終了させない');
 });
 
-test('pipeline: 旧仕様で120時間期限切れになった候補を再審査キューへ復帰する', () => {
+test('pipeline: 旧仕様で期限切れになった候補も72時間TTLを超えたら終了する', () => {
   const now = 1_000_000_000_000;
   const legacyExpired = { status: 'unverified', pendingReason: 'queue_expired_after_120h', terminalAt: 'old', sourceBody: null, pubDate: new Date(now - 121 * 3600 * 1000).toISOString() };
   const legacyFresh = { status: 'unverified', pendingReason: 'queue_expired_after_120h', terminalAt: 'old', sourceBody: null, pubDate: new Date(now - 24 * 3600 * 1000).toISOString() };
   const unrelated = { status: 'unverified', pendingReason: 'suspect_role_unclear_in_body' };
   assert.equal(fetchNews.recoverExpiredPendingItems([legacyExpired, legacyFresh, unrelated], now), 1);
-  assert.equal(legacyExpired.status, 'gave_up', '120時間超の旧候補は復活させない');
+  assert.equal(legacyExpired.status, 'expired', '72時間超の旧候補は復活させない');
   assert.equal(legacyFresh.status, 'pending');
   assert.equal(legacyFresh.pendingReason, null);
   assert.equal(legacyFresh.terminalAt, null);
@@ -356,19 +357,19 @@ test('本文判定: 熱海市での覚醒剤所持と逮捕された韓国籍の
   assert.equal(result.location, '静岡県');
 });
 
-test('本文判定: 読点で離れた東横線車内窃盗の被疑者を認識し、都県境区間は全国扱いにする', () => {
+test('本文判定: 都県境をまたぎ発生地の県を特定できない事件は保留する', () => {
   const body = '警察によりますと、中国籍のジン・レイ容疑者はことし8月、東急東横線の多摩川駅から武蔵小杉駅の間を走行中の電車内で、女性のショルダーバッグから現金およそ3万円などが入った財布を盗んだ疑いがもたれています。調べに対し容疑を認めました。';
   const result = gate.verifyArticleContent(body, '東急東横線で中国籍の男を窃盗容疑で逮捕');
-  assert.equal(result.verified, true);
-  assert.equal(result.location, '全国');
+  assert.equal(result.verified, false);
+  assert.equal(result.pendingReason, 'crime_location_unclear_in_context');
   assert.match(result.audit.suspectRole.evidence, /ジン・レイ容疑者/);
 });
 
-test('本文判定: 警視庁の国内事件は場所を推測せず全国扱いにする', () => {
+test('本文判定: 警視庁の管轄だけで現場が特定できない事件は保留する', () => {
   const body = '「雪印メグミルク」の健康サプリメントの偽物が販売されていた事件で、警視庁は商標法違反の疑いで、偽物を輸入・販売していたとみられる中国籍の女を逮捕しました。商標法違反の疑いで逮捕されたのは、中国籍の石梨容疑者（38）です。石容疑者は去年10月、健康サプリの偽物3袋を販売し商標権を侵害した疑いがもたれています。';
   const result = gate.verifyArticleContent(body, '中国籍の女を商標法違反の疑いで逮捕');
-  assert.equal(result.verified, true);
-  assert.equal(result.location, '全国');
+  assert.equal(result.verified, false);
+  assert.equal(result.pendingReason, 'crime_location_unclear_in_context');
 });
 
 test('本文判定: TBSの実本文「ベトナム国籍で、住居不定…容疑者」を容疑者として認識する', () => {
@@ -382,8 +383,8 @@ test('本文判定: TBSの実本文「ベトナム国籍で、住居不定…容
 test('本文判定: 2026-10-02雪印偽サプリ事件の実際の本文と配信見出しを通す', () => {
   const body = '「雪印メグミルク」の健康サプリメントの偽物が販売されていた事件で、警視庁は商標法違反の疑いで、偽物を輸入・販売していたとみられる中国籍の女を逮捕しました。商標法違反の疑いで逮捕されたのは、中国籍の石梨容疑者（38）です。石容疑者は去年10月、「雪印メグミルク」が販売する健康サプリの偽物3袋を販売するなどして、商標権を侵害した疑いがもたれています。警視庁によりますと、石容疑者は偽物を中国から輸入していたとみられ、共犯者らとともに、フリマアプリで正規品より1000円ほど安く販売して、去年7月からの5か月間でおよそ150万円を売り上げていたということです。取り調べに対し、石容疑者は容疑を否認しています。';
   const result = gate.verifyArticleContent(body, '「雪印」偽サプリ 販売指示か 「正規品より大きい」中国籍の女逮捕');
-  assert.equal(result.verified, true);
-  assert.equal(result.location, '全国');
+  assert.equal(result.verified, false);
+  assert.equal(result.pendingReason, 'crime_location_unclear_in_context');
   assert.match(result.audit.suspectRole.evidence, /中国籍の女を逮捕/);
 });
 
@@ -647,7 +648,7 @@ test('日付厳格化: 同一候補に後続巡回で正しい配信日時が届
   assert.equal(queued[0].nextAttemptAt, new Date(now).toISOString());
 });
 
-test('重複照合: 媒体が違っても同一の富士市・覚醒剤製造・イラン国籍事件は同じ指紋になる', () => {
+test('重複照合: 媒体違いの同日記事は同一事件、別日続報も同じ事件キーで紐付ける', () => {
   const fetchNews = require('../fetch-news.cjs');
   const livedoor = {
     title: 'ヤードで覚醒剤製造疑い イラン国籍の男ら3人を再逮捕 静岡・富士市',
@@ -659,8 +660,94 @@ test('重複照合: 媒体が違っても同一の富士市・覚醒剤製造・
     date: '2026-10-01',
     audit: { suspectRole: { evidence: '静岡県富士市のコンテナで覚醒剤を密造したとして、イラン国籍の男ら3人が逮捕されました。' } }
   };
-  assert.equal(fetchNews.eventFingerprint(livedoor), fetchNews.eventFingerprint(fnn));
+  assert.equal(eventDedupe.sameEventReason(livedoor, fnn) !== null, true);
+  const followup = { ...fnn, title: fnn.title.replace('逮捕', '起訴'), date: '2026-10-02' };
+  assert.equal(fetchNews.eventFingerprint(livedoor), fetchNews.eventFingerprint(followup));
+  assert.equal(eventDedupe.isFollowUp(livedoor, followup), true);
   assert.ok(fetchNews.eventFingerprint(livedoor));
+});
+
+test('日付厳格化: 後から届いた公開日時が72時間を超えていたら再審査へ戻さず期限切れにする', () => {
+  const now = Date.parse('2026-10-04T12:00:00Z');
+  const queued = [{ url: 'https://example.test/old', status: 'unverified', pendingReason: 'publication_date_missing', attempts: 0 }];
+  assert.equal(fetchNews.reconcileQueuedPublicationDate({ url: 'https://example.test/old', pubDate: '2026-10-01T11:59:59Z' }, queued, now), true);
+  assert.equal(queued[0].status, 'expired');
+  assert.equal(queued[0].pendingReason, 'publication_older_than_72h');
+  assert.equal(queued[0].nextAttemptAt, null);
+});
+
+test('日付ゲート: 公開日時なしは保留、公開から72時間超は期限切れ、境界内は審査対象', () => {
+  const now = Date.parse('2026-10-04T12:00:00Z');
+  assert.deepEqual(fetchNews.publicationAgeState(null, now), { status: 'unverified', reason: 'publication_date_missing' });
+  assert.deepEqual(fetchNews.publicationAgeState('2026-10-01T11:59:59Z', now), { status: 'expired', reason: 'publication_older_than_72h' });
+  assert.deepEqual(fetchNews.publicationAgeState('2026-10-01T12:00:00Z', now), { status: 'pending', reason: null });
+});
+
+test('地域フォールバック: 奄美と大阪が併記された見出しから先勝ちで大阪を選ばず未確定にする', () => {
+  const title = '奄美大島でオカヤドカリ5200匹密漁疑い 中国籍の男２人に求刑「大阪の日本人に…」 鹿児島';
+  assert.equal(fetchNews.detectLocation(title), '全国');
+});
+
+test('新着除外案: 公判・判決など裁判報道だけを事件発生の新着報道から分離する', () => {
+  assert.equal(fetchNews.isCourtOnlyCoverage('中国籍の男2人の公判 鹿児島'), true);
+  assert.equal(fetchNews.isCourtOnlyCoverage('初公判で起訴内容を認める'), true);
+  assert.equal(fetchNews.isCourtOnlyCoverage('中国籍の男を窃盗容疑で逮捕、後日公判'), false);
+  assert.equal(fetchNews.isCourtOnlyCoverage('中国籍の男を書類送検'), false);
+  const records = require('../../data/newsData.json');
+  const matches = records.filter((x) => fetchNews.isCourtOnlyCoverage(`${x.title || ''} ${x.description || ''}`));
+  assert.equal(matches.length, 10);
+  assert.deepEqual(matches.map((x) => x.id), [
+    '5c21f64003853747', 'b02d4ab336ffcc0d', '22c4ccb3818b1ba8', '81a9c255ea19eb9e',
+    'a2d3f72c4b744eee', 'c4469b9122b6c469', 'a7d64ce8850766c2', 'e60256ac76274b47',
+    'de1c9d1de41fa840', '1e4c7e61da323499',
+  ]);
+});
+
+test('pipeline: 記事ニュースでない法改正解説・情報漏えいは早期除外し、逮捕報道は審査対象にする', () => {
+  assert.equal(fetchNews.isCaseNewsSignal('危険運転致死傷罪（自動車運転死傷処罰法）の法改正について'), false);
+  assert.equal(fetchNews.isCaseNewsSignal('セイコーマート 不正アクセスで約57万アカウント漏えいか'), false);
+  assert.equal(fetchNews.isCaseNewsSignal('中国籍の男を窃盗容疑で逮捕、警視庁が捜査'), true);
+});
+
+test('pipeline: 見出し仮掲載は期限後に隔離し、隔離後も再確認期限を設定できる', () => {
+  const now = 1_700_000_000_000;
+  const item = { headlineReviewPending: true, headlineQuarantineAt: new Date(now - 1).toISOString(), headlineReviewAttempts: 9 };
+  assert.equal(fetchNews.isHeadlineProvisionalExpired(item, now), true);
+  assert.equal(fetchNews.shouldRetainQueueItem({ ...item, status: 'quarantined' }, now), true);
+  assert.equal(Date.parse(fetchNews.nextHeadlineReviewAt(item, now)), now + 24 * 3600 * 1000);
+  assert.equal(fetchNews.shouldUseCachedSourceBody({ sourceBody: 'cached stale body' }, false), true);
+  assert.equal(fetchNews.shouldUseCachedSourceBody({ sourceBody: 'cached stale body' }, true), false,
+    '見出し仮掲載の再審査は保存済み本文を使わず最新本文を取り直す');
+});
+
+test('続報照合: 初報と続報は同じ事件キーで紐付け、手続段階違いでも別記事として保持する', () => {
+  const fetchNews = require('../fetch-news.cjs');
+  const base = {
+    date: '2026-10-01', location: '東京都',
+    audit: {
+      suspectRole: { evidence: '東京都新宿区の住宅で窃盗をしたとして、ブラジル国籍の山田太郎容疑者を逮捕しました。' },
+      foreignNationality: { evidence: 'ブラジル国籍' },
+    },
+  };
+  const arrest = { ...base, title: '新宿区の住宅窃盗 ブラジル国籍の男を逮捕' };
+  const rearrest = { ...base, title: '新宿区の住宅窃盗 ブラジル国籍の男を再逮捕', date: '2026-10-02' };
+  const indictment = { ...base, title: '新宿区の住宅窃盗 ブラジル国籍の男を起訴', date: '2026-10-03' };
+  assert.equal(fetchNews.eventFingerprint(arrest), fetchNews.eventFingerprint(rearrest));
+  assert.equal(fetchNews.eventFingerprint(arrest), fetchNews.eventFingerprint(indictment));
+  assert.equal(eventDedupe.isFollowUp(arrest, rearrest), true);
+  assert.equal(eventDedupe.isFollowUp(arrest, indictment), true);
+});
+
+test('本文未取得時: 明確な見出しだけは本文確認中として仮合格し、後続本文再確認を予約する', () => {
+  const fetchNews = require('../fetch-news.cjs');
+  const item = { title: '群馬県大泉町で住宅侵入、ブラジル国籍の男を逮捕', status: 'pending' };
+  assert.equal(fetchNews.acceptHeadlineFallback(item, Date.parse('2026-10-02T00:00:00Z')), true);
+  assert.equal(item.status, 'verified');
+  assert.equal(item.verificationMode, 'headline_only');
+  assert.equal(item.headlineReviewPending, true);
+  assert.equal(item.location, '群馬県');
+  assert.equal(fetchNews.acceptHeadlineFallback({ title: '中国籍の男を窃盗容疑で逮捕' }), false,
+    '国内地名・捜査機関を欠く見出しは本文未取得のまま通さない');
 });
 
 test('重複照合: 新潟・三条市のタイヤ窃盗は媒体が違っても既存記事と同一事件として照合できる', () => {
@@ -968,8 +1055,8 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
     url: `http://127.0.0.1:${serverPort}/article-recovered`,
     resolvedUrl: null,
     title: '浜松市の住宅窃盗 ペルー国籍の男を逮捕',
-    pubDate: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
-    firstSeen: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
+    pubDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+    firstSeen: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
     status: 'unverified',
     pendingReason: 'queue_expired_after_120h',
     attempts: 0,
@@ -1004,16 +1091,19 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
     await fetchNews.main();
 
     // 1. 公開データ（newsData.json）の検証
-    // 正当記事3件（通常長文＋100文字境界＋5日窓内の旧候補）だけが追加され、合計5件になること
+    // 本文審査2件＋厳格条件を満たした見出し先行記事2件＋期限内旧候補が追加されること
     const updatedData = JSON.parse(fs.readFileSync(testNewsDataPath, 'utf-8'));
-    assert.equal(updatedData.length, 5, '通常長文・100文字境界・旧期限切れ復帰の記事のみが追加されること');
+    assert.equal(updatedData.length, 7, '通常長文・見出し限定・100文字境界・期限内旧候補の記事が追加されること');
 
-    // 既存データの完全不変保持（index 3以降）
-    assert.deepEqual(updatedData.slice(3), initialExisting, '既存の過去データが1ビットも改変されていないこと');
+    // 既存データの完全不変保持
+    for (const oldItem of initialExisting) {
+      assert.deepEqual(updatedData.find((item) => item.id === oldItem.id), oldItem, '既存の過去データが1ビットも改変されていないこと');
+    }
 
-    // 2. メタ説明文のみの記事は newsData に追加されていないことを検証
-    const metaAdded = updatedData.some((a) => a.title.includes('中国籍'));
-    assert.equal(metaAdded, false, 'メタ説明文のみの記事は newsData に絶対に追加されないこと');
+    // 2. 本文はメタ説明文のみでも、見出しが厳格な全条件を満たす場合は本文確認中として先行掲載
+    const metaAdded = updatedData.find((a) => a.title.includes('中国籍'));
+    assert.ok(metaAdded, '明示国籍・被疑者・罪名・国内地名・捜査機関が揃う見出しは先行掲載されること');
+    assert.equal(metaAdded.provisionalHeadlineOnly, true, '見出し先行掲載には本文未確認ラベルを付けること');
 
     // 3. キュー（newsQueue.json）の検証
     const updatedQueue = JSON.parse(fs.readFileSync(testQueuePath, 'utf-8'));
@@ -1022,8 +1112,8 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
     assert.equal(recoveredItem.status, 'verified', '5日窓内の旧候補を本番main()で再審査し、合格へ復帰させる');
     assert.ok(updatedData.some((item) => item.id === 'legacy-expired-item'), '復帰した旧候補を公開データへ反映する');
     const staleItem = updatedQueue.items.find((item) => item.id === 'stale-pending-item');
-    assert.equal(staleItem.status, 'gave_up', '120時間超の既存pendingは本番main()で審査終了する');
-    assert.equal(staleItem.pendingReason, 'candidate_expired_after_120h');
+    assert.equal(staleItem.status, 'expired', '72時間超の既存pendingは本番main()で審査終了する');
+    assert.equal(staleItem.pendingReason, 'candidate_expired_after_72h');
     assert.equal(staleItem.attempts, 0, '期限切れ記事の本文URLへアクセスしない');
 
     const undatedItem = updatedQueue.items.find((item) => item.url && item.url.includes('article-undated'));
@@ -1034,14 +1124,16 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
     assert.equal(updatedData.some((item) => item.url && item.url.includes('article-undated')), false,
       '配信日時がない記事を今日の日付に偽装して公開しないこと');
 
-    // 4. 【本番99文字境界の検証】99文字記事は本番 main() で確実に遮断され、公開データに追加されないこと
+    // 4. 99文字本文は本文ゲートでは保留だが、見出し単独の厳格条件を満たせば仮掲載されること
     const added99 = updatedData.some((a) => a.url && a.url.includes('article-99'));
-    assert.equal(added99, false, '99文字記事は newsData に絶対に追加されないこと');
+    assert.equal(added99, true, '明確な見出し要件を満たす記事は99文字本文でも見出し先行掲載されること');
 
     const qItem99 = updatedQueue.items.find((i) => i.url && i.url.includes('article-99'));
     assert.ok(qItem99, '99文字記事がキューに存在すること');
-    assert.notEqual(qItem99.status, 'verified', '99文字記事は verified にならないこと');
-    assert.equal(qItem99.pendingReason, 'insufficient_text_length', '99文字記事は文字数不足で保留されること');
+    assert.equal(qItem99.status, 'verified', '見出し限定の明示条件を満たすため仮合格になること');
+    assert.equal(qItem99.verificationMode, 'headline_only');
+    assert.equal(qItem99.headlineReviewPending, true, '後続巡回の本文再確認を予約すること');
+    assert.equal(qItem99.pendingReason, 'headline_verified_body_review_pending', '見出し先行記事は本文の再確認待ちと記録すること');
 
     // 5. 【本番100文字境界の検証】100文字記事は本番 main() で審査を通過し、公開データに確実に追加されること
     const added100 = updatedData.some((a) => a.url && a.url.includes('article-100'));
@@ -1065,12 +1157,23 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
       '代表元404後に代替媒体で審査し、事件の公開行を1件だけ作ること');
     assert.ok(updatedData.slice(0, 2).every((article) => /^event-v1:[a-f0-9]{64}$/.test(article.eventKey || '')),
       '新規記事の事件指紋ハッシュが後続実行用に保存されること');
+    const publishedWithEvidence = updatedData.find((article) => article.url?.includes('article-100'));
+    assert.ok(publishedWithEvidence, '100文字境界記事を evidence 検証に利用できること');
+    assert.equal(publishedWithEvidence.legacy, false, '新規記事は旧データ扱いにしないこと');
+    assert.equal(publishedWithEvidence.gateVersion, fetchNews.BODY_GATE_VERSION);
+    assert.match(publishedWithEvidence.evidence.nationality, /ブラジル国籍/);
+    assert.ok(publishedWithEvidence.evidence.suspect);
+    assert.ok(publishedWithEvidence.locationBasis);
+    assert.ok(publishedWithEvidence.judgedAt);
+    assert.doesNotMatch(publishedWithEvidence.summary, /外国人関与の事件・容疑に関する報道速報です/,
+      '根拠のない定型summaryを新規記事に付与しないこと');
 
-    // メタ説明文記事の検証
+    // メタ説明文記事は本文確認中の見出し先行掲載
     const metaQueueItem = updatedQueue.items.find((i) => i.title.includes('中国籍'));
     assert.ok(metaQueueItem, 'メタ説明文記事がキューに存在すること');
-    assert.notEqual(metaQueueItem.status, 'verified', 'メタ説明文記事は verified にならないこと');
-    assert.ok(metaQueueItem.pendingReason === 'insufficient_text_length' || metaQueueItem.pendingReason === 'unreadable', '文字数不足または未読として保留されること');
+    assert.equal(metaQueueItem.status, 'verified', '厳格見出し条件を満たす記事は先行合格すること');
+    assert.equal(metaQueueItem.verificationMode, 'headline_only');
+    assert.equal(metaQueueItem.headlineReviewPending, true);
   } finally {
     // クリーンアップ
     server.close();

@@ -712,7 +712,10 @@ function verifyArticleContent(text, title = '') {
     // 日本人判定は、該当する被疑者文 (suspectSentence) のみにスコープを絞る
     const isJpSuspectInContext = suspectSentence ? JP_ARRESTEE_RE.test(suspectSentence) : false;
 
-    if (suspectSentence && !isJpSuspectInContext) {
+    if (suspectSentence && isJpSuspectInContext) {
+      result.rejected = true;
+      result.rejectReason = 'suspect_is_japanese';
+    } else if (suspectSentence) {
       result.pendingReason = 'suspect_identified_nationality_missing';
     } else {
       result.pendingReason = 'suspect_role_unclear_in_body';
@@ -808,33 +811,19 @@ function verifyArticleContent(text, title = '') {
     }
   }
 
-  // 警察組織名からの安全な都道府県解決（警視庁は全国、各道府県警はその自治体）
   if (!scene) {
-    const contextForPolice = sentences.slice(Math.max(0, suspectIndex - 1), Math.min(sentences.length, suspectIndex + 4)).join(' ');
-    if (/(?:警視庁)/.test(contextForPolice)) {
-      scene = { pref: '全国', evidence: `本文抜粋: 警視庁による捜査・逮捕` };
-    } else {
-      const prefPoliceMatch = contextForPolice.match(/(北海道|(?:京都|大阪)府|(?:青森|岩手|宮城|秋田|山形|福島|茨城|栃木|群馬|埼玉|千葉|東京|神奈川|新潟|富山|石川|福井|山梨|長野|岐阜|静岡|愛知|三重|滋賀|兵庫|奈良|和歌山|鳥取|島根|岡山|広島|山口|徳島|香川|愛媛|高知|福岡|佐賀|長崎|熊本|大分|宮崎|鹿児島|沖縄)県)(?:警|警察)/);
-      if (prefPoliceMatch && !PREFECTURES.some((p) => p !== prefPoliceMatch[1] && text.includes(p))) {
-        scene = { pref: prefPoliceMatch[1], evidence: `本文抜粋: ${prefPoliceMatch[0]}による捜査・逮捕` };
-      }
-    }
-  }
-
-  if (!scene) {
-    // 国内の警察・検察が被疑者を逮捕/送検した報道は、事件県を本文から特定できない場合も
-    // 国内事件としてのみ扱い、都道府県を推測せず「全国」にする。
-    // 明示的な海外発生は上段 isOverseas で先に除外する。
-    if (JP_AUTH_RE.test(suspectSentence) && /(?:逮捕|送検|送致|起訴|再逮捕)/.test(suspectSentence)) {
-      scene = { pref: '全国', evidence: `本文抜粋: ${suspectSentence.slice(0, 80)}` };
-    } else {
-      result.insufficientEvidence = true;
-      result.pendingReason = 'crime_location_unclear_in_context';
-      return result;
-    }
+    // 警察・検察の管轄や配信元から発生地を推測しない。国内現場が特定できなければ保留。
+    result.insufficientEvidence = true;
+    result.pendingReason = 'crime_location_unclear_in_context';
+    return result;
   }
 
   result.audit.japanCrime = { verified: true, evidence: scene.evidence };
+  if (scene.pref === '全国') {
+    result.insufficientEvidence = true;
+    result.pendingReason = 'crime_location_unclear_in_context';
+    return result;
+  }
   result.location = scene.pref;
 
   // 3要素すべてが本文の同一犯行文脈で客観的に確認できた場合のみ合格候補
@@ -842,10 +831,64 @@ function verifyArticleContent(text, title = '') {
   return result;
 }
 
+/**
+ * 本文が未取得/短文で、見出しだけから全条件を明示的に確定できる場合の限定フォールバック。
+ * 本文判定が「不採用」を返した記事には使わない。見出し中の明示語だけを根拠として記録する。
+ */
+function verifyHeadlineOnly(title) {
+  const headline = nfkc(title).trim();
+  const out = {
+    verified: false, rejected: false, insufficientEvidence: true,
+    rejectReason: null, pendingReason: 'headline_evidence_incomplete', location: null,
+    verificationMode: 'headline_only',
+    audit: {
+      japanCrime: { verified: false, evidence: null },
+      suspectRole: { verified: false, evidence: null },
+      foreignNationality: { verified: false, evidence: null },
+    },
+  };
+  if (!headline || isOverseas(headline) || /海外|現地(?:警察|当局|で)|国外/.test(headline)) {
+    out.pendingReason = 'headline_overseas_or_missing';
+    return out;
+  }
+  const occurrences = natOccurrences(headline);
+  const suspectOccurrence = occurrences.find((occurrence) => occurrence.suspect
+    && !occurrence.victim && !occurrence.nonSuspect
+    && nationalityLinkedToSuspect(headline, occurrence));
+  const explicitForeignStatus = suspectOccurrence && new RegExp(
+    `^(?:(?:${COUNTRY_ALT})(?:国籍|籍|人|出身|系)|外国籍|外国人|外国出身|米兵|米軍|在日米軍|(?:米|アメリカ)(?:海兵隊|海軍|陸軍|空軍))$`
+  ).test(suspectOccurrence.text);
+  if (!suspectOccurrence || !explicitForeignStatus) {
+    out.pendingReason = 'headline_suspect_nationality_unclear';
+    return out;
+  }
+  const criminalProcedure = /逮捕|再逮捕|現行犯|送検|送致|起訴|追起訴|摘発|検挙|書類送検|容疑|疑い/;
+  const crimeTopic = /窃盗|盗み|盗ん|強盗|詐欺|暴行|傷害|殺人|殺害|覚醒剤|覚せい剤|麻薬|大麻|コカイン|密輸|侵入|盗撮|わいせつ|不法(?:入国|残留|滞在|就労)|入管法|商標法|偽造|横領|放火|賭博|売春|ひき逃げ|無免許|酒気帯び|酒酔い/;
+  if (!criminalProcedure.test(headline) || !crimeTopic.test(headline)
+    || VICTIM_PASSIVE_RE.test(headline) || VICTIM_OBJECT_RE.test(headline)) {
+    out.pendingReason = 'headline_crime_or_suspect_role_unclear';
+    return out;
+  }
+  const place = resolveCrimeSceneInContext(headline, loadMunicipalities());
+  if (!place || place.pref === '全国') {
+    out.pendingReason = 'headline_domestic_location_unclear';
+    return out;
+  }
+  const location = place.pref;
+  out.verified = true;
+  out.insufficientEvidence = false;
+  out.pendingReason = null;
+  out.location = location;
+  out.audit.foreignNationality = { verified: true, evidence: `見出し根拠: ${suspectOccurrence.text}` };
+  out.audit.suspectRole = { verified: true, evidence: `見出し根拠: ${headline.slice(0, 120)}` };
+  out.audit.japanCrime = { verified: true, evidence: place?.evidence?.replace(/^本文抜粋:/, '見出し根拠:') || `見出し根拠: 国内捜査機関の明記 (${headline.slice(0, 100)})` };
+  return out;
+}
+
 module.exports = {
   run, verifyItem, rulesPass, ruleSuspect, ruleOnlyResponse, resolvePrefecture, titleFactsOk, isVictimSide, isJapaneseArrestee, isOverseas, natOccurrences,
   articleKey, ownText,
   setMunicipalities, loadMunicipalities, NAT_RE, CRIME_RE, CFG,
-  DOMESTIC_AIRPORTS, DOMESTIC_LANDMARKS, cleanPoliceAndResidence, resolveCrimeSceneInContext, verifyArticleContent,
+  DOMESTIC_AIRPORTS, DOMESTIC_LANDMARKS, cleanPoliceAndResidence, resolveCrimeSceneInContext, verifyArticleContent, verifyHeadlineOnly,
   nationalityLinkedToSuspect,
 };

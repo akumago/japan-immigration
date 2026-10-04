@@ -1,0 +1,87 @@
+name: Audit legacy news (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'dry-run は優先順位だけ確認、fetch は本文を再取得して監査'
+        required: true
+        type: choice
+        options:
+          - dry-run
+          - fetch
+        default: dry-run
+      limit:
+        description: '1回に扱う最大記事数'
+        required: true
+        type: choice
+        options:
+          - '5'
+          - '10'
+        default: '5'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-news-collector
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run legacy audit
+        id: audit
+        env:
+          MODE: ${{ inputs.mode }}
+          LIMIT: ${{ inputs.limit }}
+        run: |
+          if [ "$MODE" = "dry-run" ]; then
+            node scripts/audit-legacy-news.cjs --dry-run --limit "$LIMIT" | tee audit-summary.txt
+          else
+            node scripts/audit-legacy-news.cjs --fetch --limit "$LIMIT" | tee audit-summary.txt
+            echo "report_changed=true" >> "$GITHUB_OUTPUT"
+          fi
+          {
+            echo '### Legacy news audit'
+            echo '```text'
+            cat audit-summary.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Persist audit report without deploying the site
+        if: inputs.mode == 'fetch' && steps.audit.outputs.report_changed == 'true'
+        run: |
+          if [ -n "$(git status --porcelain data/legacyAudit.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add data/legacyAudit.json
+            git commit -m "audit: persist legacy news review [skip netlify]"
+            git push origin HEAD:main
+          else
+            echo "No audit report changes to persist."
+          fi
+
+      - name: Upload audit report
+        if: always() && hashFiles('data/legacyAudit.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: legacy-news-audit-${{ github.run_number }}
+          path: data/legacyAudit.json
+          retention-days: 90

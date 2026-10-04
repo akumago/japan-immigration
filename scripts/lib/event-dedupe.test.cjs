@@ -3,6 +3,30 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const dedupe = require('./event-dedupe.cjs');
 
+test('地域階層: 愛知県と愛知県名古屋市中区は包含で矛盾しない', () => {
+  assert.equal(dedupe.compareLocations('愛知県', '愛知県名古屋市中区'), 'compatible');
+});
+test('地域階層: 名古屋市中区と名古屋市中村区は矛盾', () => {
+  assert.equal(dedupe.compareLocations('名古屋市中区', '名古屋市中村区'), 'conflict');
+});
+test('地域階層: 愛知県と岐阜県は矛盾', () => {
+  assert.equal(dedupe.compareLocations('愛知県', '岐阜県'), 'conflict');
+});
+test('地域階層: 一方の場所が不明なら不明', () => {
+  assert.equal(dedupe.compareLocations('名古屋市中区', '全国'), 'unknown');
+});
+test('地域階層: 横浜市中区と名古屋市中区は矛盾', () => {
+  assert.equal(dedupe.compareLocations('横浜市中区', '名古屋市中区'), 'conflict');
+});
+test('地域階層: 同じ事件の県表示と市区表示は重複候補になり詳細な地域を残す', () => {
+  const broad = { id: 'broad', title: '愛知県で住宅窃盗、中国籍の男（30）を逮捕', date: '2026-10-01', location: '愛知県' };
+  const specific = { id: 'specific', title: '名古屋市中区の住宅窃盗、中国籍の男（30）を逮捕', date: '2026-10-01', location: '愛知県', audit: { japanCrime: { evidence: '名古屋市中区の住宅で窃盗をしたとして' } } };
+  assert.equal(dedupe.compareLocations(broad, specific), 'compatible');
+  const healed = dedupe.healRecentDuplicates([broad, specific], { now: Date.parse('2026-10-02T00:00:00Z') });
+  assert.equal(healed.items.length, 1);
+  assert.equal(healed.items[0].location, '愛知県名古屋市中区');
+});
+
 // ── 同一事件判定のテスト（統合すべき組） ──
 
 test('福山港の不法上陸・残留（見出し違いの媒体重複）が同一事件と判定される', () => {
@@ -281,6 +305,50 @@ test('誤統合防止: 高類似見出しでも事件発生市区町村が異な
 
   assert.equal(dedupe.sameEventReason(a, b), null,
     '同一都道府県・同一罪種でも市区町村が異なる事件は統合しない');
+});
+
+test('続報方針: 再逮捕・送検・起訴は同一事件として紐付け、別記事として残す', () => {
+  const base = {
+    title: '東京都新宿区の住宅窃盗でブラジル国籍の男を逮捕',
+    date: '2026-10-01', location: '東京都',
+    audit: { suspectRole: { evidence: '新宿区の住宅で窃盗をしたとして、ブラジル国籍の山田太郎容疑者を逮捕。' } },
+  };
+  for (const followupTitle of [
+    '東京都新宿区の住宅窃盗でブラジル国籍の男を再逮捕',
+    '東京都新宿区の住宅窃盗でブラジル国籍の男を書類送検',
+    '東京都新宿区の住宅窃盗でブラジル国籍の男を起訴',
+  ]) {
+    const followup = { ...base, title: followupTitle, date: '2026-10-02' };
+    assert.ok(dedupe.sameEventReason(base, followup), `${followupTitle} は同じ事件と識別する`);
+    assert.equal(dedupe.isFollowUp(base, followup), true, `${followupTitle} は初報に続報として紐付ける`);
+  }
+  const sameDaySyndication = { ...base, title: '東京都新宿区で窃盗容疑、ブラジル国籍の男を逮捕', date: base.date };
+  assert.ok(dedupe.sameEventReason(base, sameDaySyndication));
+  assert.equal(dedupe.isFollowUp(base, sameDaySyndication), false, '同日配信の見出し差は続報扱いにしない');
+});
+
+test('続報照合窓: 30日以内は続報として紐付け、通常の重複窓5日とは分離する', () => {
+  const initial = {
+    title: '東京都新宿区の住宅窃盗でブラジル国籍の男を逮捕',
+    date: '2026-09-01', location: '東京都',
+    audit: { suspectRole: { evidence: '東京都新宿区の住宅で窃盗をしたとして、ブラジル国籍の男を逮捕。' } },
+  };
+  const followup = {
+    ...initial,
+    title: '東京都新宿区の住宅窃盗でブラジル国籍の男を起訴',
+    date: '2026-09-30',
+  };
+  assert.equal(dedupe.sameEventReason(initial, followup), null, '既定5日間の重複判定では統合しない');
+  assert.ok(dedupe.sameEventReason(initial, followup, { maxDays: 30 }), '30日窓では同じ事件と照合する');
+  assert.equal(dedupe.isFollowUp(initial, followup), true, '手続き段階が進んだ記事は続報として残せる');
+});
+
+test('healRecentDuplicates: 手続段階が進んだ記事を重複統合で消さない', () => {
+  const first = { id: 'first', title: '新宿区の窃盗、ブラジル国籍の男を逮捕', date: '2026-10-01', location: '東京都' };
+  const followup = { id: 'followup', title: '新宿区の窃盗、ブラジル国籍の男を起訴', date: '2026-10-03', location: '東京都' };
+  const result = dedupe.healRecentDuplicates([first, followup]);
+  assert.equal(result.items.length, 2);
+  assert.equal(result.removed.length, 0);
 });
 
 // ── healRecentDuplicates（自動修復）のテスト ──
