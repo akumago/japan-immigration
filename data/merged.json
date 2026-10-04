@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-04T21:47:46.481Z",
+  "updatedAt": "2026-10-04T21:56:18.486Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -715,6 +715,153 @@
       },
       "reason": "国籍+罪種+場所/年齢+見出し類似0.67",
       "recordedAt": "2026-10-04T21:47:46.481Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "38e8a49a08c72c6c",
+        "sourceRecordId": null,
+        "title": "那覇遺体 強殺疑いで米兵を逮捕",
+        "date": "2026-10-04",
+        "url": "https://news.yahoo.co.jp/pickup/6597462",
+        "eventKey": "event-v1:5c06b13c62aa635b2d34860f10bfbd5013e592d13709a57f767bd44d60efbab8"
+      },
+      "removed": {
+        "id": "5fc37be6cbd3c2d7",
+        "sourceRecordId": null,
+        "title": "那覇強殺 逮捕の米兵は容疑否認",
+        "date": "2026-10-04",
+        "url": "https://news.yahoo.co.jp/pickup/6597475",
+        "eventKey": "event-v1:5c06b13c62aa635b2d34860f10bfbd5013e592d13709a57f767bd44d60efbab8"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-04T21:56:18.486Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "38e8a49a08c72c6c",
+        "sourceRecordId": null,
+        "title": "那覇遺体 強殺疑いで米兵を逮捕",
+        "date": "2026-10-04",
+        "url": "https://news.yahoo.co.jp/pickup/6597462",
+        "eventKey": "event-v1:5c06b13c62aa635b2d34860f10bfbd5013e592d13709a57f767bd44d60efbab8"
+      },
+      "removed": {
+        "id": "edccf0a6ac4cd555",
+        "sourceRecordId": null,
+        "title": "那覇ホテル強盗殺人　女性の死因は「窒息死」&#160;20歳の米海兵隊の兵士を逮捕「私は知りません」と否認　沖縄",
+        "date": "2026-10-04",
+        "url": "https://news.livedoor.com/article/detail/32486050/",
+        "eventKey": "event-v1:6ac09490408754241c273e3f604b15c9ef81d36bee08072af5b02780bb56562c"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-04T21:56:18.486Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "a8c62fc9fced73c5",
+        "sourceRecordId": null,
+        "title": "那覇ホテルの女性強盗殺人、米軍普天間飛行場所属の海兵隊員の男を容疑で緊急逮捕",
+        "date": "2026-10-04",
+        "url": "https://www.yomiuri.co.jp/national/20261004-GYT1T00106/",
+        "eventKey": "event-v1:c9cfdb084a731e2158eb2c3e074893a9808d09a7a58fc8029d6ed43776b88420"
+      },
+      "removed": {
+        "id": "38e8a49a08c72c6c",
+        "sourceRecordId": null,
+        "title": "那覇遺体 強殺疑いで米兵を逮捕",
+        "date": "2026-10-04",
+        "url": "https://news.yahoo.co.jp/pickup/6597462",
+        "eventKey": "event-v1:5c06b13c62aa635b2d34860f10bfbd5013e592d13709a57f767bd44d60efbab8"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-04T21:56:18.486Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "a8c62fc9fced73c5",
+        "sourceRecordId": null,
+        "title": "那覇ホテルの女性強盗殺人、米軍普天間飛行場所属の海兵隊員の男を容疑で緊急逮捕",
+        "date": "2026-10-04",
+        "url": "https://www.yomiuri.co.jp/national/20261004-GYT1T00106/",
+        "eventKey": "event-v1:c9cfdb084a731e2158eb2c3e074893a9808d09a7a58fc8029d6ed43776b88420"
+      },
+      "removed": {
+        "id": "05993cca702429cf",
+        "sourceRecordId": null,
+        "title": "普天間所属の米海兵隊員が那覇市のホテルで強盗殺人の疑いで逮捕",
+        "date": "2026-10-04",
+        "url": "https://news.livedoor.com/article/detail/32483613/",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-04T21:56:18.486Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "a8c62fc9fced73c5",
+        "sourceRecordId": null,
+        "title": "那覇ホテルの女性強盗殺人、米軍普天間飛行場所属の海兵隊員の男を容疑で緊急逮捕",
+        "date": "2026-10-04",
+        "url": "https://www.yomiuri.co.jp/national/20261004-GYT1T00106/",
+        "eventKey": "event-v1:c9cfdb084a731e2158eb2c3e074893a9808d09a7a58fc8029d6ed43776b88420"
+      },
+      "removed": {
+        "id": "868aef447611b204",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で米兵逮捕、那覇 普天間所属、ホテルに女性遺体",
+        "date": "2026-10-04",
+        "url": "https://www.niigata-nippo.co.jp/articles/-/918191",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-04T21:56:18.486Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "a8c62fc9fced73c5",
+        "sourceRecordId": null,
+        "title": "那覇ホテルの女性強盗殺人、米軍普天間飛行場所属の海兵隊員の男を容疑で緊急逮捕",
+        "date": "2026-10-04",
+        "url": "https://www.yomiuri.co.jp/national/20261004-GYT1T00106/",
+        "eventKey": "event-v1:c9cfdb084a731e2158eb2c3e074893a9808d09a7a58fc8029d6ed43776b88420"
+      },
+      "removed": {
+        "id": "2a6cd93845577e71",
+        "sourceRecordId": null,
+        "title": "那覇市のホテルで女性死亡　米兵の男逮捕　古謝知事「断じて許せるものではない」(テレビ朝日系（ANN）)",
+        "date": "2026-10-05",
+        "url": "https://news.yahoo.co.jp/articles/91883fc0a187fe0d00eed336f5078ab44a8c3b5e?source=rss",
+        "eventKey": "event-v1:da3cecf2ee7f05a9f2ee5dff571155ade8267002000b9432a9e78652b8d1bf46"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-04T21:56:18.486Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "a8c62fc9fced73c5",
+        "sourceRecordId": null,
+        "title": "那覇ホテルの女性強盗殺人、米軍普天間飛行場所属の海兵隊員の男を容疑で緊急逮捕",
+        "date": "2026-10-04",
+        "url": "https://www.yomiuri.co.jp/national/20261004-GYT1T00106/",
+        "eventKey": "event-v1:c9cfdb084a731e2158eb2c3e074893a9808d09a7a58fc8029d6ed43776b88420"
+      },
+      "removed": {
+        "id": "35c9da294986bf88",
+        "sourceRecordId": null,
+        "title": "那覇市のホテルで女性死亡 米兵の男逮捕 古謝知事「断じて許せるものではない」 2026 年 10 月 5 日 05:50",
+        "date": "2026-10-05",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537905.html",
+        "eventKey": "event-v1:da3cecf2ee7f05a9f2ee5dff571155ade8267002000b9432a9e78652b8d1bf46"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-04T21:56:18.486Z"
     }
   ]
 }
