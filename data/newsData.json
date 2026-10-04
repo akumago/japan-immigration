@@ -1,5 +1,27 @@
 [
   {
+    "id": "c2cad8399be3667a",
+    "title": "那覇ホテルで女性が窒息死、強盗殺人の疑いで米海兵隊員を逮捕",
+    "date": "2026-10-05",
+    "location": "沖縄県",
+    "media": "ライブドアニュース",
+    "stage": "逮捕",
+    "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89",
+    "url": "https://news.livedoor.com/article/detail/32488502/",
+    "summary": "沖縄県で発生し、デビン・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 強盗殺人の疑いで逮捕されたのはアメリカ海兵隊の上等兵デビン・バラード容疑者（20）です。",
+      "nationality": "本文抜粋: デビン・バラード"
+    },
+    "locationBasis": "本文抜粋: 沖縄・ 那覇市 のホテルで女性が殺害され、アメリカ海兵隊の男が強盗殺人の容疑で逮捕された事件で、警察は4日、女性の死因は窒息と発表しました。",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-04T23:21:26.162Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "f75ba7657546b135",
     "title": "盗品と知りながら高級車保管　容疑で古河のヤード従業員3人逮捕　茨城県警(茨城新聞クロスアイ)",
     "date": "2026-10-05",
