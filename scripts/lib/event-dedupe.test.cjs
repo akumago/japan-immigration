@@ -191,6 +191,62 @@ test('公開中の実データ: SmartNewsの省略名「デビン・バラード
   assert.deepEqual(result.items.map((item) => item.id), ['tv-asahi-naha'], '一次報道元を残し、SmartNewsの転載を除く');
 });
 
+test('那覇ホテル事件: 被疑者文の名前が途中で切れても国籍根拠の完全名で同一事件を統合する', () => {
+  const yomiuri = {
+    id: 'naha-yomiuri-truncated-role-name',
+    title: '那覇ホテルの女性強盗殺人、米軍普天間飛行場所属の海兵隊員を緊急逮捕',
+    date: '2026-10-04', location: '沖縄県',
+    audit: {
+      suspectRole: { evidence: '本文抜粋: 那覇市のホテルで女性（39）の遺体が見つかった強盗殺人事件で、沖縄県警は4日、米軍普天間飛行場所属の米海兵隊上等兵、デビン・ジェイ' },
+      foreignNationality: { evidence: '本文抜粋: デビン・ジェイコブ・バラード' },
+    },
+  };
+  const nnn = {
+    id: 'naha-nnn-short-name',
+    title: '強盗殺人容疑で米兵逮捕、那覇 ホテルに女性遺体',
+    date: '2026-10-04', location: '沖縄県',
+    audit: {
+      suspectRole: { evidence: '本文抜粋: 那覇市のホテルで女性の遺体が見つかった事件で、沖縄県警は4日、海兵隊上等兵デビン・バラード容疑者（20）を逮捕' },
+      foreignNationality: { evidence: '本文抜粋: デビン・バラード' },
+    },
+  };
+
+  assert.ok(dedupe.sameEventReason(yomiuri, nnn), '名前が省略・途中切れでも他の事件属性が一致すれば重複とする');
+  const healed = dedupe.healRecentDuplicates([yomiuri, nnn], {
+    now: Date.parse('2026-10-04T12:00:00+09:00'),
+  });
+  assert.equal(healed.items.length, 1, '同日の同一逮捕報道を一件に統合する');
+  assert.equal(healed.removed.length, 1);
+});
+
+test('公開レコード形式の那覇ホテル重複: victim ageと容疑者ageの混同・基地所在地の不一致があっても同一人物で統合', () => {
+  const yomiuri = {
+    id: 'a8c62fc9fced73c5', title: '那覇ホテルの女性強盗殺人、米軍普天間飛行場所属の海兵隊員の男を容疑で緊急逮捕',
+    date: '2026-10-04', location: '沖縄県', url: 'https://www.yomiuri.co.jp/national/example',
+    evidence: {
+      suspect: '本文抜粋: 那覇市のホテルの一室で同市の女性（３９）の遺体が見つかった強盗殺人事件で、沖縄県警は４日、米軍普天間飛行場（沖縄県宜野湾市）所属の米海兵隊上等兵、デビン・ジェイ',
+      nationality: '本文抜粋: デビン・ジェイコブ・バラード',
+    },
+    locationBasis: '本文抜粋: 那覇市のホテルの一室で同市の女性（３９）の遺体が見つかった強盗殺人事件で',
+  };
+  const nnn = {
+    id: 'fe33e0f26444633e', title: '強盗殺人容疑で米兵逮捕、那覇 ホテルに女性遺体',
+    date: '2026-10-04', location: '沖縄県', url: 'https://www.nnn.co.jp/articles/example',
+    evidence: {
+      suspect: '本文抜粋: 那覇市のホテルで３日に女性の遺体が見つかった事件で、沖縄県警は４日、強盗殺人の疑いで米軍普天間飛行場（宜野湾市）所属の海兵隊上等兵デビン・バラード容疑者（２０）',
+      nationality: '本文抜粋: デビン・バラード',
+    },
+    locationBasis: '本文抜粋: 那覇市のホテルで３日に女性の遺体が見つかった事件で',
+  };
+  assert.match(dedupe.sameEventReason(yomiuri, nnn) || '', /容疑者氏名/);
+  const healed = dedupe.healRecentDuplicates([nnn, yomiuri], {
+    now: Date.parse('2026-10-05T00:00:00Z'),
+    rank: (url) => String(url || '').includes('yomiuri') ? 1 : 0,
+  });
+  assert.equal(healed.removed.length, 1);
+  assert.deepEqual(healed.items.map((item) => item.id), ['a8c62fc9fced73c5']);
+});
+
 test('誤統合防止: 別人の同日同県・同じ罪種の事件は容疑者年齢が同じでも統合しない', () => {
   const base = {
     date: '2026-10-04', location: '沖縄県',

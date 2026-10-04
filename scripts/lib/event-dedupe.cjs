@@ -8,7 +8,9 @@
 const NAT_LIST = ['中国', '韓国', '朝鮮', '台湾', '香港', 'ベトナム', 'フィリピン', 'タイ', 'インドネシア', 'マレーシア', 'ミャンマー', 'カンボジア', 'ラオス', 'ネパール', 'インド', 'スリランカ', 'バングラデシュ', 'パキスタン', 'アフガニスタン', 'イラン', 'イラク', 'トルコ', 'クルド', 'シリア', 'ウズベキスタン', 'カザフスタン', 'キルギス', 'モンゴル', 'ロシア', 'ウクライナ', 'ブラジル', 'ペルー', 'ボリビア', 'コロンビア', 'メキシコ', 'アルゼンチン', 'チリ', 'アメリカ', '米国', 'カナダ', 'イギリス', '英国', 'フランス', 'ドイツ', 'イタリア', 'スペイン', 'ルーマニア', 'ナイジェリア', 'ガーナ', 'カメルーン', 'ウガンダ', 'エジプト', 'オーストラリア', 'ニュージーランド'];
 const NAT_ALIAS = { 米国: 'アメリカ', 英国: 'イギリス' };
 const NAT_RE = new RegExp(`(${NAT_LIST.join('|')})(?:国籍|籍|人|出身|系|海兵隊|兵|陸軍|海軍|空軍|軍)`, 'g');
-const US_MILITARY_RE = /米(?:兵|軍|海兵隊|海軍|空軍|陸軍|軍属)|アメリカ(?:海兵隊|陸軍|海軍|空軍|軍)/g;
+// This expression is used with .test(); a global flag would make lastIndex
+// stateful and cause nationality extraction to alternate across calls.
+const US_MILITARY_RE = /米(?:兵|軍|海兵隊|海軍|空軍|陸軍|軍属)|アメリカ(?:海兵隊|陸軍|海軍|空軍|軍)/;
 
 const CRIME_GROUPS = [
   ['薬物', /覚醒剤|覚せい剤|麻薬|大麻|コカイン|MDMA|薬物/],
@@ -100,7 +102,11 @@ function isFollowUp(older, newer) {
 }
 
 function signals(item) {
-  const evidence = [item.audit?.suspectRole?.evidence, item.audit?.japanCrime?.evidence, item.audit?.foreignNationality?.evidence]
+  const evidence = [
+    item.audit?.suspectRole?.evidence || item.evidence?.suspect,
+    item.audit?.japanCrime?.evidence || item.locationBasis,
+    item.audit?.foreignNationality?.evidence || item.evidence?.nationality,
+  ]
     .filter(Boolean).join(' ').replace(/本文抜粋:\s*/g, '');
   const title = nfkc(item.title).replace(/\s*\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*\d{1,2}:\d{2}\s*$/, '').replace(/\s*\d+(?:分|時間)前\s*$/, '');
   const text = `${nfkc(evidence)} ${title}`;
@@ -143,7 +149,10 @@ function daysApart(a, b) {
 }
 
 function suspectNames(item) {
-  const text = String(item.audit?.suspectRole?.evidence || '')
+  const text = String(item.audit?.suspectRole?.evidence || item.evidence?.suspect || '')
+    .replace(/本文抜粋:\s*/g, '')
+    .normalize('NFKC');
+  const nationalityEvidence = String(item.audit?.foreignNationality?.evidence || item.evidence?.nationality || '')
     .replace(/本文抜粋:\s*/g, '')
     .normalize('NFKC');
   const names = new Set();
@@ -156,7 +165,7 @@ function suspectNames(item) {
     // Some outlets omit a middle name. Matching the same first and last
     // katakana components is sufficient when the rest of the event evidence
     // (age, crime, date and prefecture) also agrees.
-    const katakanaParts = parts.filter((part) => /^[ァ-ヶ]{2,}$/.test(part));
+    const katakanaParts = parts.filter((part) => /^[ァ-ヶー]{2,}$/.test(part));
     if (katakanaParts.length >= 2) {
       names.add(`katakana-ends:${katakanaParts[0]}|${katakanaParts[katakanaParts.length - 1]}`);
     }
@@ -167,6 +176,13 @@ function suspectNames(item) {
     addName(match[1]);
   }
   for (const match of text.matchAll(/([一-龥々]{2,8})(?:容疑者|被疑者|被告)/g)) {
+    addName(match[1]);
+  }
+  // A suspect-role excerpt can end mid-name. The separately verified
+  // nationality evidence may preserve the complete katakana name; use it to
+  // match outlet-specific short/long name forms without weakening other
+  // event signals (age, crime, date, and location still have to agree).
+  for (const match of nationalityEvidence.matchAll(/([ァ-ヶー]{2,}(?:[・･ー][ァ-ヶー]{2,}){1,3})/g)) {
     addName(match[1]);
   }
   return names;
@@ -185,19 +201,26 @@ function sameEventReason(a, b, { maxDays = 5 } = {}) {
   const sameAge = intersects(sa.ages, sb.ages);
   const samePlace = intersects(sa.places, sb.places);
   const sameCrime = intersects(sa.crimes, sb.crimes);
+  const locationRelation = compareLocations(a, b);
+  const sameStoredRegion = Boolean(a.location && b.location && a.location === b.location);
+  // Evidence snippets may capture a victim's age in one outlet and the
+  // suspect's age in another. A verified matching suspect name can override
+  // that age mismatch only when date, crime, and compatible location agree.
   const sameNamedSuspect = intersects(sa.suspectNames || new Set(), sb.suspectNames || new Set())
-    && sameAge
     && sameCrime
     && a.date === b.date
-    && a.location === b.location;
-  const locationRelation = compareLocations(a, b);
+    // Some excerpts mention the suspect's base/police jurisdiction first,
+    // while another outlet names the crime scene. Matching verified full
+    // suspect identity plus same crime/date/prefecture is stronger than that
+    // incidental locality conflict.
+    && (locationRelation === 'compatible' || sameStoredRegion);
   if (locationRelation === 'conflict' && !sameNamedSuspect) return null;
-  const agesConflict = sa.ages.size && sb.ages.size && !sameAge;
+  const agesConflict = sa.ages.size && sb.ages.size && !sameAge && !sameNamedSuspect;
   const placesConflict = locationRelation === 'conflict'
     || (locationRelation === 'unknown' && sa.places.size && sb.places.size && !samePlace);
   if (agesConflict || (placesConflict && !sameNamedSuspect)) return null;
   if (sa.genders.size && sb.genders.size && !intersects(sa.genders, sb.genders)) return null;
-  if (sameNamedSuspect) return '本文の容疑者氏名+年齢+罪種+同日同県';
+  if (sameNamedSuspect) return '本文の容疑者氏名+罪種+同日+地域整合';
   const sim = dice(sa.grams, sb.grams);
   if (sim >= 0.6 && sameCrime && (samePlace || sameAge)) return `国籍+罪種+場所/年齢+見出し類似${sim.toFixed(2)}`;
   const csim = dice(sa.content, sb.content);
