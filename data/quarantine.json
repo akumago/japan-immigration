@@ -1,5 +1,83 @@
 {
   "version": 1,
-  "updatedAt": null,
-  "items": []
+  "updatedAt": "2026-10-05T15:27:44.711Z",
+  "items": [
+    {
+      "id": "e91f1f46e8388667",
+      "sourceRecordId": null,
+      "url": "https://newsdig.tbs.co.jp/articles/-/2983842",
+      "title": "「全く心当たりがありません」同居男性に包丁振り上げ「お前を殺してやる」と脅迫か 28歳ネパール国籍の男を逮捕 1時間前",
+      "date": "2026-10-02",
+      "eventKey": null,
+      "reason": "gate_version_changed:strict-2026-10-02.2->strict-2026-10-06.1",
+      "status": "recheck_pending",
+      "recordedAt": "2026-10-05T15:23:47.792Z"
+    },
+    {
+      "id": "8cf020e31868e589",
+      "sourceRecordId": null,
+      "url": "https://www.hokkoku.co.jp/articles/-/2247123",
+      "title": "マンＵなど偽ユニホーム販売 商標法違反の疑いで中国人の男逮捕 衣類約300点押収｜社会｜石川のニュース",
+      "date": "2026-10-02",
+      "eventKey": null,
+      "reason": "gate_version_changed:strict-2026-10-02.2->strict-2026-10-06.1",
+      "status": "recheck_pending",
+      "recordedAt": "2026-10-05T15:23:47.796Z"
+    },
+    {
+      "id": "f75ba7657546b135",
+      "sourceRecordId": null,
+      "url": "https://news.yahoo.co.jp/articles/dec18faac93669208492c3add7e308d4c84350d6?source=rss",
+      "title": "盗品と知りながら高級車保管　容疑で古河のヤード従業員3人逮捕　茨城県警(茨城新聞クロスアイ)",
+      "date": "2026-10-05",
+      "eventKey": null,
+      "reason": "gate_version_changed:strict-2026-10-02.2->strict-2026-10-06.1",
+      "status": "recheck_pending",
+      "recordedAt": "2026-10-05T15:23:47.825Z"
+    },
+    {
+      "id": "c2cad8399be3667a",
+      "sourceRecordId": null,
+      "url": "https://news.livedoor.com/article/detail/32488502/",
+      "title": "那覇ホテルで女性が窒息死、強盗殺人の疑いで米海兵隊員を逮捕",
+      "date": "2026-10-05",
+      "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89",
+      "reason": "gate_version_changed:strict-2026-10-02.2->strict-2026-10-06.1",
+      "status": "recheck_pending",
+      "recordedAt": "2026-10-05T15:23:47.828Z"
+    },
+    {
+      "id": "95ce3c1475b399ab",
+      "sourceRecordId": null,
+      "url": "https://news.yahoo.co.jp/articles/fdbd184548d42ce8bb7082ac695399a8551e3785?source=rss",
+      "title": "「メロンを盗みに行った」栽培用ハウスに侵入か ベトナム国籍の男逮捕 同僚の男2人も既に逮捕=静岡・菊川市(静岡放送（SBS）)",
+      "date": "2026-10-05",
+      "eventKey": "event-v1:80f19b08bc89bc861ce9c0435c261634ff542273ac399c6440bc7c65154e0c89",
+      "reason": "gate_version_changed:strict-2026-10-02.2->strict-2026-10-06.1",
+      "status": "recheck_pending",
+      "recordedAt": "2026-10-05T15:23:47.833Z"
+    },
+    {
+      "id": "54142d3354e026ce",
+      "sourceRecordId": null,
+      "url": "https://www.fnn.jp/articles/-/1126964",
+      "title": "ベトナム国籍の男3人を検挙　空き家をねらい何度も貴金属や現金盗んだ疑い　SNSで換金か　被害総額は約512万円　福岡",
+      "date": "2026-10-05",
+      "eventKey": "event-v1:209f0b7685fa8cf56c836cfcf093452c0d092b1ebe57a255759805f247364f66",
+      "reason": "gate_version_changed:strict-2026-10-02.2->strict-2026-10-06.1",
+      "status": "recheck_pending",
+      "recordedAt": "2026-10-05T15:23:47.845Z"
+    },
+    {
+      "id": "a1e6e85660c4247b",
+      "sourceRecordId": null,
+      "url": "https://news.yahoo.co.jp/articles/c606c7824447889aae8390bb85bdbd5d6634b531",
+      "title": "強盗殺人容疑で逮捕の米兵を送検 那覇のホテルに女性遺体 (毎日新聞)",
+      "date": "2026-10-05",
+      "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89",
+      "reason": "gate_version_changed:strict-2026-10-02.2->strict-2026-10-06.1",
+      "status": "recheck_pending",
+      "recordedAt": "2026-10-05T15:23:47.851Z"
+    }
+  ]
 }

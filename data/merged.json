@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-05T15:12:30.300Z",
+  "updatedAt": "2026-10-05T15:27:44.710Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -1026,6 +1026,52 @@
       "reason": "翌日の別媒体記事だが同一茨城ヤード高級車保管事件（国籍・罪種・県・段階・事件アンカー一致）。詳細な茨城新聞版を残す",
       "actor": "pipeline_quality_correction",
       "recordedAt": "2026-10-05T15:12:30.300Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "a8c62fc9fced73c5",
+        "sourceRecordId": null,
+        "title": "那覇ホテルの女性強盗殺人、米軍普天間飛行場所属の海兵隊員の男を容疑で緊急逮捕",
+        "date": "2026-10-04",
+        "url": "https://www.yomiuri.co.jp/national/20261004-GYT1T00106/",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:c9cfdb084a731e2158eb2c3e074893a9808d09a7a58fc8029d6ed43776b88420"
+      },
+      "removed": {
+        "id": "3ee72980cbbcc4f0",
+        "sourceRecordId": null,
+        "title": "沖縄米兵逮捕、古謝知事が高市首相に再発防止要請へ 今週にも上京「看過できない」",
+        "date": "2026-10-05",
+        "url": "https://www.sankei.com/article/20261005-RZ7HOAWDZVISTHWIYG32HF7O4Y/",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-05T15:27:44.710Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "ff955f9c693dd864",
+        "sourceRecordId": null,
+        "title": "沖縄米兵を強盗殺人容疑で送検 女性の首にひも状の物で絞められた痕 [沖縄県]",
+        "date": "2026-10-05",
+        "url": "https://www.asahi.com/sp/articles/photo/AS20261005002616.html",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "removed": {
+        "id": "413f708b470f9353",
+        "sourceRecordId": null,
+        "title": "沖縄米兵を強盗殺人容疑で送検 女性の首にひも状の物で絞められた痕 (朝日新聞)",
+        "date": "2026-10-05",
+        "url": "https://news.yahoo.co.jp/articles/981866c6c4af88a7f09ce70022b4c1d57964e0d4",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:c9cfdb084a731e2158eb2c3e074893a9808d09a7a58fc8029d6ed43776b88420"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-05T15:27:44.710Z"
     }
   ]
 }
