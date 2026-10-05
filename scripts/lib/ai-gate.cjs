@@ -91,7 +91,7 @@ const VICTIM_OBJECT_RE =
 // 国籍表現が加害者ではない役割: 雇われた側・装われた側・対象（向け/相手）
 // 「インド人の男に襲われ」: 人物名詞＋「に」＋受身 は、国籍側が動作主（加害者）。「男性 車にはねられ」の「車に」は該当しない
 const AGENT_PASSIVE_RE = /^(?:の)?(?:男性|女性|男|女|少年|少女|グループ|集団|客|ら|\d+人組|容疑者)(?:\(\d+\))?(?:ら)?に[^、。]{0,6}?(?:刺され|襲われ|襲撃され|殴られ|蹴られ|切りつけられ|脅され|だまし取られ|盗まれ|奪われ|連れ去られ|監禁され)/;
-const NON_SUSPECT_AFTER_RE = /^(?:被害者|被害女性|被害男性|を装|になりすま|風の|向け|相手|の相談|の支援|に(?:不法|違法|働か|就労|雇)|と偽|の?(?:男|女|男性|女性)は(?:現場にいた|事件を目撃|目撃していた|同乗していた|同行していた|立ち会っていた))/;
+const NON_SUSPECT_AFTER_RE = /^(?:被害者|被害女性|被害男性|を装|になりすま|風の|向け|相手|の相談|の支援|に(?:不法|違法|働か|就労|雇|資格外活動をさせ)|と偽|の?(?:男|女|男性|女性)は(?:現場にいた|事件を目撃|目撃していた|同乗していた|同行していた|立ち会っていた))/;
 // ここに達したら被疑者側の述語に入ったとみなして、被害者語彙の探索を打ち切る
 const CLAUSE_STOP_RE = /[。]|逮捕|送検|送致|起訴|初公判|公判|求刑|判決|有罪|容疑|疑い|摘発|検挙|立件|書類送検/;
 
@@ -102,10 +102,11 @@ function natOccurrences(text) {
   return [...t.matchAll(NAT_RE_G)].map((m) => {
     const head = t.slice(Math.max(0, m.index - 24), m.index);
     const victimHead = VICTIM_HEAD_RE.test(head);
-    const tail = t.slice(m.index + m[0].length, m.index + m[0].length + 40);
+    const tail = t.slice(m.index + m[0].length, m.index + m[0].length + 150);
     const stop = tail.search(CLAUSE_STOP_RE);
     const win = (stop >= 0 ? tail.slice(0, stop) : tail).slice(0, 28);
-    const victim = victimHead || (!AGENT_PASSIVE_RE.test(win) && (VICTIM_PASSIVE_RE.test(win) || VICTIM_OBJECT_RE.test(win)));
+    const victimPossession = /^(?:観光客|女性|女|男性|男|客)[^。]{0,70}(?:が所持|が持|の所持|の持)[^。]{0,55}(?:を盗|を窃盗|を置き引き|が盗まれ|が奪われ)/.test(tail);
+    const victim = victimHead || victimPossession || (!AGENT_PASSIVE_RE.test(win) && (VICTIM_PASSIVE_RE.test(win) || VICTIM_OBJECT_RE.test(win)));
     const nonSuspect = NON_SUSPECT_AFTER_RE.test(win);
     // index: 同じ国籍語が1文に2回出る（被害者と被疑者が同国籍）場合に、各出現の位置で判定するため保持
     return { text: m[0], index: m.index, victim, nonSuspect, suspect: !victim && !nonSuspect };
@@ -136,7 +137,7 @@ function nationalityLinkedToSuspect(sentence, occurrence) {
   if (/^(?:の)?(?:女性|女|男性|男)[^、。]{0,24}(?:被害|を装|になりすま|と結婚|と偽)/.test(clause)) return false;
 
   // 国籍語の直後（読点区切りで住所・職業・自称などが挟まる場合を含む）に人物名詞が存在するか
-  const personMatch = new RegExp(`^(?:[、，で]|の|で[^\s、。]+[、，]|[\s])?[^。]{0,80}?${PERSON_NOUN}`).test(clause);
+  const personMatch = new RegExp(`^(?:[、，で]|の|で[^\s、。]+[、，]|[\\s])?[^。]{0,80}?${PERSON_NOUN}`).test(clause);
 
   // 3. 導入構文: prefixに「逮捕されたのは」「起訴されたのは」等があり、後続に人物名詞
   const isIntro = /(?:逮捕|送検|送致|起訴|書類送検|再逮捕|摘発|初公判|公判|求刑|判決|有罪)[^。]{0,35}されたのは/.test(prefix);

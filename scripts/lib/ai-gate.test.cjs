@@ -320,6 +320,22 @@ test('本文ゲート: 外国籍被疑者が確認できず日本人被疑者と
   assert.equal(result.rejectReason, 'suspect_is_japanese');
 });
 
+test('本文ゲート: 外国人の被害者と国籍不明の男を誤結合しない', () => {
+  const text = '外国人観光客が所持していたパスポートや現金入りのリュックサックを盗んだとして、21歳の男が窃盗容疑で逮捕されました。男は10月4日午前9時40分ごろ、札幌市の繁華街ススキノで、路上に置かれていたリュックサックを盗んだ疑いが持たれています。';
+  const result = gate.verifyArticleContent(text, '台湾人女性のリュックを置き引き 21歳男を逮捕 北海道');
+  assert.equal(result.verified, false);
+  assert.equal(result.audit.foreignNationality.verified, false);
+  assert.equal(result.pendingReason, 'suspect_identified_nationality_missing');
+});
+
+test('本文ゲート: 不法就労させた疑いの雇用主と外国人労働者の国籍を混同しない', () => {
+  const text = 'ベトナム人に資格外活動をさせたとして、県警は入管難民法違反（不法就労助長）の疑いで、志木市の29歳の男を逮捕しました。';
+  const result = gate.verifyArticleContent(text, '許可ない男女を不法就労させた疑い 男2人を逮捕');
+  assert.equal(result.verified, false);
+  assert.equal(result.audit.foreignNationality.verified, false);
+  assert.equal(result.pendingReason, 'suspect_identified_nationality_missing');
+});
+
 test('本文ゲート: 国籍付きの公判記事（中国籍の男2人の公判）が合格する', () => {
   const text = '東京都内で起きた空き巣事件で、窃盗の罪に問われた中国籍の男2人の初公判が東京地裁で開かれました。検察側は冒頭陳述で手口を指摘しました。被告側は起訴内容を認めました。';
   const result = gate.verifyArticleContent(text, '空き巣事件 中国籍の男2人の初公判 東京地裁');

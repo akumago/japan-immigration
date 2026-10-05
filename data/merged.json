@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-05T02:14:37.702Z",
+  "updatedAt": "2026-10-05T12:21:04.190Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -946,6 +946,23 @@
       },
       "reason": "国籍+罪種+固有語類似0.82",
       "recordedAt": "2026-10-05T02:14:37.702Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "e5dbd60280ee4d43",
+        "title": "ヤードで盗難車保管、パキスタン人社長逮捕 中古販売、時価600万円相当 茨城",
+        "date": "2026-10-05",
+        "url": "https://www.sankei.com/article/20261005-N5R7FTE3WBJJHFJHBZMDIVFP6E/"
+      },
+      "removed": {
+        "id": "78060a82d1ef3a73",
+        "title": "盗難車保管疑い社長逮捕、茨城　中古販売のヤード",
+        "date": "2026-10-05",
+        "url": "https://news.livedoor.com/article/detail/32491818/"
+      },
+      "reason": "同日・同一の盗品等保管事案。本文の文言と被疑者国籍・地域が一致する媒体重複",
+      "recordedAt": "2026-10-05T12:21:04.190Z"
     }
   ]
 }

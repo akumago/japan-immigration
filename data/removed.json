@@ -1,5 +1,33 @@
 {
   "version": 1,
-  "updatedAt": null,
-  "items": []
+  "updatedAt": "2026-10-05T12:24:52.339Z",
+  "items": [
+    {
+      "id": "cad831a7781dd24a",
+      "url": "https://www.fnn.jp/articles/-/1126927",
+      "title": "「買い物に行くため路上にリュックサック置いて戻ったら盗まれてた」台湾人女性のパスポート・財布入りリュックを置き引き…21歳男を逮捕「金欲しくて盗んだ」＜北海道＞",
+      "date": "2026-10-05",
+      "reason": "外国人属性は被害者（台湾人女性）のみ明記。被疑者の国籍が本文にないため誤掲載として除外",
+      "actor": "manual_quality_correction",
+      "recordedAt": "2026-10-05T12:21:04.190Z"
+    },
+    {
+      "id": "1e01bde1151d406f",
+      "url": "https://www.saitama-np.co.jp/articles/217796",
+      "title": "男2人を逮捕…許可ない男女5人に不法就労させた疑い 5人に対する捜査から判明 共同経営する作業場で勤務を指示 5人には時給1200円程度が支払われていた - saitama",
+      "date": "2026-10-05",
+      "reason": "外国人は不法就労をさせられた労働者側。逮捕された雇用主の国籍は根拠未確認のため誤掲載として除外",
+      "actor": "manual_quality_correction",
+      "recordedAt": "2026-10-05T12:24:52.339Z"
+    },
+    {
+      "id": "1e01bde1151d406f",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5GMWxhN1JhQzNuTUl2Q1FDYUZaRHRILXo5VEF4UnVoZktIdkdCRy03VjVyckZRbll4LWkyQVdNQjJMU2xFRkp6dWV3RXJESlN2djYzQUZWNA",
+      "title": "男2人を逮捕…許可ない男女5人に不法就労させた疑い 5人に対する捜査から判明 共同経営する作業場で勤務を指示 5人には時給1200円程度が支払われていた - saitama",
+      "date": "2026-10-05",
+      "reason": "外国人は不法就労をさせられた労働者側。逮捕された雇用主の国籍は根拠未確認のため誤掲載として除外",
+      "actor": "manual_quality_correction",
+      "recordedAt": "2026-10-05T12:24:52.339Z"
+    }
+  ]
 }
