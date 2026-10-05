@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-05T15:27:44.711Z",
+  "updatedAt": "2026-10-05T15:43:00.557Z",
   "items": [
     {
       "id": "e91f1f46e8388667",
@@ -78,6 +78,39 @@
       "reason": "gate_version_changed:strict-2026-10-02.2->strict-2026-10-06.1",
       "status": "recheck_pending",
       "recordedAt": "2026-10-05T15:23:47.851Z"
+    },
+    {
+      "id": "b4a8d4e3e24a1e85",
+      "sourceRecordId": null,
+      "url": "https://www.47news.jp/15035348.html",
+      "title": "盗難高級車保管疑い、逮捕 パキスタン国籍3人、茨城",
+      "date": "2026-10-04",
+      "eventKey": null,
+      "reason": "gate_version_changed:strict-2026-10-02.2->strict-2026-10-06.1",
+      "status": "recheck_pending",
+      "recordedAt": "2026-10-05T15:40:51.304Z"
+    },
+    {
+      "id": "381266ad2972a7fd",
+      "sourceRecordId": null,
+      "url": "https://news.livedoor.com/article/detail/32491261/",
+      "title": "資材置き場の敷鉄板4枚を盗んだフィリピン国籍の男(32)を現行犯逮捕　容疑を否認「借りるつもりで敷き鉄板を積んでいた」　新潟・南魚沼市",
+      "date": "2026-10-05",
+      "eventKey": "event-v1:7c7d39cc0e8d335eae3227a67ee3068664dfb84db6a0947f9674ab169e68a3e9",
+      "reason": "gate_version_changed:strict-2026-10-02.2->strict-2026-10-06.1",
+      "status": "recheck_pending",
+      "recordedAt": "2026-10-05T15:40:51.331Z"
+    },
+    {
+      "id": "a3a170320090e05c",
+      "sourceRecordId": null,
+      "url": "https://news.yahoo.co.jp/articles/fdbd184548d42ce8bb7082ac695399a8551e3785",
+      "title": "「メロンを盗みに行った」栽培用ハウスに侵入か ベトナム国籍の男逮捕 同僚の男2人も既に逮捕=静岡・菊川市（静岡放送（SBS））",
+      "date": "2026-10-05",
+      "eventKey": "event-v1:80f19b08bc89bc861ce9c0435c261634ff542273ac399c6440bc7c65154e0c89",
+      "reason": "gate_version_changed:strict-2026-10-02.2->strict-2026-10-06.1",
+      "status": "recheck_pending",
+      "recordedAt": "2026-10-05T15:40:51.332Z"
     }
   ]
 }
