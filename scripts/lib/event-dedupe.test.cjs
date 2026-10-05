@@ -18,6 +18,11 @@ test('地域階層: 一方の場所が不明なら不明', () => {
 test('地域階層: 横浜市中区と名古屋市中区は矛盾', () => {
   assert.equal(dedupe.compareLocations('横浜市中区', '名古屋市中区'), 'conflict');
 });
+test('地域表示: 自治体辞書にない「沖縄県高市」は沖縄県へ正規化し、那覇市は保持する', () => {
+  assert.equal(dedupe.normalizeStoredLocation('沖縄県高市'), '沖縄県');
+  assert.equal(dedupe.normalizeStoredLocation('沖縄県那覇市'), '沖縄県那覇市');
+  assert.equal(dedupe.locationHierarchy({ location: '沖縄県高市' }).locality, null);
+});
 test('地域階層: 同じ事件の県表示と市区表示は重複候補になり詳細な地域を残す', () => {
   const broad = { id: 'broad', title: '愛知県で住宅窃盗、中国籍の男（30）を逮捕', date: '2026-10-01', location: '愛知県' };
   const specific = { id: 'specific', title: '名古屋市中区の住宅窃盗、中国籍の男（30）を逮捕', date: '2026-10-01', location: '愛知県', audit: { japanCrime: { evidence: '名古屋市中区の住宅で窃盗をしたとして' } } };

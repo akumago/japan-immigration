@@ -2138,6 +2138,14 @@ async function main() {
       frozenExisting = [];
     }
   }
+  let normalizedLocationCount = 0;
+  frozenExisting = frozenExisting.map((item) => {
+    const location = eventDedupe.normalizeStoredLocation(item.location);
+    if (!location || location === item.location) return item;
+    normalizedLocationCount++;
+    return { ...item, location };
+  });
+  if (normalizedLocationCount) console.log(`📍 自治体辞書にない地域末尾を除去し、都道府県へ正規化: ${normalizedLocationCount} 件`);
   const removedExisting = frozenExisting.filter((item) => publicationLedger.isSuppressed(item, removedLedger));
   if (removedExisting.length) {
     frozenExisting = frozenExisting.filter((item) => !publicationLedger.isSuppressed(item, removedLedger));
@@ -2443,7 +2451,7 @@ async function main() {
   console.log(`🔍 本文検証対象: 合計 ${targetsToScan.length} 件 (通信再試行: ${retryCandidates.length} 件, 見出し合格後再確認: ${headlineReviewCandidates.length} 件, 新着: ${adjustedNewCandidates.length} 件 / 上限 ${maxScanPerRun} 件)`);
 
   // --- 本文スキャンと厳格検証の実行 ---
-  let stateChanged = removedQueueCount > 0 || expiredPendingCount > 0 || recoveredExpiredPendingCount > 0 || purgedCount > 0 || newlyEnqueued > 0 || syndicatedAlternativesAttached > 0 || refreshedUndatedQueueCount > 0 || migratedCount > 0 || gateRecheckCount > 0 || targetsToScan.length > 0;
+  let stateChanged = removedQueueCount > 0 || expiredPendingCount > 0 || recoveredExpiredPendingCount > 0 || purgedCount > 0 || newlyEnqueued > 0 || syndicatedAlternativesAttached > 0 || refreshedUndatedQueueCount > 0 || migratedCount > 0 || gateRecheckCount > 0 || normalizedLocationCount > 0 || targetsToScan.length > 0;
 
   if (targetsToScan.length > 0) {
     const scanner = articleFetcher.createScanner({
@@ -2965,7 +2973,7 @@ async function main() {
 
   // --- 既存データとの結合と保存（差分ゼロ保護） ---
   if (acceptedNew.length === 0 && removedExisting.length === 0 && quarantinedHeadlineCount === 0 && removedExistingHeadlineDuplicates === 0
-    && removedByBodyReview === 0 && refinedHeadlineCount === 0 && healed.removed.length === 0) {
+    && removedByBodyReview === 0 && refinedHeadlineCount === 0 && healed.removed.length === 0 && normalizedLocationCount === 0) {
     console.log('✅ 新着の合格記事はありませんでした。newsData.json の更新をスキップします（差分ゼロ保護）。');
     return;
   }

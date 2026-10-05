@@ -1085,6 +1085,7 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
   const initialExisting = [
     { id: 'initial-1', date: '2026-09-20', title: '過去の外国人犯罪事件1', location: '東京都' },
     { id: 'initial-2', date: '2026-09-19', title: '過去の外国人犯罪事件2', location: '大阪府' },
+    { id: 'bad-location', date: '2026-10-04', title: '那覇ホテルで起きた強盗殺人事件', location: '沖縄県高市' },
     { id: 'stale-gate-valid', date: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().slice(0, 10), title: '群馬県大泉町でブラジル国籍の男逮捕', location: '群馬県', url: `http://127.0.0.1:${serverPort}/article-stale-gate-valid`, verificationMode: 'body', gateVersion: 'strict-2026-10-02.2' },
     { id: 'stale-gate-victim', date: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().slice(0, 10), title: '台湾人女性の荷物を盗んだ男を逮捕 北海道', location: '北海道', url: `http://127.0.0.1:${serverPort}/article-stale-gate-victim`, verificationMode: 'body', gateVersion: 'strict-2026-10-02.2' },
   ];
@@ -1144,7 +1145,7 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
     // 1. 公開データ（newsData.json）の検証
     // 本文審査2件＋厳格条件を満たした見出し先行記事2件＋期限内旧候補が追加されること
     const updatedData = JSON.parse(fs.readFileSync(testNewsDataPath, 'utf-8'));
-    assert.equal(updatedData.length, 8, '通常記事と期限内旧候補を追加し、旧版ゲートの正当記事のみ再確認後に戻すこと');
+    assert.equal(updatedData.length, 9, '通常記事と期限内旧候補を追加し、旧版ゲートの正当記事のみ再確認後に戻すこと');
 
     // 既存データの完全不変保持
     for (const oldItem of initialExisting.filter((item) => item.id.startsWith('initial-'))) {
@@ -1152,6 +1153,8 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
     }
     assert.equal(updatedData.some((item) => item.id === 'stale-gate-victim'), false,
       '旧版で本文合格だった外国人被害者記事は再審査中に公開配列から隔離すること');
+    assert.equal(updatedData.find((item) => item.id === 'bad-location')?.location, '沖縄県',
+      '自治体辞書にない人物名由来の地域末尾を公開データで除去すること');
     assert.ok(updatedData.find((item) => item.id === 'stale-gate-valid')?.gateVersion === fetchNews.BODY_GATE_VERSION,
       '新ルールで再合格した旧記事だけを新しいgateVersionで復帰させること');
 

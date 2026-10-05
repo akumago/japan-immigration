@@ -30,6 +30,21 @@ const CRIME_GROUPS = [
 ];
 
 const nfkc = (s) => String(s || '').normalize('NFKC');
+const MUNICIPALITY_MAP = require('../../data/municipalities.json').map;
+
+function normalizeStoredLocation(value) {
+  const location = nfkc(value).trim();
+  const prefMatch = location.match(/^(北海道|東京都|京都府|大阪府|(?:青森|岩手|宮城|秋田|山形|福島|茨城|栃木|群馬|埼玉|千葉|神奈川|新潟|富山|石川|福井|山梨|長野|岐阜|静岡|愛知|三重|滋賀|兵庫|奈良|和歌山|鳥取|島根|岡山|広島|山口|徳島|香川|愛媛|高知|福岡|佐賀|長崎|熊本|大分|宮崎|鹿児島|沖縄)県)/);
+  if (!prefMatch) return location;
+  const pref = prefMatch[0];
+  const suffix = location.slice(pref.length);
+  if (!suffix) return pref;
+  const validMunicipality = Object.keys(MUNICIPALITY_MAP)
+    .filter((name) => suffix.startsWith(name) && MUNICIPALITY_MAP[name]?.includes(pref))
+    .sort((a, b) => b.length - a.length)[0];
+  // 県名に続く地名が自治体辞書にない場合、人物名などを地域として誤表示しない。
+  return validMunicipality ? `${pref}${validMunicipality}` : pref;
+}
 
 // 地域は文字列一致ではなく階層として比較する。含有関係・不明は矛盾にしない。
 function locationHierarchy(item = {}) {
@@ -40,7 +55,9 @@ function locationHierarchy(item = {}) {
   const pref = prefMatch?.[0] || (shortPref ? `${shortPref[0].trim()}${['東京'].includes(shortPref[0].trim()) ? '都' : ['京都','大阪'].includes(shortPref[0].trim()) ? '府' : '県'}` : null);
   const localityText = evidence.replace(/北海道|東京都|京都府|大阪府|(?:青森|岩手|宮城|秋田|山形|福島|茨城|栃木|群馬|埼玉|千葉|神奈川|新潟|富山|石川|福井|山梨|長野|岐阜|静岡|愛知|三重|滋賀|兵庫|奈良|和歌山|鳥取|島根|岡山|広島|山口|徳島|香川|愛媛|高知|福岡|佐賀|長崎|熊本|大分|宮崎|鹿児島|沖縄)県/g, ' ');
   const localityMatches = [...localityText.matchAll(/([一-龥々ァ-ヶー]{1,10}市(?:[一-龥々ァ-ヶー]{1,8}区)?|[一-龥々ァ-ヶー]{1,8}区|[一-龥々ァ-ヶー]{1,8}[町村])/g)];
-  const locality = localityMatches.map((m) => m[1]).find((x) => !/(警察署|入管|地裁|地検|区検|市役所)$/.test(x)) || null;
+  const locality = localityMatches.map((m) => m[1]).find((x) => !/(警察署|入管|地裁|地検|区検|市役所)$/.test(x)
+    && MUNICIPALITY_MAP[x]?.length === 1
+    && (!pref || MUNICIPALITY_MAP[x].includes(pref))) || null;
   return { pref, locality };
 }
 
@@ -284,4 +301,4 @@ function healRecentDuplicates(items, { auditOf = () => null, windowDays = 5, now
   return { items: enriched, removed };
 }
 
-module.exports = { signals, procedureStage, isFollowUp, compareLocations, locationHierarchy, moreSpecificLocation, sameEventReason, healRecentDuplicates, STAGE_ORDER };
+module.exports = { signals, procedureStage, isFollowUp, compareLocations, locationHierarchy, normalizeStoredLocation, moreSpecificLocation, sameEventReason, healRecentDuplicates, STAGE_ORDER };
