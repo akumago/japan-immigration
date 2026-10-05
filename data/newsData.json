@@ -1,5 +1,49 @@
 [
   {
+    "id": "e08a190a72da828a",
+    "title": "アジア大会の会場から屋内用の出入口マット盗んだか 外国籍のスタッフの女を逮捕 セレモニーの会場設営を担当",
+    "date": "2026-10-06",
+    "location": "愛知県",
+    "media": "ライブドアニュース",
+    "stage": "逮捕",
+    "eventKey": "event-v1:121e310b2f5a773a03dab00afeaf2563f270038e5f65e73692286f273077a4a3",
+    "url": "https://news.livedoor.com/topics/detail/32496262/",
+    "summary": "愛知県で発生し、イギリス国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: アジア大会の会場から屋内用に置かれた出入口マットを盗んだとして、大会スタッフのイギリス国籍の女が逮捕されました。",
+      "nationality": "本文抜粋: イギリス国籍"
+    },
+    "locationBasis": "本文抜粋: 警察によりますと、イギリス国籍のターニャ・ニーマンド容疑者(47)は3日、名古屋市北区に",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-05T18:38:52.793Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "e4c97ccd63fdac03",
+    "title": "強殺容疑で逮捕の米兵 防犯カメラに“逃走の様子”",
+    "date": "2026-10-05",
+    "location": "沖縄県",
+    "media": "テレ朝NEWS",
+    "stage": "逮捕",
+    "eventKey": "event-v1:e4dce0203e7cbeb1624921db583d5179de2fb27bacac56944ea0579ed0741b9c",
+    "url": "https://news.tv-asahi.co.jp/news_society/articles/000538023.html",
+    "summary": "沖縄県で発生し、デビン・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 那覇市のホテルで女性を殺害し、財布などを奪ったとして逮捕されたアメリカ海兵隊員のデビン・バラード容疑者（20）が5日、送検されました。",
+      "nationality": "本文抜粋: デビン・バラード"
+    },
+    "locationBasis": "本文抜粋: 那覇市のホテルで女性を殺害し、財布などを奪ったとして逮捕されたアメリカ海兵隊員のデビン・バラード容疑者（20）が5日、送検されました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-05T18:39:08.581Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "999b1de21eea17b0",
     "title": "盗難高級車保管疑い、逮捕",
     "date": "2026-10-05",
@@ -15,27 +59,6 @@
     "locationBasis": "本文抜粋: 車解体の作業場「ヤード」で、盗まれた物と知りながら高級車１台を保管したとして、茨城県警と警視庁など１０都府県警の合同捜査班は４日、盗品等保管の疑いでいずれもパキ",
     "gateVersion": "strict-2026-10-06.1",
     "judgedAt": "2026-10-05T15:27:17.115Z",
-    "legacy": false,
-    "verificationMode": "body",
-    "provisionalHeadlineOnly": false,
-    "audited": true
-  },
-  {
-    "id": "453cc9066a2b1ef3",
-    "title": "「メロンを盗むために…」メロンハウス侵入の容疑でベトナム人の男を逮捕　容疑を認める　静岡・菊川市(静岡朝日テレビ)",
-    "date": "2026-10-05",
-    "location": "静岡県",
-    "media": "静岡朝日テレビ",
-    "stage": "逮捕",
-    "url": "https://news.yahoo.co.jp/articles/20baccdff386e79c0f8f318318f972945525f387?source=rss",
-    "summary": "静岡県で発生し、ベトナム国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 静岡県菊川市のメロン栽培ハウスに侵入したとして、新たにベトナム国籍の塗装工の男（２２）が逮捕されました。",
-      "nationality": "本文抜粋: ベトナム国籍"
-    },
-    "locationBasis": "本文抜粋: 静岡県菊川市のメロン栽培ハウスに侵入したとして、新たにベトナム国籍の塗装工の男（２２）が逮捕されました。",
-    "gateVersion": "strict-2026-10-02.2",
-    "judgedAt": "2026-10-05T09:17:55.945Z",
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,

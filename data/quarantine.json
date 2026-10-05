@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-05T15:43:00.557Z",
+  "updatedAt": "2026-10-05T18:40:26.382Z",
   "items": [
     {
       "id": "e91f1f46e8388667",
@@ -111,6 +111,17 @@
       "reason": "gate_version_changed:strict-2026-10-02.2->strict-2026-10-06.1",
       "status": "recheck_pending",
       "recordedAt": "2026-10-05T15:40:51.332Z"
+    },
+    {
+      "id": "453cc9066a2b1ef3",
+      "sourceRecordId": null,
+      "url": "https://news.yahoo.co.jp/articles/20baccdff386e79c0f8f318318f972945525f387?source=rss",
+      "title": "「メロンを盗むために…」メロンハウス侵入の容疑でベトナム人の男を逮捕　容疑を認める　静岡・菊川市(静岡朝日テレビ)",
+      "date": "2026-10-05",
+      "eventKey": null,
+      "reason": "gate_version_changed:strict-2026-10-02.2->strict-2026-10-06.1",
+      "status": "recheck_pending",
+      "recordedAt": "2026-10-05T18:38:42.488Z"
     }
   ]
 }
