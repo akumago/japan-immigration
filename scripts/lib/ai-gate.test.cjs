@@ -336,6 +336,14 @@ test('本文ゲート: 不法就労させた疑いの雇用主と外国人労働
   assert.equal(result.pendingReason, 'suspect_identified_nationality_missing');
 });
 
+test('本文ゲート: 社説が事件・国籍・刑事用語を含んでもニュース記事として通過しない', () => {
+  const text = '協定では米軍関係者が公務外で犯罪を起こした場合、容疑者の身柄が米側にあれば原則として起訴まで米側が拘束する。沖縄県知事は米軍に抗議した。';
+  const result = gate.verifyArticleContent(text, '＜社説＞米兵強殺容疑 沖縄の不条理座視できぬ');
+  assert.equal(result.verified, false);
+  assert.equal(result.rejected, true);
+  assert.equal(result.rejectReason, 'editorial_or_opinion');
+});
+
 test('本文ゲート: 国籍付きの公判記事（中国籍の男2人の公判）が合格する', () => {
   const text = '東京都内で起きた空き巣事件で、窃盗の罪に問われた中国籍の男2人の初公判が東京地裁で開かれました。検察側は冒頭陳述で手口を指摘しました。被告側は起訴内容を認めました。';
   const result = gate.verifyArticleContent(text, '空き巣事件 中国籍の男2人の初公判 東京地裁');

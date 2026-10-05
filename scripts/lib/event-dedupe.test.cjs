@@ -505,6 +505,57 @@ test('公開中の茨城ヤード盗品保管報道: 産経とライブドアの
   assert.match(dedupe.sameEventReason(sankei, livedoor) || '', /罪種/);
 });
 
+test('同一段階の別媒体記事: 茨城ヤード高級車保管事件は見出し表現が違っても同一事件と判定', () => {
+  const sankei = {
+    id: 'sankei', title: 'ヤードで盗難車保管、パキスタン人社長逮捕 中古販売、時価600万円相当 茨城',
+    date: '2026-10-05', location: '茨城県', stage: '逮捕',
+    evidence: {
+      suspect: '本文抜粋: 茨城県警と警視庁など10都府県警の合同捜査班は、ヤードで盗品と知りながら高級車1台を保管したとして盗品等保管の疑いで、パキスタン国籍の中古車販売会社社長を逮捕',
+      nationality: '本文抜粋: パキスタン国籍',
+    },
+  };
+  const localPaper = {
+    id: 'local', title: '盗品と知りながら高級車保管 容疑で古河のヤード従業員3人逮捕 茨城県警',
+    date: '2026-10-05', location: '茨城県', stage: '逮捕',
+    evidence: {
+      suspect: '本文抜粋: 茨城県古河市内のヤードで盗品と知りながら高級車を保管したとして、合同捜査班は盗品等保管の疑いでパキスタン国籍の男らを逮捕',
+      nationality: '本文抜粋: パキスタン国籍',
+    },
+  };
+  assert.match(dedupe.sameEventReason(sankei, localPaper) || '', /事件固有アンカー/);
+  const nextDay = {
+    id: 'next-day', title: '盗難高級車保管疑い、逮捕 パキスタン国籍3人、茨城',
+    date: '2026-10-04', location: '茨城県', stage: '逮捕',
+  };
+  assert.match(dedupe.sameEventReason(nextDay, localPaper) || '', /事件固有アンカー/,
+    '日付が1日ずれた同一の高級車保管事件も同段階の媒体違いとして照合する');
+  const healed = dedupe.healRecentDuplicates([sankei, { ...localPaper, followUp: true }], {
+    now: Date.parse('2026-10-05T12:00:00Z'),
+  });
+  assert.equal(healed.items.length, 1, '同段階のfollowUpフラグがある転載も重複統合する');
+});
+
+test('沖縄米兵事件: 同日の送検記事は同段階の媒体重複として統合する', () => {
+  const mainichi = {
+    id: 'mainichi', title: '強盗殺人容疑で逮捕の米兵を送検 那覇のホテルに女性遺体',
+    date: '2026-10-05', location: '沖縄県', stage: '送検',
+  };
+  const asahi = {
+    id: 'asahi', title: '沖縄米兵を強盗殺人容疑で送検 女性の首にひも状の物で絞められた痕',
+    date: '2026-10-05', location: '沖縄県', stage: '送検', verificationMode: 'headline_only',
+  };
+  assert.match(dedupe.sameEventReason(mainichi, asahi) || '', /事件固有アンカー/);
+  const healed = dedupe.healRecentDuplicates([mainichi, { ...asahi, followUp: true }], {
+    now: Date.parse('2026-10-05T12:00:00Z'),
+  });
+  assert.equal(healed.items.length, 1);
+  const arrest = { ...mainichi, title: '那覇ホテルで女性死亡、米兵を強盗殺人容疑で逮捕', stage: '逮捕' };
+  assert.ok(dedupe.sameEventReason(arrest, mainichi), '逮捕から送検の記事は同一事件に紐づく');
+  assert.equal(dedupe.isFollowUp(arrest, mainichi), true, '逮捕から送検への段階進展と判定する');
+  assert.equal(dedupe.healRecentDuplicates([arrest, mainichi]).items.length, 2,
+    '逮捕から送検への段階進展はどちらも残す');
+});
+
 test('手続段階: 本文根拠に含まれる過去の公判・逮捕語で見出し段階を誤分類しない', () => {
   const arrest = {
     title: '中国籍の男を窃盗容疑で逮捕', date: '2026-10-01',

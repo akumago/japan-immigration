@@ -12,7 +12,7 @@ const rssSources = require('./lib/rss-sources.cjs');
 const observability = require('./lib/pipeline-observability.cjs');
 const publicationLedger = require('./lib/publication-ledger.cjs');
 const SHADOW_MODE = process.env.SHADOW_MODE === '1'; // 既定は本番稼働（1を明示したときだけシャドー）
-const BODY_GATE_VERSION = 'strict-2026-10-02.2';
+const BODY_GATE_VERSION = 'strict-2026-10-06.1';
 
 const getNewsDataPath = () => process.env.NEWS_DATA_PATH || path.join(__dirname, '../data/newsData.json');
 const getQueuePath = () => process.env.NEWS_QUEUE_PATH || path.join(__dirname, '../data/newsQueue.json');
@@ -24,7 +24,7 @@ function normalizeArticleUrl(rawUrl) {
     u.hash = '';
     const deleteKeys = [];
     for (const key of u.searchParams.keys()) {
-      if (/^(?:utm_|ref|oc|hl|gl|ceid|fbclid|gclid)/i.test(key)) {
+      if (/^(?:utm_|ref|oc|hl|gl|ceid|fbclid|gclid|source|sourceid)/i.test(key)) {
         deleteKeys.push(key);
       }
     }
@@ -108,6 +108,7 @@ function ledgerArticleRef(item) {
     title: item.title || null,
     date: item.date || null,
     url: item.url || null,
+    resolvedUrl: item.resolvedUrl || null,
     eventKey: item.eventKey || null,
   };
 }
@@ -2190,6 +2191,44 @@ async function main() {
   // Migrate old headline-only entries and quarantine them after their configurable display deadline.
   let quarantinedHeadlineCount = 0;
   let quarantineLedgerChanged = false;
+  // Gate更新時は、直近に本文合格として公開した記事を旧判定のまま残さない。
+  // 審査中は一時隔離し、新ルールで再合格したものだけ再公開する。
+  let gateRecheckCount = 0;
+  for (const item of queue.items) {
+    if (item.status !== 'verified' || item.verificationMode !== 'body'
+      || !item.gateVersion || item.gateVersion === BODY_GATE_VERSION) continue;
+    const effective = itemEffectiveTime(item);
+    if (!effective || effective > now + 10 * 60 * 1000 || now - effective >= 120 * 60 * 60 * 1000) continue;
+    const publication = frozenExisting.find((entry) => entry.id === item.id
+      || (item.sourceRecordId && entry.sourceRecordId === item.sourceRecordId)
+      || normalizeArticleUrl(entry.url) === normalizeArticleUrl(item.resolvedUrl || item.url));
+    if (!publication) continue;
+    item.previousAudit = item.audit || item.previousAudit || null;
+    item.recheckPublication = ledgerArticleRef(publication);
+    item.gateRecheckPending = true;
+    item.status = 'pending';
+    item.pendingReason = 'gate_version_recheck';
+    item.attempts = Math.max(1, Number(item.attempts) || 0);
+    item.nextAttemptAt = new Date(now).toISOString();
+    item.audit = null;
+    const appended = publicationLedger.appendRecords(quarantineLedger, [{
+      id: publication.id, sourceRecordId: publication.sourceRecordId || null,
+      url: publication.url, title: publication.title, date: publication.date,
+      eventKey: publication.eventKey || eventFingerprint(publication),
+      reason: `gate_version_changed:${publication.gateVersion || 'unknown'}->${BODY_GATE_VERSION}`,
+      status: 'recheck_pending',
+    }]);
+    if (appended.added) {
+      quarantineLedger.items = appended.ledger.items;
+      quarantineLedgerChanged = true;
+    }
+    frozenExisting = frozenExisting.filter((entry) => entry !== publication);
+    if (publication.id) existingIds.delete(publication.id);
+    if (publication.sourceRecordId) existingIds.delete(publication.sourceRecordId);
+    if (publication.url) existingNormUrls.delete(normalizeArticleUrl(publication.url));
+    gateRecheckCount++;
+  }
+  if (gateRecheckCount) console.log(`🛡️ 判定ルール更新のため直近公開記事を一時隔離し再審査: ${gateRecheckCount} 件`);
   for (const item of queue.items) {
     if (!item.headlineOnlyPublished || !item.headlineReviewPending) continue;
     const publication = frozenExisting.find((entry) => entry.id === item.id
@@ -2404,7 +2443,7 @@ async function main() {
   console.log(`🔍 本文検証対象: 合計 ${targetsToScan.length} 件 (通信再試行: ${retryCandidates.length} 件, 見出し合格後再確認: ${headlineReviewCandidates.length} 件, 新着: ${adjustedNewCandidates.length} 件 / 上限 ${maxScanPerRun} 件)`);
 
   // --- 本文スキャンと厳格検証の実行 ---
-  let stateChanged = removedQueueCount > 0 || expiredPendingCount > 0 || recoveredExpiredPendingCount > 0 || purgedCount > 0 || newlyEnqueued > 0 || syndicatedAlternativesAttached > 0 || refreshedUndatedQueueCount > 0 || migratedCount > 0 || targetsToScan.length > 0;
+  let stateChanged = removedQueueCount > 0 || expiredPendingCount > 0 || recoveredExpiredPendingCount > 0 || purgedCount > 0 || newlyEnqueued > 0 || syndicatedAlternativesAttached > 0 || refreshedUndatedQueueCount > 0 || migratedCount > 0 || gateRecheckCount > 0 || targetsToScan.length > 0;
 
   if (targetsToScan.length > 0) {
     const scanner = articleFetcher.createScanner({
@@ -2508,6 +2547,8 @@ async function main() {
         qItem.verificationMode = 'body';
         qItem.headlineReviewPending = false;
         qItem.headlineReviewNextAt = null;
+        qItem.gateRecheckPending = false;
+        qItem.recheckPublication = null;
         for (const entry of quarantineLedger.items) {
           if (entry.id === qItem.id || (qItem.sourceRecordId && entry.sourceRecordId === qItem.sourceRecordId)) {
             entry.status = 'restored_after_body_verification';
@@ -2574,18 +2615,21 @@ async function main() {
   }
 
   // 本文で見出し判定が明確に否定された場合は、その公開レコードだけを除き、再掲載も抑止する。
-  const rejectedHeadlineReviews = queue.items.filter((item) => item.headlineOnlyRejected);
+  const rejectedHeadlineReviews = queue.items.filter((item) => item.headlineOnlyRejected
+    || (item.gateRecheckPending && item.status === 'rejected'));
   let removedByBodyReview = 0;
   if (rejectedHeadlineReviews.length) {
     for (const qItem of rejectedHeadlineReviews) {
       const removed = frozenExisting.filter((item) => item.id === qItem.id
         || (qItem.sourceRecordId && item.sourceRecordId === qItem.sourceRecordId)
         || normalizeArticleUrl(item.url) === normalizeArticleUrl(qItem.resolvedUrl || qItem.url));
+      if (!removed.length && qItem.recheckPublication) removed.push(qItem.recheckPublication);
       if (!removed.length) continue;
       removedByBodyReview += removed.length;
       const tombstones = removed.map((item) => ({
         id: item.id, sourceRecordId: item.sourceRecordId || null, url: item.url,
-        title: item.title, date: item.date, reason: `headline_provisional_rejected_by_body:${qItem.rejectReason || 'body_rejected'}`,
+        title: item.title, date: item.date,
+        reason: `${qItem.gateRecheckPending ? 'gate_version_recheck_rejected' : 'headline_provisional_rejected_by_body'}:${qItem.rejectReason || 'body_rejected'}`,
         eventKey: item.eventKey || eventFingerprint({ ...item, audit: item.audit || qItem.audit }),
         actor: 'pipeline_body_review',
       }));
@@ -2601,6 +2645,8 @@ async function main() {
         if (item.sourceRecordId) existingIds.delete(item.sourceRecordId);
         if (item.url) existingNormUrls.delete(normalizeArticleUrl(item.url));
       }
+      qItem.gateRecheckPending = false;
+      qItem.recheckPublication = null;
     }
     if (removedByBodyReview) stateChanged = true;
   }

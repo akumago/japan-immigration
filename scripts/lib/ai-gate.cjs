@@ -666,6 +666,14 @@ function verifyArticleContent(text, title = '') {
     }
   };
 
+  // 社説・論説は、事件の説明や引用を含んでいても被疑者報道ではない。
+  // 本文抽出された社説が逮捕語・国籍語だけで通過するのを最終ゲートで止める。
+  if (title && /(?:社説|論説|社論|オピニオン)/.test(nfkc(title))) {
+    result.rejected = true;
+    result.rejectReason = 'editorial_or_opinion';
+    return result;
+  }
+
   if (!text || typeof text !== 'string') {
     result.insufficientEvidence = true;
     result.pendingReason = 'empty_or_invalid_text';

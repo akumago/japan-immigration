@@ -959,6 +959,9 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
       <p>静岡県浜松市の住宅で金品を盗んだとして、ペルー国籍の男（35）が窃盗の疑いで逮捕されました。男は現場から逃走していましたが、警察の捜査で関与が浮上し、容疑を認めているということです。警察は周辺の余罪も調べています。</p>
     </article></body></html>`;
 
+  const staleGateValidHtml = `<!DOCTYPE html><html><body><article class="article-body"><p>群馬県大泉町の住宅で現金を盗んだとして、群馬県警はブラジル国籍の男（32）を住居侵入と窃盗の疑いで逮捕しました。男は容疑を認めており、警察は周辺で起きた事件との関連も調べています。事件は先月発生し、警察が防犯カメラなどを調べて男を特定しました。</p></article></body></html>`;
+  const staleGateVictimHtml = `<!DOCTYPE html><html><body><article class="article-body"><p>北海道札幌市で、外国人観光客が所持していたパスポートや現金入りのリュックサックを盗んだとして、21歳の男が窃盗容疑で逮捕されました。男は金が欲しくて盗んだと話しています。警察は札幌市内の防犯カメラを確認し、男の関与を調べていました。</p></article></body></html>`;
+
   // 99文字記事（3要素を満たすが、抽出後の実測文字数が99文字のため本番判定で厳密に遮断される）
   const article99Html = `
     <!DOCTYPE html>
@@ -1057,6 +1060,12 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
       } else if (u.pathname === '/article-recovered') {
         res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
         res.end(recoveredArticleHtml);
+      } else if (u.pathname === '/article-stale-gate-valid') {
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(staleGateValidHtml);
+      } else if (u.pathname === '/article-stale-gate-victim') {
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(staleGateVictimHtml);
       } else {
         res.writeHead(404);
         res.end('Not Found');
@@ -1076,6 +1085,8 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
   const initialExisting = [
     { id: 'initial-1', date: '2026-09-20', title: '過去の外国人犯罪事件1', location: '東京都' },
     { id: 'initial-2', date: '2026-09-19', title: '過去の外国人犯罪事件2', location: '大阪府' },
+    { id: 'stale-gate-valid', date: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().slice(0, 10), title: '群馬県大泉町でブラジル国籍の男逮捕', location: '群馬県', url: `http://127.0.0.1:${serverPort}/article-stale-gate-valid`, verificationMode: 'body', gateVersion: 'strict-2026-10-02.2' },
+    { id: 'stale-gate-victim', date: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().slice(0, 10), title: '台湾人女性の荷物を盗んだ男を逮捕 北海道', location: '北海道', url: `http://127.0.0.1:${serverPort}/article-stale-gate-victim`, verificationMode: 'body', gateVersion: 'strict-2026-10-02.2' },
   ];
   fs.writeFileSync(testNewsDataPath, JSON.stringify(initialExisting, null, 2), 'utf-8');
   fs.writeFileSync(testQueuePath, JSON.stringify({ version: 1, items: [{
@@ -1089,6 +1100,18 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
     pendingReason: 'queue_expired_after_120h',
     attempts: 0,
     terminalAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+  }, {
+    id: 'stale-gate-valid', url: `http://127.0.0.1:${serverPort}/article-stale-gate-valid`,
+    title: '群馬県大泉町でブラジル国籍の男逮捕', pubDate: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+    firstSeen: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), status: 'verified', attempts: 1,
+    verificationMode: 'body', gateVersion: 'strict-2026-10-02.2', location: '群馬県',
+    audit: { japanCrime: { verified: true, evidence: 'old' }, suspectRole: { verified: true, evidence: 'old' }, foreignNationality: { verified: true, evidence: 'old' } },
+  }, {
+    id: 'stale-gate-victim', url: `http://127.0.0.1:${serverPort}/article-stale-gate-victim`,
+    title: '台湾人女性の荷物を盗んだ男を逮捕 北海道', pubDate: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+    firstSeen: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), status: 'verified', attempts: 1,
+    verificationMode: 'body', gateVersion: 'strict-2026-10-02.2', location: '北海道',
+    audit: { japanCrime: { verified: true, evidence: 'old' }, suspectRole: { verified: true, evidence: 'old' }, foreignNationality: { verified: true, evidence: 'old' } },
   }, {
     id: 'stale-pending-item',
     url: `http://127.0.0.1:${serverPort}/article-stale`,
@@ -1121,12 +1144,16 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
     // 1. 公開データ（newsData.json）の検証
     // 本文審査2件＋厳格条件を満たした見出し先行記事2件＋期限内旧候補が追加されること
     const updatedData = JSON.parse(fs.readFileSync(testNewsDataPath, 'utf-8'));
-    assert.equal(updatedData.length, 7, '通常長文・見出し限定・100文字境界・期限内旧候補の記事が追加されること');
+    assert.equal(updatedData.length, 8, '通常記事と期限内旧候補を追加し、旧版ゲートの正当記事のみ再確認後に戻すこと');
 
     // 既存データの完全不変保持
-    for (const oldItem of initialExisting) {
+    for (const oldItem of initialExisting.filter((item) => item.id.startsWith('initial-'))) {
       assert.deepEqual(updatedData.find((item) => item.id === oldItem.id), oldItem, '既存の過去データが1ビットも改変されていないこと');
     }
+    assert.equal(updatedData.some((item) => item.id === 'stale-gate-victim'), false,
+      '旧版で本文合格だった外国人被害者記事は再審査中に公開配列から隔離すること');
+    assert.ok(updatedData.find((item) => item.id === 'stale-gate-valid')?.gateVersion === fetchNews.BODY_GATE_VERSION,
+      '新ルールで再合格した旧記事だけを新しいgateVersionで復帰させること');
 
     // 2. 本文はメタ説明文のみでも、見出しが厳格な全条件を満たす場合は本文確認中として先行掲載
     const metaAdded = updatedData.find((a) => a.title.includes('中国籍'));
@@ -1135,6 +1162,11 @@ test('pipeline E2E: 本番 fetch-news.cjs の main() を実際に通す完全 E2
 
     // 3. キュー（newsQueue.json）の検証
     const updatedQueue = JSON.parse(fs.readFileSync(testQueuePath, 'utf-8'));
+    assert.notEqual(updatedQueue.items.find((item) => item.id === 'stale-gate-victim')?.status, 'verified',
+      '旧版のverified状態を新しい本文判定より優先しないこと');
+    const updatedQuarantine = JSON.parse(fs.readFileSync(path.join(testDir, 'quarantine.json'), 'utf-8'));
+    assert.ok(updatedQuarantine.items.some((item) => item.id === 'stale-gate-victim' && item.status === 'recheck_pending'),
+      '再審査中の旧公開記事は理由付きで隔離台帳に記録すること');
     assert.ok(updatedQueue.items.length >= 3, '候補がキューに登録されていること');
     const recoveredItem = updatedQueue.items.find((item) => item.id === 'legacy-expired-item');
     assert.equal(recoveredItem.status, 'verified', '5日窓内の旧候補を本番main()で再審査し、合格へ復帰させる');

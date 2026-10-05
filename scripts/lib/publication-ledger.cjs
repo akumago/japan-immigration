@@ -9,7 +9,7 @@ function normalizeUrl(value) {
     const url = new URL(value);
     url.hash = '';
     for (const key of [...url.searchParams.keys()]) {
-      if (/^(?:utm_|ref|oc|hl|gl|ceid|fbclid|gclid)/i.test(key)) url.searchParams.delete(key);
+      if (/^(?:utm_|ref|oc|hl|gl|ceid|fbclid|gclid|source|sourceid)/i.test(key)) url.searchParams.delete(key);
     }
     return url.toString().replace(/\/+$/, '');
   } catch (_) {
@@ -82,7 +82,9 @@ function isMergedAway(item, ledger) {
     const removed = entry.removed;
     return (removed.id && (removed.id === item.id || removed.id === item.sourceRecordId))
       || (removed.sourceRecordId && removed.sourceRecordId === item.sourceRecordId)
-      || (removed.url && urls.has(normalizeUrl(removed.url)));
+      || (removed.url && urls.has(normalizeUrl(removed.url)))
+      || (removed.resolvedUrl && urls.has(normalizeUrl(removed.resolvedUrl)))
+      || (removed.alternateUrls || []).some((url) => urls.has(normalizeUrl(url)));
   });
 }
 

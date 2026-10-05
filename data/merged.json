@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-05T12:21:04.190Z",
+  "updatedAt": "2026-10-05T15:12:30.300Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -963,6 +963,69 @@
       },
       "reason": "同日・同一の盗品等保管事案。本文の文言と被疑者国籍・地域が一致する媒体重複",
       "recordedAt": "2026-10-05T12:21:04.190Z"
+    },
+    {
+      "kind": "same_event_same_stage_syndication",
+      "kept": {
+        "id": "a1e6e85660c4247b",
+        "title": "強盗殺人容疑で逮捕の米兵を送検 那覇のホテルに女性遺体 (毎日新聞)",
+        "date": "2026-10-05",
+        "url": "https://news.yahoo.co.jp/articles/c606c7824447889aae8390bb85bdbd5d6634b531",
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "73386d7b5a4adb51",
+        "title": "沖縄米兵を強盗殺人容疑で送検 女性の首にひも状の物で絞められた痕 [沖縄県]",
+        "date": "2026-10-05",
+        "url": "https://www.asahi.com/articles/ASVB522VDVB5UTIL007M.html",
+        "resolvedUrl": "https://www.asahi.com/articles/ASVB522VDVB5UTIL007M.html",
+        "eventKey": null
+      },
+      "reason": "同一事件・同日・送検段階の別媒体記事。本文確認済みの毎日新聞/Yahoo版を残し、見出し仮掲載の朝日版を統合",
+      "actor": "pipeline_quality_correction",
+      "recordedAt": "2026-10-05T15:12:30.300Z"
+    },
+    {
+      "kind": "same_event_same_stage_syndication",
+      "kept": {
+        "id": "f75ba7657546b135",
+        "title": "盗品と知りながら高級車保管　容疑で古河のヤード従業員3人逮捕　茨城県警(茨城新聞クロスアイ)",
+        "date": "2026-10-05",
+        "url": "https://news.yahoo.co.jp/articles/dec18faac93669208492c3add7e308d4c84350d6?source=rss",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "e5dbd60280ee4d43",
+        "title": "ヤードで盗難車保管、パキスタン人社長逮捕 中古販売、時価600万円相当 茨城",
+        "date": "2026-10-05",
+        "url": "https://www.sankei.com/article/20261005-N5R7FTE3WBJJHFJHBZMDIVFP6E/",
+        "resolvedUrl": "https://www.sankei.com/article/20261005-N5R7FTE3WBJJHFJHBZMDIVFP6E/",
+        "eventKey": null
+      },
+      "reason": "同日・同一茨城ヤードの盗品高級車保管事件。詳細な古河市・従業員情報を含む茨城新聞版を残す",
+      "actor": "pipeline_quality_correction",
+      "recordedAt": "2026-10-05T15:12:30.300Z"
+    },
+    {
+      "kind": "same_event_same_stage_syndication",
+      "kept": {
+        "id": "f75ba7657546b135",
+        "title": "盗品と知りながら高級車保管　容疑で古河のヤード従業員3人逮捕　茨城県警(茨城新聞クロスアイ)",
+        "date": "2026-10-05",
+        "url": "https://news.yahoo.co.jp/articles/dec18faac93669208492c3add7e308d4c84350d6?source=rss",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "d8847e02819696cb",
+        "title": "盗難高級車保管疑い、逮捕　パキスタン国籍3人、茨城",
+        "date": "2026-10-04",
+        "url": "https://news.livedoor.com/article/detail/32486504/",
+        "resolvedUrl": "https://news.livedoor.com/article/detail/32486504/",
+        "eventKey": null
+      },
+      "reason": "翌日の別媒体記事だが同一茨城ヤード高級車保管事件（国籍・罪種・県・段階・事件アンカー一致）。詳細な茨城新聞版を残す",
+      "actor": "pipeline_quality_correction",
+      "recordedAt": "2026-10-05T15:12:30.300Z"
     }
   ]
 }

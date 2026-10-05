@@ -40,6 +40,15 @@ test('publication ledger: removed event also terminates already-queued candidate
   assert.equal(item.nextAttemptAt, null);
 });
 
+test('merged ledger: RSS source query variant and resolved publisher URL are both suppressed', () => {
+  const merged = { items: [{ kind: 'automatic_merge', removed: {
+    id: 'old-copy', url: 'https://news.yahoo.co.jp/articles/abc?source=rss',
+    resolvedUrl: 'https://publisher.example.jp/story/123',
+  } }] };
+  assert.ok(ledger.isMergedAway({ id: 'new-id', url: 'https://news.yahoo.co.jp/articles/abc' }, merged));
+  assert.ok(ledger.isMergedAway({ id: 'new-id', url: 'https://publisher.example.jp/story/123?source=feed' }, merged));
+});
+
 test('publication ledger: appends idempotently and writes atomically readable JSON', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'publication-ledger-'));
   const file = path.join(dir, 'merged.json');

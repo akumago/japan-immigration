@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-05T12:24:52.339Z",
+  "updatedAt": "2026-10-05T15:12:30.296Z",
   "items": [
     {
       "id": "cad831a7781dd24a",
@@ -28,6 +28,36 @@
       "reason": "外国人は不法就労をさせられた労働者側。逮捕された雇用主の国籍は根拠未確認のため誤掲載として除外",
       "actor": "manual_quality_correction",
       "recordedAt": "2026-10-05T12:24:52.339Z"
+    },
+    {
+      "id": "a7d8cb011a87df51",
+      "url": "https://news.yahoo.co.jp/articles/434457c648f0a9f88aba028cce854eef6b82b01a",
+      "title": "男2人を逮捕…許可ない男女5人に不法就労させた疑い 5人に対する捜査から判明 共同経営する作業場で勤務を指示 5人には時給1200円程度が支払われていた",
+      "date": "2026-10-05",
+      "eventKey": "event-v1:f68ac986d1430f8912df98948ed99de274f4e66d17e2b72b7965572f4d1c19ea",
+      "reason": "外国籍として記述されているのは不法就労をさせられた労働者側。逮捕容疑者の外国籍根拠がなく誤掲載",
+      "actor": "pipeline_quality_correction",
+      "recordedAt": "2026-10-05T15:12:30.296Z"
+    },
+    {
+      "id": "d4adfe7b35467d97",
+      "url": "https://news.yahoo.co.jp/articles/464054f5313fe46ab98d2892b1c1de233acdd5b3",
+      "title": "「買い物に行くため路上にリュックサック置いて戻ったら盗まれていた」台湾人女性のパスポート・財布入りリュックを置き引き…21歳男を逮捕「金欲しくて盗んだ」＜北海道札幌市＞（北海道ニュースUHB）",
+      "date": "2026-10-05",
+      "eventKey": "event-v1:f6d223ec4dac054fdbc7ab3a0a2e9d9cc95b47b8a8ca637b7493990c95504ebc",
+      "reason": "本文で外国籍とされているのは窃盗被害者の観光客。逮捕された男の国籍は不明で誤掲載",
+      "actor": "pipeline_quality_correction",
+      "recordedAt": "2026-10-05T15:12:30.296Z"
+    },
+    {
+      "id": "77cfe9de84c78688",
+      "url": "https://www.hokkaido-np.co.jp/article/1384161/",
+      "title": "＜社説＞米兵強殺容疑 沖縄の不条理座視できぬ",
+      "date": "2026-10-05",
+      "eventKey": null,
+      "reason": "社説（論説記事）であり、事件報道記事ではないため誤掲載",
+      "actor": "pipeline_quality_correction",
+      "recordedAt": "2026-10-05T15:12:30.296Z"
     }
   ]
 }
