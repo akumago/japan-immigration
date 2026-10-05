@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-04T22:23:36.819Z",
+  "updatedAt": "2026-10-05T02:14:37.702Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -925,6 +925,27 @@
       },
       "reason": "本文の容疑者氏名+罪種+同日+地域整合",
       "recordedAt": "2026-10-04T22:23:36.813Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "8cf020e31868e589",
+        "sourceRecordId": null,
+        "title": "マンＵなど偽ユニホーム販売 商標法違反の疑いで中国人の男逮捕 衣類約300点押収｜社会｜石川のニュース",
+        "date": "2026-10-02",
+        "url": "https://www.hokkoku.co.jp/articles/-/2247123",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "a29fefa20b308860",
+        "sourceRecordId": null,
+        "title": "マンＵなど偽ユニホーム販売　商標法違反の疑いで中国人の男逮捕　衣類約300点押収(北國新聞社)",
+        "date": "2026-10-02",
+        "url": "https://news.yahoo.co.jp/articles/e158c1a7a506b2a3def935f25ff742443af3e135?source=rss",
+        "eventKey": null
+      },
+      "reason": "国籍+罪種+固有語類似0.82",
+      "recordedAt": "2026-10-05T02:14:37.702Z"
     }
   ]
 }
