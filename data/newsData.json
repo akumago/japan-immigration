@@ -1,5 +1,92 @@
 [
   {
+    "id": "b4b7b42196426f28",
+    "title": "横断歩道を渡っていた10代の男女2人が乗用車にはねられ重軽傷 運転手でブラジル国籍の39歳女を現行犯逮捕",
+    "date": "2026-10-06",
+    "location": "三重県",
+    "media": "ライブドアニュース",
+    "stage": "逮捕",
+    "url": "https://news.livedoor.com/article/detail/32499178/",
+    "summary": "三重県で発生し、ブラジル国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 三重県四日市市で5日夜、10代の男女を車ではねてケガをさせたとして、ブラジル国籍の女が現行犯逮捕されました。",
+      "nationality": "本文抜粋: ブラジル国籍"
+    },
+    "locationBasis": "本文抜粋: 三重県四日市市で5日夜、10代の男女を車ではねてケガをさせたとして、ブラジル国籍の女が現行犯逮捕されました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-06T07:43:43.507Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "db0bbc461da3ef03",
+    "title": "「メロンを盗むために…」メロンハウス侵入の容疑でベトナム人の男を逮捕 容疑を認める 静岡・菊川市",
+    "date": "2026-10-06",
+    "location": "静岡県",
+    "media": "au Webポータル",
+    "stage": "逮捕",
+    "url": "https://article.auone.jp/6cef428e-ede0-4f03-b33a-0f45b1858567",
+    "summary": "静岡県の事件として見出しから確認。本文は取得でき次第再確認します。",
+    "evidence": {
+      "suspect": "見出し根拠: 「メロンを盗むために...」メロンハウス侵入の容疑でベトナム人の男を逮捕 容疑を認める 静岡・菊川市",
+      "nationality": "見出し根拠: ベトナム人"
+    },
+    "locationBasis": "見出し根拠: 「メロンを盗むために...」メロンハウス侵入の容疑でベトナム人の男を逮捕 容疑を認める 静岡・菊川市",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-06T07:44:42.705Z",
+    "legacy": false,
+    "verificationMode": "headline_only",
+    "provisionalHeadlineOnly": true,
+    "headlinePublishedAt": "2026-10-06T07:42:36.721Z",
+    "headlineQuarantineAt": "2026-10-08T07:42:36.721Z",
+    "audited": true
+  },
+  {
+    "id": "ada7e26d0514461a",
+    "title": "知人女性に暴行しけがをさせた疑い　23歳の韓国籍大学生を逮捕・福島",
+    "date": "2026-10-06",
+    "location": "福島県",
+    "media": "日テレNEWS NNN",
+    "stage": "逮捕",
+    "eventKey": "event-v1:871fe16efbb05034f7df839274b27b85de8d12b6ebd2866ee9c14a4ff76695fe",
+    "url": "https://news.ntv.co.jp/n/fct/category/society/fc037ab4fc781d4a729aac89e771b0f397",
+    "summary": "福島県で発生し、韓国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: いわき東署は5日、知人女性に暴行を加えてけがをさせたとして、傷害の疑いで、いわき市に住む韓国籍の23歳の男子大学生を逮捕しました。",
+      "nationality": "本文抜粋: 韓国籍"
+    },
+    "locationBasis": "本文抜粋: 警察によりますと、男は5日午前11時50分ごろから午後0時20分ごろまでの間、いわき市内のコンビニエンスストアの駐車場に止めた車の中で、20代の女性の右足のすね",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-06T07:44:12.625Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "84099f0a827e7428",
+    "title": "旅券不携帯の疑い　ベトナム国籍の男　入管難民法違反の容疑で現行犯逮捕",
+    "date": "2026-10-06",
+    "location": "岩手県",
+    "media": "日テレNEWS NNN",
+    "stage": "逮捕",
+    "url": "https://news.ntv.co.jp/n/tvi/category/society/tvd089a8079f72407fb843d17627c19a9e",
+    "summary": "岩手県で発生し、ベトナム国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 社会 【警察官の職務質問で発覚】旅券不携帯の疑い ベトナム国籍の男 入管難民法違反の容疑で現行犯逮捕 ポスト 送る シェア ブックマーク URLをコピー 202",
+      "nationality": "本文抜粋: ベトナム国籍"
+    },
+    "locationBasis": "本文抜粋: 調べによりますと、男は５日、岩手町内で、法定の除外事由がないのに旅券を携帯していなかった疑いが持たれています。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-06T07:44:13.549Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "e08a190a72da828a",
     "title": "アジア大会の会場から屋内用の出入口マット盗んだか 外国籍のスタッフの女を逮捕 セレモニーの会場設営を担当",
     "date": "2026-10-06",
@@ -16,6 +103,28 @@
     "locationBasis": "本文抜粋: 警察によりますと、イギリス国籍のターニャ・ニーマンド容疑者(47)は3日、名古屋市北区に",
     "gateVersion": "strict-2026-10-06.1",
     "judgedAt": "2026-10-05T18:38:52.793Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "27e7ef111ff171c8d1e1",
+    "sourceRecordId": "chiba-police:27e7ef111ff171c8d1e1",
+    "title": "盗品等保管事件で男を逮捕（捜査第三課）",
+    "date": "2026-10-05",
+    "location": "茨城県",
+    "media": "千葉県警察",
+    "stage": "逮捕",
+    "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03781.html",
+    "summary": "茨城県で発生し、パキスタン国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 10月4日午前8時20分頃、茨城県古河市高野字西坪のヤードで、普通乗用車が盗品であることを知りながら、保管していたパキスタン国籍で会社役員の男(44)を同日逮捕",
+      "nationality": "本文抜粋: パキスタン国籍"
+    },
+    "locationBasis": "本文抜粋: 10月4日午前8時20分頃、茨城県古河市高野字西坪のヤードで、普通乗用車が盗品であることを知りながら、保管していたパキスタン国籍で会社役員の男(44)を同日逮捕",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-06T07:45:09.671Z",
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,

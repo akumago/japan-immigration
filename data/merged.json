@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-05T15:43:00.553Z",
+  "updatedAt": "2026-10-06T07:46:42.300Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -1095,6 +1095,29 @@
       },
       "reason": "国籍+場所+罪種",
       "recordedAt": "2026-10-05T15:43:00.553Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "e4c97ccd63fdac03",
+        "sourceRecordId": null,
+        "title": "強殺容疑で逮捕の米兵 防犯カメラに“逃走の様子”",
+        "date": "2026-10-05",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000538023.html",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:e4dce0203e7cbeb1624921db583d5179de2fb27bacac56944ea0579ed0741b9c"
+      },
+      "removed": {
+        "id": "b0616522775c1dc4",
+        "sourceRecordId": null,
+        "title": "那覇ホテル強盗殺人容疑で米兵送検 政府や県が抗議",
+        "date": "2026-10-05",
+        "url": "https://www.smartnews.com/news/article/4997859829012758630-%E9%82%A3%E8%A6%87%E3%83%9B%E3%83%86%E3%83%AB%E5%BC%B7%E7%9B%97%E6%AE%BA%E4%BA%BA%E5%AE%B9%E7%96%91%E3%81%A7%E7%B1%B3%E5%85%B5%E9%80%81%E6%A4%9C%20%E6%94%BF%E5%BA%9C%E3%82%84%E7%9C%8C%E3%81%8C%E6%8A%97%E8%AD%B0",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-06T07:46:42.300Z"
     }
   ]
 }
