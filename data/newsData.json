@@ -131,6 +131,28 @@
     "audited": true
   },
   {
+    "id": "2d3ab05048b61313",
+    "title": "女性殺害容疑の米海兵隊上等兵、沖縄県警の捜査員はタトゥーに反応…２０ｋｍ離れた歓楽街を服装変えて歩く",
+    "date": "2026-10-05",
+    "location": "沖縄県沖縄市",
+    "media": "読売新聞",
+    "stage": null,
+    "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89",
+    "url": "https://www.yomiuri.co.jp/local/kyushu/news/20261005-GYS1T00004/",
+    "summary": "沖縄県で発生し、デビン・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 那覇市のホテルで女性を殺害して財布などを奪ったとして、米軍普天間飛行場（沖縄県宜野湾市）所属の米海兵隊上等兵、デビン・バラード容疑者（２０）が強盗殺人容疑で逮捕",
+      "nationality": "本文抜粋: デビン・バラード"
+    },
+    "locationBasis": "本文抜粋: 那覇市のホテルで女性を殺害して財布などを奪ったとして、米軍普天間飛行場（沖縄県宜野湾市）所属の米海兵隊上等兵、デビン・バラード容疑者（２０）が強盗殺人容疑で逮捕",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-06T15:23:20.148Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "c4241368175fc44d",
     "title": "「借りるつもりで積んでいた」敷鉄板4枚を盗んだ疑いで男を現行犯逮捕 クレーン付きトラックで現場に 新潟・南魚沼市",
     "date": "2026-10-05",
@@ -169,28 +191,6 @@
     "locationBasis": "本文抜粋: 10月4日午前8時20分頃、茨城県古河市高野字西坪のヤードで、普通乗用車が盗品であることを知りながら、保管していたパキスタン国籍で会社役員の男(44)を同日逮捕",
     "gateVersion": "strict-2026-10-06.1",
     "judgedAt": "2026-10-06T07:45:09.671Z",
-    "legacy": false,
-    "verificationMode": "body",
-    "provisionalHeadlineOnly": false,
-    "audited": true
-  },
-  {
-    "id": "e4c97ccd63fdac03",
-    "title": "強殺容疑で逮捕の米兵 防犯カメラに“逃走の様子”",
-    "date": "2026-10-05",
-    "location": "沖縄県沖縄市",
-    "media": "テレ朝NEWS",
-    "stage": "逮捕",
-    "eventKey": "event-v1:e4dce0203e7cbeb1624921db583d5179de2fb27bacac56944ea0579ed0741b9c",
-    "url": "https://news.tv-asahi.co.jp/news_society/articles/000538023.html",
-    "summary": "沖縄県で発生し、デビン・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 那覇市のホテルで女性を殺害し、財布などを奪ったとして逮捕されたアメリカ海兵隊員のデビン・バラード容疑者（20）が5日、送検されました。",
-      "nationality": "本文抜粋: デビン・バラード"
-    },
-    "locationBasis": "本文抜粋: 那覇市のホテルで女性を殺害し、財布などを奪ったとして逮捕されたアメリカ海兵隊員のデビン・バラード容疑者（20）が5日、送検されました。",
-    "gateVersion": "strict-2026-10-06.1",
-    "judgedAt": "2026-10-05T18:39:08.581Z",
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,
