@@ -44,6 +44,49 @@
     "audited": true
   },
   {
+    "id": "1350ef7fff346043",
+    "title": "女子高校生らを車ではねけがをさせたか ブラジル国籍の女を逮捕 三重県警",
+    "date": "2026-10-05",
+    "location": "三重県",
+    "media": "locipo.jp",
+    "stage": "逮捕",
+    "url": "https://locipo.jp/article/be52a0f8-03f1-4441-806a-36a38465790c",
+    "summary": "三重県で発生し、ブラジル国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 5日夜、三重県四日市市で女子高校生と18歳の男性を車ではね、けがをさせたとしてブラジル国籍の女が逮捕されました。",
+      "nationality": "本文抜粋: ブラジル国籍"
+    },
+    "locationBasis": "本文抜粋: 5日夜、三重県四日市市で女子高校生と18歳の男性を車ではね、けがをさせたとしてブラジル国籍の女が逮捕されました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-06T00:57:46.384Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "52aa4dc2650744e7",
+    "title": "茨城でタイ人の女を逮捕、不法滞在のタイ人に住居提供か 100人以上への提供も捜査",
+    "date": "2026-10-05",
+    "location": "茨城県",
+    "media": "thaich.net",
+    "stage": "逮捕",
+    "eventKey": "event-v1:a4c4c360a7b48c6dc79725381cd0bf2d5d029c7969aab22c6ce7c126dbf13e0d",
+    "url": "https://www.thaich.net/news/20261004aq.htm",
+    "summary": "茨城県で発生し、不法滞在の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 茨城県古河市で、不法滞在しているタイ人男女に住宅を提供したとして、タイ国籍の女が入管難民法違反（不法残留ほう助）の疑いで逮捕されたと、茨城新聞やNHK水戸放送局",
+      "nationality": "本文抜粋: 不法滞在"
+    },
+    "locationBasis": "本文抜粋: 茨城県古河市で、不法滞在しているタイ人男女に住宅を提供したとして、タイ国籍の女が入管難民法違反（不法残留ほう助）の疑いで逮捕されたと、茨城新聞やNHK水戸放送局",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-06T00:57:50.554Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "999b1de21eea17b0",
     "title": "盗難高級車保管疑い、逮捕",
     "date": "2026-10-05",

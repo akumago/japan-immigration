@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-05T18:40:26.382Z",
+  "updatedAt": "2026-10-06T00:59:57.578Z",
   "items": [
     {
       "id": "e91f1f46e8388667",
@@ -122,6 +122,17 @@
       "reason": "gate_version_changed:strict-2026-10-02.2->strict-2026-10-06.1",
       "status": "recheck_pending",
       "recordedAt": "2026-10-05T18:38:42.488Z"
+    },
+    {
+      "id": "e4c97ccd63fdac03",
+      "sourceRecordId": null,
+      "url": "https://news.tv-asahi.co.jp/news_society/articles/000538023.html",
+      "title": "強殺容疑で逮捕の米兵 防犯カメラに“逃走の様子”",
+      "date": "2026-10-05",
+      "eventKey": "event-v1:e4dce0203e7cbeb1624921db583d5179de2fb27bacac56944ea0579ed0741b9c",
+      "reason": "gate_version_changed:strict-2026-10-06.1->strict-2026-10-06.1",
+      "status": "recheck_pending",
+      "recordedAt": "2026-10-06T00:56:32.381Z"
     }
   ]
 }
