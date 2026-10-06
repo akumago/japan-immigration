@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-06T07:46:42.300Z",
+  "updatedAt": "2026-10-06T15:25:23.494Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -1118,6 +1118,29 @@
       },
       "reason": "本文の容疑者氏名+罪種+同日+地域整合",
       "recordedAt": "2026-10-06T07:46:42.300Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "e4c97ccd63fdac03",
+        "sourceRecordId": null,
+        "title": "強殺容疑で逮捕の米兵 防犯カメラに“逃走の様子”",
+        "date": "2026-10-05",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000538023.html",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:e4dce0203e7cbeb1624921db583d5179de2fb27bacac56944ea0579ed0741b9c"
+      },
+      "removed": {
+        "id": "66b05a6bd3335f9f",
+        "sourceRecordId": null,
+        "title": "那覇 女性強殺疑いで米兵逮捕 事件前に沖縄市から移動か（テレビ朝日系（ANN））",
+        "date": "2026-10-06",
+        "url": "https://news.yahoo.co.jp/articles/593e6ce6f5b8c201bc59a2415c73d1e8669f2a56",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-06T15:25:23.494Z"
     }
   ]
 }

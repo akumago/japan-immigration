@@ -1,5 +1,27 @@
 [
   {
+    "id": "a59700fc535ba167",
+    "title": "酒酔い運転の疑いでインド国籍の男逮捕 群馬県警太田署",
+    "date": "2026-10-06",
+    "location": "群馬県",
+    "media": "上毛新聞電子版",
+    "stage": "逮捕",
+    "eventKey": "event-v1:c6f44003552521e24b1e476f579f399fc33dae030abccabcbd16fdd958b73da3",
+    "url": "https://www.jomo-news.co.jp/articles/-/1037676",
+    "summary": "群馬県で発生し、インド国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 群馬県警太田署は5日までに、道交法違反（酒酔い運転）の疑いで、群馬県太田市のインド国籍の男（33）を現行犯逮捕した。",
+      "nationality": "本文抜粋: インド国籍"
+    },
+    "locationBasis": "本文抜粋: 群馬県警太田署は5日までに、道交法違反（酒酔い運転）の疑いで、群馬県太田市のインド国籍の男（33）を現行犯逮捕した。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-06T15:22:25.051Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "b4b7b42196426f28",
     "title": "横断歩道を渡っていた10代の男女2人が乗用車にはねられ重軽傷 運転手でブラジル国籍の39歳女を現行犯逮捕",
     "date": "2026-10-06",
@@ -109,6 +131,28 @@
     "audited": true
   },
   {
+    "id": "c4241368175fc44d",
+    "title": "「借りるつもりで積んでいた」敷鉄板4枚を盗んだ疑いで男を現行犯逮捕 クレーン付きトラックで現場に 新潟・南魚沼市",
+    "date": "2026-10-05",
+    "location": "新潟県",
+    "media": "TBS NEWS DIG",
+    "stage": "逮捕",
+    "eventKey": "event-v1:b26a3a6127bfc59f494837ec1e357ff15f1d0d31b90c827e6c930731cef26b2b",
+    "url": "https://newsdig.tbs.co.jp/articles/bsn/2988594?display=1",
+    "summary": "新潟県で発生し、フィリピン国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 窃盗の疑いで現行犯逮捕されたのは、千葉県旭市に住むフィリピン国籍の会社員の男（32）です。",
+      "nationality": "本文抜粋: フィリピン国籍"
+    },
+    "locationBasis": "本文抜粋: 警察によりますと、男は4日午後5時ごろ、南魚沼市津久野上新田の資材現場で、置かれていた敷鉄板4枚を盗んだ疑いが持たれています。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-06T15:24:02.975Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "27e7ef111ff171c8d1e1",
     "sourceRecordId": "chiba-police:27e7ef111ff171c8d1e1",
     "title": "盗品等保管事件で男を逮捕（捜査第三課）",
@@ -134,7 +178,7 @@
     "id": "e4c97ccd63fdac03",
     "title": "強殺容疑で逮捕の米兵 防犯カメラに“逃走の様子”",
     "date": "2026-10-05",
-    "location": "沖縄県",
+    "location": "沖縄県沖縄市",
     "media": "テレ朝NEWS",
     "stage": "逮捕",
     "eventKey": "event-v1:e4dce0203e7cbeb1624921db583d5179de2fb27bacac56944ea0579ed0741b9c",
