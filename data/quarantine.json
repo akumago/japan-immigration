@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-06T00:59:57.578Z",
+  "updatedAt": "2026-10-07T15:46:49.683Z",
   "items": [
     {
       "id": "e91f1f46e8388667",
@@ -133,6 +133,17 @@
       "reason": "gate_version_changed:strict-2026-10-06.1->strict-2026-10-06.1",
       "status": "recheck_pending",
       "recordedAt": "2026-10-06T00:56:32.381Z"
+    },
+    {
+      "id": "ff955f9c693dd864",
+      "sourceRecordId": null,
+      "url": "https://www.asahi.com/sp/articles/photo/AS20261005002616.html",
+      "title": "沖縄米兵を強盗殺人容疑で送検 女性の首にひも状の物で絞められた痕 [沖縄県]",
+      "date": "2026-10-05",
+      "eventKey": null,
+      "reason": "headline_only_body_unconfirmed_after_deadline",
+      "status": "quarantined",
+      "recordedAt": "2026-10-07T15:42:51.499Z"
     }
   ]
 }

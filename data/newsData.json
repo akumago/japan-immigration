@@ -1,5 +1,220 @@
 [
   {
+    "id": "f0f6d43870863b50",
+    "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 2026 年 10 月 7 日 17:35",
+    "date": "2026-10-08",
+    "location": "東京都",
+    "media": "テレ朝NEWS（事件・社会）",
+    "stage": "逮捕",
+    "url": "https://news.tv-asahi.co.jp/news_society/articles/000538541.html",
+    "summary": "東京都で発生し、ミンナ・エベリーナ・マンノネンの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: ミンナ・エベリーナ・マンノネン容疑者（56）はパリからコカイン約3.2キロ、末端価格7680万円相当をスーツケースに隠して密輸しようとした疑いが持たれています。",
+      "nationality": "本文抜粋: ミンナ・エベリーナ・マンノネン"
+    },
+    "locationBasis": "本文抜粋: マンノネン容疑者は羽田空港の税関検査で「鍵はない。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T15:45:34.949Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "d4b36f9e9715c9e3",
+    "title": "ベトナム人による広域窃盗事件捜査終結 ３県下で８８件 被害額約４７０万円を立件",
+    "date": "2026-10-08",
+    "location": "神奈川県",
+    "media": "FM GUNMA NEWS（群馬県内）",
+    "stage": null,
+    "url": "https://www.fmgunma.com/fmgnews/?p=12107",
+    "summary": "神奈川県で発生し、ベトナム人の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 県警捜査三課は今年春、２５歳から３７歳までのベトナム人男女あわせて３人を邸宅侵入や窃盗などの疑いで逮捕し、県内や近県で発生した事件との関連を調べていました。",
+      "nationality": "本文抜粋: ベトナム人"
+    },
+    "locationBasis": "本文抜粋: ベトナム人による広域窃盗事件を捜査していた群馬県警は７日、群馬、埼玉、神奈川の３県であわせて８８件、被害額およそ４７０万円を立件し捜査を終結したと発表しました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T15:43:13.970Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "2bdbcbf9f505d235",
+    "title": "改造スーツケースにコカイン隠し密輸か　フィンランド国籍の女逮捕",
+    "date": "2026-10-07",
+    "location": "東京都",
+    "media": "日テレNEWS NNN",
+    "stage": "逮捕",
+    "url": "https://news.ntv.co.jp/category/society/821f6552050a45c2a649b8c2f5df6f4f",
+    "summary": "東京都で発生し、フィンランド国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 改造されたスーツケースに大量のコカインを隠して密輸したとして、フィンランド国籍の女が逮捕されました。",
+      "nationality": "本文抜粋: フィンランド国籍"
+    },
+    "locationBasis": "本文抜粋: 警視庁によりますと、フィンランド国籍のミンナ・エベリーナ・マンノネン容疑者は今月4日、コカインおよそ3.2キロ、末端価格で7680万円相当をフランスから羽田空港",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T15:44:09.694Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "faa6b74b61a4c862",
+    "title": "約2.4キロメートルの銅線を盗んだ疑いでベトナム国籍の男3人を逮捕　三重県の太陽光発電所が被害　時価合計約2350万円　愛知県で売却か　滋賀県警",
+    "date": "2026-10-07",
+    "location": "三重県",
+    "media": "ｄメニューニュース",
+    "stage": "逮捕",
+    "eventKey": "event-v1:950e0cec57be3f17d1283c2dfb1634c4fb6f856fefa507168904f36195e75c9b",
+    "url": "https://topics.smt.docomo.ne.jp/article/mbs_news/region/mbs_news-2996843",
+    "summary": "三重県で発生し、ベトナム国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 三重県菰野町（こものちょう）の太陽光発電所から約2.4キロメートルの銅線を盗んだとして、滋賀県警は7日、ベトナム国籍の男3人を逮捕したと発表しました。",
+      "nationality": "本文抜粋: ベトナム国籍"
+    },
+    "locationBasis": "本文抜粋: 三重県菰野町（こものちょう）の太陽光発電所から約2.4キロメートルの銅線を盗んだとして、滋賀県警は7日、ベトナム国籍の男3人を逮捕したと発表しました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T15:43:43.388Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "6d9fcc99c20aefe2",
+    "title": "コカイン“3キロ”　スーツケースふた部分に隠し密輸か　フィンランド国籍の女逮捕　「中身は別れた元彼のもの」税関職員が調べ発覚",
+    "date": "2026-10-07",
+    "location": "東京都",
+    "media": "FNNプライムオンライン",
+    "stage": "逮捕",
+    "url": "https://www.fnn.jp/articles/-/1128751",
+    "summary": "東京都で発生し、フィンランド国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: コカイン約3キロをスーツケースに隠して密輸した疑いで、フィンランド国籍の女が現行犯逮捕されました。",
+      "nationality": "本文抜粋: フィンランド国籍"
+    },
+    "locationBasis": "本文抜粋: フィンランド国籍のミンナ・エベリーナ・マンノネン容疑者（56）はコカイン約3.2キロ（末端価格7680万円相当）をフランスから羽田空港に営利目的で密輸した疑いな",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T15:43:20.166Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "baec023f6c82f235",
+    "title": "太陽光発電所で銅線ケーブル2420ｍを盗んだ疑い ベトナム国籍の20代男3人逮捕",
+    "date": "2026-10-07",
+    "location": "愛知県",
+    "media": "Yahoo!ニュース",
+    "stage": "逮捕",
+    "eventKey": "event-v1:16ace11faed5f6f3d00a31e89f2c2ab298df30659aef2468130aecc99cbd8194",
+    "url": "https://news.yahoo.co.jp/articles/f533f356635c751fa37a57101e470a3c6b428abb",
+    "summary": "愛知県で発生し、ベトナム国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 滋賀県警捜査1課と東近江署などは7日までに、窃盗の疑いで、愛知県小牧市、無職の男（24）らベトナム国籍の20代の男3人を逮捕した。",
+      "nationality": "本文抜粋: ベトナム国籍"
+    },
+    "locationBasis": "本文抜粋: 滋賀県警捜査1課と東近江署などは7日までに、窃盗の疑いで、愛知県小牧市、無職の男（24）らベトナム国籍の20代の男3人を逮捕した。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T15:43:37.186Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "fe47147773062569",
+    "title": "名取市で時価２０００万円の高級ＳＵＶ窃盗疑い　逮捕のブラジル国籍男性　仙台地検が不起訴処分〈宮城〉(仙台放送)",
+    "date": "2026-10-07",
+    "location": "宮城県",
+    "media": "仙台放送",
+    "stage": "不起訴",
+    "eventKey": "event-v1:9c5f5530b313bf0b6a7987d283b4ebe596928a53f418fea3556c6a85f2087ff3",
+    "url": "https://news.yahoo.co.jp/articles/78807f87ebce275e3cd2041fefff206559211c9e?source=rss",
+    "summary": "宮城県で発生し、ブラジル国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 高級車１台を盗んだとして逮捕・送検されたブラジル国籍の男性について、仙台地検は不起訴処分としました。",
+      "nationality": "本文抜粋: ブラジル国籍"
+    },
+    "locationBasis": "本文抜粋: 男性は２０２５年９月、宮城県名取市の住宅に止めてあった時価２０００万円相当の高級ＳＵＶ「レクサスＬＸ」１台を盗んだ疑いで逮捕・送検。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T15:43:31.838Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "a9e4932a0b93710c",
+    "title": "福井市内でひき逃げ 営利目的の覚醒剤所持の疑いで22歳のパキスタン人の男を逮捕 容疑を一部否認",
+    "date": "2026-10-07",
+    "location": "福井県",
+    "media": "日テレNEWS NNN",
+    "stage": "逮捕",
+    "eventKey": "event-v1:1e135367fe43d773fbd5e47522884b31f2fb109bb5bd9d5b35cb209fd672feca",
+    "url": "https://news.ntv.co.jp/n/fbc/category/society/fb8774e97a56474e20ad73c7823860e0ae",
+    "summary": "福井県で発生し、パキスタン人の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 今年7月、福井市内でひき逃げをしたほか、営利目的で覚醒剤を所持していたとして22歳のパキスタン人の男が逮捕されました。",
+      "nationality": "本文抜粋: パキスタン人"
+    },
+    "locationBasis": "本文抜粋: 今年7月、福井市内でひき逃げをしたほか、営利目的で覚醒剤を所持していたとして22歳のパキスタン人の男が逮捕されました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T15:43:26.451Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "7ecd92f51180b277",
+    "title": "古謝知事が高市首相に直接抗議 米兵逮捕の強盗殺人事件受け対策求める",
+    "date": "2026-10-07",
+    "location": "埼玉県",
+    "media": "FNNプライムオンライン",
+    "stage": "逮捕",
+    "eventKey": "event-v1:185004662cbaed59f3d312c4bc45a8e6d6cac13dc1f196a2f71ad55cca498b42",
+    "url": "https://www.fnn.jp/articles/-/1128507",
+    "summary": "埼玉県で発生し、米兵の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 米兵の男が逮捕された強盗殺人事件を受け古謝知事は7日高市総理に直接抗議しました。",
+      "nationality": "本文抜粋: 米兵"
+    },
+    "locationBasis": "本文抜粋: 米兵の男が逮捕された強盗殺人事件を受け古謝知事は7日高市総理に直接抗議しました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T15:43:47.837Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "1aa9a2c9b2bdf1c0",
+    "title": "フィンランド国籍の56歳女がコカイン約3キロを羽田に密輸した疑いで逮捕",
+    "date": "2026-10-07",
+    "location": "東京都",
+    "media": "ライブドアニュース",
+    "stage": "逮捕",
+    "url": "https://news.livedoor.com/article/detail/32513448/",
+    "summary": "東京都で発生し、ミンナ・エベリーナ・マンノネンの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: フィンランド 国籍のミンナ・エベリーナ・マンノネン容疑者（56）は コカイン 約3.2キロ（末端価格7680万円相当）を フランス から 羽田空港 に営利目的で",
+      "nationality": "本文抜粋: ミンナ・エベリーナ・マンノネン"
+    },
+    "locationBasis": "本文抜粋: フィンランド 国籍のミンナ・エベリーナ・マンノネン容疑者（56）は コカイン 約3.2キロ（末端価格7680万円相当）を フランス から 羽田空港 に営利目的で",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T15:43:21.187Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "cb8ebce96c682f03",
     "title": "「生活費のためお金にしようと」金属ケーブル盗んだか ブラジル国籍の男2人再逮捕 2026 年 10 月 7 日 15:02",
     "date": "2026-10-07",
@@ -430,29 +645,6 @@
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,
-    "audited": true
-  },
-  {
-    "id": "ff955f9c693dd864",
-    "title": "沖縄米兵を強盗殺人容疑で送検 女性の首にひも状の物で絞められた痕 [沖縄県]",
-    "date": "2026-10-05",
-    "location": "沖縄県",
-    "media": "朝日新聞",
-    "stage": "送検",
-    "url": "https://www.asahi.com/sp/articles/photo/AS20261005002616.html",
-    "summary": "沖縄県の事件として見出しから確認。本文は取得でき次第再確認します。",
-    "evidence": {
-      "suspect": "見出し根拠: 沖縄米兵を強盗殺人容疑で送検 女性の首にひも状の物で絞められた痕 [沖縄県]",
-      "nationality": "見出し根拠: 米兵"
-    },
-    "locationBasis": "見出し根拠: 沖縄米兵を強盗殺人容疑で送検 女性の首にひも状の物で絞められた痕 [沖縄県]",
-    "gateVersion": "strict-2026-10-06.1",
-    "judgedAt": "2026-10-05T15:24:56.960Z",
-    "legacy": false,
-    "verificationMode": "headline_only",
-    "provisionalHeadlineOnly": true,
-    "headlinePublishedAt": "2026-10-05T15:23:47.667Z",
-    "headlineQuarantineAt": "2026-10-07T15:23:47.667Z",
     "audited": true
   },
   {
