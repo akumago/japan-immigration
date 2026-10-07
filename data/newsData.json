@@ -1,5 +1,26 @@
 [
   {
+    "id": "e940c0e1c4b0c0eb",
+    "title": "銭湯ロッカー合鍵で窃盗か　中国籍男を再逮捕へ、千葉",
+    "date": "2026-10-08",
+    "location": "千葉県",
+    "media": "ｄメニューニュース",
+    "stage": "再逮捕",
+    "url": "https://topics.smt.docomo.ne.jp/article/kyodo_nor/nation/kyodo_nor-2026100801000888",
+    "summary": "千葉県で発生し、中国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 千葉県内のスーパー銭湯の脱衣所で、合鍵を使って他人が使用中のロッカーから金品を盗もうとしたとして、県警が8日にも窃盗未遂の疑いで中国籍の男（18）を再逮捕する方",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "本文抜粋: 千葉県内のスーパー銭湯の脱衣所で、合鍵を使って他人が使用中のロッカーから金品を盗もうとしたとして、県警が8日にも窃盗未遂の疑いで中国籍の男（18）を再逮捕する方",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T21:26:33.939Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "f0f6d43870863b50",
     "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 2026 年 10 月 7 日 17:35",
     "date": "2026-10-08",
@@ -36,6 +57,28 @@
     "locationBasis": "本文抜粋: ベトナム人による広域窃盗事件を捜査していた群馬県警は７日、群馬、埼玉、神奈川の３県であわせて８８件、被害額およそ４７０万円を立件し捜査を終結したと発表しました。",
     "gateVersion": "strict-2026-10-06.1",
     "judgedAt": "2026-10-07T15:43:13.970Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "8cc7628727bf2b52",
+    "title": "空き家狙い電子機器窃盗か　スリランカ国籍の男4人再逮捕　(khb東日本放送)",
+    "date": "2026-10-07",
+    "location": "宮城県",
+    "media": "khb東日本放送",
+    "stage": "再逮捕",
+    "eventKey": "event-v1:cb8fe51e07dcd43d2fcb9f0084afe1e3de640c16663454553437ef39a2533a6e",
+    "url": "https://news.yahoo.co.jp/articles/a2d047e380e79b778001a42022ac7844f677b1dd?source=rss",
+    "summary": "宮城県で発生し、スリランカ国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 宮城県丸森町の空き家に侵入し、電子機器などを盗んだ疑いで逮捕されたスリランカ国籍の男４人が、別の空き家からも盗んでいたとして再逮捕されました。",
+      "nationality": "本文抜粋: スリランカ国籍"
+    },
+    "locationBasis": "本文抜粋: 宮城県丸森町の空き家に侵入し、電子機器などを盗んだ疑いで逮捕されたスリランカ国籍の男４人が、別の空き家からも盗んでいたとして再逮捕されました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T21:26:59.837Z",
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,

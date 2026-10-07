@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-07T15:46:49.681Z",
+  "updatedAt": "2026-10-07T21:30:15.060Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -1233,6 +1233,52 @@
       },
       "reason": "国籍+年齢+場所/罪種",
       "recordedAt": "2026-10-07T15:46:49.681Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "a8c62fc9fced73c5",
+        "sourceRecordId": null,
+        "title": "那覇ホテルの女性強盗殺人、米軍普天間飛行場所属の海兵隊員の男を容疑で緊急逮捕",
+        "date": "2026-10-04",
+        "url": "https://www.yomiuri.co.jp/national/20261004-GYT1T00106/",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:c9cfdb084a731e2158eb2c3e074893a9808d09a7a58fc8029d6ed43776b88420"
+      },
+      "removed": {
+        "id": "5db07f7cafd1312f",
+        "sourceRecordId": null,
+        "title": "ひも状のもので首絞めたか 強盗殺人容疑の米兵、那覇",
+        "date": "2026-10-05",
+        "url": "https://www.hokkaido-np.co.jp/article/1384133/",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:34d858997f356c61114aea6ae46b211ec3bdf433ada03314cd403d2b01940a48"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-07T21:30:15.060Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "57666272982d1dd9",
+        "sourceRecordId": null,
+        "title": "強殺容疑で逮捕の米兵 防犯カメラに“逃走の様子”",
+        "date": "2026-10-05",
+        "url": "https://www.kfb.co.jp/news/article/16941659",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:e4dce0203e7cbeb1624921db583d5179de2fb27bacac56944ea0579ed0741b9c"
+      },
+      "removed": {
+        "id": "c8692f90f728d127",
+        "sourceRecordId": null,
+        "title": "異例の在沖米軍活動停止の全貌　「外出・飲酒禁止」「ゲート監視強化」　問われる実効性(RBC琉球放送)",
+        "date": "2026-10-07",
+        "url": "https://news.yahoo.co.jp/articles/f3d818739dc56da66ca3d5cd6595ea0f784bebdc?source=rss",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-07T21:30:15.060Z"
     }
   ]
 }
