@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-06T20:33:38.575Z",
+  "updatedAt": "2026-10-07T00:56:02.009Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -1164,6 +1164,29 @@
       },
       "reason": "本文の容疑者氏名+罪種+同日+地域整合",
       "recordedAt": "2026-10-06T20:33:38.575Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "57666272982d1dd9",
+        "sourceRecordId": null,
+        "title": "強殺容疑で逮捕の米兵 防犯カメラに“逃走の様子”",
+        "date": "2026-10-05",
+        "url": "https://www.kfb.co.jp/news/article/16941659",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:e4dce0203e7cbeb1624921db583d5179de2fb27bacac56944ea0579ed0741b9c"
+      },
+      "removed": {
+        "id": "2d3ab05048b61313",
+        "sourceRecordId": null,
+        "title": "女性殺害容疑の米海兵隊上等兵、沖縄県警の捜査員はタトゥーに反応…２０ｋｍ離れた歓楽街を服装変えて歩く",
+        "date": "2026-10-05",
+        "url": "https://www.yomiuri.co.jp/local/kyushu/news/20261005-GYS1T00004/",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-07T00:56:02.009Z"
     }
   ]
 }
