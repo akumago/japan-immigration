@@ -1,5 +1,177 @@
 [
   {
+    "id": "cb8ebce96c682f03",
+    "title": "「生活費のためお金にしようと」金属ケーブル盗んだか ブラジル国籍の男2人再逮捕 2026 年 10 月 7 日 15:02",
+    "date": "2026-10-07",
+    "location": "茨城県",
+    "media": "テレ朝NEWS（事件・社会）",
+    "stage": "再逮捕",
+    "url": "https://news.tv-asahi.co.jp/news_society/articles/000538487.html",
+    "summary": "茨城県で発生し、ブラジル国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 茨城県で倉庫から金属ケーブルを盗んだ疑いでブラジル国籍の男2人が再逮捕されました。",
+      "nationality": "本文抜粋: ブラジル国籍"
+    },
+    "locationBasis": "本文抜粋: 茨城県で倉庫から金属ケーブルを盗んだ疑いでブラジル国籍の男2人が再逮捕されました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T07:23:15.663Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "28e4668b20678812",
+    "title": "鹿児島で詐欺、90代女性から500万円だまし取った疑いのマレーシア国籍の男を成田空港で逮捕――出国直前",
+    "date": "2026-10-07",
+    "location": "鹿児島県",
+    "media": "Yahoo!ニュース",
+    "stage": "逮捕",
+    "eventKey": "event-v1:f7f18dc36b1e1487edfc2b412d92ce66de9ef2b9801f93cd72acfabaa48accda",
+    "url": "https://news.yahoo.co.jp/articles/37b69d4882bc041e0deb86ec3f49cb12262c4b65",
+    "summary": "鹿児島県で発生し、マレーシア国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 薩摩川内署と県警組織犯罪対策課は７日、警察官などになりすまして現金をだまし取ったなどとして、詐欺未遂と詐欺の疑いで、マレーシア国籍の住居不詳、自称飲食業の男（２",
+      "nationality": "本文抜粋: マレーシア国籍"
+    },
+    "locationBasis": "本文抜粋: 逮捕容疑は氏名不詳者らと共謀し、７月２１〜２７日の間に薩摩川内市の７０代男性に「あなたの口座が犯罪に使われている」などとうその電話を複数回かけ、男性の自宅で現金",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T07:24:20.408Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "64d172d430cfaf4e",
+    "title": "ニセ警察詐欺「だまされたふり作戦」８２歳女性が協力…玄関前に来た中国籍３０歳容疑者、警戒中の警察官が逮捕",
+    "date": "2026-10-07",
+    "location": "東京都",
+    "media": "Yahoo!ニュース",
+    "stage": "逮捕",
+    "eventKey": "event-v1:18156a789614d4edf7a462d17dae3dfc78f75a4afcdf68f7f0c3a65c3b70c035",
+    "url": "https://news.yahoo.co.jp/articles/c2250a7507e5bf553d6da89112d99e361ce9e2e6",
+    "summary": "東京都で発生し、中国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 警察官をかたる「ニセ警察詐欺」で福岡県久留米市の女性（８２）から現金１０００万円をだまし取ろうとしたとして、県警久留米署は５日、中国籍で東京都府中市の自称アルバ",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "本文抜粋: 警察官をかたる「ニセ警察詐欺」で福岡県久留米市の女性（８２）から現金１０００万円をだまし取ろうとしたとして、県警久留米署は５日、中国籍で東京都府中市の自称アルバ",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T07:24:47.882Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "57ca74ce29b8dea3",
+    "title": "ドイツ人の自称・解体作業員の男が、内縁の妻の頭髪を引っ張り転倒させ引きずる暴行を加え、ナイフを見せ「死ね」と脅迫した疑い…警察が行方を追い愛媛県で逮捕 「死ねとは言っていない」容疑を一部否認",
+    "date": "2026-10-07",
+    "location": "鳥取県",
+    "media": "TBS NEWS DIG",
+    "stage": "逮捕",
+    "eventKey": "event-v1:878aa0604480499715dfe3e6b9bbd4cc715aca92473dcc19f63f7191ca884bd0",
+    "url": "https://newsdig.tbs.co.jp/articles/bss/2995148",
+    "summary": "鳥取県で発生し、ドイツ人の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 鳥取県警倉吉警察署は、内縁の妻に暴行を加えナイフを示し「死ね」と脅したとして、ドイツ人の男を７日未明に逮捕しました。",
+      "nationality": "本文抜粋: ドイツ人"
+    },
+    "locationBasis": "本文抜粋: 暴行、暴力行為等処罰に関する法律違反の容疑で逮捕されたのは、ドイツ国籍で倉吉市八幡…",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T07:24:28.334Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "91f770c1904c03bd",
+    "title": "「沖縄に米軍基地はいらない」米国大使館前で100人抗議、米兵逮捕の強盗殺人事件受け（ＡＦＰ＝時事）",
+    "date": "2026-10-07",
+    "location": "沖縄県",
+    "media": "Yahoo!ニュース",
+    "stage": "逮捕",
+    "url": "https://news.yahoo.co.jp/articles/05f4a444346f118f3a78dcb01d7241647bea5eec",
+    "summary": "沖縄県で発生し、米軍属の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 2017年には、沖縄県で女性を強姦し殺害したとして殺人などに問われた事件で、元米軍属の男に無期懲役の判決が下された。",
+      "nationality": "本文抜粋: 米軍属"
+    },
+    "locationBasis": "本文抜粋: 2017年には、沖縄県で女性を強姦し殺害したとして殺人などに問われた事件で、元米軍属の男に無期懲役の判決が下された。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T07:23:18.995Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "eb02c0abc0bcd39d",
+    "title": "二重底のスーツケースに隠し3キロ超のコカインを密輸か&#160;フィンランド国籍の女を現行犯逮捕&#160;容疑を否認&#160;警視庁",
+    "date": "2026-10-07",
+    "location": "東京都",
+    "media": "ライブドアニュース",
+    "stage": "逮捕",
+    "url": "https://news.livedoor.com/article/detail/32508920/",
+    "summary": "東京都で発生し、フィンランド国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 3キロを超えるコカインをスーツケースに隠して密輸したとして、フィンランド国籍の女が現行犯逮捕されました。",
+      "nationality": "本文抜粋: フィンランド国籍"
+    },
+    "locationBasis": "本文抜粋: 警視庁によりますとマンノネン容疑者は、今月4日、コカインおよそ3.2キロ、末端価格7680万円相当をフランスのパリ・シャルル・ド・ゴール国際空港から羽田空港に営",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T07:24:24.430Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "99883cc98e9deb47",
+    "title": "コカイン3キロ密輸疑い逮捕　フィンランド国籍の女(共同通信)",
+    "date": "2026-10-07",
+    "location": "東京都",
+    "media": "共同通信",
+    "stage": "逮捕",
+    "url": "https://news.yahoo.co.jp/articles/657b07e3674ab631b0d74aa3f99235fada132ce6?source=rss",
+    "summary": "東京都で発生し、フィンランド国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: コカイン約3.2キロ（末端価格7680万円相当）を密輸したとして、警視庁薬物銃器対策課は7日までに、麻薬取締法違反（営利目的輸入）などの疑いで、フィンランド国籍",
+      "nationality": "本文抜粋: フィンランド国籍"
+    },
+    "locationBasis": "本文抜粋: 逮捕容疑は現地時間3日、仲間と共謀し、フランス・パリの空港でコカインを航空機内に持ち込み、4日に羽田空港へ到着して密輸した疑い。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T07:23:18.782Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "fb11aa77929343e3",
+    "title": "28歳男性が襲われる　凶器で切られ負傷　殺そうとした男逮捕、殺人未遂の疑い　居合わせた人が制止　防カメや供述で犯行を特定、畑で襲いかかっていた29歳(埼玉新聞)",
+    "date": "2026-10-07",
+    "location": "埼玉県",
+    "media": "埼玉新聞",
+    "stage": "逮捕",
+    "eventKey": "event-v1:a3589dc9f2c0e44643df108aa6112cb945a135c200210f028624bf3a2f6155f4",
+    "url": "https://news.yahoo.co.jp/articles/50769b0c31e5e091953a96b5da338b7f6c8afddc?source=rss",
+    "summary": "埼玉県で発生し、ベトナム国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 埼玉県警大宮東署は4日、殺人未遂の疑いで、住所不定無職のベトナム国籍の男（29）を逮捕した。",
+      "nationality": "本文抜粋: ベトナム国籍"
+    },
+    "locationBasis": "本文抜粋: 逮捕容疑は9月29日午後7時ごろ、さいたま市見沼区大谷の畑で知人男性（28）に対し、刃物のような凶器で切りつけ、殺害しようとした疑い。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T07:25:27.645Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "a59700fc535ba167",
     "title": "酒酔い運転の疑いでインド国籍の男逮捕 群馬県警太田署",
     "date": "2026-10-06",
