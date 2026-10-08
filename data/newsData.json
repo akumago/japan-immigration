@@ -1,5 +1,89 @@
 [
   {
+    "id": "4dbdf2045a4cb3dd",
+    "title": "コカイン約3kg密輸か　フィンランド国籍の女逮捕",
+    "date": "2026-10-08",
+    "location": "東京都",
+    "media": "FNNプライムオンライン",
+    "stage": "逮捕",
+    "url": "https://www.fnn.jp/articles/-/1128859",
+    "summary": "東京都で発生し、フィンランド国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: コカインを密輸した疑いで、フィンランド国籍の女が現行犯逮捕されました。",
+      "nationality": "本文抜粋: フィンランド国籍"
+    },
+    "locationBasis": "本文抜粋: ミンナ・エベリーナ・マンノネン容疑者（56）は、コカイン約3.2kg（末端価格約7680万円相当）をスーツケースに隠してフランスから羽田空港に営利目的で密輸した",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-08T16:41:18.603Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "1a554bcda8adb627",
+    "title": "千葉の入浴施設でロッカー物色　中国籍の18歳男を逮捕　複製した合鍵で金品盗もうとした疑い　合鍵170本を押収も「違います」",
+    "date": "2026-10-08",
+    "location": "千葉県",
+    "media": "FNNプライムオンライン",
+    "stage": "逮捕",
+    "url": "https://www.fnn.jp/articles/-/1129505",
+    "summary": "千葉県で発生し、中国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 千葉県の公衆浴場で更衣室のロッカーを合鍵で開け、金品を盗もうとした疑いで、中国籍の18歳の男が逮捕されました。",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "本文抜粋: 千葉県の公衆浴場で更衣室のロッカーを合鍵で開け、金品を盗もうとした疑いで、中国籍の18歳の男が逮捕されました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-08T16:40:59.860Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "a06861197beb096b",
+    "title": "飲食店の個室トイレで金品の受け渡し 「回収役」の中国籍女を逮捕 7500万円関与か",
+    "date": "2026-10-08",
+    "location": "埼玉県",
+    "media": "産経ニュース",
+    "stage": "逮捕",
+    "url": "https://www.sankei.com/article/20261008-XAUQTK2XPJO43LV6GZR35NIB3U/",
+    "summary": "埼玉県で発生し、中国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 警察官になりすます「ニセ警察詐欺」の手口で現金をだまし取ったとして、大阪府警特殊詐欺捜査課は8日、詐欺などの疑いで中国籍の無職、黄翠（ホアンツイ）容疑者（37）",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "本文抜粋: 警察官になりすます「ニセ警察詐欺」の手口で現金をだまし取ったとして、大阪府警特殊詐欺捜査課は8日、詐欺などの疑いで中国籍の無職、黄翠（ホアンツイ）容疑者（37）",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-08T16:40:55.401Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "4438312ab9da88e1",
+    "title": "被害総額は約２億円か　「ニセ警察詐欺」に関与したとして台湾出身と中国籍の２人送致　大阪府警",
+    "date": "2026-10-08",
+    "location": "和歌山県",
+    "media": "ｄメニューニュース",
+    "stage": "送検",
+    "url": "https://topics.smt.docomo.ne.jp/article/abcnews/region/abcnews-62940",
+    "summary": "和歌山県で発生し、台湾出身の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 警察官などを装って、現金や金塊をだまし取る「ニセ警察詐欺」に関与したとして、大阪府警は台湾出身の王裕閔被告（３８）と中国籍の黄翠被告（３７）を送致し、２人につい",
+      "nationality": "本文抜粋: 台湾出身"
+    },
+    "locationBasis": "本文抜粋: 王被告は、１月に和歌山県内の高齢女性から約１．２キロ、当時の時価で３６００万円相当の金塊をだまし取ったとして逮捕されるなど、「受け子」役として被害総額約１億９８",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-08T16:41:07.225Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "e0c42baa62aa9005",
     "title": "9歳以下の男の子に性的暴行　パキスタン国籍の男逮捕",
     "date": "2026-10-08",
