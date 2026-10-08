@@ -1,5 +1,48 @@
 [
   {
+    "id": "4affd53383b6e522",
+    "title": "高級ＳＵＶ車窃盗容疑のブラジル国籍の男性・不起訴　山形(さくらんぼテレビ)",
+    "date": "2026-10-08",
+    "location": "山形県",
+    "media": "さくらんぼテレビ",
+    "stage": "不起訴",
+    "eventKey": "event-v1:9140340659effbb1f22b062fab37c096f745c53db46567bcab225f85a1d1b4ce",
+    "url": "https://news.yahoo.co.jp/articles/7a2aeb9b88c266b7706063abc01ef7c87663ecbd?source=rss",
+    "summary": "山形県で発生し、ブラジル国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 高級車1台を盗んだとして逮捕・送検されたブラジル国籍の男性について、仙台地方検察庁が「不起訴処分」とした。",
+      "nationality": "本文抜粋: ブラジル国籍"
+    },
+    "locationBasis": "本文抜粋: 男性は2025年9月、天童市の会社の敷地に止めてあった、時価1200万円相当の高級ＳＵＶ車1台を盗んだ疑いなどで逮捕・送検されたが、いずれも、10月7日付けで不",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-08T22:15:35.583Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "25c0721f51dd6d3e",
+    "title": "コカイン３キロ密輸疑い逮捕",
+    "date": "2026-10-08",
+    "location": "東京都",
+    "media": "福井新聞社",
+    "stage": "逮捕",
+    "url": "https://www.fukuishimbun.co.jp/articles/gallery/2716665?ph=1",
+    "summary": "東京都で発生し、フィンランド国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: コカイン約３・２キロ（末端価格７６８０万円相当）を密輸したとして、警視庁薬物銃器対策課は７日までに、麻薬取締法違反（営利目的輸入）などの疑いで、フィンランド国籍",
+      "nationality": "本文抜粋: フィンランド国籍"
+    },
+    "locationBasis": "本文抜粋: 逮捕容疑は現地時間３日、仲間と共謀し、フランス・パリの空港でコカインを航空機内に持ち込み、４日に羽田空港へ到着して密輸した疑い。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-08T22:17:40.305Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "4dbdf2045a4cb3dd",
     "title": "コカイン約3kg密輸か　フィンランド国籍の女逮捕",
     "date": "2026-10-08",
