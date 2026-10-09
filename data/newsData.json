@@ -1,5 +1,26 @@
 [
   {
+    "id": "8a7868ee013d6fc9",
+    "title": "不法就労あっせんグループトップか、ベトナム人の女逮捕 警視庁 (10/09 18:42)",
+    "date": "2026-10-10",
+    "location": "埼玉県",
+    "media": "時事通信（社会）",
+    "stage": "逮捕",
+    "url": "https://www.jiji.com/jc/article?k=2026100900996&g=soc",
+    "summary": "埼玉県で発生し、ベトナム人の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 資格外活動の許可を得ていないベトナム人を不法に働かせたとして、警視庁王子署は９日までに、入管難民法違反（不法就労助長）容疑で、ベトナム国籍の人材派遣会社元パート",
+      "nationality": "本文抜粋: ベトナム人"
+    },
+    "locationBasis": "本文抜粋: 資格外活動の許可を得ていないベトナム人を不法に働かせたとして、警視庁王子署は９日までに、入管難民法違反（不法就労助長）容疑で、ベトナム国籍の人材派遣会社元パート",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-09T17:07:18.939Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "10f909a5d69fdf3d",
     "title": "歌舞伎町の女性に刃物突き付け強盗、性的暴行疑い　パキスタン国籍の男逮捕、路上売春の客(産経新聞)",
     "date": "2026-10-09",
@@ -126,6 +147,27 @@
     "locationBasis": "本文抜粋: 千葉県八千代市でロードサービスを依頼した女性に高額な請求を持ち掛け、現金１４万３千円を脅し取ったとして、千葉県警は１０月８日、３７歳の韓国籍の男を逮捕しました。",
     "gateVersion": "strict-2026-10-06.1",
     "judgedAt": "2026-10-09T02:21:06.131Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "ed4c1421abf21aac",
+    "title": "コカイン約3kg密輸か フィンランド国籍の女逮捕（FNNプライムオンライン（フジテレビ系））",
+    "date": "2026-10-08",
+    "location": "東京都",
+    "media": "Yahoo!ニュース",
+    "stage": "逮捕",
+    "url": "https://news.yahoo.co.jp/articles/02d6d30c783a713d3e1484036098aa13f0d8e824",
+    "summary": "東京都で発生し、フィンランド国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: コカインを密輸した疑いで、フィンランド国籍の女が現行犯逮捕されました。",
+      "nationality": "本文抜粋: フィンランド国籍"
+    },
+    "locationBasis": "本文抜粋: ミンナ・エベリーナ・マンノネン容疑者（56）は、コカイン約3.2kg（末端価格約7680万円相当）をスーツケースに隠してフランスから羽田空港に営利目的で密輸した",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-09T17:08:54.977Z",
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,
