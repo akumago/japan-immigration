@@ -1,5 +1,92 @@
 [
   {
+    "id": "10f909a5d69fdf3d",
+    "title": "歌舞伎町の女性に刃物突き付け強盗、性的暴行疑い　パキスタン国籍の男逮捕、路上売春の客(産経新聞)",
+    "date": "2026-10-09",
+    "location": "神奈川県",
+    "media": "産経新聞",
+    "stage": "逮捕",
+    "eventKey": "event-v1:f550c57b9d1a839e761b10b7917f0cbd04008cb45682aae80a32d35c9f34b40a",
+    "url": "https://news.yahoo.co.jp/articles/5c8d0b95b0c3d63f89d01c9c5f863d7e7a05cee7?source=rss",
+    "summary": "神奈川県で発生し、パキスタン国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 買春した女性に刃物を突きつけて現金を奪ったうえ、性的暴行を加えたとして、警視庁新宿署は不同意性交と強盗の疑いで、パキスタン国籍の職業不詳、ダニッシュ・ムハマド容",
+      "nationality": "本文抜粋: パキスタン国籍"
+    },
+    "locationBasis": "本文抜粋: 買春した女性に刃物を突きつけて現金を奪ったうえ、性的暴行を加えたとして、警視庁新宿署は不同意性交と強盗の疑いで、パキスタン国籍の職業不詳、ダニッシュ・ムハマド容",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-09T09:24:06.599Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "1c74dca1cb93e8ac",
+    "title": "諏訪郡内でも犯行か 全国各地で電線ケーブルを盗んだ疑い 岡山県警がカンボジアやベトナム国籍の男14人を摘発",
+    "date": "2026-10-09",
+    "location": "長野県",
+    "media": "TBS NEWS DIG",
+    "stage": null,
+    "url": "https://newsdig.tbs.co.jp/articles/sbc/3001030",
+    "summary": "長野県で発生し、外国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 岡山県など全国各地で電線ケーブルを盗んだとして外国籍の14人が摘発され、長野県内でも諏訪郡などで犯行を行ったとみられることがわかりました。",
+      "nationality": "本文抜粋: 外国籍"
+    },
+    "locationBasis": "本文抜粋: 岡山県など全国各地で電線ケーブルを盗んだとして外国籍の14人が摘発され、長野県内でも諏訪郡などで犯行を行ったとみられることがわかりました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-09T09:24:20.653Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "b36dd3d21a564bac",
+    "title": "千葉・松戸市の質店から腕時計や指輪など窃盗疑いでブラジル国籍2人逮捕 盗品の一部は静岡県内の買取店に売却か トクリュウとみて捜査 警視庁",
+    "date": "2026-10-09",
+    "location": "千葉県",
+    "media": "TBS NEWS DIG",
+    "stage": "逮捕",
+    "eventKey": "event-v1:85ee61cd04ca50ba01ca269799319f705f570dfc00afc5ca34f08daf5a40e629",
+    "url": "https://newsdig.tbs.co.jp/articles/-/3001132",
+    "summary": "千葉県で発生し、ブラジル国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 千葉県松戸市の質店から指輪など289万円相当を盗んだとして、ブラジル国籍の男2人が逮捕されました。",
+      "nationality": "本文抜粋: ブラジル国籍"
+    },
+    "locationBasis": "本文抜粋: 千葉県松戸市の質店から指輪など289万円相当を盗んだとして、ブラジル国籍の男2人が逮捕されました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-09T09:24:10.344Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "06cb4f62d847379f",
+    "title": "現金奪い性的暴行か パキスタン国籍の男逮捕 2026 年 10 月 9 日 12:14",
+    "date": "2026-10-09",
+    "location": "東京都",
+    "media": "テレ朝NEWS（事件・社会）",
+    "stage": "逮捕",
+    "eventKey": "event-v1:1d15834b903988dc6fc6c69cc69075f3e7236ec70bc60dc3afe2d8b4cb6919dd",
+    "url": "https://news.tv-asahi.co.jp/news_society/articles/000538989.html",
+    "summary": "東京都で発生し、パキスタン国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 新宿・歌舞伎町で女性に刃物を突き付けて現金を奪い性的暴行を加えたとして、パキスタン国籍の男が逮捕されました。",
+      "nationality": "本文抜粋: パキスタン国籍"
+    },
+    "locationBasis": "本文抜粋: パキスタン国籍のダニッシュ・ムハマド容疑者（23）は先月、新宿区歌舞伎町のホテルで、20代の女性に対して刃物を突き付け、現金5万円7000円を奪った後、性的暴行",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-09T09:23:14.676Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "9221e7bdc5a3f6fc",
     "title": "愛知・南知多町 海の家で不法就労させたか トルコ国籍の男逮捕",
     "date": "2026-10-09",
