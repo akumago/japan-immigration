@@ -21,6 +21,27 @@
     "audited": true
   },
   {
+    "id": "473125f8e6c5b676",
+    "title": "20代女性をナイフで脅し現金奪いわいせつ行為か　パキスタン国籍の男を逮捕",
+    "date": "2026-10-09",
+    "location": "東京都",
+    "media": "TOKYO MX",
+    "stage": "逮捕",
+    "url": "https://s.mxtv.jp/mxnews/amp/mxnews_1gqg7r3l4hh822fp7.html",
+    "summary": "東京都で発生し、パキスタン国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 東京・歌舞伎町のホテルで20代の女性をナイフで脅して現金を奪い、わいせつな行為をした疑いでパキスタン国籍の男が逮捕されました。",
+      "nationality": "本文抜粋: パキスタン国籍"
+    },
+    "locationBasis": "本文抜粋: 警視庁によりますとムハマド容疑者は9月2日夜、新宿区歌舞伎町のホテルで20代の女性にナイフを突き付けて「キルユー」などと脅し、現金5万7000円を奪った上、わい",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-09T21:50:47.043Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "10f909a5d69fdf3d",
     "title": "歌舞伎町の女性に刃物突き付け強盗、性的暴行疑い　パキスタン国籍の男逮捕、路上売春の客(産経新聞)",
     "date": "2026-10-09",
