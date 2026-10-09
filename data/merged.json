@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-07T21:30:15.060Z",
+  "updatedAt": "2026-10-09T02:25:15.877Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -1279,6 +1279,29 @@
       },
       "reason": "国籍+年齢+場所/罪種",
       "recordedAt": "2026-10-07T21:30:15.060Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "96ea23599582fef1eb19",
+        "sourceRecordId": "chiba-police:96ea23599582fef1eb19",
+        "title": "建造物侵入、窃盗未遂事件で少年を逮捕（国際捜査課）",
+        "date": "2026-10-08",
+        "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03784.html",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "removed": {
+        "id": "bfc7e062b80990439b3e",
+        "sourceRecordId": "chiba-police:bfc7e062b80990439b3e",
+        "title": "恐喝事件で男を逮捕（市川警察署）",
+        "date": "2026-10-08",
+        "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03784.html",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-09T02:25:15.877Z"
     }
   ]
 }

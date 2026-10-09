@@ -1,5 +1,72 @@
 [
   {
+    "id": "9221e7bdc5a3f6fc",
+    "title": "愛知・南知多町 海の家で不法就労させたか トルコ国籍の男逮捕",
+    "date": "2026-10-09",
+    "location": "愛知県",
+    "media": "Excite エキサイト",
+    "stage": "逮捕",
+    "eventKey": "event-v1:3382897d7a26984cf02f8940454faa6826badc2caed65db9f6c309b2c2315ac9",
+    "url": "http://www.excite.co.jp/news/article/ctv_1480967025458577723/",
+    "summary": "愛知県の事件として見出しから確認。本文は取得でき次第再確認します。",
+    "evidence": {
+      "suspect": "見出し根拠: 愛知・南知多町 海の家で不法就労させたか トルコ国籍の男逮捕",
+      "nationality": "見出し根拠: トルコ国籍"
+    },
+    "locationBasis": "見出し根拠: 愛知・南知多町 海の家で不法就労させたか トルコ国籍の男逮捕",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-09T02:21:40.536Z",
+    "legacy": false,
+    "verificationMode": "headline_only",
+    "provisionalHeadlineOnly": true,
+    "headlinePublishedAt": "2026-10-09T02:20:36.772Z",
+    "headlineQuarantineAt": "2026-10-11T02:20:36.772Z",
+    "audited": true
+  },
+  {
+    "id": "16a080117eebc95a",
+    "title": "ロードサービスで高額請求　１４万円余り恐喝か　３７歳韓国籍の男逮捕　千葉県警",
+    "date": "2026-10-09",
+    "location": "千葉県",
+    "media": "ｄメニューニュース",
+    "stage": "逮捕",
+    "url": "https://topics.smt.docomo.ne.jp/article/chibatv/region/chibatv-2026102092105?utm_source=dnews&utm_medium=article&utm_campaign=contentsmatch6",
+    "summary": "千葉県で発生し、韓国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: ロードサービスで高額請求 １４万円余り恐喝か ３７歳韓国籍の男逮捕 千葉県警",
+      "nationality": "本文抜粋: 韓国籍"
+    },
+    "locationBasis": "本文抜粋: 千葉県八千代市でロードサービスを依頼した女性に高額な請求を持ち掛け、現金１４万３千円を脅し取ったとして、千葉県警は１０月８日、３７歳の韓国籍の男を逮捕しました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-09T02:21:06.131Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "96ea23599582fef1eb19",
+    "sourceRecordId": "chiba-police:96ea23599582fef1eb19",
+    "title": "建造物侵入、窃盗未遂事件で少年を逮捕（国際捜査課）",
+    "date": "2026-10-08",
+    "location": "千葉県",
+    "media": "千葉県警察",
+    "stage": "逮捕",
+    "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03784.html",
+    "summary": "千葉県で発生し、中国国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 9月2日午前11時19分頃から同日午後1時42分頃までの間、千葉県内に所在する温浴施設に侵入し、同日午後零時45分頃から同日午後1時頃までの間、男性用更衣室で、",
+      "nationality": "本文抜粋: 中国国籍"
+    },
+    "locationBasis": "本文抜粋: 9月2日午前11時19分頃から同日午後1時42分頃までの間、千葉県内に所在する温浴施設に侵入し、同日午後零時45分頃から同日午後1時頃までの間、男性用更衣室で、",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-09T02:21:51.603Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "4affd53383b6e522",
     "title": "高級ＳＵＶ車窃盗容疑のブラジル国籍の男性・不起訴　山形(さくらんぼテレビ)",
     "date": "2026-10-08",
