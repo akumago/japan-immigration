@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-09T02:25:15.877Z",
+  "updatedAt": "2026-10-10T08:45:58.409Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -1302,6 +1302,29 @@
       },
       "reason": "国籍+年齢+場所/罪種",
       "recordedAt": "2026-10-09T02:25:15.877Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "1a13a799b6df4dff",
+        "sourceRecordId": null,
+        "title": "沖縄強盗殺人で海兵隊員を送検、知事らが米軍に再発防止を求め正式抗議",
+        "date": "2026-10-06",
+        "url": "https://news.livedoor.com/article/detail/32496989/",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:caa6f68faee16d900fdb9c4da26cc8be67af2c017f7915310388bb61efc0b0ca"
+      },
+      "removed": {
+        "id": "823b7e91cb905f91",
+        "sourceRecordId": null,
+        "title": "沖縄県議会、抗議決議可決 米兵逮捕、再発防止求め",
+        "date": "2026-10-09",
+        "url": "https://www.saga-s.co.jp/articles/-/1807377",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-10T08:45:58.409Z"
     }
   ]
 }
