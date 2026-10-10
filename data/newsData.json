@@ -492,6 +492,27 @@
     "audited": true
   },
   {
+    "id": "f10495d318d41527",
+    "title": "二重底のスーツケースに隠し3キロ超のコカインを密輸か フィンランド国籍の女を現行犯逮捕 容疑を否認 警視庁",
+    "date": "2026-10-07",
+    "location": "東京都",
+    "media": "Yahoo!ニュース",
+    "stage": "逮捕",
+    "url": "https://news.yahoo.co.jp/articles/ec86b5bcebcbde503b5421083c604b8f9945d95e",
+    "summary": "東京都で発生し、フィンランド国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 3キロを超えるコカインをスーツケースに隠して密輸したとして、フィンランド国籍の女が現行犯逮捕されました。",
+      "nationality": "本文抜粋: フィンランド国籍"
+    },
+    "locationBasis": "本文抜粋: 警視庁によりますと、マンノネン容疑者は、今月4日、コカインおよそ3.2キロ、末端価格7680万円相当をフランスのパリ・シャルル・ド・ゴール国際空港から羽田空港に",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-10T01:52:57.083Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "d513d7cb257421fc",
     "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 – Quebee キュエビー",
     "date": "2026-10-07",
