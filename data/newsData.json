@@ -63,6 +63,29 @@
     "audited": true
   },
   {
+    "id": "7d7fad05a4c4290a",
+    "title": "知人男性の家に侵入して顔面を何回も殴ったか 26歳のベトナム人の男を逮捕 容疑を否認 浜松市",
+    "date": "2026-10-09",
+    "location": "静岡県",
+    "media": "au Webポータル",
+    "stage": "逮捕",
+    "url": "https://article.auone.jp/86b031d7-6acd-43fd-b35f-e6d47a0344af",
+    "summary": "静岡県の事件として見出しから確認。本文は取得でき次第再確認します。",
+    "evidence": {
+      "suspect": "見出し根拠: 知人男性の家に侵入して顔面を何回も殴ったか 26歳のベトナム人の男を逮捕 容疑を否認 浜松市",
+      "nationality": "見出し根拠: ベトナム人"
+    },
+    "locationBasis": "見出し根拠: 知人男性の家に侵入して顔面を何回も殴ったか 26歳のベトナム人の男を逮捕 容疑を否認 浜松市",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-10T23:43:52.938Z",
+    "legacy": false,
+    "verificationMode": "headline_only",
+    "provisionalHeadlineOnly": true,
+    "headlinePublishedAt": "2026-10-10T23:43:06.099Z",
+    "headlineQuarantineAt": "2026-10-12T23:43:06.099Z",
+    "audited": true
+  },
+  {
     "id": "473125f8e6c5b676",
     "title": "20代女性をナイフで脅し現金奪いわいせつ行為か　パキスタン国籍の男を逮捕",
     "date": "2026-10-09",
@@ -210,6 +233,27 @@
     "locationBasis": "本文抜粋: 千葉県八千代市でロードサービスを依頼した女性に高額な請求を持ち掛け、現金１４万３千円を脅し取ったとして、千葉県警は１０月８日、３７歳の韓国籍の男を逮捕しました。",
     "gateVersion": "strict-2026-10-06.1",
     "judgedAt": "2026-10-09T02:21:06.131Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "6019f520771a3b0a",
+    "title": "太陽光発電施設から銅線ケーブルを盗むなどした疑いでカンボジア国籍とベトナム国籍の男らからなる外国人グループ計14人を逮捕し最終送致【岡山県警】",
+    "date": "2026-10-08",
+    "location": "栃木県",
+    "media": "Yahoo!ニュース",
+    "stage": "送検",
+    "url": "https://news.yahoo.co.jp/articles/f6fbbe66801a19fedf8cbc6de13aef8489410445",
+    "summary": "栃木県で発生し、外国人の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: ■電線ケーブルを窃盗か 外国人犯罪グループを摘発 岡山県警は2024年12月から2025年2月ごろにかけて全国各地で電線ケーブル約30トンなどを盗んだとして外国",
+      "nationality": "本文抜粋: 外国人"
+    },
+    "locationBasis": "本文抜粋: ■送致された14人の国籍や職業は 窃盗、窃盗未遂、建造物侵入の容疑で岡山地検倉敷支部に送致されたのは 1.カンボジア国籍で住居不定・自称農業手伝いの男（32） ",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-10T23:43:28.445Z",
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,
