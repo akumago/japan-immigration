@@ -1247,6 +1247,28 @@
     "audited": true
   },
   {
+    "id": "4695acdecd8ff1ff",
+    "title": "嘉手納基地所属の米兵が酒気帯び運転容疑「ハブ酒や焼酎を飲んだ」…沖縄市では別の米兵が酒酔い運転容疑",
+    "date": "2026-10-05",
+    "location": "沖縄県",
+    "media": "Yahoo!ニュース",
+    "stage": null,
+    "eventKey": "event-v1:eae174ccc4d90ecd8730f27988434d0c8049ad4c27626a53c11627a42ba5de8b",
+    "url": "https://news.yahoo.co.jp/articles/9fc8689a2d7c9a2f4f0d7222d51c68cdb64b44c1",
+    "summary": "沖縄県で発生し、米兵の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 沖縄県の米海兵隊員が強盗殺人容疑で逮捕された４日、県内では別の米兵２人の飲酒運転容疑での逮捕が相次いだ。",
+      "nationality": "本文抜粋: 米兵"
+    },
+    "locationBasis": "本文抜粋: 沖縄県の米海兵隊員が強盗殺人容疑で逮捕された４日、県内では別の米兵２人の飲酒運転容疑での逮捕が相次いだ。",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-05T02:13:25.129Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "57666272982d1dd9",
     "title": "強殺容疑で逮捕の米兵 防犯カメラに“逃走の様子”",
     "date": "2026-10-05",
