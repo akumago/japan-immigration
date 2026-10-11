@@ -1,5 +1,47 @@
 [
   {
+    "id": "29d5a47b62c0588e",
+    "title": "一方通行を逆走…呼気から基準値の3倍超のアルコール スリランカ国籍の男（21）を逮捕 福岡・北九州市 3時間前",
+    "date": "2026-10-11",
+    "location": "福岡県",
+    "media": "TBS NEWS DIG（JNN地域局）",
+    "stage": "逮捕",
+    "url": "https://newsdig.tbs.co.jp/articles/-/3004625",
+    "summary": "福岡県で発生し、スリランカ国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 福岡県北九州市八幡西区で酒を飲んで原付バイクを運転したとして、スリランカ国籍の21歳の男が逮捕されました。",
+      "nationality": "本文抜粋: スリランカ国籍"
+    },
+    "locationBasis": "本文抜粋: 福岡県北九州市八幡西区で酒を飲んで原付バイクを運転したとして、スリランカ国籍の21歳の男が逮捕されました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-11T06:03:35.730Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "f340ae5ac3d1428c",
+    "title": "関越道工事現場に車突入２人死亡 作業員男女、運転のイラン男逮捕",
+    "date": "2026-10-10",
+    "location": "東京都",
+    "media": "山陽新聞",
+    "stage": "逮捕",
+    "url": "https://www.sanyonews.jp/article/1994773?rct=global_syakai_c&kw=33",
+    "summary": "東京都で発生し、イラン国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 県警は２６日、自動車運転処罰法違反（過失致死）の疑いで、乗用車を運転していたイラン国籍の職業不詳オザヒ・モハンマド容疑者（２９）＝東京都清瀬市＝を逮捕した。",
+      "nationality": "本文抜粋: イラン国籍"
+    },
+    "locationBasis": "本文抜粋: 県警は２６日、自動車運転処罰法違反（過失致死）の疑いで、乗用車を運転していたイラン国籍の職業不詳オザヒ・モハンマド容疑者（２９）＝東京都清瀬市＝を逮捕した。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-11T06:03:42.677Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "333bcc7ab2ad2442",
     "title": "米兵が強盗殺人容疑で逮捕、沖縄が怒る理由…少女や乳児まで被害に遭った性暴力の歴史、本土には見えない恐怖",
     "date": "2026-10-10",
@@ -60,6 +102,30 @@
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "ab9f8c9d9ec7fcd0",
+    "title": "愛知・南知多町 海の家で不法就労させたか トルコ国籍の男逮捕",
+    "date": "2026-10-09",
+    "location": "愛知県",
+    "media": "UQライフ",
+    "stage": "逮捕",
+    "eventKey": "event-v1:3382897d7a26984cf02f8940454faa6826badc2caed65db9f6c309b2c2315ac9",
+    "url": "https://portal.uqmobile.jp/detail/1/2/5/10051_5_r_20261009_1791477403196287",
+    "summary": "愛知県の事件として見出しから確認。本文は取得でき次第再確認します。",
+    "evidence": {
+      "suspect": "見出し根拠: 愛知・南知多町 海の家で不法就労させたか トルコ国籍の男逮捕",
+      "nationality": "見出し根拠: トルコ国籍"
+    },
+    "locationBasis": "見出し根拠: 愛知・南知多町 海の家で不法就労させたか トルコ国籍の男逮捕",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-10T23:43:34.691Z",
+    "legacy": false,
+    "verificationMode": "headline_only",
+    "provisionalHeadlineOnly": true,
+    "headlinePublishedAt": "2026-10-10T08:42:07.598Z",
+    "headlineQuarantineAt": "2026-10-12T08:42:07.598Z",
     "audited": true
   },
   {
@@ -191,30 +257,6 @@
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,
-    "audited": true
-  },
-  {
-    "id": "9221e7bdc5a3f6fc",
-    "title": "愛知・南知多町 海の家で不法就労させたか トルコ国籍の男逮捕",
-    "date": "2026-10-09",
-    "location": "愛知県",
-    "media": "Excite エキサイト",
-    "stage": "逮捕",
-    "eventKey": "event-v1:3382897d7a26984cf02f8940454faa6826badc2caed65db9f6c309b2c2315ac9",
-    "url": "http://www.excite.co.jp/news/article/ctv_1480967025458577723/",
-    "summary": "愛知県の事件として見出しから確認。本文は取得でき次第再確認します。",
-    "evidence": {
-      "suspect": "見出し根拠: 愛知・南知多町 海の家で不法就労させたか トルコ国籍の男逮捕",
-      "nationality": "見出し根拠: トルコ国籍"
-    },
-    "locationBasis": "見出し根拠: 愛知・南知多町 海の家で不法就労させたか トルコ国籍の男逮捕",
-    "gateVersion": "strict-2026-10-06.1",
-    "judgedAt": "2026-10-09T02:21:40.536Z",
-    "legacy": false,
-    "verificationMode": "headline_only",
-    "provisionalHeadlineOnly": true,
-    "headlinePublishedAt": "2026-10-09T02:20:36.772Z",
-    "headlineQuarantineAt": "2026-10-11T02:20:36.772Z",
     "audited": true
   },
   {
