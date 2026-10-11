@@ -1,5 +1,49 @@
 [
   {
+    "id": "abcf21a2868e1717",
+    "title": "再発防止 日米と県協議を 地位協定の改定が必要 海兵隊員逮捕1週間 波照間陽沖縄国際大講師",
+    "date": "2026-10-12",
+    "location": "沖縄県",
+    "media": "沖縄タイムス社",
+    "stage": "逮捕",
+    "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89",
+    "url": "https://www.okinawatimes.co.jp/articles/-/1942951",
+    "summary": "沖縄県で発生し、デビン・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 那覇市のホテルで女性が殺害され、県警が強盗殺人容疑で米軍普天間飛行場所属の海兵隊上等兵デビン・バラード容疑者（２０）を逮捕して１１日で１週間となった。",
+      "nationality": "本文抜粋: デビン・バラード"
+    },
+    "locationBasis": "本文抜粋: 那覇市のホテルで女性が殺害され、県警が強盗殺人容疑で米軍普天間飛行場所属の海兵隊上等兵デビン・バラード容疑者（２０）を逮捕して１１日で１週間となった。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-11T22:11:41.267Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "433a6b82be668ae9",
+    "title": "福岡県内で飲酒運転相次ぐ 久留米市では酒酔い運転容疑で女を現行犯逮捕",
+    "date": "2026-10-11",
+    "location": "福岡県",
+    "media": "KBC九州朝日放送",
+    "stage": "逮捕",
+    "eventKey": "event-v1:c193c5e1bc04a9e48e67d24d41a313ef2c15318a606d9451ab3c7896659b915a",
+    "url": "https://kbc.co.jp/news/article.php?id=18298920",
+    "summary": "福岡県で発生し、スリランカ国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 福岡県内は11日、未明から飲酒運転による逮捕者が相次ぎ、北九州市でスリランカ国籍のイシャン・サンディーパ容疑者（21）が、福岡市で横山光希容疑者（20）がいずれ",
+      "nationality": "本文抜粋: スリランカ国籍"
+    },
+    "locationBasis": "本文抜粋: 福岡県内は11日、未明から飲酒運転による逮捕者が相次ぎ、北九州市でスリランカ国籍のイシャン・サンディーパ容疑者（21）が、福岡市で横山光希容疑者（20）がいずれ",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-11T22:11:47.391Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "9267aa83a0e5dac6",
     "title": "米空軍兵とみられる2人を憲兵隊が拘束　沖縄の米兵事件受けたパトロール2日目(RBC琉球放送)",
     "date": "2026-10-11",
@@ -124,6 +168,30 @@
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "808f5d36146475f6",
+    "title": "千葉・松戸市の質店から腕時計や指輪など窃盗疑いでブラジル国籍2人逮捕 盗品の一部は静岡県内の買取店に売却か トクリュウとみて捜査 警視庁 - ライブドアニュース",
+    "date": "2026-10-09",
+    "location": "静岡県",
+    "media": "ライブドアニュース",
+    "stage": "逮捕",
+    "eventKey": "event-v1:ca0837548e8bfb197089890feb698b05d1e720e88c9902a0b4e26f6380680422",
+    "url": "https://news.livedoor.com/article/image_detail/32526538/?img_id=56873782",
+    "summary": "静岡県の事件として見出しから確認。本文は取得でき次第再確認します。",
+    "evidence": {
+      "suspect": "見出し根拠: 千葉・松戸市の質店から腕時計や指輪など窃盗疑いでブラジル国籍2人逮捕 盗品の一部は静岡県内の買取店に売却か トクリュウとみて捜査 警視庁 - ライブドアニュース",
+      "nationality": "見出し根拠: ブラジル国籍"
+    },
+    "locationBasis": "見出し根拠: 千葉・松戸市の質店から腕時計や指輪など窃盗疑いでブラジル国籍2人逮捕 盗品の一部は静岡県内の買取店に売却か トクリュウとみて捜査 警視庁 - ライブドアニュース",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-11T22:11:28.160Z",
+    "legacy": false,
+    "verificationMode": "headline_only",
+    "provisionalHeadlineOnly": true,
+    "headlinePublishedAt": "2026-10-11T22:10:46.101Z",
+    "headlineQuarantineAt": "2026-10-13T22:10:46.101Z",
     "audited": true
   },
   {
@@ -1241,6 +1309,27 @@
     "locationBasis": "本文抜粋: 警察によりますと、イギリス国籍のターニャ・ニーマンド容疑者(47)は3日、名古屋市北区に",
     "gateVersion": "strict-2026-10-06.1",
     "judgedAt": "2026-10-05T18:38:52.793Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "86d0591125e9659d",
+    "title": "高市首相、沖縄米兵強殺事件で「極めて遺憾」X投稿は速報から6時間後…災害でも指摘された “メッセージの遅さ”",
+    "date": "2026-10-05",
+    "location": "沖縄県",
+    "media": "ライブドアニュース",
+    "stage": null,
+    "url": "https://news.livedoor.com/article/detail/32492348/",
+    "summary": "沖縄県で発生し、デビン・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 沖縄県警は事件発生翌日の4日、米軍普天間基地に所属する海兵隊員デビン・バラード容疑者（20）を沖縄市の歓楽街で逮捕した。",
+      "nationality": "本文抜粋: デビン・バラード"
+    },
+    "locationBasis": "本文抜粋: 沖縄県警は事件発生翌日の4日、米軍普天間基地に所属する海兵隊員デビン・バラード容疑者（20）を沖縄市の歓楽街で逮捕した。",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-05T09:18:35.919Z",
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,
