@@ -1,5 +1,27 @@
 [
   {
+    "id": "9267aa83a0e5dac6",
+    "title": "米空軍兵とみられる2人を憲兵隊が拘束　沖縄の米兵事件受けたパトロール2日目(RBC琉球放送)",
+    "date": "2026-10-11",
+    "location": "沖縄県",
+    "media": "RBC琉球放送",
+    "stage": null,
+    "eventKey": "event-v1:0f958b164507234bc7f74722b25a6d947b722e82c3fbe234f0a84d306b647585",
+    "url": "https://news.yahoo.co.jp/articles/6f1ed58a0e3683dc02d5caed44c38621c9da28a5?source=rss",
+    "summary": "沖縄県で発生し、アメリカ軍兵の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 沖縄のアメリカ軍兵士の男が強盗殺人容疑で逮捕されたことを受けて沖縄市で行われた日米の合同パトロールで、憲兵隊が外国人2人の身柄を拘束したことが分かりました。",
+      "nationality": "本文抜粋: アメリカ軍兵"
+    },
+    "locationBasis": "本文抜粋: 沖縄のアメリカ軍兵士の男が強盗殺人容疑で逮捕されたことを受けて沖縄市で行われた日米の合同パトロールで、憲兵隊が外国人2人の身柄を拘束したことが分かりました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-11T13:08:55.860Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "29d5a47b62c0588e",
     "title": "一方通行を逆走…呼気から基準値の3倍超のアルコール スリランカ国籍の男（21）を逮捕 福岡・北九州市 3時間前",
     "date": "2026-10-11",
