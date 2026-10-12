@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-11T06:04:58.669Z",
+  "updatedAt": "2026-10-12T09:30:24.461Z",
   "items": [
     {
       "id": "e91f1f46e8388667",
@@ -166,6 +166,17 @@
       "reason": "headline_only_body_unconfirmed_after_deadline",
       "status": "quarantined",
       "recordedAt": "2026-10-11T06:03:06.089Z"
+    },
+    {
+      "id": "ab9f8c9d9ec7fcd0",
+      "sourceRecordId": null,
+      "url": "https://portal.uqmobile.jp/detail/1/2/5/10051_5_r_20261009_1791477403196287",
+      "title": "愛知・南知多町 海の家で不法就労させたか トルコ国籍の男逮捕",
+      "date": "2026-10-09",
+      "eventKey": "event-v1:3382897d7a26984cf02f8940454faa6826badc2caed65db9f6c309b2c2315ac9",
+      "reason": "headline_only_body_unconfirmed_after_deadline",
+      "status": "quarantined",
+      "recordedAt": "2026-10-12T09:27:14.927Z"
     }
   ]
 }
