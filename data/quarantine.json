@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-13T02:13:01.118Z",
+  "updatedAt": "2026-10-13T23:00:58.118Z",
   "items": [
     {
       "id": "e91f1f46e8388667",
@@ -188,6 +188,17 @@
       "reason": "headline_only_body_unconfirmed_after_deadline",
       "status": "quarantined",
       "recordedAt": "2026-10-13T02:10:17.794Z"
+    },
+    {
+      "id": "808f5d36146475f6",
+      "sourceRecordId": null,
+      "url": "https://news.livedoor.com/article/image_detail/32526538/?img_id=56873782",
+      "title": "千葉・松戸市の質店から腕時計や指輪など窃盗疑いでブラジル国籍2人逮捕 盗品の一部は静岡県内の買取店に売却か トクリュウとみて捜査 警視庁 - ライブドアニュース",
+      "date": "2026-10-09",
+      "eventKey": "event-v1:ca0837548e8bfb197089890feb698b05d1e720e88c9902a0b4e26f6380680422",
+      "reason": "headline_only_body_unconfirmed_after_deadline",
+      "status": "quarantined",
+      "recordedAt": "2026-10-13T22:58:09.211Z"
     }
   ]
 }

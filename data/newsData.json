@@ -517,30 +517,6 @@
     "audited": true
   },
   {
-    "id": "808f5d36146475f6",
-    "title": "千葉・松戸市の質店から腕時計や指輪など窃盗疑いでブラジル国籍2人逮捕 盗品の一部は静岡県内の買取店に売却か トクリュウとみて捜査 警視庁 - ライブドアニュース",
-    "date": "2026-10-09",
-    "location": "静岡県",
-    "media": "ライブドアニュース",
-    "stage": "逮捕",
-    "eventKey": "event-v1:ca0837548e8bfb197089890feb698b05d1e720e88c9902a0b4e26f6380680422",
-    "url": "https://news.livedoor.com/article/image_detail/32526538/?img_id=56873782",
-    "summary": "静岡県の事件として見出しから確認。本文は取得でき次第再確認します。",
-    "evidence": {
-      "suspect": "見出し根拠: 千葉・松戸市の質店から腕時計や指輪など窃盗疑いでブラジル国籍2人逮捕 盗品の一部は静岡県内の買取店に売却か トクリュウとみて捜査 警視庁 - ライブドアニュース",
-      "nationality": "見出し根拠: ブラジル国籍"
-    },
-    "locationBasis": "見出し根拠: 千葉・松戸市の質店から腕時計や指輪など窃盗疑いでブラジル国籍2人逮捕 盗品の一部は静岡県内の買取店に売却か トクリュウとみて捜査 警視庁 - ライブドアニュース",
-    "gateVersion": "strict-2026-10-06.1",
-    "judgedAt": "2026-10-11T22:11:28.160Z",
-    "legacy": false,
-    "verificationMode": "headline_only",
-    "provisionalHeadlineOnly": true,
-    "headlinePublishedAt": "2026-10-11T22:10:46.101Z",
-    "headlineQuarantineAt": "2026-10-13T22:10:46.101Z",
-    "audited": true
-  },
-  {
     "id": "473125f8e6c5b676",
     "title": "20代女性をナイフで脅し現金奪いわいせつ行為か　パキスタン国籍の男を逮捕",
     "date": "2026-10-09",
@@ -1484,6 +1460,28 @@
     "audited": true
   },
   {
+    "id": "ea7f9274c03a6b89",
+    "title": "那覇女性殺害事件 ホテル付近の防犯カメラに逮捕の米兵とみられる姿",
+    "date": "2026-10-06",
+    "location": "沖縄県",
+    "media": "日テレNEWS NNN",
+    "stage": "逮捕",
+    "eventKey": "event-v1:23c2050b1053fedc716843c70fc1ba97179b24a3d421cca387f1249f33ca1848",
+    "url": "https://news.ntv.co.jp/category/society/a694b1f21e4f44b686c476710f05b3d6",
+    "summary": "沖縄県で発生し、デビン・ジェイコブ・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 逮捕されたアメリカ海兵隊上等兵のデビン・ジェイコブ・バラード容疑者は、事件の前後、黒のタンクトップと黒の七分丈のズボン、白いスニーカーを身に着けていたとみられま",
+      "nationality": "本文抜粋: デビン・ジェイコブ・バラード"
+    },
+    "locationBasis": "本文抜粋: この映像は、今月3日午前3時前、事件現場となった那覇市のホテル近くの路上を捉えた映像です。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-07T00:52:44.443Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "dc8a0c4470e2d4f2",
     "title": "アジア競技大会の会場からマット盗んだか イギリス国籍のボランティアスタッフの女を逮捕 名古屋",
     "date": "2026-10-06",
@@ -1651,6 +1649,48 @@
     "locationBasis": "本文抜粋: 警察によりますと、イギリス国籍のターニャ・ニーマンド容疑者(47)は3日、名古屋市北区に",
     "gateVersion": "strict-2026-10-06.1",
     "judgedAt": "2026-10-05T18:38:52.793Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "ec201b5789efaab1",
+    "title": "沖縄のホテルで39歳女性が窒息死“強盗殺人”米兵を逮捕　高市首相が抗議「極めて遺憾」",
+    "date": "2026-10-05",
+    "location": "沖縄県",
+    "media": "日テレNEWS NNN",
+    "stage": "逮捕",
+    "url": "https://news.ntv.co.jp/category/society/272d3cd80f9e4eafa5d790dcba1a71c7",
+    "summary": "沖縄県で発生し、デビン・ジェイコブ・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 強盗殺人の疑いで逮捕されたのは、デビン・ジェイコブ・バラード容疑者（20）です。",
+      "nationality": "本文抜粋: デビン・ジェイコブ・バラード"
+    },
+    "locationBasis": "本文抜粋: 沖縄県のホテルで女性が殺害され、アメリカ海兵隊員の男が逮捕された事件。",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-05T12:33:54.486Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "27b038f946a35416",
+    "title": "アジア大会窃盗疑い英国籍ボランティア逮捕",
+    "date": "2026-10-05",
+    "location": "愛知県",
+    "media": "ｄメニューニュース",
+    "stage": "逮捕",
+    "url": "https://topics.smt.docomo.ne.jp/article/kyodo_nor/nation/kyodo_nor-2026100501001989",
+    "summary": "愛知県で発生し、英国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 愛知県警北署は5日、愛知・名古屋アジア大会のロゴ入りマットを会場から盗んだとして、窃盗の疑いで英国籍の自称契約社員の女（47）を逮捕した。",
+      "nationality": "本文抜粋: 英国籍"
+    },
+    "locationBasis": "本文抜粋: 愛知県警北署は5日、愛知・名古屋アジア大会のロゴ入りマットを会場から盗んだとして、窃盗の疑いで英国籍の自称契約社員の女（47）を逮捕した。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-05T18:39:02.736Z",
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,
