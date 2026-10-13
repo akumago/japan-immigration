@@ -5,7 +5,7 @@
  * 誤統合（別事件をまとめてしまう）を避けるため、国籍の一致を必須にし、
  * さらに「年齢」「場所」「罪種」「見出し類似」のうち複数の一致を要求する。
  */
-const NAT_LIST = ['中国', '韓国', '朝鮮', '台湾', '香港', 'ベトナム', 'フィリピン', 'タイ', 'インドネシア', 'マレーシア', 'ミャンマー', 'カンボジア', 'ラオス', 'ネパール', 'インド', 'スリランカ', 'バングラデシュ', 'パキスタン', 'アフガニスタン', 'イラン', 'イラク', 'トルコ', 'クルド', 'シリア', 'ウズベキスタン', 'カザフスタン', 'キルギス', 'モンゴル', 'ロシア', 'ウクライナ', 'ブラジル', 'ペルー', 'ボリビア', 'コロンビア', 'メキシコ', 'アルゼンチン', 'チリ', 'アメリカ', '米国', 'カナダ', 'イギリス', '英国', 'フランス', 'ドイツ', 'イタリア', 'スペイン', 'ルーマニア', 'ナイジェリア', 'ガーナ', 'カメルーン', 'ウガンダ', 'エジプト', 'オーストラリア', 'ニュージーランド'];
+const NAT_LIST = ['中国', '韓国', '朝鮮', '台湾', '香港', 'ベトナム', 'フィリピン', 'タイ', 'インドネシア', 'マレーシア', 'ミャンマー', 'カンボジア', 'ラオス', 'ネパール', 'インド', 'スリランカ', 'バングラデシュ', 'パキスタン', 'アフガニスタン', 'イラン', 'イラク', 'トルコ', 'クルド', 'シリア', 'ウズベキスタン', 'カザフスタン', 'キルギス', 'モンゴル', 'ロシア', 'ウクライナ', 'ブラジル', 'ペルー', 'ボリビア', 'コロンビア', 'メキシコ', 'アルゼンチン', 'チリ', 'キューバ', 'アメリカ', '米国', 'カナダ', 'イギリス', '英国', 'フランス', 'ドイツ', 'イタリア', 'スペイン', 'ルーマニア', 'ナイジェリア', 'ガーナ', 'カメルーン', 'ウガンダ', 'エジプト', 'オーストラリア', 'ニュージーランド'];
 const NAT_ALIAS = { 米国: 'アメリカ', 英国: 'イギリス' };
 const NAT_RE = new RegExp(`(${NAT_LIST.join('|')})(?:国籍|籍|人|出身|系|海兵隊|兵|陸軍|海軍|空軍|軍)`, 'g');
 // This expression is used with .test(); a global flag would make lastIndex
@@ -19,7 +19,7 @@ const CRIME_GROUPS = [
   ['強盗', /強盗|強殺/],
   ['窃盗', /窃盗|盗ん|盗み|万引|スリ|空き巣|侵入盗/],
   ['殺人', /殺人|殺害|強殺/],
-  ['暴行傷害', /暴行|傷害|切り付け|殴|刺し/],
+  ['暴行傷害', /暴行|傷害|切り付け|殴|刺(?:され|し|傷|突き)/],
   ['性犯罪', /不同意性交|不同意わいせつ|強制性交|強制わいせつ|性的姿態|盗撮|痴漢/],
   ['交通', /道交法|道路交通法|信号無視|赤信号|ひき逃げ|酒気帯び|酒酔い|無免許|危険運転|過失運転|逃走.{0,10}(?:車|パトカー)|パトカー.{0,10}逃走/],
   ['入管', /入管|難民法|不法(?:に)?(?:上陸|入国|滞在|在留|残留|就労)|オーバーステイ|偽造在留カード/],
@@ -147,6 +147,10 @@ function signals(item) {
   if (/(?:ヤード|中古車)/.test(text) && /(?:高級車|盗難車)/.test(text) && /保管/.test(text)) incidentAnchors.add('yard_vehicle_storage');
   if (/高級車/.test(text) && /保管/.test(text)) incidentAnchors.add('high_end_car_storage');
   if (/(?:米兵|米海兵隊|海兵隊)/.test(text) && /(?:沖縄|那覇)/.test(text) && /(?:強盗殺人|殺人)/.test(text)) incidentAnchors.add('okinawa_us_military_homicide');
+  // 2026-10-11 横浜市中区長者町の飲食店刺傷事件。国籍・市・罪種・段階に加えて
+  // 発生場所の種類も一致するものだけを同一事件候補にし、同市内の別の傷害事件を束ねない。
+  if (nats.has('キューバ') && /横浜市/.test(text) && /飲食店/.test(text)
+    && /刺(?:され|し|傷|突き)/.test(text)) incidentAnchors.add('cuba_yokohama_restaurant_stabbing');
   // 被疑者の性別（「国籍の男」「28歳女」「男（44）」）。被害者の「女性に」は拾わない
   const genders = new Set([...text.matchAll(/(?:国籍|籍|人|歳|代)の?(男|女)(?!性|児)|(男|女)[（(]\d{2}[）)]/g)].map((m) => m[1] || m[2]));
   const t = title.replace(/[\s「」『』【】（）()・、。！？!?：:…“”"'\-‐|｜]/g, '').replace(/\d+/g, '#');
@@ -249,9 +253,16 @@ function sameEventReason(a, b, { maxDays = 5 } = {}) {
   const withinOneDay = daysApart(a.date, b.date) <= 1;
   const sameStage = sa.procedureStage && sa.procedureStage === sb.procedureStage;
   const sharedIncidentAnchor = intersects(sa.incidentAnchors || new Set(), sb.incidentAnchors || new Set());
-  if (sharedIncidentAnchor && withinOneDay && sameStage && sameStoredRegion && sameCrime) {
+  const withinIncidentWindow = daysApart(a.date, b.date) <= 5;
+  if (sharedIncidentAnchor && withinIncidentWindow && sameStage && sameStoredRegion && sameCrime) {
     return '国籍+罪種+地域+近接日同段階+事件固有アンカー';
   }
+  // キューバ国籍の横浜飲食店刺傷では、見出しや短い要約に被疑者名が
+  // 省略される媒体がある。対象事件アンカーが両記事にある場合に限り、
+  // 一般的な国籍+市+傷害の一致だけで別事件を統合しない。
+  if ((sa.incidentAnchors?.has('cuba_yokohama_restaurant_stabbing')
+    || sb.incidentAnchors?.has('cuba_yokohama_restaurant_stabbing'))
+    && !sharedIncidentAnchor && !sameNamedSuspect) return null;
   const sim = dice(sa.grams, sb.grams);
   if (sim >= 0.6 && sameCrime && (samePlace || sameAge)) return `国籍+罪種+場所/年齢+見出し類似${sim.toFixed(2)}`;
   const csim = dice(sa.content, sb.content);
@@ -271,7 +282,8 @@ function healRecentDuplicates(items, { auditOf = () => null, windowDays = 5, now
     recent.push({ item, sig: signals(audit ? { ...item, audit } : item) });
   }
   const drop = new Set();
-  // 古い順に見て、先に掲載された初報を残す
+  // 古い順に比較する。同じ事件・同じ段階の転載では元媒体を優先し、
+  // 同じ媒体格なら新しい報道日を残して、今日の更新が古い初報に埋もれないようにする。
   recent.sort((x, y) => Date.parse(x.item.date) - Date.parse(y.item.date));
   for (let i = 0; i < recent.length; i++) {
     if (drop.has(recent[i].item)) continue;
@@ -282,8 +294,10 @@ function healRecentDuplicates(items, { auditOf = () => null, windowDays = 5, now
       if (!reason) continue;
       const differentProcedureStage = procedureStage(recent[i].item) !== procedureStage(recent[j].item);
       if (isFollowUp(recent[i].item, recent[j].item) || (recent[j].item.followUp && differentProcedureStage)) continue;
-      // 同日なら報道元の格付けが高い方を残す
-      const keepJ = recent[i].item.date === recent[j].item.date && rank(recent[j].item.url) > rank(recent[i].item.url);
+      const rankA = rank(recent[i].item.url);
+      const rankB = rank(recent[j].item.url);
+      const keepJ = rankB > rankA
+        || (rankB === rankA && Date.parse(recent[j].item.date) > Date.parse(recent[i].item.date));
       const loser = keepJ ? recent[i].item : recent[j].item;
       const winner = keepJ ? recent[j].item : recent[i].item;
       drop.add(loser);

@@ -891,6 +891,11 @@ const EXCLUDE_KEYWORDS = [
   '【字】', '【再】', '報道特集'
 ];
 
+function hasExcludedKeyword(title, media = '') {
+  const searchableText = `${title || ''} ${media || ''}`;
+  return EXCLUDE_KEYWORDS.some((keyword) => searchableText.includes(keyword));
+}
+
 // 海外メディア名リスト
 const OVERSEAS_MEDIA = [
   'informat.ro', '.ro',
@@ -1831,7 +1836,7 @@ function extractItemsFromRSS(xml) {
                            FOREIGN_KEYWORDS.some(kw => descWithoutDomesticChugoku.includes(kw));
       const hasCrimeKw = CRIME_KEYWORDS.some(kw => title.includes(kw)) || CRIME_KEYWORDS.some(kw => rawDesc.includes(kw));
       const hasProcedureSignal = isCaseNewsSignal(`${title} ${rawDesc}`);
-      const hasExcludeKw = EXCLUDE_KEYWORDS.some(kw => title.includes(kw));
+      const hasExcludeKw = hasExcludedKeyword(title, media);
       const isDomestic = isDomesticCrime(title, media);
 
       // [ゲートv3.3] 旧ルール（キーワードの網・国内証拠・被害者/雇用主/斡旋の正規表現）で落ちる記事のうち、
@@ -3034,6 +3039,7 @@ module.exports = {
   shouldUseCachedSourceBody,
   isCaseNewsSignal,
   isCourtOnlyCoverage,
+  hasExcludedKeyword,
   suppressRemovedQueueItems,
   itemEffectiveTime,
   shouldRetainQueueItem,

@@ -11,14 +11,19 @@ const fetchNews = require('../fetch-news.cjs');
 
 const tmpDir = () => fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-test-'));
 
+test('候補フィルター: 現代ビジネスの過去事件背景記事は見出しでなく媒体名も見て除外する', () => {
+  assert.equal(fetchNews.hasExcludedKeyword('米兵容疑者が直前にいた沖縄「ゲート通り」の正体', '現代ビジネス'), true);
+  assert.equal(fetchNews.hasExcludedKeyword('横浜市の飲食店でキューバ国籍の男を逮捕', 'TBS NEWS DIG'), false);
+});
+
 test('pipeline: 地域補完で複製された重複統合の勝者を記事IDで保持し、誤って消さない', () => {
   const articles = [
     {
-      id: 'coarse-location-survivor', date: '2026-10-04', location: '愛知県',
+      id: 'coarse-location-survivor', date: '2026-10-05', location: '愛知県',
       title: '住宅で窃盗疑い、中国籍の男（30）を逮捕', url: 'https://news.example.jp/first',
     },
     {
-      id: 'detailed-location-duplicate', date: '2026-10-05', location: '愛知県名古屋市中区',
+      id: 'detailed-location-duplicate', date: '2026-10-04', location: '愛知県名古屋市中区',
       title: '住宅で窃盗疑い、中国籍の男（30）を逮捕', url: 'https://news.example.jp/update',
     },
   ];

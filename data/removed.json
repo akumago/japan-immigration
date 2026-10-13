@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-05T15:12:30.296Z",
+  "updatedAt": "2026-10-13T08:21:09.823Z",
   "items": [
     {
       "id": "cad831a7781dd24a",
@@ -58,6 +58,15 @@
       "reason": "社説（論説記事）であり、事件報道記事ではないため誤掲載",
       "actor": "pipeline_quality_correction",
       "recordedAt": "2026-10-05T15:12:30.296Z"
+    },
+    {
+      "id": "13ac6338a4ec5af5",
+      "url": "https://gendai.media/articles/-/171964",
+      "title": "米兵容疑者が直前にいた沖縄「ゲート通り」の正体",
+      "date": "2026-10-13",
+      "reason": "既発生事件の背景解説・現地ルポであり、2026-10-13の新規犯罪報道ではないため誤掲載として除外",
+      "actor": "pipeline_quality_correction",
+      "recordedAt": "2026-10-13T08:21:09.823Z"
     }
   ]
 }

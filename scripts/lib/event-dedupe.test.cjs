@@ -413,7 +413,7 @@ test('healRecentDuplicates: 手続段階が進んだ記事を重複統合で消�
 
 // ── healRecentDuplicates（自動修復）のテスト ──
 
-test('healRecentDuplicates: 直近ウィンドウ内の重複を初報に統合し、ウィンドウ外には触れない', () => {
+test('healRecentDuplicates: 直近ウィンドウ内の重複は新しい報道日を残し、ウィンドウ外には触れない', () => {
   const items = [
     { id: '1', title: '福山港から不法上陸疑い、中国籍の男を逮捕(中国新聞デジタル)', date: '2026-10-03', url: 'https://example.com/b' },
     { id: '2', title: '広島・福山港に不法に上陸し、残留した疑い　埼玉県川口市の無職で中国籍の男（４４）を逮捕　容疑を認める', date: '2026-10-02', url: 'https://example.com/a' },
@@ -427,11 +427,54 @@ test('healRecentDuplicates: 直近ウィンドウ内の重複を初報に統合�
   });
   assert.equal(res.removed.length, 1);
   assert.equal(res.items.length, 2);
-  // 初報（2026-10-02）が残り、後発（2026-10-03）が削除される
-  assert.ok(res.items.some((x) => x.id === '2'));
-  assert.ok(!res.items.some((x) => x.id === '1'));
+  // 同じ媒体格なら新しい報道日（2026-10-03）を残し、当日の更新を一覧に出す。
+  assert.ok(res.items.some((x) => x.id === '1'));
+  assert.ok(!res.items.some((x) => x.id === '2'));
   // ウィンドウ外の過去記事は保持される
   assert.ok(res.items.some((x) => x.id === '3'));
+});
+
+test('横浜のキューバ国籍男・飲食店刺傷事件: 10/11〜10/13の媒体違い7件を最新日の1件へ統合する', () => {
+  const commonEvidence = {
+    suspect: '本文抜粋: 横浜市中区の飲食店で男性が刃物で背中を刺され、けがをした事件で、逃走していたキューバ国籍の男を逮捕しました。',
+    nationality: '本文抜粋: キューバ国籍',
+  };
+  const articles = [
+    { id: 'docomo-asahi', date: '2026-10-13', location: '神奈川県', stage: '逮捕', title: '逃走していたキューバ国籍の男逮捕 横浜市の飲食店で30代男性刺される', url: 'https://topics.smt.docomo.ne.jp/amp/article/tvasahinews/nation/tvasahinews-000539734', evidence: commonEvidence },
+    { id: 'livedoor', date: '2026-10-13', location: '神奈川県', stage: '逮捕', title: '飲食店で男性刺される キューバ国籍の男逮捕 (', url: 'https://news.livedoor.com/topics/detail/32551435/', evidence: commonEvidence },
+    { id: 'tv-asahi', date: '2026-10-13', location: '神奈川県', stage: '逮捕', title: '逃走していたキューバ国籍の男逮捕 横浜市の飲食店で30代男性刺される 2026 年 10 月 13 日 07:25', url: 'https://news.tv-asahi.co.jp/news_society/articles/000539734.html', evidence: commonEvidence },
+    { id: 'tbs', date: '2026-10-13', location: '神奈川県', stage: '逮捕', title: '横浜市の飲食店で男性が背中を刺された事件でキューバ国籍の男を逮捕 殺人未遂の疑い 神奈川県警', url: 'https://newsdig.tbs.co.jp/articles/-/3006424', evidence: commonEvidence },
+    { id: 'nnn', date: '2026-10-12', location: '神奈川県', stage: '逮捕', title: '横浜市の飲食店で男性が背中刺される 逃走していたキューバ国籍の男を逮捕', url: 'https://news.ntv.co.jp/category/society/d7608190474542ee904332c0d0adcb31', evidence: commonEvidence },
+    { id: 'tvk-yahoo', date: '2026-10-12', location: '神奈川県', stage: '逮捕', title: '飲食店で男性が刺される キューバ国籍の男を殺人未遂の疑いで逮捕 横浜', url: 'https://news.yahoo.co.jp/articles/2aba45808be1ad98fc6213ac4136d4f47c965e67', evidence: commonEvidence },
+    { id: 'tbs-yahoo', date: '2026-10-11', location: '神奈川県', stage: '逮捕', title: '横浜市の飲食店で男性が背中を刺された事件でキューバ国籍の男を逮捕 殺人未遂の疑い', url: 'https://news.yahoo.co.jp/articles/c4809bac1ef68370be5dfe7b3afe55e3e479e9c3', evidence: commonEvidence },
+  ];
+  const pairs = [];
+  for (let i = 0; i < articles.length; i++) {
+    for (let j = i + 1; j < articles.length; j++) pairs.push(dedupe.sameEventReason(articles[i], articles[j]));
+  }
+  assert.ok(pairs.every(Boolean), '同じ被疑者・場所・刺傷事件・逮捕段階の媒体違いを同一事件と判定');
+
+  const rank = (url) => /news\.tv-asahi\.co\.jp|newsdig\.tbs\.co\.jp|news\.ntv\.co\.jp/.test(url) ? 2 : 1;
+  const healed = dedupe.healRecentDuplicates(articles, {
+    windowDays: 5,
+    now: Date.parse('2026-10-13T23:59:00+09:00'),
+    rank,
+  });
+  assert.equal(healed.items.length, 1, '同じ逮捕段階の記事は1件だけ残す');
+  assert.equal(healed.items[0].date, '2026-10-13', '古いRSS日付の転載ではなく最新日の記事を残す');
+  assert.equal(healed.items[0].id, 'tv-asahi', '同日ならポータル転載より元媒体を優先する');
+  assert.equal(healed.removed.length, 6, '統合した6件を監査可能な削除一覧に返す');
+
+  const otherIncident = {
+    id: 'different-incident', date: '2026-10-13', location: '神奈川県', stage: '逮捕',
+    title: '横浜市の路上で男性を刺したキューバ国籍の男を逮捕',
+    evidence: {
+      suspect: '横浜市中区の路上で男性を刺した疑いでキューバ国籍の男を逮捕',
+      nationality: '本文抜粋: キューバ国籍',
+    },
+  };
+  assert.equal(dedupe.sameEventReason(articles[0], otherIncident), null,
+    '飲食店でない別の刺傷事件は、同じ市・国籍・罪種だけで統合しない');
 });
 
 test('同一事件の段階進展: 逮捕から公判・判決へ進んだ記事は統合されず残る', () => {
