@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-10T08:45:58.409Z",
+  "updatedAt": "2026-10-13T08:31:35.880Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -1325,6 +1325,213 @@
       },
       "reason": "国籍+年齢+場所/罪種",
       "recordedAt": "2026-10-10T08:45:58.409Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "abcf21a2868e1717",
+        "sourceRecordId": null,
+        "title": "再発防止 日米と県協議を 地位協定の改定が必要 海兵隊員逮捕1週間 波照間陽沖縄国際大講師",
+        "date": "2026-10-12",
+        "url": "https://www.okinawatimes.co.jp/articles/-/1942951",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89"
+      },
+      "removed": {
+        "id": "333bcc7ab2ad2442",
+        "sourceRecordId": null,
+        "title": "米兵が強盗殺人容疑で逮捕、沖縄が怒る理由…少女や乳児まで被害に遭った性暴力の歴史、本土には見えない恐怖",
+        "date": "2026-10-10",
+        "url": "https://jbpress.ismedia.jp/articles/gallery/97448?photo=4",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-13T08:31:35.880Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "7529ce8f8bf1453d",
+        "sourceRecordId": null,
+        "title": "殺人未遂疑い、外国籍男逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.chugoku-np.co.jp/articles/-/908359",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:330faa9ef47ecfed116ee5e3c7bb0b13d1d7d96628befcf5ae91fd35d9b233cd"
+      },
+      "removed": {
+        "id": "4d2b730a8f93b7a2",
+        "sourceRecordId": null,
+        "title": "「ナイフで男性を刺したが殺すつもりはなかった」横浜市の飲食店で男性が背中を刺された事件でキューバ国籍の男を逮捕 殺人未遂の疑い 神奈川県警（TBS NEWS DIG Powered by JNN）",
+        "date": "2026-10-11",
+        "url": "https://news.yahoo.co.jp/articles/c4809bac1ef68370be5dfe7b3afe55e3e479e9c3",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:b354c4c83519c6cfa3102044c0082b9d3e4608b63d801dcd46823f886be6d95a"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-13T08:31:35.880Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "7529ce8f8bf1453d",
+        "sourceRecordId": null,
+        "title": "殺人未遂疑い、外国籍男逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.chugoku-np.co.jp/articles/-/908359",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:330faa9ef47ecfed116ee5e3c7bb0b13d1d7d96628befcf5ae91fd35d9b233cd"
+      },
+      "removed": {
+        "id": "e32c50928aecfa40",
+        "sourceRecordId": null,
+        "title": "殺人未遂疑い、外国籍男逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.shimotsuke.co.jp/articles/-/1439095",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:330faa9ef47ecfed116ee5e3c7bb0b13d1d7d96628befcf5ae91fd35d9b233cd"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-13T08:31:35.880Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "7529ce8f8bf1453d",
+        "sourceRecordId": null,
+        "title": "殺人未遂疑い、外国籍男逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.chugoku-np.co.jp/articles/-/908359",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:330faa9ef47ecfed116ee5e3c7bb0b13d1d7d96628befcf5ae91fd35d9b233cd"
+      },
+      "removed": {
+        "id": "b790af27e8b78f53",
+        "sourceRecordId": null,
+        "title": "横浜市の飲食店で男性が背中刺される　逃走していたキューバ国籍の男を逮捕",
+        "date": "2026-10-12",
+        "url": "https://news.ntv.co.jp/category/society/d7608190474542ee904332c0d0adcb31",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-13T08:31:35.880Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "7529ce8f8bf1453d",
+        "sourceRecordId": null,
+        "title": "殺人未遂疑い、外国籍男逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.chugoku-np.co.jp/articles/-/908359",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:330faa9ef47ecfed116ee5e3c7bb0b13d1d7d96628befcf5ae91fd35d9b233cd"
+      },
+      "removed": {
+        "id": "c16a03e96d97e8e8",
+        "sourceRecordId": null,
+        "title": "飲食店で男性が刺される キューバ国籍の男を殺人未遂の疑いで逮捕 横浜（tvkニュース（テレビ神奈川））",
+        "date": "2026-10-12",
+        "url": "https://news.yahoo.co.jp/articles/2aba45808be1ad98fc6213ac4136d4f47c965e67",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:b354c4c83519c6cfa3102044c0082b9d3e4608b63d801dcd46823f886be6d95a"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-13T08:31:35.880Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "7529ce8f8bf1453d",
+        "sourceRecordId": null,
+        "title": "殺人未遂疑い、外国籍男逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.chugoku-np.co.jp/articles/-/908359",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:330faa9ef47ecfed116ee5e3c7bb0b13d1d7d96628befcf5ae91fd35d9b233cd"
+      },
+      "removed": {
+        "id": "04276cab5a8ac225",
+        "sourceRecordId": null,
+        "title": "逃走していたキューバ国籍の男逮捕　横浜市の飲食店で30代男性刺される",
+        "date": "2026-10-13",
+        "url": "https://topics.smt.docomo.ne.jp/amp/article/tvasahinews/nation/tvasahinews-000539734",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-13T08:31:35.880Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "7529ce8f8bf1453d",
+        "sourceRecordId": null,
+        "title": "殺人未遂疑い、外国籍男逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.chugoku-np.co.jp/articles/-/908359",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:330faa9ef47ecfed116ee5e3c7bb0b13d1d7d96628befcf5ae91fd35d9b233cd"
+      },
+      "removed": {
+        "id": "7f84fe3e6103cd8f",
+        "sourceRecordId": null,
+        "title": "飲食店で男性刺される キューバ国籍の男逮捕 (",
+        "date": "2026-10-13",
+        "url": "https://news.livedoor.com/topics/detail/32551435/",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-13T08:31:35.880Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "10256b71da1ed6ab",
+        "sourceRecordId": null,
+        "title": "逃走していたキューバ国籍の男逮捕 横浜市の飲食店で30代男性刺される 2026 年 10 月 13 日 07:25",
+        "date": "2026-10-13",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000539734.html",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "removed": {
+        "id": "7529ce8f8bf1453d",
+        "sourceRecordId": null,
+        "title": "殺人未遂疑い、外国籍男逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.chugoku-np.co.jp/articles/-/908359",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:330faa9ef47ecfed116ee5e3c7bb0b13d1d7d96628befcf5ae91fd35d9b233cd"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-13T08:31:35.880Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "10256b71da1ed6ab",
+        "sourceRecordId": null,
+        "title": "逃走していたキューバ国籍の男逮捕 横浜市の飲食店で30代男性刺される 2026 年 10 月 13 日 07:25",
+        "date": "2026-10-13",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000539734.html",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "removed": {
+        "id": "9648dee27726b994",
+        "sourceRecordId": null,
+        "title": "「ナイフで男性を刺したが殺すつもりはなかった」横浜市の飲食店で男性が背中を刺された事件でキューバ国籍の男を逮捕 殺人未遂の疑い 神奈川県警 30分前",
+        "date": "2026-10-13",
+        "url": "https://newsdig.tbs.co.jp/articles/-/3006424",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:b354c4c83519c6cfa3102044c0082b9d3e4608b63d801dcd46823f886be6d95a"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-13T08:31:35.880Z"
     }
   ]
 }
