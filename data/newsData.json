@@ -1,5 +1,92 @@
 [
   {
+    "id": "84892acc1f1aa042",
+    "title": "アジア大会の備品窃盗疑い 英国籍ボランティア逮捕",
+    "date": "2026-10-13",
+    "location": "愛知県",
+    "media": "山陽新聞",
+    "stage": "逮捕",
+    "url": "https://www.sanyonews.jp/article/2000077?kw=NL",
+    "summary": "愛知県で発生し、英国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 押収された愛知・名古屋アジア大会のロゴ入りマット＝５日午後、名古屋・北署 愛知県警北署は５日、愛知・名古屋アジア大会のロゴ入りマット（約３万９千円相当）を会場か",
+      "nationality": "本文抜粋: 英国籍"
+    },
+    "locationBasis": "本文抜粋: 押収された愛知・名古屋アジア大会のロゴ入りマット＝５日午後、名古屋・北署 愛知県警北署は５日、愛知・名古屋アジア大会のロゴ入りマット（約３万９千円相当）を会場か",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-13T09:37:47.759Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "39dbee80136d9d3f",
+    "title": "偽造貨幣を本物と偽り両替した疑い　中国籍の会社役員の男を再逮捕(HOME広島ホームテレビ)",
+    "date": "2026-10-13",
+    "location": "広島県",
+    "media": "HOME広島ホームテレビ",
+    "stage": "再逮捕",
+    "url": "https://news.yahoo.co.jp/articles/5c0171648455ad79cba34a118e3d7d3872e4e20d?source=rss",
+    "summary": "広島県で発生し、中国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 福山市内の金融機関で、偽造した貨幣を本物と偽って両替したとして、中国籍の37歳の会社役員の男が再逮捕されました。",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "本文抜粋: 福山市内の金融機関で、偽造した貨幣を本物と偽って両替したとして、中国籍の37歳の会社役員の男が再逮捕されました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-13T09:37:36.150Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true,
+    "followUp": true,
+    "followUpOf": "3471bea6b660b5a3",
+    "followUpStage": "再逮捕"
+  },
+  {
+    "id": "e24ff6c8d84a06ef",
+    "title": "偽造貨幣を両替の疑いで中国籍の男を再逮捕　共犯者に「司法取引」トクリュウ関与か　(広島テレビ　ニュース)",
+    "date": "2026-10-13",
+    "location": "広島県",
+    "media": "広島テレビ ニュース",
+    "stage": "再逮捕",
+    "url": "https://news.yahoo.co.jp/articles/b96e1e048af5f4194d0501b9ddcafce2e3c4e4f8?source=rss",
+    "summary": "広島県で発生し、中国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 福山市内の金融機関で偽造した貨幣を両替したとして、中国籍の男が再逮捕されました。",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "本文抜粋: 福山市内の金融機関で偽造した貨幣を両替したとして、中国籍の男が再逮捕されました。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-13T09:37:25.537Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "44f576a6c5a7cbc0",
+    "title": "沖縄知事、再発防止を注視　米兵事件で県議会答弁(共同通信)",
+    "date": "2026-10-13",
+    "location": "沖縄県",
+    "media": "共同通信",
+    "stage": null,
+    "url": "https://news.yahoo.co.jp/articles/6299ee6d53a975246c495ee94a6e94cb75da528b?source=rss",
+    "summary": "沖縄県で発生し、米兵の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 沖縄県の古謝玄太知事は13日、在沖縄米兵が女性に対する強盗殺人容疑で逮捕された事件で、米側の再発防止策を注視する考えを示した。",
+      "nationality": "本文抜粋: 米兵"
+    },
+    "locationBasis": "本文抜粋: 沖縄県の古謝玄太知事は13日、在沖縄米兵が女性に対する強盗殺人容疑で逮捕された事件で、米側の再発防止策を注視する考えを示した。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-13T09:37:28.451Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "5ab864be71a2a686",
     "title": "「否定はしない」自宅マンションの共用部分で下半身を露出→20代男性に卑わいな言葉を発したか 42歳アメリカ国籍の男を逮捕",
     "date": "2026-10-13",
@@ -1758,6 +1845,28 @@
     "locationBasis": "本文抜粋: 愛知県 警北署は5日、愛知・名古屋アジア大会のロゴ入りマット（約3万9千円相当）を会場から盗んだとして、 窃盗 の疑いで、 名古屋市 中区、英国籍の自称 契約社",
     "gateVersion": "strict-2026-10-06.1",
     "judgedAt": "2026-10-05T15:24:20.107Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "adfd63522ebf9cee",
+    "title": "那覇市のホテルで女性の遺体が発見された事件、在日米軍の男が強盗殺人容疑で緊急逮捕 高市首相らがコメントを出す中、令状を出す間もない逮捕だったことが窺える",
+    "date": "2026-10-04",
+    "location": "沖縄県",
+    "media": "Togetter",
+    "stage": "逮捕",
+    "eventKey": "event-v1:5c06b13c62aa635b2d34860f10bfbd5013e592d13709a57f767bd44d60efbab8",
+    "url": "https://togetter.com/li/2753993",
+    "summary": "沖縄県で発生し、米兵の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 【速報】米兵を強盗殺人容疑で緊急逮捕 那覇市のホテルでの女性遺体発見で okinawatimes.co.jp/articles/-/193… 沖縄県那覇市若狭の",
+      "nationality": "本文抜粋: 米兵"
+    },
+    "locationBasis": "本文抜粋: 【速報】米兵を強盗殺人容疑で緊急逮捕 那覇市のホテルでの女性遺体発見で okinawatimes.co.jp/articles/-/193… 沖縄県那覇市若狭の",
+    "gateVersion": "strict-2026-10-02.2",
+    "judgedAt": "2026-10-04T23:21:36.610Z",
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,
