@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-12T09:30:24.461Z",
+  "updatedAt": "2026-10-13T02:13:01.118Z",
   "items": [
     {
       "id": "e91f1f46e8388667",
@@ -177,6 +177,17 @@
       "reason": "headline_only_body_unconfirmed_after_deadline",
       "status": "quarantined",
       "recordedAt": "2026-10-12T09:27:14.927Z"
+    },
+    {
+      "id": "7d7fad05a4c4290a",
+      "sourceRecordId": null,
+      "url": "https://article.auone.jp/86b031d7-6acd-43fd-b35f-e6d47a0344af",
+      "title": "知人男性の家に侵入して顔面を何回も殴ったか 26歳のベトナム人の男を逮捕 容疑を否認 浜松市",
+      "date": "2026-10-09",
+      "eventKey": null,
+      "reason": "headline_only_body_unconfirmed_after_deadline",
+      "status": "quarantined",
+      "recordedAt": "2026-10-13T02:10:17.794Z"
     }
   ]
 }
