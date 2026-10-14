@@ -1,5 +1,26 @@
 [
   {
+    "id": "9618ae61bdb92aec",
+    "title": "交番駐車場のミニパトカーの屋根などに乗り4カ所へこませる 容疑でリビア国籍の男逮捕 兵庫県警葺合署（神戸新聞NEXT）",
+    "date": "2026-10-14",
+    "location": "兵庫県",
+    "media": "Yahoo!ニュース",
+    "stage": "逮捕",
+    "url": "https://news.yahoo.co.jp/articles/34411cbd5df12a883d4528f69d917e7f179321b4",
+    "summary": "兵庫県で発生し、リビア国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: ミニパトカーの上に乗り、ボンネットなどをへこませたとして、兵庫県警葺合署は１４日、器物損壊の疑いで、大阪府松原市に住むリビア国籍の無職の男（３４）を逮捕した。",
+      "nationality": "本文抜粋: リビア国籍"
+    },
+    "locationBasis": "本文抜粋: 【写真】国宝・姫路城で掲示物燃やされる 逮捕容疑は、９月２１日午後９時５０分ごろ、神戸市中央区布引町４の三宮センター交番前駐車場に止まっていたミニパトカーの屋根",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-14T22:26:46.164Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
     "id": "040844fedb77e5d1",
     "title": "イノシシ肉を無許可で販売 容疑のベトナム国籍男を逮捕 愛知",
     "date": "2026-10-14",
@@ -1766,6 +1787,28 @@
     "locationBasis": "本文抜粋: 逮捕容疑は9月29日午後7時ごろ、さいたま市見沼区大谷の畑で知人男性（28）に対し、刃物のような凶器で切りつけ、殺害しようとした疑い。",
     "gateVersion": "strict-2026-10-06.1",
     "judgedAt": "2026-10-07T07:25:27.645Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "73c3d38d00f2b6bb",
+    "title": "那覇市ホテル強盗殺人事件で米兵を逮捕 現場近くの防犯カメラ〝容疑者に酷似した人物〟",
+    "date": "2026-10-06",
+    "location": "沖縄県",
+    "media": "QAB 琉球朝日放送",
+    "stage": "逮捕",
+    "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89",
+    "url": "https://www.qab.co.jp/news/20261006308026.html",
+    "summary": "沖縄県で発生し、デビン・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 警察によりますと普天間基地所属の上等兵・デビン・バラード容疑者（２０）は、１０月３日未明、那覇市内のホテルで女性（３９）を殺害して、財布などを奪った疑いがもたれ",
+      "nationality": "本文抜粋: デビン・バラード"
+    },
+    "locationBasis": "本文抜粋: 警察によりますと普天間基地所属の上等兵・デビン・バラード容疑者（２０）は、１０月３日未明、那覇市内のホテルで女性（３９）を殺害して、財布などを奪った疑いがもたれ",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-08T22:16:01.854Z",
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,
