@@ -1,5 +1,50 @@
 [
   {
+    "id": "040844fedb77e5d1",
+    "title": "イノシシ肉を無許可で販売 容疑のベトナム国籍男を逮捕 愛知",
+    "date": "2026-10-14",
+    "location": "愛知県",
+    "media": "産経ニュース",
+    "stage": "逮捕",
+    "url": "https://www.sankei.com/article/20261014-R2NE74QUSFMX7NNOGHAJQ5CDBM/",
+    "summary": "愛知県で発生し、ファン・バン・ダオの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 無許可でイノシシ2頭を解体し販売したとして、愛知県警春日井署は14日、食品衛生法違反の容疑で、同県春日井市明知町の会社員、ファン・バン・ダオ容疑者（28）＝ベト",
+      "nationality": "本文抜粋: ファン・バン・ダオ"
+    },
+    "locationBasis": "本文抜粋: 無許可でイノシシ2頭を解体し販売したとして、愛知県警春日井署は14日、食品衛生法違反の容疑で、同県春日井市明知町の会社員、ファン・バン・ダオ容疑者（28）＝ベト",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-14T18:47:32.762Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "8e1d4d0f7c447b92",
+    "title": "昭和天皇在位60年を記念した偽造1万円貨幣を両替か　中国国籍の男（37）を送検　男は「トクリュウ」の上位人物とみて捜査　広島・福山(RCC中国放送)",
+    "date": "2026-10-14",
+    "location": "広島県",
+    "media": "RCC中国放送",
+    "stage": "送検",
+    "url": "https://news.yahoo.co.jp/articles/7106ed67c92cdfb1c035a5157528eab840c2ebd7?source=rss",
+    "summary": "広島県で発生し、中国国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 広島県福山市で偽造貨幣を本物と偽って両替したとして、中国国籍の男が再逮捕された事件。",
+      "nationality": "本文抜粋: 中国国籍"
+    },
+    "locationBasis": "本文抜粋: 広島県福山市で偽造貨幣を本物と偽って両替したとして、中国国籍の男が再逮捕された事件。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-14T18:47:46.738Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true,
+    "followUp": true,
+    "followUpOf": "39dbee80136d9d3f",
+    "followUpStage": "送検"
+  },
+  {
     "id": "4f5c5e5eaa04c151",
     "title": "シカの切断面と大量の酒の空き缶… 「大宴会したんだろうと」 “駐在さん”が見抜いた密猟 ベトナム国籍の男を“違法ジビエ”で逮捕",
     "date": "2026-10-14",
@@ -243,6 +288,28 @@
     "followUp": true,
     "followUpOf": "d4f326597b344a15",
     "followUpStage": "送検"
+  },
+  {
+    "id": "b2fc7e31cccff4ac",
+    "title": "那覇ホテル女性殺害、米兵容疑者が直前にいた沖縄「ゲート通り」とは…嘉手納基地へ続く”事件が絶えない一本道”の正体",
+    "date": "2026-10-13",
+    "location": "沖縄県",
+    "media": "ライブドアニュース",
+    "stage": null,
+    "eventKey": "event-v1:0226a9208627557cad4e8353e938f6c934c9b09077313302f260d307fd691932",
+    "url": "https://news.livedoor.com/article/detail/32551035/",
+    "summary": "沖縄県で発生し、デビン・ジェイコブ・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 事件5時間前、カメラが捉えた“ビールを飲み干す男”10月4日、沖縄県那覇市のホテルで39歳の女性を殺害し、所持品を奪ったとして米海兵隊・普天間基地所属のデビン・",
+      "nationality": "本文抜粋: デビン・ジェイコブ・バラード"
+    },
+    "locationBasis": "本文抜粋: 事件5時間前、カメラが捉えた“ビールを飲み干す男”10月4日、沖縄県那覇市のホテルで39歳の女性を殺害し、所持品を奪ったとして米海兵隊・普天間基地所属のデビン・",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-14T18:47:57.126Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
   },
   {
     "id": "bdb78562d45a4359",
@@ -1960,6 +2027,28 @@
     "locationBasis": "本文抜粋: 警察によりますと、イギリス国籍のターニャ・ニーマンド容疑者(47)は3日、名古屋市北区に",
     "gateVersion": "strict-2026-10-06.1",
     "judgedAt": "2026-10-05T18:38:52.793Z",
+    "legacy": false,
+    "verificationMode": "body",
+    "provisionalHeadlineOnly": false,
+    "audited": true
+  },
+  {
+    "id": "77c81bb94490662e",
+    "title": "特徴的なタトゥーが早期逮捕の決め手 那覇ホテル強盗殺人容疑の米海兵隊員 基地内に逃走なら捜査難航",
+    "date": "2026-10-05",
+    "location": "沖縄県",
+    "media": "TBS NEWS DIG",
+    "stage": "逮捕",
+    "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89",
+    "url": "https://newsdig.tbs.co.jp/articles/rbc/2991110?display=1",
+    "summary": "沖縄県で発生し、デビン・バラードの被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 強盗殺人の疑いで那覇地検に身柄を送られたのは、米海兵隊・普天間基地所属の上等兵デビン・バラード容疑者（20歳）です。",
+      "nationality": "本文抜粋: デビン・バラード"
+    },
+    "locationBasis": "本文抜粋: 事件は3日未明、那覇市のホテルで、バラード容疑者が39歳の女性を殺害し、女性の財布やリュックサックを奪った疑いがもたれているものです。",
+    "gateVersion": "strict-2026-10-06.1",
+    "judgedAt": "2026-10-08T02:08:29.546Z",
     "legacy": false,
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,
