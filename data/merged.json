@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-13T08:31:35.880Z",
+  "updatedAt": "2026-10-15T07:41:47.092Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -1532,6 +1532,29 @@
       },
       "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
       "recordedAt": "2026-10-13T08:31:35.880Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "26e67f8327a56eba",
+        "sourceRecordId": null,
+        "title": "無許可でイノシシ2頭を解体し販売か ベトナム国籍の28歳男を再逮捕【愛知・春日井市】",
+        "date": "2026-10-14",
+        "url": "https://locipo.jp/article/72fc16cf-6c4f-4531-aea9-26dc1337f6b3",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "removed": {
+        "id": "040844fedb77e5d1",
+        "sourceRecordId": null,
+        "title": "イノシシ肉を無許可で販売 容疑のベトナム国籍男を逮捕 愛知",
+        "date": "2026-10-14",
+        "url": "https://www.sankei.com/article/20261014-R2NE74QUSFMX7NNOGHAJQ5CDBM/",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T07:41:47.092Z"
     }
   ]
 }
