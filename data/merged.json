@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-15T07:41:47.092Z",
+  "updatedAt": "2026-10-15T13:39:00.889Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -1555,6 +1555,29 @@
       },
       "reason": "国籍+年齢+場所/罪種",
       "recordedAt": "2026-10-15T07:41:47.092Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d791f60486b37a74f0d3",
+        "sourceRecordId": "chiba-police:d791f60486b37a74f0d3",
+        "title": "事故不申告)事件で男を逮捕（我孫子警察署）",
+        "date": "2026-10-14",
+        "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03789.html",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "removed": {
+        "id": "e0e8130c16c1dc36cb5e",
+        "sourceRecordId": "chiba-police:e0e8130c16c1dc36cb5e",
+        "title": "不同意性交等致傷事件で男2人を逮捕（君津警察署）",
+        "date": "2026-10-14",
+        "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03789.html",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T13:39:00.889Z"
     }
   ]
 }
