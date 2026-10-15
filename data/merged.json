@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-15T13:39:00.889Z",
+  "updatedAt": "2026-10-15T20:39:55.247Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -1536,6 +1536,679 @@
     {
       "kind": "automatic_merge",
       "kept": {
+        "id": "5d8b1ab1733e01cb",
+        "sourceRecordId": null,
+        "title": "9/21（月）柏市高田で無免許で飲酒運転をしていたスリランカ国籍の38歳の男が逮捕",
+        "date": "2026-09-28",
+        "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1jeDJZNDYtY3pxTmRlXzNCYUp0NEMzZXVfbmZMUUxZZ09YM3B4Z3gtaUY1azBkWHZTUldXcEZfejBJV0g2WmxYUDZMQU1Objg?oc=5"
+      },
+      "removed": {
+        "id": "51af6bf7f2c94c06",
+        "sourceRecordId": null,
+        "title": "無免許かつ酒酔い運転の疑い スリランカ国籍の男（38）を現行犯逮捕 千葉県警柏署",
+        "date": "2026-09-23",
+        "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03768.html"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "54703d6d1c231833",
+        "sourceRecordId": null,
+        "title": "中野2億円腕時計窃盗事件 チリ国籍の男2人再逮捕 「日本は刑罰が緩いと聞いた」と供述",
+        "date": "2026-09-28",
+        "url": "https://topics.smt.docomo.ne.jp/article/tvasahinews/nation/tvasahinews-000536442"
+      },
+      "removed": {
+        "id": "4176faf3a38b612a",
+        "sourceRecordId": null,
+        "title": "中野の事件前にも腕時計盗んだか 「日本は刑罰緩いと聞いた」―チリ国籍の男２人再逮捕・警視庁",
+        "date": "2026-09-28",
+        "url": "https://www.jiji.com/jc/article?k=2026092800504&g=soc"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "54703d6d1c231833",
+        "sourceRecordId": null,
+        "title": "中野2億円腕時計窃盗事件 チリ国籍の男2人再逮捕 「日本は刑罰が緩いと聞いた」と供述",
+        "date": "2026-09-28",
+        "url": "https://topics.smt.docomo.ne.jp/article/tvasahinews/nation/tvasahinews-000536442"
+      },
+      "removed": {
+        "id": "6d158fc2161c00ff",
+        "sourceRecordId": null,
+        "title": "中野ブロードウェイ時計店窃盗事件のチリ国籍男2人を再逮捕 3日前の大田区の住宅で800万円相当窃盗か 「ヨーロッパ中で窃盗」とも供述 欧米で問題の「SATG」か",
+        "date": "2026-09-28",
+        "url": "https://newsdig.tbs.co.jp/articles/-/2972911"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "54703d6d1c231833",
+        "sourceRecordId": null,
+        "title": "中野2億円腕時計窃盗事件 チリ国籍の男2人再逮捕 「日本は刑罰が緩いと聞いた」と供述",
+        "date": "2026-09-28",
+        "url": "https://topics.smt.docomo.ne.jp/article/tvasahinews/nation/tvasahinews-000536442"
+      },
+      "removed": {
+        "id": "3ed8421824d28512",
+        "sourceRecordId": null,
+        "title": "中野・高級腕時計の窃盗犯「刑罰軽いと聞き」来日、事件３日前にも民家で７９０万円相当窃盗…チリ国籍２人再逮捕",
+        "date": "2026-09-28",
+        "url": "https://topics.smt.docomo.ne.jp/amp/article/yomiuri/nation/20260928-567-GYT1T00289"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "54703d6d1c231833",
+        "sourceRecordId": null,
+        "title": "中野2億円腕時計窃盗事件 チリ国籍の男2人再逮捕 「日本は刑罰が緩いと聞いた」と供述",
+        "date": "2026-09-28",
+        "url": "https://topics.smt.docomo.ne.jp/article/tvasahinews/nation/tvasahinews-000536442"
+      },
+      "removed": {
+        "id": "e88df3ffc29ee1a5",
+        "sourceRecordId": null,
+        "title": "中野ブロードウェイの高級腕時計窃盗事件で逮捕のチリ人男2人、別の窃盗事件で再逮捕 住宅に侵入し高級腕時計3本など盗んだ疑い",
+        "date": "2026-09-28",
+        "url": "https://www.fnn.jp/articles/-/1122504"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "54703d6d1c231833",
+        "sourceRecordId": null,
+        "title": "中野2億円腕時計窃盗事件 チリ国籍の男2人再逮捕 「日本は刑罰が緩いと聞いた」と供述",
+        "date": "2026-09-28",
+        "url": "https://topics.smt.docomo.ne.jp/article/tvasahinews/nation/tvasahinews-000536442"
+      },
+      "removed": {
+        "id": "93500576141d85ad",
+        "sourceRecordId": null,
+        "title": "中野2億円腕時計窃盗事件 チリ国籍の男2人を再逮捕 「ヨーロッパ中で窃盗していた」 欧米で社会問題の「SATG」か 「1日3～4件やった日も」 警視庁",
+        "date": "2026-09-28",
+        "url": "https://news.livedoor.com/article/detail/32430423/"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "54703d6d1c231833",
+        "sourceRecordId": null,
+        "title": "中野2億円腕時計窃盗事件 チリ国籍の男2人再逮捕 「日本は刑罰が緩いと聞いた」と供述",
+        "date": "2026-09-28",
+        "url": "https://topics.smt.docomo.ne.jp/article/tvasahinews/nation/tvasahinews-000536442"
+      },
+      "removed": {
+        "id": "e1b98dd0e6d77258",
+        "sourceRecordId": null,
+        "title": "「日本は刑罰が緩いと聞き…」 「中野ブロードウェイ」窃盗事件で逮捕のチリ人男2人を再逮捕 事件3日前に都内住宅で腕時計など盗んだ疑い（2026年9月28日掲載）｜日テレNEWS NNN",
+        "date": "2026-09-28",
+        "url": "https://news.ntv.co.jp/category/society/c277a0ca78e54788be5c9b29024c8025"
+      },
+      "reason": "国籍+罪種+固有語類似0.39",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "bad92c8189c23d88",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で米兵逮捕、那覇 普天間所属、ホテルに女性遺体",
+        "date": "2026-10-04",
+        "url": "https://www.47news.jp/15033487.html"
+      },
+      "removed": {
+        "id": "16106a88239bf9bf",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 – Quebee キュエビー",
+        "date": "2026-10-04",
+        "url": "https://www.qab.co.jp/quebee/video/000537806/"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d27bdc6ba8f38d4a",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 - news.tv",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html"
+      },
+      "removed": {
+        "id": "bad92c8189c23d88",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で米兵逮捕、那覇 普天間所属、ホテルに女性遺体",
+        "date": "2026-10-04",
+        "url": "https://www.47news.jp/15033487.html"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d27bdc6ba8f38d4a",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 - news.tv",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html"
+      },
+      "removed": {
+        "id": "a8c62fc9fced73c5",
+        "sourceRecordId": null,
+        "title": "那覇ホテルの女性強盗殺人、米軍普天間飛行場所属の海兵隊員の男を容疑で緊急逮捕",
+        "date": "2026-10-04",
+        "url": "https://www.yomiuri.co.jp/national/20261004-GYT1T00106/"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d27bdc6ba8f38d4a",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 - news.tv",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html"
+      },
+      "removed": {
+        "id": "e90b7d2b96a8211c",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で米兵逮捕、那覇",
+        "date": "2026-10-05",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2713984"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d27bdc6ba8f38d4a",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 - news.tv",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html"
+      },
+      "removed": {
+        "id": "74bc14cc3e4e3898",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で米兵逮捕、那覇",
+        "date": "2026-10-05",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2713984?ph=1"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d27bdc6ba8f38d4a",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 - news.tv",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html"
+      },
+      "removed": {
+        "id": "57666272982d1dd9",
+        "sourceRecordId": null,
+        "title": "強殺容疑で逮捕の米兵 防犯カメラに“逃走の様子”",
+        "date": "2026-10-05",
+        "url": "https://www.kfb.co.jp/news/article/16941659"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "e6a90c6e39a8adcc",
+        "sourceRecordId": null,
+        "title": "在沖縄米軍トップから謝罪の言葉なし 知事「県民は納得できない」 強殺で米兵逮捕 2026 年 10 月 6 日 12:07",
+        "date": "2026-10-06",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/900201234.html"
+      },
+      "removed": {
+        "id": "d27bdc6ba8f38d4a",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 - news.tv",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "e6a90c6e39a8adcc",
+        "sourceRecordId": null,
+        "title": "在沖縄米軍トップから謝罪の言葉なし 知事「県民は納得できない」 強殺で米兵逮捕 2026 年 10 月 6 日 12:07",
+        "date": "2026-10-06",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/900201234.html"
+      },
+      "removed": {
+        "id": "91f770c1904c03bd",
+        "sourceRecordId": null,
+        "title": "「沖縄に米軍基地はいらない」米国大使館前で100人抗議、米兵逮捕の強盗殺人事件受け（ＡＦＰ＝時事）",
+        "date": "2026-10-07",
+        "url": "https://news.yahoo.co.jp/articles/05f4a444346f118f3a78dcb01d7241647bea5eec"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "f10495d318d41527",
+        "sourceRecordId": null,
+        "title": "二重底のスーツケースに隠し3キロ超のコカインを密輸か フィンランド国籍の女を現行犯逮捕 容疑を否認 警視庁",
+        "date": "2026-10-07",
+        "url": "https://news.yahoo.co.jp/articles/ec86b5bcebcbde503b5421083c604b8f9945d95e"
+      },
+      "removed": {
+        "id": "d513d7cb257421fc",
+        "sourceRecordId": null,
+        "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 – Quebee キュエビー",
+        "date": "2026-10-07",
+        "url": "https://www.qab.co.jp/quebee/video/000538541/"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "f10495d318d41527",
+        "sourceRecordId": null,
+        "title": "二重底のスーツケースに隠し3キロ超のコカインを密輸か フィンランド国籍の女を現行犯逮捕 容疑を否認 警視庁",
+        "date": "2026-10-07",
+        "url": "https://news.yahoo.co.jp/articles/ec86b5bcebcbde503b5421083c604b8f9945d95e"
+      },
+      "removed": {
+        "id": "4ff02d6a459d809d",
+        "sourceRecordId": null,
+        "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当",
+        "date": "2026-10-07",
+        "url": "https://www.khb-tv.co.jp/news/16947640"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "2bdbcbf9f505d235",
+        "sourceRecordId": null,
+        "title": "改造スーツケースにコカイン隠し密輸か　フィンランド国籍の女逮捕",
+        "date": "2026-10-07",
+        "url": "https://news.ntv.co.jp/category/society/821f6552050a45c2a649b8c2f5df6f4f"
+      },
+      "removed": {
+        "id": "f10495d318d41527",
+        "sourceRecordId": null,
+        "title": "二重底のスーツケースに隠し3キロ超のコカインを密輸か フィンランド国籍の女を現行犯逮捕 容疑を否認 警視庁",
+        "date": "2026-10-07",
+        "url": "https://news.yahoo.co.jp/articles/ec86b5bcebcbde503b5421083c604b8f9945d95e"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "2bdbcbf9f505d235",
+        "sourceRecordId": null,
+        "title": "改造スーツケースにコカイン隠し密輸か　フィンランド国籍の女逮捕",
+        "date": "2026-10-07",
+        "url": "https://news.ntv.co.jp/category/society/821f6552050a45c2a649b8c2f5df6f4f"
+      },
+      "removed": {
+        "id": "6d9fcc99c20aefe2",
+        "sourceRecordId": null,
+        "title": "コカイン“3キロ”　スーツケースふた部分に隠し密輸か　フィンランド国籍の女逮捕　「中身は別れた元彼のもの」税関職員が調べ発覚",
+        "date": "2026-10-07",
+        "url": "https://www.fnn.jp/articles/-/1128751"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "2bdbcbf9f505d235",
+        "sourceRecordId": null,
+        "title": "改造スーツケースにコカイン隠し密輸か　フィンランド国籍の女逮捕",
+        "date": "2026-10-07",
+        "url": "https://news.ntv.co.jp/category/society/821f6552050a45c2a649b8c2f5df6f4f"
+      },
+      "removed": {
+        "id": "1aa9a2c9b2bdf1c0",
+        "sourceRecordId": null,
+        "title": "フィンランド国籍の56歳女がコカイン約3キロを羽田に密輸した疑いで逮捕",
+        "date": "2026-10-07",
+        "url": "https://news.livedoor.com/article/detail/32513448/"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "2bdbcbf9f505d235",
+        "sourceRecordId": null,
+        "title": "改造スーツケースにコカイン隠し密輸か　フィンランド国籍の女逮捕",
+        "date": "2026-10-07",
+        "url": "https://news.ntv.co.jp/category/society/821f6552050a45c2a649b8c2f5df6f4f"
+      },
+      "removed": {
+        "id": "eb02c0abc0bcd39d",
+        "sourceRecordId": null,
+        "title": "二重底のスーツケースに隠し3キロ超のコカインを密輸か&#160;フィンランド国籍の女を現行犯逮捕&#160;容疑を否認&#160;警視庁",
+        "date": "2026-10-07",
+        "url": "https://news.livedoor.com/article/detail/32508920/"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "2bdbcbf9f505d235",
+        "sourceRecordId": null,
+        "title": "改造スーツケースにコカイン隠し密輸か　フィンランド国籍の女逮捕",
+        "date": "2026-10-07",
+        "url": "https://news.ntv.co.jp/category/society/821f6552050a45c2a649b8c2f5df6f4f"
+      },
+      "removed": {
+        "id": "99883cc98e9deb47",
+        "sourceRecordId": null,
+        "title": "コカイン3キロ密輸疑い逮捕　フィンランド国籍の女(共同通信)",
+        "date": "2026-10-07",
+        "url": "https://news.yahoo.co.jp/articles/657b07e3674ab631b0d74aa3f99235fada132ce6?source=rss"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "2bdbcbf9f505d235",
+        "sourceRecordId": null,
+        "title": "改造スーツケースにコカイン隠し密輸か　フィンランド国籍の女逮捕",
+        "date": "2026-10-07",
+        "url": "https://news.ntv.co.jp/category/society/821f6552050a45c2a649b8c2f5df6f4f"
+      },
+      "removed": {
+        "id": "ed4c1421abf21aac",
+        "sourceRecordId": null,
+        "title": "コカイン約3kg密輸か フィンランド国籍の女逮捕（FNNプライムオンライン（フジテレビ系））",
+        "date": "2026-10-08",
+        "url": "https://news.yahoo.co.jp/articles/02d6d30c783a713d3e1484036098aa13f0d8e824"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "2bdbcbf9f505d235",
+        "sourceRecordId": null,
+        "title": "改造スーツケースにコカイン隠し密輸か　フィンランド国籍の女逮捕",
+        "date": "2026-10-07",
+        "url": "https://news.ntv.co.jp/category/society/821f6552050a45c2a649b8c2f5df6f4f"
+      },
+      "removed": {
+        "id": "25c0721f51dd6d3e",
+        "sourceRecordId": null,
+        "title": "コカイン３キロ密輸疑い逮捕",
+        "date": "2026-10-08",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2716665?ph=1"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "4dbdf2045a4cb3dd",
+        "sourceRecordId": null,
+        "title": "コカイン約3kg密輸か　フィンランド国籍の女逮捕",
+        "date": "2026-10-08",
+        "url": "https://www.fnn.jp/articles/-/1128859"
+      },
+      "removed": {
+        "id": "2bdbcbf9f505d235",
+        "sourceRecordId": null,
+        "title": "改造スーツケースにコカイン隠し密輸か　フィンランド国籍の女逮捕",
+        "date": "2026-10-07",
+        "url": "https://news.ntv.co.jp/category/society/821f6552050a45c2a649b8c2f5df6f4f"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "f0f6d43870863b50",
+        "sourceRecordId": null,
+        "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 2026 年 10 月 7 日 17:35",
+        "date": "2026-10-08",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000538541.html"
+      },
+      "removed": {
+        "id": "4dbdf2045a4cb3dd",
+        "sourceRecordId": null,
+        "title": "コカイン約3kg密輸か　フィンランド国籍の女逮捕",
+        "date": "2026-10-08",
+        "url": "https://www.fnn.jp/articles/-/1128859"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "f0f6d43870863b50",
+        "sourceRecordId": null,
+        "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 2026 年 10 月 7 日 17:35",
+        "date": "2026-10-08",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000538541.html"
+      },
+      "removed": {
+        "id": "d02de12cc876c061",
+        "sourceRecordId": null,
+        "title": "コカイン３キロ密輸疑い逮捕 フィンランド国籍の女",
+        "date": "2026-10-13",
+        "url": "https://www.sanyonews.jp/article/2001067"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "1c09bbb091af18f9",
+        "sourceRecordId": null,
+        "title": "コカイン5キロ密輸疑いで逮捕　マレーシア国籍の5人、警視庁",
+        "date": "2026-10-12",
+        "url": "https://news.livedoor.com/article/detail/32546293/"
+      },
+      "removed": {
+        "id": "e20d337d2303b72f",
+        "sourceRecordId": null,
+        "title": "不審な厚底靴で発覚 コカイン密輸容疑で男女5人逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.smartnews.com/news/article/5000317105992632537-%E4%B8%8D%E5%AF%A9%E3%81%AA%E5%8E%9A%E5%BA%95%E9%9D%B4%E3%81%A7%E7%99%BA%E8%A6%9A%E3%80%80%E3%82%B3%E3%82%AB%E3%82%A4%E3%83%B3%E5%AF%86%E8%BC%B8%E5%AE%B9%E7%96%91%E3%81%A7%E7%94%B7%E5%A5%B35%E4%BA%BA%E9%80%AE%E6%8D%95"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "1c09bbb091af18f9",
+        "sourceRecordId": null,
+        "title": "コカイン5キロ密輸疑いで逮捕　マレーシア国籍の5人、警視庁",
+        "date": "2026-10-12",
+        "url": "https://news.livedoor.com/article/detail/32546293/"
+      },
+      "removed": {
+        "id": "cd8cc845ccd2574f",
+        "sourceRecordId": null,
+        "title": "コカイン５キロ密輸疑いで逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2720288"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "1c09bbb091af18f9",
+        "sourceRecordId": null,
+        "title": "コカイン5キロ密輸疑いで逮捕　マレーシア国籍の5人、警視庁",
+        "date": "2026-10-12",
+        "url": "https://news.livedoor.com/article/detail/32546293/"
+      },
+      "removed": {
+        "id": "e5b6519c593c061b",
+        "sourceRecordId": null,
+        "title": "靴に隠しコカイン5キロ密輸か、マレーシア国籍の男女5人逮捕　末端価格1憶円超(産経新聞)",
+        "date": "2026-10-12",
+        "url": "https://news.yahoo.co.jp/articles/44c61bc2ba2e970e71647c64bdffc96ccfe0dc6c?source=rss"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "1c09bbb091af18f9",
+        "sourceRecordId": null,
+        "title": "コカイン5キロ密輸疑いで逮捕　マレーシア国籍の5人、警視庁",
+        "date": "2026-10-12",
+        "url": "https://news.livedoor.com/article/detail/32546293/"
+      },
+      "removed": {
+        "id": "649f67e17ef285b7",
+        "sourceRecordId": null,
+        "title": "コカイン約5キロを靴の中敷きの下に隠して密輸か　マレーシア国籍男女5人逮捕　末端価格1億2000万円相当　警視庁",
+        "date": "2026-10-12",
+        "url": "https://news.livedoor.com/article/detail/32546746/"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "1c09bbb091af18f9",
+        "sourceRecordId": null,
+        "title": "コカイン5キロ密輸疑いで逮捕　マレーシア国籍の5人、警視庁",
+        "date": "2026-10-12",
+        "url": "https://news.livedoor.com/article/detail/32546293/"
+      },
+      "removed": {
+        "id": "5f99c20fff484961",
+        "sourceRecordId": null,
+        "title": "コカイン５キロ密輸疑いで逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.chugoku-np.co.jp/articles/-/908249"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T07:36:16.320Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "16916ebf92d28178",
+        "sourceRecordId": null,
+        "title": "福岡空港で過去最大コカイン約1.2キロ密輸疑い ドミニカ国籍の男（29）を逮捕",
+        "date": "2026-09-30",
+        "url": "https://kbc.co.jp/news/article.php?id=18239023&ymd=2026-09-30"
+      },
+      "removed": {
+        "id": "1a5c32d2d9bdd672",
+        "sourceRecordId": null,
+        "title": "1.2kgのコカイン密輸疑い 福岡空港で男性を緊急逮捕 (毎日新聞)",
+        "date": "2026-09-30",
+        "url": "https://news.yahoo.co.jp/articles/8c425180fc1b269a244f8595cf5406cfcaddad91"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:43:06.697Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "39fc78302b60edf0",
+        "sourceRecordId": null,
+        "title": "飲酒運転疑いで米兵2人を逮捕 沖縄県警 沖縄市と那覇市で",
+        "date": "2026-10-04",
+        "url": "https://www.sankei.com/article/20261004-JULE3NU3NJMOPLAD6IIHJE3KDE/",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:ee741668087ae30108f7421b9689f5ce806418050612d89fcbb5e42319b89ac5"
+      },
+      "removed": {
+        "id": "4695acdecd8ff1ff",
+        "sourceRecordId": null,
+        "title": "嘉手納基地所属の米兵が酒気帯び運転容疑「ハブ酒や焼酎を飲んだ」…沖縄市では別の米兵が酒酔い運転容疑",
+        "date": "2026-10-05",
+        "url": "https://news.yahoo.co.jp/articles/9fc8689a2d7c9a2f4f0d7222d51c68cdb64b44c1",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:eae174ccc4d90ecd8730f27988434d0c8049ad4c27626a53c11627a42ba5de8b"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-15T07:55:10.167Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "3c4d715c9a4c0ae6",
+        "sourceRecordId": null,
+        "title": "「基地に逃げ込まれるケース」多いなかで…米兵を「逮捕・送検」できたワケ",
+        "date": "2026-10-10",
+        "url": "https://news.livedoor.com/article/detail/32533262/",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "removed": {
+        "id": "1a13a799b6df4dff",
+        "sourceRecordId": null,
+        "title": "沖縄強盗殺人で海兵隊員を送検、知事らが米軍に再発防止を求め正式抗議",
+        "date": "2026-10-06",
+        "url": "https://news.livedoor.com/article/detail/32496989/",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:caa6f68faee16d900fdb9c4da26cc8be67af2c017f7915310388bb61efc0b0ca"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:55:10.167Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
         "id": "26e67f8327a56eba",
         "sourceRecordId": null,
         "title": "無許可でイノシシ2頭を解体し販売か ベトナム国籍の28歳男を再逮捕【愛知・春日井市】",
@@ -1545,16 +2218,16 @@
         "eventKey": null
       },
       "removed": {
-        "id": "040844fedb77e5d1",
+        "id": "774384066ad3b4f5",
         "sourceRecordId": null,
-        "title": "イノシシ肉を無許可で販売 容疑のベトナム国籍男を逮捕 愛知",
-        "date": "2026-10-14",
-        "url": "https://www.sankei.com/article/20261014-R2NE74QUSFMX7NNOGHAJQ5CDBM/",
+        "title": "「山林でシカがワナに」駐在さんが聞き込み続けると…ベトナム国籍の男、無許可で食肉業容疑で再逮捕",
+        "date": "2026-10-15",
+        "url": "https://topics.smt.docomo.ne.jp/article/yomiuri/nation/20261015-567-GYT1T00141",
         "resolvedUrl": null,
         "eventKey": null
       },
       "reason": "国籍+年齢+場所/罪種",
-      "recordedAt": "2026-10-15T07:41:47.092Z"
+      "recordedAt": "2026-10-15T07:55:10.167Z"
     },
     {
       "kind": "automatic_merge",
@@ -1577,7 +2250,1527 @@
         "eventKey": null
       },
       "reason": "国籍+年齢+場所/罪種",
-      "recordedAt": "2026-10-15T13:39:00.889Z"
+      "recordedAt": "2026-10-15T07:55:10.167Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d74dd98bfbc7481d",
+        "sourceRecordId": null,
+        "title": "偽の1万円銀貨を両替した疑い 上位役とみられる中国籍の男を再逮捕 [広島県]",
+        "date": "2026-10-13",
+        "url": "https://www.asahi.com/articles/ASVBF345YVBFPITB009M.html"
+      },
+      "removed": {
+        "id": "d4f326597b344a15",
+        "sourceRecordId": null,
+        "title": "偽造通貨を両替した中国籍の男（３７）を再逮捕　トクリュウグループ上位者か　「司法取引」適用　広島",
+        "date": "2026-10-13",
+        "url": "https://www.fnn.jp/articles/-/1131791"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T07:59:20.855Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "040844fedb77e5d1",
+        "sourceRecordId": null,
+        "title": "イノシシ肉を無許可で販売 容疑のベトナム国籍男を逮捕 愛知",
+        "date": "2026-10-14",
+        "url": "https://www.sankei.com/article/20261014-R2NE74QUSFMX7NNOGHAJQ5CDBM/"
+      },
+      "removed": {
+        "id": "4f5c5e5eaa04c151",
+        "sourceRecordId": null,
+        "title": "シカの切断面と大量の酒の空き缶… 「大宴会したんだろうと」 “駐在さん”が見抜いた密猟 ベトナム国籍の男を“違法ジビエ”で逮捕",
+        "date": "2026-10-14",
+        "url": "https://news.yahoo.co.jp/articles/bdc41e358357e28b2cd4020bdb6b3b8249a23caa"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:59:20.855Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "f4bdd1d70f1be366",
+        "sourceRecordId": null,
+        "title": "シカの生首が相次ぎ…イノシシをノコギリで食肉加工し販売か 密猟疑いで男を逮捕 2026 年 10 月 15 日 12:48",
+        "date": "2026-10-15",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/900201942.html"
+      },
+      "removed": {
+        "id": "040844fedb77e5d1",
+        "sourceRecordId": null,
+        "title": "イノシシ肉を無許可で販売 容疑のベトナム国籍男を逮捕 愛知",
+        "date": "2026-10-14",
+        "url": "https://www.sankei.com/article/20261014-R2NE74QUSFMX7NNOGHAJQ5CDBM/"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:59:20.855Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "aac80eafe34b985a",
+        "sourceRecordId": null,
+        "title": "「違法ジビエ」無許可で営業か　販売目的でイノシシ解体した疑いでベトナム国籍の男を再逮捕　愛知・春日井市",
+        "date": "2026-10-14",
+        "url": "https://news.ntv.co.jp/n/ctv/category/society/ct4be0cddad79d493997cda6d1b446885a"
+      },
+      "removed": {
+        "id": "26e67f8327a56eba",
+        "sourceRecordId": null,
+        "title": "無許可でイノシシ2頭を解体し販売か ベトナム国籍の28歳男を再逮捕【愛知・春日井市】",
+        "date": "2026-10-14",
+        "url": "https://locipo.jp/article/72fc16cf-6c4f-4531-aea9-26dc1337f6b3"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T07:59:20.855Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "2b75cd77993e0b39",
+        "sourceRecordId": null,
+        "title": "医師免許ないのに鼻を高くする美容整形した疑い フィリピン国籍の女逮捕",
+        "date": "2026-10-16",
+        "url": "https://news.yahoo.co.jp/articles/d3227e43913245dbd2395070c373482dc959279c"
+      },
+      "removed": {
+        "id": "697f85d141aa3a28",
+        "sourceRecordId": null,
+        "title": "医師免許ないのに鼻を高くする美容整形した疑い フィリピン国籍の女逮捕 (",
+        "date": "2026-10-16",
+        "url": "https://news.livedoor.com/topics/detail/32577145/"
+      },
+      "reason": "exact_duplicate_headline_or_url",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "ebf7e072420305bf",
+        "sourceRecordId": null,
+        "title": "医師免許ないのに鼻を高くする美容整形した疑い フィリピン国籍の女逮捕 3時間前",
+        "date": "2026-10-16",
+        "url": "https://newsdig.tbs.co.jp/articles/-/3015947"
+      },
+      "removed": {
+        "id": "2b75cd77993e0b39",
+        "sourceRecordId": null,
+        "title": "医師免許ないのに鼻を高くする美容整形した疑い フィリピン国籍の女逮捕",
+        "date": "2026-10-16",
+        "url": "https://news.yahoo.co.jp/articles/d3227e43913245dbd2395070c373482dc959279c"
+      },
+      "reason": "exact_duplicate_headline_or_url",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "ebf7e072420305bf",
+        "sourceRecordId": null,
+        "title": "医師免許ないのに鼻を高くする美容整形した疑い フィリピン国籍の女逮捕 3時間前",
+        "date": "2026-10-16",
+        "url": "https://newsdig.tbs.co.jp/articles/-/3015947"
+      },
+      "removed": {
+        "id": "a414d81d34f0e8fe",
+        "sourceRecordId": null,
+        "title": "医師免許ないのに鼻を高くする美容整形した疑い フィリピン国籍の女逮捕",
+        "date": "2026-10-15",
+        "url": "https://locipo.jp/article/766548d7-923e-46ef-a1e7-421f11f756e4"
+      },
+      "reason": "exact_duplicate_headline_or_url",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "cd8cc845ccd2574f",
+        "sourceRecordId": null,
+        "title": "コカイン５キロ密輸疑いで逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2720288"
+      },
+      "removed": {
+        "id": "5f99c20fff484961",
+        "sourceRecordId": null,
+        "title": "コカイン５キロ密輸疑いで逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.chugoku-np.co.jp/articles/-/908249"
+      },
+      "reason": "exact_duplicate_headline_or_url",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "f0f6d43870863b50",
+        "sourceRecordId": null,
+        "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 2026 年 10 月 7 日 17:35",
+        "date": "2026-10-08",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000538541.html"
+      },
+      "removed": {
+        "id": "4ff02d6a459d809d",
+        "sourceRecordId": null,
+        "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当",
+        "date": "2026-10-07",
+        "url": "https://www.khb-tv.co.jp/news/16947640"
+      },
+      "reason": "exact_duplicate_headline_or_url",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "e90b7d2b96a8211c",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で米兵逮捕、那覇",
+        "date": "2026-10-05",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2713984"
+      },
+      "removed": {
+        "id": "74bc14cc3e4e3898",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で米兵逮捕、那覇",
+        "date": "2026-10-05",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2713984?ph=1"
+      },
+      "reason": "exact_duplicate_headline_or_url",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "51af6bf7f2c94c06",
+        "sourceRecordId": null,
+        "title": "無免許かつ酒酔い運転の疑い スリランカ国籍の男（38）を現行犯逮捕 千葉県警柏署",
+        "date": "2026-09-23",
+        "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03768.html"
+      },
+      "removed": {
+        "id": "5d8b1ab1733e01cb",
+        "sourceRecordId": null,
+        "title": "9/21（月）柏市高田で無免許で飲酒運転をしていたスリランカ国籍の38歳の男が逮捕",
+        "date": "2026-09-28",
+        "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1jeDJZNDYtY3pxTmRlXzNCYUp0NEMzZXVfbmZMUUxZZ09YM3B4Z3gtaUY1azBkWHZTUldXcEZfejBJV0g2WmxYUDZMQU1Objg?oc=5"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "4176faf3a38b612a",
+        "sourceRecordId": null,
+        "title": "中野の事件前にも腕時計盗んだか 「日本は刑罰緩いと聞いた」―チリ国籍の男２人再逮捕・警視庁",
+        "date": "2026-09-28",
+        "url": "https://www.jiji.com/jc/article?k=2026092800504&g=soc"
+      },
+      "removed": {
+        "id": "54703d6d1c231833",
+        "sourceRecordId": null,
+        "title": "中野2億円腕時計窃盗事件 チリ国籍の男2人再逮捕 「日本は刑罰が緩いと聞いた」と供述",
+        "date": "2026-09-28",
+        "url": "https://topics.smt.docomo.ne.jp/article/tvasahinews/nation/tvasahinews-000536442"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "4176faf3a38b612a",
+        "sourceRecordId": null,
+        "title": "中野の事件前にも腕時計盗んだか 「日本は刑罰緩いと聞いた」―チリ国籍の男２人再逮捕・警視庁",
+        "date": "2026-09-28",
+        "url": "https://www.jiji.com/jc/article?k=2026092800504&g=soc"
+      },
+      "removed": {
+        "id": "6d158fc2161c00ff",
+        "sourceRecordId": null,
+        "title": "中野ブロードウェイ時計店窃盗事件のチリ国籍男2人を再逮捕 3日前の大田区の住宅で800万円相当窃盗か 「ヨーロッパ中で窃盗」とも供述 欧米で問題の「SATG」か",
+        "date": "2026-09-28",
+        "url": "https://newsdig.tbs.co.jp/articles/-/2972911"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "4176faf3a38b612a",
+        "sourceRecordId": null,
+        "title": "中野の事件前にも腕時計盗んだか 「日本は刑罰緩いと聞いた」―チリ国籍の男２人再逮捕・警視庁",
+        "date": "2026-09-28",
+        "url": "https://www.jiji.com/jc/article?k=2026092800504&g=soc"
+      },
+      "removed": {
+        "id": "3ed8421824d28512",
+        "sourceRecordId": null,
+        "title": "中野・高級腕時計の窃盗犯「刑罰軽いと聞き」来日、事件３日前にも民家で７９０万円相当窃盗…チリ国籍２人再逮捕",
+        "date": "2026-09-28",
+        "url": "https://topics.smt.docomo.ne.jp/amp/article/yomiuri/nation/20260928-567-GYT1T00289"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "4176faf3a38b612a",
+        "sourceRecordId": null,
+        "title": "中野の事件前にも腕時計盗んだか 「日本は刑罰緩いと聞いた」―チリ国籍の男２人再逮捕・警視庁",
+        "date": "2026-09-28",
+        "url": "https://www.jiji.com/jc/article?k=2026092800504&g=soc"
+      },
+      "removed": {
+        "id": "e88df3ffc29ee1a5",
+        "sourceRecordId": null,
+        "title": "中野ブロードウェイの高級腕時計窃盗事件で逮捕のチリ人男2人、別の窃盗事件で再逮捕 住宅に侵入し高級腕時計3本など盗んだ疑い",
+        "date": "2026-09-28",
+        "url": "https://www.fnn.jp/articles/-/1122504"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "4176faf3a38b612a",
+        "sourceRecordId": null,
+        "title": "中野の事件前にも腕時計盗んだか 「日本は刑罰緩いと聞いた」―チリ国籍の男２人再逮捕・警視庁",
+        "date": "2026-09-28",
+        "url": "https://www.jiji.com/jc/article?k=2026092800504&g=soc"
+      },
+      "removed": {
+        "id": "93500576141d85ad",
+        "sourceRecordId": null,
+        "title": "中野2億円腕時計窃盗事件 チリ国籍の男2人を再逮捕 「ヨーロッパ中で窃盗していた」 欧米で社会問題の「SATG」か 「1日3～4件やった日も」 警視庁",
+        "date": "2026-09-28",
+        "url": "https://news.livedoor.com/article/detail/32430423/"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "4176faf3a38b612a",
+        "sourceRecordId": null,
+        "title": "中野の事件前にも腕時計盗んだか 「日本は刑罰緩いと聞いた」―チリ国籍の男２人再逮捕・警視庁",
+        "date": "2026-09-28",
+        "url": "https://www.jiji.com/jc/article?k=2026092800504&g=soc"
+      },
+      "removed": {
+        "id": "e1b98dd0e6d77258",
+        "sourceRecordId": null,
+        "title": "「日本は刑罰が緩いと聞き…」 「中野ブロードウェイ」窃盗事件で逮捕のチリ人男2人を再逮捕 事件3日前に都内住宅で腕時計など盗んだ疑い（2026年9月28日掲載）｜日テレNEWS NNN",
+        "date": "2026-09-28",
+        "url": "https://news.ntv.co.jp/category/society/c277a0ca78e54788be5c9b29024c8025"
+      },
+      "reason": "同日+同県+国籍+罪種+性別一致（矛盾なし）",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "4176faf3a38b612a",
+        "sourceRecordId": null,
+        "title": "中野の事件前にも腕時計盗んだか 「日本は刑罰緩いと聞いた」―チリ国籍の男２人再逮捕・警視庁",
+        "date": "2026-09-28",
+        "url": "https://www.jiji.com/jc/article?k=2026092800504&g=soc"
+      },
+      "removed": {
+        "id": "4dff534a2934afc8",
+        "sourceRecordId": null,
+        "title": "中野の事件前にも腕時計盗んだか＝チリ国籍の男２人再逮捕―警視庁",
+        "date": "2026-09-28",
+        "url": "https://sp.m.jiji.com/article/show/3877061?free=1"
+      },
+      "reason": "国籍+罪種+固有語類似0.55",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "a5b5d930865b8819",
+        "sourceRecordId": null,
+        "title": "ヤードで覚醒剤製造した疑い…イラン国籍の男ら3人逮捕 密造・密売の拠点か（2026年9月30日掲載）｜日テレNEWS NNN",
+        "date": "2026-09-30",
+        "url": "https://news.ntv.co.jp/category/society/dec3a787367a4ee19c90710c9a9466ee"
+      },
+      "removed": {
+        "id": "f972450c7f33eb10",
+        "sourceRecordId": null,
+        "title": "静岡県内で覚醒剤の錠剤を製造か イラン国籍の男3人を再逮捕（tvkニュース（テレビ神奈川））",
+        "date": "2026-09-30",
+        "url": "https://news.yahoo.co.jp/articles/ff6648fb9a9d86ad75e6ff09f47abc3c8fc01037"
+      },
+      "reason": "同日+同県+国籍+罪種+性別一致（矛盾なし）",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "394a224b93cb92e9",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体　米海兵隊員の男を強盗殺人容疑で逮捕(テレビ朝日系（ANN）)",
+        "date": "2026-10-04",
+        "url": "https://news.yahoo.co.jp/articles/9fc8f1707a36b6bad650de36ff4daa97dbacafca?source=rss"
+      },
+      "removed": {
+        "id": "cf367831eec3492b",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で米兵逮捕、那覇 ホテルに女性遺体（共同通信）",
+        "date": "2026-10-04",
+        "url": "https://news.yahoo.co.jp/articles/0d70adecbb9ed29fff537a76f4183f566d4f67f8"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "adfd63522ebf9cee",
+        "sourceRecordId": null,
+        "title": "那覇市のホテルで女性の遺体が発見された事件、在日米軍の男が強盗殺人容疑で緊急逮捕 高市首相らがコメントを出す中、令状を出す間もない逮捕だったことが窺える",
+        "date": "2026-10-04",
+        "url": "https://togetter.com/li/2753993"
+      },
+      "removed": {
+        "id": "394a224b93cb92e9",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体　米海兵隊員の男を強盗殺人容疑で逮捕(テレビ朝日系（ANN）)",
+        "date": "2026-10-04",
+        "url": "https://news.yahoo.co.jp/articles/9fc8f1707a36b6bad650de36ff4daa97dbacafca?source=rss"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "adfd63522ebf9cee",
+        "sourceRecordId": null,
+        "title": "那覇市のホテルで女性の遺体が発見された事件、在日米軍の男が強盗殺人容疑で緊急逮捕 高市首相らがコメントを出す中、令状を出す間もない逮捕だったことが窺える",
+        "date": "2026-10-04",
+        "url": "https://togetter.com/li/2753993"
+      },
+      "removed": {
+        "id": "bad92c8189c23d88",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で米兵逮捕、那覇 普天間所属、ホテルに女性遺体",
+        "date": "2026-10-04",
+        "url": "https://www.47news.jp/15033487.html"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "adfd63522ebf9cee",
+        "sourceRecordId": null,
+        "title": "那覇市のホテルで女性の遺体が発見された事件、在日米軍の男が強盗殺人容疑で緊急逮捕 高市首相らがコメントを出す中、令状を出す間もない逮捕だったことが窺える",
+        "date": "2026-10-04",
+        "url": "https://togetter.com/li/2753993"
+      },
+      "removed": {
+        "id": "16106a88239bf9bf",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 – Quebee キュエビー",
+        "date": "2026-10-04",
+        "url": "https://www.qab.co.jp/quebee/video/000537806/"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "adfd63522ebf9cee",
+        "sourceRecordId": null,
+        "title": "那覇市のホテルで女性の遺体が発見された事件、在日米軍の男が強盗殺人容疑で緊急逮捕 高市首相らがコメントを出す中、令状を出す間もない逮捕だったことが窺える",
+        "date": "2026-10-04",
+        "url": "https://togetter.com/li/2753993"
+      },
+      "removed": {
+        "id": "d27bdc6ba8f38d4a",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇 ホテルに女性遺体 米海兵隊員の男を強盗殺人容疑で逮捕 - news.tv",
+        "date": "2026-10-04",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537806.html"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "adfd63522ebf9cee",
+        "sourceRecordId": null,
+        "title": "那覇市のホテルで女性の遺体が発見された事件、在日米軍の男が強盗殺人容疑で緊急逮捕 高市首相らがコメントを出す中、令状を出す間もない逮捕だったことが窺える",
+        "date": "2026-10-04",
+        "url": "https://togetter.com/li/2753993"
+      },
+      "removed": {
+        "id": "a8c62fc9fced73c5",
+        "sourceRecordId": null,
+        "title": "那覇ホテルの女性強盗殺人、米軍普天間飛行場所属の海兵隊員の男を容疑で緊急逮捕",
+        "date": "2026-10-04",
+        "url": "https://www.yomiuri.co.jp/national/20261004-GYT1T00106/"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "adfd63522ebf9cee",
+        "sourceRecordId": null,
+        "title": "那覇市のホテルで女性の遺体が発見された事件、在日米軍の男が強盗殺人容疑で緊急逮捕 高市首相らがコメントを出す中、令状を出す間もない逮捕だったことが窺える",
+        "date": "2026-10-04",
+        "url": "https://togetter.com/li/2753993"
+      },
+      "removed": {
+        "id": "fa6ad8b94f1a93fa",
+        "sourceRecordId": null,
+        "title": "那覇ホテル強盗殺人、米兵逮捕も容疑否認 死因は窒息 知事「非常に憤り」",
+        "date": "2026-10-05",
+        "url": "https://www.smartnews.com/news/article/4997708998938468954-%E9%82%A3%E8%A6%87%E3%83%9B%E3%83%86%E3%83%AB%E5%BC%B7%E7%9B%97%E6%AE%BA%E4%BA%BA%E3%80%81%E7%B1%B3%E5%85%B5%E9%80%AE%E6%8D%95%E3%82%82%E5%AE%B9%E7%96%91%E5%90%A6%E8%AA%8D%20%E6%AD%BB%E5%9B%A0%E3%81%AF%E7%AA%92%E6%81%AF%20%E7%9F%A5%E4%BA%8B%E3%80%8C%E9%9D%9E%E5%B8%B8%E3%81%AB%E6%86%A4%E3%82%8A%E3%80%8D"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "adfd63522ebf9cee",
+        "sourceRecordId": null,
+        "title": "那覇市のホテルで女性の遺体が発見された事件、在日米軍の男が強盗殺人容疑で緊急逮捕 高市首相らがコメントを出す中、令状を出す間もない逮捕だったことが窺える",
+        "date": "2026-10-04",
+        "url": "https://togetter.com/li/2753993"
+      },
+      "removed": {
+        "id": "f3df7e12debedfe6",
+        "sourceRecordId": null,
+        "title": "沖縄県知事&#160;総理らに直接抗議へ、強盗殺人事件で米海兵隊員逮捕",
+        "date": "2026-10-05",
+        "url": "https://news.livedoor.com/article/detail/32487764/"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "77c81bb94490662e",
+        "sourceRecordId": null,
+        "title": "特徴的なタトゥーが早期逮捕の決め手 那覇ホテル強盗殺人容疑の米海兵隊員 基地内に逃走なら捜査難航",
+        "date": "2026-10-05",
+        "url": "https://newsdig.tbs.co.jp/articles/rbc/2991110?display=1"
+      },
+      "removed": {
+        "id": "adfd63522ebf9cee",
+        "sourceRecordId": null,
+        "title": "那覇市のホテルで女性の遺体が発見された事件、在日米軍の男が強盗殺人容疑で緊急逮捕 高市首相らがコメントを出す中、令状を出す間もない逮捕だったことが窺える",
+        "date": "2026-10-04",
+        "url": "https://togetter.com/li/2753993"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "77c81bb94490662e",
+        "sourceRecordId": null,
+        "title": "特徴的なタトゥーが早期逮捕の決め手 那覇ホテル強盗殺人容疑の米海兵隊員 基地内に逃走なら捜査難航",
+        "date": "2026-10-05",
+        "url": "https://newsdig.tbs.co.jp/articles/rbc/2991110?display=1"
+      },
+      "removed": {
+        "id": "f429721d21a1b8b9",
+        "sourceRecordId": null,
+        "title": "逮捕の米兵、ホテル内の“ひも”で絞首か 女性の死因は窒息死 沖縄・那覇市",
+        "date": "2026-10-05",
+        "url": "https://www.fnn.jp/articles/-/1126679"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "77c81bb94490662e",
+        "sourceRecordId": null,
+        "title": "特徴的なタトゥーが早期逮捕の決め手 那覇ホテル強盗殺人容疑の米海兵隊員 基地内に逃走なら捜査難航",
+        "date": "2026-10-05",
+        "url": "https://newsdig.tbs.co.jp/articles/rbc/2991110?display=1"
+      },
+      "removed": {
+        "id": "e90b7d2b96a8211c",
+        "sourceRecordId": null,
+        "title": "強盗殺人容疑で米兵逮捕、那覇",
+        "date": "2026-10-05",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2713984"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "77c81bb94490662e",
+        "sourceRecordId": null,
+        "title": "特徴的なタトゥーが早期逮捕の決め手 那覇ホテル強盗殺人容疑の米海兵隊員 基地内に逃走なら捜査難航",
+        "date": "2026-10-05",
+        "url": "https://newsdig.tbs.co.jp/articles/rbc/2991110?display=1"
+      },
+      "removed": {
+        "id": "57666272982d1dd9",
+        "sourceRecordId": null,
+        "title": "強殺容疑で逮捕の米兵 防犯カメラに“逃走の様子”",
+        "date": "2026-10-05",
+        "url": "https://www.kfb.co.jp/news/article/16941659"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "77c81bb94490662e",
+        "sourceRecordId": null,
+        "title": "特徴的なタトゥーが早期逮捕の決め手 那覇ホテル強盗殺人容疑の米海兵隊員 基地内に逃走なら捜査難航",
+        "date": "2026-10-05",
+        "url": "https://newsdig.tbs.co.jp/articles/rbc/2991110?display=1"
+      },
+      "removed": {
+        "id": "1dd57d5908f092d2",
+        "sourceRecordId": null,
+        "title": "逮捕の米兵 被害者と18キロ移動か",
+        "date": "2026-10-06",
+        "url": "https://news.yahoo.co.jp/pickup/6597705?source=rss"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "73c3d38d00f2b6bb",
+        "sourceRecordId": null,
+        "title": "那覇市ホテル強盗殺人事件で米兵を逮捕 現場近くの防犯カメラ〝容疑者に酷似した人物〟",
+        "date": "2026-10-06",
+        "url": "https://www.qab.co.jp/news/20261006308026.html"
+      },
+      "removed": {
+        "id": "77c81bb94490662e",
+        "sourceRecordId": null,
+        "title": "特徴的なタトゥーが早期逮捕の決め手 那覇ホテル強盗殺人容疑の米海兵隊員 基地内に逃走なら捜査難航",
+        "date": "2026-10-05",
+        "url": "https://newsdig.tbs.co.jp/articles/rbc/2991110?display=1"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "27b038f946a35416",
+        "sourceRecordId": null,
+        "title": "アジア大会窃盗疑い英国籍ボランティア逮捕",
+        "date": "2026-10-05",
+        "url": "https://topics.smt.docomo.ne.jp/article/kyodo_nor/nation/kyodo_nor-2026100501001989"
+      },
+      "removed": {
+        "id": "6cedf4d5403c2f5c",
+        "sourceRecordId": null,
+        "title": "アジア大会の備品窃盗疑い 英国籍ボランティア逮捕",
+        "date": "2026-10-05",
+        "url": "https://news.livedoor.com/article/detail/32495532/"
+      },
+      "reason": "国籍+罪種+固有語類似0.81",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "dc8a0c4470e2d4f2",
+        "sourceRecordId": null,
+        "title": "アジア競技大会の会場からマット盗んだか イギリス国籍のボランティアスタッフの女を逮捕 名古屋",
+        "date": "2026-10-06",
+        "url": "https://news.ntv.co.jp/n/ctv/category/society/ct7575e60c2ba7479ca41909798b0a3aea"
+      },
+      "removed": {
+        "id": "27b038f946a35416",
+        "sourceRecordId": null,
+        "title": "アジア大会窃盗疑い英国籍ボランティア逮捕",
+        "date": "2026-10-05",
+        "url": "https://topics.smt.docomo.ne.jp/article/kyodo_nor/nation/kyodo_nor-2026100501001989"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "73c3d38d00f2b6bb",
+        "sourceRecordId": null,
+        "title": "那覇市ホテル強盗殺人事件で米兵を逮捕 現場近くの防犯カメラ〝容疑者に酷似した人物〟",
+        "date": "2026-10-06",
+        "url": "https://www.qab.co.jp/news/20261006308026.html"
+      },
+      "removed": {
+        "id": "79b8fee2b7e25d8f",
+        "sourceRecordId": null,
+        "title": "沖縄で米海兵隊員が女性殺害で逮捕されたことへの怒りが日本で高まる",
+        "date": "2026-10-06",
+        "url": "https://www.arabnews.jp/japan/%E6%B2%96%E7%B8%84%E3%81%A7%E7%B1%B3%E6%B5%B7%E5%85%B5%E9%9A%8A%E5%93%A1%E3%81%8C%E5%A5%B3%E6%80%A7%E6%AE%BA%E5%AE%B3%E3%81%A7%E9%80%AE%E6%8D%95%E3%81%95%E3%82%8C%E3%81%9F%E3%81%93%E3%81%A8%E3%81%B8%E3%81%AE%E6%80%92%E3%82%8A%E3%81%8C%E6%97%A5%E6%9C%AC%E3%81%A7%E9%AB%98%E3%81%BE%E3%82%8B-3000609"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "73c3d38d00f2b6bb",
+        "sourceRecordId": null,
+        "title": "那覇市ホテル強盗殺人事件で米兵を逮捕 現場近くの防犯カメラ〝容疑者に酷似した人物〟",
+        "date": "2026-10-06",
+        "url": "https://www.qab.co.jp/news/20261006308026.html"
+      },
+      "removed": {
+        "id": "edf0d15080a5bbcf",
+        "sourceRecordId": null,
+        "title": "逮捕の米兵（20）　黒のタンクトップと七分丈ズボン姿で立ち去るも発見時は違う服装　着替えて逃走か　沖縄・那覇市のホテルで女性殺害",
+        "date": "2026-10-06",
+        "url": "https://www.fnn.jp/articles/-/1127510"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "73c3d38d00f2b6bb",
+        "sourceRecordId": null,
+        "title": "那覇市ホテル強盗殺人事件で米兵を逮捕 現場近くの防犯カメラ〝容疑者に酷似した人物〟",
+        "date": "2026-10-06",
+        "url": "https://www.qab.co.jp/news/20261006308026.html"
+      },
+      "removed": {
+        "id": "efc0b832e18c4fcb",
+        "sourceRecordId": null,
+        "title": "強殺容疑で米兵逮捕　那覇　ホテルに女性遺体　政府、駐日米大使に抗議",
+        "date": "2026-10-06",
+        "url": "https://www.shikoku-np.co.jp/dg/article.aspx?id=K2026100500000009500"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "73c3d38d00f2b6bb",
+        "sourceRecordId": null,
+        "title": "那覇市ホテル強盗殺人事件で米兵を逮捕 現場近くの防犯カメラ〝容疑者に酷似した人物〟",
+        "date": "2026-10-06",
+        "url": "https://www.qab.co.jp/news/20261006308026.html"
+      },
+      "removed": {
+        "id": "ea7f9274c03a6b89",
+        "sourceRecordId": null,
+        "title": "那覇女性殺害事件 ホテル付近の防犯カメラに逮捕の米兵とみられる姿",
+        "date": "2026-10-06",
+        "url": "https://news.ntv.co.jp/category/society/a694b1f21e4f44b686c476710f05b3d6"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "73c3d38d00f2b6bb",
+        "sourceRecordId": null,
+        "title": "那覇市ホテル強盗殺人事件で米兵を逮捕 現場近くの防犯カメラ〝容疑者に酷似した人物〟",
+        "date": "2026-10-06",
+        "url": "https://www.qab.co.jp/news/20261006308026.html"
+      },
+      "removed": {
+        "id": "e6a90c6e39a8adcc",
+        "sourceRecordId": null,
+        "title": "在沖縄米軍トップから謝罪の言葉なし 知事「県民は納得できない」 強殺で米兵逮捕 2026 年 10 月 6 日 12:07",
+        "date": "2026-10-06",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/900201234.html"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "73c3d38d00f2b6bb",
+        "sourceRecordId": null,
+        "title": "那覇市ホテル強盗殺人事件で米兵を逮捕 現場近くの防犯カメラ〝容疑者に酷似した人物〟",
+        "date": "2026-10-06",
+        "url": "https://www.qab.co.jp/news/20261006308026.html"
+      },
+      "removed": {
+        "id": "91f770c1904c03bd",
+        "sourceRecordId": null,
+        "title": "「沖縄に米軍基地はいらない」米国大使館前で100人抗議、米兵逮捕の強盗殺人事件受け（ＡＦＰ＝時事）",
+        "date": "2026-10-07",
+        "url": "https://news.yahoo.co.jp/articles/05f4a444346f118f3a78dcb01d7241647bea5eec"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "dc8a0c4470e2d4f2",
+        "sourceRecordId": null,
+        "title": "アジア競技大会の会場からマット盗んだか イギリス国籍のボランティアスタッフの女を逮捕 名古屋",
+        "date": "2026-10-06",
+        "url": "https://news.ntv.co.jp/n/ctv/category/society/ct7575e60c2ba7479ca41909798b0a3aea"
+      },
+      "removed": {
+        "id": "e08a190a72da828a",
+        "sourceRecordId": null,
+        "title": "アジア大会の会場から屋内用の出入口マット盗んだか 外国籍のスタッフの女を逮捕 セレモニーの会場設営を担当",
+        "date": "2026-10-06",
+        "url": "https://news.livedoor.com/topics/detail/32496262/"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d513d7cb257421fc",
+        "sourceRecordId": null,
+        "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 – Quebee キュエビー",
+        "date": "2026-10-07",
+        "url": "https://www.qab.co.jp/quebee/video/000538541/"
+      },
+      "removed": {
+        "id": "f10495d318d41527",
+        "sourceRecordId": null,
+        "title": "二重底のスーツケースに隠し3キロ超のコカインを密輸か フィンランド国籍の女を現行犯逮捕 容疑を否認 警視庁",
+        "date": "2026-10-07",
+        "url": "https://news.yahoo.co.jp/articles/ec86b5bcebcbde503b5421083c604b8f9945d95e"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d513d7cb257421fc",
+        "sourceRecordId": null,
+        "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 – Quebee キュエビー",
+        "date": "2026-10-07",
+        "url": "https://www.qab.co.jp/quebee/video/000538541/"
+      },
+      "removed": {
+        "id": "2bdbcbf9f505d235",
+        "sourceRecordId": null,
+        "title": "改造スーツケースにコカイン隠し密輸か　フィンランド国籍の女逮捕",
+        "date": "2026-10-07",
+        "url": "https://news.ntv.co.jp/category/society/821f6552050a45c2a649b8c2f5df6f4f"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d513d7cb257421fc",
+        "sourceRecordId": null,
+        "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 – Quebee キュエビー",
+        "date": "2026-10-07",
+        "url": "https://www.qab.co.jp/quebee/video/000538541/"
+      },
+      "removed": {
+        "id": "6d9fcc99c20aefe2",
+        "sourceRecordId": null,
+        "title": "コカイン“3キロ”　スーツケースふた部分に隠し密輸か　フィンランド国籍の女逮捕　「中身は別れた元彼のもの」税関職員が調べ発覚",
+        "date": "2026-10-07",
+        "url": "https://www.fnn.jp/articles/-/1128751"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d513d7cb257421fc",
+        "sourceRecordId": null,
+        "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 – Quebee キュエビー",
+        "date": "2026-10-07",
+        "url": "https://www.qab.co.jp/quebee/video/000538541/"
+      },
+      "removed": {
+        "id": "1aa9a2c9b2bdf1c0",
+        "sourceRecordId": null,
+        "title": "フィンランド国籍の56歳女がコカイン約3キロを羽田に密輸した疑いで逮捕",
+        "date": "2026-10-07",
+        "url": "https://news.livedoor.com/article/detail/32513448/"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d513d7cb257421fc",
+        "sourceRecordId": null,
+        "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 – Quebee キュエビー",
+        "date": "2026-10-07",
+        "url": "https://www.qab.co.jp/quebee/video/000538541/"
+      },
+      "removed": {
+        "id": "eb02c0abc0bcd39d",
+        "sourceRecordId": null,
+        "title": "二重底のスーツケースに隠し3キロ超のコカインを密輸か&#160;フィンランド国籍の女を現行犯逮捕&#160;容疑を否認&#160;警視庁",
+        "date": "2026-10-07",
+        "url": "https://news.livedoor.com/article/detail/32508920/"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d513d7cb257421fc",
+        "sourceRecordId": null,
+        "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 – Quebee キュエビー",
+        "date": "2026-10-07",
+        "url": "https://www.qab.co.jp/quebee/video/000538541/"
+      },
+      "removed": {
+        "id": "99883cc98e9deb47",
+        "sourceRecordId": null,
+        "title": "コカイン3キロ密輸疑い逮捕　フィンランド国籍の女(共同通信)",
+        "date": "2026-10-07",
+        "url": "https://news.yahoo.co.jp/articles/657b07e3674ab631b0d74aa3f99235fada132ce6?source=rss"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d513d7cb257421fc",
+        "sourceRecordId": null,
+        "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 – Quebee キュエビー",
+        "date": "2026-10-07",
+        "url": "https://www.qab.co.jp/quebee/video/000538541/"
+      },
+      "removed": {
+        "id": "ed4c1421abf21aac",
+        "sourceRecordId": null,
+        "title": "コカイン約3kg密輸か フィンランド国籍の女逮捕（FNNプライムオンライン（フジテレビ系））",
+        "date": "2026-10-08",
+        "url": "https://news.yahoo.co.jp/articles/02d6d30c783a713d3e1484036098aa13f0d8e824"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "25c0721f51dd6d3e",
+        "sourceRecordId": null,
+        "title": "コカイン３キロ密輸疑い逮捕",
+        "date": "2026-10-08",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2716665?ph=1"
+      },
+      "removed": {
+        "id": "d513d7cb257421fc",
+        "sourceRecordId": null,
+        "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 – Quebee キュエビー",
+        "date": "2026-10-07",
+        "url": "https://www.qab.co.jp/quebee/video/000538541/"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "25c0721f51dd6d3e",
+        "sourceRecordId": null,
+        "title": "コカイン３キロ密輸疑い逮捕",
+        "date": "2026-10-08",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2716665?ph=1"
+      },
+      "removed": {
+        "id": "4dbdf2045a4cb3dd",
+        "sourceRecordId": null,
+        "title": "コカイン約3kg密輸か　フィンランド国籍の女逮捕",
+        "date": "2026-10-08",
+        "url": "https://www.fnn.jp/articles/-/1128859"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "25c0721f51dd6d3e",
+        "sourceRecordId": null,
+        "title": "コカイン３キロ密輸疑い逮捕",
+        "date": "2026-10-08",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2716665?ph=1"
+      },
+      "removed": {
+        "id": "f0f6d43870863b50",
+        "sourceRecordId": null,
+        "title": "大量のコカイン密輸か 女を逮捕 約3.2キロ、末端価格7680万円相当 2026 年 10 月 7 日 17:35",
+        "date": "2026-10-08",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000538541.html"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d02de12cc876c061",
+        "sourceRecordId": null,
+        "title": "コカイン３キロ密輸疑い逮捕 フィンランド国籍の女",
+        "date": "2026-10-13",
+        "url": "https://www.sanyonews.jp/article/2001067"
+      },
+      "removed": {
+        "id": "25c0721f51dd6d3e",
+        "sourceRecordId": null,
+        "title": "コカイン３キロ密輸疑い逮捕",
+        "date": "2026-10-08",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2716665?ph=1"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "bfc767e92067c242",
+        "sourceRecordId": null,
+        "title": "スーパー銭湯で連続窃盗か、千葉 中国籍の男を再逮捕",
+        "date": "2026-10-08",
+        "url": "https://www.hokkaido-np.co.jp/article/1386363/"
+      },
+      "removed": {
+        "id": "e940c0e1c4b0c0eb",
+        "sourceRecordId": null,
+        "title": "銭湯ロッカー合鍵で窃盗か　中国籍男を再逮捕へ、千葉",
+        "date": "2026-10-08",
+        "url": "https://topics.smt.docomo.ne.jp/article/kyodo_nor/nation/kyodo_nor-2026100801000888"
+      },
+      "reason": "同日+同県+国籍+罪種+性別一致（矛盾なし）",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "cd8cc845ccd2574f",
+        "sourceRecordId": null,
+        "title": "コカイン５キロ密輸疑いで逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2720288"
+      },
+      "removed": {
+        "id": "1c09bbb091af18f9",
+        "sourceRecordId": null,
+        "title": "コカイン5キロ密輸疑いで逮捕　マレーシア国籍の5人、警視庁",
+        "date": "2026-10-12",
+        "url": "https://news.livedoor.com/article/detail/32546293/"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "cd8cc845ccd2574f",
+        "sourceRecordId": null,
+        "title": "コカイン５キロ密輸疑いで逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2720288"
+      },
+      "removed": {
+        "id": "e5b6519c593c061b",
+        "sourceRecordId": null,
+        "title": "靴に隠しコカイン5キロ密輸か、マレーシア国籍の男女5人逮捕　末端価格1憶円超(産経新聞)",
+        "date": "2026-10-12",
+        "url": "https://news.yahoo.co.jp/articles/44c61bc2ba2e970e71647c64bdffc96ccfe0dc6c?source=rss"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "cd8cc845ccd2574f",
+        "sourceRecordId": null,
+        "title": "コカイン５キロ密輸疑いで逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2720288"
+      },
+      "removed": {
+        "id": "649f67e17ef285b7",
+        "sourceRecordId": null,
+        "title": "コカイン約5キロを靴の中敷きの下に隠して密輸か　マレーシア国籍男女5人逮捕　末端価格1億2000万円相当　警視庁",
+        "date": "2026-10-12",
+        "url": "https://news.livedoor.com/article/detail/32546746/"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d4f326597b344a15",
+        "sourceRecordId": null,
+        "title": "偽造通貨を両替した中国籍の男（３７）を再逮捕　トクリュウグループ上位者か　「司法取引」適用　広島",
+        "date": "2026-10-13",
+        "url": "https://www.fnn.jp/articles/-/1131791"
+      },
+      "removed": {
+        "id": "48068d8523d9c1c3",
+        "sourceRecordId": null,
+        "title": "偽の1万円銀貨を両替した疑い 上位役とみられる中国籍の男を再逮捕",
+        "date": "2026-10-13",
+        "url": "https://news.yahoo.co.jp/articles/10c730cb040fdbedb8aa446c9e32114da2b712c3"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "39dbee80136d9d3f",
+        "sourceRecordId": null,
+        "title": "偽造貨幣を本物と偽り両替した疑い　中国籍の会社役員の男を再逮捕(HOME広島ホームテレビ)",
+        "date": "2026-10-13",
+        "url": "https://news.yahoo.co.jp/articles/5c0171648455ad79cba34a118e3d7d3872e4e20d?source=rss"
+      },
+      "removed": {
+        "id": "e24ff6c8d84a06ef",
+        "sourceRecordId": null,
+        "title": "偽造貨幣を両替の疑いで中国籍の男を再逮捕　共犯者に「司法取引」トクリュウ関与か　(広島テレビ　ニュース)",
+        "date": "2026-10-13",
+        "url": "https://news.yahoo.co.jp/articles/b96e1e048af5f4194d0501b9ddcafce2e3c4e4f8?source=rss"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "26e67f8327a56eba",
+        "sourceRecordId": null,
+        "title": "無許可でイノシシ2頭を解体し販売か ベトナム国籍の28歳男を再逮捕【愛知・春日井市】",
+        "date": "2026-10-14",
+        "url": "https://locipo.jp/article/72fc16cf-6c4f-4531-aea9-26dc1337f6b3"
+      },
+      "removed": {
+        "id": "4f5c5e5eaa04c151",
+        "sourceRecordId": null,
+        "title": "シカの切断面と大量の酒の空き缶… 「大宴会したんだろうと」 “駐在さん”が見抜いた密猟 ベトナム国籍の男を“違法ジビエ”で逮捕",
+        "date": "2026-10-14",
+        "url": "https://news.yahoo.co.jp/articles/bdc41e358357e28b2cd4020bdb6b3b8249a23caa"
+      },
+      "reason": "同日+同県+国籍+罪種+性別一致（矛盾なし）",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "26e67f8327a56eba",
+        "sourceRecordId": null,
+        "title": "無許可でイノシシ2頭を解体し販売か ベトナム国籍の28歳男を再逮捕【愛知・春日井市】",
+        "date": "2026-10-14",
+        "url": "https://locipo.jp/article/72fc16cf-6c4f-4531-aea9-26dc1337f6b3"
+      },
+      "removed": {
+        "id": "27d2b48f35edd611",
+        "sourceRecordId": null,
+        "title": "「違法ジビエ」無許可で営業か　販売目的でイノシシ解体した疑いでベトナム国籍の男を再逮捕　愛知・春日井市",
+        "date": "2026-10-14",
+        "url": "https://news.ntv.co.jp/n/ctv/category/society/ct4be0cddad79d493997cda6d1b446885a"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "26e67f8327a56eba",
+        "sourceRecordId": null,
+        "title": "無許可でイノシシ2頭を解体し販売か ベトナム国籍の28歳男を再逮捕【愛知・春日井市】",
+        "date": "2026-10-14",
+        "url": "https://locipo.jp/article/72fc16cf-6c4f-4531-aea9-26dc1337f6b3"
+      },
+      "removed": {
+        "id": "41567eaef5cee169",
+        "sourceRecordId": null,
+        "title": "シカの切り口と大量の空き缶から、駐在さんが違法ジビエの密猟を見抜く",
+        "date": "2026-10-14",
+        "url": "https://news.livedoor.com/article/detail/32566775/"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "26e67f8327a56eba",
+        "sourceRecordId": null,
+        "title": "無許可でイノシシ2頭を解体し販売か ベトナム国籍の28歳男を再逮捕【愛知・春日井市】",
+        "date": "2026-10-14",
+        "url": "https://locipo.jp/article/72fc16cf-6c4f-4531-aea9-26dc1337f6b3"
+      },
+      "removed": {
+        "id": "20e033cb1e47d151",
+        "sourceRecordId": null,
+        "title": "シカの生首が相次ぎ…イノシシをノコギリで食肉加工し販売か　密猟疑いで男を逮捕(テレビ朝日系（ANN）)",
+        "date": "2026-10-15",
+        "url": "https://news.yahoo.co.jp/articles/0ae2cee6f7807bdf94db5bd291765a6802c10136?source=rss"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "f4bdd1d70f1be366",
+        "sourceRecordId": null,
+        "title": "シカの生首が相次ぎ…イノシシをノコギリで食肉加工し販売か 密猟疑いで男を逮捕 2026 年 10 月 15 日 12:48",
+        "date": "2026-10-15",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/900201942.html"
+      },
+      "removed": {
+        "id": "26e67f8327a56eba",
+        "sourceRecordId": null,
+        "title": "無許可でイノシシ2頭を解体し販売か ベトナム国籍の28歳男を再逮捕【愛知・春日井市】",
+        "date": "2026-10-14",
+        "url": "https://locipo.jp/article/72fc16cf-6c4f-4531-aea9-26dc1337f6b3"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "235ae37994042dce",
+        "sourceRecordId": null,
+        "title": "交番駐車場のミニパトカーの屋根などに乗り4カ所へこませる 容疑でリビア国籍の男逮捕 葺合署",
+        "date": "2026-10-14",
+        "url": "http://www.kobe-np.co.jp/news/jiken/202610/0020927241.shtml"
+      },
+      "removed": {
+        "id": "9618ae61bdb92aec",
+        "sourceRecordId": null,
+        "title": "交番駐車場のミニパトカーの屋根などに乗り4カ所へこませる 容疑でリビア国籍の男逮捕 兵庫県警葺合署（神戸新聞NEXT）",
+        "date": "2026-10-14",
+        "url": "https://news.yahoo.co.jp/articles/34411cbd5df12a883d4528f69d917e7f179321b4"
+      },
+      "reason": "国籍+罪種+場所/年齢+見出し類似0.93",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "119868955a373cfa",
+        "sourceRecordId": null,
+        "title": "無免許で小学生はね逃走 容疑のイラン国籍男を再逮捕 三重",
+        "date": "2026-10-14",
+        "url": "https://www.sankei.com/article/20261014-6FRUIA2EPZP57NPNU26YNLJIEM/"
+      },
+      "removed": {
+        "id": "275d840cd2e2534e",
+        "sourceRecordId": null,
+        "title": "小学1年男児重傷ひき逃げ事件でイラン国籍の男を逮捕　無免許で車を運転か　三重・鈴鹿市(メ〜テレ（名古屋テレビ）)",
+        "date": "2026-10-14",
+        "url": "https://news.yahoo.co.jp/articles/158ad50bb122256dae87b41f682362ecfe4c04ac?source=rss"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "119868955a373cfa",
+        "sourceRecordId": null,
+        "title": "無免許で小学生はね逃走 容疑のイラン国籍男を再逮捕 三重",
+        "date": "2026-10-14",
+        "url": "https://www.sankei.com/article/20261014-6FRUIA2EPZP57NPNU26YNLJIEM/"
+      },
+      "removed": {
+        "id": "17e418769dc22d58",
+        "sourceRecordId": null,
+        "title": "7歳男児をひき逃げし重傷を負わせた疑い、イラン国籍の男を逮捕",
+        "date": "2026-10-14",
+        "url": "https://news.livedoor.com/article/detail/32565984/"
+      },
+      "reason": "同日+同県+国籍+罪種+性別一致（矛盾なし）",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "aecbf515fa37d888",
+        "sourceRecordId": null,
+        "title": "売り上げは約250万円か　医師免許なしで鼻を高くする処置をした疑い　エステ店オーナーを逮捕",
+        "date": "2026-10-15",
+        "url": "https://www.nagoyatv.com/news/index_amp.html?id=037600"
+      },
+      "removed": {
+        "id": "17bd77e4ad184bf7",
+        "sourceRecordId": null,
+        "title": "医師免許なく美容整形か フィリピン国籍のエステ店オーナーの女を逮捕【名古屋市中区】(テレビ愛知)",
+        "date": "2026-10-15",
+        "url": "https://news.yahoo.co.jp/articles/4139866211c24dd70f50f31f042608d2163aa6fb?source=rss"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "ebf7e072420305bf",
+        "sourceRecordId": null,
+        "title": "医師免許ないのに鼻を高くする美容整形した疑い フィリピン国籍の女逮捕 3時間前",
+        "date": "2026-10-16",
+        "url": "https://newsdig.tbs.co.jp/articles/-/3015947"
+      },
+      "removed": {
+        "id": "aecbf515fa37d888",
+        "sourceRecordId": null,
+        "title": "売り上げは約250万円か　医師免許なしで鼻を高くする処置をした疑い　エステ店オーナーを逮捕",
+        "date": "2026-10-15",
+        "url": "https://www.nagoyatv.com/news/index_amp.html?id=037600"
+      },
+      "reason": "国籍+罪種+固有語類似0.36",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "00e5ac781b211c60",
+        "sourceRecordId": null,
+        "title": "ホテルの客室に無断でPC設置しフィッシングメールを約48万件送信か　他人のクレカ情報で買い物も…中国籍の夫婦を逮捕　兵庫県警",
+        "date": "2026-10-15",
+        "url": "https://news.ntv.co.jp/n/ytv/category/society/yt0a65f076458c48e594c7d4536a2eb9c8"
+      },
+      "removed": {
+        "id": "2e6ba0676ff46514",
+        "sourceRecordId": null,
+        "title": "ホテルのWiFiで大量詐欺メール送信　容疑で中国籍夫婦再逮捕　(産経新聞)",
+        "date": "2026-10-15",
+        "url": "https://news.yahoo.co.jp/articles/f1759051aef93c3c83690516f7b556b5da112395?source=rss"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-15T20:37:48.003Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "321d5559a30c0790",
+        "sourceRecordId": null,
+        "title": "詐欺グループへの口座提供でベトナム国籍の大学生を逮捕",
+        "date": "2026-09-29",
+        "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9EQjNDTlozcmNMLUhWNFZ0RU10UnNXRWZhN0U2QkdBVmRETlNSZmRQMFFNM2tUS1c4S0dSbTVVOENMdklEQVRxejBjanhLb0xqUmJPZVlTX09wOU8xbXdpS2dfNE4tTFJub0xJN3JzblNJelJRQnc?oc=5"
+      },
+      "removed": {
+        "id": "c98864264088c229",
+        "sourceRecordId": null,
+        "title": "だまし取った現金を資金洗浄の疑い ベトナム国籍の男を逮捕",
+        "date": "2026-09-29",
+        "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1PaVN3U2doTlBENGVKX3lGck4zcmgtVnR0SXI1RDdRT3N2NFZKLVFrSDNrejFyazBPY3BaMjg0UnBCZ3JvYktUSGJuMA?oc=5"
+      },
+      "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
+      "recordedAt": "2026-10-15T20:39:55.247Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "79db57c2e21fa72c",
+        "sourceRecordId": null,
+        "title": "詐欺容疑で中国籍の会社役員の男を逮捕 広島",
+        "date": "2026-09-30",
+        "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5qLVhaWlRiM0JDWmlJa24zdEw4TFdJMzFaVEExejk5N3lLeW9BLW55dTQ1a3pndWZmUTFTaGxMbWx2M1ZpVFlNSU9rNm5IelBtcUU0QnQ4bm94ZkdHd3RNZ2FRUWE?oc=5"
+      },
+      "removed": {
+        "id": "3471bea6b660b5a3",
+        "sourceRecordId": null,
+        "title": "特殊詐欺事件に関与した疑い 中国籍の男（37）を逮捕 広島・福山市",
+        "date": "2026-09-30",
+        "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5SZU5VX1QzRzdjQjFGT0FOenBNYzR1bDk0R3NBTU5iUzBnRTktYWlRbnppbXdLRDV6VnhGQ0tPbjZrY3pCWUdDVzlUNXhaaGM1a2FlMl9oVGJ2MXFDSzc0VExKVFhObzNma1k2dnlXWXk4cDIyaVlGUFo1ZU51RVk?oc=5"
+      },
+      "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
+      "recordedAt": "2026-10-15T20:39:55.247Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "bead2487b10426bd",
+        "sourceRecordId": null,
+        "title": "架空投資詐欺未遂 中国籍の男2人ら3人を逮捕 静岡市葵区",
+        "date": "2026-10-01",
+        "url": "https://newsdig.tbs.co.jp/articles/-/2979969?display=1"
+      },
+      "removed": {
+        "id": "d43ccde70d8e2a73",
+        "sourceRecordId": null,
+        "title": "「騙されたふり作戦」で受け子の埼玉の男と中国人2人を現行犯逮捕 架空の投資話で70代女性から現金だまし取ろうとしたか ３人とも容疑を否認 静岡市",
+        "date": "2026-10-01",
+        "url": "https://news.yahoo.co.jp/articles/c24adc7823095f53347e85d8da793dceaa7f81a3"
+      },
+      "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
+      "recordedAt": "2026-10-15T20:39:55.247Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "0ca8d6544a0c75fe",
+        "sourceRecordId": null,
+        "title": "福山港から不法上陸疑い、中国籍の男を逮捕(中国新聞デジタル)",
+        "date": "2026-10-03",
+        "url": "https://news.yahoo.co.jp/articles/4025470d6f18621dcbcdb73271aca8ac8bfcd37d?source=rss"
+      },
+      "removed": {
+        "id": "3dd86304ebd74a32",
+        "sourceRecordId": null,
+        "title": "広島・福山港に不法に上陸し、残留した疑い　埼玉県川口市の無職で中国籍の男（４４）を逮捕　容疑を認める",
+        "date": "2026-10-02",
+        "url": "https://topics.smt.docomo.ne.jp/article/tss/region/tss-35927?utm_source=dnews&utm_medium=article&utm_campaign=contentsmatch1"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T20:39:55.247Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "27e7ef111ff171c8d1e1",
+        "sourceRecordId": "chiba-police:27e7ef111ff171c8d1e1",
+        "title": "盗品等保管事件で男を逮捕（捜査第三課）",
+        "date": "2026-10-05",
+        "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03781.html"
+      },
+      "removed": {
+        "id": "999b1de21eea17b0",
+        "sourceRecordId": null,
+        "title": "盗難高級車保管疑い、逮捕",
+        "date": "2026-10-05",
+        "url": "https://www.fukuishimbun.co.jp/articles/gallery/2714251"
+      },
+      "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
+      "recordedAt": "2026-10-15T20:39:55.247Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "96ea23599582fef1eb19",
+        "sourceRecordId": "chiba-police:96ea23599582fef1eb19",
+        "title": "建造物侵入、窃盗未遂事件で少年を逮捕（国際捜査課）",
+        "date": "2026-10-08",
+        "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03784.html"
+      },
+      "removed": {
+        "id": "bfc767e92067c242",
+        "sourceRecordId": null,
+        "title": "スーパー銭湯で連続窃盗か、千葉 中国籍の男を再逮捕",
+        "date": "2026-10-08",
+        "url": "https://www.hokkaido-np.co.jp/article/1386363/"
+      },
+      "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
+      "recordedAt": "2026-10-15T20:39:55.247Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "433a6b82be668ae9",
+        "sourceRecordId": null,
+        "title": "福岡県内で飲酒運転相次ぐ 久留米市では酒酔い運転容疑で女を現行犯逮捕",
+        "date": "2026-10-11",
+        "url": "https://kbc.co.jp/news/article.php?id=18298920"
+      },
+      "removed": {
+        "id": "29d5a47b62c0588e",
+        "sourceRecordId": null,
+        "title": "一方通行を逆走…呼気から基準値の3倍超のアルコール スリランカ国籍の男（21）を逮捕 福岡・北九州市 3時間前",
+        "date": "2026-10-11",
+        "url": "https://newsdig.tbs.co.jp/articles/-/3004625"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T20:39:55.247Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d4f326597b344a15",
+        "sourceRecordId": null,
+        "title": "偽造通貨を両替した中国籍の男（３７）を再逮捕　トクリュウグループ上位者か　「司法取引」適用　広島",
+        "date": "2026-10-13",
+        "url": "https://www.fnn.jp/articles/-/1131791"
+      },
+      "removed": {
+        "id": "39dbee80136d9d3f",
+        "sourceRecordId": null,
+        "title": "偽造貨幣を本物と偽り両替した疑い　中国籍の会社役員の男を再逮捕(HOME広島ホームテレビ)",
+        "date": "2026-10-13",
+        "url": "https://news.yahoo.co.jp/articles/5c0171648455ad79cba34a118e3d7d3872e4e20d?source=rss"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T20:39:55.247Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "8e1d4d0f7c447b92",
+        "sourceRecordId": null,
+        "title": "昭和天皇在位60年を記念した偽造1万円貨幣を両替か　中国国籍の男（37）を送検　男は「トクリュウ」の上位人物とみて捜査　広島・福山(RCC中国放送)",
+        "date": "2026-10-14",
+        "url": "https://news.yahoo.co.jp/articles/7106ed67c92cdfb1c035a5157528eab840c2ebd7?source=rss"
+      },
+      "removed": {
+        "id": "4dbc279948b1650b",
+        "sourceRecordId": null,
+        "title": "国外で製造された可能性　中国籍の男（３７）を偽造通貨を両替した疑いで送検　トクリュウが関与か　広島(テレビ新広島)",
+        "date": "2026-10-14",
+        "url": "https://news.yahoo.co.jp/articles/c83c5ddca0fe3947a35d7af36368d40801c5001d?source=rss"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T20:39:55.247Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "00e5ac781b211c60",
+        "sourceRecordId": null,
+        "title": "ホテルの客室に無断でPC設置しフィッシングメールを約48万件送信か　他人のクレカ情報で買い物も…中国籍の夫婦を逮捕　兵庫県警",
+        "date": "2026-10-15",
+        "url": "https://news.ntv.co.jp/n/ytv/category/society/yt0a65f076458c48e594c7d4536a2eb9c8"
+      },
+      "removed": {
+        "id": "0246caef25eb459b",
+        "sourceRecordId": null,
+        "title": "ホテルから大量の偽メール送信容疑 中国人逮捕、客室にＰＣ隠す―兵庫県警",
+        "date": "2026-10-15",
+        "url": "https://www.jiji.com/jc/article?k=2026101500878&g=soc"
+      },
+      "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
+      "recordedAt": "2026-10-15T20:39:55.247Z"
     }
   ]
 }

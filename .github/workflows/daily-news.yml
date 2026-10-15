@@ -71,6 +71,13 @@ jobs:
           PENDING_TTL_HOURS: ${{ vars.PENDING_TTL_HOURS || '72' }}
           HEADLINE_PROVISIONAL_TTL_HOURS: ${{ vars.HEADLINE_PROVISIONAL_TTL_HOURS || '48' }}
 
+      # 公開直前の安全網: 同一事件・同一見出しの重複を統合し、残っていれば以降（ビルド・デプロイ）を止める。
+      - name: Dedupe published news (safety net)
+        run: node scripts/dedupe-newsdata.cjs
+
+      - name: Verify no duplicates before build
+        run: node scripts/verify-no-duplicates.cjs
+
       # トップはJST当日分だけを表示するため、ニュース0件の日も日付切替後に静的HTMLを更新する。
       - name: Refresh static page for Japan date rollover
         id: site-date

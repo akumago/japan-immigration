@@ -619,3 +619,46 @@ test('手続段階: 本文根拠に含まれる過去の公判・逮捕語で見
   assert.equal(dedupe.procedureStage({ title: '外国籍被告の事件報道' }), null,
     '手続段階語がない見出しに逮捕段階を推測付与しない');
 });
+
+// ── 汎用の数量・金額アンカー（事件ごとのハードコードなし） ──
+
+test('数量アンカー: 国名が見出しにない転載でも、同重量・同県・近接日の複数被疑者事件は同一事件', () => {
+  const a = {
+    title: 'コカイン5キロ密輸疑いで逮捕　マレーシア国籍の5人、警視庁', date: '2026-10-12', location: '東京都',
+    audit: { suspectRole: { evidence: '本文抜粋: ベートリス・ウマン・アナ・バル容疑者らを逮捕' } },
+  };
+  const b = {
+    title: 'コカイン約5キロを靴の中敷きの下に隠して密輸か　マレーシア国籍男女5人逮捕', date: '2026-10-12', location: '東京都',
+    audit: { suspectRole: { evidence: '本文抜粋: モハマ・ダニュー・フラハン容疑者（24）ら男女5人' } },
+  };
+  assert.ok(dedupe.sameEventReason(a, b), '容疑者名の表記が媒体で違っても同一事件として統合する');
+});
+
+test('数量アンカー: 表記ゆれ（約3kg/3キロ/3.2キロ）は同一重量として扱う', () => {
+  const mk = (title) => ({ title, date: '2026-10-07', location: '東京都' });
+  assert.ok(dedupe.sameEventReason(mk('コカイン約3kg密輸か フィンランド国籍の女逮捕'), mk('大量のコカイン密輸か 約3.2キロ フィンランド国籍の女を逮捕')));
+});
+
+test('数量アンカー: 同重量でも別県の事件は統合しない', () => {
+  const a = { title: 'コカイン5キロ密輸疑いで逮捕 マレーシア国籍の男', date: '2026-10-12', location: '東京都' };
+  const b = { title: 'コカイン5キロ密輸疑いで逮捕 マレーシア国籍の男', date: '2026-10-12', location: '大阪府' };
+  assert.equal(dedupe.sameEventReason(a, b), null);
+});
+
+test('数量アンカー: 国籍が異なれば同重量・同県でも統合しない', () => {
+  const a = { title: 'コカイン5キロ密輸疑いで逮捕 マレーシア国籍の男', date: '2026-10-12', location: '東京都' };
+  const b = { title: 'コカイン5キロ密輸疑いで逮捕 ブラジル国籍の男', date: '2026-10-12', location: '東京都' };
+  assert.equal(dedupe.sameEventReason(a, b), null);
+});
+
+test('数量アンカー: 3日を超えて離れた同重量事件は例外を適用せず、容疑者名が違えば統合しない', () => {
+  const a = {
+    title: 'コカイン5キロ密輸疑いで逮捕 マレーシア国籍', date: '2026-10-01', location: '東京都',
+    audit: { suspectRole: { evidence: '本文抜粋: アレックス・スミス容疑者を逮捕' } },
+  };
+  const b = {
+    title: 'コカイン5キロ密輸疑いで逮捕 マレーシア国籍', date: '2026-10-05', location: '東京都',
+    audit: { suspectRole: { evidence: '本文抜粋: ベートリス・ウマン容疑者を逮捕' } },
+  };
+  assert.equal(dedupe.sameEventReason(a, b), null);
+});

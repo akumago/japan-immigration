@@ -24,7 +24,7 @@ function normalizeArticleUrl(rawUrl) {
     u.hash = '';
     const deleteKeys = [];
     for (const key of u.searchParams.keys()) {
-      if (/^(?:utm_|ref|oc|hl|gl|ceid|fbclid|gclid|source|sourceid)/i.test(key)) {
+      if (/^(?:utm_|ref|oc|hl|gl|ceid|fbclid|gclid|source|sourceid|ph|page|pid|cid)/i.test(key)) {
         deleteKeys.push(key);
       }
     }
@@ -96,7 +96,7 @@ function eventFingerprint(item) {
 
 function publicationHeadlineKey(item) {
   const title = normalizeTitle(item.title || '').replace(/[「」『』【】・、。！？!?：:＝=～〜\-‐\s]/g, '');
-  if (title.length < 20 || !item.date) return null;
+  if (title.length < 8 || !item.date) return null;
   return `${item.date}|${title}`;
 }
 
@@ -2886,7 +2886,7 @@ async function main() {
   // --- 自己修復: 直近5日分で同一事件が複数掲載されていれば初報だけ残す ---
   const healed = eventDedupe.healRecentDuplicates([...acceptedNew, ...frozenExisting], {
     auditOf: (item) => auditByUrl.get(normalizeArticleUrl(item.url || '')) || null,
-    windowDays: 5, now, rank: publicationSourceRank,
+    windowDays: 14, now, rank: publicationSourceRank,
   });
   healed.removed.forEach((r) => console.log(`   🧹 同一事件を自動統合 [${r.reason}] 残: ${r.kept} / 消: ${r.removed}`));
   acceptedNew = replaceWithHealedItems(acceptedNew, healed.items);

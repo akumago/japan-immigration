@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-13T08:21:09.823Z",
+  "updatedAt": "2026-10-15T08:02:12.425Z",
   "items": [
     {
       "id": "cad831a7781dd24a",
@@ -67,6 +67,150 @@
       "reason": "既発生事件の背景解説・現地ルポであり、2026-10-13の新規犯罪報道ではないため誤掲載として除外",
       "actor": "pipeline_quality_correction",
       "recordedAt": "2026-10-13T08:21:09.823Z"
+    },
+    {
+      "id": "e0a07bde9ac4f230",
+      "sourceRecordId": null,
+      "title": "国外逃亡、水際で阻止 発生３時間後に逮捕も―羽田国際捜査センター・警視庁",
+      "url": "https://www.jiji.com/jc/article?k=2026101100230&g=soc",
+      "resolvedUrl": null,
+      "eventKey": "event-v1:fe0cdb882194de198b6019027632e12a0e5b46428087f5d766bb83073dfa06c1",
+      "reason": "editorial_or_opinion",
+      "date": "2026-10-12",
+      "removedAt": "2026-10-15T07:36:16.315Z",
+      "recordedAt": "2026-10-15T07:36:16.316Z"
+    },
+    {
+      "id": "abcf21a2868e1717",
+      "sourceRecordId": null,
+      "title": "再発防止 日米と県協議を 地位協定の改定が必要 海兵隊員逮捕1週間 波照間陽沖縄国際大講師",
+      "url": "https://www.okinawatimes.co.jp/articles/-/1942951",
+      "resolvedUrl": null,
+      "eventKey": "event-v1:f4e32edbe100dca8e62d2a4b09a9c75b7a6f0a722bb422e02430372e20170b89",
+      "reason": "editorial_or_opinion",
+      "date": "2026-10-12",
+      "removedAt": "2026-10-15T07:36:16.316Z",
+      "recordedAt": "2026-10-15T07:36:16.316Z"
+    },
+    {
+      "id": "433a6b82be668ae9",
+      "sourceRecordId": null,
+      "title": "福岡県内で飲酒運転相次ぐ 久留米市では酒酔い運転容疑で女を現行犯逮捕",
+      "url": "https://kbc.co.jp/news/article.php?id=18298920",
+      "resolvedUrl": null,
+      "eventKey": "event-v1:c193c5e1bc04a9e48e67d24d41a313ef2c15318a606d9451ab3c7896659b915a",
+      "reason": "japanese_suspect_in_headline",
+      "date": "2026-10-11",
+      "removedAt": "2026-10-15T07:36:16.316Z",
+      "recordedAt": "2026-10-15T07:36:16.316Z"
+    },
+    {
+      "id": "90527131b91868a4",
+      "sourceRecordId": null,
+      "title": "逮捕された沖縄駐在米兵のSNSから垣間見える「パリピ生活」",
+      "url": "https://news.livedoor.com/article/detail/32495138/",
+      "resolvedUrl": null,
+      "eventKey": null,
+      "reason": "editorial_or_opinion",
+      "date": "2026-10-05",
+      "removedAt": "2026-10-15T07:36:16.316Z",
+      "recordedAt": "2026-10-15T07:36:16.316Z"
+    },
+    {
+      "id": "86d0591125e9659d",
+      "sourceRecordId": null,
+      "title": "高市首相、沖縄米兵強殺事件で「極めて遺憾」X投稿は速報から6時間後…災害でも指摘された “メッセージの遅さ”",
+      "url": "https://news.livedoor.com/article/detail/32492348/",
+      "resolvedUrl": null,
+      "eventKey": null,
+      "reason": "editorial_or_opinion",
+      "date": "2026-10-05",
+      "removedAt": "2026-10-15T07:36:16.316Z",
+      "recordedAt": "2026-10-15T07:36:16.316Z"
+    },
+    {
+      "id": "1af8a5089764c8f7",
+      "sourceRecordId": null,
+      "title": "絶滅危惧種のトカゲ譲り受けか ペットショップ経営者逮捕",
+      "url": "https://www.sanyonews.jp/article/1994196?kw=NL",
+      "resolvedUrl": null,
+      "eventKey": null,
+      "reason": "japanese_or_unidentified_suspect",
+      "date": "2026-10-03",
+      "removedAt": "2026-10-15T07:36:16.316Z",
+      "recordedAt": "2026-10-15T07:36:16.316Z"
+    },
+    {
+      "id": "43c3026734e9aeee",
+      "sourceRecordId": null,
+      "title": "パトカーが近づくと急に車の進路を変更…停止の求めに応じず赤信号を無視して逃走 派遣社員の男を逮捕 長野・上田市",
+      "url": "https://news.yahoo.co.jp/articles/d21bfe00a8ea06207a4923e0c2ef2b5575fdce69",
+      "resolvedUrl": null,
+      "eventKey": null,
+      "reason": "japanese_or_unidentified_suspect",
+      "date": "2026-10-03",
+      "removedAt": "2026-10-15T07:36:16.316Z",
+      "recordedAt": "2026-10-15T07:36:16.316Z"
+    },
+    {
+      "id": "36e415b459e180af",
+      "sourceRecordId": null,
+      "title": "“アシスタント詐欺師”40歳男を逮捕 「逮捕状が出てる」70代男性から現金だまし取った疑い 海外のトクリュウグループか",
+      "url": "https://www.fnn.jp/articles/-/1125653",
+      "resolvedUrl": null,
+      "eventKey": null,
+      "reason": "japanese_or_unidentified_suspect",
+      "date": "2026-10-02",
+      "removedAt": "2026-10-15T07:36:16.316Z",
+      "recordedAt": "2026-10-15T07:36:16.316Z"
+    },
+    {
+      "id": "a08a52de32e253f9",
+      "sourceRecordId": null,
+      "title": "偽装結婚の在留資格不正申請に関与した行政書士を逮捕 愛知",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9qNEk2cndXYmNfaTF4NG8xNG9JaXdKRlZrMkdINDhidGY3VXVpYmtDM2pqaEJtYW9mbW56eFhjbS1sX24yZWczT0h0MXJUZjdjTUZ5YUZMQWM?oc=5",
+      "resolvedUrl": null,
+      "eventKey": null,
+      "reason": "japanese_or_unidentified_suspect",
+      "date": "2026-09-30",
+      "removedAt": "2026-10-15T07:36:16.316Z",
+      "recordedAt": "2026-10-15T07:36:16.316Z"
+    },
+    {
+      "id": "5a030a95250349b3",
+      "sourceRecordId": null,
+      "title": "中野窃盗事件 容疑者の供述から犯罪グループの戦略を読みとく 偽装観光と「窃盗ツーリズム」の脅威 #エキスパートトピ",
+      "url": "https://news.yahoo.co.jp/expert/articles/a3d7c56edbbfcb94f354de915624afc571f34a33",
+      "resolvedUrl": null,
+      "eventKey": null,
+      "reason": "editorial_or_opinion",
+      "date": "2026-09-29",
+      "removedAt": "2026-10-15T07:36:16.316Z",
+      "recordedAt": "2026-10-15T07:36:16.316Z"
+    },
+    {
+      "id": "d595f489f6f98425",
+      "sourceRecordId": null,
+      "title": "世界で横行「窃盗ツーリズム」の手口とは 中野ブロードウェイ時計店窃盗 チリ国籍の男2人を再逮捕【Nスタ解説】",
+      "url": "https://news.yahoo.co.jp/articles/cd80722d6463fb4ee968ab50181915a334571a76",
+      "resolvedUrl": null,
+      "eventKey": "event-v1:dd8f1f5804772f7082cebd00ebab971621e0129d960a1dfabaa7ccaf9191e0d0",
+      "reason": "editorial_or_opinion",
+      "date": "2026-09-28",
+      "removedAt": "2026-10-15T07:36:16.316Z",
+      "recordedAt": "2026-10-15T07:36:16.316Z"
+    },
+    {
+      "kind": "automatic_reject",
+      "item": {
+        "id": "5f4a4219a65b41f1",
+        "sourceRecordId": null,
+        "title": "沖縄・米兵逮捕 不安解消へ実行で応えよ",
+        "date": "2026-10-14",
+        "url": "https://www.fukuishimbun.co.jp/articles/-/2721486"
+      },
+      "reason": "editorial_or_opinion",
+      "recordedAt": "2026-10-15T08:02:12.425Z"
     }
   ]
 }

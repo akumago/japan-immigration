@@ -26,7 +26,12 @@ const CRIME_GROUPS = [
   ['盗品保管', /盗品等保管|盗品保管|盗難車保管|盗品と知りながら.{0,24}保管/],
   ['商標', /商標法|偽(?:ブランド|物|ユニホ|ユニフォ|サプリ)|模倣品/],
   ['野生動物', /種の保存法|絶滅危惧/],
+  ['食肉・鳥獣', /食品衛生法|と畜場法|鳥獣保護法|密猟|ジビエ|食肉|解体|イノシシ|シカ/],
+  ['通貨偽造', /通貨及(?:び)?証券模造|通貨偽造|偽造通貨|偽造銀貨|偽造貨幣/],
+  ['器物損壊・公妨', /器物損壊|建造物損壊|公務執行妨害|パトカー/],
   ['風営', /風営法|売春/],
+  ['医療・資格', /医師法|医師免許|無資格.{0,8}(?:医療|施術|診療)|美容整形/],
+  ['サイバー', /不正アクセス|フィッシング|偽メール|詐欺メール|迷惑メール|電子計算機|不正指令/],
 ];
 
 const nfkc = (s) => String(s || '').normalize('NFKC');
@@ -116,8 +121,11 @@ function isFollowUp(older, newer) {
   const orderB = STAGE_ORDER[newerStage] || 0;
   const olderDate = Date.parse(older?.date || '');
   const newerDate = Date.parse(newer?.date || '');
+  // 同じ報道日に「逮捕」と「再逮捕」が並ぶのは媒体ごとの表記揺れ（同日転載）のため続報とみなさない
+  const sameDay = olderDate === newerDate;
   return Boolean(olderStage && newerStage && orderB > orderA
-    && Number.isFinite(olderDate) && Number.isFinite(newerDate) && newerDate >= olderDate);
+    && Number.isFinite(olderDate) && Number.isFinite(newerDate) && newerDate >= olderDate
+    && (!sameDay || orderB - orderA >= 1));
 }
 
 function signals(item) {
@@ -127,12 +135,16 @@ function signals(item) {
     item.audit?.foreignNationality?.evidence || item.evidence?.nationality,
   ]
     .filter(Boolean).join(' ').replace(/本文抜粋:\s*/g, '');
-  const title = nfkc(item.title).replace(/\s*\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*\d{1,2}:\d{2}\s*$/, '').replace(/\s*\d+(?:分|時間)前\s*$/, '');
+  const title = nfkc(item.title).replace(/\s*\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*\d{1,2}:\d{2}\s*$/, '').replace(/\s*\d+(?:分|時間)前\s*$/, '')
+    // 末尾の媒体名「(テレビ愛知)」「（神戸新聞NEXT）」や途切れた「(」を除去（年齢「（37）」は残す）
+    .replace(/\s*[（(](?!\d{1,3}[）)])[^（）()]{0,30}[）)]?\s*$/, '').replace(/\s*[-–―]\s*[^\s]{1,20}(?:\s[^\s]{1,20})?$/, (m) => (/[逮捕疑容]/.test(m) ? m : ''));
   const text = `${nfkc(evidence)} ${title}`;
   // 手続段階が見出しで明示されている場合は、同じ事件の続報も別記事として残す。
   // 本文中の過去経緯（「再逮捕」等）で段階を誤分類しないよう、まず見出しだけを見る。
   const stage = procedureStage(item);
   const nats = new Set([...text.matchAll(NAT_RE)].map((m) => NAT_ALIAS[m[1]] || m[1]));
+  // 辞書に無い国籍（リビア・チュニジア等）も「カタカナ+国籍」で自動抽出
+  for (const m of text.matchAll(/([ァ-ヴ][ァ-ヴー]{1,11})国籍/g)) nats.add(NAT_ALIAS[m[1]] || m[1]);
   if (US_MILITARY_RE.test(text)) nats.add('アメリカ');
   const ages = new Set([...text.matchAll(/(?:[（(](\d{2})[）)]|(\d{2})歳)/g)].map((m) => m[1] || m[2]));
   const places = new Set((text.match(/[一-龥ァ-ヴー]{1,6}(?:市|区|町|村)(?![役長民議])/g) || [])
@@ -147,6 +159,14 @@ function signals(item) {
   if (/(?:ヤード|中古車)/.test(text) && /(?:高級車|盗難車)/.test(text) && /保管/.test(text)) incidentAnchors.add('yard_vehicle_storage');
   if (/高級車/.test(text) && /保管/.test(text)) incidentAnchors.add('high_end_car_storage');
   if (/(?:米兵|米海兵隊|海兵隊)/.test(text) && /(?:沖縄|那覇)/.test(text) && /(?:強盗殺人|殺人)/.test(text)) incidentAnchors.add('okinawa_us_military_homicide');
+  // 数量・金額の「事実トークン」から汎用アンカー(fact:罪種:値)を作る。事件ごとの個別登録は不要。
+  // 重量は整数kgへ丸めて表記ゆれを吸収（約3kg/3キロ/3.2キロ→3kg）。text は NFKC 済みで全角数字も吸収済み。
+  const factWeights = [...text.matchAll(/(\d+(?:\.\d+)?)\s*(?:キロ|kg)/gi)].filter((m) => parseFloat(m[1]) >= 1).map((m) => `${Math.round(parseFloat(m[1]))}kg`);
+  const factAmounts = [...text.matchAll(/(\d+(?:\.\d+)?)\s*(億|万)円/g)].map((m) => `${m[1]}${m[2]}円`);
+  const factCrime = ['薬物', '詐欺', '窃盗', '強盗', '盗品保管', '食肉・鳥獣', '通貨偽造'].find((k) => crimes.has(k));
+  if (factCrime) [...new Set([...factWeights, ...factAmounts])].forEach((f) => incidentAnchors.add(`fact:${factCrime}:${f}`));
+  // イノシシ・シカ等の密猟・違法解体事件アンカー
+  if (crimes.has('食肉・鳥獣') && /(?:イノシシ|シカ|ジビエ)/.test(text)) incidentAnchors.add('fact:wildlife_meat');
   // 2026-10-11 横浜市中区長者町の飲食店刺傷事件。国籍・市・罪種・段階に加えて
   // 発生場所の種類も一致するものだけを同一事件候補にし、同市内の別の傷害事件を束ねない。
   if (nats.has('キューバ') && /横浜市/.test(text) && /飲食店/.test(text)
@@ -225,8 +245,17 @@ function sameEventReason(a, b, { maxDays = 5 } = {}) {
   // often use nearly identical headlines. Require the suspect nationality to
   // agree and reject explicit age, gender, municipality, or prefecture conflicts
   // before considering headline similarity.
-  if (!sa.nats.size || !sb.nats.size || !intersects(sa.nats, sb.nats)) return null;
-  if (sa.suspectNames?.size && sb.suspectNames?.size && !intersects(sa.suspectNames, sb.suspectNames)) return null;
+  const sharedIncidentAnchor = intersects(sa.incidentAnchors || new Set(), sb.incidentAnchors || new Set());
+  const hasMatchingSuspectName = intersects(sa.suspectNames || new Set(), sb.suspectNames || new Set());
+  const natsMatch = Boolean(sa.nats.size && sb.nats.size && intersects(sa.nats, sb.nats));
+  // 数量・金額の事実アンカーが一致し、同県・3日以内・国籍が矛盾しない場合だけ、
+  // 媒体ごとに容疑者名・年齢・場所の表記が揺れる複数被疑者事件の転載を同一事件として扱う。
+  const sameStoredRegionForFact = Boolean(a.location && b.location && a.location === b.location);
+  const factAnchorShared = [...(sa.incidentAnchors || [])].some((x) => x.startsWith('fact:') && sb.incidentAnchors?.has(x))
+    && daysApart(a.date, b.date) <= 3 && sameStoredRegionForFact
+    && (natsMatch || !sa.nats.size || !sb.nats.size);
+  if (!natsMatch && !factAnchorShared && !hasMatchingSuspectName) return null;
+  if (sa.suspectNames?.size && sb.suspectNames?.size && !hasMatchingSuspectName && !factAnchorShared) return null;
   const sameAge = intersects(sa.ages, sb.ages);
   const samePlace = intersects(sa.places, sb.places);
   const sameCrime = intersects(sa.crimes, sb.crimes);
@@ -243,16 +272,17 @@ function sameEventReason(a, b, { maxDays = 5 } = {}) {
     // suspect identity plus same crime/date/prefecture is stronger than that
     // incidental locality conflict.
     && (locationRelation === 'compatible' || sameStoredRegion);
-  if (locationRelation === 'conflict' && !sameNamedSuspect) return null;
-  const agesConflict = sa.ages.size && sb.ages.size && !sameAge && !sameNamedSuspect;
-  const placesConflict = locationRelation === 'conflict'
+  // 国籍・年齢・市区町村（福山市等）・罪種がすべて一致する場合は、住所抽出などによる県名の食い違いを矛盾とみなさない
+  const storedRegionMislabeled = natsMatch && sameAge && samePlace && sameCrime;
+  if (locationRelation === 'conflict' && !sameNamedSuspect && !storedRegionMislabeled) return null;
+  const agesConflict = sa.ages.size && sb.ages.size && !sameAge && !sameNamedSuspect && !factAnchorShared;
+  const placesConflict = (locationRelation === 'conflict' && !storedRegionMislabeled)
     || (locationRelation === 'unknown' && sa.places.size && sb.places.size && !samePlace);
-  if (agesConflict || (placesConflict && !sameNamedSuspect)) return null;
-  if (sa.genders.size && sb.genders.size && !intersects(sa.genders, sb.genders)) return null;
+  if (agesConflict || (placesConflict && !sameNamedSuspect && !factAnchorShared)) return null;
+  if (sa.genders.size && sb.genders.size && !intersects(sa.genders, sb.genders) && !factAnchorShared) return null;
   if (sameNamedSuspect) return '本文の容疑者氏名+罪種+同日+地域整合';
   const withinOneDay = daysApart(a.date, b.date) <= 1;
   const sameStage = sa.procedureStage && sa.procedureStage === sb.procedureStage;
-  const sharedIncidentAnchor = intersects(sa.incidentAnchors || new Set(), sb.incidentAnchors || new Set());
   const withinIncidentWindow = daysApart(a.date, b.date) <= 5;
   if (sharedIncidentAnchor && withinIncidentWindow && sameStage && sameStoredRegion && sameCrime) {
     return '国籍+罪種+地域+近接日同段階+事件固有アンカー';
@@ -269,6 +299,13 @@ function sameEventReason(a, b, { maxDays = 5 } = {}) {
   if (sameAge && (samePlace || sameCrime)) return '国籍+年齢+場所/罪種';
   if (samePlace && sameCrime) return '国籍+場所+罪種';
   if (sameCrime && csim >= 0.35) return `国籍+罪種+固有語類似${csim.toFixed(2)}`;
+  // 辞書にない罪名でも、見出し固有語がほぼ一致する転載を統合
+  if (natsMatch && daysApart(a.date, b.date) <= 3 && Math.min(sa.content.size, sb.content.size) >= 8
+    && (sim >= 0.7 || csim >= 0.5)) return `国籍+見出し固有語一致${Math.max(sim, csim).toFixed(2)}`;
+  // 同じ報道日・同じ県・同じ国籍・同じ罪種で、年齢・市区町村・性別に食い違い（矛盾）が無いものは同一発表の転載として統合
+  const genderConflict = sa.genders.size && sb.genders.size && !intersects(sa.genders, sb.genders);
+  if (natsMatch && sameCrime && a.date === b.date && sameStoredRegion && locationRelation !== 'conflict'
+    && !agesConflict && !placesConflict && !genderConflict) return '同日+同県+国籍+罪種（矛盾なし転載）';
   return null;
 }
 
@@ -293,7 +330,8 @@ function healRecentDuplicates(items, { auditOf = () => null, windowDays = 5, now
       const reason = sameEventReason(a, b);
       if (!reason) continue;
       const differentProcedureStage = procedureStage(recent[i].item) !== procedureStage(recent[j].item);
-      if (isFollowUp(recent[i].item, recent[j].item) || (recent[j].item.followUp && differentProcedureStage)) continue;
+      if (isFollowUp(recent[i].item, recent[j].item)
+        || (recent[j].item.followUp && differentProcedureStage && recent[i].item.date !== recent[j].item.date)) continue;
       const rankA = rank(recent[i].item.url);
       const rankB = rank(recent[j].item.url);
       const keepJ = rankB > rankA
