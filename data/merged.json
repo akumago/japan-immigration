@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-15T20:39:55.247Z",
+  "updatedAt": "2026-10-15T20:51:04.586Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -3771,6 +3771,182 @@
       },
       "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
       "recordedAt": "2026-10-15T20:39:55.247Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "dc8a0c4470e2d4f2",
+        "sourceRecordId": null,
+        "title": "アジア競技大会の会場からマット盗んだか イギリス国籍のボランティアスタッフの女を逮捕 名古屋",
+        "date": "2026-10-06",
+        "url": "https://news.ntv.co.jp/n/ctv/category/society/ct7575e60c2ba7479ca41909798b0a3aea",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:0df34f826622a86fb6869d71062b91ab0b3f94b76f038af65dfca3a1ef521abb"
+      },
+      "removed": {
+        "id": "b3608a0c54c11eea",
+        "sourceRecordId": null,
+        "title": "アジア大会の備品窃盗疑い　英国籍ボランティア逮捕",
+        "date": "2026-10-05",
+        "url": "https://news.infoseek.co.jp/amp/article/kyodo_1479815010284257687/",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:ff63dd8f28dd14fbcd864a36ebb833fec22608a59e9382584e7d97b37a5c2db5"
+      },
+      "reason": "国籍+罪種+固有語類似0.40",
+      "recordedAt": "2026-10-15T20:51:04.374Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "19617b5cb4ee8ada",
+        "sourceRecordId": null,
+        "title": "銭湯で連続窃盗 組織的か 千葉 中国籍の男再逮捕",
+        "date": "2026-10-09",
+        "url": "https://www.okinawatimes.co.jp/articles/-/1941188",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "removed": {
+        "id": "5dacd32b9406ddba",
+        "sourceRecordId": null,
+        "title": "ロッカー合鍵で組織的に窃盗か　千葉のスーパー銭湯に侵入疑い、１８歳男再逮捕　中国人グループ関与の可能性",
+        "date": "2026-10-11",
+        "url": "https://topics.smt.docomo.ne.jp/article/chiba/region/chiba-20261011113508",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T20:51:04.374Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "19617b5cb4ee8ada",
+        "sourceRecordId": null,
+        "title": "銭湯で連続窃盗 組織的か 千葉 中国籍の男再逮捕",
+        "date": "2026-10-09",
+        "url": "https://www.okinawatimes.co.jp/articles/-/1941188",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "removed": {
+        "id": "be20e8ed60b99093",
+        "sourceRecordId": null,
+        "title": "ロッカー合鍵で組織的に窃盗か　スーパー銭湯に侵入疑い、18歳男再逮捕　中国人グループ関与の可能性　千葉県警(千葉日報オンライン)",
+        "date": "2026-10-11",
+        "url": "https://news.yahoo.co.jp/articles/6da52fe07f19039f0b412bf457637474a3c46cab?source=rss",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T20:51:04.374Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "ce8a863a924db4e5",
+        "sourceRecordId": null,
+        "title": "スーパー銭湯で連続窃盗か、千葉 中国籍の男を再逮捕",
+        "date": "2026-10-13",
+        "url": "https://www.sanyonews.jp/article/2001737",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "removed": {
+        "id": "19617b5cb4ee8ada",
+        "sourceRecordId": null,
+        "title": "銭湯で連続窃盗 組織的か 千葉 中国籍の男再逮捕",
+        "date": "2026-10-09",
+        "url": "https://www.okinawatimes.co.jp/articles/-/1941188",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "reason": "国籍+罪種+固有語類似0.62",
+      "recordedAt": "2026-10-15T20:51:04.374Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "9a1f2938917fe16b",
+        "sourceRecordId": null,
+        "title": "沖縄県警、被害者中傷に「厳しく対応」 本部長が県議会答弁 那覇ホテル強殺米兵逮捕",
+        "date": "2026-10-14",
+        "url": "https://www.47news.jp/15078152.html",
+        "resolvedUrl": null,
+        "eventKey": "event-v1:5c06b13c62aa635b2d34860f10bfbd5013e592d13709a57f767bd44d60efbab8"
+      },
+      "removed": {
+        "id": "5f4a4219a65b41f1",
+        "sourceRecordId": null,
+        "title": "沖縄・米兵逮捕 不安解消へ実行で応えよ",
+        "date": "2026-10-14",
+        "url": "https://www.fukuishimbun.co.jp/articles/-/2721486",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-15T20:51:04.374Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "136769734c88311d",
+        "sourceRecordId": null,
+        "title": "埼玉・春日部市のヤードで無許可で使用済み車両解体か　ナイジェリア人の男（65）を逮捕",
+        "date": "2026-10-15",
+        "url": "https://news.ntv.co.jp/category/society/002559399c464cb3ba65c08835718c32",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "removed": {
+        "id": "b1d5c05b86d2c41a",
+        "sourceRecordId": null,
+        "title": "無許可で車解体、アフリカ地域に輸出か 会社役員の65歳逮捕",
+        "date": "2026-10-15",
+        "url": "https://news.yahoo.co.jp/articles/ba9791694798bb1b08b3cdcf50623a964a532c2b",
+        "resolvedUrl": null,
+        "eventKey": null
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-15T20:51:04.374Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "18279ec35c2452a7",
+        "sourceRecordId": null,
+        "title": "だまし取った現金を資金洗浄か ベトナム国籍の男を逮捕（2026年9月29日掲載）｜中京テレビNEWS NNN",
+        "date": "2026-09-30",
+        "url": "https://news.ntv.co.jp/n/ctv/category/society/ctfd87161ccedd498ca6544d34d8c4d38d"
+      },
+      "removed": {
+        "id": "5501bf0afac88637",
+        "sourceRecordId": null,
+        "title": "だまし取った現金を資金洗浄か ベトナム国籍の男を逮捕（中京テレビＮＥＷＳ）",
+        "date": "2026-09-30",
+        "url": "https://news.yahoo.co.jp/articles/1a215bb6fe503ad242d8a2704f8c9e095935cb3d"
+      },
+      "reason": "国籍+罪種+固有語類似0.63",
+      "recordedAt": "2026-10-15T20:51:04.586Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "c4579934588fd970",
+        "sourceRecordId": null,
+        "title": "中国人グループ、スーパー銭湯で連続窃盗か 逮捕の中国籍男のかばんから合鍵170個押収",
+        "date": "2026-10-08",
+        "url": "https://www.sankei.com/article/20261008-64M4ZEFJVBIRLJH6XRY7NPSHEQ/"
+      },
+      "removed": {
+        "id": "96ea23599582fef1eb19",
+        "sourceRecordId": "chiba-police:96ea23599582fef1eb19",
+        "title": "建造物侵入、窃盗未遂事件で少年を逮捕（国際捜査課）",
+        "date": "2026-10-08",
+        "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03784.html"
+      },
+      "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
+      "recordedAt": "2026-10-15T20:51:04.586Z"
     }
   ]
 }
