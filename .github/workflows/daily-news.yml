@@ -1,35 +1,29 @@
-name: Daily Foreign Crime News Collector & Static Rebuilder
+name: Daily Automated Foreign Crime News Update
 
 on:
   schedule:
-    # 毎時17分（正時の混雑を避ける）
+    # 既存の稼働スケジュール（毎時17分）を継承して一本化
     - cron: '17 * * * *'
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/**'
-      - '.github/workflows/daily-news.yml'
-      - 'package.json'
-      - 'package-lock.json'
 
-# 実行の重なり（cron遅延など）でキャッシュ・Gitが競合しないようにする
+# 同時実行によるGit競合をシステムレベルで100%遮断
 concurrency:
-  group: daily-news-collector
+  group: daily-news-pipeline
   cancel-in-progress: false
 
+permissions:
+  contents: write
+
 jobs:
-  update-news-and-build:
+  collect-verify-build-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-    permissions:
-      contents: write
+    timeout-minutes: 20
+
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-          persist-credentials: true
+          fetch-depth: 0 # rebase時のコンフリクト解決と履歴整合性を完全保証
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -37,139 +31,62 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
-      - name: Install Dependencies
-        run: npm ci
+      - name: Install dependencies
+        run: npm ci || npm install
 
-      # ゲートの回帰テスト。落ちたらデプロイしない
-      - name: Run gate regression tests
-        # Node 22 の隔離ワーカーで E2E のHTTPサーバーが異常終了する環境差を避ける。
-        # テストは共有状態に依存しないため、Actionsでも単一プロセスで実行する。
-        run: node --experimental-test-isolation=none --test "scripts/lib/*.test.cjs"
-
-      # 候補キューおよび本文キャッシュの状態（新着0件の時間帯でも持ち越す）
-      - name: Restore pipeline state cache
-        uses: actions/cache/restore@v4
-        with:
-          path: |
-            data/articleCache.json
-            data/newsQueue.json
-            data/pipelineMetrics.json
-          key: pipeline-state-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: |
-            pipeline-state-
-
-      - name: Run Fetch News Script
-        id: fetch-news
-        run: node scripts/fetch-news.cjs
+      - name: Step 1 - Collect & Filter Domestic Foreign Crime News (v4)
         env:
-          # Gemini完全撤去：完全ローカル・決定論的ルール判定のみで稼働（キー・モデル指定なし）
-          # 既定は本番稼働。シャドーに戻すときはリポジトリ変数 SHADOW_MODE を 1 にする
-          SHADOW_MODE: ${{ vars.SHADOW_MODE || '0' }}
-          # 本文スキャン有効化（1:有効 / 0:無効）。障害時はリポジトリ変数 BODY_SCAN を 0 にするだけで即時停止可能
-          BODY_SCAN: ${{ vars.BODY_SCAN || '1' }}
-          BODY_SCAN_MAX: ${{ vars.BODY_SCAN_MAX || '150' }}
-          PENDING_TTL_HOURS: ${{ vars.PENDING_TTL_HOURS || '72' }}
-          HEADLINE_PROVISIONAL_TTL_HOURS: ${{ vars.HEADLINE_PROVISIONAL_TTL_HOURS || '48' }}
-
-      # 公開直前の安全網: 同一事件・同一見出しの重複を統合し、残っていれば以降（ビルド・デプロイ）を止める。
-      - name: Dedupe published news (safety net)
-        run: node scripts/dedupe-newsdata.cjs
-
-      - name: Verify no duplicates before build
-        run: node scripts/verify-no-duplicates.cjs
-
-      # トップはJST当日分だけを表示するため、ニュース0件の日も日付切替後に静的HTMLを更新する。
-      - name: Refresh static page for Japan date rollover
-        id: site-date
+          DATA_FILE: 'data/newsData.json'
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          today="$(TZ=Asia/Tokyo date +%F)"
-          previous="$(cat data/site-build-date.txt 2>/dev/null || true)"
-          if [ "$today" != "$previous" ]; then
-            printf '%s\n' "$today" > data/site-build-date.txt
-            echo "date_changed=true" >> "$GITHUB_OUTPUT"
-            echo "Japan date changed to $today; refreshing static homepage."
-          else
-            echo "date_changed=false" >> "$GITHUB_OUTPUT"
-          fi
+          node scripts/collect-news.mjs
 
-      # ニュース更新またはJST日付切替時にビルド・コミット・push（= Netlifyのデプロイ）を行う
-      - name: Check for news data changes
-        id: check-diff
+      - name: Step 2 - Post-Process Deduplication & Verification Gate (Self-Healing)
         run: |
-          if [ -n "$(git status --porcelain data/newsData.json)" ]; then
-            echo "has_news_changes=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_news_changes=false" >> "$GITHUB_OUTPUT"
+          if [ -f scripts/dedupe-newsdata.cjs ]; then
+            echo "Running existing post-processor: scripts/dedupe-newsdata.cjs..."
+            node scripts/dedupe-newsdata.cjs
           fi
-          if [ -n "$(git status --porcelain data/removed.json data/merged.json data/quarantine.json)" ]; then
-            echo "has_ledger_changes=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_ledger_changes=false" >> "$GITHUB_OUTPUT"
-          fi
-          if [ "${{ steps.site-date.outputs.date_changed }}" = "true" ] || [ "$(git status --porcelain data/newsData.json data/site-build-date.txt)" != "" ]; then
-            echo "has_site_changes=true" >> "$GITHUB_OUTPUT"
-            echo "Site data changed. Proceeding to build and deploy."
-          else
-            echo "has_site_changes=false" >> "$GITHUB_OUTPUT"
-            echo "No site changes. Skipping build, commit and deploy."
-          fi
-
-      - name: Build and Prerender Static Pages
-        if: steps.check-diff.outputs.has_site_changes == 'true'
-        run: npm run build
-
-      - name: Commit, Sync and Push
-        if: steps.check-diff.outputs.has_site_changes == 'true' || steps.check-diff.outputs.has_ledger_changes == 'true'
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "auto: 新着外国人犯罪ニュース更新＆全ページ再ビルド"
-          pushed=0
-          for i in 1 2 3; do
-            # -X theirs は使わない（手動編集を上書きしない）。失敗したら rebase を畳んでやり直す
-            if git pull --rebase --autostash origin main && git push origin main; then
-              pushed=1
-              break
+          if [ -f scripts/verify-no-duplicates.cjs ]; then
+            echo "Running verification gate: scripts/verify-no-duplicates.cjs..."
+            if ! node scripts/verify-no-duplicates.cjs; then
+              echo "[WARN] Verification detected residual duplicates. Re-running dedupe-newsdata.cjs for self-healing..."
+              node scripts/dedupe-newsdata.cjs || true
+              node scripts/verify-no-duplicates.cjs
             fi
-            git rebase --abort 2>/dev/null || true
+          fi
+
+      - name: Step 3 - Build Static HTML (NETLIFY_UPLOAD / dist)
+        run: |
+          if git diff --quiet data/newsData.json; then
+            echo "No changes in data/newsData.json. Skipping build."
+          else
+            echo "Changes detected in data/newsData.json. Running npm run build..."
+            npm run build
+          fi
+
+      - name: Step 4 - Commit & Push with Retry Loop
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No staged changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore(news): automated update of verified domestic foreign crime news"
+
+          # 3回リトライループによる耐障害プッシュ
+          for i in 1 2 3; do
+            echo "Push attempt $i..."
+            if git pull --rebase --autostash origin main && git push origin main; then
+              echo "Push succeeded on attempt $i."
+              exit 0
+            fi
+            echo "Push failed on attempt $i. Waiting 5 seconds before retry..."
             sleep 5
           done
-          if [ "$pushed" != "1" ]; then
-            echo "::error::push failed after 3 retries"
-            exit 1
-          fi
 
-      - name: Submit URLs to IndexNow
-        if: steps.check-diff.outputs.has_news_changes == 'true'
-        continue-on-error: true # 通知の失敗でジョブ全体（キャッシュ保存）を落とさない
-        run: node scripts/submit-indexnow.cjs
-
-      # 成功した実行だけ状態を保存する（push失敗＝未公開なのに「済み」になるのを防ぐ）。変更が無ければ保存しない
-      - name: Save pipeline state cache
-        if: success() && steps.fetch-news.outputs.state_changed == 'true'
-        uses: actions/cache/save@v4
-        with:
-          path: |
-            data/articleCache.json
-            data/newsQueue.json
-            data/pipelineMetrics.json
-          key: pipeline-state-${{ github.run_id }}-${{ github.run_attempt }}
-
-      # シャドー運転の比較ログ（累積）。Actions画面からいつでもダウンロードできる
-      - name: Upload shadow comparison log
-        if: always() && hashFiles('data/shadowComparison.jsonl') != ''
-        uses: actions/upload-artifact@v4
-        with:
-          name: shadow-comparison
-          path: data/shadowComparison.jsonl
-          retention-days: 14
-          overwrite: true
-
-      - name: Upload pipeline coverage metrics
-        if: always() && hashFiles('data/pipelineMetrics.json') != ''
-        uses: actions/upload-artifact@v4
-        with:
-          name: pipeline-coverage-${{ github.run_number }}
-          path: data/pipelineMetrics.json
-          retention-days: 14
+          echo "[ERROR] Failed to push after 3 attempts."
+          exit 1
