@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-16T01:29:05.362Z",
+  "updatedAt": "2026-10-16T07:19:23.073Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -4436,6 +4436,177 @@
       },
       "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
       "recordedAt": "2026-10-16T01:29:05.362Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "119868955a373cfa",
+        "sourceRecordId": null,
+        "title": "無免許で小学生はね逃走 容疑のイラン国籍男を再逮捕 三重",
+        "date": "2026-10-14",
+        "url": "https://www.sankei.com/article/20261014-6FRUIA2EPZP57NPNU26YNLJIEM/"
+      },
+      "removed": {
+        "id": "1786e4f36d17",
+        "sourceRecordId": null,
+        "title": "無免許で小学生ひき逃げか イラン国籍の男を逮捕 (2026年10月15日掲載)",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBhNTN0VldWQ21teE9wRXhQM0RJXzlZODlBV2R0YTd4a2tmRzhPWjF6RXl0SU1lN2ZUZmdwelVhdzZid0NCaUVCTXNUMUdBQ1Rvc3h6UnlCLUI0ZFd0QWc"
+      },
+      "reason": "国籍+罪種+固有語類似0.48",
+      "recordedAt": "2026-10-16T07:19:23.073Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "119868955a373cfa",
+        "sourceRecordId": null,
+        "title": "無免許で小学生はね逃走 容疑のイラン国籍男を再逮捕 三重",
+        "date": "2026-10-14",
+        "url": "https://www.sankei.com/article/20261014-6FRUIA2EPZP57NPNU26YNLJIEM/"
+      },
+      "removed": {
+        "id": "6ea67685d7de",
+        "sourceRecordId": null,
+        "title": "小学生を“ひき逃げ”か イラン国籍の男を逮捕 三重・鈴鹿市",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTFBxbmhMTVlhRnZTai12ZERQRmtrWFNxMmFBLXUxcGhqTUo5ekZpMFdWTzRwNWVpVkdOM3pGaXh3TmNPZ2tEQ21qbUxTRQ"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-16T07:19:23.073Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "119868955a373cfa",
+        "sourceRecordId": null,
+        "title": "無免許で小学生はね逃走 容疑のイラン国籍男を再逮捕 三重",
+        "date": "2026-10-14",
+        "url": "https://www.sankei.com/article/20261014-6FRUIA2EPZP57NPNU26YNLJIEM/"
+      },
+      "removed": {
+        "id": "4247c9139efb",
+        "sourceRecordId": null,
+        "title": "ひき逃げ事件でイラン国籍の男逮捕 当時7歳の小学生男児はあごの骨を折る重傷 三重・鈴鹿市",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFA4Y1dOcDJ2NVdEdGJpM1hpQU5NQm5RZDVUZGFielhvaWVDUWdpTlduckpiLTkyRFZPS0lqMjg0VzNYMnBna3J3N0UxR3ZFZXVJaENrZVJKWmJtWXVaSndPX3ZoRUJtYmdBdnAwT01B"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-16T07:19:23.073Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "25b96b4c1b260914",
+        "sourceRecordId": null,
+        "title": "森町の路上強盗 新たにブラジル国籍17歳少年逮捕「言うことはない」と認否保留 これまでに逮捕の2人は処分保留で既に釈放＝静岡 42分前",
+        "date": "2026-10-14",
+        "url": "https://newsdig.tbs.co.jp/articles/-/3011390"
+      },
+      "removed": {
+        "id": "690c9fc67217",
+        "sourceRecordId": null,
+        "title": "刃物突き付けバッグ奪ったか…3人組の強盗事件で最後の1人の17歳ブラジル人逮捕「言うことない」と供述 静岡・森町",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5pMDR6SnNWX3h3NjZJekhuaGVSYWxlejZHTXFfVW1kRGc3Umc2VkpMZjJ0eGdWS185V3dOMzBZd0xoUkdjZEpKeFhMZ0picGhJSllRdV9sS3lMYlU2SWZnUlFtOWI2WkllOG1qY0J2VTFrRnFqWVHSAXZBVV95cUxOaTA0ekpzVl94dzY2SXpIbmhlUmFsZXo2R01xX1VtZERnN1JnNlZKTGYydHhnVktfOVd3TjMwWXdMaFJHY2RKSnhYTGdKYnBoSUpZUXVfbEt5TGJVNklmZ1JRbTliNlpJZThtamNCdlUxa0ZxallR"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-16T07:19:23.073Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "0380d2434292",
+        "sourceRecordId": null,
+        "title": "医師免許なく美容整形か フィリピン国籍のエステ店オーナーの女を逮捕【名古屋市中区】",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE8yV0tiSG1YM0pWWVpmQ2s0RXRCNmdvVDgzTEpfNFJYSlRUQlRIVGEtbHRkT3I4eTZMRzgzRWZCSDk0eVlOMU1WcDlxNVREOXAwTmZlTVhGWVNacG1wYmM2VUtSclRPVVg4ZzR6TklQX1dBVzg"
+      },
+      "removed": {
+        "id": "d75d1de14cf0",
+        "sourceRecordId": null,
+        "title": "医師免許なしで美容医療施術か フィリピン国籍の女を逮捕 愛知・中警察署",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE8tWnQ5V3FzNE5aejlvX3V3OUt3NDBOenVUbkt3dDdNUHY3MEN5VmpmQzM1OUNHamRTNVQ2V3hpV0N6ckhFWEwtdTFFYVc3MjhwU1dBWENaeUM0RnpwbjlDdXM3ZWNGcl9xTHo4bHRKX1RYWGFvRnpuTw"
+      },
+      "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
+      "recordedAt": "2026-10-16T07:19:23.073Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "ebf7e072420305bf",
+        "sourceRecordId": null,
+        "title": "医師免許ないのに鼻を高くする美容整形した疑い フィリピン国籍の女逮捕 3時間前",
+        "date": "2026-10-16",
+        "url": "https://newsdig.tbs.co.jp/articles/-/3015947"
+      },
+      "removed": {
+        "id": "0380d2434292",
+        "sourceRecordId": null,
+        "title": "医師免許なく美容整形か フィリピン国籍のエステ店オーナーの女を逮捕【名古屋市中区】",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE8yV0tiSG1YM0pWWVpmQ2s0RXRCNmdvVDgzTEpfNFJYSlRUQlRIVGEtbHRkT3I4eTZMRzgzRWZCSDk0eVlOMU1WcDlxNVREOXAwTmZlTVhGWVNacG1wYmM2VUtSclRPVVg4ZzR6TklQX1dBVzg"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-16T07:19:23.073Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "2cc411ccebf7b0ad",
+        "sourceRecordId": null,
+        "title": "偽の「ルイ・ヴィトン」バッグなど販売目的で所持疑い 中国の会社の指示で発送役か 2026 年 10 月 15 日 13:59",
+        "date": "2026-10-15",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000540389.html"
+      },
+      "removed": {
+        "id": "3c5ea2ea45b9",
+        "sourceRecordId": null,
+        "title": "偽高級ブランドカバンなど200点を販売目的で所持した疑い 中国籍の男女3人逮捕 「偽物だとはっきり知らなかった」と否認する容疑者も",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE96R1ZpQ1Y0dWxqTUVhbC1BczB6MF9Sdkg4UGhneGpyZjRJSFF3TGZsc3NjS2d0RnRZTWNQWmZLYVJQZzdFcl9XWWNoaUZkSTUxU1NpNw"
+      },
+      "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
+      "recordedAt": "2026-10-16T07:19:23.073Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "5f5c935c1f6878c2",
+        "sourceRecordId": null,
+        "title": "同胞のメンバーと繰り返したか…住宅に侵入し指輪2個・時価計3万円相当を盗んだ疑い ベトナム人の男2人を逮捕",
+        "date": "2026-10-15",
+        "url": "https://news.livedoor.com/article/detail/32575584/"
+      },
+      "removed": {
+        "id": "7c85b1a102e0",
+        "sourceRecordId": null,
+        "title": "ベトナム人窃盗グループのメンバーか 男2人逮捕 岐阜・美濃加茂市｜Infoseekニュース",
+        "date": "2026-10-16",
+        "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5rdFpnQjZlRFV3Y0lnaVdvZ1BZMEl6ZUppd0IxRzdubDZvWWNaNFRBYnBfVHBlWE1LeGRETFBXOXcyRVZ4OHVmRzBxVTkxdWdEaHpZYlROcjhwMF80"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-16T07:19:23.073Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "ff906a16905d",
+        "sourceRecordId": null,
+        "title": "ホテルのWiFi使い大量のフィッシングメール送信か 中国籍の男を逮捕 押収したパソコンから約48万件のメール送信履歴",
+        "date": "2026-10-16",
+        "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBzT2NPSkMxMWNDU1hhVXFvYndVbmZQdlhLZFJqbG12eWItb1BNVzFkZ0tMcVRwSEM2ZnlPQXRIM1hIRnpxdnhHdGZOVlhvOEZYUUs5SDk1M3M0bUNPNDRqSnJhcy12OUE"
+      },
+      "removed": {
+        "id": "9deb1d0c00f7",
+        "sourceRecordId": null,
+        "title": "少なくとも48万件送信 フィッシング詐欺で業務妨害か 中国籍の男逮捕",
+        "date": "2026-10-16",
+        "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1DWmNDOFNHUVJPcVdHY3ZoRG5vb2tlczc2b2hTUjc0dTNFdnJoZi00REE2dk5MQ1RRTkw4Z1NrM25USm45VUFNV0xFSjdEeTNRNXFYRDNLNjBMWXp5NXpxbUNCNVNSaWVtUFN0SUVn"
+      },
+      "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
+      "recordedAt": "2026-10-16T07:19:23.073Z"
     }
   ]
 }
