@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-15T22:27:24.103Z",
+  "updatedAt": "2026-10-16T01:29:05.362Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -4227,6 +4227,215 @@
       },
       "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
       "recordedAt": "2026-10-15T22:27:24.103Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "f6efbfe20574",
+        "sourceRecordId": null,
+        "title": "ひき逃げ事件でイラン国籍の男逮捕 当時7歳の小学生男児はあごの骨を折る重傷 三重・鈴鹿市",
+        "date": "2026-10-14",
+        "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTFBFRDBRUHZ2Uk9zQ0Vsa3lEZXE5ZWtuVndnelFILVRCMWxrOU54dkZGMlZqSWdNc1JEQjluc0cyeGhrYUJ1VGF1OUhaNA"
+      },
+      "removed": {
+        "id": "7c3128cfa4cd",
+        "sourceRecordId": null,
+        "title": "三重県鈴鹿市で当時小学1年の男の子が横断歩道でひき逃げされ大けがをした事件 34歳イラン国籍の男を逮捕 無免許か",
+        "date": "2026-10-14",
+        "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1BZnIzbVc0bDRjWFNzY2hjUWhncFo2ZkYzclNQWHpFUWVkcG5kblk3bFpneGVQd0RhV0dQdVZoSTVoc3R6bDh1d3lKc2VTRXRnX3dIS3cxNERlR2s5QkVqMWpGcFVCdDQ"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-16T01:29:04.996Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "119868955a373cfa",
+        "sourceRecordId": null,
+        "title": "無免許で小学生はね逃走 容疑のイラン国籍男を再逮捕 三重",
+        "date": "2026-10-14",
+        "url": "https://www.sankei.com/article/20261014-6FRUIA2EPZP57NPNU26YNLJIEM/"
+      },
+      "removed": {
+        "id": "f6efbfe20574",
+        "sourceRecordId": null,
+        "title": "ひき逃げ事件でイラン国籍の男逮捕 当時7歳の小学生男児はあごの骨を折る重傷 三重・鈴鹿市",
+        "date": "2026-10-14",
+        "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTFBFRDBRUHZ2Uk9zQ0Vsa3lEZXE5ZWtuVndnelFILVRCMWxrOU54dkZGMlZqSWdNc1JEQjluc0cyeGhrYUJ1VGF1OUhaNA"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-16T01:29:04.996Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "66ec4613838b",
+        "sourceRecordId": null,
+        "title": "「山林でシカがワナに」駐在さんが聞き込み続けると…ベトナム国籍の男、無許可で食肉業容疑で再逮捕",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9rTGQ0dTFmc2hDaVZKYzZfM0lkT3VLWGVmZEVpU2V5MUc0T3p1TGptRHBYRHRKbGJ4dDNHWHpkWjlaS2d5Y0hhc0VndWdWbXd1Umdkd0JqVU5Yd2V4ZHBtTnpLYTRyR3U1LUtHZ0Zn"
+      },
+      "removed": {
+        "id": "c63e706ac92a",
+        "sourceRecordId": null,
+        "title": "「違法ジビエ」無許可で営業か 販売目的でイノシシ解体した疑いでベトナム国籍の男を再逮捕 愛知・春日井市",
+        "date": "2026-10-14",
+        "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPaG9TcDB6cU5xOWE5MGpCMEg3MUJnQy0xbUdUcWMtbVBpd3ZZb2s5TWhkZG1zMTRRa01xdGVrRzFTTU5NZ09QaGN3SXVCWWhrUDBhRGt2NkYxNVVIWjlDZG81eG1VRXVaekxQOG5hUlRGaGdkNmdScEhQR3d0THIxVy16TzdqaG8"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-16T01:29:04.996Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "19f6e546c4df",
+        "sourceRecordId": null,
+        "title": "米兵強盗殺人事件を受け 市民団体らが怒りの声 沖縄",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBuNXBIcGM5RDNtLXFHR2owbmt5VjhMOUxKM1JXdWJNZW15LUF4cks0eFg1MEFPTmlmeDMxTjNqRDBSYWFNZWp3QkVENW9JaVI2SXYtUmRGcldHTTktNkxUMHdnSkUwLVV6cFVDRlZ2cDdBUTVDWDV2d2dKYldWVTQ"
+      },
+      "removed": {
+        "id": "755032d07302",
+        "sourceRecordId": null,
+        "title": "沖縄・那覇市 米兵“強盗殺人” 遺族が新たなコメント「今の苦しい毎日に終わりは来るのか」",
+        "date": "2026-10-14",
+        "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5ibkx3RnlyeUlGbjFoZnlRWGdFWlAtQXJIdmlNSkVsWEh3azBzbHpORHZseUVmQWJoYjFPcVZTb3Bvc0lRd01Fbll5anZHTy1JNkwzN1RPZmpnc3lGTVJvdjJjU0ZEUjRzTDNqM2p0eTAzNDZJNkpMZmxYcEQ1VjQ"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-16T01:29:04.996Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "119868955a373cfa",
+        "sourceRecordId": null,
+        "title": "無免許で小学生はね逃走 容疑のイラン国籍男を再逮捕 三重",
+        "date": "2026-10-14",
+        "url": "https://www.sankei.com/article/20261014-6FRUIA2EPZP57NPNU26YNLJIEM/"
+      },
+      "removed": {
+        "id": "aec8018dbca9",
+        "sourceRecordId": null,
+        "title": "無免許で小学生ひき逃げか イラン国籍の男を逮捕 三重・鈴鹿市",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOQm8yaEgtWnFhMGhwUkx0VTZyM3dmLXRUNTQtcFdHcDUwaG5jT3hVUzJsaGpSaVVuT1hFZVhfZXNiV1Q5N19GV1Myb1R5Z3RJQUdZYVNJVHk0OFR1aU9PSHhnbGZ1OWYydEs3a1QtZkNVNW85a3dSOVFJcE9BcUdEQ0tVa1AzUy1tX25LM3Fn"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-16T01:29:04.996Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "0380d2434292",
+        "sourceRecordId": null,
+        "title": "医師免許なく美容整形か フィリピン国籍のエステ店オーナーの女を逮捕【名古屋市中区】",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPVDFKa1FkV3lvZ0lqMHRpb1Y0RnVCaVl5YnFaTGhkSFVmRnRKNFk2TmZuVHhtUUxyV21Uak4zdXU3WmVDTGdTV2ZtZ0xTRmxRa3p2WER0RnoxVnktYmxyT0w2ajZ4UndtanJFdXBPdWZnUDRpNFJPbU4wUXVZN3lrQWVReUxKeWpaTG5MaFpFVdIBjwFBVV95cUxPVDFKa1FkV3lvZ0lqMHRpb1Y0RnVCaVl5YnFaTGhkSFVmRnRKNFk2TmZuVHhtUUxyV21Uak4zdXU3WmVDTGdTV2ZtZ0xTRmxRa3p2WER0RnoxVnktYmxyT0w2ajZ4UndtanJFdXBPdWZnUDRpNFJPbU4wUXVZN3lrQWVReUxKeWpaTG5MaFpFVQ"
+      },
+      "removed": {
+        "id": "83b9082c9dd9",
+        "sourceRecordId": null,
+        "title": "医師免許なしで美容医療施術か フィリピン国籍の女を逮捕 愛知・中警察署 (中京テレビＮＥＷＳ)",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOaUtRa3Vmdk5LSkR0dUZRY3hSLWU5VmNzYVE3VkJXdWh6enpGRnBSQUNacUkxd2tXV2I1M2ludDdXLXFhVVBDaEFDZjZGWkRmdFhDdlZDX0w3MDNsdVZ3bkU1eXBXUHl6S2JEMmQwMi0xa3RUM2ZUWkRxQ0ZEekVlVkNPRjJCZ2dKY2xuOWF3"
+      },
+      "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
+      "recordedAt": "2026-10-16T01:29:04.996Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "ebf7e072420305bf",
+        "sourceRecordId": null,
+        "title": "医師免許ないのに鼻を高くする美容整形した疑い フィリピン国籍の女逮捕 3時間前",
+        "date": "2026-10-16",
+        "url": "https://newsdig.tbs.co.jp/articles/-/3015947"
+      },
+      "removed": {
+        "id": "0380d2434292",
+        "sourceRecordId": null,
+        "title": "医師免許なく美容整形か フィリピン国籍のエステ店オーナーの女を逮捕【名古屋市中区】",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPVDFKa1FkV3lvZ0lqMHRpb1Y0RnVCaVl5YnFaTGhkSFVmRnRKNFk2TmZuVHhtUUxyV21Uak4zdXU3WmVDTGdTV2ZtZ0xTRmxRa3p2WER0RnoxVnktYmxyT0w2ajZ4UndtanJFdXBPdWZnUDRpNFJPbU4wUXVZN3lrQWVReUxKeWpaTG5MaFpFVdIBjwFBVV95cUxPVDFKa1FkV3lvZ0lqMHRpb1Y0RnVCaVl5YnFaTGhkSFVmRnRKNFk2TmZuVHhtUUxyV21Uak4zdXU3WmVDTGdTV2ZtZ0xTRmxRa3p2WER0RnoxVnktYmxyT0w2ajZ4UndtanJFdXBPdWZnUDRpNFJPbU4wUXVZN3lrQWVReUxKeWpaTG5MaFpFVQ"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-16T01:29:04.996Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "00e5ac781b211c60",
+        "sourceRecordId": null,
+        "title": "ホテルの客室に無断でPC設置しフィッシングメールを約48万件送信か　他人のクレカ情報で買い物も…中国籍の夫婦を逮捕　兵庫県警",
+        "date": "2026-10-15",
+        "url": "https://news.ntv.co.jp/n/ytv/category/society/yt0a65f076458c48e594c7d4536a2eb9c8"
+      },
+      "removed": {
+        "id": "cd4efc88ed46",
+        "sourceRecordId": null,
+        "title": "ホテルのWiFiで大量詐欺メール送信 容疑で中国籍夫婦再逮捕",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQREVhdEZJUkx0NTJkYUhXaWI5R3VFX3N5bENvNDB2SzRUSmhyQS1RaW9rN1hVYnBEWEk0dW1IRTFSTXNjNXNsQVVnSDJib19KWG5qTDU4cm1RZldpTEtfMDl4YWZlaHowdDJQRzNRS0V4OTZvUjM2S1V4MGlybDFuX3dCQ2dJZm1UZWlaMDk1cGpSbDBO0gGUAUFVX3lxTFBERWF0RklSTHQ1MmRhSFdpYjlHdUVfc3lsQ280MHZLNFRKaHJBLVFpb2s3WFVicERYSTR1bUhFMVJNc2M1c2xBVWdIMmJvX0pYbmpMNThybVFmV2lMS18wOXhhZmVoejB0MlBHM1FLRXg5Nm9SMzZLVXgwaXJsMW5fd0JDZ0lmbVRlaVowOTVwalJsME4"
+      },
+      "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
+      "recordedAt": "2026-10-16T01:29:04.996Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "5f5c935c1f6878c2",
+        "sourceRecordId": null,
+        "title": "同胞のメンバーと繰り返したか…住宅に侵入し指輪2個・時価計3万円相当を盗んだ疑い ベトナム人の男2人を逮捕",
+        "date": "2026-10-15",
+        "url": "https://news.livedoor.com/article/detail/32575584/"
+      },
+      "removed": {
+        "id": "c219171eb6ae",
+        "sourceRecordId": null,
+        "title": "ベトナム人窃盗グループのメンバーか 男2人逮捕 岐阜・美濃加茂市",
+        "date": "2026-10-16",
+        "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBlam1qUFp6SXVCX2hlOGctMTFORUFhalhPYTJ0UmRRX3dldnRILTQ1ZVg1emJDT0dKU2dRLWUyaUkxdEUwVngxVmxWYlI3bnlmcUlHZ0ZmVEV6ZUxWVEs3WE4wVW56LVV6b1hCZ2NKWXVlM1dxR0oxQlV30gF6QVVfeXFMUGVqbWpQWnpJdUJfaGU4Zy0xMU5FQWFqWE9hMnRSZFFfd2V2dEgtNDVlWDV6YkNPR0pTZ1EtZTJpSTF0RTBWeDFWbFZiUjdueWZxSUdnRmZURXplTFZUSzdYTjBVbnotVXpvWEJnY0pZdWUzV3FHSjFCVXc"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-16T01:29:04.996Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "00e5ac781b211c60",
+        "sourceRecordId": null,
+        "title": "ホテルの客室に無断でPC設置しフィッシングメールを約48万件送信か　他人のクレカ情報で買い物も…中国籍の夫婦を逮捕　兵庫県警",
+        "date": "2026-10-15",
+        "url": "https://news.ntv.co.jp/n/ytv/category/society/yt0a65f076458c48e594c7d4536a2eb9c8"
+      },
+      "removed": {
+        "id": "32eec89a5064",
+        "sourceRecordId": null,
+        "title": "ホテル客室にPC隠しフィッシングメール約48万件送信―兵庫県警、中国籍の男を逮捕",
+        "date": "2026-10-16",
+        "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQYmdPcUdCQ2RiaFVTR0JkeldLWXdBV2dzOEZiMXZLdWNkSnFmQlBON2FOYmRFTkZWOUs5c1ZSMmNpZ0dPbllka2syVE91a1ZpWm4yNVJiYlFxdWlXcm9yc0tEVlNYVElhWlBDR3RLYmljQjlmV3N3enpuMVAzeFdxclMxS2Mza1FXZTZROW5TOUVROUJVMy13UUhISQ"
+      },
+      "reason": "国籍+罪種+固有語類似0.49",
+      "recordedAt": "2026-10-16T01:29:04.996Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "f4bdd1d70f1be366",
+        "sourceRecordId": null,
+        "title": "シカの生首が相次ぎ…イノシシをノコギリで食肉加工し販売か 密猟疑いで男を逮捕 2026 年 10 月 15 日 12:48",
+        "date": "2026-10-15",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/900201942.html"
+      },
+      "removed": {
+        "id": "66ec4613838b",
+        "sourceRecordId": null,
+        "title": "「山林でシカがワナに」駐在さんが聞き込み続けると…ベトナム国籍の男、無許可で食肉業容疑で再逮捕",
+        "date": "2026-10-15",
+        "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9rTGQ0dTFmc2hDaVZKYzZfM0lkT3VLWGVmZEVpU2V5MUc0T3p1TGptRHBYRHRKbGJ4dDNHWHpkWjlaS2d5Y0hhc0VndWdWbXd1Umdkd0JqVU5Yd2V4ZHBtTnpLYTRyR3U1LUtHZ0Zn"
+      },
+      "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
+      "recordedAt": "2026-10-16T01:29:05.362Z"
     }
   ]
 }
