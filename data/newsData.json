@@ -1,5 +1,26 @@
 [
   {
+    "id": "29ba9fc30d04",
+    "sourceRecordId": "v5-29ba9fc30d04",
+    "date": "2026-10-16",
+    "pubDate": "2026-10-16T10:02:28.000Z",
+    "location": "山形県",
+    "prefecture": "山形県",
+    "media": "合同会社ロケットボーイズ",
+    "source": "合同会社ロケットボーイズ",
+    "stage": "逮捕",
+    "nationality": "ベトナム国籍",
+    "crimeCategory": "クレジットカード・電子計算機詐欺",
+    "title": "山形鉄道など9億1,200万円超の被害のボイスフィッシング、資金洗浄容疑で逮捕の女も関与か―ベトナムで7人検挙",
+    "url": "https://rocket-boys.co.jp/security-measures-lab/yamagata-railway-vishing-money-laundering-arrest-20261016/",
+    "summary": "山形県で発生し、ベトナム国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 2026年10月15日、YBC山形放送は、山形鉄道など山形県内の複数企業が2025年3月に被害を受けたボイスフィッシング事件について、別の資金洗浄事件で逮捕・起",
+      "nationality": "本文抜粋: ベトナム国籍"
+    },
+    "locationBasis": "本文抜粋: 2026年10月15日、YBC山形放送は、山形鉄道など山形県内の複数企業が2025年3月に被害を受けたボイスフィッシング事件について、別の資金洗浄事件で逮捕・起"
+  },
+  {
     "id": "07e37331698e",
     "sourceRecordId": "v5-07e37331698e",
     "date": "2026-10-16",
@@ -40,6 +61,27 @@
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,
     "audited": true
+  },
+  {
+    "id": "57652235aab1",
+    "sourceRecordId": "v5-57652235aab1",
+    "date": "2026-10-15",
+    "pubDate": "2026-10-15T10:12:22.000Z",
+    "location": "群馬県",
+    "prefecture": "群馬県",
+    "media": "群馬テレビ",
+    "source": "群馬テレビ",
+    "stage": "判決",
+    "nationality": "ベトナム国籍",
+    "crimeCategory": "強盗・強盗致傷",
+    "title": "桐信強盗 ベトナム国籍の男に拘禁6年判決",
+    "url": "https://news.yahoo.co.jp/articles/930c734a6db32941c9d6184f2eff2519339f3173?source=rss",
+    "summary": "群馬県で発生し、ベトナム国籍の被疑者に判決等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: ことし２月、桐生市の信用金庫に押し入り現金２００万円を奪ったとして強盗などの罪に問われたベトナム国籍の男に対し、前橋地方裁判所は１４日、拘禁６年の判決を言い渡し",
+      "nationality": "本文抜粋: ベトナム国籍"
+    },
+    "locationBasis": "本文抜粋: ことし２月、桐生市の信用金庫に押し入り現金２００万円を奪ったとして強盗などの罪に問われたベトナム国籍の男に対し、前橋地方裁判所は１４日、拘禁６年の判決を言い渡し"
   },
   {
     "id": "16d49ee804ca",
