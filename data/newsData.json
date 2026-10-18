@@ -1,5 +1,26 @@
 [
   {
+    "id": "42530deb3440",
+    "sourceRecordId": "v5-42530deb3440",
+    "date": "2026-10-18",
+    "pubDate": "2026-10-18T05:04:00.000Z",
+    "location": "広島県",
+    "prefecture": "広島県",
+    "media": "Yahoo!ニュース",
+    "source": "Yahoo!ニュース",
+    "stage": "逮捕",
+    "nationality": "フィリピン国籍",
+    "crimeCategory": "殺人・殺人未遂",
+    "title": "同僚男性を包丁で切りつけ殺害しようとしたか フィリピン国籍の男を逮捕 「全部ウソです」」と容疑否認・広島県三原市",
+    "url": "https://news.yahoo.co.jp/articles/5ddbaa0ec5d110b2947fac8f5354346da588d28d",
+    "summary": "広島県で発生し、フィリピン国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 三原市で17日夜、同僚の男性を包丁で切りつけ殺害しようとして、フィリピン国籍の男が逮捕されました。",
+      "nationality": "本文抜粋: フィリピン国籍"
+    },
+    "locationBasis": "本文抜粋: 三原市で17日夜、同僚の男性を包丁で切りつけ殺害しようとして、フィリピン国籍の男が逮捕されました。"
+  },
+  {
     "id": "7ffd941dc31c",
     "sourceRecordId": "v5-7ffd941dc31c",
     "date": "2026-10-17",
