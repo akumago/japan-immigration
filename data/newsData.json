@@ -1,5 +1,89 @@
 [
   {
+    "id": "1d1901c33636",
+    "sourceRecordId": "v5-1d1901c33636",
+    "date": "2026-10-20",
+    "pubDate": "2026-10-20T12:16:21.000Z",
+    "location": "東京都",
+    "prefecture": "東京都",
+    "media": "TBS NEWS DIG（JNN地域局）",
+    "source": "TBS NEWS DIG（JNN地域局）",
+    "stage": "逮捕",
+    "nationality": "韓国籍",
+    "crimeCategory": "一般詐欺・無銭飲食",
+    "title": "「ドンペリ」など1000万円相当の酒を卸売業者から詐取か 当時焼肉店を営んでいた夫婦を逮捕 卸売業者に代金支払わず酒買取店に転売か 警視庁",
+    "url": "https://newsdig.tbs.co.jp/articles/-/3026233",
+    "summary": "東京都で発生し、韓国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 詐欺の疑いで逮捕されたのは、韓国籍で職業不詳の康勝勇容疑者（44…",
+      "nationality": "本文抜粋: 韓国籍"
+    },
+    "locationBasis": "本文抜粋: 高級シャンパンなど1000万円相当の酒を卸売業者からだまし取ったとして、東京・品川区で当時、焼肉店を営んでいた夫婦が警視庁に逮捕されました。"
+  },
+  {
+    "id": "44c8aa60d761",
+    "sourceRecordId": "v5-44c8aa60d761",
+    "date": "2026-10-20",
+    "pubDate": "2026-10-20T10:35:00.000Z",
+    "location": "鹿児島県",
+    "prefecture": "鹿児島県",
+    "media": "日テレNEWS NNN",
+    "source": "日テレNEWS NNN",
+    "stage": "逮捕",
+    "nationality": "ネパール国籍",
+    "crimeCategory": "交通犯罪・ひき逃げ・無免許・飲酒運転",
+    "title": "酒酔い運転の疑いでネパール国籍の男を現行犯逮捕 鹿児島市国道10号でトラックと衝突 容疑認める",
+    "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNZlJMeG1GRUJxYTB2RGNZczQ2ajhTRnRwR3hrbDB0NW5rTDljUVhncFVlZkpyakhueGRKTEZib3Z0VlZGSWlNSVdNNXBBV0lOc25QN2JNSFJiV3ZaUFItdDJTRWlEd1FOSHM3SXJpYW5TX1g0RmZEMTZ6eVdEWE1qLUdvWHdrUFU",
+    "summary": "鹿児島県で発生し、ネパール国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "見出し根拠: 酒酔い運転の疑いでネパール国籍の男を現行犯逮捕 鹿児島市国道10号でトラックと衝突 容疑認める",
+      "nationality": "見出し根拠: ネパール国籍"
+    },
+    "locationBasis": "見出し根拠: 酒酔い運転の疑いでネパール国籍の男を現行犯逮捕 鹿児島市国道10号でトラックと衝突 容疑認める"
+  },
+  {
+    "id": "4498216aee25",
+    "sourceRecordId": "v5-4498216aee25",
+    "date": "2026-10-20",
+    "pubDate": "2026-10-20T10:00:00.000Z",
+    "location": "宮崎県",
+    "prefecture": "宮崎県",
+    "media": "TBS NEWS DIG",
+    "source": "TBS NEWS DIG",
+    "stage": "逮捕",
+    "nationality": "台湾籍",
+    "crimeCategory": "特殊詐欺・出し子・受け子",
+    "title": "宮崎市の90代男性から現金1150万円をだまし取った疑い 中国籍の男を逮捕 特殊詐欺の受け子役か",
+    "url": "https://newsdig.tbs.co.jp/articles/-/3025907",
+    "summary": "宮崎県で発生し、台湾籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 宮崎市で警察官や検察官になりすまし、90代の男性から現金1150万円をだまし取った特殊詐欺の疑いで台湾籍の男が逮捕されました。",
+      "nationality": "本文抜粋: 台湾籍"
+    },
+    "locationBasis": "本文抜粋: 宮崎市で警察官や検察官になりすまし、90代の男性から現金1150万円をだまし取った特殊詐欺の疑いで台湾籍の男が逮捕されました。"
+  },
+  {
+    "id": "7181cc31843d",
+    "sourceRecordId": "v5-7181cc31843d",
+    "date": "2026-10-20",
+    "pubDate": "2026-10-20T09:14:20.000Z",
+    "location": "群馬県",
+    "prefecture": "群馬県",
+    "media": "TBS NEWS DIG",
+    "source": "TBS NEWS DIG",
+    "stage": "逮捕",
+    "nationality": "ブラジル国籍",
+    "crimeCategory": "廃棄物処理法・不法投棄・環境犯罪",
+    "title": "群馬・太田市で墓石約6.7トンを不法投棄か ブラジル国籍の男ら2人を逮捕 群馬県警",
+    "url": "https://www.msn.com/ja-jp/news/other/%E7%BE%A4%E9%A6%AC-%E5%A4%AA%E7%94%B0%E5%B8%82%E3%81%A7%E5%A2%93%E7%9F%B3%E7%B4%846-7%E3%83%88%E3%83%B3%E3%82%92%E4%B8%8D%E6%B3%95%E6%8A%95%E6%A3%84%E3%81%8B-%E3%83%96%E3%83%A9%E3%82%B8%E3%83%AB%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E3%82%892%E4%BA%BA%E3%82%92%E9%80%AE%E6%8D%95-%E7%BE%A4%E9%A6%AC%E7%9C%8C%E8%AD%A6/ar-AA2fDAKg",
+    "summary": "群馬県で発生し、ブラジル国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 群馬県太田市内の土地に墓石およそ6.7トンを土に埋め廃棄したとして、ブラジル国籍の男ら2人が逮捕されました。",
+      "nationality": "本文抜粋: ブラジル国籍"
+    },
+    "locationBasis": "本文抜粋: 群馬県太田市内の土地に墓石およそ6.7トンを土に埋め廃棄したとして、ブラジル国籍の男ら2人が逮捕されました。"
+  },
+  {
     "id": "9b74b3b7e4f9",
     "sourceRecordId": "v5-9b74b3b7e4f9",
     "date": "2026-10-19",
