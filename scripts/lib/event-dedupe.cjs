@@ -266,12 +266,12 @@ function sameEventReason(a, b, { maxDays = 5 } = {}) {
   // that age mismatch only when date, crime, and compatible location agree.
   const sameNamedSuspect = intersects(sa.suspectNames || new Set(), sb.suspectNames || new Set())
     && sameCrime
-    && a.date === b.date
+    && daysApart(a.date, b.date) <= 3
     // Some excerpts mention the suspect's base/police jurisdiction first,
     // while another outlet names the crime scene. Matching verified full
     // suspect identity plus same crime/date/prefecture is stronger than that
     // incidental locality conflict.
-    && (locationRelation === 'compatible' || sameStoredRegion);
+    && (locationRelation === 'compatible' || sameStoredRegion || natsMatch);
   // 国籍・年齢・市区町村（福山市等）・罪種がすべて一致する場合は、住所抽出などによる県名の食い違いを矛盾とみなさない
   const storedRegionMislabeled = natsMatch && sameAge && samePlace && sameCrime;
   if (locationRelation === 'conflict' && !sameNamedSuspect && !storedRegionMislabeled) return null;

@@ -133,7 +133,7 @@ const GOOGLE_NEWS_QUERIES = [
 // 2. 厳格ノイズ除外ルール（社説・コラム・政治要請・議会答弁・抗議・遺族談話・海外事件を100%排除）
 // ============================================================================
 
-const NON_INCIDENT_REGEX = /(?:社説|論説|社論|オピニオン|コラム|解説|視点|論点|提言|インタビュー|アンケート|世論調査|統計|白書|ランキング|まとめ|特集|連載|振り返る|シンポジウム|セミナー|勉強会|デモ行進|抗議集会|法改正|制度見直し|入管法改正|ガイドライン|対策会議|防犯訓練|防犯教室|有識者|エキスパートトピ|【[^】]*解説[^】]*】|[一-龥ァ-ヶ]{2,8}(?:大|大学)(?:講師|教授|准教授|名誉教授)\s*$|メッセージの遅さ|極めて遺憾|日米と県協議|協定の改定|改定が必要|パリピ生活|水際で阻止|応えよ$|求めよ$|べきだ$|とは…|できたワケ|の正体|とは何か|^[▽▼■◆●]\s*[上中下前後0-9０-９]|連帯広げる|不安抱く社会|浮かび上がる[^。]*の「?構図」?|専門家が語る|だまされないための対策|エックス速報|合同巡回で米兵[^。]*外出禁止違反|憲兵隊が拘束|事件受けたパトロール|(?:事件|逮捕)[^。]{0,10}受け[^。]*(?:要請|抗議|答弁|集会|声明|談話|コメント|申し入れ|削除依頼|怒りの声|外出制限)|(?:首相|外務省|防衛省|政府|米軍)に[^。]*(?:要請|抗議|申し入れ)|(?:知事|市長|官房長官|大臣)[^。]*(?:再発防止|要請|抗議|注視|言及|批判|遺憾)|県議会[^。]*答弁|市民団体[^。]*(?:抗議|集会|怒りの声|要請|声明)|遺族(?:が|ら|も)[^。]*(?:コメント|談話|手記)|被害者へ中傷|中傷[^。]*削除依頼|日米共同演習|相次いで先島に飛来)/i;
+const NON_INCIDENT_REGEX = /(?:社説|論説|社論|オピニオン|コラム|解説|視点|論点|提言|インタビュー|アンケート|世論調査|統計|白書|ランキング|まとめ|特集|連載|振り返る|シンポジウム|セミナー|勉強会|デモ行進|抗議集会|法改正|制度見直し|入管法改正|ガイドライン|対策会議|防犯訓練|防犯教室|有識者|エキスパートトピ|【[^】]*解説[^】]*】|[一-龥ァ-ヶ]{2,8}(?:大|大学)(?:講師|教授|准教授|名誉教授)\s*$|メッセージの遅さ|極めて遺憾|日米と県協議|協定の改定|改定が必要|パリピ生活|水際で阻止|応えよ$|求めよ$|べきだ$|とは…|できたワケ|の正体|とは何か|^[▽▼■◆●]\s*[上中下前後0-9０-９]|連帯広げる|不安抱く社会|浮かび上がる[^。]*の「?構図」?|専門家が語る|だまされないための対策|エックス速報|合同巡回で米兵[^。]*外出禁止違反|憲兵隊が拘束|事件受けたパトロール|(?:事件|逮捕)[^。]{0,10}受け[^。]*(?:要請|抗議|答弁|集会|声明|談話|コメント|申し入れ|削除依頼|怒りの声|外出制限)|(?:首相|外務省|防衛省|政府|米軍)に[^。]*(?:要請|抗議|申し入れ)|(?:知事|市長|官房長官|大臣)[^。]*(?:再発防止|要請|抗議|注視|言及|批判|遺憾)|県議会[^。]*答弁|市民団体[^。]*(?:抗議|集会|怒りの声|要請|声明)|遺族(?:が|ら|も)[^。]*(?:コメント|談話|手記)|被害者へ中傷|中傷[^。]*削除依頼|日米共同演習|相次いで先島に飛来|FRIDAY|フライデー|逮捕直後の.*表情)/i;
 
 const OVERSEAS_INCIDENT_REGEX = /(現地時間|現地メディア|現地警察|米警察|韓国警察|タイ警察|中国公安|比当局|フィリピン当局|カンボジア当局|ミャンマー当局|連邦検察|連邦地裁|州警察|保安官|邦人(?:を|ら)?(?:逮捕|拘束|保護)|日本人(?:の男|の女|ら|グループ)?を(?:現地|海外|国外|タイ|フィリピン|カンボジア|ベトナム|中国|韓国|米国|アメリカ)で(?:逮捕|拘束|摘発)|国外退去処分を受けた日本人)/;
 
@@ -465,13 +465,25 @@ function isDuplicateAgainstExisting(candidate, existingArticles) {
 
     const exProfile = existing._profile || buildIncidentProfile(existing);
 
-    if (!candProfile.prefecture || !exProfile.prefecture || candProfile.prefecture !== exProfile.prefecture) continue;
+
     if (!candProfile.nationality || !exProfile.nationality || candProfile.nationality !== exProfile.nationality) continue;
 
     const sharedCrimes = candProfile.crimeCategories.filter(
       (c) => c !== 'その他刑事事件' && exProfile.crimeCategories.includes(c)
     );
     if (sharedCrimes.length === 0) continue;
+
+    // 確定0: カタカナ被疑者名が一致し同国籍・同罪種の場合は、犯行現場とアジト・警察署所在地等の県名揺れを越えて重複と判定
+    if (candProfile.suspectName && exProfile.suspectName && candProfile.suspectName.length >= 3 && exProfile.suspectName.length >= 3) {
+      if (candProfile.suspectName.slice(0, 4) === exProfile.suspectName.slice(0, 4)) {
+        return {
+          duplicate: true,
+          reason: `同一被疑者名一致(跨県含む) [${candProfile.prefecture || '不明'} vs ${exProfile.prefecture || '不明'} / ${candProfile.nationality} / ${candProfile.suspectName}容疑者]`,
+        };
+      }
+    }
+
+    if (!candProfile.prefecture || !exProfile.prefecture || candProfile.prefecture !== exProfile.prefecture) continue;
 
     // 市区町村が双方に明記されており、かつ食い違っている場合は別事件として保護（政令市と区の親子関係は同一扱い）
     if (candProfile.subLocation && exProfile.subLocation && !isSameOrParentMuni(candProfile.subLocation, exProfile.subLocation)) {
