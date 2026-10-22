@@ -1,5 +1,68 @@
 [
   {
+    "id": "05ca3b0ae160",
+    "sourceRecordId": "v5-05ca3b0ae160",
+    "date": "2026-10-22",
+    "pubDate": "2026-10-22T05:34:52.132Z",
+    "location": "東京都",
+    "prefecture": "東京都",
+    "media": "時事通信（社会）",
+    "source": "時事通信（社会）",
+    "stage": "逮捕",
+    "nationality": "中国籍",
+    "crimeCategory": "万引き・ドラッグストア大量窃盗",
+    "title": "処方箋なしで薬販売容疑 薬局経営者ら逮捕、マンジャロも―警視庁",
+    "url": "https://www.jiji.com/jc/article?k=2026102200429&g=soc",
+    "summary": "東京都で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 処方箋がないのに処方薬を販売したとして、警視庁生活環境課は２２日までに、医薬品医療機器法違反容疑で、「ファーストビューティ薬局」（東京都新宿区）の実質的経営者で",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "本文抜粋: 処方箋がないのに処方薬を販売したとして、警視庁生活環境課は２２日までに、医薬品医療機器法違反容疑で、「ファーストビューティ薬局」（東京都新宿区）の実質的経営者で"
+  },
+  {
+    "id": "4699d7d00712",
+    "sourceRecordId": "v5-4699d7d00712",
+    "date": "2026-10-22",
+    "pubDate": "2026-10-22T04:20:00.000Z",
+    "location": "富山県",
+    "prefecture": "富山県",
+    "media": "北國新聞",
+    "source": "北國新聞",
+    "stage": "再逮捕",
+    "nationality": "中国籍",
+    "crimeCategory": "商標法・著作権法・偽ブランド",
+    "title": "アディダス、ナイキの偽ロゴ衣類252着 販売目的で所持容疑 中国籍男を再逮捕 津幡署",
+    "url": "https://topics.smt.docomo.ne.jp/article/hokkoku/region/hokkoku-20261022132321",
+    "summary": "富山県で発生し、中国籍の被疑者に再逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 「アディダス」や「ナイキ」などの偽のロゴが入った衣類２５２着を販売目的で所持したとして、津幡署と石川県警生活安全捜査課は２１日、商標法違反の疑いで、砺波市庄川町",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "本文抜粋: 「アディダス」や「ナイキ」などの偽のロゴが入った衣類２５２着を販売目的で所持したとして、津幡署と石川県警生活安全捜査課は２１日、商標法違反の疑いで、砺波市庄川町"
+  },
+  {
+    "id": "5cce4f1a9e42",
+    "sourceRecordId": "v5-5cce4f1a9e42",
+    "date": "2026-10-22",
+    "pubDate": "2026-10-21T21:27:00.000Z",
+    "location": "東京都",
+    "prefecture": "東京都",
+    "media": "Excite エキサイト",
+    "source": "Excite エキサイト",
+    "stage": "逮捕",
+    "nationality": "ベトナム国籍",
+    "crimeCategory": "その他刑事事件",
+    "title": "ベトナム国籍の男2人逮捕 2階から侵入しスマホを... 東京・東村山市",
+    "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1ZUEp0b0NsNzVqZWRjN01TQ1h6OE9tQ1FGdHJMbFVnbkk3UlU3MWVnU0ltYWZYWldaYTFIdjhmS1prc2hRQ1pGZTMxcTdKSGlBOTFpWVpMczdsVG11STVZM05TQnB1MUVVWWh2NDlB",
+    "summary": "東京都で発生し、ベトナム国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "見出し根拠: ベトナム国籍の男2人逮捕 2階から侵入しスマホを... 東京・東村山市",
+      "nationality": "見出し根拠: ベトナム国籍"
+    },
+    "locationBasis": "見出し根拠: ベトナム国籍の男2人逮捕 2階から侵入しスマホを... 東京・東村山市"
+  },
+  {
     "id": "4fcc8041bb8a",
     "sourceRecordId": "v5-4fcc8041bb8a",
     "date": "2026-10-22",
