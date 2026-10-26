@@ -1,5 +1,26 @@
 [
   {
+    "id": "3a379cf7bc03",
+    "sourceRecordId": "v5-3a379cf7bc03",
+    "date": "2026-10-26",
+    "pubDate": "2026-10-26T05:05:00.000Z",
+    "location": "宮崎県",
+    "prefecture": "宮崎県",
+    "media": "TBS NEWS DIG",
+    "source": "TBS NEWS DIG",
+    "stage": "再逮捕",
+    "nationality": "ベトナム国籍",
+    "crimeCategory": "有印公文書偽造・偽造カード・偽装結婚",
+    "title": "「使うつもりはなかった」と否認 偽造在留カード所持のベトナム人再逮捕",
+    "url": "https://topics.smt.docomo.ne.jp/article/mrt/region/mrt-3038278",
+    "summary": "宮崎県で発生し、ベトナム国籍の被疑者に再逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 使用する目的で、偽造された在留カードを所持していたとして、国富町に住むベトナム人の男が、入管難民法違反の疑いで、再逮捕されました。",
+      "nationality": "本文抜粋: ベトナム人"
+    },
+    "locationBasis": "本文抜粋: 再逮捕されたのは、国富町本庄のアルバイトで、ベトナム人のファン バン チュン容疑者37歳です。"
+  },
+  {
     "id": "2aebb17e32e2",
     "sourceRecordId": "v5-2aebb17e32e2",
     "date": "2026-10-25",
