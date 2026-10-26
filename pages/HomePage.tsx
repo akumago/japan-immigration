@@ -117,6 +117,9 @@ export const HomePage: React.FC = () => {
                         <SocialShare />
                     </div>
 
+                    {/* 最新 外国人犯罪報道ニュース速報セクション（毎時 自動巡回更新中） */}
+                    <CrimeNewsSection />
+
                     {reportData.sections.map((section, sectionIndex) => (
                         <React.Fragment key={sectionIndex}>
                             {sectionIndex === 0 && (
@@ -387,9 +390,6 @@ export const HomePage: React.FC = () => {
                             </div>
                         </div>
                     </section>
-
-                    {/* 最新 外国人犯罪報道ニュース速報セクション（毎日09:00全自動更新） */}
-                    <CrimeNewsSection />
 
                     {/* 防犯・生活安全インフォメーション枠（A8.net提携案件：防犯カメラ＆家財補償） */}
                     <div className="mb-20 p-6 md:p-8 rounded-3xl bg-gradient-to-r from-blue-950/20 via-[#161b22] to-slate-900/30 border border-blue-500/20 shadow-2xl">
