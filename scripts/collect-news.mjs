@@ -81,59 +81,59 @@ const NATIONALITY_PATTERNS = [
   { standard: '外国籍', regex: /(外国籍|外国人(?:の男|の女|容疑者|グループ|窃盗団|技能実習生)|技能実習生(?:の男|の女|ら|容疑者)|不法残留(?:の男|の女|容疑者)|不法滞在(?:の男|の女|容疑者))/i },
 ];
 
-// 28種類の細分化された罪種カテゴリ（「米兵」が「米」にマッチするバグを修正、フィッシング・偽サイトメール等を網羅）
+// 28種類の細分化された罪種カテゴリ（「米兵」が「米」にマッチするバグおよび「スリランカ」が「スリ」にマッチするバグを完全排除）
 const CRIME_CATEGORIES = [
   { category: '殺人・殺人未遂', regex: /(殺人|殺害|刺殺|絞殺|撲殺|首を絞め|強殺|胸などを刺|背中を刺|首を刺)/ },
-  { category: '強盗・強盗致傷', regex: /(強盗|ひったくり|闇バイト強盗)/ },
-  { category: '性犯罪・わいせつ', regex: /(不同意性交|不同意わいせつ|性的暴行|強制性交|強制わいせつ|盗撮|性的姿態撮影|児童買春|児童ポルノ|淫行|下半身露出|公然わいせつ)/ },
-  { category: '暴行・傷害・脅迫', regex: /(傷害|暴行|殴った|蹴った|刺した|刺され|切りつけ|噛みつ|嚙みつ|脅迫|恐喝|暴力行為|集団暴行)/ },
+  { category: '強盗・強盗致傷', regex: /(強盗|ひったくり|闇バイト強盗|脅し.{0,12}奪|現金奪)/ },
+  { category: '性犯罪・わいせつ', regex: /(不同意性交|不同意わいせつ|わいせつな?行為|性的暴行|強制性交|強制わいせつ|盗撮|性的姿態撮影|児童買春|児童ポルノ|淫行|下半身露出|公然わいせつ|胸を触|体を触)/ },
+  { category: '暴行・傷害・脅迫', regex: /(傷害|暴行|殴った|蹴った|刺した|刺され|切りつけ|切り付け|噛みつ|嚙みつ|脅迫|恐喝|暴力行為|集団暴行|平手打ち)/ },
   { category: '金属・太陽光ケーブル窃盗', regex: /(銅線|太陽光|メガソーラー|ケーブル|金属盗|グレーチング|室外機)/ },
-  { category: '自動車・バイク盗・ヤード解体', regex: /(自動車盗|高級車|レクサス|アルファード|ランドクルーザー|プリウス|ヤード|盗難車|解体)/ },
+  { category: '自動車・バイク盗・ヤード解体', regex: /(自動車盗|高級車|レクサス|アルファード|ランドクルーザー|プリウス|ヤード|盗難車)/ },
   { category: '農作物・家畜・果物窃盗', regex: /(農作物|果物|さくらんぼ|シャインマスカット|桃|梨|メロン|コメ|玄米|白米|新米|米袋|米\d+キロ|豚|牛|鶏|家畜)/ },
-  { category: '住宅侵入・空き巣・店舗窃盗', regex: /(空き巣|忍び込み|居空き|事務所荒らし|出店荒らし|金庫|質店.*窃盗|質店.*盗)/ },
+  { category: '住宅侵入・空き巣・店舗窃盗', regex: /(空き巣|忍び込み|居空き|事務所荒らし|出店荒らし|金庫|質店.*窃盗|質店.*盗|住宅に侵入.*盗|空き家に侵入.*盗)/ },
   { category: '万引き・ドラッグストア大量窃盗', regex: /(万引き|化粧品|医薬品|サプリメント|ドラッグストア|コンビニ.*盗)/ },
-  { category: '一般窃盗・スリ・車上荒らし', regex: /(窃盗|盗んだ|車上荒らし|スリ|置き引き|さい銭)/ },
-  { category: '盗品等関与・故買・転売', regex: /(盗品等|盗品と知りながら|故買|買い取った)/ },
-  { category: '特殊詐欺・出し子・受け子', regex: /(特殊詐欺|オレオレ詐欺|還付金詐欺|出し子|受け子|かけ子|キャッシュカード.*だまし取|ATM.*引き出)/ },
-  { category: 'クレジットカード・電子計算機詐欺', regex: /(クレジットカード|不正利用|不正決済|電子計算機使用詐欺|フィッシング|偽サイト.*メール|誘導メール|大量メール送信|大量送信|マイナポイント|給付金詐欺|持続化給付金)/ },
-  { category: '一般詐欺・無銭飲食', regex: /(詐欺|だまし取|無銭飲食|食い逃げ)/ },
-  { category: '通貨偽造・偽造硬貨・偽札', regex: /(通貨偽造|偽造通貨|偽造銀貨|偽造硬貨|1万円銀貨|一万円銀貨|偽札|偽造紙幣|旧1円銀貨|500円硬貨.*偽造|記念硬貨)/ },
-  { category: '有印公文書偽造・偽造カード・偽装結婚', regex: /(在留カード.*偽造|偽造在留カード|マイナンバーカード.*偽造|運転免許証.*偽造|有印公文書偽造|有印私文書偽造|電磁的公正証書原本不実記録|偽装結婚|虚偽申請)/ },
-  { category: '医師法・薬機法・無資格医療・美容', regex: /(医師法|無資格.*医療|美容整形|美容医療|アートメイク|歯科医師法|薬機法|未承認医薬品|無許可.*医薬)/ },
-  { category: '鳥獣保護法・密猟・違法ジビエ・密漁', regex: /(鳥獣保護|密猟|イノシシ|シカ|ジビエ|わな|くくりわな|食品衛生法|食肉処理|無許可.*解体|密漁|ナマコ|アワビ|ウナギ|シラスウナギ|漁業法|オカヤドカリ)/ },
-  { category: '薬物・大麻・覚醒剤・密輸', regex: /(覚醒剤|覚せい剤|大麻|コカイン|MDMA|麻薬|薬物|向精神薬|ケタミン|危険ドラッグ|麻薬特例法|関税法.*密輸)/ },
-  { category: '入管法違反・不法残留・不法就労助長', regex: /(入管難民法|入管法|不法残留|不法滞在|オーバーステイ|不法就労|密入国|資格外活動)/ },
+  { category: '一般窃盗・スリ・車上荒らし', regex: /(窃盗|盗んだ|盗み|盗む|盗もう|車上荒らし|スリ(?!ランカ)|置き引き|さい銭|ロッカー物色)/ },
+  { category: '盗品等関与・故買・転売', regex: /(盗品等|盗品を保管|盗品と知りながら|故買|買い取った)/ },
+  { category: '特殊詐欺・出し子・受け子', regex: /(特殊詐欺|オレオレ詐欺|還付金詐欺|出し子|受け子|かけ子|架け子|キャッシュカード.*だまし取|ATM.*引き出)/ },
+  { category: 'クレジットカード・電子計算機詐欺', regex: /(クレジットカード|不正利用|不正決済|電子計算機使用詐欺|フィッシング|ボイスフィッシング|偽サイト.*メール|誘導メール|大量メール送信|大量送信|マイナポイント|給付金詐欺|持続化給付金)/ },
+  { category: '一般詐欺・無銭飲食', regex: /(詐欺|だまし取|詐取|無銭飲食|食い逃げ)/ },
+  { category: '通貨偽造・偽造硬貨・偽札', regex: /(通貨偽造|偽造通貨|偽造銀貨|偽造硬貨|1万円銀貨|一万円銀貨|偽造1万円|偽札|偽造紙幣|旧1円銀貨|500円硬貨.*偽造|記念硬貨)/ },
+  { category: '有印公文書偽造・偽造カード・偽装結婚', regex: /(在留カード.*偽造|偽造在留カード|マイナンバーカード.*偽造|運転免許証.*偽造|偽造.*運転免許証|有印公文書偽造|偽造有印公文書|有印私文書偽造|電磁的公正証書原本不実記録|偽装結婚|虚偽申請)/ },
+  { category: '医師法・薬機法・無資格医療・美容', regex: /(医師法|無資格.*医療|美容整形|美容医療|アートメイク|歯科医師法|薬機法|医薬品医療機器法|処方箋なし|未承認医薬品|無許可.*医薬)/ },
+  { category: '鳥獣保護法・密猟・違法ジビエ・密漁', regex: /(鳥獣保護|密猟|イノシシ|シカ|ジビエ|わな|くくりわな|食品衛生法|食肉処理|無許可.*解体|密漁|ナマコ|アワビ|ウナギ|シラスウナギ|漁業法|オカヤドカリ|文化財保護法)/ },
+  { category: '薬物・大麻・覚醒剤・密輸', regex: /(覚醒剤|覚せい剤|大麻|コカイン|MDMA|麻薬|薬物|向精神薬|ケタミン|危険ドラッグ|麻薬特例法|関税法.*密輸|家畜伝染病予防法|検疫法)/ },
+  { category: '入管法違反・不法残留・不法就労助長', regex: /(入管難民法|入管法|不法残留|不法滞在|オーバーステイ|不法就労|密入国|資格外活動|旅券不携帯)/ },
   { category: '白タク・道路運送法違反', regex: /(白タク|道路運送法|無許可.*タクシー|有償運送)/ },
   { category: '廃棄物処理法・不法投棄・環境犯罪', regex: /(廃棄物処理法|不法投棄|産廃|スクラップ|無許可.*ヤード|森林法)/ },
-  { category: '商標法・著作権法・偽ブランド', regex: /(商標法|著作権法|偽ブランド|模倣品|海賊版|ニセ物|偽物)/ },
-  { category: '銀行法・地下銀行・犯罪収益移転防止法', regex: /(地下銀行|銀行法違反|無免許.*送金|犯罪収益移転防止法|マネーロンダリング|口座売買|口座.*譲り渡)/ },
-  { category: '交通犯罪・ひき逃げ・無免許・飲酒運転', regex: /(ひき逃げ|当て逃げ|無免許|酒気帯び|酒酔い|飲酒運転|危険運転|過失運転致死傷|道交法|道路交通法)/ },
+  { category: '商標法・著作権法・偽ブランド', regex: /(商標法|著作権法|偽ブランド|偽ロゴ|模倣品|海賊版|ニセ物|偽物|偽サプリ)/ },
+  { category: '銀行法・地下銀行・犯罪収益移転防止法', regex: /(地下銀行|銀行法違反|無免許.*送金|犯罪収益移転防止法|マネーロンダリング|資金洗浄|口座売買|口座.*譲り渡|出資法|闇金|ヤミ金)/ },
+  { category: '交通犯罪・ひき逃げ・無免許・飲酒運転', regex: /(ひき逃げ|当て逃げ|無免許|酒気帯び|酒酔い|飲酒運転|飲酒して.*事故|危険運転|過失運転致死傷|死亡事故|玉突き事故|車突入|車突っ込|道交法|道路交通法)/ },
   { category: '風営法・売春防止法・違法カジノ', regex: /(売春|風営法|賭博|カジノ|メンズエステ|個室マッサージ|不法就労.*ホステス)/ },
-  { category: '建造物侵入・住居侵入・器物損壊・放火', regex: /(住居侵入|建造物侵入|不法侵入|器物損壊|放火|建造物損壊)/ },
-  { category: '銃刀法・公務執行妨害・犯人蔵匿', regex: /(銃刀法|公務執行妨害|証拠隠滅|犯人蔵匿|犯人隠避|威力業務妨害|軽犯罪法)/ },
+  { category: '建造物侵入・住居侵入・器物損壊・放火', regex: /(住居侵入|建造物侵入|不法侵入|器物損壊|器物破損|放火|建造物損壊)/ },
+  { category: '銃刀法・公務執行妨害・犯人蔵匿', regex: /(銃刀法|公務執行妨害|証拠隠滅|犯人蔵匿|犯人隠避|威力業務妨害|偽計業務妨害|軽犯罪法)/ },
 ];
 
 const GOOGLE_NEWS_QUERIES = [
   '"国籍の" ("逮捕" OR "送検" OR "摘発" OR "起訴" OR "書類送検") when:2d',
   '"外国籍の" ("逮捕" OR "送検" OR "摘発" OR "起訴") when:2d',
   '("不法残留" OR "不法滞在" OR "入管難民法" OR "在留カード" OR "技能実習生" OR "特定技能") ("逮捕" OR "摘発" OR "送検") when:2d',
-  '("中国籍" OR "ベトナム国籍" OR "韓国籍" OR "フィリピン国籍" OR "ブラジル国籍" OR "トルコ国籍" OR "ペルー国籍") ("逮捕" OR "送検" OR "摘発") when:2d',
-  '("タイ国籍" OR "インドネシア国籍" OR "カンボジア国籍" OR "スリランカ国籍" OR "パキスタン国籍" OR "ネパール国籍" OR "ミャンマー国籍" OR "米国籍" OR "米兵") ("逮捕" OR "送検" OR "摘発") when:2d',
-  '("ベトナム人の" OR "中国人の" OR "韓国人の" OR "ブラジル人の" OR "フィリピン人の" OR "トルコ人の" OR "タイ人の" OR "クルド人の") ("逮捕" OR "送検" OR "摘発") when:2d',
-  '("銅線" OR "太陽光" OR "無免許" OR "ひき逃げ" OR "医師法" OR "鳥獣保護" OR "偽造" OR "薬物" OR "大麻" OR "特殊詐欺" OR "出し子" OR "性的暴行" OR "不同意") ("国籍" OR "技能実習生" OR "不法残留") ("逮捕" OR "送検") when:2d',
-  '("北海道" OR "青森" OR "岩手" OR "宮城" OR "秋田" OR "山形" OR "福島") ("国籍" OR "技能実習生" OR "不法残留") ("逮捕" OR "送検") when:3d',
-  '("茨城" OR "栃木" OR "群馬" OR "埼玉" OR "千葉" OR "東京" OR "神奈川") ("国籍" OR "技能実習生" OR "不法残留") ("逮捕" OR "送検") when:2d',
-  '("新潟" OR "富山" OR "石川" OR "福井" OR "山梨" OR "長野" OR "岐阜" OR "静岡" OR "愛知" OR "三重") ("国籍" OR "技能実習生" OR "不法残留") ("逮捕" OR "送検") when:3d',
-  '("滋賀" OR "京都" OR "大阪" OR "兵庫" OR "奈良" OR "和歌山") ("国籍" OR "技能実習生" OR "不法残留") ("逮捕" OR "送検") when:2d',
-  '("鳥取" OR "島根" OR "岡山" OR "広島" OR "山口" OR "徳島" OR "香川" OR "愛媛" OR "高知") ("国籍" OR "技能実習生" OR "不法残留") ("逮捕" OR "送検") when:3d',
-  '("福岡" OR "佐賀" OR "長崎" OR "熊本" OR "大分" OR "宮崎" OR "鹿児島" OR "沖縄") ("国籍" OR "技能実習生" OR "不法残留") ("逮捕" OR "送検") when:3d',
+  '("中国籍" OR "ベトナム国籍" OR "韓国籍" OR "台湾籍" OR "フィリピン国籍" OR "ブラジル国籍" OR "トルコ国籍" OR "ペルー国籍") ("逮捕" OR "送検" OR "摘発" OR "起訴") when:2d',
+  '("タイ国籍" OR "インドネシア国籍" OR "カンボジア国籍" OR "スリランカ国籍" OR "パキスタン国籍" OR "ネパール国籍" OR "ミャンマー国籍" OR "インド国籍" OR "米国籍" OR "米兵" OR "米海兵隊") ("逮捕" OR "送検" OR "摘発" OR "起訴") when:2d',
+  '("ベトナム人の" OR "中国人の" OR "韓国人の" OR "ブラジル人の" OR "フィリピン人の" OR "トルコ人の" OR "タイ人の" OR "クルド人の" OR "スリランカ人の") ("逮捕" OR "送検" OR "摘発") when:2d',
+  '("銅線" OR "太陽光" OR "無免許" OR "ひき逃げ" OR "医師法" OR "鳥獣保護" OR "偽造" OR "薬物" OR "大麻" OR "特殊詐欺" OR "出し子" OR "受け子" OR "性的暴行" OR "不同意") ("国籍" OR "中国籍" OR "韓国籍" OR "台湾籍" OR "技能実習生" OR "不法残留") ("逮捕" OR "送検") when:2d',
+  '("北海道" OR "青森" OR "岩手" OR "宮城" OR "秋田" OR "山形" OR "福島") ("国籍" OR "中国籍" OR "韓国籍" OR "台湾籍" OR "ベトナム人" OR "技能実習生" OR "不法残留") ("逮捕" OR "送検") when:3d',
+  '("茨城" OR "栃木" OR "群馬" OR "埼玉" OR "千葉" OR "東京" OR "神奈川") ("国籍" OR "中国籍" OR "韓国籍" OR "台湾籍" OR "ベトナム人" OR "技能実習生" OR "不法残留") ("逮捕" OR "送検") when:2d',
+  '("新潟" OR "富山" OR "石川" OR "福井" OR "山梨" OR "長野" OR "岐阜" OR "静岡" OR "愛知" OR "三重") ("国籍" OR "中国籍" OR "韓国籍" OR "台湾籍" OR "ベトナム人" OR "技能実習生" OR "不法残留") ("逮捕" OR "送検") when:3d',
+  '("滋賀" OR "京都" OR "大阪" OR "兵庫" OR "奈良" OR "和歌山") ("国籍" OR "中国籍" OR "韓国籍" OR "台湾籍" OR "ベトナム人" OR "技能実習生" OR "不法残留") ("逮捕" OR "送検") when:2d',
+  '("鳥取" OR "島根" OR "岡山" OR "広島" OR "山口" OR "徳島" OR "香川" OR "愛媛" OR "高知") ("国籍" OR "中国籍" OR "韓国籍" OR "台湾籍" OR "ベトナム人" OR "技能実習生" OR "不法残留") ("逮捕" OR "送検") when:3d',
+  '("福岡" OR "佐賀" OR "長崎" OR "熊本" OR "大分" OR "宮崎" OR "鹿児島" OR "沖縄") ("国籍" OR "中国籍" OR "韓国籍" OR "台湾籍" OR "米兵" OR "技能実習生" OR "不法残留") ("逮捕" OR "送検") when:3d',
 ];
 
 // ============================================================================
 // 2. 厳格ノイズ除外ルール（社説・コラム・政治要請・議会答弁・抗議・遺族談話・海外事件を100%排除）
 // ============================================================================
 
-const NON_INCIDENT_REGEX = /(?:社説|論説|社論|オピニオン|コラム|解説|視点|論点|提言|インタビュー|アンケート|世論調査|統計|白書|ランキング|まとめ|特集|連載|振り返る|シンポジウム|セミナー|勉強会|デモ行進|抗議集会|法改正|制度見直し|入管法改正|ガイドライン|対策会議|防犯訓練|防犯教室|有識者|エキスパートトピ|【[^】]*解説[^】]*】|[一-龥ァ-ヶ]{2,8}(?:大|大学)(?:講師|教授|准教授|名誉教授)\s*$|メッセージの遅さ|極めて遺憾|日米と県協議|協定の改定|改定が必要|パリピ生活|水際で阻止|応えよ$|求めよ$|べきだ$|とは…|できたワケ|の正体|とは何か|^[▽▼■◆●]\s*[上中下前後0-9０-９]|連帯広げる|不安抱く社会|浮かび上がる[^。]*の「?構図」?|専門家が語る|だまされないための対策|エックス速報|合同巡回で米兵[^。]*外出禁止違反|憲兵隊が拘束|事件受けたパトロール|(?:事件|逮捕)[^。]{0,10}受け[^。]*(?:要請|抗議|答弁|集会|声明|談話|コメント|申し入れ|削除依頼|怒りの声|外出制限)|(?:首相|外務省|防衛省|政府|米軍)に[^。]*(?:要請|抗議|申し入れ)|(?:知事|市長|官房長官|大臣)[^。]*(?:再発防止|要請|抗議|注視|言及|批判|遺憾)|県議会[^。]*答弁|市民団体[^。]*(?:抗議|集会|怒りの声|要請|声明)|遺族(?:が|ら|も)[^。]*(?:コメント|談話|手記)|被害者へ中傷|中傷[^。]*削除依頼|日米共同演習|相次いで先島に飛来|FRIDAY|フライデー|逮捕直後の.*表情)/i;
+const NON_INCIDENT_REGEX = /(?:社説|論説|社論|オピニオン|コラム|解説|視点|論点|提言|インタビュー|アンケート|世論調査|統計|白書|ランキング|まとめ|特集|連載|振り返る|シンポジウム|セミナー|勉強会|デモ行進|抗議集会|法改正|制度見直し|入管法改正|ガイドライン|対策会議|防犯訓練|防犯教室|有識者|エキスパートトピ|【[^】]*(?:解説|詳報|前編|後編|中編|連載|特集)[^】]*】|[一-龥ァ-ヶ]{2,8}(?:大|大学)(?:講師|教授|准教授|名誉教授)\s*$|メッセージの遅さ|極めて遺憾|日米と県協議|協定の改定|改定が必要|パリピ生活|水際で阻止|応えよ$|求めよ$|べきだ$|とは…|できたワケ|の正体|とは何か|^[▽▼■◆●]\s*[上中下前後0-9０-９]|連帯広げる|不安抱く社会|浮かび上がる[^。]*の「?構図」?|専門家が語る|だまされないための対策|エックス速報|合同巡回で米兵[^。]*外出禁止違反|憲兵隊が拘束|事件受けたパトロール|(?:事件|逮捕)[^。]{0,10}受け[^。]*(?:要請|抗議|答弁|集会|声明|談話|コメント|申し入れ|削除依頼|怒りの声|外出制限)|(?:首相|外務省|防衛省|政府|米軍)に[^。]*(?:要請|抗議|申し入れ)|(?:知事|市長|官房長官|大臣)[^。]*(?:再発防止|要請|抗議|注視|言及|批判|遺憾)|県議会[^。]*答弁|市民団体[^。]*(?:抗議|集会|怒りの声|要請|声明)|遺族(?:が|ら|も)[^。]*(?:コメント|談話|手記)|被害者へ中傷|中傷[^。]*削除依頼|日米共同演習|相次いで先島に飛来|FRIDAY|フライデー|逮捕直後の.*表情|初公判の傍聴券|傍聴席に.*姿|[＝=]中国ネット)/i;
 
 const OVERSEAS_INCIDENT_REGEX = /(現地時間|現地メディア|現地警察|米警察|韓国警察|タイ警察|中国公安|比当局|フィリピン当局|カンボジア当局|ミャンマー当局|連邦検察|連邦地裁|州警察|保安官|邦人(?:を|ら)?(?:逮捕|拘束|保護)|日本人(?:の男|の女|ら|グループ)?を(?:現地|海外|国外|タイ|フィリピン|カンボジア|ベトナム|中国|韓国|米国|アメリカ)で(?:逮捕|拘束|摘発)|国外退去処分を受けた日本人)/;
 
@@ -373,9 +373,9 @@ function splitLocationPrefAndMuni(rawLoc = '') {
 
 function buildIncidentProfile(article) {
   const title = cleanArticleTitle(article.title || '');
-  const evSuspect = article.evidence?.suspect || '';
-  const evNat = article.evidence?.nationality || '';
-  const locBasis = article.locationBasis || '';
+  const evSuspect = article.evidence?.suspect || article.audit?.suspectRole?.evidence || '';
+  const evNat = article.evidence?.nationality || article.audit?.foreignNationality?.evidence || '';
+  const locBasis = article.locationBasis || article.audit?.japanCrime?.evidence || '';
   const summary = article.summary || '';
   const body = `${evSuspect} ${evNat} ${locBasis} ${summary} ${article.bodyText || ''} ${article.description || ''}`;
   const fullText = `${title} ${body}`;
@@ -667,6 +667,7 @@ function parseRssItems(xml, defaultSource = '国内報道機関') {
 }
 
 const googleSpacer = articleFetcher.createSpacer(600);
+const NON_NEWS_DOMAIN_RE = /(?:rocket-boys\.co\.jp|shueisha\.online|bunshun\.jp|dailyshincho\.jp|gendai\.media|toyokeizai\.net|diamond\.jp|president\.jp|jbpress\.ismedia\.jp|mag2\.com|note\.com|ameblo\.jp|fc2\.com|hatenablog\.com|qiita\.com|zenn\.dev|wikipedia\.org|chiebukuro\.yahoo\.co\.jp|5ch\.net|bakusai\.com|togetter\.com|posfie\.com|x\.com|twitter\.com|youtube\.com|tiktok\.com|instagram\.com|facebook\.com|bengo4\.com)/i;
 
 // article-fetcher.cjs の batchexecute URLデコード＆サイドバー完全除去を優先使用し、失敗時はBing/Yahooスニペットで補完
 async function resolveUrlAndPureArticleBody(item) {
@@ -678,19 +679,20 @@ async function resolveUrlAndPureArticleBody(item) {
     let targetUrl = item.url;
     if (targetUrl.includes('news.google.com')) {
       const resolved = await articleFetcher.resolveGoogleNewsUrl(targetUrl, articleFetcher.httpRequest, googleSpacer);
-      if (resolved?.url && !resolved.url.includes('news.google.com')) {
+      if (resolved?.url && !resolved.url.includes('news.google.com') && !NON_NEWS_DOMAIN_RE.test(resolved.url)) {
         targetUrl = normalizeUrl(resolved.url);
         item.url = targetUrl;
       }
     }
-    if (!targetUrl.includes('news.google.com')) {
+    if (!targetUrl.includes('news.google.com') && !NON_NEWS_DOMAIN_RE.test(targetUrl)) {
       const pageUrl = articleFetcher.photoPageToArticleUrl(targetUrl) || targetUrl;
       const resp = await articleFetcher.httpRequest(pageUrl, { timeoutMs: CONFIG.FETCH_TIMEOUT_MS, maxBytes: 900000 });
       if (resp.status >= 200 && resp.status < 300) {
-        if (resp.finalUrl && !resp.finalUrl.includes('news.google.com')) {
+        if (resp.finalUrl && !resp.finalUrl.includes('news.google.com') && !NON_NEWS_DOMAIN_RE.test(resp.finalUrl)) {
           item.url = normalizeUrl(resp.finalUrl);
         }
-        text = articleFetcher.extractArticleText(resp.body.toString('utf8'), item.title, 8000);
+        const decodedHtml = articleFetcher.decodeHtml(resp.body, resp.headers?.['content-type']);
+        text = articleFetcher.extractArticleText(decodedHtml, item.title, 8000);
       }
     }
   } catch {
@@ -707,13 +709,15 @@ async function resolveUrlAndPureArticleBody(item) {
         const xml = await res.text();
         const bingItems = parseRssItems(xml);
         for (const bItem of bingItems) {
+          if (bItem.url && NON_NEWS_DOMAIN_RE.test(bItem.url)) continue;
           if (calculateTitleSimilarity(item.title, bItem.title) >= 0.50) {
-            if (item.url.includes('news.google.com') && bItem.url && !bItem.url.includes('bing.com')) {
+            if (item.url.includes('news.google.com') && bItem.url && !bItem.url.includes('bing.com') && !NON_NEWS_DOMAIN_RE.test(bItem.url)) {
               item.url = normalizeUrl(bItem.url);
               try {
                 const resp2 = await articleFetcher.httpRequest(item.url, { timeoutMs: CONFIG.FETCH_TIMEOUT_MS, maxBytes: 900000 });
                 if (resp2.status >= 200 && resp2.status < 300) {
-                  text = articleFetcher.extractArticleText(resp2.body.toString('utf8'), item.title, 8000);
+                  const decodedHtml2 = articleFetcher.decodeHtml(resp2.body, resp2.headers?.['content-type']);
+                  text = articleFetcher.extractArticleText(decodedHtml2, item.title, 8000);
                 }
               } catch {
                 // ignore
@@ -1024,11 +1028,16 @@ async function main() {
 
   console.log(`[FETCH] 全国RSS・ローカル局・県警発表から合計 ${rawFetchedItems.length} 件の候補を取得しました。`);
 
-  // 4. 一次フィルタ（既読URL、永久台帳登録済み、非事件・海外見出し、バッチ内重複を除外）
+  // 4. 一次フィルタ（既読URL、10日超の古い記事、永久台帳登録済み、非事件・海外見出し、バッチ内重複を除外）
+  const maxAgeMs = 10 * 24 * 60 * 60 * 1000;
   const uniqueCandidates = [];
   for (const item of rawFetchedItems) {
     if (!item.title || !item.url) continue;
     if (seenUrls.has(item.url)) continue;
+    if (item.pubDate && Date.now() - new Date(item.pubDate).getTime() > maxAgeMs) {
+      seenUrls.add(item.url);
+      continue;
+    }
 
     // 永久除外・統合台帳（merged.json / removed.json）に載っている記事は二度と入れない
     if (
@@ -1061,23 +1070,36 @@ async function main() {
 
   const newlyAccepted = [];
   for (const candidate of uniqueCandidates) {
-    seenUrls.add(candidate.url);
-
+    const originalUrl = candidate.url;
     const bodyText = await resolveUrlAndPureArticleBody(candidate);
-    seenUrls.add(candidate.url);
+
+    if (NON_NEWS_DOMAIN_RE.test(candidate.url)) {
+      seenUrls.add(originalUrl);
+      seenUrls.add(candidate.url);
+      continue;
+    }
 
     // URL解決後に永久台帳と一致したら即スキップ
     if (
       publicationLedger.isSuppressed(candidate, removedLedger) ||
       publicationLedger.isMergedAway(candidate, mergedLedger)
     ) {
+      seenUrls.add(originalUrl);
+      seenUrls.add(candidate.url);
       continue;
     }
 
     const inspection = inspectCandidateWithStrictGate(candidate.title, bodyText);
     if (!inspection.valid) {
+      // 本文取得に成功した上で不適格と確定した場合のみ既読に登録し、通信失敗・空本文は次回再試行可能にする
+      if (bodyText && bodyText.length >= 100) {
+        seenUrls.add(originalUrl);
+        seenUrls.add(candidate.url);
+      }
       continue;
     }
+    seenUrls.add(originalUrl);
+    seenUrls.add(candidate.url);
 
     const dateStr = toJstDateString(candidate.pubDate);
     const enrichedCandidate = {

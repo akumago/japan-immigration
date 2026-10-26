@@ -6,7 +6,7 @@
  * さらに「年齢」「場所」「罪種」「見出し類似」のうち複数の一致を要求する。
  */
 const NAT_LIST = ['中国', '韓国', '朝鮮', '台湾', '香港', 'ベトナム', 'フィリピン', 'タイ', 'インドネシア', 'マレーシア', 'ミャンマー', 'カンボジア', 'ラオス', 'ネパール', 'インド', 'スリランカ', 'バングラデシュ', 'パキスタン', 'アフガニスタン', 'イラン', 'イラク', 'トルコ', 'クルド', 'シリア', 'ウズベキスタン', 'カザフスタン', 'キルギス', 'モンゴル', 'ロシア', 'ウクライナ', 'ブラジル', 'ペルー', 'ボリビア', 'コロンビア', 'メキシコ', 'アルゼンチン', 'チリ', 'キューバ', 'アメリカ', '米国', 'カナダ', 'イギリス', '英国', 'フランス', 'ドイツ', 'イタリア', 'スペイン', 'ルーマニア', 'ナイジェリア', 'ガーナ', 'カメルーン', 'ウガンダ', 'エジプト', 'オーストラリア', 'ニュージーランド'];
-const NAT_ALIAS = { 米国: 'アメリカ', 英国: 'イギリス' };
+const NAT_ALIAS = { 米国: 'アメリカ', 英国: 'イギリス', 朝鮮: '韓国', 北朝鮮: '韓国' };
 const NAT_RE = new RegExp(`(${NAT_LIST.join('|')})(?:国籍|籍|人|出身|系|海兵隊|兵|陸軍|海軍|空軍|軍)`, 'g');
 // This expression is used with .test(); a global flag would make lastIndex
 // stateful and cause nationality extraction to alternate across calls.
@@ -15,22 +15,22 @@ const US_MILITARY_RE = /米(?:兵|軍|海兵隊|海軍|空軍|陸軍|軍属)|ア
 const CRIME_GROUPS = [
   ['盗品保管', /盗品等?保管|盗難.{0,10}高級車.{0,8}保管|高級車.{0,8}保管/],
   ['薬物', /覚醒剤|覚せい剤|麻薬|大麻|コカイン|MDMA|薬物/],
-  ['詐欺', /詐欺|だまし取|特殊詐欺|受け子|出し子|架け子/],
-  ['強盗', /強盗|強殺/],
-  ['窃盗', /窃盗|盗ん|盗み|万引|スリ|空き巣|侵入盗/],
+  ['詐欺', /詐欺|だまし取|詐取|特殊詐欺|受け子|出し子|架け子|かけ子|資金洗浄|マネロン|マネーロンダリング|ボイスフィッシング/],
+  ['強盗', /強盗|強殺|脅し.{0,12}奪|現金奪/],
+  ['窃盗', /窃盗|盗ん|盗み|盗もう|万引|スリ(?!ランカ)|空き巣|侵入盗|車上荒らし|ロッカー物色|ひったくり/],
   ['殺人', /殺人|殺害|強殺/],
-  ['暴行傷害', /暴行|傷害|切り付け|殴|刺(?:され|し|傷|突き)/],
-  ['性犯罪', /不同意性交|不同意わいせつ|強制性交|強制わいせつ|性的姿態|盗撮|痴漢/],
-  ['交通', /道交法|道路交通法|信号無視|赤信号|ひき逃げ|酒気帯び|酒酔い|無免許|危険運転|過失運転|逃走.{0,10}(?:車|パトカー)|パトカー.{0,10}逃走/],
-  ['入管', /入管|難民法|不法(?:に)?(?:上陸|入国|滞在|在留|残留|就労)|オーバーステイ|偽造在留カード/],
+  ['暴行傷害', /暴行|傷害|切り付け|切りつけ|殴|刺(?:され|し|傷|突き)|脅迫|恐喝/],
+  ['性犯罪', /不同意性交|不同意わいせつ|強制性交|強制わいせつ|わいせつな?行為|性的暴行|性的姿態|盗撮|痴漢|胸を触|体を触/],
+  ['交通', /道交法|道路交通法|信号無視|赤信号|ひき逃げ|当て逃げ|酒気帯び|酒酔い|飲酒運転|飲酒して.{0,12}事故|無免許|危険運転|過失運転|死亡事故|玉突き事故|車突入|車突っ込|逃走.{0,10}(?:車|パトカー)|パトカー.{0,10}逃走/],
+  ['入管', /入管|難民法|不法(?:に)?(?:上陸|入国|滞在|在留|残留|就労)|オーバーステイ|偽造在留カード|資格外活動/],
   ['盗品保管', /盗品等保管|盗品保管|盗難車保管|盗品と知りながら.{0,24}保管/],
-  ['商標', /商標法|偽(?:ブランド|物|ユニホ|ユニフォ|サプリ)|模倣品/],
-  ['野生動物', /種の保存法|絶滅危惧/],
-  ['食肉・鳥獣', /食品衛生法|と畜場法|鳥獣保護法|密猟|ジビエ|食肉|解体|イノシシ|シカ/],
-  ['通貨偽造', /通貨及(?:び)?証券模造|通貨偽造|偽造通貨|偽造銀貨|偽造貨幣/],
-  ['器物損壊・公妨', /器物損壊|建造物損壊|公務執行妨害|パトカー/],
-  ['風営', /風営法|売春/],
-  ['医療・資格', /医師法|医師免許|無資格.{0,8}(?:医療|施術|診療)|美容整形/],
+  ['商標', /商標法|偽(?:ブランド|物|ユニホ|ユニフォ|サプリ|ロゴ)|模倣品|海賊版/],
+  ['野生動物', /種の保存法|絶滅危惧|文化財保護法|天然記念物|オカヤドカリ/],
+  ['食肉・鳥獣', /食品衛生法|と畜場法|鳥獣保護法|密猟|密漁|ジビエ|食肉|(?:イノシシ|シカ).{0,10}解体|無許可.{0,8}解体|イノシシ|シカ|ナマコ|アワビ/],
+  ['通貨偽造', /通貨及(?:び)?証券模造|通貨偽造|偽造通貨|偽造銀貨|偽造硬貨|偽造貨幣|1万円銀貨|偽造1万円|偽札/],
+  ['器物損壊・公妨', /器物損壊|器物破損|建造物損壊|公務執行妨害|威力業務妨害|偽計業務妨害|電力メーター|パトカー/],
+  ['風営', /風営法|売春|個室マッサージ|メンズエステ/],
+  ['医療・資格', /医師法|医師免許|医薬品医療機器法|薬機法|処方箋なし|無資格.{0,8}(?:医療|施術|診療)|美容整形/],
   ['サイバー', /不正アクセス|フィッシング|偽メール|詐欺メール|迷惑メール|電子計算機|不正指令/],
 ];
 
@@ -146,7 +146,11 @@ function signals(item) {
   // 辞書に無い国籍（リビア・チュニジア等）も「カタカナ+国籍」で自動抽出
   for (const m of text.matchAll(/([ァ-ヴ][ァ-ヴー]{1,11})国籍/g)) nats.add(NAT_ALIAS[m[1]] || m[1]);
   if (US_MILITARY_RE.test(text)) nats.add('アメリカ');
-  const ages = new Set([...text.matchAll(/(?:[（(](\d{2})[）)]|(\d{2})歳)/g)].map((m) => m[1] || m[2]));
+  // 被害者年齢（「20代女性に」「28歳男性が襲われる」「女性(39)の遺体」等）を除外してから被疑者年齢を抽出
+  const ageSource = text
+    .replace(/\d{2}\s*(?:歳|代)(?:だった)?(?:の)?\s*(?:男性|女性|男児|女児|少女|児童|生徒|高校生|大学生|専門学校生|会社員|店員|住人|被害者|遺体)/g, ' ')
+    .replace(/(?:男性|女性|男児|女児|少女|被害者|長女|長男|妻|夫)\s*[（(]\s*\d{2}\s*(?:歳)?\s*[）)]/g, ' ');
+  const ages = new Set([...ageSource.matchAll(/(?:[（(](\d{2})[）)]|(\d{2})歳)/g)].map((m) => m[1] || m[2]));
   const places = new Set((text.match(/[一-龥ァ-ヴー]{1,6}(?:市|区|町|村)(?![役長民議])/g) || [])
     .map((p) => p.replace(/^.*?(?:都|道|府|県)/, ''))
     .filter((p) => p.length >= 2 && !/^(?:同市|同町|同区|都市|市区|地区)$/.test(p)));
@@ -159,14 +163,17 @@ function signals(item) {
   if (/(?:ヤード|中古車)/.test(text) && /(?:高級車|盗難車)/.test(text) && /保管/.test(text)) incidentAnchors.add('yard_vehicle_storage');
   if (/高級車/.test(text) && /保管/.test(text)) incidentAnchors.add('high_end_car_storage');
   if (/(?:米兵|米海兵隊|海兵隊)/.test(text) && /(?:沖縄|那覇)/.test(text) && /(?:強盗殺人|殺人)/.test(text)) incidentAnchors.add('okinawa_us_military_homicide');
-  // 数量・金額の「事実トークン」から汎用アンカー(fact:罪種:値)を作る。事件ごとの個別登録は不要。
+  // 数量・金額・逮捕人数の「事実トークン」から汎用アンカー(fact:罪種:値)を作る。事件ごとの個別登録は不要。
   // 重量は整数kgへ丸めて表記ゆれを吸収（約3kg/3キロ/3.2キロ→3kg）。text は NFKC 済みで全角数字も吸収済み。
-  const factWeights = [...text.matchAll(/(\d+(?:\.\d+)?)\s*(?:キロ|kg)/gi)].filter((m) => parseFloat(m[1]) >= 1).map((m) => `${Math.round(parseFloat(m[1]))}kg`);
+  const factWeights = [...text.matchAll(/(\d+(?:\.\d+)?)\s*(?:キロ|kg|トン)/gi)].filter((m) => parseFloat(m[1]) >= 1).map((m) => `${Math.round(parseFloat(m[1]))}kg`);
   const factAmounts = [...text.matchAll(/(\d+(?:\.\d+)?)\s*(億|万)円/g)].map((m) => `${m[1]}${m[2]}円`);
-  const factCrime = ['薬物', '詐欺', '窃盗', '強盗', '盗品保管', '食肉・鳥獣', '通貨偽造'].find((k) => crimes.has(k));
-  if (factCrime) [...new Set([...factWeights, ...factAmounts])].forEach((f) => incidentAnchors.add(`fact:${factCrime}:${f}`));
+  const factCounts = [...text.matchAll(/(\d{2,5})\s*(?:本|個|点|枚|台|匹|頭|羽|着|袋|錠|件)/g)].map((m) => `${m[1]}items`);
+  const factGroupSize = [...text.matchAll(/([3-9]|\d{2})\s*人(?:を|ら|組)?(?:逮捕|再逮捕|送検|摘発|起訴)/g)].map((m) => `group${m[1]}`);
+  const factCrime = ['薬物', '詐欺', '窃盗', '強盗', '盗品保管', '食肉・鳥獣', '通貨偽造', '野生動物', '商標'].find((k) => crimes.has(k));
+  if (factCrime) [...new Set([...factWeights, ...factAmounts, ...factCounts, ...factGroupSize])].forEach((f) => incidentAnchors.add(`fact:${factCrime}:${f}`));
   // イノシシ・シカ等の密猟・違法解体事件アンカー
   if (crimes.has('食肉・鳥獣') && /(?:イノシシ|シカ|ジビエ)/.test(text)) incidentAnchors.add('fact:wildlife_meat');
+  if (crimes.has('野生動物') && /オカヤドカリ/.test(text)) incidentAnchors.add('fact:okayadokari');
   // 2026-10-11 横浜市中区長者町の飲食店刺傷事件。国籍・市・罪種・段階に加えて
   // 発生場所の種類も一致するものだけを同一事件候補にし、同市内の別の傷害事件を束ねない。
   if (nats.has('キューバ') && /横浜市/.test(text) && /飲食店/.test(text)
@@ -238,7 +245,7 @@ function suspectNames(item) {
 }
 
 /** 同一事件なら判定理由（文字列）、別事件なら null */
-function sameEventReason(a, b, { maxDays = 5 } = {}) {
+function sameEventReason(a, b, { maxDays = 14 } = {}) {
   if (daysApart(a.date, b.date) > maxDays) return null;
   const sa = a._sig || signals(a); const sb = b._sig || signals(b);
   // A similar headline alone is not an event identity: repeated crime types
@@ -266,7 +273,7 @@ function sameEventReason(a, b, { maxDays = 5 } = {}) {
   // that age mismatch only when date, crime, and compatible location agree.
   const sameNamedSuspect = intersects(sa.suspectNames || new Set(), sb.suspectNames || new Set())
     && sameCrime
-    && daysApart(a.date, b.date) <= 3
+    && daysApart(a.date, b.date) <= 7
     // Some excerpts mention the suspect's base/police jurisdiction first,
     // while another outlet names the crime scene. Matching verified full
     // suspect identity plus same crime/date/prefecture is stronger than that
@@ -282,9 +289,9 @@ function sameEventReason(a, b, { maxDays = 5 } = {}) {
   if (sa.genders.size && sb.genders.size && !intersects(sa.genders, sb.genders) && !factAnchorShared) return null;
   if (sameNamedSuspect) return '本文の容疑者氏名+罪種+同日+地域整合';
   const withinOneDay = daysApart(a.date, b.date) <= 1;
-  const sameStage = sa.procedureStage && sa.procedureStage === sb.procedureStage;
-  const withinIncidentWindow = daysApart(a.date, b.date) <= 5;
-  if (sharedIncidentAnchor && withinIncidentWindow && sameStage && sameStoredRegion && sameCrime) {
+  const sameStage = !sa.procedureStage || !sb.procedureStage || sa.procedureStage === sb.procedureStage;
+  const withinIncidentWindow = daysApart(a.date, b.date) <= 7;
+  if ((sharedIncidentAnchor || factAnchorShared) && withinIncidentWindow && sameStage && sameStoredRegion && sameCrime) {
     return '国籍+罪種+地域+近接日同段階+事件固有アンカー';
   }
   // キューバ国籍の横浜飲食店刺傷では、見出しや短い要約に被疑者名が
@@ -294,8 +301,14 @@ function sameEventReason(a, b, { maxDays = 5 } = {}) {
     || sb.incidentAnchors?.has('cuba_yokohama_restaurant_stabbing'))
     && !sharedIncidentAnchor && !sameNamedSuspect) return null;
   const sim = dice(sa.grams, sb.grams);
-  if (sim >= 0.6 && sameCrime && (samePlace || sameAge)) return `国籍+罪種+場所/年齢+見出し類似${sim.toFixed(2)}`;
   const csim = dice(sa.content, sb.content);
+  // 5日を超える離隔では、ほぼ同一見出し（sim >= 0.70）または事件固有アンカー一致のみを統合し、
+  // 同一自治体・路線で別日に起きた同種事件（沖縄市の米兵飲酒運転など）の誤統合を防ぐ
+  if (daysApart(a.date, b.date) > 5) {
+    if (natsMatch && sameCrime && sameStoredRegion && sim >= 0.70) return `国籍+罪種+遅延同一見出し${sim.toFixed(2)}`;
+    return null;
+  }
+  if (sim >= 0.6 && sameCrime && (samePlace || sameAge)) return `国籍+罪種+場所/年齢+見出し類似${sim.toFixed(2)}`;
   if (sameAge && (samePlace || sameCrime)) return '国籍+年齢+場所/罪種';
   if (samePlace && sameCrime) return '国籍+場所+罪種';
   if (sameCrime && csim >= 0.35) return `国籍+罪種+固有語類似${csim.toFixed(2)}`;

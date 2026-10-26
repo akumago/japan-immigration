@@ -77,7 +77,7 @@ function run({ newsDataPath, mergedPath, dryRun = false, now = Date.now(), logge
     if (t.length >= 8 && item.date) keys.push(`h|${item.date}|${t}`);
     let kept = null;
     for (const k of keys) if (seen.has(k)) { kept = seen.get(k); break; }
-    if (!kept && t.length >= 15) kept = (byTitle.get(t) || []).find((x) => !drop.has(x) && dayDiff(x, item) <= 3) || null;
+    if (!kept && t.length >= 15) kept = (byTitle.get(t) || []).find((x) => !drop.has(x) && dayDiff(x, item) <= 14) || null;
     if (!kept) {
       keys.forEach((k) => seen.set(k, item));
       if (t.length >= 15) byTitle.set(t, [...(byTitle.get(t) || []), item]);

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-16T07:19:23.073Z",
+  "updatedAt": "2026-10-26T09:06:50.805Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -4607,6 +4607,614 @@
       },
       "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
       "recordedAt": "2026-10-16T07:19:23.073Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "8a8c04c72911",
+        "sourceRecordId": "v5-8a8c04c72911",
+        "title": "飲食店で男性の頭部を斧で殴ったか 殺人未遂容疑で自称韓国籍の46歳男逮捕 殴られた男性は軽傷 大阪・ミナミ",
+        "date": "2026-10-25",
+        "url": "https://news.yahoo.co.jp/articles/119b1f7da3a316d04175baf4cc97d79d2be601a0"
+      },
+      "removed": {
+        "id": "cde723efc38c",
+        "sourceRecordId": "v5-cde723efc38c",
+        "title": "突然「おいコラ」斧で頭を殴ったか 男を逮捕 大阪ミナミ",
+        "date": "2026-10-25",
+        "url": "https://www.msn.com/ja-jp/news/other/%E7%AA%81%E7%84%B6-%E3%81%8A%E3%81%84%E3%82%B3%E3%83%A9-%E5%A4%A7%E9%98%AA%E3%83%9F%E3%83%8A%E3%83%9F-%E6%96%A7%E3%81%A7%E9%A0%AD%E3%82%92%E6%AE%B4%E3%81%A3%E3%81%9F%E3%81%8B-%E7%94%B7%E3%82%92%E9%80%AE%E6%8D%95/ar-AA2g0NC0"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "91a8ecc71c44",
+        "sourceRecordId": "v5-91a8ecc71c44",
+        "title": "帰宅したら自宅に侵入した男2人と鉢合わせに...東京・東村山市の住宅からスマホ盗んだ疑いで男2人を逮捕 2階によじ登りベランダから侵入か 警視庁",
+        "date": "2026-10-21",
+        "url": "https://news.livedoor.com/article/detail/32618166/"
+      },
+      "removed": {
+        "id": "5cce4f1a9e42",
+        "sourceRecordId": "v5-5cce4f1a9e42",
+        "title": "ベトナム国籍の男2人逮捕 2階から侵入しスマホを... 東京・東村山市",
+        "date": "2026-10-22",
+        "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1ZUEp0b0NsNzVqZWRjN01TQ1h6OE9tQ1FGdHJMbFVnbkk3UlU3MWVnU0ltYWZYWldaYTFIdjhmS1prc2hRQ1pGZTMxcTdKSGlBOTFpWVpMczdsVG11STVZM05TQnB1MUVVWWh2NDlB"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "ae13209eb8fd",
+        "sourceRecordId": "v5-ae13209eb8fd",
+        "title": "病院でイラン籍の男性が死亡しているのが見つかった事件 覚醒剤取締法違反の疑い 男女3人を再逮捕",
+        "date": "2026-10-21",
+        "url": "https://www.msn.com/ja-jp/news/other/%E7%97%85%E9%99%A2%E3%81%A7%E3%82%A4%E3%83%A9%E3%83%B3%E7%B1%8D%E3%81%AE%E7%94%B7%E6%80%A7%E3%81%8C%E6%AD%BB%E4%BA%A1%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%81%AE%E3%81%8C%E8%A6%8B%E3%81%A4%E3%81%8B%E3%81%A3%E3%81%9F%E4%BA%8B%E4%BB%B6-%E8%A6%9A%E9%86%92%E5%89%A4%E5%8F%96%E7%B7%A0%E6%B3%95%E9%81%95%E5%8F%8D%E3%81%AE%E7%96%91%E3%81%84-%E7%94%B7%E5%A5%B33%E4%BA%BA%E3%82%92%E5%86%8D%E9%80%AE%E6%8D%95/ar-AA2fHJaL"
+      },
+      "removed": {
+        "id": "a9e55765788b",
+        "sourceRecordId": "v5-a9e55765788b",
+        "title": "外国籍の男女3人を覚醒剤取締法違反などの疑いで再逮捕 愛知・豊川市の病院でイラン人男性が死亡した事件 3人は強盗致死罪ですでに起訴 薬物めぐるトラブルか",
+        "date": "2026-10-22",
+        "url": "https://www.msn.com/ja-jp/news/other/%E5%A4%96%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E5%A5%B3%EF%BC%93%E4%BA%BA%E3%82%92%E8%A6%9A%E9%86%92%E5%89%A4%E5%8F%96%E7%B7%A0%E6%B3%95%E9%81%95%E5%8F%8D%E3%81%AA%E3%81%A9%E3%81%AE%E7%96%91%E3%81%84%E3%81%A7%E5%86%8D%E9%80%AE%E6%8D%95-%E6%84%9B%E7%9F%A5-%E8%B1%8A%E5%B7%9D%E5%B8%82%E3%81%AE%E7%97%85%E9%99%A2%E3%81%A7%E3%82%A4%E3%83%A9%E3%83%B3%E4%BA%BA%E7%94%B7%E6%80%A7%E3%81%8C%E6%AD%BB%E4%BA%A1%E3%81%97%E3%81%9F%E4%BA%8B%E4%BB%B6-%EF%BC%93%E4%BA%BA%E3%81%AF%E5%BC%B7%E7%9B%97%E8%87%B4%E6%AD%BB%E7%BD%AA%E3%81%A7%E3%81%99%E3%81%A7%E3%81%AB%E8%B5%B7%E8%A8%B4-%E8%96%AC%E7%89%A9%E3%82%81%E3%81%90%E3%82%8B%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%81%8B/ar-AA2fL4IT"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "f015ec6e6c4e",
+        "sourceRecordId": "v5-f015ec6e6c4e",
+        "title": "職務質問で警察官に偽造の運転免許証を提示したか 旅券不携帯の疑いで現行犯逮捕のベトナム国籍の男 偽造有印公文書行使の疑いで再逮捕",
+        "date": "2026-10-21",
+        "url": "https://news.yahoo.co.jp/articles/6cc1ed894e81f964ce0a49027c62ef5dbd56b0ac"
+      },
+      "removed": {
+        "id": "cf50abd43334",
+        "sourceRecordId": "v5-cf50abd43334",
+        "title": "偽造した運転免許証を提示した疑い、ベトナム国籍の男を再逮捕 岩手署",
+        "date": "2026-10-21",
+        "url": "https://www.daily-tohoku.news/archives/CNTS2026102102163"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "241ac7bbac39",
+        "sourceRecordId": "v5-241ac7bbac39",
+        "title": "「料金安くなる」今治で電力メーターを不正改造 関東の男2人逮捕 国内で同様被害か【愛媛】",
+        "date": "2026-10-21",
+        "url": "https://www.fnn.jp/articles/-/1136931"
+      },
+      "removed": {
+        "id": "73bca44043ea",
+        "sourceRecordId": "v5-73bca44043ea",
+        "title": "「電気料金安くなる」電力メーター不正操作で業務妨害か 男2人逮捕 愛媛",
+        "date": "2026-10-21",
+        "url": "https://news.yahoo.co.jp/articles/f960d7e26fb2b77d30c870cc2e9a563c39b5ec3a?source=rss"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "e152637ac513",
+        "sourceRecordId": "v5-e152637ac513",
+        "title": "ガソリンかけバーナーで焼き、漂白剤飲ませた疑いも 強盗致傷容疑で男2人を逮捕 佐倉署(千葉日報オンライン)",
+        "date": "2026-10-21",
+        "url": "https://news.yahoo.co.jp/articles/ff834afcb7f8b4c7c470091c72e928df83a022c1?source=rss"
+      },
+      "removed": {
+        "id": "3dd3511b6c43",
+        "sourceRecordId": "v5-3dd3511b6c43",
+        "title": "仕事仲間の男性(22)に漂白剤やガソリン飲ませバーナーで体焼いた疑い 土木関連会社代表の男ら2人逮捕 男性は全治3か月の重傷 千葉県警",
+        "date": "2026-10-21",
+        "url": "https://news.livedoor.com/article/detail/32618582/"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "77ff5ac964b4",
+        "sourceRecordId": "v5-77ff5ac964b4",
+        "title": "大阪市中央区のベトナム人向けのナイトクラブで違法薬物を所持か ベトナム人含む4人を逮捕 現場の店舗が入るビルをめぐっては逮捕者が続く",
+        "date": "2026-10-19",
+        "url": "https://news.yahoo.co.jp/articles/17553434e1dfc0b55e89dbe2099efe0d520865d3"
+      },
+      "removed": {
+        "id": "bacbd4a67df9",
+        "sourceRecordId": "v5-bacbd4a67df9",
+        "title": "大阪・ミナミ「ベトナムビル」のナイトクラブでMDMAやケタミン所持 容疑で4人逮捕",
+        "date": "2026-10-19",
+        "url": "https://www.msn.com/ja-jp/news/other/%E5%A4%A7%E9%98%AA-%E3%83%9F%E3%83%8A%E3%83%9F-%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E3%83%93%E3%83%AB-%E3%81%AE%E3%83%8A%E3%82%A4%E3%83%88%E3%82%AF%E3%83%A9%E3%83%96%E3%81%A7mdma%E3%82%84%E3%82%B1%E3%82%BF%E3%83%9F%E3%83%B3%E6%89%80%E6%8C%81-%E5%AE%B9%E7%96%91%E3%81%A74%E4%BA%BA%E9%80%AE%E6%8D%95/ar-AA2fy6xv"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "928492cb5e768bd6",
+        "sourceRecordId": null,
+        "title": null,
+        "date": null,
+        "url": null
+      },
+      "removed": {
+        "id": "7ffd941dc31c",
+        "sourceRecordId": "v5-7ffd941dc31c",
+        "title": "コカイン密輸、那覇空港で財布の中から 米国籍の男を容疑で逮捕 豊見城署",
+        "date": "2026-10-17",
+        "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5fVndqeXFuSnBQQU94NHBuQTVZWGRISVVlX3dOMUxJcE5FdjBjNk1wcjlyVm53ZUtmd3A3YkZCWVBGWTN5OC1fUjRKSQ"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "e5ae1a894b90ba36",
+        "sourceRecordId": null,
+        "title": "「ルイ・ヴィトン」などの偽物...約200点販売目的で所持の疑い 中国籍の男女3人逮捕・送検 事務所などから29ブランド700点を押収",
+        "date": "2026-10-15",
+        "url": "https://news.ntv.co.jp/n/ytv/category/society/yt31a6055c68d54e498548bcc9c67e9af8"
+      },
+      "removed": {
+        "id": "2cc411ccebf7b0ad",
+        "sourceRecordId": null,
+        "title": "偽の「ルイ・ヴィトン」バッグなど販売目的で所持疑い 中国の会社の指示で発送役か 2026 年 10 月 15 日 13:59",
+        "date": "2026-10-15",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000540389.html"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "dc8a0c4470e2d4f2",
+        "sourceRecordId": null,
+        "title": "アジア競技大会の会場からマット盗んだか イギリス国籍のボランティアスタッフの女を逮捕 名古屋",
+        "date": "2026-10-06",
+        "url": "https://news.ntv.co.jp/n/ctv/category/society/ct7575e60c2ba7479ca41909798b0a3aea"
+      },
+      "removed": {
+        "id": "84892acc1f1aa042",
+        "sourceRecordId": null,
+        "title": "アジア大会の備品窃盗疑い 英国籍ボランティア逮捕",
+        "date": "2026-10-13",
+        "url": "https://www.sanyonews.jp/article/2000077?kw=NL"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "98feb0bee945369d",
+        "sourceRecordId": null,
+        "title": "コカイン３キロ密輸疑い逮捕 フィンランド国籍の女",
+        "date": "2026-10-07",
+        "url": "https://www.sanyonews.jp/article/2001067?rct=global_syakai_c"
+      },
+      "removed": {
+        "id": "d02de12cc876c061",
+        "sourceRecordId": null,
+        "title": "コカイン３キロ密輸疑い逮捕 フィンランド国籍の女",
+        "date": "2026-10-13",
+        "url": "https://www.sanyonews.jp/article/2001067"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "0699f85e4508de09",
+        "sourceRecordId": null,
+        "title": "関越道工事現場に乗用車突入 作業員2人死亡 過失運転致死の疑いでオザヒ・モハンマド容疑者（29＝イラン国籍）逮捕「話すことない」と供述一転・認否留保 埼玉・滑川町",
+        "date": "2026-09-26",
+        "url": "https://www.saitama-np.co.jp/articles/216484"
+      },
+      "removed": {
+        "id": "f340ae5ac3d1428c",
+        "sourceRecordId": null,
+        "title": "関越道工事現場に車突入２人死亡 作業員男女、運転のイラン男逮捕",
+        "date": "2026-10-10",
+        "url": "https://www.sanyonews.jp/article/1994773?rct=global_syakai_c&kw=33"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "32fd3f9e932c0dbb",
+        "sourceRecordId": null,
+        "title": "銅線ケーブル22トン窃盗 岡山県警が外国人14人を最終送検（山陽新聞デジタル）",
+        "date": "2026-10-08",
+        "url": "https://news.yahoo.co.jp/articles/e5a5db760189963272f9f1c8855c65c184b3d6e4"
+      },
+      "removed": {
+        "id": "1c74dca1cb93e8ac",
+        "sourceRecordId": null,
+        "title": "諏訪郡内でも犯行か 全国各地で電線ケーブルを盗んだ疑い 岡山県警がカンボジアやベトナム国籍の男14人を摘発",
+        "date": "2026-10-09",
+        "url": "https://newsdig.tbs.co.jp/articles/sbc/3001030"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "5d5d5ff341c76fe9",
+        "sourceRecordId": null,
+        "title": "絶滅危惧種「アデレードアオジタトカゲ」無登録譲受の疑い ペットショップ経営の韓国籍の男（36）を逮捕 警視庁",
+        "date": "2026-09-29",
+        "url": "https://www.fnn.jp/articles/-/1120914"
+      },
+      "removed": {
+        "id": "95578c1f61ebf267",
+        "sourceRecordId": null,
+        "title": "絶滅危惧種のトカゲ譲り受けか ペットショップ経営者逮捕",
+        "date": "2026-10-08",
+        "url": "https://www.sanyonews.jp/article/1994196"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "40a42651beaa2276",
+        "sourceRecordId": null,
+        "title": null,
+        "date": null,
+        "url": null
+      },
+      "removed": {
+        "id": "6019f520771a3b0a",
+        "sourceRecordId": null,
+        "title": "太陽光発電施設から銅線ケーブルを盗むなどした疑いでカンボジア国籍とベトナム国籍の男らからなる外国人グループ計14人を逮捕し最終送致【岡山県警】",
+        "date": "2026-10-08",
+        "url": "https://news.yahoo.co.jp/articles/f6fbbe66801a19fedf8cbc6de13aef8489410445"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "faa6b74b61a4c862",
+        "sourceRecordId": null,
+        "title": "約2.4キロメートルの銅線を盗んだ疑いでベトナム国籍の男3人を逮捕 三重県の太陽光発電所が被害 時価合計約2350万円 愛知県で売却か 滋賀県警",
+        "date": "2026-10-07",
+        "url": "https://topics.smt.docomo.ne.jp/article/mbs_news/region/mbs_news-2996843"
+      },
+      "removed": {
+        "id": "baec023f6c82f235",
+        "sourceRecordId": null,
+        "title": "太陽光発電所で銅線ケーブル2420ｍを盗んだ疑い ベトナム国籍の20代男3人逮捕",
+        "date": "2026-10-07",
+        "url": "https://news.yahoo.co.jp/articles/f533f356635c751fa37a57101e470a3c6b428abb"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "1685a3a9d3766c96",
+        "sourceRecordId": null,
+        "title": null,
+        "date": null,
+        "url": null
+      },
+      "removed": {
+        "id": "0ca8d6544a0c75fe",
+        "sourceRecordId": null,
+        "title": "福山港から不法上陸疑い、中国籍の男を逮捕(中国新聞デジタル)",
+        "date": "2026-10-03",
+        "url": "https://news.yahoo.co.jp/articles/4025470d6f18621dcbcdb73271aca8ac8bfcd37d?source=rss"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "b02d4ab336ffcc0d",
+        "sourceRecordId": null,
+        "title": "奄美大島でオカヤドカリ5200匹密漁疑い 中国籍の男２人に罰金70万円と60万円求刑「大阪の日本人に…」 鹿児島",
+        "date": "2026-09-29",
+        "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE42VnVNMGw0MFhpdVk5VU9NV0ttZ2U4em9ZMUdPN3UwRmxucE52cGlwWmZGSWRKd1MwWEFoRkprMDFXZDZFdGpPRVVWMUxVcTR5WWpmUkN2dFFOeHJZRURWVDI1bVRQSk0?oc=5"
+      },
+      "removed": {
+        "id": "5c21f64003853747",
+        "sourceRecordId": null,
+        "title": "天然記念物オカヤドカリを密猟した疑い 中国籍の男2人の公判 鹿児島",
+        "date": "2026-09-30",
+        "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1kRGZjZ2ptdFZPVnRBem5zXzctYzJiekdaUWtnel9uc0hPYTh2MWdCTEk2NWh2VDhQcHBlbmoxQVVKdmJBblVpX0tXTGZnUFVrRUVtR2xHTUQ5VjNvV3pYN0JXM3VsdklVT2d6ZW5aV1RxUjUw0gF0QVVfeXFMTWREZmNnam10Vk9WdEF6bnNfNy1jMmJ6R1pRa2d6X25zSE9hOHYxZ0JMSTY1aHZUOFBwcGVuajFBVUp2YkFuVWlfS1dMZmdQVWtFRW1HbEdNRDlWM29Xelg3QlczdWx2SVVPZ3plblpXVHFSNTA?oc=5"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "0699f85e4508de09",
+        "sourceRecordId": null,
+        "title": "関越道工事現場に乗用車突入 作業員2人死亡 過失運転致死の疑いでオザヒ・モハンマド容疑者（29＝イラン国籍）逮捕「話すことない」と供述一転・認否留保 埼玉・滑川町",
+        "date": "2026-09-26",
+        "url": "https://www.saitama-np.co.jp/articles/216484"
+      },
+      "removed": {
+        "id": "9d710232256b86e8",
+        "sourceRecordId": null,
+        "title": "関越道2人死亡事故 逮捕のイラン国籍の男「話すことはありません」認否を留保 工事現場に車突っ込む",
+        "date": "2026-09-27",
+        "url": "https://www.fnn.jp/articles/-/1121706"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "95f9a343b9f98c6b",
+        "sourceRecordId": null,
+        "title": "自宅で大麻草207鉢を栽培か ベトナム国籍の男（33）を逮捕 栃木・群馬県警",
+        "date": "2026-09-24",
+        "url": "https://news.google.com/rss/articles/CBMickFVX3lxTFBqQU5vZXJwOGdRX1R6UmVianlwR1RDLU5wS3JwUW1qTGYtWlI1Ti1CRUZwRi1FSmlwWENnMHBRYldMX0NFWG01N0pVUEVMUzBqU0JaRC1mcU5SbUZzT0I3LUxkWVF1ZFd0NDd5eVNYOEtZUQ?oc=5"
+      },
+      "removed": {
+        "id": "9708aadf5e70c67d",
+        "sourceRecordId": null,
+        "title": "営利目的で大麻草を栽培か ベトナム国籍の容疑者再逮捕 足利",
+        "date": "2026-09-25",
+        "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1CODkycF9ybHU2T1Z0eXRBa2ZLRWo2dmZZUUZKekVJX0dVdkM1X3QzcWVGY2RXTGszbWFNNTFVWWRPQjkxU3g2VWxmTk8xUy1YS25zMUozZFI?oc=5"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T08:56:25.695Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "1444245428843bb7",
+        "sourceRecordId": null,
+        "title": "飲酒して玉突き事故 ボリビア国籍の58歳の男を逮捕 群馬・大泉町",
+        "date": "2026-09-14",
+        "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBCTnZzMHdvVjBTSWlCRk1fOFMyclJ2MXZOczRUSzVnT2c0cENqSDZtTHdLWk83czVlNS1ZVXFOTEd6Zk1LRTZiZVIyMDE0S0xMb1JFMVBuTnVkNC12YmlEcEZTZmgwVTZIY3JWVzJzdjlyUUgw?oc=5"
+      },
+      "removed": {
+        "id": "53e134327f2616c5",
+        "sourceRecordId": null,
+        "title": "大泉町 危険運転傷害の疑いでボリビア国籍の派遣社員を逮捕",
+        "date": "2026-09-14",
+        "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE16OHFQUlZ6R3h6LWNTamdyN1RDUXFFQmpCVHdNcEhKdEw2SGcyX2lobkloT3Rrczd6SEFralNUbVVVSDRNMkNPaS03VE9SOGJRaGVENWQxUDY?oc=5"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-26T08:56:25.942Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "1d089a20c5199220",
+        "sourceRecordId": null,
+        "title": "「好みのタイプだった」フードデリバリー配達先の女児にわいせつ行為のウズベキスタン国籍の男(45)を逮捕...“架空の日本人名義”で登録し4畳半のアパートに生活",
+        "date": "2026-09-28",
+        "url": "https://shueisha.online/articles/-/258747"
+      },
+      "removed": {
+        "id": "94c552bfd5de71b5",
+        "sourceRecordId": null,
+        "title": "フードデリバリー配達先で留守番女児に不同意わいせつ容疑 ウズベキスタン国籍の男(45)を逮捕 警視庁",
+        "date": "2026-09-25",
+        "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9MTEFpQkxwRE1rZ1p1MXRCZWY5YnNPeXhoYUlhZ2d2elNUdlQxRVNXUHd1T1AzXzFyUDQ2YmdwOVRobkFoSkFpQm53Vk5LYUFBTTJhZlNXOXlISlNzN2QtR2F0aw?oc=5"
+      },
+      "reason": "国籍+年齢+場所/罪種",
+      "recordedAt": "2026-10-26T08:56:25.942Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "bc4bc89dfd74bcd3",
+        "sourceRecordId": null,
+        "title": "路上強盗 刃物を突きつけ「金を出せ」と脅しバッグを奪ったか ブラジル国籍の男を逮捕",
+        "date": "2026-09-28",
+        "url": "https://topics.smt.docomo.ne.jp/amp/article/suttv/region/suttv-39057"
+      },
+      "removed": {
+        "id": "697a85b08ed84e69",
+        "sourceRecordId": null,
+        "title": "会社員を刃物で脅しバッグ奪ったか ブラジル国籍24歳男逮捕 防犯カメラなどの捜査で犯行特定=静岡・森町",
+        "date": "2026-09-28",
+        "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1OdHdVR2w4eGlXYXFVTFd1OG5vOVpjUEc2MkhxTmt3dHp6N0RySXhaUkw2eTJIS1pwck5iaUlxdHAxaXFZRGhGM3FuN1JsamdhTW9yNjNYSQ?oc=5"
+      },
+      "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
+      "recordedAt": "2026-10-26T08:56:25.942Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "c4579934588fd970",
+        "sourceRecordId": null,
+        "title": "中国人グループ、スーパー銭湯で連続窃盗か 逮捕の中国籍男のかばんから合鍵170個押収",
+        "date": "2026-10-08",
+        "url": "https://www.sankei.com/article/20261008-64M4ZEFJVBIRLJH6XRY7NPSHEQ/"
+      },
+      "removed": {
+        "id": "1a554bcda8adb627",
+        "sourceRecordId": null,
+        "title": "千葉の入浴施設でロッカー物色 中国籍の18歳男を逮捕 複製した合鍵で金品盗もうとした疑い 合鍵170本を押収も「違います」",
+        "date": "2026-10-08",
+        "url": "https://www.fnn.jp/articles/-/1129505"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-26T08:56:25.942Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "473125f8e6c5b676",
+        "sourceRecordId": null,
+        "title": "20代女性をナイフで脅し現金奪いわいせつ行為か パキスタン国籍の男を逮捕",
+        "date": "2026-10-09",
+        "url": "https://s.mxtv.jp/mxnews/amp/mxnews_1gqg7r3l4hh822fp7.html"
+      },
+      "removed": {
+        "id": "06cb4f62d847379f",
+        "sourceRecordId": null,
+        "title": "現金奪い性的暴行か パキスタン国籍の男逮捕",
+        "date": "2026-10-09",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000538989.html"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-10-26T08:56:25.942Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "a29804f1aab119e7",
+        "sourceRecordId": null,
+        "title": "靴の中敷きの下にコカインか、密輸容疑 マレーシア国籍5人逮捕 [東京都]",
+        "date": "2026-10-12",
+        "url": "https://www.asahi.com/sp/articles/photo/AS20261012001992.html"
+      },
+      "removed": {
+        "id": "e20d337d2303b72f",
+        "sourceRecordId": null,
+        "title": "不審な厚底靴で発覚 コカイン密輸容疑で男女5人逮捕",
+        "date": "2026-10-12",
+        "url": "https://www.smartnews.com/news/article/5000317105992632537-%E4%B8%8D%E5%AF%A9%E3%81%AA%E5%8E%9A%E5%BA%95%E9%9D%B4%E3%81%A7%E7%99%BA%E8%A6%9A%E3%80%80%E3%82%B3%E3%82%AB%E3%82%A4%E3%83%B3%E5%AF%86%E8%BC%B8%E5%AE%B9%E7%96%91%E3%81%A7%E7%94%B7%E5%A5%B35%E4%BA%BA%E9%80%AE%E6%8D%95"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-10-26T08:56:25.942Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "faa6b74b61a4c862",
+        "sourceRecordId": null,
+        "title": "約2.4キロメートルの銅線を盗んだ疑いでベトナム国籍の男3人を逮捕 三重県の太陽光発電所が被害 時価合計約2350万円 愛知県で売却か 滋賀県警",
+        "date": "2026-10-07",
+        "url": "https://topics.smt.docomo.ne.jp/article/mbs_news/region/mbs_news-2996843"
+      },
+      "removed": {
+        "id": "59e8d96df263",
+        "sourceRecordId": "v5-59e8d96df263",
+        "title": "太陽光発電所で銅線ケーブル2420mを盗んだ疑い ベトナム国籍の20代男3人逮捕",
+        "date": "2026-10-07",
+        "url": "https://www.kyoto-np.co.jp/articles/-/1804140"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T09:04:03.928Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "95f9a343b9f98c6b",
+        "sourceRecordId": null,
+        "title": "自宅で大麻草207鉢を栽培か ベトナム国籍の男(33)を逮捕 栃木・群馬県警",
+        "date": "2026-09-24",
+        "url": "https://news.google.com/rss/articles/CBMickFVX3lxTFBqQU5vZXJwOGdRX1R6UmVianlwR1RDLU5wS3JwUW1qTGYtWlI1Ti1CRUZwRi1FSmlwWENnMHBRYldMX0NFWG01N0pVUEVMUzBqU0JaRC1mcU5SbUZzT0I3LUxkWVF1ZFd0NDd5eVNYOEtZUQ?oc=5"
+      },
+      "removed": {
+        "id": "018bb5fb0f39",
+        "sourceRecordId": "v5-018bb5fb0f39",
+        "title": "自宅で大麻草207鉢栽培した疑い ベトナム国籍の男を再逮捕 群馬県警 | 上毛新聞電子版|群馬県のニュース・スポーツ情報",
+        "date": "2026-09-25",
+        "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFAyZlA1V3gtdEJTVDV4U1EwMWJLeUE0dkJvbngyS1d1Y0xTd2M2MjQ1V1ZWaG5BNHRVNmQ4MjRGam44U0RLb1B1TnJTekNQMTZySkMwcy1ETGdydw"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T09:04:03.928Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "28d8e04728a801d0",
+        "sourceRecordId": null,
+        "title": "盗品と知りながら銅線ケーブル1100キロ買取りか 中国籍の男女逮捕 富山市婦中町",
+        "date": "2026-09-14",
+        "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOYnJKc1NQZEM5YzJVUUl5WTBNS1VJUnpobTVvLVU2WDlORDVtWTVGekdfb1lyRXJNblZ6Y3hvb0F1VG40TXRKTkR6MndlODNwY0EyZnBJWlB1N3BRcWR5VEZ2c19mREFJZFZNN1FVSk1yMTNJQXdjU1ZmcDB1Z3dtcEg2N0ZfMXM?oc=5"
+      },
+      "removed": {
+        "id": "9b8be798686f",
+        "sourceRecordId": "v5-9b8be798686f",
+        "title": "氷見市の太陽光発電所から盗まれた銅線1.1トンを118万円で譲り受けたか 中国籍男女2人を逮捕 富山",
+        "date": "2026-09-14",
+        "url": "https://newsdig.tbs.co.jp/articles/-/2944081"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T09:04:03.928Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "25a2b980a4827d46",
+        "sourceRecordId": null,
+        "title": "窃盗目的で空き家に侵入か ベトナム国籍の男2人逮捕 東京・文京区",
+        "date": "2026-10-01",
+        "url": "https://news.livedoor.com/article/detail/32459776/"
+      },
+      "removed": {
+        "id": "cf548f8cb6e12bf8",
+        "sourceRecordId": null,
+        "title": "「空き家だと簡単」窃盗未遂容疑でベトナム人2人逮捕、不法滞在 埼玉の4件にも関与か",
+        "date": "2026-10-01",
+        "url": "https://topics.smt.docomo.ne.jp/article/sankei/nation/sankei-_affairs_crime_5RWXOLODQBI57PDLJJ4EXBFDGE"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T09:06:50.805Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "d3a34914c5fb6277",
+        "sourceRecordId": null,
+        "title": "「刑罰軽い」と来日のチリ国籍2人、民家でも790万円窃盗の疑い",
+        "date": "2026-09-29",
+        "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1jd2IwR0ZFZDJlRmxxQ2NZLVJkNG5TSFZOOFFfVGtjUkFzQzZJcVRUcmctTzN3SDZHWmxfaXYzQmR2UndMZU5rUDNaM3U2T3B3VmVJb3NNd3ZiVTk3RlE?oc=5"
+      },
+      "removed": {
+        "id": "b28da8bdc961b90c",
+        "sourceRecordId": null,
+        "title": "別の時計窃盗容疑で再逮捕 チリ国籍の男2人、警視庁",
+        "date": "2026-09-28",
+        "url": "https://www.hokkaido-np.co.jp/article/1377937/"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T09:06:50.805Z"
+    },
+    {
+      "kind": "audit_cleanup_merge",
+      "kept": {
+        "id": "525e7cbb81832ba8",
+        "sourceRecordId": null,
+        "title": "不法残留疑いで10人逮捕 20~30代のベトナム、中国籍の男 加東市の民家に20人で居住",
+        "date": "2026-09-16",
+        "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFB1ZDA4NVZuVXdCYUIzLXdlVkw2XzFMQURKck9LYnpwLUZGR2s3Q29MVDFQVnNMSmxDN0tkbHU0UlZ3cW9TV29ZbFRtNnZvZzNPZENfOU1uOFpFY0NOZ3hOWnViMTFvMDVCVGQzaw?oc=5"
+      },
+      "removed": {
+        "id": "7d340d1372fd939f",
+        "sourceRecordId": null,
+        "title": "不法残留容疑でベトナムと中国籍の男計10人を現行犯逮捕...木造2階建て住宅で集団生活、グループの実態や関与した人物を調べる(読売新聞オンライン)",
+        "date": "2026-09-17",
+        "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1xbWtJSkdPUWFtdHlyY3B3enNVanIzWFItcGhGWWtzOTgxbFpvTU8wU2s0UHp4bzhMZFA3ZTJMRUFWVXZPbjhiaU1rNlVVbldTN1ctQzVjU0Z5dU1MaUpSRV9qRUVrXzlDV3ZEX3ZlSVVVU2djWTFqeU95Rkdodmc?oc=5"
+      },
+      "reason": "same_incident_duplicate",
+      "recordedAt": "2026-10-26T09:06:50.805Z"
     }
   ]
 }

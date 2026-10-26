@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-15T08:02:12.425Z",
+  "updatedAt": "2026-10-26T09:06:50.797Z",
   "items": [
     {
       "id": "cad831a7781dd24a",
@@ -211,6 +211,42 @@
       },
       "reason": "editorial_or_opinion",
       "recordedAt": "2026-10-15T08:02:12.425Z"
+    },
+    {
+      "kind": "audit_cleanup_reject",
+      "item": {
+        "id": "363731554998",
+        "sourceRecordId": "v5-363731554998",
+        "title": "今治市で特定技能実習生の女性がひき逃げされ重傷 容疑者を逮捕【愛媛】",
+        "date": "2026-10-24",
+        "url": "https://eat.jp/eat/?ehimenews=ehimenews276465862020261024"
+      },
+      "reason": "non_target_or_unverified",
+      "recordedAt": "2026-10-26T08:56:25.683Z"
+    },
+    {
+      "kind": "audit_cleanup_reject",
+      "item": {
+        "id": "e22c1177a8e2",
+        "sourceRecordId": "v5-e22c1177a8e2",
+        "title": "男女8人が集まった誕生会が暗転 20代女性に性的暴行加えた33歳ベトナム国籍の男 同意の上での性行為と主張【判決詳報・前編】",
+        "date": "2026-09-11",
+        "url": "https://news.yahoo.co.jp/articles/88ee4dbd06e002304db0effa01467dbe6a657981"
+      },
+      "reason": "serialized_feature_article",
+      "recordedAt": "2026-10-26T09:04:03.920Z"
+    },
+    {
+      "kind": "audit_cleanup_reject",
+      "item": {
+        "id": "77ccc47cd2358674",
+        "sourceRecordId": null,
+        "title": "不法滞在者「運転免許よこせ」地裁に提訴 背後に共産党 260912",
+        "date": "2026-09-26",
+        "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9LSXJsZldwZkJrd0NuSlgyZHYyZGhxc05SM29mTDA1ZjlNNGpud3B5b0ZUWTlTUzRadm1aU1c1bmVPNDZFQ1JNR0s5WWFxWk9qRjg0RU5xR3BSdkZYa3Jj?oc=5"
+      },
+      "reason": "non_target_political_blog",
+      "recordedAt": "2026-10-26T09:06:50.797Z"
     }
   ]
 }
