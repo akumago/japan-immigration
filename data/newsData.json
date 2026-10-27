@@ -1,5 +1,26 @@
 [
   {
+    "id": "fc749ac7d284",
+    "sourceRecordId": "v5-fc749ac7d284",
+    "date": "2026-10-28",
+    "pubDate": "2026-10-27T15:22:13.000Z",
+    "location": "北海道",
+    "prefecture": "北海道",
+    "media": "au Webポータル",
+    "source": "au Webポータル",
+    "stage": "不起訴",
+    "nationality": "トルコ国籍",
+    "crimeCategory": "入管法違反・不法残留・不法就労助長",
+    "title": "トルコ国籍男性2人不起訴 名古屋地検「証拠の内容を慎重に判断」 海の家で不法就労させたなどの疑い",
+    "url": "https://www.msn.com/ja-jp/news/other/%E3%83%88%E3%83%AB%E3%82%B3%E5%9B%BD%E7%B1%8D%E7%94%B7%E6%80%A7%EF%BC%92%E4%BA%BA%E4%B8%8D%E8%B5%B7%E8%A8%B4-%E5%90%8D%E5%8F%A4%E5%B1%8B%E5%9C%B0%E6%A4%9C-%E8%A8%BC%E6%8B%A0%E3%81%AE%E5%86%85%E5%AE%B9%E3%82%92%E6%85%8E%E9%87%8D%E3%81%AB%E5%88%A4%E6%96%AD-%E6%B5%B7%E3%81%AE%E5%AE%B6%E3%81%A7%E4%B8%8D%E6%B3%95%E5%B0%B1%E5%8A%B4%E3%81%95%E3%81%9B%E3%81%9F%E3%81%AA%E3%81%A9%E3%81%AE%E7%96%91%E3%81%84/ar-AA2gbbWy",
+    "summary": "北海道で発生し、トルコ国籍の被疑者に不起訴等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "見出し根拠: トルコ国籍男性2人不起訴 名古屋地検「証拠の内容を慎重に判断」 海の家で不法就労させたなどの疑い",
+      "nationality": "見出し根拠: トルコ国籍"
+    },
+    "locationBasis": "見出し根拠: トルコ国籍男性2人不起訴 名古屋地検「証拠の内容を慎重に判断」 海の家で不法就労させたなどの疑い"
+  },
+  {
     "id": "56297b772a4a",
     "sourceRecordId": "v5-56297b772a4a",
     "date": "2026-10-27",
