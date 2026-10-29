@@ -1,5 +1,68 @@
 [
   {
+    "id": "f9f65eff8f0f",
+    "sourceRecordId": "v5-f9f65eff8f0f",
+    "date": "2026-10-30",
+    "pubDate": "2026-10-29T21:11:00.000Z",
+    "location": "東京都",
+    "prefecture": "東京都",
+    "media": "日テレNEWS NNN",
+    "source": "日テレNEWS NNN",
+    "stage": "逮捕",
+    "nationality": "中国籍",
+    "crimeCategory": "その他刑事事件",
+    "title": "銀座スプレー噴射事件 逃走の中国籍男を逮捕 面識ない男性狙ったか “共犯者”の存在も...直前に話し合う様子",
+    "url": "https://www.msn.com/ja-jp/news/other/%E9%8A%80%E5%BA%A7%E3%82%B9%E3%83%97%E3%83%AC%E3%83%BC%E5%99%B4%E5%B0%84%E4%BA%8B%E4%BB%B6-%E9%80%83%E8%B5%B0%E3%81%AE%E4%B8%AD%E5%9B%BD%E7%B1%8D%E7%94%B7%E3%82%92%E9%80%AE%E6%8D%95-%E9%9D%A2%E8%AD%98%E3%81%AA%E3%81%84%E7%94%B7%E6%80%A7%E7%8B%99%E3%81%A3%E3%81%9F%E3%81%8B-%E5%85%B1%E7%8A%AF%E8%80%85-%E3%81%AE%E5%AD%98%E5%9C%A8%E3%82%82-%E7%9B%B4%E5%89%8D%E3%81%AB%E8%A9%B1%E3%81%97%E5%90%88%E3%81%86%E6%A7%98%E5%AD%90/ar-AA2gm79P",
+    "summary": "東京都で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 今年5月、東京・銀座の複合施設「GINZA SIX」に入る銀行でスプレーがまかれ30人がけがをした事件で、逃走していた中国籍の男が逮捕されました。",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "本文抜粋: 今年5月、東京・銀座の複合施設「GINZA SIX」に入る銀行でスプレーがまかれ30人がけがをした事件で、逃走していた中国籍の男が逮捕されました。"
+  },
+  {
+    "id": "90b6fd9d9ee2",
+    "sourceRecordId": "v5-90b6fd9d9ee2",
+    "date": "2026-10-30",
+    "pubDate": "2026-10-29T15:34:00.000Z",
+    "location": "千葉県",
+    "prefecture": "千葉県",
+    "media": "Excite エキサイト",
+    "source": "Excite エキサイト",
+    "stage": "逮捕",
+    "nationality": "コロンビア国籍",
+    "crimeCategory": "農作物・家畜・果物窃盗",
+    "title": "【速報】JR馬橋駅で果物ナイフ携帯の疑い自称コロンビア国籍の男逮捕 付近に負傷者3人...松戸東署が関連捜査",
+    "url": "https://news.yahoo.co.jp/articles/e400df78436a03d950c94573a1b2b9a032c536ad",
+    "summary": "千葉県で発生し、コロンビア国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 千葉県松戸市のJR馬橋駅構内で果物ナイフを携帯したとして、松戸東署は30日までに、銃刀法違反（刃物携帯）の疑いで自称コロンビア国籍の男（37）＝同市＝を逮捕した",
+      "nationality": "本文抜粋: コロンビア国籍"
+    },
+    "locationBasis": "本文抜粋: 千葉県松戸市のJR馬橋駅構内で果物ナイフを携帯したとして、松戸東署は30日までに、銃刀法違反（刃物携帯）の疑いで自称コロンビア国籍の男（37）＝同市＝を逮捕した"
+  },
+  {
+    "id": "fd303d123e63",
+    "sourceRecordId": "v5-fd303d123e63",
+    "date": "2026-10-30",
+    "pubDate": "2026-10-29T15:22:55.000Z",
+    "location": "東京都",
+    "prefecture": "東京都",
+    "media": "ライブドアニュース",
+    "source": "ライブドアニュース",
+    "stage": "起訴",
+    "nationality": "チリ国籍",
+    "crimeCategory": "一般窃盗・スリ・車上荒らし",
+    "title": "東京都中野区でまた高級時計窃盗 客を装った人物が逃走か",
+    "url": "https://news.livedoor.com/article/detail/32687970/",
+    "summary": "東京都で発生し、チリ国籍の被疑者に起訴等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: チリ国籍の男2人が窃盗容疑で逮捕され、その後起訴された。",
+      "nationality": "本文抜粋: チリ国籍"
+    },
+    "locationBasis": "本文抜粋: 窃盗事件があった「中野ブロードウェイ」にある時計店付近を調べる捜査員ら＝29日夜、東京都中野区"
+  },
+  {
     "id": "bd178b8ad5d3",
     "sourceRecordId": "v5-bd178b8ad5d3",
     "date": "2026-10-29",
