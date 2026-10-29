@@ -1,5 +1,89 @@
 [
   {
+    "id": "bd178b8ad5d3",
+    "sourceRecordId": "v5-bd178b8ad5d3",
+    "date": "2026-10-29",
+    "pubDate": "2026-10-29T14:44:00.000Z",
+    "location": "東京都",
+    "prefecture": "東京都",
+    "media": "日テレNEWS NNN",
+    "source": "日テレNEWS NNN",
+    "stage": "逮捕",
+    "nationality": "中国籍",
+    "crimeCategory": "その他刑事事件",
+    "title": "30人ケガの銀座スプレー噴射事件 逃走していた中国籍の男を逮捕 “共犯者”の存在も新たに判明",
+    "url": "https://news.yahoo.co.jp/articles/8ec9ac19a4feb87b4ab10d93600f1c59b3b55246",
+    "summary": "東京都で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: ことし5月、東京・銀座の複合施設GINZA SIXに入る銀行でスプレーがまかれ30人がケガをした事件で、逃走していた中国籍の男が逮捕されました。",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "本文抜粋: ことし5月、東京・銀座の複合施設GINZA SIXに入る銀行でスプレーがまかれ30人がケガをした事件で、逃走していた中国籍の男が逮捕されました。"
+  },
+  {
+    "id": "0671bf68e86a",
+    "sourceRecordId": "v5-0671bf68e86a",
+    "date": "2026-10-29",
+    "pubDate": "2026-10-29T08:53:00.000Z",
+    "location": "東京都",
+    "prefecture": "東京都",
+    "media": "日テレNEWS NNN",
+    "source": "日テレNEWS NNN",
+    "stage": "逮捕",
+    "nationality": "中国籍",
+    "crimeCategory": "その他刑事事件",
+    "title": "GINZA SIXでスプレー噴射30人ケガ...逃走していた中国籍の男逮捕(2026年10月29日掲載)|日テレNEWS NNN",
+    "url": "https://www.msn.com/ja-jp/video/other/ginza-six%E3%81%A7%E3%82%B9%E3%83%97%E3%83%AC%E3%83%BC%E5%99%B4%E5%B0%8430%E4%BA%BA%E3%82%B1%E3%82%AC-%E9%80%83%E8%B5%B0%E3%81%97%E3%81%A6%E3%81%84%E3%81%9F%E4%B8%AD%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E9%80%AE%E6%8D%95/vi-AA2gkmyV",
+    "summary": "東京都で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: ことし5月、東京・銀座の複合施設GINZA SIXに入る銀行でスプレーがまかれ30人がケガをした事件で、逃走していた中国籍の男が逮捕されました。",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "本文抜粋: ことし5月、東京・銀座の複合施設GINZA SIXに入る銀行でスプレーがまかれ30人がケガをした事件で、逃走していた中国籍の男が逮捕されました。"
+  },
+  {
+    "id": "b3a262ea5ded",
+    "sourceRecordId": "v5-b3a262ea5ded",
+    "date": "2026-10-29",
+    "pubDate": "2026-10-29T08:38:01.000Z",
+    "location": "愛知県",
+    "prefecture": "愛知県",
+    "media": "Yahoo!ニュース",
+    "source": "Yahoo!ニュース",
+    "stage": "再逮捕",
+    "nationality": "ウクライナ国籍",
+    "crimeCategory": "薬物・大麻・覚醒剤・密輸",
+    "title": "大麻を菓子箱に隠して密輸しようとした疑い ウクライナ国籍の男を再逮捕 愛知県警(メ〜テレ",
+    "url": "https://www.nagoyatv.com/news/?id=037804",
+    "summary": "愛知県で発生し、ウクライナ国籍の被疑者に再逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 菓子箱の中に大麻を隠し、日本に密輸しようとしたとしてウクライナ国籍の男が再逮捕されました。",
+      "nationality": "本文抜粋: ウクライナ国籍"
+    },
+    "locationBasis": "国内捜査・司法機関管轄根拠: 大麻を菓子箱に隠して密輸しようとした疑い ウクライナ国籍の男を再逮捕 愛知県警(メ〜テレ"
+  },
+  {
+    "id": "0aefb733a54c",
+    "sourceRecordId": "v5-0aefb733a54c",
+    "date": "2026-10-29",
+    "pubDate": "2026-10-29T07:40:59.000Z",
+    "location": "愛媛県",
+    "prefecture": "愛媛県",
+    "media": "愛媛新聞",
+    "source": "愛媛新聞",
+    "stage": "逮捕",
+    "nationality": "ベトナム国籍",
+    "crimeCategory": "一般窃盗・スリ・車上荒らし",
+    "title": "宇和島の空き家から金貨を盗んだ疑い、ベトナム国籍の解体工の男逮捕 松山西署",
+    "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBreG9KdWlvNFczZWJCS2dzY3E3ZzVWYmNKNHVmMWJ4MDUzSXFJclFIaGtXVnFkX0lLRy1tT0lFd0NxNExhVlFLMUhfRzNIQ29FbTd4T2htaVc3cDZBZHFQQQ",
+    "summary": "愛媛県で発生し、ベトナム国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "見出し根拠: 宇和島の空き家から金貨を盗んだ疑い、ベトナム国籍の解体工の男逮捕 松山西署",
+      "nationality": "見出し根拠: ベトナム国籍"
+    },
+    "locationBasis": "見出し根拠: 宇和島の空き家から金貨を盗んだ疑い、ベトナム国籍の解体工の男逮捕 松山西署"
+  },
+  {
     "id": "8cd1f3b0719f",
     "sourceRecordId": "v5-8cd1f3b0719f",
     "date": "2026-10-29",
@@ -19,6 +103,27 @@
       "nationality": "本文抜粋: パキスタン人"
     },
     "locationBasis": "本文抜粋: 2026年2月、江別市角山のパキスタン人が管理する会社事務所兼住宅やモスクに火をつけ全焼させたとして、非現住建造物等放火などの罪に問われている、千歳市に住む石井"
+  },
+  {
+    "id": "acea7b4b89df",
+    "sourceRecordId": "v5-acea7b4b89df",
+    "date": "2026-10-29",
+    "pubDate": "2026-10-29T06:23:00.000Z",
+    "location": "東京都",
+    "prefecture": "東京都",
+    "media": "NHKニュース",
+    "source": "NHKニュース",
+    "stage": "逮捕",
+    "nationality": "中国籍",
+    "crimeCategory": "その他刑事事件",
+    "title": "銀座の複合施設でスプレー噴射か 中国籍の大学生逮捕 警視庁",
+    "url": "https://news.web.nhk/newsweb/na/nd-20261029de67779",
+    "summary": "東京都で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: ことし5月、東京・銀座の複合施設で催涙スプレーのようなものがまかれ、29人が体調不良を訴えた事件で、警視庁は中国籍の24歳の大学生が近くにいた男性に向けてスプレ",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "本文抜粋: ことし5月、東京・銀座の複合施設で催涙スプレーのようなものがまかれ、29人が体調不良を訴えた事件で、警視庁は中国籍の24歳の大学生が近くにいた男性に向けてスプレ"
   },
   {
     "id": "408b8110fdc8",
