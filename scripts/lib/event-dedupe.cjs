@@ -19,7 +19,8 @@ const CRIME_GROUPS = [
   ['強盗', /強盗|強殺|脅し.{0,12}奪|現金奪/],
   ['窃盗', /窃盗|盗ん|盗み|盗もう|万引|スリ(?!ランカ)|空き巣|侵入盗|車上荒らし|ロッカー物色|ひったくり/],
   ['殺人', /殺人|殺害|強殺/],
-  ['暴行傷害', /暴行|傷害|切り付け|切りつけ|殴|刺(?:され|し|傷|突き)|脅迫|恐喝/],
+  ['暴行傷害', /暴行|傷害|切り付け|切りつけ|殴|刺(?:され|し|傷|突き)|脅迫|恐喝|スプレー噴射|スプレーま[いか]|催涙スプレー|異臭騒ぎ|襲わ|けが|負傷/],
+  ['銃刀法・凶器', /銃刀法|果物ナイフ|刃物|ナイフ|包丁|サバイバルナイフ/],
   ['性犯罪', /不同意性交|不同意わいせつ|強制性交|強制わいせつ|わいせつな?行為|性的暴行|性的姿態|盗撮|痴漢|胸を触|体を触/],
   ['交通', /道交法|道路交通法|信号無視|赤信号|ひき逃げ|当て逃げ|酒気帯び|酒酔い|飲酒運転|飲酒して.{0,12}事故|無免許|危険運転|過失運転|死亡事故|玉突き事故|車突入|車突っ込|逃走.{0,10}(?:車|パトカー)|パトカー.{0,10}逃走/],
   ['入管', /入管|難民法|不法(?:に)?(?:上陸|入国|滞在|在留|残留|就労)|オーバーステイ|偽造在留カード|資格外活動/],
@@ -160,6 +161,12 @@ function signals(item) {
   // 強い事件固有アンカー。同日・同地域・同国籍・同罪種・同手続段階も揃う場合だけ、
   // 見出し表現の違う同一事件（ヤードの高級車保管、那覇の米兵強盗殺人など）を束ねる。
   const incidentAnchors = new Set();
+  if (/(?:GINZA\s*SIX|銀座SIX|GINZASIX)/i.test(text) || (/(?:銀座|商業施設|複合施設)/.test(text) && /スプレー/.test(text))) {
+    incidentAnchors.add('ginza_six_spray_incident');
+  }
+  if (/(?:馬橋駅|松戸市)/.test(text) && /(?:刃物|ナイフ)/.test(text)) {
+    incidentAnchors.add('matsudo_mabashi_knife_incident');
+  }
   if (/(?:ヤード|中古車)/.test(text) && /(?:高級車|盗難車)/.test(text) && /保管/.test(text)) incidentAnchors.add('yard_vehicle_storage');
   if (/高級車/.test(text) && /保管/.test(text)) incidentAnchors.add('high_end_car_storage');
   if (/(?:米兵|米海兵隊|海兵隊)/.test(text) && /(?:沖縄|那覇)/.test(text) && /(?:強盗殺人|殺人)/.test(text)) incidentAnchors.add('okinawa_us_military_homicide');
@@ -291,7 +298,7 @@ function sameEventReason(a, b, { maxDays = 14 } = {}) {
   const withinOneDay = daysApart(a.date, b.date) <= 1;
   const sameStage = !sa.procedureStage || !sb.procedureStage || sa.procedureStage === sb.procedureStage;
   const withinIncidentWindow = daysApart(a.date, b.date) <= 7;
-  if ((sharedIncidentAnchor || factAnchorShared) && withinIncidentWindow && sameStage && sameStoredRegion && sameCrime) {
+  if ((sharedIncidentAnchor || factAnchorShared) && withinIncidentWindow && sameStage && sameStoredRegion && (sameCrime || sharedIncidentAnchor)) {
     return '国籍+罪種+地域+近接日同段階+事件固有アンカー';
   }
   // キューバ国籍の横浜飲食店刺傷では、見出しや短い要約に被疑者名が
