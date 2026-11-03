@@ -1,5 +1,26 @@
 [
   {
+    "id": "eec61a8ef418",
+    "sourceRecordId": "v5-eec61a8ef418",
+    "date": "2026-11-03",
+    "pubDate": "2026-11-03T10:55:00.000Z",
+    "location": "宮城県",
+    "prefecture": "宮城県",
+    "media": "TBS NEWS DIG",
+    "source": "TBS NEWS DIG",
+    "stage": "逮捕",
+    "nationality": "韓国籍",
+    "crimeCategory": "廃棄物処理法・不法投棄・環境犯罪",
+    "title": "断熱材約70キロを不法投棄 韓国籍の女(61)を逮捕 宮城・丸森町",
+    "url": "https://topics.smt.docomo.ne.jp/article/tbcsendai/region/tbcsendai-3058810",
+    "summary": "宮城県で発生し、韓国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 断熱材約７０キロを不法投棄 韓国籍の女（６１）を逮捕 宮城・丸森町",
+      "nationality": "本文抜粋: 韓国籍"
+    },
+    "locationBasis": "本文抜粋: 断熱材約７０キロを不法投棄 韓国籍の女（６１）を逮捕 宮城・丸森町"
+  },
+  {
     "id": "618032f11ba1",
     "sourceRecordId": "v5-618032f11ba1",
     "date": "2026-11-03",
