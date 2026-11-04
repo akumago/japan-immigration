@@ -170,6 +170,12 @@ function signals(item) {
   if (/(?:ヤード|中古車)/.test(text) && /(?:高級車|盗難車)/.test(text) && /保管/.test(text)) incidentAnchors.add('yard_vehicle_storage');
   if (/高級車/.test(text) && /保管/.test(text)) incidentAnchors.add('high_end_car_storage');
   if (/(?:米兵|米海兵隊|海兵隊)/.test(text) && /(?:沖縄|那覇)/.test(text) && /(?:強盗殺人|殺人)/.test(text)) incidentAnchors.add('okinawa_us_military_homicide');
+  if (/(?:白タク|無許可.*送迎)/.test(text) && /パキスタン/.test(text)) {
+    incidentAnchors.add('pakistan_shirataku_group');
+  }
+  if (/(?:ロシア.*(?:不正輸出|車.*輸出)|外為法|浜田海保)/.test(text)) {
+    incidentAnchors.add('russia_car_export_sanctions');
+  }
   // 数量・金額・逮捕人数の「事実トークン」から汎用アンカー(fact:罪種:値)を作る。事件ごとの個別登録は不要。
   // 重量は整数kgへ丸めて表記ゆれを吸収（約3kg/3キロ/3.2キロ→3kg）。text は NFKC 済みで全角数字も吸収済み。
   const factWeights = [...text.matchAll(/(\d+(?:\.\d+)?)\s*(?:キロ|kg|トン)/gi)].filter((m) => parseFloat(m[1]) >= 1).map((m) => `${Math.round(parseFloat(m[1]))}kg`);
@@ -288,9 +294,11 @@ function sameEventReason(a, b, { maxDays = 14 } = {}) {
     && (locationRelation === 'compatible' || sameStoredRegion || natsMatch);
   // 国籍・年齢・市区町村（福山市等）・罪種がすべて一致する場合は、住所抽出などによる県名の食い違いを矛盾とみなさない
   const storedRegionMislabeled = natsMatch && sameAge && samePlace && sameCrime;
-  if (locationRelation === 'conflict' && !sameNamedSuspect && !storedRegionMislabeled) return null;
+  const crossRegionAnchors = new Set(['pakistan_shirataku_group', 'russia_car_export_sanctions']);
+  const sharedIncidentCrossRegion = [...(sa.incidentAnchors || [])].some((x) => crossRegionAnchors.has(x) && sb.incidentAnchors?.has(x)) && natsMatch;
+  if (locationRelation === 'conflict' && !sameNamedSuspect && !storedRegionMislabeled && !sharedIncidentCrossRegion) return null;
   const agesConflict = sa.ages.size && sb.ages.size && !sameAge && !sameNamedSuspect && !factAnchorShared;
-  const placesConflict = (locationRelation === 'conflict' && !storedRegionMislabeled)
+  const placesConflict = (locationRelation === 'conflict' && !storedRegionMislabeled && !sharedIncidentCrossRegion)
     || (locationRelation === 'unknown' && sa.places.size && sb.places.size && !samePlace);
   if (agesConflict || (placesConflict && !sameNamedSuspect && !factAnchorShared)) return null;
   if (sa.genders.size && sb.genders.size && !intersects(sa.genders, sb.genders) && !factAnchorShared) return null;
@@ -298,7 +306,7 @@ function sameEventReason(a, b, { maxDays = 14 } = {}) {
   const withinOneDay = daysApart(a.date, b.date) <= 1;
   const sameStage = !sa.procedureStage || !sb.procedureStage || sa.procedureStage === sb.procedureStage;
   const withinIncidentWindow = daysApart(a.date, b.date) <= 7;
-  if ((sharedIncidentAnchor || factAnchorShared) && withinIncidentWindow && sameStage && sameStoredRegion && (sameCrime || sharedIncidentAnchor)) {
+  if ((sharedIncidentAnchor || factAnchorShared) && withinIncidentWindow && sameStage && (sameStoredRegion || sharedIncidentCrossRegion) && (sameCrime || sharedIncidentAnchor)) {
     return '国籍+罪種+地域+近接日同段階+事件固有アンカー';
   }
   // キューバ国籍の横浜飲食店刺傷では、見出しや短い要約に被疑者名が
