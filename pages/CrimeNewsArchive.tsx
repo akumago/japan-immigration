@@ -11,11 +11,14 @@ interface NewsItem {
   media: string;
   url: string;
   summary: string;
+  nationality?: string;
+  crimeCategory?: string;
 }
 
 export const CrimeNewsArchive: React.FC = () => {
   const items: NewsItem[] = newsData as NewsItem[];
   const [selectedPref, setSelectedPref] = useState<string>('ALL');
+  const [selectedNat, setSelectedNat] = useState<string>('ALL');
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const ITEMS_PER_PAGE = 15;
@@ -31,11 +34,26 @@ export const CrimeNewsArchive: React.FC = () => {
     return Array.from(prefs).sort();
   }, [items]);
 
-  // フィルタリング処理
+  // ユニークな国籍リスト（件数が多い順にソート）
+  const nationalities = useMemo(() => {
+    const counts = new Map<string, number>();
+    items.forEach(item => {
+      const nat = item.nationality || '外国籍';
+      counts.set(nat, (counts.get(nat) || 0) + 1);
+    });
+    return Array.from(counts.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([nat]) => nat);
+  }, [items]);
+
+  // フィルタリング処理（都道府県 ＆ 国籍の複合絞り込み）
   const filteredItems = useMemo(() => {
-    if (selectedPref === 'ALL') return items;
-    return items.filter(item => item.location === selectedPref);
-  }, [items, selectedPref]);
+    return items.filter(item => {
+      const matchPref = selectedPref === 'ALL' || item.location === selectedPref;
+      const matchNat = selectedNat === 'ALL' || (item.nationality || '外国籍') === selectedNat;
+      return matchPref && matchNat;
+    });
+  }, [items, selectedPref, selectedNat]);
 
   // 総ページ数
   const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
@@ -49,6 +67,11 @@ export const CrimeNewsArchive: React.FC = () => {
   // フィルター変更時は1ページ目へ戻す
   const handlePrefChange = (pref: string) => {
     setSelectedPref(pref);
+    setCurrentPage(1);
+  };
+
+  const handleNatChange = (nat: string) => {
+    setSelectedNat(nat);
     setCurrentPage(1);
   };
 
@@ -94,10 +117,10 @@ export const CrimeNewsArchive: React.FC = () => {
         </div>
 
         {/* 都道府県絞り込みフィルター */}
-        <div className="mb-10 bg-[#161b22] border border-white/10 rounded-2xl p-6 shadow-xl">
+        <div className="mb-6 bg-[#161b22] border border-white/10 rounded-2xl p-6 shadow-xl">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-4 pb-4 border-b border-white/10">
             <h2 className="text-sm font-bold text-gray-300 flex items-center gap-2 font-mono uppercase tracking-wider">
-              <span>🔍</span> 地域絞り込みフィルター
+              <span>📍</span> 地域絞り込みフィルター
             </h2>
             <span className="text-xs text-gray-400 font-mono">
               該当件数: <strong className="text-red-400 text-sm">{filteredItems.length}</strong> / 全 {items.length} 件 （ページ {currentPage} / {totalPages || 1}）
@@ -113,7 +136,7 @@ export const CrimeNewsArchive: React.FC = () => {
                   : 'bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white border border-white/5'
               }`}
             >
-              すべて表示 ({items.length})
+              すべての地域 ({items.length})
             </button>
             {prefectures.map(pref => {
               const count = items.filter(i => i.location === pref).length;
@@ -128,6 +151,48 @@ export const CrimeNewsArchive: React.FC = () => {
                   }`}
                 >
                   {pref} ({count})
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* 国籍別絞り込みフィルター */}
+        <div className="mb-10 bg-[#161b22] border border-white/10 rounded-2xl p-6 shadow-xl">
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-4 pb-4 border-b border-white/10">
+            <h2 className="text-sm font-bold text-gray-300 flex items-center gap-2 font-mono uppercase tracking-wider">
+              <span>🌐</span> 国籍別絞り込みフィルター
+            </h2>
+            <span className="text-xs text-gray-400 font-mono">
+              選択中: <strong className="text-red-400">{selectedNat === 'ALL' ? 'すべての国籍' : selectedNat}</strong>
+              {selectedPref !== 'ALL' && <span className="text-gray-500 ml-2">（地域: {selectedPref}）</span>}
+            </span>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => handleNatChange('ALL')}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                selectedNat === 'ALL'
+                  ? 'bg-red-600 text-white shadow-lg shadow-red-600/30'
+                  : 'bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white border border-white/5'
+              }`}
+            >
+              すべての国籍 ({items.length})
+            </button>
+            {nationalities.map(nat => {
+              const count = items.filter(i => (i.nationality || '外国籍') === nat).length;
+              return (
+                <button
+                  key={nat}
+                  onClick={() => handleNatChange(nat)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                    selectedNat === nat
+                      ? 'bg-red-600 text-white shadow-lg shadow-red-600/30'
+                      : 'bg-white/5 hover:bg-white/10 text-gray-300 border border-white/5'
+                  }`}
+                >
+                  {nat} ({count})
                 </button>
               );
             })}
@@ -150,6 +215,11 @@ export const CrimeNewsArchive: React.FC = () => {
                   <span className="px-3 py-1 bg-red-950/80 text-red-300 border border-red-800/50 rounded-lg text-xs font-bold font-mono">
                     📍 {item.location}
                   </span>
+                  {item.nationality && (
+                    <span className="px-3 py-1 bg-blue-950/80 text-blue-300 border border-blue-800/50 rounded-lg text-xs font-bold font-mono">
+                      🌐 {item.nationality}
+                    </span>
+                  )}
                   <span className="text-xs text-gray-400 font-mono">
                     📅 {item.date}
                   </span>
