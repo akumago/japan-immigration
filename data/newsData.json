@@ -1,5 +1,68 @@
 [
   {
+    "id": "471c62fcd81a",
+    "sourceRecordId": "v5-471c62fcd81a",
+    "date": "2026-11-06",
+    "pubDate": "2026-11-06T06:49:00.000Z",
+    "location": "山形県",
+    "prefecture": "山形県",
+    "media": "日テレNEWS NNN",
+    "source": "日テレNEWS NNN",
+    "stage": "逮捕",
+    "nationality": "ベトナム国籍",
+    "crimeCategory": "クレジットカード・電子計算機詐欺",
+    "title": "総額9億円のボイスフィッシング詐欺事件 不正送金用の口座を開設した疑いでベトナム国籍の男を逮捕 県警と天童警察署",
+    "url": "https://news.ntv.co.jp/n/ybc/category/society/yb500683236568431a9895ac367cad8d5a",
+    "summary": "山形県で発生し、ベトナム国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 県内企業数社が2025年3月、ボイスフィッシング詐欺で総額約9億円をだまし取られた不正送金事件で、不正送金用の口座を開設したとして天童市に住むベトナム国籍の20",
+      "nationality": "本文抜粋: ベトナム国籍"
+    },
+    "locationBasis": "国内捜査・司法機関管轄根拠: 総額9億円のボイスフィッシング詐欺事件 不正送金用の口座を開設した疑いでベトナム国籍の男を逮捕 県警と天童警察署"
+  },
+  {
+    "id": "fc6996be9bf4",
+    "sourceRecordId": "v5-fc6996be9bf4",
+    "date": "2026-11-06",
+    "pubDate": "2026-11-06T03:21:29.000Z",
+    "location": "東京都",
+    "prefecture": "東京都",
+    "media": "TBS NEWS DIG",
+    "source": "TBS NEWS DIG",
+    "stage": "逮捕",
+    "nationality": "中国籍",
+    "crimeCategory": "風営法・売春防止法・違法カジノ",
+    "title": "東京・港区の違法個室マッサージ店を摘発 中国籍の経営者の女ら逮捕 約16億円売り上げていたか 警視庁",
+    "url": "https://news.yahoo.co.jp/articles/f65b8b170d207cab9272c3a584c8f8038a1b1e6a",
+    "summary": "東京都で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 東京・新橋の個室マッサージ店で違法に性的なサービスを提供したとして、いずれも中国籍の女3人が警視庁に逮捕されました。",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "本文抜粋: 東京・新橋の個室マッサージ店で違法に性的なサービスを提供したとして、いずれも中国籍の女3人が警視庁に逮捕されました。"
+  },
+  {
+    "id": "253f168c7fee",
+    "sourceRecordId": "v5-253f168c7fee",
+    "date": "2026-11-06",
+    "pubDate": "2026-11-06T00:00:00.000Z",
+    "location": "青森県",
+    "prefecture": "青森県",
+    "media": "47NEWS",
+    "source": "47NEWS",
+    "stage": "逮捕",
+    "nationality": "台湾籍",
+    "crimeCategory": "一般詐欺・無銭飲食",
+    "title": "詐欺未遂容疑、台湾籍の男逮捕/八戸署と青森県警",
+    "url": "https://www.toonippo.co.jp/articles/-/2397581",
+    "summary": "青森県で発生し、台湾籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 八戸署と青森県警捜査2課は5日、詐欺未遂の疑いで台湾籍で住居不定、自称会社員の男の容疑者（33）を逮捕した。",
+      "nationality": "本文抜粋: 台湾籍"
+    },
+    "locationBasis": "国内捜査・司法機関管轄根拠: 八戸署と青森県警捜査2課は5日、詐欺未遂の疑いで台湾籍で住居不定、自称会社員の男の容疑者（33）を逮捕した。"
+  },
+  {
     "id": "8ee228ae70c9",
     "sourceRecordId": "v5-8ee228ae70c9",
     "date": "2026-11-06",
