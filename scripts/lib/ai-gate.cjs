@@ -70,28 +70,29 @@ const NAT_SOURCE =
   // ただし「カンボジアでかけ子…男2人逮捕」のような犯行地＋男への誤反応を防ぐため直後の「の」を必須化する。
   `(?:${COUNTRY_ALT})(?:(?:国籍|籍|人|出身)|(?=の(?:男|女|男性|女性|少年|少女|容疑者|被告|グループ|ら)))` +
   `|[ァ-ヴー]{2,}(?:国籍|籍の)` +
-  `|外国籍|外国人|外国出身` +
+  `|外国人とみられる|外国籍とみられる|外国籍|外国人|外国出身` +
   `|国籍(?:は|が|を|の)(?:${COUNTRY_ALT})|特別永住者|永住者` + // 本文の言い回し（「男の国籍は韓国」「特別永住者」）
   `|[ァ-ヴー]{3,}人(?=の?(?:男|女|少年|少女|グループ|容疑者|被告|実習生|留学生|労働者|従業員|店員|運転手|客|ら))` + // 辞書にない国名（○○人の男）
   `|(?:${COUNTRY_ALT})系(?=の?(?:男|女|少年|少女|グループ|容疑者|被告))` + // 中国系の男
   `|[ァ-ヴー]{2,}(?:・[ァ-ヴー]{1,}){1,}(?=容疑者|被告|受刑者)` + // カタカナのフルネーム＋容疑者（verifyItem用。verifyArticleContentでは国籍語確認を併用）
   `|米軍(?:関係者|基地所属|軍人)|アメリカ軍(?:関係者|兵|人|隊員|所属|属)|在日米軍` +
   `|米兵|米軍(?:兵|属|関係者|隊員|人|所属)|米(?:海軍|空軍|陸軍|海兵隊)(?:兵|隊員|所属|上等兵|一等兵|二等兵|三等兵|伍長|軍曹|曹長|准尉|少尉|中尉|大尉|少佐|中佐|大佐|将官|幹部|軍属)?` +
-  `|技能実習生|元技能実習生|特定技能実習生|特定技能|留学生|元留学生` + // 「実習生」単体は教育実習生など日本人を含むので入れない
-  `|不法(?:滞在|残留|入国)|不法就労(?!助長|さ[せ]|をさせ)|オーバーステイ|仮放免|偽造在留カード`;
+  `|技能実習生|元技能実習生|特定技能実習生|特定技能|留学生|元留学生` + // verifyItem用（verifyArticleContentでは明示国籍語の確認を併用）
+  `|不法(?:滞在|残留|入国)|不法就労(?!助長|さ[せ]|をさせ)|オーバーステイ|仮放免`;
 const NAT_RE = new RegExp(NAT_SOURCE);
 const NAT_RE_G = new RegExp(NAT_SOURCE, 'g'); // matchAll 用（g 必須。付け忘れると TypeError）
-const CRIME_RE = /(?:逮捕|容疑|疑い|送検|送致|起訴|判決|求刑|初公判|公判|冒頭陳述|結審|摘発|指名手配|検挙|立件|勾留|拘禁刑|懲役|実刑|有罪|被告|家宅捜索|捜査|被疑者|補導|現行犯|身柄|確保|拘束|事情聴取|取り調べ|書類送検|再逮捕|追送検|罰金|略式|不起訴|起訴猶予)/;
+const CRIME_RE = /(?:逮捕|容疑|疑い|送検|送致|起訴|判決|求刑|初公判|公判|冒頭陳述|結審|摘発|指名手配|検挙|立件|勾留|拘禁刑|懲役|実刑|有罪|被告|家宅捜索|捜査|被疑者|補導|現行犯|身柄|確保|拘束|事情聴取|取り調べ|書類送検|再逮捕|追送検|罰金|略式|不起訴|起訴猶予|逃走)/;
 // 被害者になった側の述語だけ（「けがをさせた」「死亡事故で逮捕」は容疑者側なので入れない）
 const VICTIM_PASSIVE_RE =
   /(?:刺され|襲われ|はねられ|撥ねられ|轢かれ|ひかれ|殺害され|殺され|だまし取られ|騙し取られ|盗まれ|奪われ|連れ去られ|監禁され|搾取され|殴られ|蹴られ|切りつけられ|脅され|襲撃され|暴行を受け|被害に遭|被害を受け|[がは]被害(?![額総者])|[がは]被害者|重傷を負(?!わせ)|けがを負(?!わせ)|[がは](?:死亡|亡くな|重体|重傷|軽傷|けが)(?!を?負わせ|させ)|遺体で)/;
-// 国籍表現が「犯行の相手（目的語）」になっている: 「中国人女性を暴行した疑い」「特定技能実習生の女性を車ではねてけがをさせ」「外国人の女性に大けがをさせた」（能動態の被害者）
+// 国籍表現が「犯行の相手（目的語）」になっている: 「中国人女性を暴行した疑い」「特定技能実習生の女性を車ではねてけがをさせ」「インドネシア人技能実習生の顔にワサビを塗り」（能動態の被害者）
+// ※日本の事件報道では被疑者は「男/女」、被害者は「男性/女性/実習生/観光客」等と書かれるため、単独の「男/女」は入れない（「中国人男を殴った疑いで逮捕」の誤除外防止）
 const VICTIM_OBJECT_RE =
-  /^(?:の)?(?:実習生の|留学生の)?(?:男性|女性|女児|男児|少女|児童|高齢者|お年寄り|客|店員|従業員|社員)[^をがにの、。]{0,8}(?:を|に)(?:[^、。]{0,10}?(?:暴行し|暴行を加え|殴っ|殴打し|蹴っ|刺し|殺害し|殺し|襲っ|脅迫し|脅し|恐喝し|だまし|騙し|切りつけ|はね|撥ね|轢い|ひき逃げ|衝突し|監禁し|拉致し|連れ去っ|傷つけ|負傷させ|大?けがをさせ|ケガをさせ|死亡させ|死なせ|強盗))/;
-// 国籍表現が加害者ではない役割: 雇われた側・装われた側・対象（向け/相手）
+  /^(?:の)?(?:\d+歳の|\d+代の)?(?:(?:技能実習生|特定技能実習生|実習生|留学生|観光客|乗客)(?:の)?(?:男性|女性)?|(?:男性|女性|女児|男児|少女|児童|高齢者|お年寄り|客|店員|従業員|社員))(?:\s*[（(]\d{1,3}(?:歳)?[）)])?(?:の(?:顔面?|頭|腹部?|胸|首|背中|足|腕|体|身体))?[^をがにの、。\s]{0,8}(?:を|に)(?:[^。]{0,25}?(?:暴行|わさび|ワサビ|塗|食べさせ|熱湯|殴っ|殴打|蹴っ|刺し|殺害|殺し|襲っ|脅迫|脅し|恐喝|だまし|騙し|切りつけ|はね|撥ね|轢い|ひき逃げ|衝突し|監禁|拉致|連れ去|傷つけ|負傷させ|大?けがをさせ|ケガをさせ|死亡させ|死なせ|強盗))/;
+// 国籍表現が加害者ではない役割: 雇われた側・装われた側・乗客・対象（向け/相手）
 // 「インド人の男に襲われ」: 人物名詞＋「に」＋受身 は、国籍側が動作主（加害者）。「男性 車にはねられ」の「車に」は該当しない
 const AGENT_PASSIVE_RE = /^(?:の)?(?:男性|女性|男|女|少年|少女|グループ|集団|客|ら|\d+人組|容疑者)(?:\(\d+\))?(?:ら)?に[^、。]{0,6}?(?:刺され|襲われ|襲撃され|殴られ|蹴られ|切りつけられ|脅され|だまし取られ|盗まれ|奪われ|連れ去られ|監禁され)/;
-const NON_SUSPECT_AFTER_RE = /^(?:被害者|被害女性|被害男性|を装|になりすま|風の|向け|相手|の相談|の支援|(?:[^。]{0,18}?)(?:に(?:不法|違法|働か|就労|雇|資格外活動をさせ|在留資格を得させ)|を(?:[^。]{0,12}?)(?:不法に働かせ|違法に働かせ|不法就労させ|雇用し))|と偽|の?(?:男|女|男性|女性)は(?:現場にいた|事件を目撃|目撃していた|同乗していた|同行していた|立ち会っていた))/;
+const NON_SUSPECT_AFTER_RE = /^(?:被害者|被害女性|被害男性|観光客|乗客|の観光客|の乗客|窃盗グループ[^。]{0,12}から|の窃盗グループ[^。]{0,12}から|を乗せ|を送迎|を装|になりすま|風の|向け|相手|の相談|の支援|(?:[^。]{0,18}?)(?:に(?:不法|違法|働か|就労|雇|資格外活動をさせ|在留資格を得させ)|を(?:[^。]{0,12}?)(?:不法に働かせ|違法に働かせ|不法就労させ|雇用し))|と偽|の?(?:男|女|男性|女性)は(?:現場にいた|事件を目撃|目撃していた|同乗していた|同行していた|立ち会っていた))/;
 // ここに達したら被疑者側の述語に入ったとみなして、被害者語彙の探索を打ち切る
 const CLAUSE_STOP_RE = /[。]|逮捕|送検|送致|起訴|初公判|公判|求刑|判決|有罪|容疑|疑い|摘発|検挙|立件|書類送検/;
 
@@ -132,12 +133,16 @@ function nationalityLinkedToSuspect(sentence, occurrence) {
   // 1. 同じ文に「逮捕されたのは日本人」など、実際の被疑者が別人だと明示されているときは除外
   if (/(?:逮捕|送検|送致|起訴)[^。]{0,24}(?:されたのは|したのは)\s*日本(?:人|国籍)/.test(clause)) return false;
 
-  // 2. 被害者・対象者としての明示を除外（「中国人女性を暴行」「遺体で見つかった」等）
-  if (/(?:遺体|死亡|けが|重傷|軽傷|刺され|殴られ|被害|だまし取られ|奪われ)/.test(clause) && !/(?:容疑者|被告|逮捕|起訴|送検)/.test(clause)) return false;
+  // 2. 従属節（「〜したとして、」「〜した疑いで、」「〜を乗せ、」）の後に別の被疑者目的語（船長ら・経営者・日本人等）が逮捕される構文は前半の国籍語が被害者/乗客なので除外
+  if (/^(?:の)?[^。]{0,55}?(?:に暴行|を暴行|の顔に|の顔面に|を乗せ|を送迎|を働かせ|を雇用|から現金)[^。]{0,35}?(?:として|疑いで|容疑で)[、，\s][^。]*?(?:逮捕|送検|摘発|書類送検)/.test(clause)) return false;
+  const escapedSuspectAct = /^(?:とみられる|風の|グループの|集団の|\s|の)*(?:男|女|人物|グループ|[0-9０-９]+人組?)[^。]{0,45}?(?:切り付け|切りつけ|刺し|殴|暴行|奪っ|盗ん|押し入|侵入|放火|はね|ひき逃げ|殺害)[^。]{0,30}?(?:逃走|逃げ|行方)/.test(clause);
+
+  // 被害者・対象者としての明示を除外（「中国人女性を暴行」「遺体で見つかった」等）
+  if (/(?:遺体|死亡|けが|重傷|軽傷|刺され|殴られ|被害|だまし取られ|奪われ)/.test(clause) && !/(?:容疑者|被告|逮捕|起訴|送検|不起訴)/.test(clause) && !escapedSuspectAct) return false;
   if (/^(?:の)?(?:女性|女|男性|男)[^、。]{0,24}(?:被害|を装|になりすま|と結婚|と偽)/.test(clause)) return false;
 
   // 国籍語の直後（読点区切りで住所・職業・自称などが挟まる場合を含む）に人物名詞が存在するか
-  const personMatch = new RegExp(`^(?:[、，で]|の|で[^\s、。]+[、，]|[\\s])?[^。]{0,80}?${PERSON_NOUN}`).test(clause);
+  const personMatch = new RegExp(`^(?:[、，で]|の|で[^\\s、。]+[、，]|[\\s])?[^。]{0,80}?${PERSON_NOUN}`).test(clause);
 
   // 3. 導入構文: prefixに「逮捕されたのは」「起訴されたのは」等があり、後続に人物名詞
   const isIntro = /(?:逮捕|送検|送致|起訴|書類送検|再逮捕|摘発|初公判|公判|求刑|判決|有罪)[^。]{0,35}されたのは/.test(prefix);
@@ -151,16 +156,16 @@ function nationalityLinkedToSuspect(sentence, occurrence) {
     return true;
   }
 
-  // 5. 罪名＋疑いで逮捕構文: prefixに容疑・罪名があり、clauseで人物〜逮捕
+  // 5. 罪名＋疑いで逮捕構文: prefixに容疑・罪名があり、clauseで人物〜逮捕/逃走
   const chargeInPrefix = /(?:疑い|容疑|違反)[^。]{0,20}(?:で|として)/.test(prefix);
-  if (chargeInPrefix && personMatch && /(?:逮捕|送検|送致|起訴|再逮捕|現行犯逮捕|初公判|公判|求刑|判決|有罪)/.test(clause)) {
+  if (chargeInPrefix && personMatch && /(?:逮捕|送検|送致|起訴|不起訴|再逮捕|現行犯逮捕|初公判|公判|求刑|判決|有罪|逃走)/.test(clause)) {
     return true;
   }
 
-  // 6. 直接逮捕・起訴・容疑者構文: 国籍の後に人物名詞があり、同一節で逮捕・送検・起訴・不起訴・容疑者等
+  // 6. 直接逮捕・起訴・容疑者構文: 国籍の後に人物名詞があり、同一節で逮捕・送検・起訴・不起訴・容疑者・犯行後逃走等
   if (!personMatch) return false;
-  const directPredicate = new RegExp(`(?:逮捕|送検|送致|起訴|不起訴|書類送検|再逮捕|現行犯逮捕|指名手配|身柄確保|摘発|検挙|拘束|容疑者|被告|初公判|公判|求刑|判決|有罪|実刑|懲役|禁錮|拘禁刑|罰金|(?:盗ん|窃盗|強盗|詐欺|暴行|侵入|密輸|所持|販売|製造|密造|撮影|運転)[^。]{0,20}疑い)`);
-  return directPredicate.test(clause);
+  const directPredicate = new RegExp(`(?:逮捕|送検|送致|起訴|不起訴|書類送検|再逮捕|現行犯逮捕|指名手配|身柄確保|摘発|検挙|拘束|容疑者|被告|初公判|公判|求刑|判決|有罪|実刑|懲役|禁錮|拘禁刑|罰金|(?:盗ん|窃盗|強盗|詐欺|暴行|侵入|密輸|所持|販売|製造|密造|撮影|運転|殺人)[^。]{0,24}(?:疑い|逃走))`);
+  return directPredicate.test(clause) || escapedSuspectAct;
 }
 
 /** テキスト中の国籍表現が、すべて被疑者になり得ない（被害者側/雇用主側/対象側）なら true */
@@ -282,10 +287,16 @@ function resolvePrefecture(text, opts = {}) {
   // 警察署名 → 市区町村（最長の接尾一致を優先: 「茨城県警常陸大宮署」→ 常陸大宮市、大宮区ではない）
   const stationPrefs = new Set();
   let stationAmbiguous = null;
-  for (const m of t.matchAll(/([一-龥ぁ-んァ-ヴー]{2,10}?)(?:警察署|署)(?![一-龥])/g)) {
+  for (const m of t.matchAll(/([一-龥ぁ-んァ-ヴー]{1,10}?)(?:警察署|署|地方検察庁|地検|区検|地方裁判所|地裁|簡裁)(?![一-龥])/g)) {
     const stem = m[1];
-    for (let len = Math.min(stem.length, 8); len >= 2; len--) {
-      const r = lookupStation(stem.slice(-len), dict);
+    for (let len = Math.min(stem.length, 8); len >= 1; len--) {
+      const sub = stem.slice(-len);
+      if (PREF_SHORT.has(sub)) {
+        stationPrefs.add(PREF_SHORT.get(sub));
+        break;
+      }
+      if (len < 2) continue;
+      const r = lookupStation(sub, dict);
       if (!r) continue;
       if (r.pref) stationPrefs.add(r.pref);
       else stationAmbiguous = r.ambiguous;
@@ -593,9 +604,12 @@ const DOMESTIC_LANDMARKS = {
 // 警察署・捜査機関および居住地・出身地の表記を除去
 function cleanPoliceAndResidence(str) {
   return nfkc(str)
-    .replace(/[^\s、。]*(?:警察署|地裁|簡裁|高裁|最高裁|捜査本部|検察庁|県警|府警|道警|警視庁)/g, ' ')
+    .replace(/[^\s、。]*(?:警察署|地裁|簡裁|高裁|最高裁|捜査本部|検察庁|地検|区検|県警|府警|道警|警視庁)/g, ' ')
     .replace(/[＝=][^＝=]{2,30}[＝=]/g, ' ')
-    .replace(/[^\s、。]+(?:に住む|在住|出身)(?!(?:の)?\s*(?:男性|女性|男児|女児|児童|生徒|被害者|\d+代))/g, ' ')
+    .replace(/[^\s、。]+(?:に住む|在住|出身)(?:の)?\s*(?:\d+代|\d+歳)?(?:の)?\s*(?:男性|女性|男|女|大学生|会社員|無職|容疑者)?(?:のクレジットカード|の名義)?/g, ' ')
+    .replace(/(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)[^\s、。]{0,12}の(?:\d+代|\d+歳)?(?:男性|女性)のクレジットカード情報/g, ' ')
+    .replace(/(?:容疑で|疑いで|として|されたのは)[、，\s]*(?:いずれも[^、。]{1,18}[、，\s]*)?(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)?[^、。]{1,22}?(?:市|区|町|村)[^、。]{0,14}[、，\s]*(?=(?:中国|韓国|台湾|ベトナム|フィリピン|ブラジル|タイ|インドネシア|ネパール|スリランカ|パキスタン|トルコ|ペルー|ミャンマー|カンボジア|米国|アメリカ|外国|[ァ-ヴー]{2,}国籍|会社員|無職|自称|アルバイト|職業不詳|解体工|工員|大学生|専門学校生))/g, ' ')
+    .replace(/(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)(?:の|在住の)\s*(?=(?:中国|韓国|台湾|ベトナム|フィリピン|ブラジル|タイ|インドネシア|ネパール|スリランカ|パキスタン|トルコ|ペルー|ミャンマー|カンボジア|米国|アメリカ|外国|[ァ-ヴー]{2,}国籍))/g, ' ')
     .replace(/(?:国籍|外国籍|中国籍|韓国籍|台湾籍|米国籍|英国籍|人)(?:の男|の女)?(?:で|の)\s*[^。]{1,25}?(?:市|区|町|村)[^、。]{0,12}(?:の|、)/g, ' ')
     .replace(/(?:疑いで|として)[、，]\s*(?:いずれも[^、。]{1,15}[、，]\s*)?[^、。]{2,20}?(?:市|区|町|村)[^、。]{0,12}[、，]\s*(?:会社員|無職|自称|アルバイト|職業不詳|解体工|工員|技能実習生)/g, ' ');
 }
@@ -640,14 +654,21 @@ function resolveCrimeSceneInContext(targetSentence, dict = loadMunicipalities())
     const hasSceneOrCrime = SCENE_RE.test(cleanSent) || /(?:事件|発生|行われ|被害|犯行|疑い|容疑|逮捕|見つか|発見|押し入|侵入|密造|密輸|引き出し|盗み|盗取|殺害|殴|窃盗|詐欺|使用|所持|不法|事故)/.test(cleanSent);
     if (hasSceneOrCrime) {
       for (const key of dict.keys) {
-        if (cleanSent.includes(key)) {
-          const prefs = dict.map[key];
-          if (prefs && prefs.length === 1) return { pref: prefs[0], evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+        const keyAt = cleanSent.indexOf(key);
+        if (keyAt >= 0) {
+          const prevChar = keyAt > 0 ? cleanSent[keyAt - 1] : '';
+          const isSubCityTown = /(?:町|村)$/.test(key) && /[市区]$/.test(prevChar);
+          const isKanjiSuffix = key.length <= 2 && prevChar && /[一-龥]/.test(prevChar) && !/[都道府県郡市区]$/.test(prevChar);
+          if (!isSubCityTown && !isKanjiSuffix) {
+            const prefs = dict.map[key];
+            if (prefs && prefs.length === 1) return { pref: prefs[0], evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+          }
         }
         const stem = key.replace(/(?:市|区|町|村)$/, '');
-        const stemAt = stem.length >= 3 ? cleanSent.indexOf(stem) : -1;
+        const stemAt = (stem.length >= 3 && /[一-龥ァ-ヴー]/.test(stem)) ? cleanSent.indexOf(stem) : -1;
+        const prevStem = stemAt > 0 ? cleanSent[stemAt - 1] : '';
         const afterStem = stemAt >= 0 ? cleanSent[stemAt + stem.length] : '';
-        if (stemAt >= 0 && (!afterStem || !/[一-龥]/.test(afterStem))) {
+        if (stemAt >= 0 && !(/(?:町|村)$/.test(key) && /[市区]$/.test(prevStem)) && (!afterStem || !/[一-龥]/.test(afterStem))) {
           const prefs = dict.map[key];
           if (prefs && prefs.length === 1) return { pref: prefs[0], evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
         }
@@ -696,22 +717,30 @@ function verifyArticleContent(text, title = '') {
   // 記事全体に対する「日本人逮捕」判定は使わない。別件・共犯者・引用中の日本人記述で
   // 外国籍被疑者の記事全体を誤って落とし得るため、外国籍表現ごとに同一文内の役割を確認する。
   // 被疑者文には逮捕・容疑・送検・起訴・有罪などの刑事手続語・犯罪述語が同一文内に存在することを必須化
-  const CRIME_PREDICATE_RE = /(?:逮捕|容疑|疑い|送検|送致|起訴|不起訴|処分|判決|求刑|初公判|公判|冒頭陳述|結審|罪状認否|摘発|指名手配|検挙|立件|有罪|被告|被疑者|現行犯|身柄|拘束|書類送検|再逮捕|罰金|勾留|実刑|懲役)/;
-  // 別事件・過去事件の捜査端緒（「今年7月…カンボジア国籍の男2人=窃盗罪で起訴=を逮捕し、処分先として同社が浮上」等）を今回の被疑者文として誤認しない
-  const PAST_CASE_BACKGROUND_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上/;
+  const CRIME_PREDICATE_RE = /(?:逮捕|容疑|疑い|送検|送致|起訴|不起訴|処分|判決|求刑|初公判|公判|冒頭陳述|結審|罪状認否|摘発|指名手配|検挙|立件|有罪|被告|被疑者|現行犯|身柄|拘束|書類送検|再逮捕|罰金|勾留|実刑|懲役|逃走)/;
+  // 別事件・過去事件の捜査端緒（「今年7月…カンボジア国籍の男2人=窃盗罪で起訴=を逮捕し、処分先として同社が浮上」「8月にも…逮捕され、その後起訴された」等）を今回の被疑者文として誤認しない
+  const PAST_CASE_BACKGROUND_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|逮捕され、その後(?:起訴|有罪|実刑)|(?:\d+月|昨年|おととし|過去|以前)にも[^。]{0,40}?(?:被害|事件)があり[^。]{0,40}?(?:逮捕|起訴)/;
+  const headlineIsUnarrestedNonForeign = Boolean(
+    title && /(?:人物|男|女|犯人)が逃走(?:か|中)?\s*$/.test(nfkc(title))
+    && !NAT_RE.test(nfkc(title))
+    && !/(?:逮捕|送検|起訴|不起訴|公判|判決|摘発|検挙)/.test(nfkc(title))
+  );
   const sentences = text.split(/(?<=[。！？\n])/).map((s) => s.trim()).filter(Boolean);
   let suspectIndex = -1;
   let matchedOcc = null;
 
   for (let i = 0; i < sentences.length; i++) {
     if (PAST_CASE_BACKGROUND_RE.test(sentences[i])) continue;
+    // 見出しが外国人表記のない未逮捕逃走事件（「客を装った人物が逃走か」等）のとき、本文中の過去事件の「逮捕・起訴」文を誤採用しない（今回の逃走犯が外国人とみられる場合は通過させる）
+    if (headlineIsUnarrestedNonForeign && /(?:逮捕|起訴|判決)/.test(sentences[i]) && !/逃走|行方/.test(sentences[i])) continue;
     const occs = natOccurrences(sentences[i]);
     const suspectOcc = occs.find((o) => {
       if (!o.suspect || o.victim || o.nonSuspect) return false;
-      // カタカナ氏名単体（例: 「ピーター・プロボスト容疑者」）だけでは帰化人や日本国籍保持者の可能性があるため、
-      // 同一文または見出しに明示的な国籍・外国籍・米軍・在留資格語が無い場合は採用しない
-      if (/^[ァ-ヴー]+(?:・[ァ-ヴー]+)+$/.test(o.text)) {
-        const hasExplicitNat = occs.some((other) => other !== o && other.suspect && !/^[ァ-ヴー]+(?:・[ァ-ヴー]+)+$/.test(other.text));
+      // カタカナ氏名単体や在留・不法就労語単体（「風俗店を不法就労で摘発」等で被疑者の外国人表記がない記事）では採用せず、
+      // 明示的な国籍・外国籍・外国人・外国人とみられる・米軍表記の確認を必須とする
+      const IMPLICIT_ONLY_NAT_RE = /^(?:[ァ-ヴー]+(?:・[ァ-ヴー]+)+|不法(?:滞在|残留|入国|就労)|オーバーステイ|仮放免|(?:元)?技能実習生|特定技能(?:実習生)?|(?:元)?留学生)$/;
+      if (IMPLICIT_ONLY_NAT_RE.test(o.text)) {
+        const hasExplicitNat = occs.some((other) => other !== o && other.suspect && !IMPLICIT_ONLY_NAT_RE.test(other.text));
         if (!hasExplicitNat) return false;
       }
       return nationalityLinkedToSuspect(sentences[i], o);
@@ -913,20 +942,26 @@ function verifyHeadlineOnly(title) {
     && !occurrence.victim && !occurrence.nonSuspect
     && nationalityLinkedToSuspect(headline, occurrence));
   const explicitForeignStatus = suspectOccurrence && new RegExp(
-    `^(?:(?:${COUNTRY_ALT})(?:国籍|籍|人|出身|系)|外国籍|外国人|外国出身|米兵|米軍|在日米軍|(?:米|アメリカ)(?:海兵隊|海軍|陸軍|空軍))$`
+    `^(?:(?:${COUNTRY_ALT})(?:国籍|籍|人|出身|系)|外国人とみられる|外国籍とみられる|外国籍|外国人|外国出身|米兵|米軍|在日米軍|(?:米|アメリカ)(?:海兵隊|海軍|陸軍|空軍))$`
   ).test(suspectOccurrence.text);
   if (!suspectOccurrence || !explicitForeignStatus) {
     out.pendingReason = 'headline_suspect_nationality_unclear';
     return out;
   }
-  const criminalProcedure = /逮捕|再逮捕|現行犯|送検|送致|起訴|追起訴|摘発|検挙|書類送検|容疑|疑い|初公判|公判|求刑|判決|有罪/;
-  const crimeTopic = /窃盗|盗み|盗ん|強盗|詐欺|暴行|傷害|殺人|殺害|覚醒剤|覚せい剤|麻薬|大麻|コカイン|密輸|侵入|盗撮|わいせつ|不法(?:入国|残留|滞在|就労)|入管法|商標法|偽造|横領|放火|賭博|売春|ひき逃げ|無免許|酒気帯び|酒酔い/;
+  const criminalProcedure = /逮捕|再逮捕|現行犯|送検|送致|起訴|不起訴|追起訴|摘発|検挙|書類送検|容疑|疑い|初公判|公判|求刑|判決|有罪|逃走/;
+  const crimeTopic = /窃盗|盗み|盗ん|強盗|詐欺|暴行|傷害|切り付け|切りつけ|殺人|殺害|覚醒剤|覚せい剤|麻薬|大麻|コカイン|密輸|侵入|盗撮|わいせつ|不法(?:入国|残留|滞在|就労)|入管法|商標法|偽造|横領|放火|賭博|売春|ひき逃げ|無免許|酒気帯び|酒酔い/;
   if (!criminalProcedure.test(headline) || !crimeTopic.test(headline)
     || VICTIM_PASSIVE_RE.test(headline) || VICTIM_OBJECT_RE.test(headline)) {
     out.pendingReason = 'headline_crime_or_suspect_role_unclear';
     return out;
   }
-  const place = resolveCrimeSceneInContext(headline, loadMunicipalities());
+  let place = resolveCrimeSceneInContext(headline, loadMunicipalities());
+  if ((!place || place.pref === '全国') && JP_AUTH_RE.test(headline)) {
+    const authPlace = resolvePrefecture(headline);
+    if (authPlace && authPlace.pref && authPlace.pref !== '全国') {
+      place = { pref: authPlace.pref, evidence: `見出し根拠: 国内捜査・司法機関管轄 (${headline.slice(0, 80)})` };
+    }
+  }
   if (!place || place.pref === '全国') {
     out.pendingReason = 'headline_domestic_location_unclear';
     return out;

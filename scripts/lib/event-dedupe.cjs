@@ -15,7 +15,7 @@ const US_MILITARY_RE = /米(?:兵|軍|海兵隊|海軍|空軍|陸軍|軍属)|ア
 const CRIME_GROUPS = [
   ['盗品保管', /盗品等?保管|盗難.{0,10}高級車.{0,8}保管|高級車.{0,8}保管/],
   ['薬物', /覚醒剤|覚せい剤|麻薬|大麻|コカイン|MDMA|薬物/],
-  ['詐欺', /詐欺|だまし取|騙し取|だましと|詐取|特殊詐欺|受け子|出し子|架け子|かけ子|資金洗浄|マネロン|マネーロンダリング|ボイスフィッシング/],
+  ['詐欺', /詐欺|だまし取|騙し取|だましと|詐取|特殊詐欺|受け子|出し子|架け子|かけ子|資金洗浄|マネロン|マネーロンダリング|ボイスフィッシング|(?:クレジットカード|クレカ).{0,10}(?:不正|悪用)/],
   ['風営', /風営|無許可.*(?:営業|接待|クラブ|バー|パブ|メンズエステ)|ナイトクラブ/],
   ['強盗', /強盗|強殺|脅し.{0,12}奪|現金奪/],
   ['窃盗', /窃盗|盗ん|盗み|盗もう|万引|スリ(?!ランカ)|空き巣|侵入盗|車上荒らし|ロッカー物色|ひったくり/],
@@ -26,7 +26,7 @@ const CRIME_GROUPS = [
   ['交通', /道交法|道路交通法|信号無視|赤信号|ひき逃げ|当て逃げ|酒気帯び|酒酔い|飲酒運転|飲酒して.{0,12}事故|無免許|危険運転|過失運転|死亡事故|玉突き事故|車突入|車突っ込|逃走.{0,10}(?:車|パトカー)|パトカー.{0,10}逃走/],
   ['入管', /入管|難民法|不法(?:に)?(?:上陸|入国|滞在|在留|残留|就労)|オーバーステイ|偽造在留カード|資格外活動/],
   ['盗品保管', /盗品等保管|盗品保管|盗難車保管|盗品と知りながら.{0,24}保管/],
-  ['商標', /商標法|偽(?:ブランド|物|ユニホ|ユニフォ|サプリ|ロゴ)|模倣品|海賊版/],
+  ['商標', /商標法|偽(?:ブランド|物|ボンドロ|シール|ユニホ|ユニフォ|サプリ|ロゴ)|ボンボンドロップ|模倣品|海賊版/],
   ['野生動物', /種の保存法|絶滅危惧|文化財保護法|天然記念物|オカヤドカリ/],
   ['食肉・鳥獣', /食品衛生法|と畜場法|鳥獣保護法|密猟|密漁|ジビエ|食肉|(?:イノシシ|シカ).{0,10}解体|無許可.{0,8}解体|イノシシ|シカ|ナマコ|アワビ/],
   ['通貨偽造', /通貨及(?:び)?証券模造|通貨偽造|偽造通貨|偽造銀貨|偽造硬貨|偽造貨幣|1万円銀貨|偽造1万円|偽札/],
@@ -124,6 +124,11 @@ function isFollowUp(older, newer) {
   const olderDate = Date.parse(older?.date || '');
   const newerDate = Date.parse(newer?.date || '');
   // 同じ報道日に「逮捕」と「再逮捕」が並ぶのは媒体ごとの表記揺れ（同日転載）のため続報とみなさない
+  const dayGap = Math.abs(newerDate - olderDate) / 86400000;
+  const mainArrestRe = /(?<!再)逮捕(?!の)/;
+  if (dayGap <= 1 && mainArrestRe.test(nfkc(older?.title || '')) && mainArrestRe.test(nfkc(newer?.title || '')) && newerStage !== '公判' && newerStage !== '判決' && newerStage !== '不起訴') {
+    return false;
+  }
   const sameDay = olderDate === newerDate;
   return Boolean(olderStage && newerStage && orderB > orderA
     && Number.isFinite(olderDate) && Number.isFinite(newerDate) && newerDate >= olderDate
@@ -278,9 +283,10 @@ function sameEventReason(a, b, { maxDays = 14 } = {}) {
   // 数量・金額の事実アンカーが一致し、同県・3日以内・国籍が矛盾しない場合だけ、
   // 媒体ごとに容疑者名・年齢・場所の表記が揺れる複数被疑者事件の転載を同一事件として扱う。
   const sameStoredRegionForFact = Boolean(a.location && b.location && a.location === b.location);
+  const crossPrefFactShared = [...(sa.incidentAnchors || [])].some((x) => x.startsWith('fact:') && !x.endsWith('kg') && sb.incidentAnchors?.has(x)) && daysApart(a.date, b.date) <= 2 && natsMatch && intersects(sa.crimes, sb.crimes) && (intersects(sa.ages, sb.ages) || (sa.genders.size >= 2 && sb.genders.size >= 2) || dice(sa.content, sb.content) >= 0.20);
   const factAnchorShared = [...(sa.incidentAnchors || [])].some((x) => x.startsWith('fact:') && sb.incidentAnchors?.has(x))
     && daysApart(a.date, b.date) <= 3 && sameStoredRegionForFact
-    && (natsMatch || !sa.nats.size || !sb.nats.size);
+    && (natsMatch || !sa.nats.size || !sb.nats.size) || crossPrefFactShared;
   if (!natsMatch && !factAnchorShared && !hasMatchingSuspectName) return null;
   if (sa.suspectNames?.size && sb.suspectNames?.size && !hasMatchingSuspectName && !factAnchorShared) return null;
   const sameAge = intersects(sa.ages, sb.ages);
@@ -303,7 +309,7 @@ function sameEventReason(a, b, { maxDays = 14 } = {}) {
   const storedRegionMislabeled = natsMatch && sameAge && samePlace && sameCrime;
   const crossRegionAnchors = new Set(['pakistan_shirataku_group', 'russia_car_export_sanctions']);
   const sharedIncidentCrossRegion = [...(sa.incidentAnchors || [])].some((x) => crossRegionAnchors.has(x) && sb.incidentAnchors?.has(x)) && natsMatch;
-  if (locationRelation === 'conflict' && !sameNamedSuspect && !storedRegionMislabeled && !sharedIncidentCrossRegion) return null;
+  if (locationRelation === 'conflict' && !sameNamedSuspect && !storedRegionMislabeled && !sharedIncidentCrossRegion && !crossPrefFactShared) return null;
   const agesConflict = sa.ages.size && sb.ages.size && !sameAge && !sameNamedSuspect && !factAnchorShared;
   const placesConflict = (locationRelation === 'conflict' && !storedRegionMislabeled && !sharedIncidentCrossRegion)
     || (locationRelation === 'unknown' && sa.places.size && sb.places.size && !samePlace);
@@ -311,9 +317,10 @@ function sameEventReason(a, b, { maxDays = 14 } = {}) {
   if (sa.genders.size && sb.genders.size && !intersects(sa.genders, sb.genders) && !factAnchorShared) return null;
   if (sameNamedSuspect) return '本文の容疑者氏名+罪種+同日+地域整合';
   const withinOneDay = daysApart(a.date, b.date) <= 1;
-  const sameStage = !sa.procedureStage || !sb.procedureStage || sa.procedureStage === sb.procedureStage;
+  const mainArrestStageRe = /(?<!再)逮捕(?!の)/;
+  const sameStage = !sa.procedureStage || !sb.procedureStage || sa.procedureStage === sb.procedureStage || (withinOneDay && mainArrestStageRe.test(nfkc(a.title || '')) && mainArrestStageRe.test(nfkc(b.title || '')) && sa.procedureStage !== '公判' && sb.procedureStage !== '公判' && sa.procedureStage !== '判決' && sb.procedureStage !== '判決');
   const withinIncidentWindow = daysApart(a.date, b.date) <= 7;
-  if ((sharedIncidentAnchor || factAnchorShared) && withinIncidentWindow && sameStage && (sameStoredRegion || sharedIncidentCrossRegion) && (sameCrime || sharedIncidentAnchor)) {
+  if ((sharedIncidentAnchor || factAnchorShared) && withinIncidentWindow && sameStage && (sameStoredRegion || sharedIncidentCrossRegion || crossPrefFactShared) && (sameCrime || sharedIncidentAnchor)) {
     return '国籍+罪種+地域+近接日同段階+事件固有アンカー';
   }
   // キューバ国籍の横浜飲食店刺傷では、見出しや短い要約に被疑者名が

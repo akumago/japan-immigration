@@ -2,8 +2,8 @@ name: Daily Automated Foreign Crime News Update
 
 on:
   schedule:
-    # 1日6回・4時間おき（端数17分に設定してGitHub全体の00分キュー混雑・遅延を完全回避）
-    - cron: '17 21,1,5,9,13,17 * * *'
+    # 毎時17分自動巡回（夕方18時台の地方局ニュース配信ピークも遅延なく即日反映・00分キュー混雑回避）
+    - cron: '17 * * * *'
   workflow_dispatch:
 
 # 同時実行によるGit競合をシステムレベルで100%遮断

@@ -1,11 +1,95 @@
 [
   {
+    "id": "ed4bda3cf51d",
+    "sourceRecordId": "v5-ed4bda3cf51d",
+    "date": "2026-11-07",
+    "pubDate": "2026-11-07T09:30:00.000Z",
+    "location": "岐阜県",
+    "prefecture": "岐阜県",
+    "media": "中日新聞Web",
+    "source": "中日新聞Web",
+    "stage": "逮捕",
+    "nationality": "ブラジル国籍",
+    "crimeCategory": "強盗・強盗致傷",
+    "title": "岐阜市のコンビニで強盗の疑い、ブラジル人を逮捕",
+    "url": "https://www.chunichi.co.jp/article/1336221",
+    "summary": "岐阜県で発生し、ブラジル国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 岐阜南署は7日、事後強盗の疑いで、岐阜市加納上本町1、ブラジル国籍の職業不詳シマブクロ・パウロ・ミツアキ容疑者（52）を現行犯逮捕した...",
+      "nationality": "本文抜粋: ブラジル国籍"
+    },
+    "locationBasis": "見出し・本文統合根拠: 岐阜市のコンビニで強盗の疑い、ブラジル人を逮捕"
+  },
+  {
+    "id": "dba9d84267ff",
+    "sourceRecordId": "v5-dba9d84267ff",
+    "date": "2026-11-07",
+    "pubDate": "2026-11-07T09:15:30.000Z",
+    "location": "広島県",
+    "prefecture": "広島県",
+    "media": "Yahoo!ニュース",
+    "source": "Yahoo!ニュース",
+    "stage": "逮捕",
+    "nationality": "韓国籍",
+    "crimeCategory": "性犯罪・わいせつ",
+    "title": "泥酔した女性を車に乗せ上半身触ったか 韓国籍の男(46)を不同意わいせつの疑いで逮捕 広島県福山市",
+    "url": "https://topics.smt.docomo.ne.jp/article/rcc/region/rcc-3069408",
+    "summary": "広島県で発生し、韓国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 泥酔した女性を車に乗せ上半身触ったか 韓国籍の男（46）を不同意わいせつの疑いで逮捕 広島県福山市",
+      "nationality": "本文抜粋: 韓国籍"
+    },
+    "locationBasis": "本文抜粋: 泥酔した女性を車に乗せ上半身触ったか 韓国籍の男（46）を不同意わいせつの疑いで逮捕 広島県福山市"
+  },
+  {
+    "id": "30f0e1accec6",
+    "sourceRecordId": "v5-30f0e1accec6",
+    "date": "2026-11-07",
+    "pubDate": "2026-11-07T08:00:00.000Z",
+    "location": "群馬県",
+    "prefecture": "群馬県",
+    "media": "上毛新聞電子版",
+    "source": "上毛新聞電子版",
+    "stage": "逮捕",
+    "nationality": "ウズベキスタン国籍",
+    "crimeCategory": "廃棄物処理法・不法投棄・環境犯罪",
+    "title": "不法投棄の疑いで外国籍の3人逮捕 群馬県警",
+    "url": "https://www.jomo-news.co.jp/articles/-/1060356",
+    "summary": "群馬県で発生し、ウズベキスタン国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 群馬県警生活環境課と前橋署は6日までに、廃棄物処理法違反（不法投棄）の疑いで、ウズベキスタン国籍で東京都葛飾区、無職の男（30）ら外国籍男3人を逮捕した。",
+      "nationality": "本文抜粋: ウズベキスタン国籍"
+    },
+    "locationBasis": "本文抜粋: 3人の逮捕容疑は共謀して、2025年10月29日午後2時20分ごろ、前橋市富士見町の山林に産業廃棄物であるプラスチックや木くず、一般廃棄物であるプラスチック籠な"
+  },
+  {
+    "id": "26f7685bb9d7",
+    "sourceRecordId": "v5-26f7685bb9d7",
+    "date": "2026-11-07",
+    "pubDate": "2026-11-07T00:30:43.000Z",
+    "location": "埼玉県",
+    "prefecture": "埼玉県",
+    "media": "埼玉新聞",
+    "source": "埼玉新聞",
+    "stage": "逮捕",
+    "nationality": "韓国籍",
+    "crimeCategory": "特殊詐欺・出し子・受け子",
+    "title": "夫婦逮捕...だまし取った金の延べ棒を売りさばいた疑い 夫50歳と妻55歳、投資話で3個を受け取り1個を約1720万円で売却か 妻は別の詐欺でも70歳の女と、女性から4個を回収し約2400万円で売却か",
+    "url": "https://news.yahoo.co.jp/articles/1e306c568ca24c1e408688e33d618b4d2097d4ba?source=rss",
+    "summary": "埼玉県で発生し、韓国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 特殊詐欺で取得した金を売却していたとして、埼玉県の熊谷署は5日、詐欺と組織犯罪処罰法違反の疑いで、東京都荒川区南千住6丁目、韓国籍の会社役員の男（50）と、妻の",
+      "nationality": "本文抜粋: 韓国籍"
+    },
+    "locationBasis": "本文抜粋: 特殊詐欺で取得した金を売却していたとして、埼玉県の熊谷署は5日、詐欺と組織犯罪処罰法違反の疑いで、東京都荒川区南千住6丁目、韓国籍の会社役員の男（50）と、妻の"
+  },
+  {
     "id": "4867db0becbf",
     "sourceRecordId": "v5-4867db0becbf",
     "date": "2026-11-07",
     "pubDate": "2026-11-06T21:15:00.000Z",
-    "location": "宮城県",
-    "prefecture": "宮城県",
+    "location": "佐賀県",
+    "prefecture": "佐賀県",
     "media": "佐賀新聞",
     "source": "佐賀新聞",
     "stage": "再逮捕",
@@ -13,33 +97,12 @@
     "crimeCategory": "一般窃盗・スリ・車上荒らし",
     "title": "不正入手したクレジットカード情報でUSJのチケット購入疑い 埼玉県の中国籍の44歳男を再逮捕 佐賀県警",
     "url": "https://news.yahoo.co.jp/articles/40c9d104b447ee6f2349d7ff8389ecfd6e41c0b9",
-    "summary": "宮城県で発生し、中国籍の被疑者に再逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "summary": "佐賀県で発生し、中国籍の被疑者に再逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
     "evidence": {
       "suspect": "本文抜粋: 佐賀県警サイバー犯罪対策課と伊万里署は6日、窃盗などの疑いで、中国籍の自営業の男（44）=さいたま市浦和区領家7丁目=を再逮捕した。",
       "nationality": "本文抜粋: 中国籍"
     },
     "locationBasis": "本文抜粋: 再逮捕容疑は1月24日ごろ、氏名不詳者と共謀し、不正に入手した宮城県の50代女性のクレジットカード情報を利用してユニバーサル・スタジオ・ジャパンのチケット2枚（"
-  },
-  {
-    "id": "c9ff207ffc2e",
-    "sourceRecordId": "v5-c9ff207ffc2e",
-    "date": "2026-11-06",
-    "pubDate": "2026-11-06T08:34:15.000Z",
-    "location": "島根県",
-    "prefecture": "島根県",
-    "media": "Yahoo!ニュース",
-    "source": "Yahoo!ニュース",
-    "stage": "逮捕",
-    "nationality": "インドネシア国籍",
-    "crimeCategory": "暴行・傷害・脅迫",
-    "title": "19歳のインドネシア人技能実習生を暴行、カニ漁船長らを容疑で逮捕...<ワサビのようなもの塗り腹部蹴る><火炎を顔に近づける>船長のスマホには暴行の動画が(読売新聞オンライン)",
-    "url": "https://news.yahoo.co.jp/articles/030ceb7016cea970880951d42ef599e0ec297bec",
-    "summary": "島根県で発生し、インドネシア国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 発表では、３人は島根県やその周辺の日本海でカニ漁をしていた１月２５日午後１０時頃、船内でインドネシア人技能実習生の男性（１９）の顔にワサビのような物を塗り、腹部",
-      "nationality": "本文抜粋: インドネシア人"
-    },
-    "locationBasis": "本文抜粋: 発表では、３人は島根県やその周辺の日本海でカニ漁をしていた１月２５日午後１０時頃、船内でインドネシア人技能実習生の男性（１９）の顔にワサビのような物を塗り、腹部"
   },
   {
     "id": "693d028befd6",
@@ -84,6 +147,27 @@
     "locationBasis": "国内捜査・司法機関管轄根拠: 総額9億円のボイスフィッシング詐欺事件 不正送金用の口座を開設した疑いでベトナム国籍の男を逮捕 県警と天童警察署"
   },
   {
+    "id": "ea3f43f3219e",
+    "sourceRecordId": "v5-ea3f43f3219e",
+    "date": "2026-11-06",
+    "pubDate": "2026-11-06T06:00:21.000Z",
+    "location": "島根県",
+    "prefecture": "島根県",
+    "media": "山陰中央新報",
+    "source": "山陰中央新報",
+    "stage": "逮捕",
+    "nationality": "中国籍",
+    "crimeCategory": "一般詐欺・無銭飲食",
+    "title": "「金」製品と偽り、ネックレス2本を偽物売却 現金をだまし取ったか 匿流の犯行とみられる 出雲署、詐欺容疑で男2人逮捕 島根県",
+    "url": "https://news.yahoo.co.jp/articles/3039a4b7774e60c080ad902d0ce46e6d56e812c7?source=rss",
+    "summary": "島根県で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "evidence": {
+      "suspect": "本文抜粋: 金製品に偽装したネックレス２本を古物買い取り店に売却し、現金約４０万円をだまし取ったとして、出雲署は５日、詐欺の疑いで、鳥取市内の無職男（５５）と、中国籍の神戸",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "見出し・本文統合根拠: 「金」製品と偽り、ネックレス2本を偽物売却 現金をだまし取ったか 匿流の犯行とみられる 出雲署、詐欺容疑で男2人逮捕 島根県"
+  },
+  {
     "id": "fc6996be9bf4",
     "sourceRecordId": "v5-fc6996be9bf4",
     "date": "2026-11-06",
@@ -124,27 +208,6 @@
       "nationality": "本文抜粋: 台湾籍"
     },
     "locationBasis": "国内捜査・司法機関管轄根拠: 八戸署と青森県警捜査2課は5日、詐欺未遂の疑いで台湾籍で住居不定、自称会社員の男の容疑者（33）を逮捕した。"
-  },
-  {
-    "id": "8ee228ae70c9",
-    "sourceRecordId": "v5-8ee228ae70c9",
-    "date": "2026-11-06",
-    "pubDate": "2026-11-05T22:22:32.000Z",
-    "location": "神奈川県",
-    "prefecture": "神奈川県",
-    "media": "時事ドットコム",
-    "source": "時事ドットコム",
-    "stage": "逮捕",
-    "nationality": "中国籍",
-    "crimeCategory": "有印公文書偽造・偽造カード・偽装結婚",
-    "title": "画像・写真:マイナカード偽造容疑、中国籍の男逮捕:時事ドットコム",
-    "url": "https://www.jiji.com/jc/p?id=20261105191654-0094019879",
-    "summary": "神奈川県で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 他人のマイナンバーカードなどを偽造したとして、神奈川県警は５日、有印公文書偽造などの容疑で、中国籍の無職偉勒思容疑者（２７）を逮捕した。",
-      "nationality": "本文抜粋: 中国籍"
-    },
-    "locationBasis": "国内捜査・司法機関管轄根拠: 他人のマイナンバーカードなどを偽造したとして、神奈川県警は５日、有印公文書偽造などの容疑で、中国籍の無職偉勒思容疑者（２７）を逮捕した。"
   },
   {
     "id": "7a786e6ca503",
@@ -189,54 +252,12 @@
     "locationBasis": "本文抜粋: 福岡市で8月、留学生のネパール人女性が殺害された事件で、福岡地検は殺人容疑で逮捕されたネパール国籍の男女2人を不起訴処分としました。"
   },
   {
-    "id": "258aecfce38d",
-    "sourceRecordId": "v5-258aecfce38d",
-    "date": "2026-11-05",
-    "pubDate": "2026-11-05T10:26:00.000Z",
-    "location": "大阪府",
-    "prefecture": "大阪府",
-    "media": "名古屋テレビ【メ～テレ】",
-    "source": "名古屋テレビ【メ～テレ】",
-    "stage": "逮捕",
-    "nationality": "中国籍",
-    "crimeCategory": "商標法・著作権法・偽ブランド",
-    "title": "偽ボンドロ販売した疑い 中国籍の夫婦を逮捕 所持した男性の仕入れ先として浮上",
-    "url": "https://news.yahoo.co.jp/articles/9de9f3c64189c8ffd85d2e31340d7b06059d2a5e",
-    "summary": "大阪府で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 商標法違反の疑いで逮捕されたのは、中国籍のザン・チュンホアン容疑者（38）と夫のシン・ヤオ容疑者（43）です。",
-      "nationality": "本文抜粋: 中国籍"
-    },
-    "locationBasis": "本文抜粋: 警察によりますと、2人は今年2月、大阪市の男性に3回にわたって、偽の「ボンボンドロップシール」319冊を4万1470円で販売した疑いが持たれています。"
-  },
-  {
-    "id": "c06f6ecc53c4",
-    "sourceRecordId": "v5-c06f6ecc53c4",
-    "date": "2026-11-05",
-    "pubDate": "2026-11-05T10:11:00.000Z",
-    "location": "島根県",
-    "prefecture": "島根県",
-    "media": "ライブドアニュース",
-    "source": "ライブドアニュース",
-    "stage": "逮捕",
-    "nationality": "外国籍",
-    "crimeCategory": "暴行・傷害・脅迫",
-    "title": "技能実習生の顔にワサビを塗り付け火炎噴出か、漁船の船長ら3人を逮捕 (2026年11月5日掲載)",
-    "url": "https://news.yahoo.co.jp/articles/c081d7b071a4a1c164a1606008793457711a8ff2",
-    "summary": "島根県で発生し、外国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 技能実習生の顔にワサビを塗るなどの暴力行為をしたとして、漁船の船長ら3人が逮捕されました。",
-      "nationality": "本文抜粋: 技能実習生"
-    },
-    "locationBasis": "本文抜粋: 【映像】実習生に暴力行為の疑いで漁船の船長ら逮捕 沖合底びき網漁船の船長、中村豊和容疑者（36）、福田慎二容疑者ら3人は1月、島根県周辺の海上にあった船内で19"
-  },
-  {
     "id": "cb1e9aba8169",
     "sourceRecordId": "v5-cb1e9aba8169",
     "date": "2026-11-05",
     "pubDate": "2026-11-05T10:10:00.000Z",
-    "location": "東京都",
-    "prefecture": "東京都",
+    "location": "神奈川県",
+    "prefecture": "神奈川県",
     "media": "時事通信ニュース",
     "source": "時事通信ニュース",
     "stage": "逮捕",
@@ -244,7 +265,7 @@
     "crimeCategory": "有印公文書偽造・偽造カード・偽装結婚",
     "title": "マイナカード偽造容疑、中国籍の男逮捕=組織的グループか―神奈川県警",
     "url": "https://www.msn.com/ja-jp/news/other/%E3%83%9E%E3%82%A4%E3%83%8A%E3%82%AB%E3%83%BC%E3%83%89%E5%81%BD%E9%80%A0%E5%AE%B9%E7%96%91-%E4%B8%AD%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E9%80%AE%E6%8D%95-%E7%B5%84%E7%B9%94%E7%9A%84%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%E3%81%8B-%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E8%AD%A6/ar-AA2gNWhO",
-    "summary": "東京都で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "summary": "神奈川県で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
     "evidence": {
       "suspect": "本文抜粋: 他人のマイナンバーカードなどを偽造したとして、神奈川県警は５日、有印公文書偽造などの容疑で、東京都板橋区東山町、中国籍の無職偉勒思容疑者（２７）を逮捕した。",
       "nationality": "本文抜粋: 中国籍"
@@ -347,7 +368,7 @@
     "stage": "逮捕",
     "nationality": "中国籍",
     "crimeCategory": "一般窃盗・スリ・車上荒らし",
-    "title": "スポーツ施設に侵入し現金など窃盗 中国国籍女逮捕(テレビ朝日系",
+    "title": "スポーツ施設に侵入し現金など窃盗 中国国籍女逮捕",
     "url": "https://news.yahoo.co.jp/articles/5bfcfc78838becd32608e8dffae5c0729b9ce929",
     "summary": "東京都で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
     "evidence": {
@@ -376,48 +397,6 @@
       "nationality": "本文抜粋: ブラジル国籍"
     },
     "locationBasis": "本文抜粋: 東京・台東区の会社事務所から時価8540万円相当の金の延べ棒を盗んだなどとして「トクリュウ」とみられる男4人が逮捕されました。"
-  },
-  {
-    "id": "e1ffaae96589",
-    "sourceRecordId": "v5-e1ffaae96589",
-    "date": "2026-11-05",
-    "pubDate": "2026-11-05T04:11:00.000Z",
-    "location": "鳥取県",
-    "prefecture": "鳥取県",
-    "media": "山陰中央新報デジタル",
-    "source": "山陰中央新報デジタル",
-    "stage": "送検",
-    "nationality": "インドネシア国籍",
-    "crimeCategory": "暴行・傷害・脅迫",
-    "title": "技能実習生の顔面にわさびか、漁船内で暴行疑い 浜田海保、船長ら男3人を逮捕 携帯で動画撮影",
-    "url": "https://news.yahoo.co.jp/articles/e4286ba5add445197d65785a0c5ae9016add271a",
-    "summary": "鳥取県で発生し、インドネシア国籍の被疑者に送検等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 海上の漁船内でインドネシア国籍の技能実習生（１９）に暴行したとして、浜田海上保安部は５日、鳥取県岩美町内の会社が所有する漁船の船長や甲板員の男３人を逮捕、送検し",
-      "nationality": "本文抜粋: インドネシア国籍"
-    },
-    "locationBasis": "本文抜粋: 海上の漁船内でインドネシア国籍の技能実習生（１９）に暴行したとして、浜田海上保安部は５日、鳥取県岩美町内の会社が所有する漁船の船長や甲板員の男３人を逮捕、送検し"
-  },
-  {
-    "id": "0de5b9fc5323",
-    "sourceRecordId": "v5-0de5b9fc5323",
-    "date": "2026-11-05",
-    "pubDate": "2026-11-05T03:22:07.000Z",
-    "location": "兵庫県",
-    "prefecture": "兵庫県",
-    "media": "Yahoo!ニュース",
-    "source": "Yahoo!ニュース",
-    "stage": "逮捕",
-    "nationality": "インドネシア国籍",
-    "crimeCategory": "暴行・傷害・脅迫",
-    "title": "技能実習生の顔にわさびか、漁船船長ら逮捕",
-    "url": "https://www.47news.jp/15187070.html",
-    "summary": "兵庫県で発生し、インドネシア国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 技能実習生のインドネシア人男性（19）の顔にわさびのようなものを塗り、腹を蹴るなどの暴行を加えたとして、浜田海上保安部（ 島根県浜田市 ）は5日までに、暴力行為",
-      "nationality": "本文抜粋: 技能実習生"
-    },
-    "locationBasis": "本文抜粋: 技能実習生のインドネシア人男性（19）の顔にわさびのようなものを塗り、腹を蹴るなどの暴行を加えたとして、浜田海上保安部（ 島根県浜田市 ）は5日までに、暴力行為"
   },
   {
     "id": "tuy_yamagata_20261105",
@@ -483,27 +462,6 @@
     "locationBasis": "本文抜粋: 札幌市内の土産店から「北海道土産の菓子」4点を万引きした窃盗の疑いで、韓国籍の自称ネイルショップ経営の女（33）が現行犯逮捕されました。"
   },
   {
-    "id": "752f7f3a6e98",
-    "sourceRecordId": "v5-752f7f3a6e98",
-    "date": "2026-11-05",
-    "pubDate": "2026-11-04T20:00:00.000Z",
-    "location": "島根県",
-    "prefecture": "島根県",
-    "media": "日刊自動車新聞",
-    "source": "日刊自動車新聞",
-    "stage": "逮捕",
-    "nationality": "韓国籍",
-    "crimeCategory": "その他刑事事件",
-    "title": "浜田海上保安部、ロシアへの中古車不正輸出容疑で韓国籍の男を逮捕 規制強化後で初",
-    "url": "https://www.jiji.com/jc/article?k=2026110401011&g=soc",
-    "summary": "島根県で発生し、韓国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: ウクライナ 侵攻に伴うロシアへの経済制裁で輸出が規制されている中古車を不正輸出したとして、浜田海上保安部（島根県浜田市）は、外為法違反（無承認輸出）容疑で、韓国",
-      "nationality": "本文抜粋: 韓国籍"
-    },
-    "locationBasis": "本文抜粋: ウクライナ 侵攻に伴うロシアへの経済制裁で輸出が規制されている中古車を不正輸出したとして、浜田海上保安部（島根県浜田市）は、外為法違反（無承認輸出）容疑で、韓国"
-  },
-  {
     "id": "21bf3a306197",
     "sourceRecordId": "v5-21bf3a306197",
     "date": "2026-11-05",
@@ -523,27 +481,6 @@
       "nationality": "本文抜粋: 台湾出身"
     },
     "locationBasis": "本文抜粋: 警察によりますと許容疑者はことし7月、警察官などになりすまして大阪市に住む男性（73）に対し「資産を調べる必要がある」などとうそを言い、現金3300万円と金の延"
-  },
-  {
-    "id": "f0e066d54042",
-    "sourceRecordId": "v5-f0e066d54042",
-    "date": "2026-11-04",
-    "pubDate": "2026-11-04T12:58:15.878Z",
-    "location": "東京都",
-    "prefecture": "東京都",
-    "media": "テレ朝NEWS（事件・社会）",
-    "source": "テレ朝NEWS（事件・社会）",
-    "stage": "逮捕",
-    "nationality": "外国籍",
-    "crimeCategory": "白タク・道路運送法違反",
-    "title": "外国人観光客を乗せて「白タク」疑いで逮捕の男性(39)を釈放 警視庁",
-    "url": "https://news.tv-asahi.co.jp/news_society/articles/000545189.html",
-    "summary": "東京都で発生し、外国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 男性は6月、国の許可を得ずに東京・渋谷区で外国人観光客2人を乗せ、有償で都内の複数箇所を回る白タク行為をしたなどの疑いで逮捕されました。",
-      "nationality": "本文抜粋: 外国人"
-    },
-    "locationBasis": "本文抜粋: 男性は6月、国の許可を得ずに東京・渋谷区で外国人観光客2人を乗せ、有償で都内の複数箇所を回る白タク行為をしたなどの疑いで逮捕されました。"
   },
   {
     "id": "umk_miyazaki_20261104",
@@ -596,12 +533,12 @@
     "prefecture": "島根県",
     "media": "ｄメニューニュース",
     "source": "ｄメニューニュース",
-    "stage": "送検",
+    "stage": "逮捕",
     "nationality": "韓国籍",
     "crimeCategory": "その他刑事事件",
     "title": "ハイブリッド中古車など73台をロシアに不正輸出...海保が韓国籍の男を逮捕 オークションサイトで車を落札し、シエラレオネ船籍の貨物船に載せる→韓国行きを装いロシアへ 島根県浜田市",
     "url": "https://newsdig.tbs.co.jp/articles/gallery/3060836",
-    "summary": "島根県で発生し、韓国籍の被疑者に送検等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "summary": "島根県で発生し、韓国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
     "evidence": {
       "suspect": "本文抜粋: 経済産業大臣の承認を受けずに、島根県浜田市からロシアへ中古車合計73台を不正に輸出したとして、浜田海上保安部は4日、韓国籍の貿易業の男を逮捕・送検したと明らかに",
       "nationality": "本文抜粋: 韓国籍"
@@ -691,27 +628,6 @@
       "nationality": "本文抜粋: ベトナム国籍"
     },
     "locationBasis": "本文抜粋: 長洲町のアパートに侵入し、男性を警棒で殴るなどしたとして、ベトナム国籍の男3人が逮捕されました。"
-  },
-  {
-    "id": "58eab370627b",
-    "sourceRecordId": "v5-58eab370627b",
-    "date": "2026-11-04",
-    "pubDate": "2026-11-04T00:10:00.000Z",
-    "location": "島根県",
-    "prefecture": "島根県",
-    "media": "山陰中央新報デジタル",
-    "source": "山陰中央新報デジタル",
-    "stage": "起訴",
-    "nationality": "韓国籍",
-    "crimeCategory": "その他刑事事件",
-    "title": "【速報】自動車をロシアに不正輸出、全国初の起訴 韓国籍の男を逮捕 浜田海保",
-    "url": "https://news.yahoo.co.jp/articles/0d34b3eb79a1ec15aba906329cc894b14960a8b6",
-    "summary": "島根県で発生し、韓国籍の被疑者に起訴等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: ウクライナ侵攻に伴うロシアへの経済制裁で輸出が規制されている中古車を不正輸出したとして、浜田海上保安部（島根県浜田市）は、外為法違反（無承認輸出）容疑で、韓国籍",
-      "nationality": "本文抜粋: 韓国籍"
-    },
-    "locationBasis": "本文抜粋: ウクライナ侵攻に伴うロシアへの経済制裁で輸出が規制されている中古車を不正輸出したとして、浜田海上保安部（島根県浜田市）は、外為法違反（無承認輸出）容疑で、韓国籍"
   },
   {
     "id": "4ff3ce111348",
@@ -924,27 +840,6 @@
     "locationBasis": "本文抜粋: 沖縄県沖縄市の米軍嘉手納基地に近い「ゲート通り」の店舗で違法な風俗営業をしたとして、県警合同捜査本部は３１日までに、神戸市の会社代表の中国籍の男（３４）ら中国籍の男女６人を含む計９人を風営法違反（無許可営業）の疑いで逮捕した。"
   },
   {
-    "id": "951fd3b3454c",
-    "sourceRecordId": "v5-951fd3b3454c",
-    "date": "2026-10-31",
-    "pubDate": "2026-10-31T12:47:27.000Z",
-    "location": "新潟県",
-    "prefecture": "新潟県",
-    "media": "グノシー",
-    "source": "グノシー",
-    "stage": "逮捕",
-    "nationality": "中国籍",
-    "crimeCategory": "クレジットカード・電子計算機詐欺",
-    "title": "背後に中国の犯罪組織か! 中国人男女を逮捕 他人のクレカ情報悪用し物品購入⇒フリマサイトで転売 転売の売り上げ7億4000万円 静岡県警(LOOK 静岡朝日テレビ",
-    "url": "https://look.satv.co.jp/content_news/incident/101657",
-    "summary": "新潟県で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: ２０２６年４月、他人名義のクレジットカードを不正に利用して４２万円相当の理美容はさみを購入したとして、東京都に住む大学生の中国人の男と荷物の受け取り役の中国人の",
-      "nationality": "本文抜粋: 中国人"
-    },
-    "locationBasis": "本文抜粋: ２人は２０２６年４月、他の氏名不詳者と共謀して新潟県に住む７０代女性のクレジットカードの情報を利用し、通販サイトで販売価格およそ４２万円の理美容はさみを不正に購"
-  },
-  {
     "id": "ddd780b620d4",
     "sourceRecordId": "v5-ddd780b620d4",
     "date": "2026-10-31",
@@ -1050,69 +945,6 @@
     "locationBasis": "本文抜粋: 今年9月、 マレーシア から 羽田空港 に指定 薬物 「エトミ デート 」を含む液体およそ3キロを 密輸 したとして、医薬品 医療 機器法違反と 関税法 違反の"
   },
   {
-    "id": "c196d916bf28",
-    "sourceRecordId": "v5-c196d916bf28",
-    "date": "2026-10-30",
-    "pubDate": "2026-10-30T10:49:00.000Z",
-    "location": "東京都",
-    "prefecture": "東京都",
-    "media": "ｄメニューニュース",
-    "source": "ｄメニューニュース",
-    "stage": "逮捕",
-    "nationality": "中国籍",
-    "crimeCategory": "クレジットカード・電子計算機詐欺",
-    "title": "生成AIで説明文作り転売か...他人のクレカ情報を悪用し約42万円のハサミ一式を騙し取った疑い 中国籍の男女2人を逮捕",
-    "url": "https://www.fnn.jp/articles/-/1143369",
-    "summary": "東京都で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 他人名義のクレジットカード情報を悪用して42万円のハサミをだまし取ったとして、中国籍の男女2人が逮捕されました。",
-      "nationality": "本文抜粋: 中国籍"
-    },
-    "locationBasis": "本文抜粋: 警察によりますと、逮捕されたのは、いずれも中国籍で東京都の大学生・王猷哲容疑者(24)と、19歳の女です。"
-  },
-  {
-    "id": "f1b1f19ae6eb",
-    "sourceRecordId": "v5-f1b1f19ae6eb",
-    "date": "2026-10-30",
-    "pubDate": "2026-10-30T09:04:17.000Z",
-    "location": "愛知県",
-    "prefecture": "愛知県",
-    "media": "au Webポータル",
-    "source": "au Webポータル",
-    "stage": "逮捕",
-    "nationality": "コロンビア国籍",
-    "crimeCategory": "暴行・傷害・脅迫",
-    "title": "名古屋で女性2人刺され重傷か「息子に刺された」男が逃走中 千葉では通行人を次々切りつけて3人けがさせたコロンビア人逮捕",
-    "url": "https://www.fnn.jp/articles/-/1143177",
-    "summary": "愛知県で発生し、コロンビア国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 逮捕されたのは、コロンビア国籍のハラミージョ・マリン・アンドレス・マウリシオ容疑者（37）です。",
-      "nationality": "本文抜粋: コロンビア国籍"
-    },
-    "locationBasis": "見出し・本文統合根拠: 名古屋で女性2人刺され重傷か「息子に刺された」男が逃走中 千葉では通行人を次々切りつけて3人けがさせたコロンビア人逮捕"
-  },
-  {
-    "id": "0bc59db0ebb0",
-    "sourceRecordId": "v5-0bc59db0ebb0",
-    "date": "2026-10-30",
-    "pubDate": "2026-10-30T06:26:00.000Z",
-    "location": "千葉県",
-    "prefecture": "千葉県",
-    "media": "Infoseek",
-    "source": "Infoseek",
-    "stage": "逮捕",
-    "nationality": "外国籍",
-    "crimeCategory": "銃刀法・公務執行妨害・犯人蔵匿",
-    "title": "歩行者3人が襲われけが ”刃物所持”で男逮捕",
-    "url": "https://mamastar.jp/bbs/topic/4652829",
-    "summary": "千葉県で発生し、外国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 歩行者3人が次々襲われけが “刃物所持”で外国人の男逮捕 千葉・松戸市2026年10月30日 12:17 千葉県・松戸市の路上で、歩行中の男・・・ママスタコミュ",
-      "nationality": "本文抜粋: 外国人"
-    },
-    "locationBasis": "本文抜粋: 歩行者3人が次々襲われけが “刃物所持”で外国人の男逮捕 千葉・松戸市2026年10月30日 12:17 千葉県・松戸市の路上で、歩行中の男・・・ママスタコミュ"
-  },
-  {
     "id": "e099fe8b63db",
     "sourceRecordId": "v5-e099fe8b63db",
     "date": "2026-10-30",
@@ -1197,27 +1029,6 @@
     "locationBasis": "本文抜粋: 千葉県松戸市のJR馬橋駅構内で果物ナイフを携帯したとして、松戸東署は30日までに、銃刀法違反（刃物携帯）の疑いで自称コロンビア国籍の男（37）＝同市＝を逮捕した"
   },
   {
-    "id": "fd303d123e63",
-    "sourceRecordId": "v5-fd303d123e63",
-    "date": "2026-10-30",
-    "pubDate": "2026-10-29T15:22:55.000Z",
-    "location": "東京都",
-    "prefecture": "東京都",
-    "media": "ライブドアニュース",
-    "source": "ライブドアニュース",
-    "stage": "起訴",
-    "nationality": "チリ国籍",
-    "crimeCategory": "一般窃盗・スリ・車上荒らし",
-    "title": "東京都中野区でまた高級時計窃盗 客を装った人物が逃走か",
-    "url": "https://news.livedoor.com/article/detail/32687970/",
-    "summary": "東京都で発生し、チリ国籍の被疑者に起訴等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: チリ国籍の男2人が窃盗容疑で逮捕され、その後起訴された。",
-      "nationality": "本文抜粋: チリ国籍"
-    },
-    "locationBasis": "本文抜粋: 窃盗事件があった「中野ブロードウェイ」にある時計店付近を調べる捜査員ら＝29日夜、東京都中野区"
-  },
-  {
     "id": "b3a262ea5ded",
     "sourceRecordId": "v5-b3a262ea5ded",
     "date": "2026-10-29",
@@ -1229,7 +1040,7 @@
     "stage": "再逮捕",
     "nationality": "ウクライナ国籍",
     "crimeCategory": "薬物・大麻・覚醒剤・密輸",
-    "title": "大麻を菓子箱に隠して密輸しようとした疑い ウクライナ国籍の男を再逮捕 愛知県警(メ〜テレ",
+    "title": "大麻を菓子箱に隠して密輸しようとした疑い ウクライナ国籍の男を再逮捕 愛知県警",
     "url": "https://www.nagoyatv.com/news/?id=037804",
     "summary": "愛知県で発生し、ウクライナ国籍の被疑者に再逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
     "evidence": {
@@ -1663,8 +1474,8 @@
     "sourceRecordId": "v5-fc749ac7d284",
     "date": "2026-10-28",
     "pubDate": "2026-10-27T15:22:13.000Z",
-    "location": "北海道",
-    "prefecture": "北海道",
+    "location": "愛知県",
+    "prefecture": "愛知県",
     "media": "au Webポータル",
     "source": "au Webポータル",
     "stage": "不起訴",
@@ -1672,7 +1483,7 @@
     "crimeCategory": "入管法違反・不法残留・不法就労助長",
     "title": "トルコ国籍男性2人不起訴 名古屋地検「証拠の内容を慎重に判断」 海の家で不法就労させたなどの疑い",
     "url": "https://www.msn.com/ja-jp/news/other/%E3%83%88%E3%83%AB%E3%82%B3%E5%9B%BD%E7%B1%8D%E7%94%B7%E6%80%A7%EF%BC%92%E4%BA%BA%E4%B8%8D%E8%B5%B7%E8%A8%B4-%E5%90%8D%E5%8F%A4%E5%B1%8B%E5%9C%B0%E6%A4%9C-%E8%A8%BC%E6%8B%A0%E3%81%AE%E5%86%85%E5%AE%B9%E3%82%92%E6%85%8E%E9%87%8D%E3%81%AB%E5%88%A4%E6%96%AD-%E6%B5%B7%E3%81%AE%E5%AE%B6%E3%81%A7%E4%B8%8D%E6%B3%95%E5%B0%B1%E5%8A%B4%E3%81%95%E3%81%9B%E3%81%9F%E3%81%AA%E3%81%A9%E3%81%AE%E7%96%91%E3%81%84/ar-AA2gbbWy",
-    "summary": "北海道で発生し、トルコ国籍の被疑者に不起訴等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "summary": "愛知県で発生し、トルコ国籍の被疑者に不起訴等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
     "evidence": {
       "suspect": "見出し根拠: トルコ国籍男性2人不起訴 名古屋地検「証拠の内容を慎重に判断」 海の家で不法就労させたなどの疑い",
       "nationality": "見出し根拠: トルコ国籍"
@@ -1747,8 +1558,8 @@
     "sourceRecordId": "v5-9c2d08334e67",
     "date": "2026-10-27",
     "pubDate": "2026-10-27T06:47:01.000Z",
-    "location": "東京都",
-    "prefecture": "東京都",
+    "location": "佐賀県",
+    "prefecture": "佐賀県",
     "media": "Yahoo!ニュース",
     "source": "Yahoo!ニュース",
     "stage": "不起訴",
@@ -1756,7 +1567,7 @@
     "crimeCategory": "有印公文書偽造・偽造カード・偽装結婚",
     "title": "偽造在留カード所持し液状大麻を密輸などの疑い ベトナム国籍女子大学生を不起訴 佐賀地検【佐賀県】",
     "url": "https://www.fnn.jp/articles/-/1140685",
-    "summary": "東京都で発生し、ベトナム国籍の被疑者に不起訴等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "summary": "佐賀県で発生し、ベトナム国籍の被疑者に不起訴等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
     "evidence": {
       "suspect": "本文抜粋: 液状大麻を所持していたとして麻薬特例法違反などの疑いがもたれていたベトナム国籍の女子大学生について佐賀地検は今月２６日付で不起訴処分としました。",
       "nationality": "本文抜粋: ベトナム国籍"
@@ -1817,7 +1628,7 @@
     "stage": "起訴",
     "nationality": "韓国籍",
     "crimeCategory": "廃棄物処理法・不法投棄・環境犯罪",
-    "title": "3億3800万円超の売り上げを隠した罪でスクラップ販売会社と代表を在宅起訴 水戸地検(テレビ朝日系",
+    "title": "3億3800万円超の売り上げを隠した罪でスクラップ販売会社と代表を在宅起訴 水戸地検",
     "url": "https://news.yahoo.co.jp/articles/50cc02ef2b117174ef72203df0b9b18ef9a12836?source=rss",
     "summary": "茨城県で発生し、韓国籍の被疑者に起訴等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
     "evidence": {
@@ -2230,8 +2041,8 @@
     "sourceRecordId": "v5-76b93b5521f8",
     "date": "2026-10-23",
     "pubDate": "2026-10-22T21:45:00.000Z",
-    "location": "大阪府",
-    "prefecture": "大阪府",
+    "location": "佐賀県",
+    "prefecture": "佐賀県",
     "media": "佐賀新聞",
     "source": "佐賀新聞",
     "stage": "逮捕",
@@ -2239,7 +2050,7 @@
     "crimeCategory": "盗品等関与・故買・転売",
     "title": "不正入手のUSJチケット保管 佐賀県警、容疑で中国籍の埼玉県の40代男を逮捕 他人のクレカ情報で購入",
     "url": "https://www.saga-s.co.jp/articles/-/1815650",
-    "summary": "大阪府で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
+    "summary": "佐賀県で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
     "evidence": {
       "suspect": "本文抜粋: 佐賀県警サイバー犯罪対策課と伊万里署は22日、他人のクレジットカード情報を使って不正に入手したテーマパークのチケットを保管していたとして、盗品等保管の疑いで中国",
       "nationality": "本文抜粋: 中国籍"
@@ -2573,7 +2384,7 @@
     "stage": "逮捕",
     "nationality": "フィリピン国籍",
     "crimeCategory": "強盗・強盗致傷",
-    "title": "ガソリンかけバーナーで焼き、漂白剤飲ませた疑いも 強盗致傷容疑で男2人を逮捕 佐倉署(千葉日報オンライン)",
+    "title": "ガソリンかけバーナーで焼き、漂白剤飲ませた疑いも 強盗致傷容疑で男2人を逮捕 佐倉署",
     "url": "https://news.yahoo.co.jp/articles/ff834afcb7f8b4c7c470091c72e928df83a022c1?source=rss",
     "summary": "千葉県で発生し、フィリピン国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
     "evidence": {
@@ -2709,27 +2520,6 @@
     "locationBasis": "本文抜粋: 群馬県太田市内の土地に墓石およそ6.7トンを土に埋め廃棄したとして、ブラジル国籍の男ら2人が逮捕されました。"
   },
   {
-    "id": "48e400a3fb35",
-    "sourceRecordId": "v5-48e400a3fb35",
-    "date": "2026-10-20",
-    "pubDate": "2026-10-20T04:47:00.000Z",
-    "location": "愛知県",
-    "prefecture": "愛知県",
-    "media": "日テレNEWS NNN",
-    "source": "日テレNEWS NNN",
-    "stage": "逮捕",
-    "nationality": "台湾籍",
-    "crimeCategory": "特殊詐欺・出し子・受け子",
-    "title": "駅のコインロッカーで現金約280万円を回収したか 特殊詐欺の疑いで台湾籍の男(28)を逮捕 愛知県でも特殊詐欺に加担か《新潟》(2026年10月19日掲載)|TeNY NEWS NNN",
-    "url": "https://www.msn.com/ja-jp/news/other/%E9%A7%85%E3%81%AE%E3%82%B3%E3%82%A4%E3%83%B3%E3%83%AD%E3%83%83%E3%82%AB%E3%83%BC%E3%81%A7%E7%8F%BE%E9%87%91%E7%B4%84280%E4%B8%87%E5%86%86%E3%82%92%E5%9B%9E%E5%8F%8E%E3%81%97%E3%81%9F%E3%81%8B-%E7%89%B9%E6%AE%8A%E8%A9%90%E6%AC%BA%E3%81%AE%E7%96%91%E3%81%84%E3%81%A7%E5%8F%B0%E6%B9%BE%E7%B1%8D%E3%81%AE%E7%94%B7-28-%E3%82%92%E9%80%AE%E6%8D%95-%E6%84%9B%E7%9F%A5%E7%9C%8C%E3%81%A7%E3%82%82%E7%89%B9%E6%AE%8A%E8%A9%90%E6%AC%BA%E3%81%AB%E5%8A%A0%E6%8B%85%E3%81%8B-%E6%96%B0%E6%BD%9F/ar-AA2fCWhP",
-    "summary": "愛知県で発生し、台湾籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 19日、特殊詐欺の疑いで台湾籍の住居不定・無職の男（28）が逮捕されました。",
-      "nationality": "本文抜粋: 台湾籍"
-    },
-    "locationBasis": "見出し・本文統合根拠: 駅のコインロッカーで現金約280万円を回収したか 特殊詐欺の疑いで台湾籍の男(28)を逮捕 愛知県でも特殊詐欺に加担か《新潟》(2026年10月19日掲載)|T"
-  },
-  {
     "id": "91b00796aded",
     "sourceRecordId": "v5-91b00796aded",
     "date": "2026-10-20",
@@ -2804,7 +2594,7 @@
     "stage": "逮捕",
     "nationality": "中国籍",
     "crimeCategory": "特殊詐欺・出し子・受け子",
-    "title": "庭先で300万円を...中国籍の“受け子”逮捕〈宮城・大和町〉(2026年10月19日掲載)|ミヤテレNEWS NNN",
+    "title": "庭先で300万円を...中国籍の“受け子”逮捕〈宮城・大和町〉",
     "url": "https://www.msn.com/ja-jp/news/other/%E5%BA%AD%E5%85%88%E3%81%A7300%E4%B8%87%E5%86%86%E3%82%92-%E4%B8%AD%E5%9B%BD%E7%B1%8D%E3%81%AE-%E5%8F%97%E3%81%91%E5%AD%90-%E9%80%AE%E6%8D%95-%E5%AE%AE%E5%9F%8E-%E5%A4%A7%E5%92%8C%E7%94%BA/ar-AA2fzlX0",
     "summary": "宮城県で発生し、中国籍の被疑者に逮捕等の刑事手続が取られたことを本文の文脈結合で確認した報道です。",
     "evidence": {
@@ -3058,7 +2848,7 @@
     "stage": "逮捕",
     "nationality": "トルコ国籍",
     "crimeCategory": "性犯罪・わいせつ",
-    "title": "千葉県内の小屋で性的暴行か 不同意性交致傷の疑い、トルコ国籍の男2人逮捕(千葉日報オンライン)",
+    "title": "千葉県内の小屋で性的暴行か 不同意性交致傷の疑い、トルコ国籍の男2人逮捕",
     "url": "https://www.chibanippo.co.jp/articles/1679304",
     "summary": "千葉県で発生し、トルコ国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
     "evidence": {
@@ -3372,7 +3162,7 @@
     "provisionalHeadlineOnly": false,
     "audited": true,
     "prefecture": "兵庫県",
-    "nationality": "外国籍",
+    "nationality": "リビア国籍",
     "crimeCategory": "建造物侵入・住居侵入・器物損壊・放火"
   },
   {
@@ -3647,30 +3437,6 @@
     "crimeCategory": "薬物・大麻・覚醒剤・密輸"
   },
   {
-    "id": "cd8cc845ccd2574f",
-    "title": "コカイン5キロ密輸疑いで逮捕",
-    "date": "2026-10-12",
-    "location": "東京都",
-    "media": "福井新聞社",
-    "stage": "逮捕",
-    "url": "https://www.fukuishimbun.co.jp/articles/gallery/2720288",
-    "summary": "東京都で発生し、ベートリス・ウマン・アナ・バルの被疑者に刑事手続が取られたことを本文で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: コカイン計約５キロ（末端価格１億２千万円相当）を密輸したなどとして、警視庁薬物銃器対策課は１２日までに、麻薬取締法違反（営利目的輸入）などの疑いで、住所不定、無",
-      "nationality": "本文抜粋: ベートリス・ウマン・アナ・バル"
-    },
-    "locationBasis": "本文抜粋: ５人の逮捕容疑は９日、仲間と共謀し、マレーシアの空港で航空機にコカインを持ち込んで羽田空港に密輸するなどした疑い。",
-    "gateVersion": "strict-2026-10-06.1",
-    "judgedAt": "2026-10-12T19:58:22.222Z",
-    "legacy": false,
-    "verificationMode": "body",
-    "provisionalHeadlineOnly": false,
-    "audited": true,
-    "prefecture": "東京都",
-    "nationality": "外国籍",
-    "crimeCategory": "薬物・大麻・覚醒剤・密輸"
-  },
-  {
     "id": "9f5b414f0dc50a26",
     "title": "一方通行を逆走...呼気から基準値の3倍超のアルコール スリランカ国籍の男(21)を逮捕 福岡・北九州市",
     "date": "2026-10-11",
@@ -3720,13 +3486,13 @@
   },
   {
     "id": "8a7868ee013d6fc9",
-    "title": "不法就労あっせんグループトップか、ベトナム人の女逮捕 警視庁 (10/09 18:42)",
+    "title": "不法就労あっせんグループトップか、ベトナム人の女逮捕 警視庁",
     "date": "2026-10-10",
-    "location": "埼玉県",
+    "location": "東京都",
     "media": "時事通信（社会）",
     "stage": "逮捕",
     "url": "https://www.jiji.com/jc/article?k=2026100900996&g=soc",
-    "summary": "埼玉県で発生し、ベトナム人の被疑者に刑事手続が取られたことを本文で確認した報道です。",
+    "summary": "東京都で発生し、ベトナム人の被疑者に刑事手続が取られたことを本文で確認した報道です。",
     "evidence": {
       "suspect": "本文抜粋: 資格外活動の許可を得ていないベトナム人を不法に働かせたとして、警視庁王子署は９日までに、入管難民法違反（不法就労助長）容疑で、ベトナム国籍の人材派遣会社元パート",
       "nationality": "本文抜粋: ベトナム人"
@@ -3738,7 +3504,7 @@
     "verificationMode": "body",
     "provisionalHeadlineOnly": false,
     "audited": true,
-    "prefecture": "埼玉県",
+    "prefecture": "東京都",
     "nationality": "ベトナム国籍",
     "crimeCategory": "入管法違反・不法残留・不法就労助長"
   },
@@ -3763,31 +3529,6 @@
     "provisionalHeadlineOnly": false,
     "audited": true,
     "prefecture": "東京都",
-    "nationality": "パキスタン国籍",
-    "crimeCategory": "強盗・強盗致傷"
-  },
-  {
-    "id": "10f909a5d69fdf3d",
-    "title": "歌舞伎町の女性に刃物突き付け強盗、性的暴行疑い パキスタン国籍の男逮捕、路上売春の客",
-    "date": "2026-10-09",
-    "location": "神奈川県",
-    "media": "産経新聞",
-    "stage": "逮捕",
-    "eventKey": "event-v1:f550c57b9d1a839e761b10b7917f0cbd04008cb45682aae80a32d35c9f34b40a",
-    "url": "https://news.yahoo.co.jp/articles/5c8d0b95b0c3d63f89d01c9c5f863d7e7a05cee7?source=rss",
-    "summary": "神奈川県で発生し、パキスタン国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 買春した女性に刃物を突きつけて現金を奪ったうえ、性的暴行を加えたとして、警視庁新宿署は不同意性交と強盗の疑いで、パキスタン国籍の職業不詳、ダニッシュ・ムハマド容",
-      "nationality": "本文抜粋: パキスタン国籍"
-    },
-    "locationBasis": "本文抜粋: 買春した女性に刃物を突きつけて現金を奪ったうえ、性的暴行を加えたとして、警視庁新宿署は不同意性交と強盗の疑いで、パキスタン国籍の職業不詳、ダニッシュ・ムハマド容",
-    "gateVersion": "strict-2026-10-06.1",
-    "judgedAt": "2026-10-09T09:24:06.599Z",
-    "legacy": false,
-    "verificationMode": "body",
-    "provisionalHeadlineOnly": false,
-    "audited": true,
-    "prefecture": "神奈川県",
     "nationality": "パキスタン国籍",
     "crimeCategory": "強盗・強盗致傷"
   },
@@ -4482,55 +4223,6 @@
     "crimeCategory": "一般窃盗・スリ・車上荒らし"
   },
   {
-    "id": "27e7ef111ff171c8d1e1",
-    "sourceRecordId": "chiba-police:27e7ef111ff171c8d1e1",
-    "title": "盗品等保管事件で男を逮捕(捜査第三課)",
-    "date": "2026-10-05",
-    "location": "茨城県",
-    "media": "千葉県警察",
-    "stage": "逮捕",
-    "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03781.html",
-    "summary": "茨城県で発生し、パキスタン国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 10月4日午前8時20分頃、茨城県古河市高野字西坪のヤードで、普通乗用車が盗品であることを知りながら、保管していたパキスタン国籍で会社役員の男(44)を同日逮捕",
-      "nationality": "本文抜粋: パキスタン国籍"
-    },
-    "locationBasis": "本文抜粋: 10月4日午前8時20分頃、茨城県古河市高野字西坪のヤードで、普通乗用車が盗品であることを知りながら、保管していたパキスタン国籍で会社役員の男(44)を同日逮捕",
-    "gateVersion": "strict-2026-10-06.1",
-    "judgedAt": "2026-10-06T07:45:09.671Z",
-    "legacy": false,
-    "verificationMode": "body",
-    "provisionalHeadlineOnly": false,
-    "audited": true,
-    "prefecture": "茨城県",
-    "nationality": "パキスタン国籍",
-    "crimeCategory": "自動車・バイク盗・ヤード解体"
-  },
-  {
-    "id": "1350ef7fff346043",
-    "title": "女子高校生らを車ではねけがをさせたか ブラジル国籍の女を逮捕 三重県警",
-    "date": "2026-10-05",
-    "location": "三重県",
-    "media": "locipo.jp",
-    "stage": "逮捕",
-    "url": "https://locipo.jp/article/be52a0f8-03f1-4441-806a-36a38465790c",
-    "summary": "三重県で発生し、ブラジル国籍の被疑者に刑事手続が取られたことを本文で確認した報道です。",
-    "evidence": {
-      "suspect": "本文抜粋: 5日夜、三重県四日市市で女子高校生と18歳の男性を車ではね、けがをさせたとしてブラジル国籍の女が逮捕されました。",
-      "nationality": "本文抜粋: ブラジル国籍"
-    },
-    "locationBasis": "本文抜粋: 5日夜、三重県四日市市で女子高校生と18歳の男性を車ではね、けがをさせたとしてブラジル国籍の女が逮捕されました。",
-    "gateVersion": "strict-2026-10-06.1",
-    "judgedAt": "2026-10-06T00:57:46.384Z",
-    "legacy": false,
-    "verificationMode": "body",
-    "provisionalHeadlineOnly": false,
-    "audited": true,
-    "prefecture": "三重県",
-    "nationality": "ブラジル国籍",
-    "crimeCategory": "その他刑事事件"
-  },
-  {
     "id": "52aa4dc2650744e7",
     "title": "茨城でタイ人の女を逮捕、不法滞在のタイ人に住居提供か 100人以上への提供も捜査",
     "date": "2026-10-05",
@@ -4836,7 +4528,7 @@
   },
   {
     "id": "18279ec35c2452a7",
-    "title": "だまし取った現金を資金洗浄か ベトナム国籍の男を逮捕(2026年9月29日掲載)|中京テレビNEWS NNN",
+    "title": "だまし取った現金を資金洗浄か ベトナム国籍の男を逮捕",
     "date": "2026-09-30",
     "location": "愛知県",
     "media": "news.ntv.co.jp",
@@ -4860,7 +4552,7 @@
   },
   {
     "id": "7b4726bc60a3997e",
-    "title": "京葉道路で酒酔い運転の疑い、中国籍の男逮捕 「酒は抜けていると思った」 千葉県警高速隊(千葉日報オンライン)",
+    "title": "京葉道路で酒酔い運転の疑い、中国籍の男逮捕 「酒は抜けていると思った」 千葉県警高速隊",
     "date": "2026-09-30",
     "location": "千葉県",
     "media": "Yahoo!ニュース",
@@ -4904,7 +4596,7 @@
   },
   {
     "id": "a5b5d930865b8819",
-    "title": "ヤードで覚醒剤製造した疑い...イラン国籍の男ら3人逮捕 密造・密売の拠点か(2026年9月30日掲載)|日テレNEWS NNN",
+    "title": "ヤードで覚醒剤製造した疑い...イラン国籍の男ら3人逮捕 密造・密売の拠点か",
     "date": "2026-09-30",
     "location": "静岡県",
     "media": "日テレNEWS NNN",
@@ -5062,7 +4754,7 @@
     "summary": "福岡県で発生した外国人関与の事件・容疑に関する報道速報です。",
     "stage": "逮捕",
     "prefecture": "福岡県",
-    "nationality": "外国籍",
+    "nationality": "ドミニカ国籍",
     "crimeCategory": "薬物・大麻・覚醒剤・密輸"
   },
   {
@@ -5146,7 +4838,7 @@
     "summary": "東京都で発生した外国人関与の事件・容疑に関する報道速報です。",
     "prefecture": "東京都",
     "stage": "逮捕",
-    "nationality": "外国籍",
+    "nationality": "チリ国籍",
     "crimeCategory": "一般窃盗・スリ・車上荒らし"
   },
   {
@@ -5327,7 +5019,7 @@
     "description": "<a href=\"https://news.google.com/rss/articles/CBMibkFVX3lxTE9rSmNwX1hGd3BhN2t4S2FFMkZYWjJramk3ZlNwYkVfR01ac3N6MEpHTFV2THJBYlY2YTFicHljcDJIbXFKUUYyTVQz",
     "summary": "神奈川県で発生した外国人関与の事件・容疑に関する報道速報です。",
     "prefecture": "神奈川県",
-    "stage": "逮捕",
+    "stage": "捜査中",
     "nationality": "外国籍",
     "crimeCategory": "殺人・殺人未遂"
   },
@@ -5344,20 +5036,6 @@
     "prefecture": "兵庫県",
     "nationality": "韓国籍",
     "crimeCategory": "一般窃盗・スリ・車上荒らし"
-  },
-  {
-    "id": "910d2c02e6c4e080",
-    "title": "横浜・保土ケ谷区の男性死亡、外国人のトラブルか 殺人事件で捜査",
-    "date": "2026-09-28",
-    "location": "神奈川県",
-    "media": "カナロコ",
-    "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5TOUFlYk1Zb3lYRUp6cEFRWVRodXo2WUF1REp3M2NRUm1XSlZzY01BLUxfbEZ6OWZiVmFHV2NmY18zdW9EcVR1OTRqN2wzVU1jUFZ4REl6TUJlRXBQN2UxVDJEcEdEMkRDU25CZGtR?oc=5",
-    "description": "<a href=\"https://news.google.com/rss/articles/CBMibkFVX3lxTE5TOUFlYk1Zb3lYRUp6cEFRWVRodXo2WUF1REp3M2NRUm1XSlZzY01BLUxfbEZ6OWZiVmFHV2NmY18zdW9EcVR1OTRq",
-    "summary": "神奈川県で発生した外国人関与の事件・容疑に関する報道速報です。",
-    "prefecture": "神奈川県",
-    "stage": "逮捕",
-    "nationality": "外国籍",
-    "crimeCategory": "殺人・殺人未遂"
   },
   {
     "id": "450c275fc8487e1e",
@@ -5454,7 +5132,7 @@
     "summary": "茨城県で発生した外国人関与の事件・容疑に関する報道速報です。",
     "stage": "逮捕",
     "prefecture": "茨城県",
-    "nationality": "外国籍",
+    "nationality": "アルゼンチン国籍",
     "crimeCategory": "殺人・殺人未遂"
   },
   {
@@ -5538,20 +5216,6 @@
     "crimeCategory": "その他刑事事件"
   },
   {
-    "id": "0a12d22f536f20a8",
-    "title": "詐欺未遂疑いで台湾出身の女逮捕 警察官かたり金地金を買わせる 奈良県警",
-    "date": "2026-09-25",
-    "location": "奈良県",
-    "media": "47NEWS",
-    "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE4yZnF5cnZzNXVGZVFVdUdIMERZWEI4WGJzUnQ1cWMyZFNyOUdZbXlXbl9VSko4TUlxbUR3UXlXR1p4eVdPMlM2Rk5KVQ?oc=5",
-    "description": "<a href=\"https://news.google.com/rss/articles/CBMiS0FVX3lxTE4yZnF5cnZzNXVGZVFVdUdIMERZWEI4WGJzUnQ1cWMyZFNyOUdZbXlXbl9VSko4TUlxbUR3UXlXR1p4eVdPMlM2Rk5K",
-    "summary": "奈良県で発生した外国人関与の事件・容疑に関する報道速報です。",
-    "stage": "逮捕",
-    "prefecture": "奈良県",
-    "nationality": "台湾籍",
-    "crimeCategory": "一般詐欺・無銭飲食"
-  },
-  {
     "id": "ec0e0d290ac4e646",
     "title": "特殊詐欺で現金6000万円詐取か 受け子とみられる台湾籍の男を再逮捕 山形、岐阜両県警",
     "date": "2026-09-25",
@@ -5606,7 +5270,7 @@
   },
   {
     "id": "aaaae7aadb510034",
-    "title": "名古屋市の67歳男性から1700万円詐取の疑い 受け子とみられる中国籍の男を逮捕 愛知県警(メ〜テレ",
+    "title": "名古屋市の67歳男性から1700万円詐取の疑い 受け子とみられる中国籍の男を逮捕 愛知県警",
     "date": "2026-09-25",
     "location": "愛知県",
     "media": "Yahoo!ニュース",
@@ -5957,21 +5621,8 @@
     "crimeCategory": "交通犯罪・ひき逃げ・無免許・飲酒運転"
   },
   {
-    "id": "3af9ae7675528eaa",
-    "title": "不法残留疑い 3人摘発",
-    "date": "2026-09-17",
-    "location": "山梨県",
-    "media": "sannichi.co.jp",
-    "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBNZi1nZm9UaW1ZdzMxaFFGUVBZeW16Y01hVHJLblZBMmN4N0hsV1A5QVptR0RMV0c1VHd1QjRUejFFMldRYWlUbFZIa0NaMEJFV0Y5cWZyMGJIM2xma0h4N256QXM?oc=5",
-    "summary": "山梨県で発生した外国人関与の事件・容疑に関する報道速報です。",
-    "prefecture": "山梨県",
-    "stage": "逮捕",
-    "nationality": "外国籍",
-    "crimeCategory": "入管法違反・不法残留・不法就労助長"
-  },
-  {
     "id": "1be30bb476f760a5",
-    "title": "3年4か月にわたる不法滞在でパキスタン国籍の男逮捕 職務質問で発覚 山形(2026年9月16日掲載)|YBC NEWS NNN",
+    "title": "3年4か月にわたる不法滞在でパキスタン国籍の男逮捕 職務質問で発覚 山形",
     "date": "2026-09-17",
     "location": "山形県",
     "media": "日テレNEWS NNN",
@@ -6048,19 +5699,6 @@
     "crimeCategory": "交通犯罪・ひき逃げ・無免許・飲酒運転"
   },
   {
-    "id": "97af04b9e290b4a6",
-    "title": "生活支援制度「代行」うたい通帳詐取か 中国籍の女逮捕 警視庁",
-    "date": "2026-09-16",
-    "location": "東京都",
-    "media": "産経ニュース",
-    "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE0xSVlBWHRMWk83UzVwemxqS2M5QnBzYWJwTWMtWGxxbEhOdzIxdk82bUZaXzFvb2JZak84aEdNaUZWNGV6X3BzZlRQcUVWdXhtUkVIS1oxRkllb0x5aTQ5MFp3VzZOakpjWERJZG5yYmpFOHNtS3c?oc=5",
-    "summary": "東京都で発生した外国人関与の事件・容疑に関する報道速報です。",
-    "stage": "逮捕",
-    "prefecture": "東京都",
-    "nationality": "中国籍",
-    "crimeCategory": "一般詐欺・無銭飲食"
-  },
-  {
     "id": "04167bfb8dbe7d11",
     "title": "外国人とみられる男2人が高齢女性を切り付け車を奪って逃走 警察署の目の前の店舗駐車場で強盗傷害事件=静岡県警",
     "date": "2026-09-16",
@@ -6069,7 +5707,7 @@
     "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5yaVRXVnoxcG5XU3loLVV4MWF5d2lpOXFrU3l2Z1FRb1ljcEJuc3cyajZTdDFycHJhamctdEhsajd3NDE2aWFKXzY4cGE3bHgxYm1yUXVSa2FRZw?oc=5",
     "summary": "静岡県で発生した外国人関与の事件・容疑に関する報道速報です。",
     "prefecture": "静岡県",
-    "stage": "逮捕",
+    "stage": "捜査中",
     "nationality": "外国籍",
     "crimeCategory": "強盗・強盗致傷"
   },
@@ -6174,7 +5812,7 @@
     "summary": "富山県で発生した外国人関与の事件・容疑に関する報道速報です。",
     "stage": "送検",
     "prefecture": "富山県",
-    "nationality": "ベトナム国籍",
+    "nationality": "中国籍",
     "crimeCategory": "金属・太陽光ケーブル窃盗"
   },
   {
@@ -6494,7 +6132,7 @@
     "summary": "埼玉県で発生した外国人関与の事件・容疑に関する報道速報です。",
     "stage": "逮捕",
     "prefecture": "埼玉県",
-    "nationality": "ベトナム国籍",
+    "nationality": "トルコ国籍",
     "crimeCategory": "入管法違反・不法残留・不法就労助長"
   },
   {
@@ -6652,19 +6290,6 @@
     "prefecture": "栃木県",
     "nationality": "外国籍",
     "crimeCategory": "交通犯罪・ひき逃げ・無免許・飲酒運転"
-  },
-  {
-    "id": "de1c9d1de41fa840",
-    "title": "元技能実習生の男の初公判 同僚2人を切り付け殺そうとした罪 高松地裁",
-    "date": "2026-09-07",
-    "location": "香川県",
-    "media": "ライブドアニュース",
-    "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1Ja3JwamxmR2RVUlB2S0ZKNnV1eE5xRVVDSXVwUkNoZE1kUkZkUkVBNHI2RnREaXd6UjN5ZHNEOEI2OUdPSUNuYlBvM0RPSVV3Nm5XaEpwQm9vdnk5c2c?oc=5",
-    "summary": "香川県で発生した外国人関与の事件・容疑に関する報道速報です。",
-    "stage": "公判",
-    "prefecture": "香川県",
-    "nationality": "外国籍",
-    "crimeCategory": "暴行・傷害・脅迫"
   },
   {
     "id": "1c91872236a7ea33",
@@ -7040,7 +6665,7 @@
     "summary": "東京都で発生した外国人関与の事件・容疑に関する報道速報です。",
     "stage": "逮捕",
     "prefecture": "東京都",
-    "nationality": "外国籍",
+    "nationality": "チリ国籍",
     "crimeCategory": "一般窃盗・スリ・車上荒らし"
   },
   {
@@ -7185,19 +6810,6 @@
     "stage": "逮捕",
     "nationality": "外国籍",
     "crimeCategory": "その他刑事事件"
-  },
-  {
-    "id": "c48bce20a49d343c",
-    "title": "不法滞在の男女23人摘発 茨城県警石岡署",
-    "date": "2026-08-25",
-    "location": "茨城県",
-    "media": "ｄメニューニュース",
-    "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQWkF2em85OEY1ZTFTMXY3aGVqMFh0QldVMEpYQ2FZV1hKSDdTcmxYcHZ4ck8zRW9SeS1XZmZ2LTloaGFYWGZ2ZDAyS2ZYVEZ5emZISUp1SUM3RXNjTmpsUkgzVnhtM2wtZ2R0bWdCbndpN3hoWGhmOW1uSk5Ed1J3OW4wY9IBiAFBVV95cUxPbmpTSDJZR1FocWc4VEFScW9zUTJlLTBPQ3l1X2JGd2tzclRSZ09mb2lwQjhTY0J1dzRicUhpdGdLc0JXeERNeU5SYTc2eEZmYUZZbXJsc3FlQjhuS0kzeHctV3lGMGpwYTNMMGdrWFRPYlNOUjBIX0NPYXA0azlZREpGcmhPRUJp?oc=5",
-    "summary": "茨城県で発生した外国人関与の事件・容疑に関する報道速報です。",
-    "prefecture": "茨城県",
-    "stage": "逮捕",
-    "nationality": "外国籍",
-    "crimeCategory": "入管法違反・不法残留・不法就労助長"
   },
   {
     "id": "cec8908e810b817c",
@@ -7367,19 +6979,6 @@
     "prefecture": "愛知県",
     "nationality": "トルコ国籍",
     "crimeCategory": "その他刑事事件"
-  },
-  {
-    "id": "be98e1ac19f9f298",
-    "title": "オカヤドカリを移動疑い、自称「中国在住」男3人を再逮捕 沖縄署",
-    "date": "2026-08-14",
-    "location": "沖縄県",
-    "media": "琉球新報デジタル",
-    "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBpdUR0cEVTcXRqcDUzc25nWEdXY0JQdDZadFpJV3pCRzJadHVnSzF1RXotdUlVWFJycHo4UVd0eDJDZEtlT253eEJ5V2RxaFM5emtCVXFEOWU3R3dHOWNkUA?oc=5",
-    "summary": "沖縄県で発生した外国人関与の事件・容疑に関する報道速報です。",
-    "stage": "再逮捕",
-    "prefecture": "沖縄県",
-    "nationality": "外国籍",
-    "crimeCategory": "鳥獣保護法・密猟・違法ジビエ・密漁"
   },
   {
     "id": "72856a67373492ea",

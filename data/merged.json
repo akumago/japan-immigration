@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-26T09:06:50.805Z",
+  "updatedAt": "2026-11-07T11:28:00.970Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -5215,6 +5215,300 @@
       },
       "reason": "same_incident_duplicate",
       "recordedAt": "2026-10-26T09:06:50.805Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "cb1e9aba8169",
+        "sourceRecordId": "v5-cb1e9aba8169",
+        "title": "マイナカード偽造容疑、中国籍の男逮捕=組織的グループか―神奈川県警",
+        "date": "2026-11-05",
+        "url": "https://www.msn.com/ja-jp/news/other/%E3%83%9E%E3%82%A4%E3%83%8A%E3%82%AB%E3%83%BC%E3%83%89%E5%81%BD%E9%80%A0%E5%AE%B9%E7%96%91-%E4%B8%AD%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E9%80%AE%E6%8D%95-%E7%B5%84%E7%B9%94%E7%9A%84%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%E3%81%8B-%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E8%AD%A6/ar-AA2gNWhO",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "8ee228ae70c9",
+        "sourceRecordId": "v5-8ee228ae70c9",
+        "title": "画像・写真:マイナカード偽造容疑、中国籍の男逮捕:時事ドットコム",
+        "date": "2026-11-06",
+        "url": "https://www.jiji.com/jc/p?id=20261105191654-0094019879",
+        "eventKey": null
+      },
+      "reason": "時事ドットコム「画像・写真:」ギャラリー枠を本記事へ統合",
+      "recordedAt": "2026-11-07T11:28:00.970Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "d3921135dd5b",
+        "sourceRecordId": "v5-d3921135dd5b",
+        "title": "「ボンボンドロップシール」の偽物を販売か 中国人夫婦を逮捕",
+        "date": "2026-11-05",
+        "url": "https://news.yahoo.co.jp/articles/6adf39d35c470c7d8a2afabeb799b2227834bcdb",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "258aecfce38d",
+        "sourceRecordId": "v5-258aecfce38d",
+        "title": "偽ボンドロ販売した疑い 中国籍の夫婦を逮捕 所持した男性の仕入れ先として浮上",
+        "date": "2026-11-05",
+        "url": "https://news.yahoo.co.jp/articles/9de9f3c64189c8ffd85d2e31340d7b06059d2a5e",
+        "eventKey": null
+      },
+      "reason": "大阪・偽ボンボンドロップシール販売の中国人夫婦逮捕の同日別媒体重複を統合",
+      "recordedAt": "2026-11-07T11:28:00.970Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "b5da6231b0af",
+        "sourceRecordId": "v5-b5da6231b0af",
+        "title": "ハイブリッド中古車など73台をロシアに不正輸出...海保が韓国籍の男を逮捕 オークションサイトで車を落札し、シエラレオネ船籍の貨物船に載せる→韓国行きを装いロシアへ 島根県浜田市",
+        "date": "2026-11-04",
+        "url": "https://newsdig.tbs.co.jp/articles/gallery/3060836",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "752f7f3a6e98",
+        "sourceRecordId": "v5-752f7f3a6e98",
+        "title": "浜田海上保安部、ロシアへの中古車不正輸出容疑で韓国籍の男を逮捕 規制強化後で初",
+        "date": "2026-11-05",
+        "url": "https://www.jiji.com/jc/article?k=2026110401011&g=soc",
+        "eventKey": null
+      },
+      "reason": "浜田海保・ロシア中古車不正輸出の韓国籍男逮捕の別媒体重複を詳細記事へ統合",
+      "recordedAt": "2026-11-07T11:28:00.970Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "b5da6231b0af",
+        "sourceRecordId": "v5-b5da6231b0af",
+        "title": "ハイブリッド中古車など73台をロシアに不正輸出...海保が韓国籍の男を逮捕 オークションサイトで車を落札し、シエラレオネ船籍の貨物船に載せる→韓国行きを装いロシアへ 島根県浜田市",
+        "date": "2026-11-04",
+        "url": "https://newsdig.tbs.co.jp/articles/gallery/3060836",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "58eab370627b",
+        "sourceRecordId": "v5-58eab370627b",
+        "title": "【速報】自動車をロシアに不正輸出、全国初の起訴 韓国籍の男を逮捕 浜田海保",
+        "date": "2026-11-04",
+        "url": "https://news.yahoo.co.jp/articles/0d34b3eb79a1ec15aba906329cc894b14960a8b6",
+        "eventKey": null
+      },
+      "reason": "浜田海保・ロシア中古車不正輸出の同時発表見出し割れを詳細記事へ統合",
+      "recordedAt": "2026-11-07T11:28:00.970Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "845f239bc4c9",
+        "sourceRecordId": "v5-845f239bc4c9",
+        "title": "他人名義クレジットカードを不正利用し約42万円の「理美容はさみ」を購入した疑い 中国人の男女2人を逮捕... 背後には中国の犯罪組織か=静岡県警",
+        "date": "2026-10-31",
+        "url": "https://newsdig.tbs.co.jp/articles/-/3052138",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "951fd3b3454c",
+        "sourceRecordId": "v5-951fd3b3454c",
+        "title": "背後に中国の犯罪組織か! 中国人男女を逮捕 他人のクレカ情報悪用し物品購入⇒フリマサイトで転売 転売の売り上げ7億4000万円 静岡県警(LOOK 静岡朝日テレビ",
+        "date": "2026-10-31",
+        "url": "https://look.satv.co.jp/content_news/incident/101657",
+        "eventKey": null
+      },
+      "reason": "静岡県警・理美容はさみ42万円クレカ不正購入の中国籍男女2人逮捕の重複を統合",
+      "recordedAt": "2026-11-07T11:28:00.970Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "845f239bc4c9",
+        "sourceRecordId": "v5-845f239bc4c9",
+        "title": "他人名義クレジットカードを不正利用し約42万円の「理美容はさみ」を購入した疑い 中国人の男女2人を逮捕... 背後には中国の犯罪組織か=静岡県警",
+        "date": "2026-10-31",
+        "url": "https://newsdig.tbs.co.jp/articles/-/3052138",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "c196d916bf28",
+        "sourceRecordId": "v5-c196d916bf28",
+        "title": "生成AIで説明文作り転売か...他人のクレカ情報を悪用し約42万円のハサミ一式を騙し取った疑い 中国籍の男女2人を逮捕",
+        "date": "2026-10-30",
+        "url": "https://www.fnn.jp/articles/-/1143369",
+        "eventKey": null
+      },
+      "reason": "静岡県警・理美容はさみ42万円クレカ不正購入の中国籍男女2人逮捕の重複を統合",
+      "recordedAt": "2026-11-07T11:28:00.970Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "90b6fd9d9ee2",
+        "sourceRecordId": "v5-90b6fd9d9ee2",
+        "title": "【速報】JR馬橋駅で果物ナイフ携帯の疑い自称コロンビア国籍の男逮捕 付近に負傷者3人...松戸東署が関連捜査",
+        "date": "2026-10-30",
+        "url": "https://news.yahoo.co.jp/articles/e400df78436a03d950c94573a1b2b9a032c536ad",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "f1b1f19ae6eb",
+        "sourceRecordId": "v5-f1b1f19ae6eb",
+        "title": "名古屋で女性2人刺され重傷か「息子に刺された」男が逃走中 千葉では通行人を次々切りつけて3人けがさせたコロンビア人逮捕",
+        "date": "2026-10-30",
+        "url": "https://www.fnn.jp/articles/-/1143177",
+        "eventKey": null
+      },
+      "reason": "千葉松戸・コロンビア国籍男の刃物携帯逮捕の抱き合わせ見出しを単独記事側へ統合",
+      "recordedAt": "2026-11-07T11:28:00.970Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "0d417223a1d0",
+        "sourceRecordId": "v5-0d417223a1d0",
+        "title": "特殊詐欺の「受け子」か、台湾籍の男逮捕 阿賀町と愛知県の2人から計1280万円だまし取った疑い",
+        "date": "2026-10-19",
+        "url": "https://www.niigata-nippo.co.jp/articles/-/927111",
+        "eventKey": "event-v1:141650f1f2ef546126c4579ae1806ffb8e72f162b0391c910ebc347699a6fad6"
+      },
+      "removed": {
+        "id": "48e400a3fb35",
+        "sourceRecordId": "v5-48e400a3fb35",
+        "title": "駅のコインロッカーで現金約280万円を回収したか 特殊詐欺の疑いで台湾籍の男(28)を逮捕 愛知県でも特殊詐欺に加担か《新潟》(2026年10月19日掲載)|TeNY NEWS NNN",
+        "date": "2026-10-20",
+        "url": "https://www.msn.com/ja-jp/news/other/%E9%A7%85%E3%81%AE%E3%82%B3%E3%82%A4%E3%83%B3%E3%83%AD%E3%83%83%E3%82%AB%E3%83%BC%E3%81%A7%E7%8F%BE%E9%87%91%E7%B4%84280%E4%B8%87%E5%86%86%E3%82%92%E5%9B%9E%E5%8F%8E%E3%81%97%E3%81%9F%E3%81%8B-%E7%89%B9%E6%AE%8A%E8%A9%90%E6%AC%BA%E3%81%AE%E7%96%91%E3%81%84%E3%81%A7%E5%8F%B0%E6%B9%BE%E7%B1%8D%E3%81%AE%E7%94%B7-28-%E3%82%92%E9%80%AE%E6%8D%95-%E6%84%9B%E7%9F%A5%E7%9C%8C%E3%81%A7%E3%82%82%E7%89%B9%E6%AE%8A%E8%A9%90%E6%AC%BA%E3%81%AB%E5%8A%A0%E6%8B%85%E3%81%8B-%E6%96%B0%E6%BD%9F/ar-AA2fCWhP",
+        "eventKey": null
+      },
+      "reason": "新潟・台湾籍28歳男の特殊詐欺受け子逮捕の媒体違い重複を統合",
+      "recordedAt": "2026-11-07T11:28:00.970Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "473125f8e6c5b676",
+        "sourceRecordId": null,
+        "title": "20代女性をナイフで脅し現金奪いわいせつ行為か パキスタン国籍の男を逮捕",
+        "date": "2026-10-09",
+        "url": "https://s.mxtv.jp/mxnews/amp/mxnews_1gqg7r3l4hh822fp7.html",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "10f909a5d69fdf3d",
+        "sourceRecordId": null,
+        "title": "歌舞伎町の女性に刃物突き付け強盗、性的暴行疑い パキスタン国籍の男逮捕、路上売春の客",
+        "date": "2026-10-09",
+        "url": "https://news.yahoo.co.jp/articles/5c8d0b95b0c3d63f89d01c9c5f863d7e7a05cee7?source=rss",
+        "eventKey": "event-v1:f550c57b9d1a839e761b10b7917f0cbd04008cb45682aae80a32d35c9f34b40a"
+      },
+      "reason": "新宿歌舞伎町・パキスタン国籍男の強盗不同意性交逮捕の同日重複を東京都側へ統合",
+      "recordedAt": "2026-11-07T11:28:00.970Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "6e9a08c7a9d28fe7",
+        "sourceRecordId": null,
+        "title": "盗難高級車保管疑い、逮捕",
+        "date": "2026-10-04",
+        "url": "https://www.shimotsuke.co.jp/articles/-/1434264?relatedarticle",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "27e7ef111ff171c8d1e1",
+        "sourceRecordId": "chiba-police:27e7ef111ff171c8d1e1",
+        "title": "盗品等保管事件で男を逮捕(捜査第三課)",
+        "date": "2026-10-05",
+        "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03781.html",
+        "eventKey": null
+      },
+      "reason": "茨城古河ヤード盗難高級車保管のパキスタン国籍男逮捕の重複を統合",
+      "recordedAt": "2026-11-07T11:28:00.970Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "b4b7b42196426f28",
+        "sourceRecordId": null,
+        "title": "横断歩道を渡っていた10代の男女2人が乗用車にはねられ重軽傷 運転手でブラジル国籍の39歳女を現行犯逮捕",
+        "date": "2026-10-06",
+        "url": "https://news.livedoor.com/article/detail/32499178/",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "1350ef7fff346043",
+        "sourceRecordId": null,
+        "title": "女子高校生らを車ではねけがをさせたか ブラジル国籍の女を逮捕 三重県警",
+        "date": "2026-10-05",
+        "url": "https://locipo.jp/article/be52a0f8-03f1-4441-806a-36a38465790c",
+        "eventKey": null
+      },
+      "reason": "三重四日市・ブラジル国籍39歳女の車衝突事故現行犯逮捕の重複を詳細側へ統合",
+      "recordedAt": "2026-11-07T11:28:00.970Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "a89575d794a9fecd",
+        "sourceRecordId": null,
+        "title": "集合住宅で口論の末に男性流血死亡 殺人などの疑いで外国人グループの男2人が逃走中 神奈川・横浜",
+        "date": "2026-09-28",
+        "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9rSmNwX1hGd3BhN2t4S2FFMkZYWjJramk3ZlNwYkVfR01ac3N6MEpHTFV2THJBYlY2YTFicHljcDJIbXFKUUYyTVQzSnhsRWROWDdJc3ppOXJkdDdjaVdzZkNwcS1QLVZ3WFVlU2Nn?oc=5",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "910d2c02e6c4e080",
+        "sourceRecordId": null,
+        "title": "横浜・保土ケ谷区の男性死亡、外国人のトラブルか 殺人事件で捜査",
+        "date": "2026-09-28",
+        "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5TOUFlYk1Zb3lYRUp6cEFRWVRodXo2WUF1REp3M2NRUm1XSlZzY01BLUxfbEZ6OWZiVmFHV2NmY18zdW9EcVR1OTRqN2wzVU1jUFZ4REl6TUJlRXBQN2UxVDJEcEdEMkRDU25CZGtR?oc=5",
+        "eventKey": null
+      },
+      "reason": "横浜保土ケ谷区・集合住宅男性死亡で外国人グループ逃走中の同日重複を詳細側へ統合",
+      "recordedAt": "2026-11-07T11:28:00.970Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "8f39a1c0d5e24b7a",
+        "sourceRecordId": null,
+        "title": "金塊1.8kg(約4258万円相当)詐取未遂 「だまされたふり作戦」で台湾出身の女(31)を現行犯逮捕 奈良市",
+        "date": "2026-09-26",
+        "url": "https://news.livedoor.com/article/detail/32413131/",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "0a12d22f536f20a8",
+        "sourceRecordId": null,
+        "title": "詐欺未遂疑いで台湾出身の女逮捕 警察官かたり金地金を買わせる 奈良県警",
+        "date": "2026-09-25",
+        "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE4yZnF5cnZzNXVGZVFVdUdIMERZWEI4WGJzUnQ1cWMyZFNyOUdZbXlXbl9VSko4TUlxbUR3UXlXR1p4eVdPMlM2Rk5KVQ?oc=5",
+        "eventKey": null
+      },
+      "reason": "奈良・金塊1.8kg詐取未遂の台湾出身31歳女逮捕の重複を実URL付き詳細側へ統合",
+      "recordedAt": "2026-11-07T11:28:00.970Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "dd5d10e2ee059198",
+        "sourceRecordId": null,
+        "title": "国の生活補助金受け取るためとウソ 通帳とキャッシュカード郵送させ回収しようとしたか 中国籍の女(43)逮捕 警視庁池上署",
+        "date": "2026-09-17",
+        "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1pTWhHUjlFXzhWeXFWMUVHVkdxQk5hRlROUUdaNnlFWXRlUnRBdkJxYzMwMHhFSTZYQ1BMSXcyM1NDbTJmVnBqLTFRNWxhUklTYVRxUFVjNA?oc=5",
+        "eventKey": null
+      },
+      "removed": {
+        "id": "97af04b9e290b4a6",
+        "sourceRecordId": null,
+        "title": "生活支援制度「代行」うたい通帳詐取か 中国籍の女逮捕 警視庁",
+        "date": "2026-09-16",
+        "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE0xSVlBWHRMWk83UzVwemxqS2M5QnBzYWJwTWMtWGxxbEhOdzIxdk82bUZaXzFvb2JZak84aEdNaUZWNGV6X3BzZlRQcUVWdXhtUkVIS1oxRkllb0x5aTQ5MFp3VzZOakpjWERJZG5yYmpFOHNtS3c?oc=5",
+        "eventKey": null
+      },
+      "reason": "警視庁池上署・生活補助金名目通帳詐取の中国籍43歳女逮捕の重複を詳細側へ統合",
+      "recordedAt": "2026-11-07T11:28:00.970Z"
     }
   ]
 }

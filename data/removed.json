@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-26T09:06:50.797Z",
+  "updatedAt": "2026-11-07T11:28:00.962Z",
   "items": [
     {
       "id": "cad831a7781dd24a",
@@ -247,6 +247,138 @@
       },
       "reason": "non_target_political_blog",
       "recordedAt": "2026-10-26T09:06:50.797Z"
+    },
+    {
+      "id": "c9ff207ffc2e",
+      "sourceRecordId": "v5-c9ff207ffc2e",
+      "url": "https://news.yahoo.co.jp/articles/030ceb7016cea970880951d42ef599e0ec297bec",
+      "title": "19歳のインドネシア人技能実習生を暴行、カニ漁船長らを容疑で逮捕...<ワサビのようなもの塗り腹部蹴る><火炎を顔に近づける>船長のスマホには暴行の動画が(読売新聞オンライン)",
+      "date": "2026-11-06",
+      "eventKey": null,
+      "reason": "外国人は被害者（インドネシア人技能実習生）のみであり、被疑者は日本人船長らのため除外",
+      "actor": "manual_quality_correction",
+      "recordedAt": "2026-11-07T11:28:00.962Z"
+    },
+    {
+      "id": "c06f6ecc53c4",
+      "sourceRecordId": "v5-c06f6ecc53c4",
+      "url": "https://news.yahoo.co.jp/articles/c081d7b071a4a1c164a1606008793457711a8ff2",
+      "title": "技能実習生の顔にワサビを塗り付け火炎噴出か、漁船の船長ら3人を逮捕 (2026年11月5日掲載)",
+      "date": "2026-11-05",
+      "eventKey": null,
+      "reason": "外国人は被害者（インドネシア人技能実習生）のみであり、被疑者は日本人船長らのため除外",
+      "actor": "manual_quality_correction",
+      "recordedAt": "2026-11-07T11:28:00.962Z"
+    },
+    {
+      "id": "e1ffaae96589",
+      "sourceRecordId": "v5-e1ffaae96589",
+      "url": "https://news.yahoo.co.jp/articles/e4286ba5add445197d65785a0c5ae9016add271a",
+      "title": "技能実習生の顔面にわさびか、漁船内で暴行疑い 浜田海保、船長ら男3人を逮捕 携帯で動画撮影",
+      "date": "2026-11-05",
+      "eventKey": null,
+      "reason": "外国人は被害者（インドネシア人技能実習生）のみであり、被疑者は日本人船長らのため除外",
+      "actor": "manual_quality_correction",
+      "recordedAt": "2026-11-07T11:28:00.962Z"
+    },
+    {
+      "id": "0de5b9fc5323",
+      "sourceRecordId": "v5-0de5b9fc5323",
+      "url": "https://www.47news.jp/15187070.html",
+      "title": "技能実習生の顔にわさびか、漁船船長ら逮捕",
+      "date": "2026-11-05",
+      "eventKey": null,
+      "reason": "外国人は被害者（インドネシア人技能実習生）のみであり、被疑者は日本人船長らのため除外",
+      "actor": "manual_quality_correction",
+      "recordedAt": "2026-11-07T11:28:00.962Z"
+    },
+    {
+      "id": "f0e066d54042",
+      "sourceRecordId": "v5-f0e066d54042",
+      "url": "https://news.tv-asahi.co.jp/news_society/articles/000545189.html",
+      "title": "外国人観光客を乗せて「白タク」疑いで逮捕の男性(39)を釈放 警視庁",
+      "date": "2026-11-04",
+      "eventKey": null,
+      "reason": "外国人は乗客（外国人観光客）のみであり、白タク容疑男性の外国籍根拠がないため除外",
+      "actor": "manual_quality_correction",
+      "recordedAt": "2026-11-07T11:28:00.962Z"
+    },
+    {
+      "id": "0bc59db0ebb0",
+      "sourceRecordId": "v5-0bc59db0ebb0",
+      "url": "https://mamastar.jp/bbs/topic/4652829",
+      "title": "歩行者3人が襲われけが ”刃物所持”で男逮捕",
+      "date": "2026-10-30",
+      "eventKey": null,
+      "reason": "ママスタBBS（掲示板投稿）であり報道機関の記事ではないため除外",
+      "actor": "manual_quality_correction",
+      "recordedAt": "2026-11-07T11:28:00.962Z"
+    },
+    {
+      "id": "fd303d123e63",
+      "sourceRecordId": "v5-fd303d123e63",
+      "url": "https://news.livedoor.com/article/detail/32687970/",
+      "title": "東京都中野区でまた高級時計窃盗 客を装った人物が逃走か",
+      "date": "2026-10-30",
+      "eventKey": null,
+      "reason": "今回の逃走被疑者に外国人表記がなく、本文末尾の過去別事件（チリ国籍起訴）の背景記述に誤反応したため除外",
+      "actor": "manual_quality_correction",
+      "recordedAt": "2026-11-07T11:28:00.962Z"
+    },
+    {
+      "id": "cd8cc845ccd2574f",
+      "sourceRecordId": null,
+      "url": "https://www.fukuishimbun.co.jp/articles/gallery/2720288",
+      "title": "コカイン5キロ密輸疑いで逮捕",
+      "date": "2026-10-12",
+      "eventKey": null,
+      "reason": "カタカナ断片のみで外国人・外国籍・国籍名の明示がなく同一事件（マレーシア国籍5人逮捕）とも重複するため除外",
+      "actor": "manual_quality_correction",
+      "recordedAt": "2026-11-07T11:28:00.962Z"
+    },
+    {
+      "id": "3af9ae7675528eaa",
+      "sourceRecordId": null,
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBNZi1nZm9UaW1ZdzMxaFFGUVBZeW16Y01hVHJLblZBMmN4N0hsV1A5QVptR0RMV0c1VHd1QjRUejFFMldRYWlUbFZIa0NaMEJFV0Y5cWZyMGJIM2xma0h4N256QXM?oc=5",
+      "title": "不法残留疑い 3人摘発",
+      "date": "2026-09-17",
+      "eventKey": null,
+      "reason": "外国人・外国籍・国籍名の明示がないため除外",
+      "actor": "manual_quality_correction",
+      "recordedAt": "2026-11-07T11:28:00.962Z"
+    },
+    {
+      "id": "de1c9d1de41fa840",
+      "sourceRecordId": null,
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1Ja3JwamxmR2RVUlB2S0ZKNnV1eE5xRVVDSXVwUkNoZE1kUkZkUkVBNHI2RnREaXd6UjN5ZHNEOEI2OUdPSUNuYlBvM0RPSVV3Nm5XaEpwQm9vdnk5c2c?oc=5",
+      "title": "元技能実習生の男の初公判 同僚2人を切り付け殺そうとした罪 高松地裁",
+      "date": "2026-09-07",
+      "eventKey": null,
+      "reason": "「元技能実習生」のみで外国人・外国籍・国籍名の明示がないため除外",
+      "actor": "manual_quality_correction",
+      "recordedAt": "2026-11-07T11:28:00.962Z"
+    },
+    {
+      "id": "c48bce20a49d343c",
+      "sourceRecordId": null,
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQWkF2em85OEY1ZTFTMXY3aGVqMFh0QldVMEpYQ2FZV1hKSDdTcmxYcHZ4ck8zRW9SeS1XZmZ2LTloaGFYWGZ2ZDAyS2ZYVEZ5emZISUp1SUM3RXNjTmpsUkgzVnhtM2wtZ2R0bWdCbndpN3hoWGhmOW1uSk5Ed1J3OW4wY9IBiAFBVV95cUxPbmpTSDJZR1FocWc4VEFScW9zUTJlLTBPQ3l1X2JGd2tzclRSZ09mb2lwQjhTY0J1dzRicUhpdGdLc0JXeERNeU5SYTc2eEZmYUZZbXJsc3FlQjhuS0kzeHctV3lGMGpwYTNMMGdrWFRPYlNOUjBIX0NPYXA0azlZREpGcmhPRUJp?oc=5",
+      "title": "不法滞在の男女23人摘発 茨城県警石岡署",
+      "date": "2026-08-25",
+      "eventKey": null,
+      "reason": "外国人・外国籍・国籍名の明示がないため除外",
+      "actor": "manual_quality_correction",
+      "recordedAt": "2026-11-07T11:28:00.962Z"
+    },
+    {
+      "id": "be98e1ac19f9f298",
+      "sourceRecordId": null,
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBpdUR0cEVTcXRqcDUzc25nWEdXY0JQdDZadFpJV3pCRzJadHVnSzF1RXotdUlVWFJycHo4UVd0eDJDZEtlT253eEJ5V2RxaFM5emtCVXFEOWU3R3dHOWNkUA?oc=5",
+      "title": "オカヤドカリを移動疑い、自称「中国在住」男3人を再逮捕 沖縄署",
+      "date": "2026-08-14",
+      "eventKey": null,
+      "reason": "「自称中国在住」のみで外国人・外国籍・国籍名の明示がないため除外",
+      "actor": "manual_quality_correction",
+      "recordedAt": "2026-11-07T11:28:00.962Z"
     }
   ]
 }
