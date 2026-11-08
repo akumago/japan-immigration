@@ -57,10 +57,10 @@ export const CrimeStatistics: React.FC = () => {
                 </script>
             </Helmet>
 
-            <Header title="外国人犯罪統計の詳細分析" description="感情論を排し、公的統計データのみに基づいた治安リスクの検証" />
+            <Header title="【公式データ検証】外国人犯罪率と検挙率1.72倍の真実：公的統計が暴く治安リスク" description="感情論を排し、警察庁公式統計データのみに基づいた治安リスクの客観的検証" />
 
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <Section title="2025年参院内閣委員会での答弁データ" id="committee-data">
+                    <Section title="警察庁公式答弁データ：定住外国人の検挙率は日本人の約1.72倍（0.323% vs 0.188%）" id="committee-data">
                         <ContentBlockRenderer
                             blocks={[
                                 {
@@ -104,7 +104,7 @@ export const CrimeStatistics: React.FC = () => {
                         <EmbeddedImage pageId={7} caption="警察庁統計：日本人と外国人の検挙率比較" />
                     </Section>
 
-                    <Section title="検挙人員と「体感治安」の乖離" id="perception">
+                    <Section title="「統計上の数字」と住民が感じる「治安悪化」のギャップ：なぜ不安は高まるのか" id="perception">
                         <ContentBlockRenderer
                             blocks={[
                                 {
@@ -120,7 +120,7 @@ export const CrimeStatistics: React.FC = () => {
                         <EmbeddedImage pageId={8} caption="治安リスクと地域社会の変容" />
                     </Section>
 
-                    <Section title="体感治安の意味：数値化されない恐怖の現実" id="perception-detail">
+                    <Section title="不起訴・暗数・迷惑行為：警察統計に表れない「実質的な治安崩壊」の実態" id="perception-detail">
                         <ContentBlockRenderer
                             blocks={[
                                 {
@@ -140,7 +140,7 @@ export const CrimeStatistics: React.FC = () => {
                         <EmbeddedImage pageId={9} caption="外国人による凶悪性犯罪の増加傾向" />
                     </Section>
 
-                    <Section title="1.72倍格差の深層構造：なぜ格差は生まれるのか" id="structure">
+                    <Section title="なぜ外国人の犯罪率は高いのか？1.72倍格差を生む3つの構造的要因" id="structure">
                         <ContentBlockRenderer
                             blocks={[
                                 {

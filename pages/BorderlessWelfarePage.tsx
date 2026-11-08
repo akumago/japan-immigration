@@ -57,8 +57,8 @@ export const BorderlessWelfarePage: React.FC = () => {
             </Helmet>
 
             <Header 
-                title="実証データ：欧州の「福祉国家と移民」に関する衝撃の調査結果" 
-                description="アムステルダム大学 School of Economics — Borderless Welfare State (2023) 報告書の全容" 
+                title="実証データ：Borderless Welfare State（国境なき福祉国家）の衝撃" 
+                description="アムステルダム大学1,700万人データが暴いた「移民の生活保護・社会保障受給」と財政赤字の真実" 
             />
 
             <main className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -76,7 +76,7 @@ export const BorderlessWelfarePage: React.FC = () => {
                             
                             <div className="space-y-10 text-gray-300 leading-relaxed text-lg">
                                 <div className="border-l-4 border-red-600 pl-6 space-y-4">
-                                    <h3 className="text-2xl font-bold text-white">1. タブーを排した「会計学的」アプローチの衝撃</h3>
+                                    <h3 className="text-2xl font-bold text-white">1. 移民の生活保護・社会保障受給：1人あたり数千万円の財政赤字をもたらす衝撃の会計データ</h3>
                                     <p>
                                         2023年、アムステルダム大学のJan van de Beek教授率いる研究チームが発表した「Borderless Welfare State」第2版は、欧州の移民政策を巡る議論の前提を根底から覆した。この調査が他の研究と決定的に異なるのは、その「精度」と「冷徹さ」にある。研究チームは、オランダにおける計1,700万人の匿名マイクロデータを、かつてない規模（20エグザバイト超）で分析。移民が到着してから死亡（または帰国）するまでの生涯を通じた「納税額」から「社会保障・教育・行政サービス受給額」を差し引いた「財政純貢献度」を、出身国別・世代別に算出したのである。
                                     </p>

@@ -54,7 +54,7 @@ export const SymbiosisPage: React.FC = () => {
                 </script>
             </Helmet>
 
-            <Header title="「多文化共生」の限界と地域社会の現実" description="愛知県西尾市「県営緑町住宅」の事例に見る、実質的な移民流入がもたらす統治コストの増大と不都合な真実" />
+            <Header title="愛知県西尾市「県営緑町住宅」の現実と多文化共生の限界" description="外国人集住がもたらすゴミ・騒音摩擦、自治会費約70万円滞納問題から見る統治コストの真実" />
 
             {/* 上部グラフィックは画面を広く使って美しく表示し（max-w-7xl）、下部のテキストは読みやすさ重視の幅（max-w-4xl）とする美しいレイアウトへ修正 */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden rounded-b-xl border-b border-white/10 relative symbiosis-override">
@@ -94,7 +94,7 @@ export const SymbiosisPage: React.FC = () => {
                             </div>
                             <div>
                                 <h3 className="text-xl font-bold text-blue-400 mb-4 border-l-2 border-blue-500 pl-3">
-                                    【偽りの経済コスト】限界の自治と「ツケ」の払い手
+                                    【共益費70万円滞納】安価な外国人雇用のツケを払わされる地域住民の悲鳴
                                 </h3>
                                 <p className="leading-relaxed text-gray-300">
                                     利益相反の最も醜悪な図式がここにある。工場などで安い賃金で外国人を雇用し、直接的な果実を吸い上げているのは特定の企業や産業界である。しかし、彼らが生活する上での言語的サポート、ゴミ出しや騒音のトラブル対応、そして何よりも地域コミュニティの治安や維持管理のコスト（今回で言えば約70万円の滞納額等）は、すべて地方自治体や日本人住民に押し付けられている。これを経済学的に表現すれば「社会的コストの完全なる外部化」である。企業は適正な賃金を支払って日本人を雇い、社会に富を循環させるという本来の義務を放棄し、そのツケを末端の地域住民に支払わせている。「人手不足」ではなく「安い労働力の不足」に過ぎないという真実を、緑町住宅の悲鳴が証明している。

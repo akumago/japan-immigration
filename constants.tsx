@@ -149,7 +149,7 @@ export const reportData: ReportData = {
       }
     },
     {
-      title: '外国人受け入れの財政影響分析',
+      title: '外国人受け入れの財政影響シミュレーション：将来の国民負担と生活保護リスク',
       content: {
         introduction: '日本の税制・社会保障制度は「富の再分配」を前提としています。外国人労働者のライフサイクルを通じた財政貢献と負荷をシミュレーションした結果、特定のモデルにおいては将来的に重大な財政赤字を招くリスクが浮き彫りとなりました。',
         customComponent: 'FiscalImpactAnalysis',
@@ -159,7 +159,7 @@ export const reportData: ReportData = {
       }
     },
     {
-      title: '実証データ：欧州の「福祉国家と移民」に関する衝撃の調査結果',
+      title: '欧州の教訓：Borderless Welfare State（国境なき福祉国家）が暴いた移民と社会保障の破綻',
       content: {
         introduction: 'オランダにおける1,700万人の匿名マイクロデータを用いた、2023年の最新研究「Borderless Welfare State」の結果を提示します。シミュレーションではなく、現実の財政純貢献度が、出身国によっていかに残酷なまでに乖離しているかを明らかにします。',
         customComponent: 'BorderlessWelfareState',
@@ -169,7 +169,7 @@ export const reportData: ReportData = {
       }
     },
     {
-      title: '法務省の犯罪統計に基づく、来日外国人の犯罪傾向の分析',
+      title: '【公式データ検証】外国人犯罪統計の実態：検挙率1.72倍と治安悪化リスクの深層',
       content: {
         introduction: '日本の治安維持は、法執行のみならず、長年培われてきた社会的なマナーや規範という「見えないインフラ」に支えられてきた。異なる文化的背景を持つ人々の流入が、これらの社会的基盤にどのような影響を与えるか、公的データに基づき検証する。',
         blocks: [
