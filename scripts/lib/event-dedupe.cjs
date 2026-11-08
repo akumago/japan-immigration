@@ -253,7 +253,7 @@ function suspectNames(item) {
   };
   // Katakana names (often preceded by a kanji military rank) and Japanese
   // kanji names are handled separately to avoid swallowing role text.
-  for (const match of text.matchAll(/([ァ-ヿ]{2,}(?:[・･ー][ァ-ヿ]{2,}){0,3})(?:容疑者|被疑者|被告)/g)) {
+  for (const match of text.matchAll(/([ァ-ヿ]{2,}(?:[・･ー\s　][ァ-ヿ]{2,}){0,3})(?:容疑者|被疑者|被告)/g)) {
     addName(match[1]);
   }
   for (const match of text.matchAll(/([一-龥々]{2,8})(?:容疑者|被疑者|被告)/g)) {
@@ -263,7 +263,7 @@ function suspectNames(item) {
   // nationality evidence may preserve the complete katakana name; use it to
   // match outlet-specific short/long name forms without weakening other
   // event signals (age, crime, date, and location still have to agree).
-  for (const match of nationalityEvidence.matchAll(/([ァ-ヶー]{2,}(?:[・･ー][ァ-ヶー]{2,}){1,3})/g)) {
+  for (const match of nationalityEvidence.matchAll(/([ァ-ヶー]{2,}(?:[・･ー\s　][ァ-ヶー]{2,}){1,3})/g)) {
     addName(match[1]);
   }
   return names;

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-07T11:28:00.970Z",
+  "updatedAt": "2026-11-08T09:15:33.256Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -5509,6 +5509,25 @@
       },
       "reason": "警視庁池上署・生活補助金名目通帳詐取の中国籍43歳女逮捕の重複を詳細側へ統合",
       "recordedAt": "2026-11-07T11:28:00.970Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "7274231891ba",
+        "sourceRecordId": "v5-7274231891ba",
+        "title": "『ボンボンドロップシール』の偽物319冊を4万円余りで販売した疑い 中国籍の夫婦2人を逮捕 自宅からは1000冊近い偽物",
+        "date": "2026-11-05",
+        "url": "https://news.yahoo.co.jp/articles/0e4889a3b218a5fa3797f119bdab3c59f6a1fafe?source=rss"
+      },
+      "removed": {
+        "id": "d3921135dd5b",
+        "sourceRecordId": "v5-d3921135dd5b",
+        "title": "「ボンボンドロップシール」の偽物を販売か 中国人夫婦を逮捕",
+        "date": "2026-11-05",
+        "url": "https://news.yahoo.co.jp/articles/6adf39d35c470c7d8a2afabeb799b2227834bcdb"
+      },
+      "reason": "本文の容疑者氏名+罪種+同日+地域整合",
+      "recordedAt": "2026-11-08T09:15:33.256Z"
     }
   ]
 }
