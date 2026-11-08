@@ -116,6 +116,36 @@ export const CrimeNewsArchive: React.FC = () => {
           </p>
         </div>
 
+        {/* 最新データベース集計：事件報道・国籍別ランキング */}
+        <div className="mb-8 p-6 rounded-2xl bg-gradient-to-r from-red-950/30 via-gray-900/40 to-blue-950/30 border border-white/10 shadow-xl">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-300">
+              最新データベース集計：事件報道・国籍別ランキング（400件超）
+            </h3>
+          </div>
+          <div className="flex flex-wrap gap-2.5">
+            <span className="px-3 py-1.5 rounded-lg bg-red-500/20 border border-red-500/40 text-red-200 text-xs font-bold">
+              🥇 1位：中国（窃盗・密輸・偽造）
+            </span>
+            <span className="px-3 py-1.5 rounded-lg bg-yellow-500/20 border border-yellow-500/40 text-yellow-200 text-xs font-bold">
+              🥈 2位：ベトナム（不法滞在・無免許・窃盗）
+            </span>
+            <span className="px-3 py-1.5 rounded-lg bg-blue-500/20 border border-blue-500/40 text-blue-200 text-xs font-bold">
+              🥉 3位：韓国・朝鮮（詐欺・暴力）
+            </span>
+            <span className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-300 text-xs">
+              4位：タイ
+            </span>
+            <span className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-300 text-xs">
+              5位：フィリピン
+            </span>
+            <span className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-300 text-xs">
+              6位：ネパール
+            </span>
+          </div>
+        </div>
+
         {/* 都道府県絞り込みフィルター */}
         <div className="mb-6 bg-[#161b22] border border-white/10 rounded-2xl p-6 shadow-xl">
           <div className="flex flex-wrap items-center justify-between gap-4 mb-4 pb-4 border-b border-white/10">

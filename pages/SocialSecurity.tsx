@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { Header } from "../components/Header";
 import Section from "../components/Section";
@@ -13,26 +13,54 @@ export const SocialSecurity: React.FC = () => {
     return (
         <MainLayout>
             <Helmet>
-                <title>社会保障制度の持続可能性と外国人の加入問題 | 日本の岐路</title>
+                <title>【実態データ】外国人生活保護の受給率と医療費・国保タダ乗り問題の検証 | 日本の岐路</title>
                 <meta
                     name="description"
-                    content="国民健康保険の滞納問題や不適切利用の疑いなど、日本の社会保障制度が直面する課題を分析。相互扶助の精神を守るための提言。"
+                    content="外国人の生活保護受給率（日本人比の実態）や国民健康保険の未納・滞納、高額医療タダ乗り（フリーライド）の真実を公的データから徹底検証。2014年最高裁判決と自治体運用の乖離を解明。"
                 />
-                <meta property="og:title" content="社会保障制度の持続可能性と外国人の加入問題" />
-                <meta property="og:description" content="国民健康保険の滞納問題や不適切利用の疑いなど、制度が直面する課題を分析。" />
+                <meta
+                    name="keywords"
+                    content="外国人 生活保護,外国人 生活保護 割合,外国人 医療費 未払い,国民健康保険 外国人,外国人 医療費 タダ乗り,外国人 国保 滞納,外国人優遇 なぜ"
+                />
+                <meta property="og:title" content="【実態データ】外国人生活保護の受給率と医療費・国保タダ乗り問題の検証 | 日本の岐路" />
+                <meta property="og:description" content="外国人の生活保護受給率の実態と国民健康保険のフリーライド問題を公的データに基づき客観検証。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/social-security/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="社会保障の持続可能性：不適切利用の検証 | 日本の岐路" />
-                <meta name="twitter:description" content="相互扶助の精神を守るための提言。保険制度の悪用防止と適正運用の検証。" />
+                <meta name="twitter:title" content="【実態データ】外国人生活保護の受給率と医療費・国保タダ乗り問題の検証 | 日本の岐路" />
+                <meta name="twitter:description" content="外国人生活保護受給率と医療費フリーライドの実態を検証する客観レポート。" />
                 <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "FAQPage",
+                        "mainEntity": [
+                            {
+                                "@type": "Question",
+                                "name": "外国人は日本の生活保護を受給できますか？",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "生活保護法第1条は対象を『国民』に限定しており、2014年の最高裁判決でも『外国人は生活保護法上の受給権を持たない』と確定判決が出されています。しかし、厚生労働省の行政通知（昭和29年）に基づき、人道上の観点から各自治体の裁量で事実上の準用支給が行われているのが実態です。"
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "国民健康保険の医療費タダ乗り（フリーライド）とは何ですか？",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "短期間の在留資格で入国して安価な保険料で高額療養費制度などの手厚い医療給付を受け、保険料を未納・滞納したまま帰国してしまう事例が報告されており、自治体財政の圧迫と制度の公平性が社会問題化しています。"
+                                }
+                            }
+                        ]
+                    })}
+                </script>
             </Helmet>
 
-            <Header title="社会保障制度の持続可能性と課題" description="相互扶助の精神をいかに守るか：保険制度の悪用防止と適正運用の検証" />
+            <Header title="【徹底検証】外国人生活保護の受給率と医療費・国保フリーライドの実態" description="相互扶助の崩壊を防ぐために：公的データで見る生活保護受給格差と医療保険滞納の真実" />
 
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <Section title="国民健康保険の滞納問題と公平性の確保" id="insurance">
+                    <Section title="【医療費未払い】国民健康保険の滞納と「タダ乗り（フリーライド）」の実態" id="insurance">
                         <ContentBlockRenderer
                             blocks={[
                                 {
@@ -47,7 +75,7 @@ export const SocialSecurity: React.FC = () => {
                         />
                     </Section>
 
-                    <Section title="なりすまし受診と不正利用の防止" id="fraud">
+                    <Section title="【なりすまし受診】保険証の使い回しと不正受給の防止策" id="fraud">
                         <ContentBlockRenderer
                             blocks={[
                                 {
