@@ -84,23 +84,23 @@ export const HomePage: React.FC = () => {
     return (
         <MainLayout>
             <Helmet>
-                <title>日本の岐路：外国人労働者受け入れ政策の構造的課題と国民経済への影響</title>
+                <title>外国人犯罪・外国人労働者問題の統計分析＆日次速報データベース | 日本の岐路</title>
                 <meta
                     name="description"
-                    content="外国人労働者受け入れ政策が日本の経済、社会、治安、安全保障に与える長期的影響を、警察庁や法務省の公的統計データと数理予測モデルに基づき客観的かつ包括的に検証するレポートサイト。"
+                    content="外国人犯罪率（警察庁公的統計で日本人比1.72倍）の実態、治安・経済・社会保障リスクの包括的検証と、全国の外国人事件・逮捕報道を毎時自動集計する最新日次データベースを公開。"
                 />
                 <meta
                     name="keywords"
-                    content="外国人移民,日本経済,労働市場,治安,社会保障,移民政策,技能実習制度,特定技能,クルド人問題,国家安全保障"
+                    content="外国人犯罪,外国人 犯罪率,外国人犯罪 統計,移民 犯罪率,外国人労働者,不法滞在,治安統計,警察庁答弁"
                 />
-                <meta property="og:title" content="日本の岐路：外国人移民がもたらす影響の包括的分析" />
-                <meta property="og:description" content="公的データに基づく移民政策の影響分析レポート。日本の未来を左右する構造的課題を検証。" />
+                <meta property="og:title" content="外国人犯罪・外国人労働者問題の統計分析＆日次速報データベース | 日本の岐路" />
+                <meta property="og:description" content="外国人犯罪率（警察庁公的統計で日本人比1.72倍）の実態と、全国の外国人事件・逮捕報道を毎時自動集計する最新データベース。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/" />
                 <meta property="og:type" content="website" />
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="日本の岐路：外国人移民がもたらす影響の包括的分析" />
-                <meta name="twitter:description" content="公的データに基づき、移民政策が日本社会に与える影響を多角的に分析したレポート。" />
+                <meta name="twitter:title" content="外国人犯罪・外国人労働者問題の統計分析＆日次速報データベース | 日本の岐路" />
+                <meta name="twitter:description" content="外国人犯罪率（警察庁公的統計で日本人比1.72倍）の実態と、全国の外国人事件・逮捕報道を毎時自動集計する最新データベース。" />
                 <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
             </Helmet>
 

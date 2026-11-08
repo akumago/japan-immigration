@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Helmet } from 'react-helmet-async';
 import { Header } from "../components/Header";
 import Section from "../components/Section";
@@ -13,20 +13,48 @@ export const CrimeStatistics: React.FC = () => {
     return (
         <MainLayout>
             <Helmet>
-                <title>外国人犯罪統計の詳細分析：検挙率1.72倍の真実 | 日本の岐路</title>
+                <title>【最新データ】外国人犯罪率の統計分析：検挙率1.72倍の真実と治安リスク | 日本の岐路</title>
                 <meta
                     name="description"
-                    content="警察庁統計および2025年参院内閣委員会答弁に基づく詳細分析。日本人検挙率0.188%に対し外国人0.323%という数値の統計的意味と、治安政策への示唆。"
+                    content="外国人犯罪率は本当に高いのか？警察庁公式統計および参院内閣委員会答弁データに基づく客観分析。日本人検挙率0.188%に対し定住外国人0.323%（約1.72倍）の統計的意味を徹底解説。"
                 />
-                <meta property="og:title" content="外国人犯罪統計の詳細分析：検挙率1.72倍の真実" />
-                <meta property="og:description" content="警察庁統計および2025年参院内閣委員会答弁に基づく詳細分析。日本人検挙率0.188%に対し外国人0.323%という数値の統計的意味。" />
+                <meta
+                    name="keywords"
+                    content="外国人 犯罪率,外国人犯罪 統計,移民 犯罪率,日本 外国人 犯罪率 統計 最新,外国人 検挙率,治安統計,警察庁答弁"
+                />
+                <meta property="og:title" content="【最新データ】外国人犯罪率の統計分析：検挙率1.72倍の真実と治安リスク | 日本の岐路" />
+                <meta property="og:description" content="外国人犯罪率は本当に高いのか？警察庁統計と参院答弁に基づく公的データ分析。日本人検挙率0.188%に対し定住外国人0.323%（1.72倍）。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/crime-statistics/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="外国人犯罪統計の詳細分析：検挙率1.72倍の真実" />
-                <meta name="twitter:description" content="公的統計データに基づいた治安リスクの客観的検証レポート" />
+                <meta name="twitter:title" content="【最新データ】外国人犯罪率の統計分析：検挙率1.72倍の真実と治安リスク | 日本の岐路" />
+                <meta name="twitter:description" content="警察庁公式統計に基づく外国人犯罪率の徹底分析。検挙率1.72倍の真実。" />
                 <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "FAQPage",
+                        "mainEntity": [
+                            {
+                                "@type": "Question",
+                                "name": "外国人の犯罪率は日本人より高いですか？",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "2025年11月の参議院内閣委員会における警察庁答弁によると、短期滞在者を除いた「定住外国人」の刑法犯検挙率は0.323%であり、日本人の0.188%と比較して約1.72倍となっています。"
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "日本の外国人犯罪統計の公的データソースは何ですか？",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "警察庁の犯罪統計資料および参議院内閣委員会における公式答弁記録に基づいています。"
+                                }
+                            }
+                        ]
+                    })}
+                </script>
             </Helmet>
 
             <Header title="外国人犯罪統計の詳細分析" description="感情論を排し、公的統計データのみに基づいた治安リスクの検証" />

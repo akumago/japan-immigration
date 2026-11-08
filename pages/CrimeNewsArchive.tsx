@@ -78,23 +78,23 @@ export const CrimeNewsArchive: React.FC = () => {
   return (
     <MainLayout>
       <Helmet>
-        <title>外国人犯罪報道 日次アーカイブ＆データベース | 日本の岐路</title>
+        <title>【速報】外国人犯罪ニュース一覧・国籍別事件データベース（毎時自動更新） | 日本の岐路</title>
         <meta
           name="description"
-          content="全国の地方紙・ローカルメディアを含む最新の外国人事件・逮捕報道を日次で自動集計・記録するデータベース。都道府県別の事件履歴を閲覧いただけます。"
+          content="日本全国の地方紙・ローカル局・警察公式発表から、外国籍被疑者の事件・逮捕報道を毎時自動集計。国籍別・都道府県別の事件数や推移を網羅する最新データベース。"
         />
         <meta
           name="keywords"
-          content="外国人犯罪,逮捕報道,地方紙ニュース,治安データベース,不法滞在,治安維持"
+          content="外国人犯罪,外国人犯罪 ニュース,外国人犯罪 一覧,外国人 逮捕 速報,外国人 事件,不法滞在,治安データベース"
         />
-              <meta property="og:title" content="外国人犯罪報道 日次アーカイブ＆データベース | 日本の岐路" />
-        <meta property="og:description" content="全国の地方紙・主要報道メディア等のニュースから、外国人が関与する案件を自動取得・累積保存しています。" />
+        <meta property="og:title" content="【速報】外国人犯罪ニュース一覧・国籍別事件データベース（毎時自動更新） | 日本の岐路" />
+        <meta property="og:description" content="日本全国の地方紙・警察公式発表から、外国籍被疑者の事件・逮捕報道を毎時自動集計。国籍別・都道府県別の最新事件データベース。" />
         <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
         <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/crime-news/" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="外国人犯罪報道 日次アーカイブ＆データベース | 日本の岐路" />
-        <meta name="twitter:description" content="全国の地方紙・主要報道メディア等のニュースから、外国人が関与する案件を自動取得・累積保存しています。" />
+        <meta name="twitter:title" content="【速報】外国人犯罪ニュース一覧・国籍別事件データベース（毎時自動更新） | 日本の岐路" />
+        <meta name="twitter:description" content="日本全国の地方紙・警察公式発表から、外国籍被疑者の事件・逮捕報道を毎時自動集計。国籍別・都道府県別の最新事件データベース。" />
         <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
       </Helmet>
 
