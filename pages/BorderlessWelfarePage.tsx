@@ -12,20 +12,48 @@ export const BorderlessWelfarePage: React.FC = () => {
     return (
         <MainLayout>
             <Helmet>
-                <title>オランダ財政調査と福祉国家の危機 | 日本の岐路</title>
+                <title>【徹底解説】Borderless Welfare State（国境なき福祉国家）：オランダ1700万人データが暴いた移民・生活保護と社会保障の破綻 | 日本の岐路</title>
                 <meta
                     name="description"
-                    content="アムステルダム大学による1700万人のマイクロデータ分析。移民の出身国別財政貢献度の全容と、日本への峻烈な示唆を解説。"
+                    content="アムステルダム大学の1,700万人マイクロデータ調査「Borderless Welfare State」を徹底解説。移民の生涯財政純貢献度（西欧系＋20万ユーロ vs 非西欧系難民・家族移民マイナス27.5万〜47.5万ユーロ）と、福祉国家と移民受け入れが両立しない経済学的真実。"
                 />
-                <meta property="og:title" content="オランダ財政影響調査：Borderless Welfare Stateの衝撃" />
-                <meta property="og:description" content="アムステルダム大学による1700万人のデータ分析。移民の出身国別財政貢献度の全容と、日本への峻烈な示唆。" />
+                <meta
+                    name="keywords"
+                    content="borderless welfare state,オランダ 移民 財政,移民 生活保護,移民 福祉国家 破綻,ヨーロッパ 移民 失敗 治安,アムステルダム大学,移民純貢献度"
+                />
+                <meta property="og:title" content="【徹底解説】Borderless Welfare State：オランダ1700万人データが暴いた移民と社会保障の破綻 | 日本の岐路" />
+                <meta property="og:description" content="オランダ1,700万人のマイクロデータ分析。移民の出身国別財政貢献度と、福祉国家が直面する財政危機の全容。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/borderless-welfare-state/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="オランダ財政影響調査：Borderless Welfare Stateの衝撃" />
-                <meta name="twitter:description" content="マイクロデータ分析が解明した、移民政策と社会保障制度の矛盾を検証するレポート。" />
+                <meta name="twitter:title" content="【徹底解説】Borderless Welfare State：オランダ1700万人データが暴いた移民と社会保障の破綻 | 日本の岐路" />
+                <meta name="twitter:description" content="オランダ1,700万人のマイクロデータ分析。移民政策と社会保障制度の矛盾を徹底解説。" />
                 <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "FAQPage",
+                        "mainEntity": [
+                            {
+                                "@type": "Question",
+                                "name": "Borderless Welfare State（国境なき福祉国家）とは何ですか？",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "2023年にアムステルダム大学のJan van de Beek教授率いる研究チームが発表した、オランダの全住民1,700万人の匿名マイクロデータ（20EB超）に基づく移民の生涯純財政貢献度を分析した包括的研究報告書です。"
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "移民の受け入れは財政や社会保障にどのような影響を与えますか？",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "同調査によると、高度技術を持つ西欧系移民が生涯で約20万ユーロの財政貢献（黒字）をもたらす一方、非西欧系の難民や家族呼び寄せ移民は1人あたり生涯で27.5万〜47.5万ユーロの巨額な財政赤字（社会保障や公的支出の超過）をもたらすことが判明しています。"
+                                }
+                            }
+                        ]
+                    })}
+                </script>
             </Helmet>
 
             <Header 

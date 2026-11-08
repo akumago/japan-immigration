@@ -10,20 +10,48 @@ export const SymbiosisPage: React.FC = () => {
     return (
         <MainLayout>
             <Helmet>
-                <title>西尾市緑町住宅の現状：多文化共生の真実 | 日本の岐路</title>
+                <title>【愛知県西尾市】県営緑町住宅の現状と多文化共生の限界：外国人集住と自治崩壊の真実 | 日本の岐路</title>
                 <meta
                     name="description"
-                    content="県営住宅に集住する外国人コミュニティの現実をデータと事例から分析。「多文化共生」の理想と、地域住民に押し付けられる統治コスト・摩擦のギャップを解説します。"
+                    content="愛知県西尾市の県営緑町住宅における外国人集住の実態をデータと事例から徹底検証。ゴミ出し・騒音・共益費滞納（約70万円）や自治会総会トラブルなど、「多文化共生」の理想と地域住民に転嫁される統治コストの現実を解説。"
                 />
-                <meta property="og:title" content="愛知県西尾市「県営緑町住宅」の現状と多文化共生の課題" />
-                <meta property="og:description" content="外国人集住が地域社会にもたらす真の負担とは。現場の事例と統計から検証する多文化共生の構造的課題。" />
+                <meta
+                    name="keywords"
+                    content="県営緑町住宅,西尾市 緑町住宅,多文化共生 限界,多文化共生 失敗 事例,外国人 集住 トラブル,共益費 滞納,日系ブラジル人"
+                />
+                <meta property="og:title" content="【愛知県西尾市】県営緑町住宅の現状と多文化共生の限界：外国人集住と自治崩壊の真実 | 日本の岐路" />
+                <meta property="og:description" content="県営緑町住宅の外国人集住トラブルと滞納問題の実態。多文化共生の理想と地域住民に押し付けられるコスト。" />
                 <meta property="og:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
                 <meta property="og:url" content="https://endearing-blini-b688ce.netlify.app/analysis/symbiosis/" />
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="「県営緑町住宅」に見る多文化共生の真実 | 日本の岐路" />
-                <meta name="twitter:description" content="外国人労働者の受け入れが地域にもたらした急激な変化と、摩擦の現場から見える「日本の未来」。" />
+                <meta name="twitter:title" content="【愛知県西尾市】県営緑町住宅の現状と多文化共生の限界 | 日本の岐路" />
+                <meta name="twitter:description" content="県営緑町住宅の外国人集住トラブルと滞納問題の実態。多文化共生の限界を徹底検証。" />
                 <meta name="twitter:image" content="https://endearing-blini-b688ce.netlify.app/ogp-image-2.jpg" />
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "FAQPage",
+                        "mainEntity": [
+                            {
+                                "@type": "Question",
+                                "name": "県営緑町住宅（愛知県西尾市）で何が起きているのですか？",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "外国人住民比率の上昇に伴い、ゴミ出しや騒音問題、通訳を介した自治会総会の難航、約70万円に及ぶ共益費や駐車場代の滞納など、地域コミュニティの自治維持コストが日本人住民に過大に押し付けられる深刻な摩擦が発生しています。"
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "多文化共生政策の根本的な課題は何ですか？",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "企業が安価な外国人労働力を活用して直接的な果実を得る一方で、生活言語支援や治安維持、コミュニティ管理といった社会的コストが地方自治体や日本人住民に外部化・転嫁されている構造的矛盾が指摘されています。"
+                                }
+                            }
+                        ]
+                    })}
+                </script>
             </Helmet>
 
             <Header title="「多文化共生」の限界と地域社会の現実" description="愛知県西尾市「県営緑町住宅」の事例に見る、実質的な移民流入がもたらす統治コストの増大と不都合な真実" />
