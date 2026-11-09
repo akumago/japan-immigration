@@ -208,9 +208,9 @@ export const HomePage: React.FC = () => {
                                                     if (title.includes('視覚的証拠')) return ['#相関分析', '#国連データ', '#経済成長'];
                                                     if (title.includes('リスク分析')) return ['#社会統合リスク', '#治安コスト', '#制度疲弊'];
                                                     if (title.includes('経済への長期的影響')) return ['#労働生産性', '#賃金暴落', '#二重構造'];
-                                                    if (title.includes('財政影響分析')) return ['#財政赤字予測', '#社会保障フリーライド', '#国民負担'];
+                                                    if (title.includes('財政影響') || title.includes('生活保護リスク')) return ['#財政赤字予測', '#社会保障フリーライド', '#国民負担'];
                                                     if (title.includes('犯罪統計')) return ['#犯罪傾向分析', '#治安維持', '#公的データ'];
-                                                    if (title.includes('実証データ')) return ['#オランダモデル', '#福祉国家の限界', '#マイクロデータ'];
+                                                    if (title.includes('実証データ') || title.includes('Borderless Welfare State') || title.includes('国境なき福祉国家')) return ['#オランダモデル', '#福祉国家の限界', '#マイクロデータ'];
                                                     if (title.includes('国家安全保障')) return ['#国境線なき国家', '#自衛意識', '#ナショナルセキュリティ'];
                                                     if (title.includes('国土・重要インフラ')) return ['#重要土地買収', '#静かなる侵略', '#法規制の隙間'];
                                                     if (title.includes('なし崩し的')) return ['#英国の失敗事例', '#ブレグジットの背景', '#教訓'];
@@ -234,9 +234,9 @@ export const HomePage: React.FC = () => {
                                                     if (title.includes('視覚的証拠')) return '/analysis/statistical-evidence/';
                                                     if (title.includes('リスク分析')) return '/analysis/risk-analysis/';
                                                     if (title.includes('経済への長期的影響')) return '/analysis/economic-impact/';
-                                                    if (title.includes('財政影響分析')) return '/analysis/economic-impact/';
+                                                    if (title.includes('財政影響') || title.includes('生活保護リスク')) return '/analysis/social-security/';
                                                     if (title.includes('犯罪統計')) return '/analysis/crime-statistics/';
-                                                    if (title.includes('実証データ')) return '/analysis/borderless-welfare-state/';
+                                                    if (title.includes('実証データ') || title.includes('Borderless Welfare State') || title.includes('国境なき福祉国家')) return '/analysis/borderless-welfare-state/';
                                                     if (title.includes('国家安全保障')) return '/analysis/national-security/';
                                                     if (title.includes('国土・重要インフラ')) return '/analysis/land-acquisition/';
                                                     if (title.includes('なし崩し的')) return '/analysis/uk-immigration-lesson/';
