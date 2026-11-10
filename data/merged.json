@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-08T09:15:33.256Z",
+  "updatedAt": "2026-11-10T18:01:36.286Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -5528,6 +5528,25 @@
       },
       "reason": "本文の容疑者氏名+罪種+同日+地域整合",
       "recordedAt": "2026-11-08T09:15:33.256Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "aa5f790177c6",
+        "sourceRecordId": "v5-aa5f790177c6",
+        "title": "恩納村で不法就労疑い ダイビング店経営の中国籍の男ら4人逮捕 名護海保",
+        "date": "2026-11-10",
+        "url": "https://www.msn.com/ja-jp/news/other/%E6%81%A9%E7%B4%8D%E6%9D%91%E3%81%A7%E4%B8%8D%E6%B3%95%E5%B0%B1%E5%8A%B4%E7%96%91%E3%81%84-%E3%83%80%E3%82%A4%E3%83%93%E3%83%B3%E3%82%B0%E5%BA%97%E7%B5%8C%E5%96%B6%E3%81%AE%E4%B8%AD%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E3%82%894%E4%BA%BA%E9%80%AE%E6%8D%95-%E5%90%8D%E8%AD%B7%E6%B5%B7%E4%BF%9D/ar-AA2h5y9q"
+      },
+      "removed": {
+        "id": "2dfe3d39bb6c",
+        "sourceRecordId": "v5-2dfe3d39bb6c",
+        "title": "ビザなし外国人がダイビング店インストラクターとして勤務か 中国・香港・台湾の4人を起訴",
+        "date": "2026-11-10",
+        "url": "https://news.yahoo.co.jp/articles/7da5af1b7bf32d024aa02311831f677de6ec1a38?source=rss"
+      },
+      "reason": "国籍+場所+罪種",
+      "recordedAt": "2026-11-10T18:01:36.286Z"
     }
   ]
 }
