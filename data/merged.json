@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-13T17:54:24.967Z",
+  "updatedAt": "2026-11-13T23:42:38.179Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -5847,6 +5847,78 @@
       },
       "reason": "event-dedupe一致 (同日+同県+国籍+罪種（矛盾なし転載）: アルバイト先の同僚女子高校生にキスなど”不同意わいせつ” バングラデシュ国籍の男逮捕)",
       "recordedAt": "2026-11-13T17:54:24.967Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "1個3000円のマスクメロン15個盗んだか 防犯カメラに映ったベトナム人の男逮捕 周辺で相次ぐメロン窃盗事件との関連捜査へ",
+        "date": "2026-11-13",
+        "url": "https://www.fnn.jp/articles/-/1152225"
+      },
+      "reason": "URL完全一致 (https://www.fnn.jp/articles/-/1152225)",
+      "recordedAt": "2026-11-13T23:42:38.179Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "太陽光発電施設から銅線88キロを盗んだ疑い カンボジア国籍の男を逮捕送検",
+        "date": "2026-11-13",
+        "url": "https://news.yahoo.co.jp/articles/72afcb83224b279cf13737f7fbb19bf4f19eeddc"
+      },
+      "reason": "URL完全一致 (https://news.yahoo.co.jp/articles/72afcb83224b279cf13737f7fbb19bf4f19eeddc)",
+      "recordedAt": "2026-11-13T23:42:38.179Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "窃盗目的でスーパー銭湯侵入疑い 中国籍の男逮捕 客のクレカICチップ盗難、同様の被害各地で相次ぐ 組織的犯行か",
+        "date": "2026-11-13",
+        "url": "https://www.msn.com/ja-jp/news/other/%E7%AA%83%E7%9B%97%E7%9B%AE%E7%9A%84%E3%81%A7%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%E9%8A%AD%E6%B9%AF%E4%BE%B5%E5%85%A5%E7%96%91%E3%81%84-%E4%B8%AD%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E9%80%AE%E6%8D%95-%E5%AE%A2%E3%81%AE%E3%82%AF%E3%83%AC%E3%82%ABic%E3%83%81%E3%83%83%E3%83%97%E7%9B%97%E9%9B%A3-%E5%90%8C%E6%A7%98%E3%81%AE%E8%A2%AB%E5%AE%B3%E5%90%84%E5%9C%B0%E3%81%A7%E7%9B%B8%E6%AC%A1%E3%81%90-%E7%B5%84%E7%B9%94%E7%9A%84%E7%8A%AF%E8%A1%8C%E3%81%8B/ar-AA2hm33e"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 銭湯に窃盗目的で侵入疑い 中国籍の男逮捕 国際的窃盗Gメンバーか 千葉)",
+      "recordedAt": "2026-11-13T23:42:38.179Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "知人女性の顔面殴った疑い、ネパール国籍の男逮捕 福島・郡山",
+        "date": "2026-11-13",
+        "url": "https://news.yahoo.co.jp/articles/dc36162fbaa82063e29d04d5a0edf0adce1a6d6c?source=rss"
+      },
+      "reason": "タイトル高類似 (85%: 知人女性の顔面殴った疑い、ネパール国籍の男逮捕 郡山:福島ニュース)",
+      "recordedAt": "2026-11-13T23:42:38.179Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ガシャーン...小学生の列にSUVが衝突 逃げた運転手の男、「今後は一切運転しない」と述べ執行猶予に その後、無免許運転...実刑判決 「私有地だと誤解していた」との主張は退けられる",
+        "date": "2026-11-14",
+        "url": "https://news.yahoo.co.jp/articles/afeca7f84695d05941d62ebff77fc8828276d156?source=rss"
+      },
+      "reason": "同一事件確定(自治体一致) [埼玉県三郷市 / 中国籍 / 交通犯罪・ひき逃げ・無免許・飲酒運転]",
+      "recordedAt": "2026-11-13T23:42:38.179Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「金稼ぎの目的で滞在」約4年間不法残留か ベトナム国籍の30代男性を摘発 情報提供で発覚=静岡・湖西市",
+        "date": "2026-11-12",
+        "url": "https://news.yahoo.co.jp/articles/65d4feaacd2c9f899425e12ec7a25d72bcf9cfb8?source=rss"
+      },
+      "reason": "タイトル高類似 (100%: 「金稼ぎの目的で滞在」約4年間不法残留か ベトナム国籍の30代男性を摘発 情報提供で発覚=静岡・湖西市)",
+      "recordedAt": "2026-11-13T23:42:38.179Z"
     }
   ]
 }
