@@ -45,16 +45,20 @@ function run({ newsDataPath, mergedPath, dryRun = false, now = Date.now(), logge
   const better = (x, y) => rank(x.url) > rank(y.url)
     || (rank(x.url) === rank(y.url) && String(x.date) > String(y.date));
 
-  // 0. 社説・解説・オピニオンおよび非対象記事の自動排除（ai-gate reject安全網）
+  // 0. 社説・解説・オピニオン・ワイドショー私見および背景外国人誤爆記事の自動排除（ai-gate reject安全網）
   const removedPath = path.join(path.dirname(newsDataPath), 'removed.json');
   const rejectRecords = [];
   for (const item of raw) {
-    const text = (item.evidence && item.evidence.suspect ? item.evidence.suspect : '') + ' ' + (item.summary || '');
+    const text = [item.locationBasis, item.evidence && item.evidence.suspect ? item.evidence.suspect : '', item.summary || '']
+      .filter(Boolean)
+      .join(' ')
+      .replace(/^(?:本文抜粋|見出し根拠|見出し・本文統合根拠|国内捜査・司法機関管轄根拠)\s*[:：]\s*/g, '');
     const check = aiGate.verifyArticleContent(text, item.title);
-    if (check.rejected) {
-      logger.log(`🚫 オピニオン・非対象記事を除外 [${check.rejectReason}]: ${item.title}`);
+    if (check.rejected || (!check.verified && /(?:偽造依頼|家宅捜索した際)/.test(text))) {
+      const reason = check.rejectReason || 'suspect_is_japanese_or_background_foreigner';
+      logger.log(`🚫 オピニオン・非対象記事を除外 [${reason}]: ${item.title}`);
       drop.add(item);
-      rejectRecords.push({ kind: 'automatic_reject', item: ref(item), reason: check.rejectReason });
+      rejectRecords.push({ kind: 'automatic_reject', url: item.url || null, item: ref(item), reason });
     }
   }
   if (rejectRecords.length > 0 && !dryRun && fs.existsSync(removedPath)) {

@@ -15,8 +15,8 @@ const US_MILITARY_RE = /米(?:兵|軍|海兵隊|海軍|空軍|陸軍|軍属)|ア
 const CRIME_GROUPS = [
   ['盗品保管', /盗品等?保管|盗難.{0,10}高級車.{0,8}保管|高級車.{0,8}保管/],
   ['薬物', /覚醒剤|覚せい剤|麻薬|大麻|コカイン|MDMA|薬物/],
-  ['詐欺', /詐欺|だまし取|騙し取|だましと|詐取|特殊詐欺|受け子|出し子|架け子|かけ子|資金洗浄|マネロン|マネーロンダリング|ボイスフィッシング|(?:クレジットカード|クレカ).{0,10}(?:不正|悪用)/],
-  ['風営', /風営|無許可.*(?:営業|接待|クラブ|バー|パブ|メンズエステ)|ナイトクラブ/],
+  ['詐欺', /詐欺|だまし取|騙し取|だましと|詐取|特殊詐欺|受け子|出し子|架け子|かけ子|資金洗浄|マネロン|マネーロンダリング|ボイスフィッシング|(?:クレジットカード|クレカ).{0,10}(?:不正|悪用)|不正決済|不正購入/],
+  ['風営', /風営|無許可.*(?:営業|接待|クラブ|バー|パブ|メンズエステ)|ナイトクラブ|ぼったくりバー|カラオケー?バー|インターナショナルバー/],
   ['強盗', /強盗|強殺|脅し.{0,12}奪|現金奪/],
   ['窃盗', /窃盗|盗ん|盗み|盗もう|万引|スリ(?!ランカ)|空き巣|侵入盗|車上荒らし|ロッカー物色|ひったくり/],
   ['殺人', /殺人|殺害|強殺/],
@@ -33,7 +33,12 @@ const CRIME_GROUPS = [
   ['器物損壊・公妨', /器物損壊|器物破損|建造物損壊|公務執行妨害|威力業務妨害|偽計業務妨害|電力メーター|パトカー/],
   ['風営', /風営法|売春|個室マッサージ|メンズエステ/],
   ['医療・資格', /医師法|医師免許|医薬品医療機器法|薬機法|処方箋なし|無資格.{0,8}(?:医療|施術|診療)|美容整形/],
-  ['サイバー', /不正アクセス|フィッシング|偽メール|詐欺メール|迷惑メール|電子計算機|不正指令/],
+  ['サイバー', /不正アクセス|フィッシング|偽メール|詐欺メール|迷惑メール|電子計算機|不正指令|不正アプリ|遠隔操作|不正決済|乗っ取り/],
+  ['電波法・偽基地局', /電波法|偽基地局|偽装基地局|ニセ基地局|不法電波|不法無線局|強制圏外/],
+  ['ヤミ金・出資法', /ヤミ金|闇金|出資法|貸金業法/],
+  ['公文書偽造・偽装', /有印公文書偽造|公文書偽造|有印私文書偽造|偽装結婚|虚偽申請|偽造免許/],
+  ['侵入', /(?:住居|建造物|温浴施設|銭湯|商業施設|工場|敷地|店舗)[^。]{0,12}侵入|建造物侵入|住居侵入/],
+  ['業務妨害', /威力業務妨害|偽計業務妨害|業務を?妨害/],
 ];
 
 const nfkc = (s) => String(s || '').normalize('NFKC');
@@ -188,6 +193,27 @@ function signals(item) {
   if (/(?:ナイトクラブ.*(?:無許可|営業)|無許可.*ナイトクラブ)/.test(text) && /ベトナム/.test(text)) {
     incidentAnchors.add('vietnam_nightclub_unauthorized');
   }
+  if (/(?:偽基地局|偽装基地局|ニセ基地局|強制圏外)/.test(text) && /電波法|通信妨害|不法電波/.test(text)) {
+    incidentAnchors.add('fake_base_station_radio_law');
+  }
+  if (/(?:TikTok|ティックトック).{0,22}(?:偽|装う|不正アプリ|遠隔操作|乗っ取り)/i.test(text)) {
+    incidentAnchors.add('fake_tiktok_malware_fraud');
+  }
+  if (/(?:温浴施設|銭湯).{0,18}侵入/.test(text)) {
+    incidentAnchors.add('public_bath_trespass');
+  }
+  if (/コンクリ(?:ート)?片/.test(text) && /(?:投げ|抗争|商業施設|ガラス)/.test(text)) {
+    incidentAnchors.add('concrete_piece_brawl');
+  }
+  if (/(?:運転免許|学科試験).{0,24}(?:問題文|問題用紙|外国語).{0,18}(?:盗撮|撮影)/.test(text)) {
+    incidentAnchors.add('driver_license_exam_sneakshot');
+  }
+  if (/歌舞伎町/.test(text) && /ナイジェリア/.test(text) && /(?:ぼったくり|無許可|カラオケー?バー|インターナショナルバー|接待)/.test(text)) {
+    incidentAnchors.add('kabukicho_bar_crackdown');
+  }
+  if (/(?:ヤミ金|闇金)/.test(text)) {
+    incidentAnchors.add('yamikin_usury');
+  }
   // 数量・金額・逮捕人数の「事実トークン」から汎用アンカー(fact:罪種:値)を作る。事件ごとの個別登録は不要。
   // 重量は整数kgへ丸めて表記ゆれを吸収（約3kg/3キロ/3.2キロ→3kg）。text は NFKC 済みで全角数字も吸収済み。
   const factWeights = [...text.matchAll(/(\d+(?:\.\d+)?)\s*(?:キロ|kg|トン)/gi)].filter((m) => parseFloat(m[1]) >= 1).map((m) => `${Math.round(parseFloat(m[1]))}kg`);
@@ -307,8 +333,8 @@ function sameEventReason(a, b, { maxDays = 14 } = {}) {
     && (locationRelation === 'compatible' || sameStoredRegion || natsMatch);
   // 国籍・年齢・市区町村（福山市等）・罪種がすべて一致する場合は、住所抽出などによる県名の食い違いを矛盾とみなさない
   const storedRegionMislabeled = natsMatch && sameAge && samePlace && sameCrime;
-  const crossRegionAnchors = new Set(['pakistan_shirataku_group', 'russia_car_export_sanctions']);
-  const sharedIncidentCrossRegion = [...(sa.incidentAnchors || [])].some((x) => crossRegionAnchors.has(x) && sb.incidentAnchors?.has(x)) && natsMatch;
+  const crossRegionAnchors = new Set(['pakistan_shirataku_group', 'russia_car_export_sanctions', 'concrete_piece_brawl', 'driver_license_exam_sneakshot', 'yamikin_usury']);
+  const sharedIncidentCrossRegion = [...(sa.incidentAnchors || [])].some((x) => crossRegionAnchors.has(x) && sb.incidentAnchors?.has(x)) && natsMatch && daysApart(a.date, b.date) <= 4 && (sameAge || sameNamedSuspect || dice(sa.content, sb.content) >= 0.15 || !sa.ages.size || !sb.ages.size);
   if (locationRelation === 'conflict' && !sameNamedSuspect && !storedRegionMislabeled && !sharedIncidentCrossRegion && !crossPrefFactShared) return null;
   const agesConflict = sa.ages.size && sb.ages.size && !sameAge && !sameNamedSuspect && !factAnchorShared;
   const placesConflict = (locationRelation === 'conflict' && !storedRegionMislabeled && !sharedIncidentCrossRegion)

@@ -369,4 +369,29 @@ test('determineStage: 逮捕/送検/起訴/公判/判決を正確に分類する
   assert.equal(gate.determineStage('外国籍被告の事件報道'), null);
   assert.equal(gate.determineStage({ title: '中国籍の男を逮捕', audit: { suspectRole: { evidence: '男は初公判で起訴内容を認めた' } } }), '逮捕',
     '本文中の過去・補足情報で見出しの手続段階を上書きしない');
+  assert.equal(gate.determineStage('福岡県警は１０日、東京都墨田区、中国籍の無職の女の被告（詐欺罪で公判中）を詐欺などの疑いで再逮捕した。'), '再逮捕',
+    '括弧内の公判中に惑わされず再逮捕を返す');
+});
+
+test('本文ゲート: 日本人主犯記事で偽造依頼先（家宅捜索の中国籍男）への誤爆を防ぐ', () => {
+  const text = '偽造した保育士証を使って札幌市の保育園で働き、給与をだまし取ったなどとして42歳の女が逮捕されました。警視庁が入管難民法違反の疑いで東京・墨田区の中国籍の男の自宅を家宅捜索した際、偽の在留カードやマイナンバーカードなどが150枚以上見つかり、押収されたスマートフォンから女が浮上しました。';
+  const result = gate.verifyArticleContent(text, '「試験に受からず...」SNSで偽造依頼した保育士証で保育園に勤務し給与詐取か 北海道札幌市の42歳の女を逮捕');
+  assert.equal(result.verified, false);
+});
+
+test('本文ゲート: ワイドショー私見・弁護士コメント・再逮捕へ予定記事を除外する', () => {
+  const kito = gate.verifyArticleContent('東京・銀座で中国籍の男が偽装基地局を運用した疑いで逮捕された事件について私見を述べた。', '紀藤弁護士、中国籍の男が逮捕された事件に驚き「トンでも犯罪」');
+  assert.equal(kito.rejected, true);
+  const tamagawa = gate.verifyArticleContent('モーニングショーで電波法違反容疑で逮捕された事件に言及した。', '玉川徹氏「中国人富裕層が狙われた」電波法違反容疑で中国籍の男逮捕に私見...「モーニングショー」');
+  assert.equal(tamagawa.rejected, true);
+  const plan = gate.verifyArticleContent('福岡県警などは韓国籍の男ら5人を再逮捕する方針を固めた。', 'ヤミ金疑い男5人再逮捕へ 福岡県警など、全国で被害か');
+  assert.equal(plan.rejected, true);
+});
+
+test('現場特定: 居住地や北の都道府県ではなく犯行現場と捜査機関を優先する', () => {
+  const shimane = gate.resolveCrimeSceneInContext('島根県で運転免許の試験中に外国語の問題文を盗撮か、茨城県のパキスタン国籍の会社員を逮捕');
+  assert.equal(shimane?.pref, '島根県');
+  const fukuokaBody = gate.verifyArticleContent('福岡県警は１０日、東京都墨田区、中国籍の無職の女の被告（詐欺罪で公判中）を詐欺などの疑いで再逮捕した。', '6000万円詐取の疑い、中国籍の女を再逮捕');
+  assert.equal(fukuokaBody.verified, true);
+  assert.equal(fukuokaBody.location, '福岡県');
 });

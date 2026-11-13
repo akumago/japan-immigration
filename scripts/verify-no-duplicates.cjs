@@ -12,9 +12,26 @@
  */
 const fs = require('fs');
 const path = require('path');
+const aiGate = require('./lib/ai-gate.cjs');
 const eventDedupe = require('./lib/event-dedupe.cjs');
 const { normalizeArticleUrl } = require('./fetch-news.cjs');
 const { normTitle } = require('./dedupe-newsdata.cjs');
+
+function findQualityIssues(items) {
+  const issues = [];
+  for (const item of items) {
+    const date = String(item.date || '');
+    if (date >= '2026-11-13' && /本文の文脈結合で確認した報道です/.test(String(item.summary || ''))) {
+      issues.push({ type: 'robot_template_summary', item });
+    }
+    const text = [item.locationBasis, item.evidence?.suspect, item.summary].filter(Boolean).join(' ');
+    const gateCheck = aiGate.verifyArticleContent(text, item.title || '');
+    if (gateCheck.rejected) {
+      issues.push({ type: `rejected_content(${gateCheck.rejectReason})`, item });
+    }
+  }
+  return issues;
+}
 
 function findDuplicates(items) {
   const problems = [];
@@ -72,12 +89,19 @@ if (require.main === module) {
   const newsDataPath = process.env.NEWS_DATA_PATH || path.join(__dirname, '../data/newsData.json');
   const items = JSON.parse(fs.readFileSync(newsDataPath, 'utf8'));
   const problems = findDuplicates(items);
-  if (problems.length) {
-    console.error(`::error::重複記事が ${problems.length} 組残っています。公開を中止します。`);
-    problems.forEach((p) => console.error(`  [${p.type}]\n    A: ${p.a.date} ${p.a.title}\n    B: ${p.b.date} ${p.b.title}`));
+  const qualityIssues = findQualityIssues(items);
+  if (problems.length || qualityIssues.length) {
+    if (problems.length) {
+      console.error(`::error::重複記事が ${problems.length} 組残っています。公開を中止します。`);
+      problems.forEach((p) => console.error(`  [${p.type}]\n    A: ${p.a.date} ${p.a.title}\n    B: ${p.b.date} ${p.b.title}`));
+    }
+    if (qualityIssues.length) {
+      console.error(`::error::品質違反（定型文サマリー・非対象記事）が ${qualityIssues.length} 件残っています。公開を中止します。`);
+      qualityIssues.forEach((q) => console.error(`  [${q.type}] ${q.item.date} ${q.item.title}`));
+    }
     process.exit(1);
   }
-  console.log(`✅ 重複なし（${items.length} 件を検査）`);
+  console.log(`✅ 重複・品質違反なし（${items.length} 件を検査）`);
 }
 
-module.exports = { findDuplicates };
+module.exports = { findDuplicates, findQualityIssues };

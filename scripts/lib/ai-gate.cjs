@@ -604,12 +604,13 @@ const DOMESTIC_LANDMARKS = {
 // 警察署・捜査機関および居住地・出身地の表記を除去
 function cleanPoliceAndResidence(str) {
   return nfkc(str)
+    .replace(/(?:警視庁|北海道警|道警|東京都|京都府|大阪府|[一-龥]{2,3}(?:県警|府警))(?:は)?[、，\s]*(?:\d{1,2}日[、，\s]*)?(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)[^、。]{0,22}[、，\s]*(?=(?:住所不定|中国|韓国|台湾|ベトナム|フィリピン|ブラジル|タイ|インドネシア|ネパール|スリランカ|パキスタン|トルコ|ペルー|ミャンマー|カンボジア|米国|アメリカ|外国|[ァ-ヴー]{2,}国籍|会社員|無職|自称))/g, ' ')
     .replace(/[^\s、。]*(?:警察署|地裁|簡裁|高裁|最高裁|捜査本部|検察庁|地検|区検|県警|府警|道警|警視庁)/g, ' ')
     .replace(/[＝=][^＝=]{2,30}[＝=]/g, ' ')
     .replace(/[^\s、。]+(?:に住む|在住|出身)(?:の)?\s*(?:\d+代|\d+歳)?(?:の)?\s*(?:男性|女性|男|女|大学生|会社員|無職|容疑者)?(?:のクレジットカード|の名義)?/g, ' ')
     .replace(/(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)[^\s、。]{0,12}の(?:\d+代|\d+歳)?(?:男性|女性)のクレジットカード情報/g, ' ')
     .replace(/(?:容疑で|疑いで|として|されたのは)[、，\s]*(?:いずれも[^、。]{1,18}[、，\s]*)?(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)?[^、。]{1,22}?(?:市|区|町|村)[^、。]{0,14}[、，\s]*(?=(?:中国|韓国|台湾|ベトナム|フィリピン|ブラジル|タイ|インドネシア|ネパール|スリランカ|パキスタン|トルコ|ペルー|ミャンマー|カンボジア|米国|アメリカ|外国|[ァ-ヴー]{2,}国籍|会社員|無職|自称|アルバイト|職業不詳|解体工|工員|大学生|専門学校生))/g, ' ')
-    .replace(/(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)(?:の|在住の)\s*(?=(?:中国|韓国|台湾|ベトナム|フィリピン|ブラジル|タイ|インドネシア|ネパール|スリランカ|パキスタン|トルコ|ペルー|ミャンマー|カンボジア|米国|アメリカ|外国|[ァ-ヴー]{2,}国籍))/g, ' ')
+    .replace(/(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)(?:、|\s)*(?:の|在住の|住所不定)?\s*(?=(?:中国|韓国|台湾|ベトナム|フィリピン|ブラジル|タイ|インドネシア|ネパール|スリランカ|パキスタン|トルコ|ペルー|ミャンマー|カンボジア|米国|アメリカ|外国|[ァ-ヴー]{2,}国籍))/g, ' ')
     .replace(/(?:国籍|外国籍|中国籍|韓国籍|台湾籍|米国籍|英国籍|人)(?:の男|の女)?(?:で|の)\s*[^。]{1,25}?(?:市|区|町|村)[^、。]{0,12}(?:の|、)/g, ' ')
     .replace(/(?:疑いで|として)[、，]\s*(?:いずれも[^、。]{1,15}[、，]\s*)?[^、。]{2,20}?(?:市|区|町|村)[^、。]{0,12}[、，]\s*(?:会社員|無職|自称|アルバイト|職業不詳|解体工|工員|技能実習生)/g, ' ');
 }
@@ -634,11 +635,26 @@ function resolveCrimeSceneInContext(targetSentence, dict = loadMunicipalities())
     }
   }
 
-  // 2. 都道府県名の照合（完全名＋「大阪・ミナミ」「【愛媛】」等の省略県名表記）
-  for (const p of PREFECTURES) {
-    if (cleanSent.includes(p)) {
-      return { pref: p, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+  // 2. 都道府県名の照合（北から順ではなく、「〇〇県で」等の現場助詞・管轄警察・出現位置順を優先）
+  const scenePrefRegex = new RegExp(`(${PREFECTURES.map(esc).join('|')})(?:内)?(?:で|において|にある|の路上|の店舗|の施設|の商業施設|の住宅|の工場|の駐車場|運転免許)`);
+  const scenePrefMatch = cleanSent.match(scenePrefRegex);
+  if (scenePrefMatch) {
+    return { pref: scenePrefMatch[1], evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+  }
+  const orderedPrefs = PREFECTURES
+    .map((p) => ({ p, idx: cleanSent.indexOf(p) }))
+    .filter((x) => x.idx >= 0)
+    .sort((a, b) => a.idx - b.idx);
+  if (orderedPrefs.length === 1) {
+    return { pref: orderedPrefs[0].p, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+  }
+  if (orderedPrefs.length > 1) {
+    const rawNorm = nfkc(targetSentence);
+    const policeMatched = orderedPrefs.find(({ p }) => new RegExp(`${esc(p === '北海道' ? '道' : p.slice(0, -1))}警|${esc(p)}警`).test(rawNorm));
+    if (policeMatched) {
+      return { pref: policeMatched.p, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
     }
+    return { pref: orderedPrefs[0].p, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
   }
   const shortDotMatches = [...cleanSent.matchAll(SHORT_DOT_RE)].map((m) => PREF_SHORT.get(m[1])).filter(Boolean);
   if (shortDotMatches.length === 1) {
@@ -700,7 +716,7 @@ function verifyArticleContent(text, title = '') {
 
   // 社説・論説・コラム・解説・オピニオン・政治批判・事後反応（要請・議会答弁・抗議集会・遺族コメント・連載企画）は、
   // 事件の説明や引用を含んでいても新規の被疑者事件報道ではないため最終ゲートで確実に止める。
-  const NON_CASE_HEADLINE_RE = /(?:社説|論説|社論|オピニオン|コラム|提言|シンポジウム|有識者|エキスパートトピ|【[^】]*(?:解説|詳報|前編|後編|中編|連載|特集)[^】]*】|[一-龥ァ-ヶ]{2,8}(?:大|大学)(?:講師|教授|准教授|名誉教授)\s*$|メッセージの遅さ|極めて遺憾|日米と県協議|協定の改定|改定が必要|パリピ生活|水際で阻止|応えよ$|求めよ$|べきだ$|とは…|できたワケ|の正体|とは何か|^[▽▼■◆●]\s*[上中下前後0-9０-９]|連帯広げる|不安抱く社会|浮かび上がる[^。]*の「?構図」?|専門家が語る|だまされないための対策|エックス速報|合同巡回で米兵[^。]*外出禁止違反|憲兵隊が拘束|事件受けたパトロール|(?:事件|逮捕)[^。]{0,10}受け[^。]*(?:要請|抗議|答弁|集会|声明|談話|コメント|申し入れ|削除依頼|怒りの声|外出制限)|(?:首相|外務省|防衛省|政府|米軍)に[^。]*(?:要請|抗議|申し入れ)|(?:知事|市長|官房長官|大臣)[^。]*(?:再発防止|要請|抗議|注視|言及|批判|遺憾)|県議会[^。]*答弁|市民団体[^。]*(?:抗議|集会|怒りの声|要請|声明)|遺族(?:が|ら|も)[^。]*(?:コメント|談話|手記)|被害者へ中傷|中傷[^。]*削除依頼|日米共同演習|相次いで先島に飛来|FRIDAY|フライデー|逮捕直後の.*表情|初公判の傍聴券|傍聴席に.*姿|[＝=]中国ネット)/i;
+  const NON_CASE_HEADLINE_RE = /(?:社説|論説|社論|オピニオン|コラム|提言|シンポジウム|有識者|エキスパートトピ|【[^】]*(?:解説|詳報|前編|後編|中編|連載|特集)[^】]*】|[一-龥ァ-ヶ]{2,8}(?:大|大学)(?:講師|教授|准教授|名誉教授)\s*$|私見|に驚き|持論|苦言|モーニングショー|羽鳥慎一|ひるおび|ミヤネ屋|ゴゴスマ|めざまし8|サン!シャイン|ワイドナショー|[一-龥ァ-ヶ]{2,10}(?:弁護士|コメンテーター|元刑事)[、:]|(?:再)?逮捕へ(?:\s|$|[・　])|(?:書類)?送検へ(?:\s|$)|起訴へ(?:\s|$)|方針を固め|メッセージの遅さ|極めて遺憾|日米と県協議|協定の改定|改定が必要|パリピ生活|水際で阻止|応えよ$|求めよ$|べきだ$|とは…|できたワケ|の正体|とは何か|^[▽▼■◆●]\s*[上中下前後0-9０-９]|連帯広げる|不安抱く社会|浮かび上がる[^。]*の「?構図」?|専門家が語る|だまされないための対策|エックス速報|合同巡回で米兵[^。]*外出禁止違反|憲兵隊が拘束|事件受けたパトロール|(?:事件|逮捕)[^。]{0,10}受け[^。]*(?:要請|抗議|答弁|集会|声明|談話|コメント|申し入れ|削除依頼|怒りの声|外出制限)|(?:首相|外務省|防衛省|政府|米軍)に[^。]*(?:要請|抗議|申し入れ)|(?:知事|市長|官房長官|大臣)[^。]*(?:再発防止|要請|抗議|注視|言及|批判|遺憾)|県議会[^。]*答弁|市民団体[^。]*(?:抗議|集会|怒りの声|要請|声明)|遺族(?:が|ら|も)[^。]*(?:コメント|談話|手記)|被害者へ中傷|中傷[^。]*削除依頼|日米共同演習|相次いで先島に飛来|FRIDAY|フライデー|逮捕直後の.*表情|初公判の傍聴券|傍聴席に.*姿|[＝=]中国ネット)/i;
   if (title && NON_CASE_HEADLINE_RE.test(nfkc(title))) {
     result.rejected = true;
     result.rejectReason = 'editorial_or_opinion';
@@ -719,7 +735,7 @@ function verifyArticleContent(text, title = '') {
   // 被疑者文には逮捕・容疑・送検・起訴・有罪などの刑事手続語・犯罪述語が同一文内に存在することを必須化
   const CRIME_PREDICATE_RE = /(?:逮捕|容疑|疑い|送検|送致|起訴|不起訴|処分|判決|求刑|初公判|公判|冒頭陳述|結審|罪状認否|摘発|指名手配|検挙|立件|有罪|被告|被疑者|現行犯|身柄|拘束|書類送検|再逮捕|罰金|勾留|実刑|懲役|逃走)/;
   // 別事件・過去事件の捜査端緒（「今年7月…カンボジア国籍の男2人=窃盗罪で起訴=を逮捕し、処分先として同社が浮上」「8月にも…逮捕され、その後起訴された」等）を今回の被疑者文として誤認しない
-  const PAST_CASE_BACKGROUND_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|逮捕され、その後(?:起訴|有罪|実刑)|(?:\d+月|昨年|おととし|過去|以前)にも[^。]{0,40}?(?:被害|事件)があり[^。]{0,40}?(?:逮捕|起訴)/;
+  const PAST_CASE_BACKGROUND_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|(?:自宅|関係先|拠点)を家宅捜索した際[^。]*?(?:押収|見つか|浮上)|逮捕され、その後(?:起訴|有罪|実刑)|(?:\d+月|昨年|おととし|過去|以前)にも[^。]{0,40}?(?:被害|事件)があり[^。]{0,40}?(?:逮捕|起訴)/;
   const headlineIsUnarrestedNonForeign = Boolean(
     title && /(?:人物|男|女|犯人)が逃走(?:か|中)?\s*$/.test(nfkc(title))
     && !NAT_RE.test(nfkc(title))
@@ -787,6 +803,31 @@ function verifyArticleContent(text, title = '') {
 
   const suspectSentence = sentences[suspectIndex];
 
+  // 主事件のリード文・見出しとの性別・県名矛盾チェック（日本人主犯記事で偽造依頼先・捜査端緒の別事件外国人に誤爆するケースを遮断）
+  if (suspectIndex > 0) {
+    const leadContext = nfkc(`${title || ''} ${sentences[0] || ''}`);
+    const leadHasForeign = NAT_RE.test(leadContext);
+    if (!leadHasForeign && /(?:逮捕|再逮捕|送検|起訴|判決)/.test(leadContext)) {
+      const leadGenders = new Set([...leadContext.matchAll(/(?:\d+歳|代|市|区|町|村|容疑者)の?(男|女)(?!性|児)|(男|女)[（(]\d{2}[）)]|(男|女)が逮捕|(男|女)を逮捕/g)].map((m) => m[1] || m[2] || m[3] || m[4]).filter(Boolean));
+      const sentNorm = nfkc(suspectSentence);
+      const sentGenders = new Set([...sentNorm.matchAll(/(?:国籍|籍|人|\d+歳|代)の?(男|女)(?!性|児)|(男|女)[（(]\d{2}[）)]/g)].map((m) => m[1] || m[2]).filter(Boolean));
+      const isCoop = /共謀|共犯|夫婦|男女|[2-9]人/.test(`${leadContext} ${sentNorm}`);
+      if (!isCoop && leadGenders.size === 1 && sentGenders.size === 1 && ![...leadGenders].some((g) => sentGenders.has(g))) {
+        result.rejected = true;
+        result.rejectReason = 'suspect_is_japanese_or_background_foreigner';
+        return result;
+      }
+      const leadScene = resolvePrefecture(leadContext);
+      const sentScene = resolvePrefecture(sentNorm);
+      if (!isCoop && leadScene?.pref && sentScene?.pref && leadScene.pref !== sentScene.pref
+        && /(?:偽造依頼|依頼|家宅捜索|押収|端緒|浮上|別事件)/.test(`${leadContext} ${sentNorm}`)) {
+        result.rejected = true;
+        result.rejectReason = 'suspect_is_japanese_or_background_foreigner';
+        return result;
+      }
+    }
+  }
+
   // 海外事件の検出も本文全体ではなく、被疑者文と直前の事件文脈に限定する。
   // 記事ページの別記事・過去事件への言及に海外地名があっても対象事件を誤除外しない。
   const previousSentence = suspectIndex > 0 ? sentences[suspectIndex - 1] : '';
@@ -802,9 +843,10 @@ function verifyArticleContent(text, title = '') {
   // ※見出しは合格根拠には一切使わず、別事件の混入を検出・拒否するネガティブガードとしてのみ使用
   if (title) {
     const CRIME_TOPIC_WORDS = [
-      '詐欺', '強盗', '窃盗', '盗み', '密輸', '密入国', '覚醒剤', '麻薬', 'コカイン',
+      '詐欺', '詐取', '偽造', '強盗', '窃盗', '盗み', '密輸', '密入国', '覚醒剤', '麻薬', 'コカイン',
       '大麻', '殺人', '暴行', '傷害', '客引き', '白タク', '不法滞在', '不法就労',
-      '横領', '密猟', '侵入', '車庫', '空き家', 'タイヤ', 'オカヤドカリ', '商標法', '偽サプリ', 'すり'
+      '横領', '密猟', '侵入', '車庫', '空き家', 'タイヤ', 'オカヤドカリ', '商標法', '偽サプリ', 'すり',
+      '業務妨害', '盗撮', '電波法', '偽基地局', 'ヤミ金', '風営法', '薬機法'
     ];
     const titleTopics = CRIME_TOPIC_WORDS.filter((w) => title.includes(w));
     if (titleTopics.length > 0) {
@@ -814,6 +856,8 @@ function verifyArticleContent(text, title = '') {
       const TOPIC_EQUIVALENTS = {
         '窃盗': /窃盗|盗み|盗ん/,
         'すり': /すり|盗み|盗ん/,
+        '詐取': /詐取|詐欺|だまし取/,
+        '偽造': /偽造|偽の/,
         '空き巣': /空き巣|住居侵入|侵入|窃盗|盗み|盗ん/,
         '偽サプリ': /商標|偽物|偽.{0,3}サプリ|健康サプリ/,
         '商標法': /商標|偽物|偽サプリ|健康サプリ/,
@@ -984,7 +1028,7 @@ function determineStage(itemOrText) {
   const text = typeof itemOrText === 'string'
     ? itemOrText
     : itemOrText?.title || '';
-  const t = nfkc(text);
+  const t = nfkc(text).replace(/[（(][^）)]*(?:公判中|起訴|服役|実刑|執行猶予)[^）)]*[）)]/g, ' ');
   if (/判決|実刑|禁錮刑|拘禁刑|有罪判決|無罪判決|執行猶予(?:付き)?(?:の)?判決|罰金刑/.test(t)) return '判決';
   if (/初公判|公判|求刑|結審|冒頭陳述|被告人質問|罪状認否/.test(t)) return '公判';
   if (/不起訴|処分保留/.test(t)) return '不起訴';
