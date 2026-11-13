@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-10T18:01:36.286Z",
+  "updatedAt": "2026-11-13T09:45:15.732Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -5547,6 +5547,198 @@
       },
       "reason": "国籍+場所+罪種",
       "recordedAt": "2026-11-10T18:01:36.286Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "知人女性の顔面殴った疑い、ネパール国籍の男逮捕 福島・郡山",
+        "date": "2026-11-13",
+        "url": "https://www.minyu-net.com/news/detail/2026111307431457160"
+      },
+      "reason": "タイトル高類似 (85%: 知人女性の顔面殴った疑い、ネパール国籍の男逮捕 郡山:福島ニュース)",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "県道で80代女性死亡 自転車で衝突後逃走か ベトナム国籍の男逮捕 茨城・常総市",
+        "date": "2026-11-12",
+        "url": "https://www.msn.com/ja-jp/video/news/%E7%9C%8C%E9%81%93%E3%81%A780%E4%BB%A3%E5%A5%B3%E6%80%A7%E6%AD%BB%E4%BA%A1-%E8%87%AA%E8%BB%A2%E8%BB%8A%E3%81%A7%E8%A1%9D%E7%AA%81%E5%BE%8C%E9%80%83%E8%B5%B0%E3%81%8B-%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E9%80%AE%E6%8D%95-%E8%8C%A8%E5%9F%8E%E3%83%BB%E5%B8%B8%E7%B7%8F%E5%B8%82/vi-AA2haWz1"
+      },
+      "reason": "event-dedupe一致 (国籍+場所+罪種: 【続報】常総の死亡ひき逃げ 高齢女性、自転車ではねて逃走 容疑でベトナム国籍の男逮捕 県警常総署(茨城新聞クロスアイ))",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "大麻使用の疑いで火元の住民逮捕 岐阜市12人搬送のアパート火災 火事との関連を捜査",
+        "date": "2026-11-12",
+        "url": "https://newsdig.tbs.co.jp/articles/-/3079494"
+      },
+      "reason": "event-dedupe一致 (国籍+場所+罪種: 岐阜市のアパート火災 出火元に住むトルコ国籍の男逮捕 麻薬取締法違反の疑い(ぎふチャンDIGITAL))",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "旭川市の飲食店でネパール国籍の40歳男が従業員の30代女性にワイセツ行為...「記憶がありません」と不同意わいせつ容疑を否認〈北海道〉",
+        "date": "2026-11-12",
+        "url": "https://www.fnn.jp/articles/-/1151066"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 客として訪れた飲食店で従業員の女性にわいせつ行為 ネパール人の男を逮捕 容疑を否認 北海道)",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「金稼ぎの目的で滞在」約4年間不法残留か ベトナム国籍の30代男性を摘発 情報提供で発覚=静岡・湖西市",
+        "date": "2026-11-12",
+        "url": "https://www.msn.com/ja-jp/news/other/%E9%87%91%E7%A8%BC%E3%81%8E%E3%81%AE%E7%9B%AE%E7%9A%84%E3%81%A7%E6%BB%9E%E5%9C%A8-%E7%B4%844%E5%B9%B4%E9%96%93%E4%B8%8D%E6%B3%95%E6%AE%8B%E7%95%99%E3%81%8B-%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E5%9B%BD%E7%B1%8D%E3%81%AE30%E4%BB%A3%E7%94%B7%E6%80%A7%E3%82%92%E6%91%98%E7%99%BA-%E6%83%85%E5%A0%B1%E6%8F%90%E4%BE%9B%E3%81%A7%E7%99%BA%E8%A6%9A-%E9%9D%99%E5%B2%A1-%E6%B9%96%E8%A5%BF%E5%B8%82/ar-AA2hgCR5"
+      },
+      "reason": "URL完全一致 (https://www.msn.com/ja-jp/news/other/%E9%87%91%E7%A8%BC%E3%81%8E%E3%81%AE%E7%9B%AE%E7%9A%84%E3%81%A7%E6%BB%9E%E5%9C%A8-%E7%B4%844%E5%B9%B4%E9%96%93%E4%B8%8D%E6%B3%95%E6%AE%8B%E7%95%99%E3%81%8B-%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E5%9B%BD%E7%B1%8D%E3%81%AE30%E4%BB%A3%E7%94%B7%E6%80%A7%E3%82%92%E6%91%98%E7%99%BA-%E6%83%85%E5%A0%B1%E6%8F%90%E4%BE%9B%E3%81%A7%E7%99%BA%E8%A6%9A-%E9%9D%99%E5%B2%A1-%E6%B9%96%E8%A5%BF%E5%B8%82/ar-AA2hgCR5)",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "銭湯に窃盗目的で侵入の疑い 中国籍の男逮捕 国際的窃盗グループ「指示役」か",
+        "date": "2026-11-13",
+        "url": "https://www.kab.co.jp/news/article/17047889"
+      },
+      "reason": "タイトル高類似 (69%: 銭湯に窃盗目的で侵入疑い 中国籍の男逮捕 国際的窃盗Gメンバーか 千葉)",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "銭湯ロッカーからクレカの「ICチップすり替え」被害約100件 窃盗グループ指示役とみられる中国籍の男を逮捕 海外で不正利用も確認 千葉県警",
+        "date": "2026-11-13",
+        "url": "https://news.yahoo.co.jp/articles/2b3b435c93de252291273f7fec065956c43885d4"
+      },
+      "reason": "同一5W1H＋年齢一致 [千葉県 / 中国籍 / 一般窃盗・スリ・車上荒らし / 18歳]",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "スーパー銭湯に窃盗目的で侵入疑い 中国籍の男を逮捕 中国人窃盗グループによる組織的犯行か 千葉",
+        "date": "2026-11-13",
+        "url": "https://www.fnn.jp/articles/-/1151660"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 銭湯に窃盗目的で侵入疑い 中国籍の男逮捕 国際的窃盗Gメンバーか 千葉)",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "【ベトナム人殺害事件】殺人の疑いで知人のベトナム人の男逮捕 自宅で口論...トラブルに発展か 神奈川・横浜市",
+        "date": "2026-11-12",
+        "url": "https://news.yahoo.co.jp/articles/8a346d37fd47f3abc57b8529a179c121e61a80e3"
+      },
+      "reason": "event-dedupe一致 (国籍+場所+罪種: ベトナム国籍の男性を殺害容疑、24歳の男を再逮捕 容疑を否認 [神奈川県])",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「バックしていた時に...ガシャンと」道路工事の現場で警備していた男性がダンプ車にはねられ死亡 運転のベトナム人の男逮捕 大阪・富田林市",
+        "date": "2026-11-12",
+        "url": "https://www.msn.com/ja-jp/news/news/%E3%83%90%E3%83%83%E3%82%AF%E3%81%97%E3%81%A6%E3%81%84%E3%81%9F%E6%99%82%E3%81%AB-%E3%82%AC%E3%82%B7%E3%83%A3%E3%83%B3%E3%81%A8-%E9%81%93%E8%B7%AF%E5%B7%A5%E4%BA%8B%E3%81%AE%E7%8F%BE%E5%A0%B4%E3%81%A7%E8%AD%A6%E5%82%99%E3%81%97%E3%81%A6%E3%81%84%E3%81%9F%E7%94%B7%E6%80%A7%E3%81%8C%E3%83%80%E3%83%B3%E3%83%97%E8%BB%8A%E3%81%AB%E3%81%AF%E3%81%AD%E3%82%89%E3%82%8C%E6%AD%BB%E4%BA%A1-%E9%81%8B%E8%BB%A2%E3%81%AE%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E4%BA%BA%E3%81%AE%E7%94%B7%E9%80%AE%E6%8D%95-%E5%A4%A7%E9%98%AA-%E5%AF%8C%E7%94%B0%E6%9E%97%E5%B8%82/ar-AA2hePkl"
+      },
+      "reason": "タイトル高類似 (100%: 「バックしていた時に...ガシャンと」道路工事の現場で警備していた男性がダンプ車にはねられ死亡 運転のベトナム人の男逮捕 大阪・富田林市)",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "県道で女性死亡 ひき逃げ疑いでベトナム国籍の男逮捕 (2026年11月11日掲載)",
+        "date": "2026-11-11",
+        "url": "https://times.abema.tv/articles/-/10288037"
+      },
+      "reason": "event-dedupe一致 (国籍+場所+罪種: 【続報】常総の死亡ひき逃げ 高齢女性、自転車ではねて逃走 容疑でベトナム国籍の男逮捕 県警常総署(茨城新聞クロスアイ))",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ベトナム国籍の男性を殺害容疑、24歳の男を再逮捕 容疑を否認 [神奈川県]",
+        "date": "2026-11-12",
+        "url": "https://www.asahi.com/articles/ASVCC4H5FVCCULOB00KM.html"
+      },
+      "reason": "URL完全一致 (https://www.asahi.com/articles/ASVCC4H5FVCCULOB00KM.html)",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ニホンカモシカを密猟か ベトナム国籍の男を再逮捕 愛知県警(2026年11月10日掲載)|中京テレビNEWS NNN",
+        "date": "2026-11-11",
+        "url": "https://news.yahoo.co.jp/articles/c750ae4708b2d8d97c3dd219f9d9f1e2bb506c9c"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 首のあたりを鉄パイプで殴ったか...国の特別天然記念物「ニホンカモシカ」を無許可で捕獲し殺した疑い ベトナム人の28歳男を再逮捕)",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ニホンカモシカ捕獲し殺したか ベトナム国籍の男を再逮捕 岐阜",
+        "date": "2026-11-11",
+        "url": "https://topics.smt.docomo.ne.jp/article/tvasahinews/nation/tvasahinews-000546829"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 首のあたりを鉄パイプで殴ったか...国の特別天然記念物「ニホンカモシカ」を無許可で捕獲し殺した疑い ベトナム人の28歳男を再逮捕)",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "だましとったキャッシュカードでカネ引き出す 中国籍の40歳男を再逮捕 「出し子」をATMまで送迎か...トクリュウ関与の可能性(山形)",
+        "date": "2026-11-12",
+        "url": "https://news.yahoo.co.jp/articles/60c79bdf04aee63d66bde57d75288d46cfa307c4?source=rss"
+      },
+      "reason": "event-dedupe一致 (同日+同県+国籍+罪種（矛盾なし転載）: 他人名義のカードでATMから200万円を引き出す 村山警察署が中国国籍の男を再逮捕)",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "酔って口論になり殺害か ベトナム国籍の男を再逮捕",
+        "date": "2026-11-12",
+        "url": "https://news.yahoo.co.jp/articles/51366c7e4bf9b82102038983cbb30d5c1171e622?source=rss"
+      },
+      "reason": "event-dedupe一致 (国籍+場所+罪種: ベトナム国籍の男性を殺害容疑、24歳の男を再逮捕 容疑を否認 [神奈川県])",
+      "recordedAt": "2026-11-13T09:45:15.732Z"
     }
   ]
 }
