@@ -5,6 +5,11 @@ on:
     # 毎時17分自動巡回（夕方18時台の地方局ニュース配信ピークも遅延なく即日反映・00分キュー混雑回避）
     - cron: '17 * * * *'
   workflow_dispatch:
+    inputs:
+      backfill_days:
+        description: '長期停止後の強制遡及日数（空欄時は前回更新日から自動計算、3〜14）'
+        required: false
+        default: ''
 
 # 同時実行によるGit競合をシステムレベルで100%遮断
 concurrency:
@@ -17,7 +22,7 @@ permissions:
 jobs:
   collect-verify-build-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
 
     steps:
       - name: Checkout repository
@@ -38,6 +43,7 @@ jobs:
         env:
           DATA_FILE: 'data/newsData.json'
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          BACKFILL_DAYS: ${{ github.event.inputs.backfill_days }}
         run: |
           node scripts/collect-news.mjs
 
@@ -65,7 +71,7 @@ jobs:
             npm run build
           fi
 
-      - name: Step 4 - Commit & Push with Retry Loop
+      - name: Step 4 - Commit & Push with Self-Healing Retry Loop
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -77,16 +83,48 @@ jobs:
 
           git commit -m "chore(news): automated update of verified domestic foreign crime news"
 
-          # 3回リトライループによる耐障害プッシュ
-          for i in 1 2 3; do
-            echo "Push attempt $i..."
-            if git pull --rebase --autostash origin main && git push origin main; then
-              echo "Push succeeded on attempt $i."
+          # 5回バックオフ・リトライ＋NETLIFY_UPLOAD競合時の自動再ビルド自己修復ループ
+          for wait_sec in 10 20 30 45 60; do
+            echo "Attempting git push..."
+            if git push origin main; then
+              echo "Push succeeded."
               exit 0
             fi
-            echo "Push failed on attempt $i. Waiting 5 seconds before retry..."
-            sleep 5
+            echo "Direct push rejected or failed. Pulling latest origin/main..."
+            if git pull --rebase --autostash origin main; then
+              if git push origin main; then
+                echo "Push succeeded after rebase."
+                exit 0
+              fi
+            else
+              echo "[WARN] Pull/rebase failed (network error or NETLIFY_UPLOAD conflict). Self-healing..."
+              git rebase --abort || true
+              cp -f data/newsData.json /tmp/newsData.json.keep
+              cp -f data/seen_urls.json /tmp/seen_urls.json.keep 2>/dev/null || true
+              cp -f data/merged.json /tmp/merged.json.keep 2>/dev/null || true
+              cp -f data/removed.json /tmp/removed.json.keep 2>/dev/null || true
+              if git fetch origin main && git reset --hard origin/main; then
+                cp -f /tmp/newsData.json.keep data/newsData.json
+                cp -f /tmp/seen_urls.json.keep data/seen_urls.json 2>/dev/null || true
+                cp -f /tmp/merged.json.keep data/merged.json 2>/dev/null || true
+                cp -f /tmp/removed.json.keep data/removed.json 2>/dev/null || true
+                node scripts/dedupe-newsdata.cjs || true
+                if ! git diff --quiet data/newsData.json; then
+                  npm run build
+                fi
+                git add -A
+                git diff --staged --quiet || git commit -m "chore(news): automated update of verified domestic foreign crime news"
+                if git push origin main; then
+                  echo "Push succeeded after self-healing rebuild."
+                  exit 0
+                fi
+              else
+                echo "[WARN] git fetch failed due to temporary GitHub outage."
+              fi
+            fi
+            echo "Waiting ${wait_sec}s before next retry..."
+            sleep ${wait_sec}
           done
 
-          echo "[ERROR] Failed to push after 3 attempts."
+          echo "[ERROR] Failed to push after 5 attempts."
           exit 1

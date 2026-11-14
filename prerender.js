@@ -107,15 +107,22 @@ async function updateNoteArticles() {
     }
 
     // 保存先ディレクトリ（public/とdist/client/）
+    // note.com側の一時障害等で0件だった場合は既存のnote-articles.jsonを保護し空配列で上書きしない
     const publicDir = toAbsolute('public');
-    if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir);
-    fs.writeFileSync(path.join(publicDir, 'note-articles.json'), JSON.stringify(articles, null, 2), 'utf-8');
-
     const clientDir = toAbsolute('dist/client');
+    if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir);
     if (!fs.existsSync(clientDir)) fs.mkdirSync(clientDir, { recursive: true });
-    fs.writeFileSync(path.join(clientDir, 'note-articles.json'), JSON.stringify(articles, null, 2), 'utf-8');
+    const publicNotePath = path.join(publicDir, 'note-articles.json');
+    const clientNotePath = path.join(clientDir, 'note-articles.json');
 
-    console.log('Saved note-articles.json successfully!');
+    if (articles.length > 0) {
+      fs.writeFileSync(publicNotePath, JSON.stringify(articles, null, 2), 'utf-8');
+      fs.writeFileSync(clientNotePath, JSON.stringify(articles, null, 2), 'utf-8');
+      console.log('Saved note-articles.json successfully!');
+    } else if (fs.existsSync(publicNotePath)) {
+      fs.copyFileSync(publicNotePath, clientNotePath);
+      console.warn('note RSS returned 0 items; preserved existing note-articles.json.');
+    }
   } catch (error) {
     console.error('Failed to scrape note feed:', error);
   }

@@ -32,6 +32,8 @@ const CONFIG = {
   DEDUP_WINDOW_DAYS: 14,
   TITLE_SIMILARITY_THRESHOLD: 0.62,
   FETCH_TIMEOUT_MS: 8500,
+  MAX_CANDIDATES_PER_RUN: 140,
+  MAX_RUN_DURATION_MS: 12 * 60 * 1000,
   GEMINI_API_KEY: process.env.GEMINI_API_KEY || '',
   GEMINI_MODEL: 'gemini-2.5-flash',
   GEMINI_RATE_LIMIT_WAIT_MS: 1300,
@@ -1120,10 +1122,27 @@ async function main() {
     if (a.url) seenUrls.add(normalizeUrl(a.url));
   });
 
+  const runStartTime = Date.now();
+
+  // 2.5 長期停止からの自動復旧（オート・バックフィル日数計算）
+  // 既存データの最新記事日時からの空白期間（または環境変数 BACKFILL_DAYS）に応じ、検索窓を 3d〜最大14d に動的拡大
+  const latestExistingMs = existingProtected.reduce((max, a) => {
+    const t = Date.parse(a.pubDate || a.date || '');
+    return Number.isFinite(t) && t > max ? t : max;
+  }, 0);
+  const outageDays = latestExistingMs > 0 ? Math.ceil((runStartTime - latestExistingMs) / (24 * 60 * 60 * 1000)) : 3;
+  const envBackfillDays = Number(process.env.BACKFILL_DAYS) || 0;
+  const effectiveWindowDays = Math.min(14, Math.max(3, envBackfillDays, outageDays >= 2 ? outageDays + 2 : 3));
+  const isOutageRecovery = effectiveWindowDays > 3;
+  if (isOutageRecovery) {
+    console.log(`[RECOVERY] 長期停止・空白期間を検知 (最新記事から約${outageDays}日経過 / 指定=${envBackfillDays || '自動'}): 検索窓を when:${effectiveWindowDays}d に動的拡大し全シャード巡回を実行します。`);
+  }
+
   // 3. 全国網羅収集（①Google News 13クエリ ＋ ②公式RSS・Yahoo地域シャード ＋ ③主要局一覧ページ直接巡回 ＋ ④県警公式発表）
   const rawFetchedItems = [];
 
-  for (const query of GOOGLE_NEWS_QUERIES) {
+  for (const baseQuery of GOOGLE_NEWS_QUERIES) {
+    const query = baseQuery.replace(/when:\d+d/g, `when:${effectiveWindowDays}d`);
     const googleRssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=ja&gl=JP&ceid=JP:ja`;
     try {
       const res = await fetchWithTimeout(googleRssUrl);
@@ -1143,7 +1162,10 @@ async function main() {
       if (catRes.ok) {
         const catHtml = await catRes.text();
         const allLocal = rssSources.parseYahooMediaCatalog(catHtml);
-        const shard = rssSources.selectYahooMediaShard(allLocal, { now: Date.now(), shardCount: 2 });
+        const shard = rssSources.selectYahooMediaShard(allLocal, {
+          now: Date.now(),
+          shardCount: isOutageRecovery ? 1 : 2,
+        });
         officialFeeds.push(...shard);
       }
     } catch {
@@ -1205,8 +1227,8 @@ async function main() {
 
   console.log(`[FETCH] 全国RSS・ローカル局・県警発表から合計 ${rawFetchedItems.length} 件の候補を取得しました。`);
 
-  // 4. 一次フィルタ（既読URL、10日超の古い記事、永久台帳登録済み、非事件・海外見出し、バッチ内重複を除外）
-  const maxAgeMs = 10 * 24 * 60 * 60 * 1000;
+  // 4. 一次フィルタ（既読URL、最大保持日超の古い記事、永久台帳登録済み、非事件・海外見出し、バッチ内重複を除外）
+  const maxAgeMs = Math.max(10, effectiveWindowDays) * 24 * 60 * 60 * 1000;
   const uniqueCandidates = [];
   for (const item of rawFetchedItems) {
     if (!item.title || !item.url) continue;
@@ -1247,12 +1269,19 @@ async function main() {
     }
   }
 
-  console.log(`[FILTER] 厳格審査対象の未検査候補 ${uniqueCandidates.length} 件についてURL解決・本文コンテナ抽出・主述結合検証を実行します...`);
+  // 新しい記事から優先的に処理し、長期停止明けで候補が大量にある場合もタイムアウト前に確実に保存・反映する
+  uniqueCandidates.sort((a, b) => new Date(b.pubDate || 0) - new Date(a.pubDate || 0));
+  const candidatesToProcess = uniqueCandidates.slice(0, CONFIG.MAX_CANDIDATES_PER_RUN);
+  console.log(`[FILTER] 厳格審査対象の未検査候補 ${uniqueCandidates.length} 件（今回処理対象: ${candidatesToProcess.length} 件）についてURL解決・本文コンテナ抽出・主述結合検証を実行します...`);
 
   const newlyAccepted = [];
   const newRemovedRecords = [];
   const newMergedRecords = [];
-  for (const candidate of uniqueCandidates) {
+  for (const candidate of candidatesToProcess) {
+    if (Date.now() - runStartTime >= CONFIG.MAX_RUN_DURATION_MS) {
+      console.warn(`[TIME-GUARD] 実行時間が安全上限 (${Math.round(CONFIG.MAX_RUN_DURATION_MS / 60000)}分) に達したため、ここまでの採用記事を優先保存・サイト反映し、残りの候補は次回実行へ引き継ぎます。`);
+      break;
+    }
     const originalUrl = candidate.url;
     const bodyText = await resolveUrlAndPureArticleBody(candidate);
 
