@@ -141,10 +141,13 @@ function isFollowUp(older, newer) {
 }
 
 function signals(item) {
+  const summaryText = item.summary && !/発生した外国人関与の事件・容疑に関する報道速報です|本文の文脈結合で確認した報道です/.test(item.summary) ? item.summary : '';
   const evidence = [
     item.audit?.suspectRole?.evidence || item.evidence?.suspect,
     item.audit?.japanCrime?.evidence || item.locationBasis,
     item.audit?.foreignNationality?.evidence || item.evidence?.nationality,
+    item.nationality,
+    summaryText,
   ]
     .filter(Boolean).join(' ').replace(/本文抜粋:\s*/g, '');
   const title = nfkc(item.title).replace(/\s*\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*\d{1,2}:\d{2}\s*$/, '').replace(/\s*\d+(?:分|時間)前\s*$/, '')
@@ -158,6 +161,7 @@ function signals(item) {
   // 辞書に無い国籍（リビア・チュニジア等）も「カタカナ+国籍」で自動抽出
   for (const m of text.matchAll(/([ァ-ヴ][ァ-ヴー]{1,11})国籍/g)) nats.add(NAT_ALIAS[m[1]] || m[1]);
   if (US_MILITARY_RE.test(text)) nats.add('アメリカ');
+  const genericForeignOnly = nats.size === 0 && /(?:外国籍|外国人|外国人とみられる)/.test(text);
   // 被害者年齢（「20代女性に」「28歳男性が襲われる」「女性(39)の遺体」等）を除外してから被疑者年齢を抽出
   const ageSource = text
     .replace(/\d{2}\s*(?:歳|代)(?:だった)?(?:の)?\s*(?:男性|女性|男児|女児|少女|児童|生徒|高校生|大学生|専門学校生|会社員|店員|住人|被害者|遺体)/g, ' ')
@@ -239,7 +243,7 @@ function signals(item) {
     .replace(/再逮捕|逮捕|送検|起訴|容疑|疑い|の男|の女|男性|女性|男ら|女ら|自称|無職|会社員|会社役員|現行犯|警察|警視庁|県警|府警|道警|署|事件|だまし取った|だまし取|取った|盗んだ|現金|した|された|して|か$|など|ニュース|NEWS|掲載|日掲載|月|年|#/g, '');
   const content = new Set();
   for (let i = 0; i < c.length - 1; i++) content.add(c.slice(i, i + 2));
-  return { nats, ages, genders, places, crimes, grams, content, incidentAnchors, suspectNames: suspectNames(item), location: item.location || '', procedureStage: stage };
+  return { nats, genericForeignOnly, ages, genders, places, crimes, grams, content, incidentAnchors, suspectNames: suspectNames(item), location: item.location || '', procedureStage: stage };
 }
 
 const intersects = (a, b) => [...a].some((x) => b.has(x));
@@ -306,14 +310,23 @@ function sameEventReason(a, b, { maxDays = 14 } = {}) {
   const sharedIncidentAnchor = intersects(sa.incidentAnchors || new Set(), sb.incidentAnchors || new Set());
   const hasMatchingSuspectName = intersects(sa.suspectNames || new Set(), sb.suspectNames || new Set());
   const natsMatch = Boolean(sa.nats.size && sb.nats.size && intersects(sa.nats, sb.nats));
+  const genericVsSpecificNat = Boolean(
+    (sa.genericForeignOnly && !sa.nats.size && sb.nats.size > 0)
+    || (sb.genericForeignOnly && !sb.nats.size && sa.nats.size > 0)
+  );
   // 数量・金額の事実アンカーが一致し、同県・3日以内・国籍が矛盾しない場合だけ、
   // 媒体ごとに容疑者名・年齢・場所の表記が揺れる複数被疑者事件の転載を同一事件として扱う。
   const sameStoredRegionForFact = Boolean(a.location && b.location && a.location === b.location);
+  const genericNatConfirmedSame = genericVsSpecificNat
+    && daysApart(a.date, b.date) <= 3
+    && sameStoredRegionForFact
+    && intersects(sa.crimes, sb.crimes)
+    && (intersects(sa.ages, sb.ages) || intersects(sa.places, sb.places) || dice(sa.grams, sb.grams) >= 0.55 || hasMatchingSuspectName);
   const crossPrefFactShared = [...(sa.incidentAnchors || [])].some((x) => x.startsWith('fact:') && !x.endsWith('kg') && sb.incidentAnchors?.has(x)) && daysApart(a.date, b.date) <= 2 && natsMatch && intersects(sa.crimes, sb.crimes) && (intersects(sa.ages, sb.ages) || (sa.genders.size >= 2 && sb.genders.size >= 2) || dice(sa.content, sb.content) >= 0.20);
   const factAnchorShared = [...(sa.incidentAnchors || [])].some((x) => x.startsWith('fact:') && sb.incidentAnchors?.has(x))
     && daysApart(a.date, b.date) <= 3 && sameStoredRegionForFact
     && (natsMatch || !sa.nats.size || !sb.nats.size) || crossPrefFactShared;
-  if (!natsMatch && !factAnchorShared && !hasMatchingSuspectName) return null;
+  if (!natsMatch && !genericNatConfirmedSame && !factAnchorShared && !hasMatchingSuspectName) return null;
   if (sa.suspectNames?.size && sb.suspectNames?.size && !hasMatchingSuspectName && !factAnchorShared) return null;
   const sameAge = intersects(sa.ages, sb.ages);
   const samePlace = intersects(sa.places, sb.places);
@@ -374,6 +387,9 @@ function sameEventReason(a, b, { maxDays = 14 } = {}) {
   const genderConflict = sa.genders.size && sb.genders.size && !intersects(sa.genders, sb.genders);
   if (natsMatch && sameCrime && a.date === b.date && sameStoredRegion && locationRelation !== 'conflict'
     && !agesConflict && !placesConflict && !genderConflict) return '同日+同県+国籍+罪種（矛盾なし転載）';
+  if (genericNatConfirmedSame && !agesConflict && !placesConflict && !genderConflict && sameStage) {
+    return '国籍判明続報(外国籍→具体国籍)+同県+罪種+一致';
+  }
   return null;
 }
 

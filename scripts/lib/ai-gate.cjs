@@ -92,7 +92,7 @@ const VICTIM_OBJECT_RE =
 // 国籍表現が加害者ではない役割: 雇われた側・装われた側・乗客・対象（向け/相手）
 // 「インド人の男に襲われ」: 人物名詞＋「に」＋受身 は、国籍側が動作主（加害者）。「男性 車にはねられ」の「車に」は該当しない
 const AGENT_PASSIVE_RE = /^(?:の)?(?:男性|女性|男|女|少年|少女|グループ|集団|客|ら|\d+人組|容疑者)(?:\(\d+\))?(?:ら)?に[^、。]{0,6}?(?:刺され|襲われ|襲撃され|殴られ|蹴られ|切りつけられ|脅され|だまし取られ|盗まれ|奪われ|連れ去られ|監禁され)/;
-const NON_SUSPECT_AFTER_RE = /^(?:被害者|被害女性|被害男性|観光客|乗客|の観光客|の乗客|窃盗グループ[^。]{0,12}から|の窃盗グループ[^。]{0,12}から|を乗せ|を送迎|を装|になりすま|風の|向け|相手|の相談|の支援|(?:[^。]{0,18}?)(?:に(?:不法|違法|働か|就労|雇|資格外活動をさせ|在留資格を得させ)|を(?:[^。]{0,12}?)(?:不法に働かせ|違法に働かせ|不法就労させ|雇用し))|と偽|の?(?:男|女|男性|女性)は(?:現場にいた|事件を目撃|目撃していた|同乗していた|同行していた|立ち会っていた))/;
+const NON_SUSPECT_AFTER_RE = /^(?:被害者|被害女性|被害男性|観光客|乗客|の観光客|の乗客|窃盗グループ[^。]{0,12}から|の窃盗グループ[^。]{0,12}から|を乗せ|を送迎|を装|になりすま|風の|向け|相手|の相談|の支援|(?:[^。]{0,45}?)(?:に(?:不法|違法|働か|就労|雇|資格外活動をさせ|在留資格を得させ|偽造を依頼)|を(?:[^。]{0,30}?)(?:不法に働かせ|違法に働かせ|不法就労させ|就労させ|雇用し|雇い|雇って|かくまい|蔵匿し|隠避し))|から(?:[^。]{0,25}?)(?:買い取|譲り受け|購入し)|と偽|の?(?:男|女|男性|女性)は(?:現場にいた|事件を目撃|目撃していた|同乗していた|同行していた|立ち会っていた))/;
 // ここに達したら被疑者側の述語に入ったとみなして、被害者語彙の探索を打ち切る
 const CLAUSE_STOP_RE = /[。]|逮捕|送検|送致|起訴|初公判|公判|求刑|判決|有罪|容疑|疑い|摘発|検挙|立件|書類送検/;
 
@@ -105,10 +105,11 @@ function natOccurrences(text) {
     const victimHead = VICTIM_HEAD_RE.test(head);
     const tail = t.slice(m.index + m[0].length, m.index + m[0].length + 150);
     const stop = tail.search(CLAUSE_STOP_RE);
-    const win = (stop >= 0 ? tail.slice(0, stop) : tail).slice(0, 28);
+    const stopSlice = stop >= 0 ? tail.slice(0, stop) : tail;
+    const win = stopSlice.slice(0, 28);
     const victimPossession = /^(?:観光客|女性|女|男性|男|客)[^。]{0,70}(?:が所持|が持|の所持|の持)[^。]{0,55}(?:を盗|を窃盗|を置き引き|が盗まれ|が奪われ)/.test(tail);
     const victim = victimHead || victimPossession || (!AGENT_PASSIVE_RE.test(win) && (VICTIM_PASSIVE_RE.test(win) || VICTIM_OBJECT_RE.test(win)));
-    const nonSuspect = NON_SUSPECT_AFTER_RE.test(win);
+    const nonSuspect = NON_SUSPECT_AFTER_RE.test(stopSlice.slice(0, 60));
     // index: 同じ国籍語が1文に2回出る（被害者と被疑者が同国籍）場合に、各出現の位置で判定するため保持
     return { text: m[0], index: m.index, victim, nonSuspect, suspect: !victim && !nonSuspect };
   });
@@ -127,14 +128,14 @@ function nationalityLinkedToSuspect(sentence, occurrence) {
     ? occurrence.index : t.indexOf(occText);
   if (at < 0) return false;
   const prefix = t.slice(Math.max(0, at - 70), at);
-  const tail = t.slice(at + occText.length, at + occText.length + 150);
+  const tail = t.slice(at + occText.length, at + occText.length + 180);
   const clause = tail.split(/[。「」]/, 1)[0];
 
   // 1. 同じ文に「逮捕されたのは日本人」など、実際の被疑者が別人だと明示されているときは除外
   if (/(?:逮捕|送検|送致|起訴)[^。]{0,24}(?:されたのは|したのは)\s*日本(?:人|国籍)/.test(clause)) return false;
 
-  // 2. 従属節（「〜したとして、」「〜した疑いで、」「〜を乗せ、」）の後に別の被疑者目的語（船長ら・経営者・日本人等）が逮捕される構文は前半の国籍語が被害者/乗客なので除外
-  if (/^(?:の)?[^。]{0,55}?(?:に暴行|を暴行|の顔に|の顔面に|を乗せ|を送迎|を働かせ|を雇用|から現金)[^。]{0,35}?(?:として|疑いで|容疑で)[、，\s][^。]*?(?:逮捕|送検|摘発|書類送検)/.test(clause)) return false;
+  // 2. 従属節（「〜したとして、」「〜した疑いで、」「〜を乗せ、」「〜を不法就労させた疑いで、」）の後に別の被疑者目的語（船長ら・経営者・日本人漢字氏名等）が逮捕される構文は前半の国籍語が被害者/被雇用者/取引相手なので除外
+  if (/^(?:の)?[^。]{0,85}?(?:に暴行|を暴行|の顔に|の顔面に|を乗せ|を送迎|を働かせ|を不法に働かせ|を違法に働かせ|を不法就労させ|に不法就労させ|を就労させ|を雇用|を雇い|から現金|から買い取|から購入|に偽造を依頼|をかくまい|を蔵匿)[^。]{0,45}?(?:として|疑いで|容疑で)[、，\s][^。]*?(?:逮捕|送検|摘発|書類送検)/.test(clause)) return false;
   const escapedSuspectAct = /^(?:とみられる|風の|グループの|集団の|\s|の)*(?:男|女|人物|グループ|[0-9０-９]+人組?)[^。]{0,45}?(?:切り付け|切りつけ|刺し|殴|暴行|奪っ|盗ん|押し入|侵入|放火|はね|ひき逃げ|殺害)[^。]{0,30}?(?:逃走|逃げ|行方)/.test(clause);
 
   // 被害者・対象者としての明示を除外（「中国人女性を暴行」「遺体で見つかった」等）
@@ -190,8 +191,8 @@ const FOREIGN_ARREST_RE = new RegExp(`(?:${COUNTRY_ALT})(?:警察|当局|検察|
 const JP_AUTH_RE = /警視庁|(?:道|府|県)警|警察署|[一-龥ぁ-んァ-ヴー]{2,8}署|海上保安|地検|地裁|高裁|区検|麻薬取締|税関支署|入管|出入国在留管理/;
 // 外国の地名が事件の場所として出ている（日本の地名・警察の記述が無いときだけ海外扱い。場所不明で採用する際の安全弁）
 const OVERSEAS_PLACE_RE = new RegExp(`(?:${COUNTRY_ALT})(?:国内|で(?:起き|発生|の事件)|の(?:首都|州|都市))|(?:ニューヨーク|ロサンゼルス|ロンドン|パリ|ソウル|北京|上海|バンコク|マニラ|ジャカルタ|ハノイ|シドニー|ベルリン|モスクワ|ドバイ|台北|プノンペン|ヤンゴン)(?:市警|で|市内)`);
-// 外国の行政区画・裁判所・公安機関の固有名（韓国・中国・台湾など）。国名を伴わない海外報道の翻訳記事を除外する。
-const FOREIGN_REGION_RE = /(?:京畿道|江原道|慶尚[南北]道|全羅[南北]道|忠清[南北]道|済州道|釜山|仁川|大邱|水原|城南市|ブンダン|盆唐|[^\s、。]{1,6}支院|広東省|福建省|浙江省|江蘇省|遼寧省|吉林省|黒竜江省|山東省|河北省|河南省|四川省|雲南省|湖南省|湖北省|公安局|高雄|台中市)/;
+// 外国の行政区画・裁判所・公安機関の固有名（韓国・中国・台湾など）および海外発信クレジット（【ソウル＝...】等）。国名を伴わない海外報道の翻訳記事を除外する。
+const FOREIGN_REGION_RE = /(?:京畿道|江原道|慶尚[南北]道|全羅[南北]道|忠清[南北]道|済州道|釜山|仁川|大邱|水原|城南市|ブンダン|盆唐|[^\s、。]{1,6}支院|広東省|福建省|浙江省|江蘇省|遼寧省|吉林省|黒竜江省|山東省|河北省|河南省|四川省|雲南省|湖南省|湖北省|公安局|高雄|台中市|^\s*[【\[（(](?:ソウル|北京|上海|香港|台北|バンコク|マニラ|ハノイ|ジャカルタ|プノンペン|ヤンゴン|ニューデリー|ワシントン|ニューヨーク|ロサンゼルス|ロンドン|パリ|ベルリン|モスクワ|ローマ|シドニー|カイロ|イスタンブール|テヘラン|ドバイ)[＝=・\s時事共同])/m;
 const isOverseas = (t) => {
   const x = nfkc(t);
   // 記事の別段落にある日本の地名・住所・逮捕場所が、海外で起きた犯行を
@@ -619,6 +620,7 @@ function cleanPoliceAndResidence(str) {
  * 犯罪行為の文脈（suspectSentence または直前文）と直接結びついた国内現場を特定する
  */
 function resolveCrimeSceneInContext(targetSentence, dict = loadMunicipalities()) {
+  const rawNorm = nfkc(targetSentence);
   const cleanSent = cleanPoliceAndResidence(targetSentence);
 
   // 現場表現のキーワード（単独の「宅」は誤検知を防ぐため「〇〇宅」に限定、自治体名＋助詞・商業施設・アウトレット等を含む）
@@ -635,8 +637,19 @@ function resolveCrimeSceneInContext(targetSentence, dict = loadMunicipalities())
     }
   }
 
+  // 1.5 「松戸東署は、同市内の路上で〜」のように警察署名＋「同市内/同町内/同区内/管内」で現場が示される文では、警察署の管轄県を優先特定
+  if (/(?:同市|同区|同町|同村|管内)(?:内|の)?(?:で|において|の路上|の店舗|の住宅|の駐車場|にある)/.test(rawNorm)) {
+    const stationTokens = rawNorm.match(/[一-龥ぁ-んァ-ヴー]{2,10}(?:警察署|署)/g) || [];
+    if (stationTokens.length > 0) {
+      const stationResolved = resolvePrefecture(stationTokens.join(' '));
+      if (stationResolved?.pref && stationResolved.method === 'police_station') {
+        return { pref: stationResolved.pref, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+      }
+    }
+  }
+
   // 2. 都道府県名の照合（北から順ではなく、「〇〇県で」等の現場助詞・管轄警察・出現位置順を優先）
-  const scenePrefRegex = new RegExp(`(${PREFECTURES.map(esc).join('|')})(?:内)?(?:で|において|にある|の路上|の店舗|の施設|の商業施設|の住宅|の工場|の駐車場|運転免許)`);
+  const scenePrefRegex = new RegExp(`(${PREFECTURES.map(esc).join('|')})(?:[^、。]{0,10}?(?:市|区|町|村))?(?:内)?(?:で|において|にある|の路上|の店舗|の施設|の商業施設|の住宅|のホテル|の工場|の駐車場|運転免許)`);
   const scenePrefMatch = cleanSent.match(scenePrefRegex);
   if (scenePrefMatch) {
     return { pref: scenePrefMatch[1], evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
@@ -649,7 +662,6 @@ function resolveCrimeSceneInContext(targetSentence, dict = loadMunicipalities())
     return { pref: orderedPrefs[0].p, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
   }
   if (orderedPrefs.length > 1) {
-    const rawNorm = nfkc(targetSentence);
     const policeMatched = orderedPrefs.find(({ p }) => new RegExp(`${esc(p === '北海道' ? '道' : p.slice(0, -1))}警|${esc(p)}警`).test(rawNorm));
     if (policeMatched) {
       return { pref: policeMatched.p, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };

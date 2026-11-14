@@ -394,4 +394,22 @@ test('現場特定: 居住地や北の都道府県ではなく犯行現場と捜
   const fukuokaBody = gate.verifyArticleContent('福岡県警は１０日、東京都墨田区、中国籍の無職の女の被告（詐欺罪で公判中）を詐欺などの疑いで再逮捕した。', '6000万円詐取の疑い、中国籍の女を再逮捕');
   assert.equal(fukuokaBody.verified, true);
   assert.equal(fukuokaBody.location, '福岡県');
+  const stationScene = gate.resolveCrimeSceneInContext('松戸東署によると、埼玉県三郷市に住むベトナム国籍の男（29）が同市内の路上で女性のバッグを盗んだ疑いで逮捕された。');
+  assert.equal(stationScene?.pref, '千葉県');
+});
+
+test('本文ゲート: 長文の不法就労助長・盗品買取の日本人逮捕や海外発信クレジットを除外する', () => {
+  const employerText = 'ベトナム人技能実習生3人を自社の解体工事現場で不法に就労させた入管難民法違反（不法就労助長）の疑いで、建設会社社長の山田太郎容疑者（52）を逮捕しました。';
+  const employerRes = gate.verifyArticleContent(employerText, '技能実習生を不法就労させた疑い、建設会社社長を逮捕');
+  assert.equal(employerRes.verified, false);
+
+  const buyerText = 'カンボジア国籍の窃盗グループから盗難自動車と知りながら買い取った盗品等有償譲り受けの疑いで、中古車販売会社役員の佐藤一郎容疑者（45）を逮捕しました。';
+  const buyerRes = gate.verifyArticleContent(buyerText, '盗難車買い取った疑いで中古車販売会社役員を逮捕');
+  assert.equal(buyerRes.verified, false);
+
+  const overseasText = '【ソウル＝時事】韓国警察は、詐欺容疑で中国籍の男を逮捕した。被害者の一部は日本にも関係していたという。';
+  const overseasRes = gate.verifyArticleContent(overseasText, '中国籍の男を詐欺容疑で逮捕');
+  assert.equal(overseasRes.verified, false);
+  assert.equal(overseasRes.rejected, true);
+  assert.equal(overseasRes.rejectReason, 'crime_outside_japan');
 });

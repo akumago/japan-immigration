@@ -679,3 +679,35 @@ test('再発防止: 銀座偽基地局・歌舞伎町バー一斉摘発・運転
   const examB = mk('島根県で運転免許の試験中に外国語の問題文を盗撮か、茨城県のパキスタン国籍の会社員を逮捕', '2026-11-11', '茨城県', '島根県運転免許センターで学科試験中に外国語の問題文を盗撮し業務妨害容疑で逮捕');
   assert.ok(dedupe.sameEventReason(examA, examB));
 });
+
+test('summary活用および初報(外国籍)と続報(具体国籍)の重複統合', () => {
+  const firstReport = {
+    id: 'g1',
+    title: '路上で女性から現金奪った疑い 外国籍の男を逮捕',
+    date: '2026-11-12',
+    location: '埼玉県',
+    nationality: '外国籍',
+    stage: '逮捕',
+    summary: '埼玉県川口市内の路上で女性のバッグを奪った強盗容疑で外国籍の男（28）を逮捕した。',
+  };
+  const followReport = {
+    id: 'g2',
+    title: '川口市でバッグ奪った疑い ベトナム国籍の男（28）を逮捕',
+    date: '2026-11-12',
+    location: '埼玉県',
+    nationality: 'ベトナム国籍',
+    stage: '逮捕',
+    summary: '川口市で女性のバッグを強奪した強盗の疑いでベトナム国籍の28歳の男を逮捕した。',
+  };
+  assert.match(dedupe.sameEventReason(firstReport, followReport) || '', /国籍判明続報|罪種/);
+
+  const diffPerson = {
+    id: 'g3',
+    title: '川口市でバッグ奪った疑い ベトナム国籍の男（45）を逮捕',
+    date: '2026-11-12',
+    location: '埼玉県',
+    nationality: 'ベトナム国籍',
+    stage: '逮捕',
+  };
+  assert.equal(dedupe.sameEventReason(firstReport, diffPerson), null, '年齢が異なる別事件は統合しない');
+});

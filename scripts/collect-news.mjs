@@ -116,28 +116,30 @@ const CRIME_CATEGORIES = [
 ];
 
 const GOOGLE_NEWS_QUERIES = [
-  '"国籍の" ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "摘発" OR "起訴" OR "不起訴" OR "判決") when:2d',
-  '("外国籍の" OR "外国人の" OR "外国人とみられる" OR "外国人グループ") ("逮捕" OR "再逮捕" OR "送検" OR "摘発" OR "起訴" OR "不起訴" OR "逃走") when:2d',
-  '("不法残留" OR "不法滞在" OR "入管難民法" OR "在留カード" OR "技能実習生" OR "特定技能") ("国籍" OR "外国籍" OR "外国人" OR "中国" OR "ベトナム" OR "タイ" OR "インドネシア" OR "ネパール" OR "スリランカ") ("逮捕" OR "再逮捕" OR "摘発" OR "送検") when:2d',
-  '("中国籍" OR "ベトナム国籍" OR "韓国籍" OR "台湾籍" OR "フィリピン国籍" OR "ブラジル国籍" OR "トルコ国籍" OR "ペルー国籍") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "摘発" OR "起訴" OR "不起訴") when:2d',
-  '("タイ国籍" OR "インドネシア国籍" OR "カンボジア国籍" OR "スリランカ国籍" OR "パキスタン国籍" OR "ネパール国籍" OR "ミャンマー国籍" OR "インド国籍" OR "米国籍" OR "米兵" OR "米海兵隊") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "摘発" OR "起訴" OR "不起訴") when:2d',
-  '("ベトナム人の" OR "中国人の" OR "韓国人の" OR "ブラジル人の" OR "フィリピン人の" OR "トルコ人の" OR "タイ人の" OR "クルド人の" OR "スリランカ人の" OR "インドネシア人の" OR "パキスタン人の" OR "ネパール人の") ("逮捕" OR "再逮捕" OR "送検" OR "摘発" OR "起訴") when:2d',
-  '("銅線" OR "太陽光" OR "無免許" OR "ひき逃げ" OR "医師法" OR "鳥獣保護" OR "偽造" OR "薬物" OR "大麻" OR "特殊詐欺" OR "出し子" OR "受け子" OR "白タク" OR "性的暴行" OR "不同意") ("国籍" OR "外国籍" OR "外国人" OR "中国籍" OR "韓国籍" OR "台湾籍" OR "ベトナム") ("逮捕" OR "再逮捕" OR "送検") when:2d',
-  '("北海道" OR "青森" OR "岩手" OR "宮城" OR "秋田" OR "山形" OR "福島") ("国籍" OR "外国籍" OR "外国人とみられる" OR "中国" OR "韓国" OR "台湾" OR "ベトナム" OR "ブラジル" OR "フィリピン" OR "インドネシア" OR "タイ" OR "ネパール") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "起訴" OR "不起訴" OR "摘発") when:3d',
-  '("茨城" OR "栃木" OR "群馬" OR "埼玉" OR "千葉" OR "東京" OR "神奈川") ("国籍" OR "外国籍" OR "外国人とみられる" OR "中国" OR "韓国" OR "台湾" OR "ベトナム" OR "ブラジル" OR "フィリピン" OR "トルコ" OR "タイ" OR "パキスタン") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "起訴" OR "不起訴" OR "摘発") when:2d',
-  '("新潟" OR "富山" OR "石川" OR "福井" OR "山梨" OR "長野" OR "岐阜" OR "静岡" OR "愛知" OR "三重") ("国籍" OR "外国籍" OR "外国人とみられる" OR "中国" OR "韓国" OR "台湾" OR "ベトナム" OR "ブラジル" OR "フィリピン" OR "インドネシア" OR "ペルー" OR "スリランカ") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "起訴" OR "不起訴" OR "摘発") when:3d',
-  '("滋賀" OR "京都" OR "大阪" OR "兵庫" OR "奈良" OR "和歌山") ("国籍" OR "外国籍" OR "外国人とみられる" OR "中国" OR "韓国" OR "台湾" OR "ベトナム" OR "ブラジル" OR "フィリピン" OR "パキスタン" OR "ネパール") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "起訴" OR "不起訴" OR "摘発") when:2d',
-  '("鳥取" OR "島根" OR "岡山" OR "広島" OR "山口" OR "徳島" OR "香川" OR "愛媛" OR "高知") ("国籍" OR "外国籍" OR "外国人とみられる" OR "中国" OR "韓国" OR "台湾" OR "ベトナム" OR "フィリピン" OR "インドネシア" OR "ブラジル") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "起訴" OR "不起訴" OR "摘発") when:3d',
-  '("福岡" OR "佐賀" OR "長崎" OR "熊本" OR "大分" OR "宮崎" OR "鹿児島" OR "沖縄") ("国籍" OR "外国籍" OR "外国人とみられる" OR "中国" OR "韓国" OR "台湾" OR "ベトナム" OR "ネパール" OR "米兵" OR "米軍") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "起訴" OR "不起訴" OR "摘発") when:3d',
+  '"国籍の" ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "摘発" OR "起訴" OR "不起訴" OR "公判" OR "判決") when:3d',
+  '("外国籍の" OR "外国人の" OR "外国人とみられる" OR "外国人グループ") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "摘発" OR "起訴" OR "不起訴" OR "判決" OR "逃走") when:3d',
+  '("不法残留" OR "不法滞在" OR "オーバーステイ" OR "不法入国" OR "仮放免" OR "入管難民法" OR "在留カード" OR "技能実習生" OR "元技能実習生" OR "特定技能" OR "留学生") ("国籍" OR "外国籍" OR "外国人" OR "中国籍" OR "中国人" OR "ベトナム" OR "タイ" OR "インドネシア" OR "ネパール" OR "スリランカ" OR "ミャンマー" OR "カンボジア") ("逮捕" OR "再逮捕" OR "摘発" OR "送検" OR "書類送検" OR "起訴") when:3d',
+  '("中国籍" OR "ベトナム国籍" OR "韓国籍" OR "台湾籍" OR "フィリピン国籍" OR "ブラジル国籍" OR "トルコ国籍" OR "ペルー国籍") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "摘発" OR "起訴" OR "不起訴" OR "公判" OR "判決") when:3d',
+  '("タイ国籍" OR "インドネシア国籍" OR "カンボジア国籍" OR "スリランカ国籍" OR "パキスタン国籍" OR "ネパール国籍" OR "ミャンマー国籍" OR "インド国籍" OR "バングラデシュ国籍" OR "モンゴル国籍" OR "ナイジェリア国籍" OR "イラン国籍" OR "ウズベキスタン国籍" OR "ロシア国籍" OR "米国籍" OR "米兵" OR "米海兵隊" OR "米軍属") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "摘発" OR "起訴" OR "不起訴" OR "公判" OR "判決") when:3d',
+  '("ベトナム人の" OR "中国人の" OR "韓国人の" OR "台湾人の" OR "ブラジル人の" OR "フィリピン人の" OR "トルコ人の" OR "タイ人の" OR "クルド人の" OR "スリランカ人の" OR "インドネシア人の" OR "パキスタン人の" OR "ネパール人の" OR "ミャンマー人の" OR "インド人の" OR "アメリカ人の" OR "ロシア人の") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "摘発" OR "起訴" OR "判決") when:3d',
+  '("銅線" OR "太陽光" OR "ヤード" OR "無免許" OR "ひき逃げ" OR "飲酒運転" OR "危険運転" OR "医師法" OR "薬機法" OR "鳥獣保護" OR "偽造" OR "偽装結婚" OR "地下銀行" OR "薬物" OR "覚醒剤" OR "コカイン" OR "大麻" OR "密輸" OR "特殊詐欺" OR "出し子" OR "受け子" OR "白タク" OR "性的暴行" OR "不同意" OR "わいせつ") ("国籍" OR "外国籍" OR "外国人" OR "中国籍" OR "中国人" OR "韓国籍" OR "台湾籍" OR "ベトナム" OR "ブラジル" OR "スリランカ" OR "パキスタン" OR "トルコ") ("逮捕" OR "再逮捕" OR "送検" OR "摘発" OR "起訴") when:3d',
+  '("北海道" OR "青森" OR "岩手" OR "宮城" OR "秋田" OR "山形" OR "福島") ("国籍" OR "外国籍" OR "外国人とみられる" OR "中国籍" OR "中国人" OR "韓国籍" OR "韓国人" OR "台湾" OR "ベトナム" OR "ブラジル" OR "フィリピン" OR "インドネシア" OR "タイ" OR "ネパール" OR "ミャンマー") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "起訴" OR "不起訴" OR "摘発" OR "判決") when:3d',
+  '("茨城" OR "栃木" OR "群馬" OR "埼玉" OR "千葉" OR "東京" OR "神奈川") ("国籍" OR "外国籍" OR "外国人とみられる" OR "中国籍" OR "中国人" OR "韓国籍" OR "韓国人" OR "台湾" OR "ベトナム" OR "ブラジル" OR "フィリピン" OR "トルコ" OR "クルド" OR "タイ" OR "パキスタン" OR "スリランカ") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "起訴" OR "不起訴" OR "摘発" OR "判決") when:3d',
+  '("新潟" OR "富山" OR "石川" OR "福井" OR "山梨" OR "長野" OR "岐阜" OR "静岡" OR "愛知" OR "三重") ("国籍" OR "外国籍" OR "外国人とみられる" OR "中国籍" OR "中国人" OR "韓国籍" OR "韓国人" OR "台湾" OR "ベトナム" OR "ブラジル" OR "フィリピン" OR "インドネシア" OR "ペルー" OR "スリランカ") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "起訴" OR "不起訴" OR "摘発" OR "判決") when:3d',
+  '("滋賀" OR "京都" OR "大阪" OR "兵庫" OR "奈良" OR "和歌山") ("国籍" OR "外国籍" OR "外国人とみられる" OR "中国籍" OR "中国人" OR "韓国籍" OR "韓国人" OR "台湾" OR "ベトナム" OR "ブラジル" OR "フィリピン" OR "パキスタン" OR "ネパール") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "起訴" OR "不起訴" OR "摘発" OR "判決") when:3d',
+  '("鳥取" OR "島根" OR "岡山" OR "広島" OR "山口" OR "徳島" OR "香川" OR "愛媛" OR "高知") ("国籍" OR "外国籍" OR "外国人とみられる" OR "中国籍" OR "中国人" OR "韓国籍" OR "韓国人" OR "台湾" OR "ベトナム" OR "フィリピン" OR "インドネシア" OR "ブラジル") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "起訴" OR "不起訴" OR "摘発" OR "判決") when:3d',
+  '("福岡" OR "佐賀" OR "長崎" OR "熊本" OR "大分" OR "宮崎" OR "鹿児島" OR "沖縄") ("国籍" OR "外国籍" OR "外国人とみられる" OR "中国籍" OR "中国人" OR "韓国籍" OR "韓国人" OR "台湾" OR "ベトナム" OR "ネパール" OR "スリランカ" OR "米兵" OR "米軍") ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "起訴" OR "不起訴" OR "摘発" OR "判決") when:3d',
 ];
 
 // ============================================================================
-// 2. 厳格ノイズ除外ルール（社説・コラム・政治要請・議会答弁・抗議・遺族談話・写真枠・海外事件を100%排除）
+// 2. 厳格ノイズ除外ルール（社説・コラム・政治要請・議会答弁・抗議・遺族談話・写真枠・デマ検証・告訴のみ・海外事件を100%排除）
 // ============================================================================
 
-const NON_INCIDENT_REGEX = /(?:^(?:画像・写真|写真特集|映像|動画)\s*[:：]|社説|論説|社論|オピニオン|コラム|解説|視点|論点|提言|インタビュー|アンケート|世論調査|統計|白書|ランキング|まとめ|特集|連載|振り返る|シンポジウム|セミナー|勉強会|デモ行進|抗議集会|法改正|制度見直し|入管法改正|ガイドライン|対策会議|防犯訓練|防犯教室|有識者|エキスパートトピ|【[^】]*(?:解説|詳報|前編|後編|中編|連載|特集)[^】]*】|[一-龥ァ-ヶ]{2,8}(?:大|大学)(?:講師|教授|准教授|名誉教授)\s*$|私見|に驚き|持論|苦言|モーニングショー|羽鳥慎一|ひるおび|ミヤネ屋|ゴゴスマ|めざまし8|サン!シャイン|ワイドナショー|[一-龥ァ-ヶ]{2,10}(?:弁護士|コメンテーター|元刑事)[、:]|(?:再)?逮捕へ(?:\s|$|[・　])|(?:書類)?送検へ(?:\s|$)|起訴へ(?:\s|$)|方針を固め|メッセージの遅さ|極めて遺憾|日米と県協議|協定の改定|改定が必要|パリピ生活|水際で阻止|応えよ$|求めよ$|べきだ$|とは…|できたワケ|の正体|とは何か|^[▽▼■◆●]\s*[上中下前後0-9０-９]|連帯広げる|不安抱く社会|浮かび上がる[^。]*の「?構図」?|専門家が語[るった]|だまされないための対策|エックス速報|合同巡回で米兵[^。]*外出禁止違反|憲兵隊が拘束|事件受けたパトロール|(?:事件|逮捕)[^。]{0,10}受け[^。]*(?:要請|抗議|答弁|集会|声明|談話|コメント|申し入れ|削除依頼|怒りの声|外出制限)|(?:首相|外務省|防衛省|政府|米軍)に[^。]*(?:要請|抗議|申し入れ)|(?:知事|市長|官房長官|大臣)[^。]*(?:再発防止|要請|抗議|注視|言及|批判|遺憾)|県議会[^。]*答弁|市民団体[^。]*(?:抗議|集会|怒りの声|要請|声明)|遺族(?:が|ら|も)[^。]*(?:コメント|談話|手記)|被害者へ中傷|中傷[^。]*削除依頼|日米共同演習|相次いで先島に飛来|FRIDAY|フライデー|逮捕直後の.*表情|初公判の傍聴券|傍聴席に.*姿|(?:合同)?巡視|パトロール活動|警戒活動|[＝=]中国ネット)/i;
+const NON_INCIDENT_REGEX = /(?:^(?:画像・写真|写真特集|映像|動画)\s*[:：]|社説|論説|社論|オピニオン|コラム|解説|視点|論点|提言|インタビュー|アンケート|世論調査|統計|白書|ランキング|まとめ|特集|連載|振り返る|シンポジウム|セミナー|勉強会|デモ行進|抗議集会|法改正|制度見直し|入管法改正|ガイドライン|対策会議|防犯訓練|防犯教室|有識者|エキスパートトピ|ファクトチェック|デマ|誤情報|根拠不明|真偽不明|デマ否定|刑事告訴|告訴状|被害届を?提出|ドラマ|映画(?!館|祭)|アニメ|ネタバレ|あらすじ|小説|漫画|【[^】]*(?:解説|詳報|前編|後編|中編|連載|特集|独自解説)[^】]*】|[一-龥ァ-ヶ]{2,8}(?:大|大学)(?:講師|教授|准教授|名誉教授)\s*$|私見|に驚き|持論|苦言|モーニングショー|羽鳥慎一|ひるおび|ミヤネ屋|ゴゴスマ|めざまし8|サン!シャイン|ワイドナショー|[一-龥ァ-ヶ]{2,10}(?:弁護士|コメンテーター|元刑事)[、:]|(?:再)?逮捕へ(?:\s|$|[・　])|(?:書類)?送検へ(?:\s|$)|起訴へ(?:\s|$)|方針を固め|メッセージの遅さ|極めて遺憾|日米と県協議|協定の改定|改定が必要|パリピ生活|水際で阻止|応えよ$|求めよ$|べきだ$|とは…|できたワケ|の正体|とは何か|^[▽▼■◆●]\s*[上中下前後0-9０-９]|連帯広げる|不安抱く社会|浮かび上がる[^。]*の「?構図」?|専門家が語[るった]|だまされないための対策|エックス速報|合同巡回で米兵[^。]*外出禁止違反|憲兵隊が拘束|事件受けたパトロール|(?:事件|逮捕)[^。]{0,10}受け[^。]*(?:要請|抗議|答弁|集会|声明|談話|コメント|申し入れ|削除依頼|怒りの声|外出制限)|(?:首相|外務省|防衛省|政府|米軍)に[^。]*(?:要請|抗議|申し入れ)|(?:知事|市長|官房長官|大臣)[^。]*(?:再発防止|要請|抗議|注視|言及|批判|遺憾)|県議会[^。]*答弁|市民団体[^。]*(?:抗議|集会|怒りの声|要請|声明)|遺族(?:が|ら|も)[^。]*(?:コメント|談話|手記)|被害者へ中傷|中傷[^。]*削除依頼|日米共同演習|相次いで先島に飛来|FRIDAY|フライデー|逮捕直後の.*表情|初公判の傍聴券|傍聴席に.*姿|(?:合同)?巡視|パトロール活動|警戒活動|[＝=]中国ネット)/i;
 
-const OVERSEAS_INCIDENT_REGEX = /(現地時間|現地メディア|現地警察|米警察|韓国警察|タイ警察|中国公安|比当局|フィリピン当局|カンボジア当局|ミャンマー当局|ロシア(?:当局|警察|で)|スパイ容疑|身柄拘束|人質|連邦検察|連邦地裁|州警察|保安官|邦人(?:を|ら)?(?:逮捕|拘束|保護)|日本人(?:の男|の女|ら|グループ)?を(?:現地|海外|国外|タイ|フィリピン|カンボジア|ベトナム|中国|韓国|米国|アメリカ|ロシア)で(?:逮捕|拘束|摘発)|国外退去処分を受けた日本人)/;
+const OVERSEAS_INCIDENT_REGEX = /(現地時間|現地メディア|現地警察|米警察|韓国警察|タイ警察|中国公安|比当局|フィリピン当局|カンボジア当局|ミャンマー当局|ロシア(?:当局|警察|で)|スパイ容疑|身柄拘束|人質|連邦検察|連邦地裁|州警察|保安官|JPドラゴン|ルフィ|邦人(?:を|ら)?(?:逮捕|拘束|保護)|日本人(?:の男|の女|ら|グループ)?を(?:現地|海外|国外|タイ|フィリピン|カンボジア|ベトナム|中国|韓国|米国|アメリカ|ロシア)で(?:逮捕|拘束|摘発)|国外退去処分を受けた日本人|^\s*[【\[（(](?:ソウル|北京|上海|香港|台北|バンコク|マニラ|ハノイ|ジャカルタ|プノンペン|ヤンゴン|ニューデリー|ワシントン|ニューヨーク|ロサンゼルス|ロンドン|パリ|ベルリン|モスクワ|ローマ|シドニー|カイロ)[＝=・\s時事共同])/;
+
+const OVERSEAS_OR_GOSSIP_MEDIA_RE = /(?:Record\s*China|レコードチャイナ|サーチナ|WoW!Korea|ワウコリア|中央日報|朝鮮日報|東亜日報|ハンギョレ|聯合ニュース|大紀元|新唐人|看中国|フォーカス台湾|中央社|CNN|BBC|ロイター|Reuters|AFPBB|ブルームバーグ|Bloomberg|江南タイムズ|Kstyle|モデルプレス|オリコン|ORICON|ナタリー|シネマトゥデイ|映画\.com|Real\s*Sound|文春オンライン|デイリー新潮|女性自身|女性セブン|週刊女性PRIME|FLASH|Smart\s*FLASH|FRIDAYデジタル|日刊ゲンダイ|東スポWEB|スポニチアネックス)/i;
 
 // ============================================================================
 // 3. ユーティリティ・JST日付・タイトル徹底クレンジング関数
@@ -371,9 +373,18 @@ function extractAgeDetails(text) {
 
 function extractMuniFromText(text) {
   const clean = aiGate.cleanPoliceAndResidence(String(text || '').normalize('NFKC'));
-  const muniMatch =
-    clean.match(/(?:都|道|府|県)([^都道府県\s、。「」『』（）()]{2,6}?(?:市|区|町|村))/) ||
-    clean.match(/([一-龥ぁ-んァ-ヶー]{2,6}?(?:市|区|町|村))/);
+  const dict = aiGate.loadMunicipalities();
+  if (dict && Array.isArray(dict.keys)) {
+    for (const key of dict.keys) {
+      const idx = clean.indexOf(key);
+      if (idx >= 0) {
+        const prev = idx > 0 ? clean[idx - 1] : '';
+        if (key.length <= 2 && prev && /[一-龥]/.test(prev) && !/[都道府県郡市区]$/.test(prev)) continue;
+        return key;
+      }
+    }
+  }
+  const muniMatch = clean.match(/(?:都|道|府|県)([^都道府県\s、。「」『』（）()]{2,6}?(?:市|区|町|村))/);
   return muniMatch ? muniMatch[1] : null;
 }
 
@@ -512,8 +523,19 @@ function isDuplicateAgainstExisting(candidate, existingArticles) {
 
     const exProfile = existing._profile || buildIncidentProfile(existing);
 
-
-    if (!candProfile.nationality || !exProfile.nationality || candProfile.nationality !== exProfile.nationality) continue;
+    const isGenericVsSpecificNat =
+      (candProfile.nationality === '外国籍' && exProfile.nationality && exProfile.nationality !== '外国籍') ||
+      (exProfile.nationality === '外国籍' && candProfile.nationality && candProfile.nationality !== '外国籍');
+    if (!candProfile.nationality || !exProfile.nationality) continue;
+    if (candProfile.nationality !== exProfile.nationality && !isGenericVsSpecificNat) continue;
+    // 片方が「外国籍」（速報）で他方が具体国籍（続報）の場合は、3日以内・同県・年齢一致または自治体一致・見出し類似があるときのみ同一事件とする
+    if (isGenericVsSpecificNat) {
+      const ageMatch = hasAgeOverlap(candProfile, exProfile) === true;
+      const muniMatch = Boolean(candProfile.subLocation && exProfile.subLocation && isSameOrParentMuni(candProfile.subLocation, exProfile.subLocation));
+      if (diffDays > 3 || candProfile.prefecture !== exProfile.prefecture || (!ageMatch && !muniMatch && titleSim < 0.50)) {
+        continue;
+      }
+    }
 
     const sharedCrimes = candProfile.crimeCategories.filter(
       (c) => c !== 'その他刑事事件' && exProfile.crimeCategories.includes(c)
@@ -767,17 +789,23 @@ async function fetchWithTimeout(url, options = {}, maxRetries = 3) {
 
 function parseRssItems(xml, defaultSource = '国内報道機関') {
   const items = [];
-  const itemRegex = /<item>([\s\S]*?)<\/item>/gi;
+  const itemRegex = /<(?:item|entry)\b[^>]*>([\s\S]*?)<\/(?:item|entry)>/gi;
   let match;
   while ((match = itemRegex.exec(xml)) !== null) {
+    const fullTag = match[0];
     const block = match[1];
-    const title = (block.match(/<title><!\[CDATA\[([\s\S]*?)\]\]><\/title>/i) ||
-      block.match(/<title>([\s\S]*?)<\/title>/i) || [])[1] || '';
-    const link = (block.match(/<link>([\s\S]*?)<\/link>/i) || [])[1] || '';
-    const pubDate = (block.match(/<pubDate>([\s\S]*?)<\/pubDate>/i) ||
-      block.match(/<dc:date>([\s\S]*?)<\/dc:date>/i) || [])[1] || '';
-    const description = (block.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/i) ||
-      block.match(/<description>([\s\S]*?)<\/description>/i) || [])[1] || '';
+    const title = (block.match(/<title[^>]*><!\[CDATA\[([\s\S]*?)\]\]><\/title>/i) ||
+      block.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1] || '';
+    const link = (block.match(/<link[^>]*><!\[CDATA\[([\s\S]*?)\]\]><\/link>/i) ||
+      block.match(/<link[^>]*>([\s\S]*?)<\/link>/i) ||
+      block.match(/<link[^>]+href=["']([^"']+)["']/i) ||
+      fullTag.match(/<(?:item|entry)[^>]+rdf:about=["']([^"']+)["']/i) || [])[1] || '';
+    const pubDate = (block.match(/<pubDate[^>]*>([\s\S]*?)<\/pubDate>/i) ||
+      block.match(/<dc:date[^>]*>([\s\S]*?)<\/dc:date>/i) ||
+      block.match(/<published[^>]*>([\s\S]*?)<\/published>/i) ||
+      block.match(/<updated[^>]*>([\s\S]*?)<\/updated>/i) || [])[1] || '';
+    const description = (block.match(/<(?:description|summary|content)[^>]*><!\[CDATA\[([\s\S]*?)\]\]><\/(?:description|summary|content)>/i) ||
+      block.match(/<(?:description|summary|content)[^>]*>([\s\S]*?)<\/(?:description|summary|content)>/i) || [])[1] || '';
     const sourceMatch = block.match(/<source[^>]*>([\s\S]*?)<\/source>/i);
 
     let source = sourceMatch ? decodeHtmlEntities(sourceMatch[1]) : '';
@@ -1197,7 +1225,11 @@ async function main() {
       continue;
     }
 
-    if (NON_INCIDENT_REGEX.test(item.title) || OVERSEAS_INCIDENT_REGEX.test(item.title)) {
+    if (
+      NON_INCIDENT_REGEX.test(item.title) ||
+      OVERSEAS_INCIDENT_REGEX.test(item.title) ||
+      OVERSEAS_OR_GOSSIP_MEDIA_RE.test(`${item.source || ''} ${item.rawTitle || ''}`)
+    ) {
       seenUrls.add(item.url);
       continue;
     }
@@ -1224,7 +1256,8 @@ async function main() {
     const originalUrl = candidate.url;
     const bodyText = await resolveUrlAndPureArticleBody(candidate);
 
-    if (NON_NEWS_DOMAIN_RE.test(candidate.url)) {
+    const candidateMedia = resolveMediaName(candidate.source, candidate.url, candidate.rawTitle || candidate.title);
+    if (NON_NEWS_DOMAIN_RE.test(candidate.url) || OVERSEAS_OR_GOSSIP_MEDIA_RE.test(candidateMedia)) {
       seenUrls.add(originalUrl);
       seenUrls.add(candidate.url);
       continue;
