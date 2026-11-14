@@ -412,4 +412,24 @@ test('本文ゲート: 長文の不法就労助長・盗品買取の日本人逮
   assert.equal(overseasRes.verified, false);
   assert.equal(overseasRes.rejected, true);
   assert.equal(overseasRes.rejectReason, 'crime_outside_japan');
+
+  // 1. 外国人が被害者（大ケガ）・日本人が加害者（新井田被告・逃走の男）のひき逃げ起訴記事を100%除外
+  const imabariHitAndRun = '自転車に乗っていた特定技能実習生の20代の外国人女性は右目の骨や鎖骨を折る全治2か月の大ケガをしましたが新井田被告は、現場から逃走したとされています。先月、今治市で軽乗用車を運転中自転車に衝突し、女性に大ケガをさせたにも関わらず逃走したとして介護士の30代の男がひき逃げの罪で起訴されました。';
+  const imabariRes = gate.verifyArticleContent(imabariHitAndRun, '自転車に衝突し技能実習生の女性大けが 現場から逃走の男 ひき逃げの罪で起訴【愛媛・今治市】');
+  assert.equal(imabariRes.verified, false);
+
+  // 2. 外国人が管理する施設（モスク等）に日本人被告が放火した記事を100%除外
+  const mosqueArson = '2026年2月、江別市角山のパキスタン人が管理する会社事務所兼住宅やモスクに火をつけ全焼させたとして、非現住建造物等放火などの罪に問われている、千歳市に住む石井被告に拘禁刑6年6カ月の判決が言い渡されました。';
+  const mosqueRes = gate.verifyArticleContent(mosqueArson, 'モスク放火の男に拘禁刑6年6カ月');
+  assert.equal(mosqueRes.verified, false);
+
+  // 3. 外国人グループ「に対し」コンクリート片を投げつけた事件（被疑者側の外国籍特定なし）を100%除外
+  const komakiConflict = '警察によりますと2人は他の仲間と共謀し、2026年7月、小牧市内にある商業施設の出入り口付近で、対立するフィリピン国籍の男子中学生らのグループの仲間に対し、コンクリート片を投げつけガラスなどを損壊させたとして逮捕されました。';
+  const komakiRes = gate.verifyArticleContent(komakiConflict, 'コンクリート片投げ3人逮捕 対立するグループ同士の争い 愛知・小牧警察署');
+  assert.equal(komakiRes.verified, false);
+
+  // 4. 過去（8月にも）の別事件のチリ人逮捕背景を今回の被疑者と誤結合しない
+  const nakanoPastBg = '中野ブロードウェイでは、8月にも2億円相当の高級腕時計の窃盗事件が発生し、チリ国籍の男2人が逮捕されている。東京・中野の商業施設「中野ブロードウェイ」にある時計店で、10月に高級腕時計が盗まれた事件に関し、警視庁は11月11日、窃盗の疑いで住居・職業不詳の自称アマコン・マークリス・利哉容疑者（30）を逮捕した。';
+  const nakanoRes = gate.verifyArticleContent(nakanoPastBg, '中野ブロードウェイ「4600万円」腕時計窃盗容疑の男が逮捕...異例の“宅配便で返却”の裏に専門家がみる“転売失敗”の可能性');
+  assert.equal(nakanoRes.verified, false);
 });

@@ -17,6 +17,8 @@ const eventDedupe = require('./lib/event-dedupe.cjs');
 const { normalizeArticleUrl } = require('./fetch-news.cjs');
 const { normTitle } = require('./dedupe-newsdata.cjs');
 
+const PAST_BG_EVIDENCE_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|(?:\d+月|昨年|おととし|過去|以前)にも[^。]{0,50}?(?:被害|事件)が(?:あり|発生し|起き)[^。]{0,45}?(?:逮捕され(?:た|ている)|起訴され(?:た|ている))/;
+
 function findQualityIssues(items) {
   const issues = [];
   for (const item of items) {
@@ -25,9 +27,16 @@ function findQualityIssues(items) {
       issues.push({ type: 'robot_template_summary', item });
     }
     const text = [item.locationBasis, item.evidence?.suspect, item.summary].filter(Boolean).join(' ');
+    const suspectOnly = String(item.evidence?.suspect || '')
+      .replace(/^(?:本文抜粋|見出し根拠|見出し・本文統合根拠|国内捜査・司法機関管轄根拠)\s*[:：]\s*/g, '');
     const gateCheck = aiGate.verifyArticleContent(text, item.title || '');
-    if (gateCheck.rejected) {
-      issues.push({ type: `rejected_content(${gateCheck.rejectReason})`, item });
+    const suspectGateCheck = suspectOnly ? aiGate.verifyArticleContent(suspectOnly, item.title || '') : { rejected: false };
+    const suspectOccs = suspectOnly ? aiGate.natOccurrences(suspectOnly) : [];
+    const allVictimOrNonSuspect = suspectOccs.length > 0 && suspectOccs.every((o) => !o.suspect);
+    const isPastBgOnly = Boolean(suspectOnly && PAST_BG_EVIDENCE_RE.test(suspectOnly) && !aiGate.NAT_RE.test(String(item.title || '')));
+    if (gateCheck.rejected || suspectGateCheck.rejected || allVictimOrNonSuspect || isPastBgOnly) {
+      const reason = gateCheck.rejectReason || suspectGateCheck.rejectReason || (allVictimOrNonSuspect ? 'victim_or_non_suspect_foreigner' : 'past_background_foreigner');
+      issues.push({ type: `rejected_content(${reason})`, item });
     }
   }
   return issues;

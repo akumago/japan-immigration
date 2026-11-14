@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-07T11:28:00.962Z",
+  "updatedAt": "2026-11-14T01:46:57.665Z",
   "items": [
     {
       "id": "cad831a7781dd24a",
@@ -379,6 +379,58 @@
       "reason": "「自称中国在住」のみで外国人・外国籍・国籍名の明示がないため除外",
       "actor": "manual_quality_correction",
       "recordedAt": "2026-11-07T11:28:00.962Z"
+    },
+    {
+      "kind": "automatic_reject",
+      "url": "https://news.yahoo.co.jp/articles/6505321a770093f85743ad75cc1c903c2632d178",
+      "item": {
+        "id": "22f48ae5d677",
+        "sourceRecordId": "v5-22f48ae5d677",
+        "title": "自転車に衝突し技能実習生の女性大けが 現場から逃走の男 ひき逃げの罪で起訴【愛媛・今治市】",
+        "date": "2026-11-13",
+        "url": "https://news.yahoo.co.jp/articles/6505321a770093f85743ad75cc1c903c2632d178"
+      },
+      "reason": "victim_or_non_suspect_foreigner",
+      "recordedAt": "2026-11-14T01:46:57.665Z"
+    },
+    {
+      "kind": "automatic_reject",
+      "url": "https://news.yahoo.co.jp/articles/d73957139457d55e0e6a0199d8363015b4190512",
+      "item": {
+        "id": "59be6a82989f",
+        "sourceRecordId": "v5-59be6a82989f",
+        "title": "中野ブロードウェイ「4600万円」腕時計窃盗容疑の男が逮捕...異例の“宅配便で返却”の裏に専門家がみる“転売失敗”の可能性",
+        "date": "2026-11-13",
+        "url": "https://news.yahoo.co.jp/articles/d73957139457d55e0e6a0199d8363015b4190512"
+      },
+      "reason": "editorial_or_opinion",
+      "recordedAt": "2026-11-14T01:46:57.665Z"
+    },
+    {
+      "kind": "automatic_reject",
+      "url": "https://news.yahoo.co.jp/articles/53f74b5a67e1d8c1c366fd79e78193e46773d762",
+      "item": {
+        "id": "bc27fa1975ec",
+        "sourceRecordId": "v5-bc27fa1975ec",
+        "title": "コンクリート片投げ3人逮捕 対立するグループ同士の争い 愛知・小牧警察署",
+        "date": "2026-11-10",
+        "url": "https://news.yahoo.co.jp/articles/53f74b5a67e1d8c1c366fd79e78193e46773d762"
+      },
+      "reason": "victim_or_non_suspect_foreigner",
+      "recordedAt": "2026-11-14T01:46:57.665Z"
+    },
+    {
+      "kind": "automatic_reject",
+      "url": "https://news.yahoo.co.jp/pickup/6600555?source=rss",
+      "item": {
+        "id": "8cd1f3b0719f",
+        "sourceRecordId": "v5-8cd1f3b0719f",
+        "title": "モスク放火の男に拘禁刑6年6カ月",
+        "date": "2026-10-29",
+        "url": "https://news.yahoo.co.jp/pickup/6600555?source=rss"
+      },
+      "reason": "victim_or_non_suspect_foreigner",
+      "recordedAt": "2026-11-14T01:46:57.665Z"
     }
   ]
 }

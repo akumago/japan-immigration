@@ -48,14 +48,21 @@ function run({ newsDataPath, mergedPath, dryRun = false, now = Date.now(), logge
   // 0. 社説・解説・オピニオン・ワイドショー私見および背景外国人誤爆記事の自動排除（ai-gate reject安全網）
   const removedPath = path.join(path.dirname(newsDataPath), 'removed.json');
   const rejectRecords = [];
+  const PAST_BG_EVIDENCE_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|(?:\d+月|昨年|おととし|過去|以前)にも[^。]{0,50}?(?:被害|事件)が(?:あり|発生し|起き)[^。]{0,45}?(?:逮捕され(?:た|ている)|起訴され(?:た|ている))/;
   for (const item of raw) {
     const text = [item.locationBasis, item.evidence && item.evidence.suspect ? item.evidence.suspect : '', item.summary || '']
       .filter(Boolean)
       .join(' ')
       .replace(/^(?:本文抜粋|見出し根拠|見出し・本文統合根拠|国内捜査・司法機関管轄根拠)\s*[:：]\s*/g, '');
+    const suspectOnly = String(item.evidence && item.evidence.suspect ? item.evidence.suspect : '')
+      .replace(/^(?:本文抜粋|見出し根拠|見出し・本文統合根拠|国内捜査・司法機関管轄根拠)\s*[:：]\s*/g, '');
     const check = aiGate.verifyArticleContent(text, item.title);
-    if (check.rejected || (!check.verified && /(?:偽造依頼|家宅捜索した際)/.test(text))) {
-      const reason = check.rejectReason || 'suspect_is_japanese_or_background_foreigner';
+    const suspectCheck = suspectOnly ? aiGate.verifyArticleContent(suspectOnly, item.title) : { rejected: false };
+    const suspectOccs = suspectOnly ? aiGate.natOccurrences(suspectOnly) : [];
+    const allVictimOrNonSuspect = suspectOccs.length > 0 && suspectOccs.every((o) => !o.suspect);
+    const isPastBgOnly = Boolean(suspectOnly && PAST_BG_EVIDENCE_RE.test(suspectOnly) && !aiGate.NAT_RE.test(String(item.title || '')));
+    if (check.rejected || suspectCheck.rejected || allVictimOrNonSuspect || isPastBgOnly || (!check.verified && /(?:偽造依頼|家宅捜索した際)/.test(text))) {
+      const reason = check.rejectReason || suspectCheck.rejectReason || (allVictimOrNonSuspect ? 'victim_or_non_suspect_foreigner' : 'suspect_is_japanese_or_background_foreigner');
       logger.log(`🚫 オピニオン・非対象記事を除外 [${reason}]: ${item.title}`);
       drop.add(item);
       rejectRecords.push({ kind: 'automatic_reject', url: item.url || null, item: ref(item), reason });
