@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-14T19:19:46.792Z",
+  "updatedAt": "2026-11-14T23:13:17.676Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6159,6 +6159,138 @@
       },
       "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 首のあたりを鉄パイプで殴ったか...国の特別天然記念物「ニホンカモシカ」を無許可で捕獲し殺した疑い ベトナム人の28歳男を再逮捕)",
       "recordedAt": "2026-11-14T19:19:46.792Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "基準値の約1.9倍のアルコールを検出 酒酔い運転の疑いでベトナム国籍の男を逮捕",
+        "date": "2026-11-15",
+        "url": "https://www.msn.com/ja-jp/news/other/%E5%9F%BA%E6%BA%96%E5%80%A4%E3%81%AE%E7%B4%841-9%E5%80%8D%E3%81%AE%E3%82%A2%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%AB%E3%82%92%E6%A4%9C%E5%87%BA-%E9%85%92%E9%85%94%E3%81%84%E9%81%8B%E8%BB%A2%E3%81%AE%E7%96%91%E3%81%84%E3%81%A7%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E3%82%92%E9%80%AE%E6%8D%95/ar-AA2hrqHd"
+      },
+      "reason": "URL完全一致 (https://www.msn.com/ja-jp/news/other/%E5%9F%BA%E6%BA%96%E5%80%A4%E3%81%AE%E7%B4%841-9%E5%80%8D%E3%81%AE%E3%82%A2%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%AB%E3%82%92%E6%A4%9C%E5%87%BA-%E9%85%92%E9%85%94%E3%81%84%E9%81%8B%E8%BB%A2%E3%81%AE%E7%96%91%E3%81%84%E3%81%A7%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E3%82%92%E9%80%AE%E6%8D%95/ar-AA2hrqHd)",
+      "recordedAt": "2026-11-14T23:13:17.676Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "埼玉・三郷市小学生4人ひき逃げ事件で執行猶予中に無免許運転 中国籍の男に拘禁刑8か月の実刑判決 さいたま地裁越谷支部",
+        "date": "2026-11-12",
+        "url": "https://www.msn.com/ja-jp/news/news/%E5%9F%BC%E7%8E%89-%E4%B8%89%E9%83%B7%E5%B8%82%E5%B0%8F%E5%AD%A6%E7%94%9F4%E4%BA%BA%E3%81%B2%E3%81%8D%E9%80%83%E3%81%92%E4%BA%8B%E4%BB%B6%E3%81%A7%E5%9F%B7%E8%A1%8C%E7%8C%B6%E4%BA%88%E4%B8%AD%E3%81%AB%E7%84%A1%E5%85%8D%E8%A8%B1%E9%81%8B%E8%BB%A2-%E4%B8%AD%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E3%81%AB%E6%8B%98%E7%A6%81%E5%88%918%E3%81%8B%E6%9C%88%E3%81%AE%E5%AE%9F%E5%88%91%E5%88%A4%E6%B1%BA-%E3%81%95%E3%81%84%E3%81%9F%E3%81%BE%E5%9C%B0%E8%A3%81%E8%B6%8A%E8%B0%B7%E6%94%AF%E9%83%A8/ar-AA2hhFoM"
+      },
+      "reason": "同一事件確定(自治体一致) [埼玉県三郷市 / 中国籍 / 交通犯罪・ひき逃げ・無免許・飲酒運転]",
+      "recordedAt": "2026-11-14T23:13:17.676Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「“ベランダから逃げるぞ”と飛んで逃げた」 1歳含む12人搬送のアパート火災 火元の部屋に住むトルコ国籍の男を大麻使用の疑いで逮捕 岐阜市",
+        "date": "2026-11-12",
+        "url": "https://news.yahoo.co.jp/articles/5f5be05e858250ce1ef6c1989f060ece7af90726"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 岐阜市のアパート火災 出火元に住むトルコ国籍の男逮捕 麻薬取締法違反の疑い(ぎふチャンDIGITAL))",
+      "recordedAt": "2026-11-14T23:13:17.676Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "87歳女性死亡ひき逃げ事件 自転車を運転していたベトナム人の男を逮捕 茨城・常総市",
+        "date": "2026-11-11",
+        "url": "https://www.msn.com/ja-jp/news/other/87%E6%AD%B3%E5%A5%B3%E6%80%A7%E6%AD%BB%E4%BA%A1%E3%81%B2%E3%81%8D%E9%80%83%E3%81%92%E4%BA%8B%E4%BB%B6-%E8%87%AA%E8%BB%A2%E8%BB%8A%E3%82%92%E9%81%8B%E8%BB%A2%E3%81%97%E3%81%A6%E3%81%84%E3%81%9F%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E4%BA%BA%E3%81%AE%E7%94%B7%E3%82%92%E9%80%AE%E6%8D%95-%E8%8C%A8%E5%9F%8E-%E5%B8%B8%E7%B7%8F%E5%B8%82/ar-AA2hbx7W"
+      },
+      "reason": "event-dedupe一致 (国籍+場所+罪種: 【続報】常総の死亡ひき逃げ 高齢女性、自転車ではねて逃走 容疑でベトナム国籍の男逮捕 県警常総署)",
+      "recordedAt": "2026-11-14T23:13:17.676Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "カモシカを密猟か 容疑でベトナム人の28歳男を再逮捕 愛知県警",
+        "date": "2026-11-10",
+        "url": "https://www.sankei.com/article/20261110-2VZSTLPXJJPCNOMU3SGFZX4KAA/"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 首のあたりを鉄パイプで殴ったか...国の特別天然記念物「ニホンカモシカ」を無許可で捕獲し殺した疑い ベトナム人の28歳男を再逮捕)",
+      "recordedAt": "2026-11-14T23:13:17.676Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "IDとパスワードを不正に取得した疑い パキスタン国籍の男を逮捕",
+        "date": "2026-11-10",
+        "url": "https://news.yahoo.co.jp/articles/81b71cf1ee06a508ade1b366bce5c28ec15d1c60?source=rss"
+      },
+      "reason": "タイトル高類似 (100%: IDとパスワードを不正に取得した疑い パキスタン国籍の男を逮捕)",
+      "recordedAt": "2026-11-14T23:13:17.676Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "不正アプリでスマホ遠隔操作 詐欺容疑で中国人逮捕 福岡県警",
+        "date": "2026-11-10",
+        "url": "https://www.jiji.com/jc/article?k=2026111000985&g=soc"
+      },
+      "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [福岡県 / 中国籍 / 一般詐欺・無銭飲食]",
+      "recordedAt": "2026-11-14T23:13:17.676Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "スマートフォンを乗っ取り電子決済サービスを不正使用 中国籍の男2人を再逮捕(テレQ",
+        "date": "2026-11-10",
+        "url": "https://news.yahoo.co.jp/articles/b20cf3b52448b7f431dc1ed353680d46ea49b9cf?source=rss"
+      },
+      "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [福岡県 / 中国籍 / 一般詐欺・無銭飲食]",
+      "recordedAt": "2026-11-14T23:13:17.676Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "首のあたりを鉄パイプで殴ったか...国の特別天然記念物「ニホンカモシカ」を無許可で捕獲し殺した疑い ベトナム人の28歳男を再逮捕",
+        "date": "2026-11-10",
+        "url": "https://news.yahoo.co.jp/articles/a33420da7ea219d88354956337385919ea340250"
+      },
+      "reason": "タイトル高類似 (100%: 首のあたりを鉄パイプで殴ったか...国の特別天然記念物「ニホンカモシカ」を無許可で捕獲し殺した疑い ベトナム人の28歳男を再逮捕)",
+      "recordedAt": "2026-11-14T23:13:17.676Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ホテルで台湾女性死亡 包丁所持の女を銃刀法違反の罪で起訴 死亡との関与捜査 山梨",
+        "date": "2026-11-09",
+        "url": "https://news.yahoo.co.jp/articles/702b543becc3de92c67cfd45c46f439d697b0c5a?source=rss"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 富士河口湖町のホテルで台湾出身女性死亡 同ツアー参加の女 銃刀法違反の罪で起訴)",
+      "recordedAt": "2026-11-14T23:13:17.676Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "【速報】覚醒剤・合成麻薬など約1億5000万円相当を押収...密売グループか ベトナム人の男を逮捕 「レターパック」で日本全国に発送か「私は黙ります」と黙秘 押収薬物を報道陣に公開 兵庫県警",
+        "date": "2026-11-09",
+        "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFA2Z0p4Qm1hbkFKUkQ0QXFPTDZjM2x3T2JhYTloUXlWYVhUM0lIeUJfWkt0UGJrV0VMODY2c3V1VGh3M2pHbmNoNzRpdVV3MGljSWxESElVbjBsN011ZThWTDZGV3o5Sm1GMVNLclFR"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: ケタミンやMDMAをレターパックで全国発送か 麻薬営利目的譲渡の疑いでベトナム国籍の男を逮捕 兵庫県警)",
+      "recordedAt": "2026-11-14T23:13:17.676Z"
     }
   ]
 }
