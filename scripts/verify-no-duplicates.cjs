@@ -17,13 +17,12 @@ const eventDedupe = require('./lib/event-dedupe.cjs');
 const { normalizeArticleUrl } = require('./fetch-news.cjs');
 const { normTitle } = require('./dedupe-newsdata.cjs');
 
-const PAST_BG_EVIDENCE_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|(?:\d+月|昨年|おととし|過去|以前)にも[^。]{0,50}?(?:被害|事件)が(?:あり|発生し|起き)[^。]{0,45}?(?:逮捕され(?:た|ている)|起訴され(?:た|ている))/;
+const PAST_BG_EVIDENCE_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))(?:ら|など)?と共謀し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|(?:\d+月|昨年|おととし|過去|以前)にも[^。]{0,50}?(?:被害|事件)が(?:あり|発生し|起き)[^。]{0,45}?(?:逮捕され(?:た|ている)|起訴され(?:た|ている))/;
 
 function findQualityIssues(items) {
   const issues = [];
   for (const item of items) {
-    const date = String(item.date || '');
-    if (date >= '2026-11-13' && /本文の文脈結合で確認した報道です/.test(String(item.summary || ''))) {
+    if (/本文の文脈結合で確認した報道です/.test(String(item.summary || ''))) {
       issues.push({ type: 'robot_template_summary', item });
     }
     const text = [item.locationBasis, item.evidence?.suspect, item.summary].filter(Boolean).join(' ');

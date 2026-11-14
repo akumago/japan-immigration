@@ -433,3 +433,29 @@ test('本文ゲート: 長文の不法就労助長・盗品買取の日本人逮
   const nakanoRes = gate.verifyArticleContent(nakanoPastBg, '中野ブロードウェイ「4600万円」腕時計窃盗容疑の男が逮捕...異例の“宅配便で返却”の裏に専門家がみる“転売失敗”の可能性');
   assert.equal(nakanoRes.verified, false);
 });
+
+test('包括品質監査回帰: 公判中過去共犯者・ゴシップ記事除外、居住地除去、政令市区語幹ガード', () => {
+  // 1. 今回逮捕の「指示役の男」に外国籍記載がなく、「ベトナム国籍の男＝公判中＝らと共謀し」を誤結合しない
+  const pastAccomplice = '金沢中署などは26日、詐欺の疑いで指示役の男（28）を逮捕した。逮捕容疑は6月4日、ベトナム国籍、住所、職業いずれも不詳の男（25）＝詐欺や窃盗などの罪で公判中＝らと共謀し、現金をだまし取った疑い。';
+  const pastRes = gate.verifyArticleContent(pastAccomplice, '指示役の男を逮捕 特殊詐欺(預貯金詐欺)事件 金沢中署など');
+  assert.equal(pastRes.verified, false);
+
+  // 2. 《…》で始まり見出しに刑事手続語のないゴシップ記事を除外
+  const gossipRes = gate.verifyArticleContent('台湾籍の女性ヤン・ミンハン容疑者（27）が銃刀法違反容疑で逮捕された。', '《「手足を失いたいか? 大金が手に入るぞ」と...》女性が明かしていた9歳年下夫への疑念');
+  assert.equal(gossipRes.verified, false);
+  assert.equal(gossipRes.rejected, true);
+
+  // 3. 被疑者居住地（宇都宮市の会社社長ら逮捕 静岡県警 / 栃木県のベトナム国籍の男 群馬県警）を優先しない
+  const moneylonRes = gate.verifyArticleContent('特殊詐欺でだまし取った金で購入した商品を輸出してマネーロンダリングしたとして、静岡県警は28日、組織犯罪処罰法違反などの疑いで宇都宮市の会社社長でベトナム国籍の男らを逮捕した。', '輸出利用しマネロン疑い 宇都宮市の会社社長ら逮捕 静岡県警');
+  assert.equal(moneylonRes.verified, true);
+  assert.equal(moneylonRes.location, '静岡県');
+
+  const shirotakuRes = gate.verifyArticleContent('白ナンバーの車に客を有料で乗せる「白タク行為」を行ったとして、栃木県のベトナム国籍の男が4日、群馬県警に逮捕されました。', '「白タク行為」の疑い 栃木県のベトナム国籍の男逮捕');
+  assert.equal(shirotakuRes.verified, true);
+  assert.equal(shirotakuRes.location, '群馬県');
+
+  // 4. 政令市区の語幹「神奈川」（横浜市神奈川区）に県名列挙「群馬、埼玉、神奈川の3県」が誤マッチしない
+  const gunmaRes = gate.verifyArticleContent('ベトナム人による広域窃盗事件を捜査していた群馬県警は7日、群馬、埼玉、神奈川の3県であわせて88件を立件したと発表した。県警捜査三課は今年春、ベトナム人男女あわせて3人を邸宅侵入や窃盗などの疑いで逮捕し、県内や近県で発生した事件との関連を調べていた。', 'ベトナム人による広域窃盗事件捜査終結 3県下で88件');
+  assert.equal(gunmaRes.verified, true);
+  assert.equal(gunmaRes.location, '群馬県');
+});

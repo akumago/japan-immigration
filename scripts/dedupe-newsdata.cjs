@@ -48,7 +48,15 @@ function run({ newsDataPath, mergedPath, dryRun = false, now = Date.now(), logge
   // 0. 社説・解説・オピニオン・ワイドショー私見および背景外国人誤爆記事の自動排除（ai-gate reject安全網）
   const removedPath = path.join(path.dirname(newsDataPath), 'removed.json');
   const rejectRecords = [];
-  const PAST_BG_EVIDENCE_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|(?:\d+月|昨年|おととし|過去|以前)にも[^。]{0,50}?(?:被害|事件)が(?:あり|発生し|起き)[^。]{0,45}?(?:逮捕され(?:た|ている)|起訴され(?:た|ている))/;
+  let metadataFixedCount = 0;
+  const PAST_BG_EVIDENCE_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))(?:ら|など)?と共謀し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|(?:\d+月|昨年|おととし|過去|以前)にも[^。]{0,50}?(?:被害|事件)が(?:あり|発生し|起き)[^。]{0,45}?(?:逮捕され(?:た|ている)|起訴され(?:た|ている))/;
+  const LOCATION_CORRECTIONS = {
+    '7a749a757426': '静岡県',
+    '4ff3ce111348': '群馬県',
+    'a06861197beb096b': '大阪府',
+    'd4b36f9e9715c9e3': '群馬県',
+    'e3155921f1a7': '兵庫県',
+  };
   for (const item of raw) {
     const text = [item.locationBasis, item.evidence && item.evidence.suspect ? item.evidence.suspect : '', item.summary || '']
       .filter(Boolean)
@@ -61,12 +69,68 @@ function run({ newsDataPath, mergedPath, dryRun = false, now = Date.now(), logge
     const suspectOccs = suspectOnly ? aiGate.natOccurrences(suspectOnly) : [];
     const allVictimOrNonSuspect = suspectOccs.length > 0 && suspectOccs.every((o) => !o.suspect);
     const isPastBgOnly = Boolean(suspectOnly && PAST_BG_EVIDENCE_RE.test(suspectOnly) && !aiGate.NAT_RE.test(String(item.title || '')));
-    if (check.rejected || suspectCheck.rejected || allVictimOrNonSuspect || isPastBgOnly || (!check.verified && /(?:偽造依頼|家宅捜索した際)/.test(text))) {
-      const reason = check.rejectReason || suspectCheck.rejectReason || (allVictimOrNonSuspect ? 'victim_or_non_suspect_foreigner' : 'suspect_is_japanese_or_background_foreigner');
+    const isGossipNonCrimeTitle = /^《[^》]+》/.test(String(item.title || '')) && !aiGate.CRIME_RE.test(String(item.title || ''));
+    if (check.rejected || suspectCheck.rejected || allVictimOrNonSuspect || isPastBgOnly || isGossipNonCrimeTitle || (!check.verified && /(?:偽造依頼|家宅捜索した際)/.test(text))) {
+      const reason = check.rejectReason || suspectCheck.rejectReason || (isGossipNonCrimeTitle ? 'editorial_or_opinion' : allVictimOrNonSuspect ? 'victim_or_non_suspect_foreigner' : 'suspect_is_japanese_or_background_foreigner');
       logger.log(`🚫 オピニオン・非対象記事を除外 [${reason}]: ${item.title}`);
       drop.add(item);
       rejectRecords.push({ kind: 'automatic_reject', url: item.url || null, item: ref(item), reason });
+      continue;
     }
+
+    // 既存レコードの見出し・地域・手続段階・罪種カテゴリ・インラインタグ・定型文サマリーの自動補正
+    let changed = false;
+    const cleanedTitle = String(item.title || '').replace(/(?:\s*[|｜]\s*[^|｜]{1,35})+$/, '').replace(/[:：]地域ニュース$/, '').trim();
+    if (cleanedTitle && cleanedTitle !== item.title) {
+      item.title = cleanedTitle;
+      changed = true;
+    }
+    if (LOCATION_CORRECTIONS[item.id] && item.location !== LOCATION_CORRECTIONS[item.id]) {
+      item.location = LOCATION_CORRECTIONS[item.id];
+      item.prefecture = LOCATION_CORRECTIONS[item.id];
+      changed = true;
+    }
+    const titleStage = aiGate.determineStage(item.title || '');
+    if (titleStage && item.stage !== titleStage && ['873f8e180b8a', '95f9a343b9f98c6b', 'f0ee4ce72331'].includes(item.id)) {
+      item.stage = titleStage;
+      changed = true;
+    }
+    if (item.crimeCategory === 'その他刑事事件' || item.crimeCategory === '万引き・ドラッグストア大量窃盗' || (item.crimeCategory === '性犯罪・わいせつ' && /(?:問題|試験|学科)/.test(item.title || ''))) {
+      const reCat = aiGate.extractCrimeCategories(`${item.title || ''} ${item.evidence?.suspect || ''} ${item.locationBasis || ''}`)[0];
+      if (reCat && reCat !== item.crimeCategory) {
+        item.crimeCategory = reCat;
+        changed = true;
+      }
+    }
+    if (item.locationBasis && /【写真を見る】|【画像】|写真拡大/.test(item.locationBasis)) {
+      item.locationBasis = item.locationBasis.replace(/(?:【写真を見る】|【画像】|写真拡大)\s*/g, '');
+      changed = true;
+    }
+    if (/本文の文脈結合で確認した報道です|、(?:起訴状|逮捕容疑)/.test(String(item.summary || ''))) {
+      const cleanExc = (s) => String(s || '')
+        .replace(/^(?:本文抜粋|見出し根拠|見出し・本文統合根拠|国内捜査・司法機関管轄根拠)\s*[:：]\s*/, '')
+        .replace(/^(?:【[^】]{1,20}】\s*|写真拡大\s*|[〉>≫]\s*[^。]{5,70}?ほか\s*)+/, '')
+        .replace(/^[^。]*?、(?=(?:起訴状|逮捕容疑|再逮捕容疑|送検容疑|警察|県警|府警|道警|警視庁)(?:など)?によ(?:ると|りますと))/, '')
+        .trim();
+      const s1 = cleanExc(item.evidence?.suspect);
+      const s2 = cleanExc(item.locationBasis);
+      const parts = [];
+      if (s1 && s1 !== item.title && /[。！？）」』]$/.test(s1)) parts.push(s1);
+      if (s2 && s2 !== s1 && s2 !== item.title && /[。！？）」』]$/.test(s2)) parts.push(s2);
+      if (parts.length > 0 && parts.join('').length >= 35) {
+        item.summary = parts.join('');
+      } else {
+        const cleanSum = cleanExc(item.summary);
+        if (!/本文の文脈結合で確認した報道です/.test(cleanSum) && cleanSum.length >= 35) {
+          item.summary = cleanSum;
+        } else {
+          const bareTitle = String(item.title || '').replace(/。+$/, '');
+          item.summary = `${bareTitle}。（${item.location || '国内'}・${item.nationality || '外国籍'}被疑者の${item.stage || '逮捕'}報道）`;
+        }
+      }
+      changed = true;
+    }
+    if (changed) metadataFixedCount++;
   }
   if (rejectRecords.length > 0 && !dryRun && fs.existsSync(removedPath)) {
     const remLedger = publicationLedger.loadLedger(removedPath, 'removed');
@@ -112,8 +176,8 @@ function run({ newsDataPath, mergedPath, dryRun = false, now = Date.now(), logge
 
   const result = healed.items;
   const removedCount = raw.length - result.length;
-  logger.log(`🔎 重複検査: ${raw.length} 件 → ${result.length} 件（統合 ${removedCount} 件）`);
-  if (removedCount === 0 || dryRun) return { before: raw.length, after: result.length, removed: removedCount, written: false };
+  logger.log(`🔎 重複検査: ${raw.length} 件 → ${result.length} 件（統合 ${removedCount} 件 / 品質補正 ${metadataFixedCount} 件）`);
+  if ((removedCount === 0 && metadataFixedCount === 0) || dryRun) return { before: raw.length, after: result.length, removed: removedCount, written: false };
 
   fs.writeFileSync(newsDataPath, `${JSON.stringify(result, null, 2)}\n`, 'utf8');
   if (mergedPath) {

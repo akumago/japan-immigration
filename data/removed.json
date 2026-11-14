@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-14T01:46:57.665Z",
+  "updatedAt": "2026-11-14T02:21:54.384Z",
   "items": [
     {
       "id": "cad831a7781dd24a",
@@ -431,6 +431,32 @@
       },
       "reason": "victim_or_non_suspect_foreigner",
       "recordedAt": "2026-11-14T01:46:57.665Z"
+    },
+    {
+      "kind": "automatic_reject",
+      "url": "https://news.livedoor.com/article/detail/32674776/",
+      "item": {
+        "id": "3783183481b9",
+        "sourceRecordId": "v5-3783183481b9",
+        "title": "《「手足を失いたいか? 大金が手に入るぞ」と...》河口湖のホテルで遺体で発見された女性が明かしていた9歳年下夫への疑念、刃物を持っていたのは「夫の元カノ」か",
+        "date": "2026-10-28",
+        "url": "https://news.livedoor.com/article/detail/32674776/"
+      },
+      "reason": "editorial_or_opinion",
+      "recordedAt": "2026-11-14T02:21:54.384Z"
+    },
+    {
+      "kind": "automatic_reject",
+      "url": "https://www.hokkoku.co.jp/articles/-/2270841",
+      "item": {
+        "id": "e65f4ab37993",
+        "sourceRecordId": "v5-e65f4ab37993",
+        "title": "指示役の男を逮捕 特殊詐欺(預貯金詐欺)事件 金沢中署など|社会|石川のニュース",
+        "date": "2026-10-26",
+        "url": "https://www.hokkoku.co.jp/articles/-/2270841"
+      },
+      "reason": "suspect_is_japanese_or_background_foreigner",
+      "recordedAt": "2026-11-14T02:21:54.384Z"
     }
   ]
 }

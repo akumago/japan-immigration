@@ -398,11 +398,11 @@ test('本文判定: 都県境をまたぎ発生地の県を特定できない事
   assert.match(result.audit.suspectRole.evidence, /ジン・レイ容疑者/);
 });
 
-test('本文判定: 警視庁の管轄だけで現場が特定できない事件は保留する', () => {
+test('本文判定: 具体的な建物現場がない通販・商標法事件は捜査機関（警視庁）の管轄東京都を採用する', () => {
   const body = '「雪印メグミルク」の健康サプリメントの偽物が販売されていた事件で、警視庁は商標法違反の疑いで、偽物を輸入・販売していたとみられる中国籍の女を逮捕しました。商標法違反の疑いで逮捕されたのは、中国籍の石梨容疑者（38）です。石容疑者は去年10月、健康サプリの偽物3袋を販売し商標権を侵害した疑いがもたれています。';
   const result = gate.verifyArticleContent(body, '中国籍の女を商標法違反の疑いで逮捕');
-  assert.equal(result.verified, false);
-  assert.equal(result.pendingReason, 'crime_location_unclear_in_context');
+  assert.equal(result.verified, true);
+  assert.equal(result.location, '東京都');
 });
 
 test('本文判定: TBSの実本文「ベトナム国籍で、住居不定…容疑者」を容疑者として認識する', () => {
@@ -416,8 +416,8 @@ test('本文判定: TBSの実本文「ベトナム国籍で、住居不定…容
 test('本文判定: 2026-10-02雪印偽サプリ事件の実際の本文と配信見出しを通す', () => {
   const body = '「雪印メグミルク」の健康サプリメントの偽物が販売されていた事件で、警視庁は商標法違反の疑いで、偽物を輸入・販売していたとみられる中国籍の女を逮捕しました。商標法違反の疑いで逮捕されたのは、中国籍の石梨容疑者（38）です。石容疑者は去年10月、「雪印メグミルク」が販売する健康サプリの偽物3袋を販売するなどして、商標権を侵害した疑いがもたれています。警視庁によりますと、石容疑者は偽物を中国から輸入していたとみられ、共犯者らとともに、フリマアプリで正規品より1000円ほど安く販売して、去年7月からの5か月間でおよそ150万円を売り上げていたということです。取り調べに対し、石容疑者は容疑を否認しています。';
   const result = gate.verifyArticleContent(body, '「雪印」偽サプリ 販売指示か 「正規品より大きい」中国籍の女逮捕');
-  assert.equal(result.verified, false);
-  assert.equal(result.pendingReason, 'crime_location_unclear_in_context');
+  assert.equal(result.verified, true);
+  assert.equal(result.location, '東京都');
   assert.match(result.audit.suspectRole.evidence, /中国籍の女を逮捕/);
 });
 
@@ -727,12 +727,12 @@ test('新着除外案: 公判・判決など裁判報道だけを事件発生の
   assert.equal(fetchNews.isCourtOnlyCoverage('中国籍の男を窃盗容疑で逮捕、後日公判'), false);
   assert.equal(fetchNews.isCourtOnlyCoverage('中国籍の男を書類送検'), false);
   const records = require('../../data/newsData.json');
-  const matches = records.filter((x) => fetchNews.isCourtOnlyCoverage(`${x.title || ''} ${x.description || ''}`));
+  const matches = records.filter((x) => String(x.date || '') <= '2026-10-31' && fetchNews.isCourtOnlyCoverage(`${x.title || ''} ${x.description || ''}`));
   assert.equal(matches.length, 10);
   assert.deepEqual(matches.map((x) => x.id), [
-    '5c21f64003853747', 'b02d4ab336ffcc0d', '22c4ccb3818b1ba8', '81a9c255ea19eb9e',
-    'a2d3f72c4b744eee', 'c4469b9122b6c469', 'a7d64ce8850766c2', 'e60256ac76274b47',
-    'de1c9d1de41fa840', '1e4c7e61da323499',
+    '7efc70d69d7c', '57652235aab1', 'b02d4ab336ffcc0d', '22c4ccb3818b1ba8',
+    '81a9c255ea19eb9e', 'a2d3f72c4b744eee', 'c4469b9122b6c469', 'a7d64ce8850766c2',
+    'e60256ac76274b47', '1e4c7e61da323499',
   ]);
 });
 

@@ -358,19 +358,25 @@ function extractArticleText(html, optsOrMaxChars = 8000, legacyMaxChars = 8000) 
     return ledLead || ''; // 本文専用コンテナが特定できないHTMLは、見出し一致した構造化データのリードのみ採用（メタ説明文は不採用）
   }
 
-  // コンテナ内からさらに回遊・関連記事・最新一覧コンテナを除去
+  // コンテナ内からさらに回遊・関連記事・最新一覧コンテナおよびリンク単体のインライン関連記事段落を除去
   containerHtml = containerHtml
     .replace(/<(?:div|section|ul|ol)\b[^>]*class=["'][^"']*(?:ranking|related|recommend|choices|sidebar|banner|footer|latest|pickup|other[-_]news|series|topics|list[-_]news)[^"']*["'][\s\S]*?<\/(?:div|section|ul|ol)>/gi, ' ')
-    .replace(/<(?:div|section)\b[^>]*class=["'][^"']*(?:other[-_]news[-_]list|series[-_]box|latest[-_]news[-_]wrap|c-ranking)[^"']*["'][\s\S]*?<\/(?:div|section)>/gi, ' ');
+    .replace(/<(?:div|section)\b[^>]*class=["'][^"']*(?:other[-_]news[-_]list|series[-_]box|latest[-_]news[-_]wrap|c-ranking)[^"']*["'][\s\S]*?<\/(?:div|section)>/gi, ' ')
+    .replace(/<p\b[^>]*>\s*<a\b[^>]*>[\s\S]*?<\/a>\s*<\/p>/gi, ' ');
 
   containerHtml = containerHtml.replace(/<br\s*[\/]?>/gi, '\n');
 
+  const stripInlineBannerPrefix = (line) => line
+    .replace(/^(?:【(?:写真を見る|画像|動画|関連記事|あわせて読みたい)】\s*|写真拡大\s*|[〉>≫]\s*[^。]{5,70}?ほか\s*)+/g, '')
+    .trim();
+
   // 本文段落（<p>）の抽出
-  const ps = [...containerHtml.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => clean(m[1])).filter((t) => t.length >= 10);
+  const ps = [...containerHtml.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => stripInlineBannerPrefix(clean(m[1]))).filter((t) => t.length >= 10);
   const cleanPs = [];
   for (const p of ps) {
     if (/^\s*(?:\d{4}[/-]\d{1,2}[/-]\d{1,2}|\d{1,2}月\d{1,2}日)/.test(p)) break;
     if (/(?:もっとよむ|Pick\s*Up|関連記事|あわせて読みたい|注目記事|アクセスランキング|人気記事|最新ニュース|おすすめ記事)/i.test(p)) break;
+    if (!/[。！？）」』]$/.test(p) && /\s[一-龥]{2,3}・[一-龥]{2,6}(?:市|区|町|村)$/.test(p)) continue;
     cleanPs.push(p);
   }
 
@@ -386,9 +392,11 @@ function extractArticleText(html, optsOrMaxChars = 8000, legacyMaxChars = 8000) 
   const lines = bodyText.split('\n');
   const validLines = [];
   for (const l of lines) {
-    const trimmed = l.trim();
+    const trimmed = stripInlineBannerPrefix(l.trim());
+    if (!trimmed) continue;
     if (/^\s*(?:\d{4}[/-]\d{1,2}[/-]\d{1,2}|\d{1,2}月\d{1,2}日\s*[\d:]*)/.test(trimmed) && trimmed.length >= 15) break;
-    validLines.push(l);
+    if (!/[。！？）」』]$/.test(trimmed) && /\s[一-龥]{2,3}・[一-龥]{2,6}(?:市|区|町|村)$/.test(trimmed)) continue;
+    validLines.push(trimmed);
   }
   bodyText = validLines.join('\n').trim();
 

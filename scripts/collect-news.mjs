@@ -83,39 +83,8 @@ const NATIONALITY_PATTERNS = [
   { standard: '外国籍', regex: /(外国籍|外国人(?:の男|の女|容疑者|グループ|窃盗団|技能実習生)|技能実習生(?:の男|の女|ら|容疑者)|不法残留(?:の男|の女|容疑者)|不法滞在(?:の男|の女|容疑者))/i },
 ];
 
-// 28種類の細分化された罪種カテゴリ（「米兵」が「米」にマッチするバグおよび「スリランカ」が「スリ」にマッチするバグを完全排除）
-const CRIME_CATEGORIES = [
-  { category: '殺人・殺人未遂', regex: /(殺人|殺害|刺殺|絞殺|撲殺|首を絞め|強殺|胸などを刺|背中を刺|首を刺)/ },
-  { category: '強盗・強盗致傷', regex: /(強盗|ひったくり|闇バイト強盗|脅し.{0,12}奪|現金奪)/ },
-  { category: '性犯罪・わいせつ', regex: /(不同意性交|不同意わいせつ|わいせつな?行為|性的暴行|強制性交|強制わいせつ|盗撮|性的姿態撮影|児童買春|児童ポルノ|淫行|下半身露出|公然わいせつ|胸を触|体を触)/ },
-  { category: '暴行・傷害・脅迫', regex: /(傷害|暴行|殴った|蹴った|刺した|刺され|切りつけ|切り付け|噛みつ|嚙みつ|脅迫|恐喝|暴力行為|集団暴行|平手打ち|スプレー噴射|スプレーま[いか]|催涙スプレー|異臭騒ぎ)/ },
-  { category: '金属・太陽光ケーブル窃盗', regex: /(銅線|太陽光|メガソーラー|ケーブル|金属盗|グレーチング|室外機)/ },
-  { category: '自動車・バイク盗・ヤード解体', regex: /(自動車盗|高級車|レクサス|アルファード|ランドクルーザー|プリウス|ヤード|盗難車)/ },
-  { category: '農作物・家畜・果物窃盗', regex: /(農作物|果物(?!ナイフ)|さくらんぼ|シャインマスカット|桃|梨|メロン|コメ|玄米|白米|新米|米袋|米\d+キロ|豚|牛|鶏|家畜)/ },
-  { category: '住宅侵入・空き巣・店舗窃盗', regex: /(空き巣|忍び込み|居空き|事務所荒らし|出店荒らし|金庫|質店.*窃盗|質店.*盗|住宅に侵入.*盗|空き家に侵入.*盗)/ },
-  { category: '万引き・ドラッグストア大量窃盗', regex: /(万引き|化粧品|医薬品|サプリメント|ドラッグストア|コンビニ.*盗)/ },
-  { category: '一般窃盗・スリ・車上荒らし', regex: /(窃盗|盗んだ|盗み|盗む|盗もう|車上荒らし|スリ(?!ランカ)|置き引き|さい銭|ロッカー物色)/ },
-  { category: '盗品等関与・故買・転売', regex: /(盗品等|盗品を保管|盗品と知りながら|故買|買い取った)/ },
-  { category: '特殊詐欺・出し子・受け子', regex: /(特殊詐欺|オレオレ詐欺|還付金詐欺|出し子|受け子|かけ子|架け子|キャッシュカード.*だまし取|ATM.*引き出)/ },
-  { category: 'クレジットカード・電子計算機詐欺', regex: /(クレジットカード|不正利用|不正決済|電子計算機使用詐欺|フィッシング|ボイスフィッシング|偽サイト.*メール|誘導メール|大量メール送信|大量送信|マイナポイント|給付金詐欺|持続化給付金)/ },
-  { category: '一般詐欺・無銭飲食', regex: /(詐欺|だまし取|詐取|無銭飲食|食い逃げ)/ },
-  { category: '通貨偽造・偽造硬貨・偽札', regex: /(通貨偽造|偽造通貨|偽造銀貨|偽造硬貨|1万円銀貨|一万円銀貨|偽造1万円|偽札|偽造紙幣|旧1円銀貨|500円硬貨.*偽造|記念硬貨)/ },
-  { category: '有印公文書偽造・偽造カード・偽装結婚', regex: /(在留カード.*偽造|偽造在留カード|マイナンバーカード.*偽造|運転免許証.*偽造|偽造.*運転免許証|有印公文書偽造|偽造有印公文書|有印私文書偽造|電磁的公正証書原本不実記録|偽装結婚|虚偽申請)/ },
-  { category: '医師法・薬機法・無資格医療・美容', regex: /(医師法|無資格.*医療|美容整形|美容医療|アートメイク|歯科医師法|薬機法|医薬品医療機器法|処方箋なし|未承認医薬品|無許可.*医薬)/ },
-  { category: '鳥獣保護法・密猟・違法ジビエ・密漁', regex: /(鳥獣保護|密猟|イノシシ|シカ|ジビエ|わな|くくりわな|食品衛生法|食肉処理|無許可.*解体|密漁|ナマコ|アワビ|ウナギ|シラスウナギ|漁業法|オカヤドカリ|文化財保護法)/ },
-  { category: '薬物・大麻・覚醒剤・密輸', regex: /(覚醒剤|覚せい剤|大麻|コカイン|MDMA|麻薬|薬物|向精神薬|ケタミン|危険ドラッグ|麻薬特例法|関税法.*密輸|家畜伝染病予防法|検疫法)/ },
-  { category: '入管法違反・不法残留・不法就労助長', regex: /(入管難民法|入管法|不法残留|不法滞在|オーバーステイ|不法就労|密入国|資格外活動|旅券不携帯)/ },
-  { category: '白タク・道路運送法違反', regex: /(白タク|道路運送法|無許可.*タクシー|有償運送)/ },
-  { category: '廃棄物処理法・不法投棄・環境犯罪', regex: /(廃棄物処理法|不法投棄|産廃|スクラップ|無許可.*ヤード|森林法)/ },
-  { category: '商標法・著作権法・偽ブランド', regex: /(商標法|著作権法|偽ブランド|偽ロゴ|模倣品|海賊版|ニセ物|偽物|偽サプリ)/ },
-  { category: '銀行法・地下銀行・犯罪収益移転防止法', regex: /(地下銀行|銀行法違反|無免許.*送金|犯罪収益移転防止法|マネーロンダリング|資金洗浄|口座売買|口座.*譲り渡|出資法|闇金|ヤミ金)/ },
-  { category: '交通犯罪・ひき逃げ・無免許・飲酒運転', regex: /(ひき逃げ|当て逃げ|無免許|酒気帯び|酒酔い|飲酒運転|飲酒して.*事故|危険運転|過失運転致死傷|死亡事故|玉突き事故|車突入|車突っ込|道交法|道路交通法)/ },
-  { category: '風営法・売春防止法・違法カジノ', regex: /(売春|風営法|賭博|カジノ|メンズエステ|個室マッサージ|違法風俗|風俗営業|風俗店|不法就労.*ホステス)/ },
-  { category: '建造物侵入・住居侵入・器物損壊・放火', regex: /(住居侵入|建造物侵入|不法侵入|器物損壊|器物破損|放火|建造物損壊)/ },
-  { category: '電波法・偽基地局・不正通信', regex: /(電波法|偽基地局|偽装基地局|ニセ基地局|不法電波|不法無線局|強制圏外)/ },
-  { category: '威力・偽計業務妨害・不正行為', regex: /(威力業務妨害|偽計業務妨害|業務を?妨害)/ },
-  { category: '銃刀法・公務執行妨害・犯人蔵匿', regex: /(銃刀法|果物ナイフ|刃物所持|公務執行妨害|証拠隠滅|犯人蔵匿|犯人隠避|軽犯罪法)/ },
-];
+// 細分化された罪種カテゴリ定義（ai-gate.cjs から共有）
+const CRIME_CATEGORIES = aiGate.CRIME_CATEGORIES;
 
 const GOOGLE_NEWS_QUERIES = [
   '"国籍の" ("逮捕" OR "再逮捕" OR "送検" OR "書類送検" OR "摘発" OR "起訴" OR "不起訴" OR "公判" OR "判決") when:3d',
@@ -195,6 +164,8 @@ function cleanArticleTitle(rawTitle = '') {
   do {
     prev = title;
     title = title.replace(/\s+[-|｜―—]\s+[^-|｜―—]{1,35}$/, '');
+    title = title.replace(/\s*[|｜]\s*[^|｜]{1,35}$/, '');
+    title = title.replace(/[:：]地域ニュース$/, '');
     // 二重括弧「（メ〜テレ（名古屋テレビ））」や「(読売新聞オンライン)」「(LOOK 静岡朝日テレビ」の媒体名を末尾から除去（年齢「(37)」は残す）
     title = title.replace(/\s*[（(](?!\d{1,3}[）)])(?:[^（）()]|[（(][^（）()]*[）)])*(?:テレビ|新聞|ニュース|放送|通信|新報|日報|タイムス|朝日|毎日|読売|産経|日経|共同|時事|TBS|NHK|FNN|NNN|ANN|JNN|MBS|ABC|KBC|RKB|CBC|HBC|STV|HTB|UHB|TBC|ABS|TUY|TUF|BSN|SBC|UTY|SBS|ＳＢＳ|メ〜テレ|メ～テレ|中京|東海|カンテレ|読売テレビ|日テレ|テレ朝|テレ東|フジ|サンテレビ|KBS|RCC|KRY|RNC|RNB|RKC|TNC|FBS|TVQ|STS|KTN|KKT|TOS|UMK|MBC|KTS|QAB|OTV|RBC)[A-Za-z0-9ァ-ヶーぁ-ん一-龥\s（）()系・\-]*[）)]?\s*$/i, '');
   } while (title !== prev);
@@ -420,8 +391,8 @@ function splitLocationPrefAndMuni(rawLoc = '') {
   const loc = String(rawLoc || '').normalize('NFKC').trim();
   if (!loc || loc === '全国') return { prefecture: null, muni: null };
   const h = eventDedupe.locationHierarchy({ location: loc });
-  if (h?.prefecture) {
-    return { prefecture: h.prefecture, muni: h.locality || null };
+  if (h?.pref) {
+    return { prefecture: h.pref, muni: h.locality || null };
   }
   const m = loc.match(/^(北海道|青森県|岩手県|宮城県|秋田県|山形県|福島県|茨城県|栃木県|群馬県|埼玉県|千葉県|東京都|神奈川県|新潟県|富山県|石川県|福井県|山梨県|長野県|岐阜県|静岡県|愛知県|三重県|滋賀県|京都府|大阪府|兵庫県|奈良県|和歌山県|鳥取県|島根県|岡山県|広島県|山口県|徳島県|香川県|愛媛県|高知県|福岡県|佐賀県|長崎県|熊本県|大分県|宮崎県|鹿児島県|沖縄県)(.*)$/);
   if (m) {
@@ -643,8 +614,13 @@ function cleanSummarySentence(s = '') {
   return String(s || '')
     .replace(/\s+/g, ' ')
     .replace(/^(?:本文抜粋|見出し根拠|見出し・本文統合根拠|国内捜査・司法機関管轄根拠)\s*[:：]\s*/, '')
+    .replace(/^(?:【[^】]{1,20}】\s*|写真拡大\s*|[〉>≫]\s*[^。]{5,70}?ほか\s*)+/, '')
     // Yahoo!ニュース等の本文途中に挟まる別記事のインライン見出し（「…逮捕 兵庫・姫路市 「捜査の結果…」」等）を除去
     .replace(/^[^。「]{10,60}?(?:逮捕|送検|起訴|判決)\s+[一-龥]{2,4}[・･][一-龥]{2,6}(?:市|区|町|村)\s+(?=「)/, '')
+    // 記事途中に挿入された別記事リンク見出し（例: 「台所に洗いたての包丁 凶器か 母親殺害疑いで４５歳女逮捕 兵庫・姫路市 起訴状などによりますと…」）を除去
+    .replace(/^.*?(?:北海道|東京|京都|大阪|青森|岩手|宮城|秋田|山形|福島|茨城|栃木|群馬|埼玉|千葉|神奈川|新潟|富山|石川|福井|山梨|長野|岐阜|静岡|愛知|三重|滋賀|兵庫|奈良|和歌山|鳥取|島根|岡山|広島|山口|徳島|香川|愛媛|高知|福岡|佐賀|長崎|熊本|大分|宮崎|鹿児島|沖縄)・[一-龥ぁ-んァ-ヴー]{1,8}(?:市|区|町|村)\s+(?=(?:起訴状|判決|警察|検察|地検|県警|府警|道警|警視庁|発表|調べ))/, '')
+    // 1文目が読点「、」で途中切れしたまま2文目「起訴状などによると…」に接続された不完全前半部を除去
+    .replace(/^[^。]*?、(?=(?:起訴状|逮捕容疑|再逮捕容疑|送検容疑|警察|県警|府警|道警|警視庁)(?:など)?によ(?:ると|りますと))/, '')
     .replace(/【[^】]{1,12}】/g, '')
     .trim();
 }
@@ -1023,15 +999,15 @@ async function sanitizeExistingArticles(rawExisting) {
   const sanitized = [];
 
   // 第1パス: 既存の正規監査済みデータを最優先で保護（明確な政治要請・議会答弁・遺族談話・過去事件端緒・外国人被害者/管理者/対象相手の誤混入を除外）
-  const PAST_CASE_EVIDENCE_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|(?:\d+月|昨年|過去)にも[^。]{0,50}?(?:被害|事件)が(?:あり|発生し|起き)[^。]{0,45}?逮捕され(?:た|ている)/;
+  const PAST_CASE_EVIDENCE_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))(?:ら|など)?と共謀し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|(?:\d+月|昨年|過去)にも[^。]{0,50}?(?:被害|事件)が(?:あり|発生し|起き)[^。]{0,45}?逮捕され(?:た|ている)/;
   for (const item of trusted) {
     const cleanedTitle = cleanArticleTitle(item.title || '');
-    if (NON_INCIDENT_REGEX.test(cleanedTitle)) {
-      console.log(`[CLEANUP-NON-CASE] 非事件・政治反応・コラム記事を除外: ${cleanedTitle}`);
+    if (NON_INCIDENT_REGEX.test(cleanedTitle) || (/^《[^》]+》/.test(cleanedTitle) && !aiGate.CRIME_RE.test(cleanedTitle))) {
+      console.log(`[CLEANUP-NON-CASE] 非事件・政治反応・コラム・ゴシップ記事を除外: ${cleanedTitle}`);
       continue;
     }
     if (item.evidence?.suspect && PAST_CASE_EVIDENCE_RE.test(item.evidence.suspect) && !aiGate.NAT_RE.test(cleanedTitle)) {
-      console.log(`[CLEANUP-PAST-BG] 過去事件の捜査端緒のみ（今回の被疑者の外国籍特定なし）を除外: ${cleanedTitle}`);
+      console.log(`[CLEANUP-PAST-BG] 過去事件の捜査端緒・既公判共犯者のみ（今回の被疑者の外国籍特定なし）を除外: ${cleanedTitle}`);
       continue;
     }
     if (item.evidence?.suspect) {
@@ -1044,8 +1020,22 @@ async function sanitizeExistingArticles(rawExisting) {
         continue;
       }
     }
-    if (item.stage === '逮捕' && /(?:判決|有罪|実刑|懲役|禁錮|拘禁刑|罰金)/.test(cleanedTitle) && !/逮捕/.test(cleanedTitle)) {
-      item.stage = '判決';
+    item.title = cleanedTitle;
+    const titleStage = aiGate.determineStage(cleanedTitle);
+    if (titleStage && item.stage !== titleStage) {
+      item.stage = titleStage;
+    }
+    const reClassified = extractCrimeCategories(`${cleanedTitle} ${item.evidence?.suspect || ''} ${item.locationBasis || ''}`);
+    if (item.crimeCategory === 'その他刑事事件' || item.crimeCategory === '万引き・ドラッグストア大量窃盗' || (item.crimeCategory === '性犯罪・わいせつ' && /(?:問題|試験|学科)/.test(cleanedTitle))) {
+      item.crimeCategory = reClassified[0];
+    }
+    if (/本文の文脈結合で確認した報道です|、(?:起訴状|逮捕容疑)/.test(item.summary || '')) {
+      item.summary = buildLocalEventSummary(cleanedTitle, `${item.evidence?.suspect || ''}。${item.locationBasis || ''}`, {
+        prefecture: item.location,
+        nationality: item.nationality,
+        stage: item.stage,
+        suspectSentence: item.evidence?.suspect || '',
+      });
     }
     sanitized.push({
       ...item,

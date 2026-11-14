@@ -607,15 +607,17 @@ const DOMESTIC_LANDMARKS = {
 // 警察署・捜査機関および居住地・出身地の表記を除去
 function cleanPoliceAndResidence(str) {
   return nfkc(str)
-    .replace(/(?:警視庁|北海道警|道警|東京都|京都府|大阪府|[一-龥]{2,3}(?:県警|府警))(?:は)?[、，\s]*(?:\d{1,2}日[、，\s]*)?(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)[^、。]{0,22}[、，\s]*(?=(?:住所不定|中国|韓国|台湾|ベトナム|フィリピン|ブラジル|タイ|インドネシア|ネパール|スリランカ|パキスタン|トルコ|ペルー|ミャンマー|カンボジア|米国|アメリカ|外国|[ァ-ヴー]{2,}国籍|会社員|無職|自称))/g, ' ')
+    .replace(/(?:警視庁|北海道警|道警|東京都|京都府|大阪府|[一-龥]{2,3}(?:県警|府警))(?:は)?[、，\s]*(?:\d{1,2}日[、，\s]*)?(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)[^、。]{0,22}[、，\s]*(?=(?:住所不定|中国|韓国|台湾|ベトナム|フィリピン|ブラジル|タイ|インドネシア|ネパール|スリランカ|パキスタン|トルコ|ペルー|ミャンマー|カンボジア|米国|アメリカ|外国|[ァ-ヴー]{2,}国籍|会社員|会社社長|会社役員|経営者|代表|自営業|団体職員|契約社員|派遣社員|無職|自称))/g, ' ')
     .replace(/[^\s、。]*(?:警察署|地裁|簡裁|高裁|最高裁|捜査本部|検察庁|地検|区検|県警|府警|道警|警視庁)/g, ' ')
     .replace(/[＝=][^＝=]{2,30}[＝=]/g, ' ')
-    .replace(/[^\s、。]+(?:に住む|在住|出身)(?:の)?\s*(?:\d+代|\d+歳)?(?:の)?\s*(?:男性|女性|男|女|大学生|会社員|無職|容疑者)?(?:のクレジットカード|の名義)?/g, ' ')
+    .replace(/[^\s、。]+(?:に住む|在住|出身)(?:の)?\s*(?:\d+代|\d+歳)?(?:の)?\s*(?:男性|女性|男|女|大学生|会社員|会社社長|会社役員|無職|容疑者)?(?:のクレジットカード|の名義)?/g, ' ')
     .replace(/(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)[^\s、。]{0,12}の(?:\d+代|\d+歳)?(?:男性|女性)のクレジットカード情報/g, ' ')
-    .replace(/(?:容疑で|疑いで|として|されたのは)[、，\s]*(?:いずれも[^、。]{1,18}[、，\s]*)?(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)?[^、。]{1,22}?(?:市|区|町|村)[^、。]{0,14}[、，\s]*(?=(?:中国|韓国|台湾|ベトナム|フィリピン|ブラジル|タイ|インドネシア|ネパール|スリランカ|パキスタン|トルコ|ペルー|ミャンマー|カンボジア|米国|アメリカ|外国|[ァ-ヴー]{2,}国籍|会社員|無職|自称|アルバイト|職業不詳|解体工|工員|大学生|専門学校生))/g, ' ')
+    .replace(/(?:容疑で|疑いで|として|されたのは|(?:再)?逮捕された|送検された|書類送検された|起訴された|摘発された|罪で)[、，\s]*(?:いずれも[^、。]{1,18}[、，\s]*)?(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)?(?:[^、。]{1,22}?(?:市|区|町|村))?[^、。]{0,14}?(?:[、，\s]+|の)(?=(?:中国|韓国|台湾|ベトナム|フィリピン|ブラジル|タイ|インドネシア|ネパール|スリランカ|パキスタン|トルコ|ペルー|ミャンマー|カンボジア|米国|アメリカ|外国|[ァ-ヴー]{2,}国籍|会社員|会社社長|会社役員|経営者|代表|自営業|団体職員|契約社員|派遣社員|無職|自称|アルバイト|職業不詳|解体工|工員|作業員|技能実習生|実習生|留学生|大学生|専門学校生|男|女|男性|女性))/g, ' ')
+    .replace(/(?:容疑で|疑いで|として|罪で)[、，\s]*(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)[^。]{0,18}$/g, ' ')
     .replace(/(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)(?:、|\s)*(?:の|在住の|住所不定)?\s*(?=(?:中国|韓国|台湾|ベトナム|フィリピン|ブラジル|タイ|インドネシア|ネパール|スリランカ|パキスタン|トルコ|ペルー|ミャンマー|カンボジア|米国|アメリカ|外国|[ァ-ヴー]{2,}国籍))/g, ' ')
     .replace(/(?:国籍|外国籍|中国籍|韓国籍|台湾籍|米国籍|英国籍|人)(?:の男|の女)?(?:で|の)\s*[^。]{1,25}?(?:市|区|町|村)[^、。]{0,12}(?:の|、)/g, ' ')
-    .replace(/(?:疑いで|として)[、，]\s*(?:いずれも[^、。]{1,15}[、，]\s*)?[^、。]{2,20}?(?:市|区|町|村)[^、。]{0,12}[、，]\s*(?:会社員|無職|自称|アルバイト|職業不詳|解体工|工員|技能実習生)/g, ' ');
+    .replace(/(?:疑いで|として|(?:再)?逮捕された)[、，\s]*(?:いずれも[^、。]{1,15}[、，]\s*)?[^、。]{2,20}?(?:市|区|町|村)[^、。]{0,12}[、，]\s*(?:会社員|会社社長|会社役員|経営者|自営業|団体職員|契約社員|派遣社員|無職|自称|アルバイト|職業不詳|解体工|工員|技能実習生)/g, ' ')
+    .replace(/(?:北海道|東京都|京都府|大阪府|[一-龥]{2,3}県)?[^\s、。]{1,16}?(?:市|区|町|村)の(?:会社員|会社社長|会社役員|経営者|代表|自営業|団体職員|契約社員|派遣社員|無職|自称|アルバイト|職業不詳|解体工|工員|作業員|技能実習生|実習生|留学生|大学生|専門学校生)(?:ら|など|の(?:男|女|男性|女性|容疑者))?(?=(?:ら|を|が|など)?(?:逮捕|再逮捕|送検|書類送検|起訴|摘発))/g, ' ');
 }
 
 /**
@@ -629,23 +631,23 @@ function resolveCrimeSceneInContext(targetSentence, dict = loadMunicipalities())
   const SCENE_RE = /(?:都内|道内|府内|県内|市内|町内|村内|(?:都|道|府|県|市|区|町|村)(?:[で内]|において|から|へ)|路上|アパート|マンション|住宅|空き家|空き巣|解体工事現場|(?:[^\s、。]{1,6})宅|店舗|敷地|車内|山林|ホテル|自宅|港|空港|現場|店|駅|ヤード|倉庫|工場|ビル|施設|部屋|アウトレット|モール|商業施設|スーパー|コンビニ|駐車場|パーキング|銀行|ATM|交差点|電車内|コンテナ|市道|県道|国道)/;
 
   for (const [landmark, pref] of Object.entries(DOMESTIC_LANDMARKS)) {
-    if (cleanSent.includes(landmark)) return { pref, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+    if (cleanSent.includes(landmark)) return { pref, evidence: `本文抜粋: ${targetSentence.slice(0, 220)}` };
   }
 
   // 1. 空港辞書の照合
   for (const [ap, pref] of Object.entries(DOMESTIC_AIRPORTS)) {
     if (cleanSent.includes(ap)) {
-      return { pref, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+      return { pref, evidence: `本文抜粋: ${targetSentence.slice(0, 220)}` };
     }
   }
 
   // 1.5 「松戸東署は、同市内の路上で〜」のように警察署名＋「同市内/同町内/同区内/管内」で現場が示される文では、警察署の管轄県を優先特定
-  if (/(?:同市|同区|同町|同村|管内)(?:内|の)?(?:で|において|の路上|の店舗|の住宅|の駐車場|にある)/.test(rawNorm)) {
-    const stationTokens = rawNorm.match(/[一-龥ぁ-んァ-ヴー]{2,10}(?:警察署|署)/g) || [];
+  if (/(?:同市|同区|同町|同村|管内|県内)(?:内|の)?(?:で|において|の路上|の店舗|の住宅|の駐車場|にある|や近県)/.test(rawNorm)) {
+    const stationTokens = rawNorm.match(/[一-龥ぁ-んァ-ヴー]{2,10}(?:警察署|署|県警|府警|道警|警視庁)/g) || [];
     if (stationTokens.length > 0) {
       const stationResolved = resolvePrefecture(stationTokens.join(' '));
-      if (stationResolved?.pref && stationResolved.method === 'police_station') {
-        return { pref: stationResolved.pref, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+      if (stationResolved?.pref) {
+        return { pref: stationResolved.pref, evidence: `本文抜粋: ${targetSentence.slice(0, 220)}` };
       }
     }
   }
@@ -654,29 +656,29 @@ function resolveCrimeSceneInContext(targetSentence, dict = loadMunicipalities())
   const scenePrefRegex = new RegExp(`(${PREFECTURES.map(esc).join('|')})(?:[^、。]{0,10}?(?:市|区|町|村))?(?:内)?(?:で|において|にある|の路上|の店舗|の施設|の商業施設|の住宅|のホテル|の工場|の駐車場|運転免許)`);
   const scenePrefMatch = cleanSent.match(scenePrefRegex);
   if (scenePrefMatch) {
-    return { pref: scenePrefMatch[1], evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+    return { pref: scenePrefMatch[1], evidence: `本文抜粋: ${targetSentence.slice(0, 220)}` };
   }
   const orderedPrefs = PREFECTURES
     .map((p) => ({ p, idx: cleanSent.indexOf(p) }))
     .filter((x) => x.idx >= 0)
     .sort((a, b) => a.idx - b.idx);
   if (orderedPrefs.length === 1) {
-    return { pref: orderedPrefs[0].p, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+    return { pref: orderedPrefs[0].p, evidence: `本文抜粋: ${targetSentence.slice(0, 220)}` };
   }
   if (orderedPrefs.length > 1) {
     const policeMatched = orderedPrefs.find(({ p }) => new RegExp(`${esc(p === '北海道' ? '道' : p.slice(0, -1))}警|${esc(p)}警`).test(rawNorm));
     if (policeMatched) {
-      return { pref: policeMatched.p, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+      return { pref: policeMatched.p, evidence: `本文抜粋: ${targetSentence.slice(0, 220)}` };
     }
-    return { pref: orderedPrefs[0].p, evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+    return { pref: orderedPrefs[0].p, evidence: `本文抜粋: ${targetSentence.slice(0, 220)}` };
   }
   const shortDotMatches = [...cleanSent.matchAll(SHORT_DOT_RE)].map((m) => PREF_SHORT.get(m[1])).filter(Boolean);
   if (shortDotMatches.length === 1) {
-    return { pref: shortDotMatches[0], evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+    return { pref: shortDotMatches[0], evidence: `本文抜粋: ${targetSentence.slice(0, 220)}` };
   }
   const bracketPref = cleanSent.match(/[【\[（(](北海道|東京|京都|大阪|青森|岩手|宮城|秋田|山形|福島|茨城|栃木|群馬|埼玉|千葉|神奈川|新潟|富山|石川|福井|山梨|長野|岐阜|静岡|愛知|三重|滋賀|兵庫|奈良|和歌山|鳥取|島根|岡山|広島|山口|徳島|香川|愛媛|高知|福岡|佐賀|長崎|熊本|大分|宮崎|鹿児島|沖縄)[】\]）)]/);
   if (bracketPref && PREF_SHORT.has(bracketPref[1])) {
-    return { pref: PREF_SHORT.get(bracketPref[1]), evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+    return { pref: PREF_SHORT.get(bracketPref[1]), evidence: `本文抜粋: ${targetSentence.slice(0, 220)}` };
   }
 
   // 3. 市区町村辞書の照合（市区町村名が含まれており、SCENE_RE または 現場・犯罪文脈があること）
@@ -691,16 +693,17 @@ function resolveCrimeSceneInContext(targetSentence, dict = loadMunicipalities())
           const isKanjiSuffix = key.length <= 2 && prevChar && /[一-龥]/.test(prevChar) && !/[都道府県郡市区]$/.test(prevChar);
           if (!isSubCityTown && !isKanjiSuffix) {
             const prefs = dict.map[key];
-            if (prefs && prefs.length === 1) return { pref: prefs[0], evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+            if (prefs && prefs.length === 1) return { pref: prefs[0], evidence: `本文抜粋: ${targetSentence.slice(0, 220)}` };
           }
         }
         const stem = key.replace(/(?:市|区|町|村)$/, '');
+        if (PREF_SHORT.has(stem)) continue; // 「群馬、埼玉、神奈川の3県」等で横浜市神奈川区の語幹「神奈川」が誤マッチするのを防止
         const stemAt = (stem.length >= 3 && /[一-龥ァ-ヴー]/.test(stem)) ? cleanSent.indexOf(stem) : -1;
         const prevStem = stemAt > 0 ? cleanSent[stemAt - 1] : '';
         const afterStem = stemAt >= 0 ? cleanSent[stemAt + stem.length] : '';
         if (stemAt >= 0 && !(/(?:町|村)$/.test(key) && /[市区]$/.test(prevStem)) && (!afterStem || !/[一-龥]/.test(afterStem))) {
           const prefs = dict.map[key];
-          if (prefs && prefs.length === 1) return { pref: prefs[0], evidence: `本文抜粋: ${targetSentence.slice(0, 80)}` };
+          if (prefs && prefs.length === 1) return { pref: prefs[0], evidence: `本文抜粋: ${targetSentence.slice(0, 220)}` };
         }
       }
     }
@@ -731,7 +734,7 @@ function verifyArticleContent(text, title = '') {
   // 社説・論説・コラム・解説・オピニオン・政治批判・事後反応（要請・議会答弁・抗議集会・遺族コメント・連載企画）は、
   // 事件の説明や引用を含んでいても新規の被疑者事件報道ではないため最終ゲートで確実に止める。
   const NON_CASE_HEADLINE_RE = /(?:社説|論説|社論|オピニオン|コラム|提言|シンポジウム|有識者|エキスパートトピ|【[^】]*(?:解説|詳報|前編|後編|中編|連載|特集)[^】]*】|[一-龥ァ-ヶ]{2,8}(?:大|大学)(?:講師|教授|准教授|名誉教授)\s*$|私見|に驚き|持論|苦言|モーニングショー|羽鳥慎一|ひるおび|ミヤネ屋|ゴゴスマ|めざまし8|サン!シャイン|ワイドナショー|[一-龥ァ-ヶ]{2,10}(?:弁護士|コメンテーター|元刑事)[、:]|(?:再)?逮捕へ(?:\s|$|[・　])|(?:書類)?送検へ(?:\s|$)|起訴へ(?:\s|$)|方針を固め|メッセージの遅さ|極めて遺憾|日米と県協議|協定の改定|改定が必要|パリピ生活|水際で阻止|応えよ$|求めよ$|べきだ$|とは…|できたワケ|の正体|とは何か|^[▽▼■◆●]\s*[上中下前後0-9０-９]|連帯広げる|不安抱く社会|浮かび上がる[^。]*の「?構図」?|専門家が(?:語[るった]|み[るた])|だまされないための対策|エックス速報|合同巡回で米兵[^。]*外出禁止違反|憲兵隊が拘束|事件受けたパトロール|(?:事件|逮捕)[^。]{0,10}受け[^。]*(?:要請|抗議|答弁|集会|声明|談話|コメント|申し入れ|削除依頼|怒りの声|外出制限)|(?:首相|外務省|防衛省|政府|米軍)に[^。]*(?:要請|抗議|申し入れ)|(?:知事|市長|官房長官|大臣)[^。]*(?:再発防止|要請|抗議|注視|言及|批判|遺憾)|県議会[^。]*答弁|市民団体[^。]*(?:抗議|集会|怒りの声|要請|声明)|遺族(?:が|ら|も)[^。]*(?:コメント|談話|手記)|被害者へ中傷|中傷[^。]*削除依頼|日米共同演習|相次いで先島に飛来|FRIDAY|フライデー|逮捕直後の.*表情|初公判の傍聴券|傍聴席に.*姿|[＝=]中国ネット)/i;
-  if (title && NON_CASE_HEADLINE_RE.test(nfkc(title))) {
+  if (title && (NON_CASE_HEADLINE_RE.test(nfkc(title)) || (/^《[^》]+》/.test(nfkc(title)) && !CRIME_RE.test(nfkc(title))))) {
     result.rejected = true;
     result.rejectReason = 'editorial_or_opinion';
     return result;
@@ -748,8 +751,8 @@ function verifyArticleContent(text, title = '') {
   // 外国籍被疑者の記事全体を誤って落とし得るため、外国籍表現ごとに同一文内の役割を確認する。
   // 被疑者文には逮捕・容疑・送検・起訴・有罪などの刑事手続語・犯罪述語が同一文内に存在することを必須化
   const CRIME_PREDICATE_RE = /(?:逮捕|容疑|疑い|送検|送致|起訴|不起訴|処分|判決|求刑|初公判|公判|冒頭陳述|結審|罪状認否|摘発|指名手配|検挙|立件|有罪|被告|被疑者|現行犯|身柄|拘束|書類送検|再逮捕|罰金|勾留|実刑|懲役|逃走)/;
-  // 別事件・過去事件の捜査端緒（「今年7月…カンボジア国籍の男2人=窃盗罪で起訴=を逮捕し、処分先として同社が浮上」「8月にも…事件が発生し、チリ国籍の男2人が逮捕されている」等）を今回の被疑者文として誤認しない
-  const PAST_CASE_BACKGROUND_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|(?:自宅|関係先|拠点)を家宅捜索した際[^。]*?(?:押収|見つか|浮上)|逮捕され、その後(?:起訴|有罪|実刑)|(?:\d+月|昨年|おととし|過去|以前)にも[^。]{0,50}?(?:被害|事件)が(?:あり|発生し|起き)[^。]{0,45}?(?:逮捕され(?:た|ている)|起訴され(?:た|ている))/;
+  // 別事件・過去事件の捜査端緒（「今年7月…カンボジア国籍の男2人=窃盗罪で起訴=を逮捕し、処分先として同社が浮上」「8月にも…事件が発生し、チリ国籍の男2人が逮捕されている」「ベトナム国籍…の男=公判中=らと共謀し」等）を今回の被疑者文として誤認しない
+  const PAST_CASE_BACKGROUND_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))(?:ら|など)?と共謀し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|(?:自宅|関係先|拠点)を家宅捜索した際[^。]*?(?:押収|見つか|浮上)|逮捕され、その後(?:起訴|有罪|実刑)|(?:\d+月|昨年|おととし|過去|以前)にも[^。]{0,50}?(?:被害|事件)が(?:あり|発生し|起き)[^。]{0,45}?(?:逮捕され(?:た|ている)|起訴され(?:た|ている))/;
   const headlineIsUnarrestedNonForeign = Boolean(
     title && /(?:人物|男|女|犯人)が逃走(?:か|中)?\s*$/.test(nfkc(title))
     && !NAT_RE.test(nfkc(title))
@@ -909,7 +912,7 @@ function verifyArticleContent(text, title = '') {
   }
 
   result.audit.foreignNationality = { verified: true, evidence: `本文抜粋: ${matchedOcc.text}` };
-  result.audit.suspectRole = { verified: true, evidence: `本文抜粋: ${suspectSentence.slice(0, 80)}` };
+  result.audit.suspectRole = { verified: true, evidence: `本文抜粋: ${suspectSentence.slice(0, 220)}` };
 
   // 4. 犯罪行為と同一文脈での国内現場検証
   const dict = loadMunicipalities();
@@ -929,6 +932,12 @@ function verifyArticleContent(text, title = '') {
     const nearbySubjectContext = sentences.slice(suspectIndex, Math.min(sentences.length, suspectIndex + 3)).join(' ');
     if (/(?:男|女|容疑者)は[^。]{0,80}自宅(?:付近|近く)/.test(nearbySubjectContext) && /(?:市道|県道|国道|路上|走行中)/.test(nearbySubjectContext)) {
       scene = resolveCrimeSceneInContext(nearbySubjectContext, dict);
+      if (!scene) {
+        const homeResolved = resolvePrefecture(nearbySubjectContext);
+        if (homeResolved?.pref && homeResolved.pref !== '全国') {
+          scene = { pref: homeResolved.pref };
+        }
+      }
       if (scene) {
         const sceneAt = nearbySubjectContext.search(/自宅(?:付近|近く)/);
         const excerptStart = Math.max(0, sceneAt - 90);
@@ -1076,6 +1085,49 @@ function determineStage(itemOrText) {
   return null;
 }
 
+const CRIME_CATEGORIES = [
+  { category: '殺人・殺人未遂', regex: /(殺人|殺害|刺殺|絞殺|撲殺|首を絞め|強殺|胸などを刺|背中を刺|首を刺)/ },
+  { category: '強盗・強盗致傷', regex: /(強盗|ひったくり|闇バイト強盗|脅し.{0,12}奪|現金奪)/ },
+  { category: '性犯罪・わいせつ', regex: /(不同意性交|不同意わいせつ|わいせつな?行為|性的暴行|強制性交|強制わいせつ|(?:(?<!(?:問題|問題用紙|問題文|学科|試験).{0,15})盗撮(?!.{0,20}(?:問題|問題用紙|問題文|学科|試験)))|性的姿態撮影|児童買春|児童ポルノ|淫行|下半身を?露出|卑わい|公然わいせつ|胸を触|体を触)/ },
+  { category: '暴行・傷害・脅迫', regex: /(傷害|暴行|殴った|殴り|殴打|蹴った|刺した|刺され|切りつけ|切り付け|噛みつ|嚙みつ|かみつき|かみついた|脅迫|刃物で脅|恐喝|暴力行為|集団暴行|平手打ち|スプレー噴射|スプレーま[いか]|催涙スプレー|異臭騒ぎ)/ },
+  { category: '金属・太陽光ケーブル窃盗', regex: /(銅線|太陽光|メガソーラー|ケーブル|金属盗|グレーチング|室外機)/ },
+  { category: '自動車・バイク盗・ヤード解体', regex: /(自動車盗|高級車|レクサス|アルファード|ランドクルーザー|プリウス|ヤード|盗難車)/ },
+  { category: '農作物・家畜・果物窃盗', regex: /(農作物|果物(?!ナイフ)|さくらんぼ|シャインマスカット|桃|梨|メロン|コメ|玄米|白米|新米|米袋|米\d+キロ|豚|牛|鶏|家畜)/ },
+  { category: '住宅侵入・空き巣・店舗窃盗', regex: /(空き巣|忍び込み|居空き|事務所荒らし|出店荒らし|金庫|質店.*窃盗|質店.*盗|住宅に侵入.*盗|空き家に侵入.*盗)/ },
+  { category: '万引き・ドラッグストア大量窃盗', regex: /(万引き|(?:ドラッグストア|薬局|コンビニ).*(?:窃盗|盗ん|盗み|万引き)|(?:化粧品|医薬品|サプリメント).*(?:窃盗|盗ん|盗み|万引き))/ },
+  { category: '一般窃盗・スリ・車上荒らし', regex: /(窃盗|盗んだ|盗み|盗む|盗もう|車上荒らし|スリ(?!ランカ)|置き引き|さい銭|ロッカー物色)/ },
+  { category: '盗品等関与・故買・転売', regex: /(盗品等|盗品を保管|盗品と知りながら|故買|買い取った)/ },
+  { category: '特殊詐欺・出し子・受け子', regex: /(特殊詐欺|オレオレ詐欺|還付金詐欺|出し子|受け子|かけ子|架け子|キャッシュカード.*(?:だまし取|騙し取|郵送)|ATM.*引き出)/ },
+  { category: 'クレジットカード・電子計算機詐欺', regex: /(クレジットカード|カード情報|不正利用|不正決済|不正購入|不正に?取得|電子計算機使用詐欺|フィッシング|ボイスフィッシング|偽サイト.*メール|誘導メール|大量メール送信|大量送信|マイナポイント|給付金詐欺|持続化給付金)/ },
+  { category: '一般詐欺・無銭飲食', regex: /(詐欺|だまし取|騙し取|詐取|無銭飲食|食い逃げ)/ },
+  { category: '通貨偽造・偽造硬貨・偽札', regex: /(通貨偽造|偽造通貨|偽造銀貨|偽造硬貨|1万円銀貨|一万円銀貨|偽造1万円|偽札|偽造紙幣|旧1円銀貨|500円硬貨.*偽造|記念硬貨)/ },
+  { category: '有印公文書偽造・偽造カード・偽装結婚', regex: /(在留カード.*偽造|偽造在留カード|マイナンバーカード.*偽造|運転免許証.*(?:偽造|不正取得)|偽造.*運転免許証|有印公文書偽造|偽造有印公文書|有印私文書偽造|電磁的公正証書原本不実記録|偽装結婚|虚偽申請|虚偽内容で.*在留資格|高度専門職.*虚偽)/ },
+  { category: '医師法・薬機法・無資格医療・美容', regex: /(医師法|無資格.*医療|医療行為|美容整形|美容医療|アートメイク|歯科医師法|薬機法|医薬品医療機器法|処方箋なし|未承認医薬品|無許可.*医薬)/ },
+  { category: '鳥獣保護法・密猟・違法ジビエ・密漁', regex: /(鳥獣保護|密猟|イノシシ|シカ|ジビエ|わな|くくりわな|食品衛生法|食肉処理|無許可.*解体|密漁|ナマコ|アワビ|ウナギ|シラスウナギ|漁業法|オカヤドカリ|文化財保護法)/ },
+  { category: '薬物・大麻・覚醒剤・密輸', regex: /(覚醒剤|覚せい剤|大麻|コカイン|MDMA|麻薬|薬物|向精神薬|ケタミン|エトミデート|ゾンビたばこ|指定薬物|危険ドラッグ|麻薬特例法|関税法|密輸|不正輸出|家畜伝染病予防法|検疫法)/ },
+  { category: '入管法違反・不法残留・不法就労助長', regex: /(入管難民法|入管法|不法残留|不法滞在|オーバーステイ|不法就労|密入国|資格外活動|旅券不携帯)/ },
+  { category: '白タク・道路運送法違反', regex: /(白タク|道路運送法|無許可.*タクシー|有償運送)/ },
+  { category: '廃棄物処理法・不法投棄・環境犯罪', regex: /(廃棄物処理法|不法投棄|産廃|スクラップ|無許可.*ヤード|森林法)/ },
+  { category: '商標法・著作権法・偽ブランド', regex: /(商標法|著作権法|偽ブランド|偽ロゴ|模倣品|海賊版|ニセ物|偽物|偽サプリ|サプリメントの偽物)/ },
+  { category: '銀行法・地下銀行・犯罪収益移転防止法', regex: /(地下銀行|銀行法違反|無免許.*送金|無許可.*為替取引|犯罪収益移転防止法|組織犯罪処罰法|マネーロンダリング|資金洗浄|口座売買|口座.*開設|口座.*譲り渡|出資法|闇金|ヤミ金)/ },
+  { category: '交通犯罪・ひき逃げ・無免許・飲酒運転', regex: /(ひき逃げ|当て逃げ|無免許|酒気帯び|酒酔い|飲酒運転|飲酒して.*事故|酒を飲んで.*運転|基準値.*アルコール|呼気検査拒否|危険運転|過失運転致死傷|業務上過失往来危険|死亡事故|玉突き事故|追突事故|車にはねられ|バイクと衝突|車で男性に接触|車に追突|車突入|車突っ込|ドリフト走行|車庫飛ばし|道交法|道路交通法)/ },
+  { category: '風営法・売春防止法・違法カジノ', regex: /(売春|性的サービス|客引き|風営法|賭博|カジノ|メンズエステ|個室マッサージ|違法風俗|風俗営業|風俗店|不法就労.*ホステス)/ },
+  { category: '建造物侵入・住居侵入・器物損壊・放火', regex: /(住居侵入|邸宅侵入|建造物侵入|住宅に侵入|ベランダから侵入|不法侵入|器物損壊|器物破損|調書を引き裂|放火|建造物損壊)/ },
+  { category: '電波法・偽基地局・不正通信', regex: /(電波法|偽基地局|偽装基地局|ニセ基地局|不法電波|不法無線局|強制圏外)/ },
+  { category: '威力・偽計業務妨害・不正行為', regex: /(威力業務妨害|偽計業務妨害|業務を?妨害)/ },
+  { category: '銃刀法・公務執行妨害・犯人蔵匿', regex: /(銃刀法|果物ナイフ|刃物所持|公務執行妨害|証拠隠滅|犯人蔵匿|犯人隠避|軽犯罪法)/ },
+];
+
+function extractCrimeCategories(text) {
+  const matched = [];
+  for (const item of CRIME_CATEGORIES) {
+    if (item.regex.test(text)) {
+      matched.push(item.category);
+    }
+  }
+  return matched.length > 0 ? matched : ['その他刑事事件'];
+}
+
 module.exports = {
   run, verifyItem, rulesPass, ruleSuspect, ruleOnlyResponse, resolvePrefecture, titleFactsOk, isVictimSide, isJapaneseArrestee, isOverseas, natOccurrences,
   articleKey, ownText,
@@ -1083,4 +1135,5 @@ module.exports = {
   DOMESTIC_AIRPORTS, DOMESTIC_LANDMARKS, cleanPoliceAndResidence, resolveCrimeSceneInContext, verifyArticleContent, verifyHeadlineOnly,
   nationalityLinkedToSuspect,
   determineStage,
+  CRIME_CATEGORIES, extractCrimeCategories,
 };
