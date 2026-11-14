@@ -88,12 +88,14 @@ jobs:
             echo "Attempting git push..."
             if git push origin main; then
               echo "Push succeeded."
+              node scripts/notify-indexnow.cjs || true
               exit 0
             fi
             echo "Direct push rejected or failed. Pulling latest origin/main..."
             if git pull --rebase --autostash origin main; then
               if git push origin main; then
                 echo "Push succeeded after rebase."
+                node scripts/notify-indexnow.cjs || true
                 exit 0
               fi
             else
@@ -116,6 +118,7 @@ jobs:
                 git diff --staged --quiet || git commit -m "chore(news): automated update of verified domestic foreign crime news"
                 if git push origin main; then
                   echo "Push succeeded after self-healing rebuild."
+                  node scripts/notify-indexnow.cjs || true
                   exit 0
                 fi
               else
