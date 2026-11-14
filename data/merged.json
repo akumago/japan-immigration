@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-14T14:19:09.618Z",
+  "updatedAt": "2026-11-14T19:19:46.792Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6039,6 +6039,126 @@
       },
       "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [島根県 / 韓国籍 / 薬物・大麻・覚醒剤・密輸]",
       "recordedAt": "2026-11-14T14:19:09.618Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「酒は残っていたとしても基準値は下回っていると思った」 外出・飲酒制限期間中にまた... 27歳の米兵を酒気帯び運転の疑いで逮捕 基準値3倍のアルコール検出",
+        "date": "2026-11-14",
+        "url": "https://news.yahoo.co.jp/articles/2c9bc1d28be3b57ffc5977b1a7ca00d32ef5b59a?source=rss"
+      },
+      "reason": "同一事件確定(自治体一致) [沖縄県沖縄市 / 米国籍 / 交通犯罪・ひき逃げ・無免許・飲酒運転]",
+      "recordedAt": "2026-11-14T19:19:46.792Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "宇土市に住む女性から700万円をだまし取った疑い台湾籍の男逮捕【熊本】",
+        "date": "2026-11-14",
+        "url": "https://news.yahoo.co.jp/articles/221d44c6e8597170eb2a766e7681db2e5d4a6e79?source=rss"
+      },
+      "reason": "タイトル高類似 (100%: 宇土市に住む女性から700万円をだまし取った疑い台湾籍の男逮捕【熊本】)",
+      "recordedAt": "2026-11-14T19:19:46.792Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "女性の腕を叩くなどの暴行をしたとしてペルー国籍の男を逮捕 女性が110番通報 静岡・富士市",
+        "date": "2026-11-14",
+        "url": "https://news.yahoo.co.jp/articles/8e8dee408ec92a534306a33a97b0ef26dcca852f"
+      },
+      "reason": "タイトル高類似 (100%: 女性の腕を叩くなどの暴行をしたとしてペルー国籍の男を逮捕 女性が110番通報 静岡・富士市)",
+      "recordedAt": "2026-11-14T19:19:46.792Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「食べたいから盗んだ」メロン15個・4万5000円相当を盗んだ疑い ベトナム国籍の男を逮捕 静岡・菊川市",
+        "date": "2026-11-14",
+        "url": "https://news.yahoo.co.jp/articles/9b978eaaeaa35091ff95653ee7b90d322cf44774?source=rss"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 1個3000円のマスクメロン15個盗んだか 防犯カメラに映ったベトナム人の男逮捕 周辺で相次ぐメロン窃盗事件との関連捜査へ)",
+      "recordedAt": "2026-11-14T19:19:46.792Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "1個3000円のマスクメロン15個盗んだか 防犯カメラに映ったベトナム人の男逮捕 周辺で相次ぐメロン窃盗事件との関連捜査へ",
+        "date": "2026-11-13",
+        "url": "https://news.yahoo.co.jp/articles/d9ac046b7ad4f86fe80c60618df14ec07998e3b5?source=rss"
+      },
+      "reason": "タイトル高類似 (100%: 1個3000円のマスクメロン15個盗んだか 防犯カメラに映ったベトナム人の男逮捕 周辺で相次ぐメロン窃盗事件との関連捜査へ)",
+      "recordedAt": "2026-11-14T19:19:46.792Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "太陽光発電施設から銅線88キロを盗んだ疑い カンボジア国籍の男を逮捕送検",
+        "date": "2026-11-13",
+        "url": "https://news.yahoo.co.jp/articles/253a60d36e94e1056d3449c2d20ef8437a3bd265?source=rss"
+      },
+      "reason": "タイトル高類似 (100%: 太陽光発電施設から銅線88キロを盗んだ疑い カンボジア国籍の男を逮捕送検)",
+      "recordedAt": "2026-11-14T19:19:46.792Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "飲酒ひき逃げで執行猶予中に無免許運転 中国籍被告に実刑判決 埼玉 [埼玉県]",
+        "date": "2026-11-12",
+        "url": "https://www.msn.com/ja-jp/news/other/%E9%A3%B2%E9%85%92%E3%81%B2%E3%81%8D%E9%80%83%E3%81%92%E3%81%A7%E5%9F%B7%E8%A1%8C%E7%8C%B6%E4%BA%88%E4%B8%AD%E3%81%AB%E7%84%A1%E5%85%8D%E8%A8%B1%E9%81%8B%E8%BB%A2-%E4%B8%AD%E5%9B%BD%E7%B1%8D%E8%A2%AB%E5%91%8A%E3%81%AB%E5%AE%9F%E5%88%91%E5%88%A4%E6%B1%BA-%E5%9F%BC%E7%8E%89/ar-AA2hgWUF"
+      },
+      "reason": "同一5W1H＋年齢一致 [埼玉県 / 中国籍 / 交通犯罪・ひき逃げ・無免許・飲酒運転 / 44歳]",
+      "recordedAt": "2026-11-14T19:19:46.792Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「バックしていた時に...ガシャンと」道路工事現場で警備の37歳男性がダンプ車にはねられ死亡 運転のベトナム人の男逮捕 大阪・富田林市",
+        "date": "2026-11-12",
+        "url": "https://www.excite.co.jp/news/article/MBSnews_article3079508/"
+      },
+      "reason": "タイトル高類似 (92%: 「バックしていた時に...ガシャンと」道路工事の現場で警備していた男性がダンプ車にはねられ死亡 運転のベトナム人の男逮捕 大阪・富田林市)",
+      "recordedAt": "2026-11-14T19:19:46.792Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "岐阜市12人搬送のアパート火災 火元に住むトルコ国籍の男逮捕 大麻使用の疑い",
+        "date": "2026-11-12",
+        "url": "https://news.yahoo.co.jp/articles/d3b3bafc9803fa45ab2037826d20e3e5e27c6e9e?source=rss"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+場所/年齢+見出し類似0.68: 岐阜市のアパート火災 出火元に住むトルコ国籍の男逮捕 麻薬取締法違反の疑い(ぎふチャンDIGITAL))",
+      "recordedAt": "2026-11-14T19:19:46.792Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "国の特別天然記念物のカモシカを捕獲し鉄パイプで殺害か ベトナム国籍の技能実習生を逮捕 愛知県警",
+        "date": "2026-11-10",
+        "url": "https://news.yahoo.co.jp/articles/3473969d3412aba028b834b411ba2ea795a02d55"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 首のあたりを鉄パイプで殴ったか...国の特別天然記念物「ニホンカモシカ」を無許可で捕獲し殺した疑い ベトナム人の28歳男を再逮捕)",
+      "recordedAt": "2026-11-14T19:19:46.792Z"
     }
   ]
 }
