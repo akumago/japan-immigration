@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-13T23:42:38.179Z",
+  "updatedAt": "2026-11-14T06:44:11.830Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -5919,6 +5919,78 @@
       },
       "reason": "タイトル高類似 (100%: 「金稼ぎの目的で滞在」約4年間不法残留か ベトナム国籍の30代男性を摘発 情報提供で発覚=静岡・湖西市)",
       "recordedAt": "2026-11-13T23:42:38.179Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "【盗品?大量に発見-警察は空き家の防犯対策呼びかけ】空き家ばかりを狙う窃盗男...温水洗浄機能付き便座盗む→自宅に設置し使用_38歳のベトナム国籍の男を再逮捕 余罪多数か<北海道恵庭市",
+        "date": "2026-11-14",
+        "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFB2SkNIVnZHVGpua3M0amRSSF9jTnNKb3NuRXR5UzIyZmk3N0hlYi0wTjFwZ2J6Zlh2UHJWZXF6RXJxcV9XSkd4SWwtWnJzdw"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 空き家から盗んだトイレの便座を自宅で使用の疑い ベトナム国籍の男(38)を窃盗などの容疑で再逮捕 自宅から多数の盗品とみられる物が見つかる 北海道恵庭市)",
+      "recordedAt": "2026-11-14T06:44:11.830Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "飲酒禁止中の在沖縄米軍、また酒気帯び運転容疑で逮捕...嘉手納基地所属の空軍大尉が沖縄市で",
+        "date": "2026-11-14",
+        "url": "https://news.yahoo.co.jp/articles/724f134913f244c0a0d32365137fe05bd9a71f90"
+      },
+      "reason": "同一事件確定(自治体一致) [沖縄県沖縄市 / 米国籍 / 交通犯罪・ひき逃げ・無免許・飲酒運転]",
+      "recordedAt": "2026-11-14T06:44:11.830Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "トイレの便座を空き家から盗む ベトナム国籍の男を再逮捕 便座は自宅で使用 札幌市",
+        "date": "2026-11-14",
+        "url": "https://news.yahoo.co.jp/articles/a10d5128a7a69a68b310268aa89de9b65a1dd7ee"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 空き家から盗んだトイレの便座を自宅で使用の疑い ベトナム国籍の男(38)を窃盗などの容疑で再逮捕 自宅から多数の盗品とみられる物が見つかる 北海道恵庭市)",
+      "recordedAt": "2026-11-14T06:44:11.830Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「食べたいから盗んだ」メロン15個・4万5000円相当を盗んだ疑い ベトナム国籍の男を逮捕 静岡・菊川市",
+        "date": "2026-11-14",
+        "url": "https://www.msn.com/ja-jp/news/news/%E9%A3%9F%E3%81%B9%E3%81%9F%E3%81%84%E3%81%8B%E3%82%89%E7%9B%97%E3%82%93%E3%81%A0-%E3%83%A1%E3%83%AD%E3%83%B3%EF%BC%91%EF%BC%95%E5%80%8B-%EF%BC%94%E4%B8%87%EF%BC%95%EF%BC%90%EF%BC%90%EF%BC%90%E5%86%86%E7%9B%B8%E5%BD%93%E3%82%92%E7%9B%97%E3%82%93%E3%81%A0%E7%96%91%E3%81%84-%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E3%82%92%E9%80%AE%E6%8D%95-%E9%9D%99%E5%B2%A1-%E8%8F%8A%E5%B7%9D%E5%B8%82/ar-AA2hplwC"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 1個3000円のマスクメロン15個盗んだか 防犯カメラに映ったベトナム人の男逮捕 周辺で相次ぐメロン窃盗事件との関連捜査へ)",
+      "recordedAt": "2026-11-14T06:44:11.830Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ガシャーン...小学生の列にSUVが衝突 逃げた運転手の男、「今後は一切運転しない」と述べ執行猶予に その後、無免許運転...実刑判決 「私有地だと誤解していた」との主張は退けられる",
+        "date": "2026-11-14",
+        "url": "https://www.oricon.co.jp/article/3436824/"
+      },
+      "reason": "同一事件確定(自治体一致) [埼玉県三郷市 / 中国籍 / 交通犯罪・ひき逃げ・無免許・飲酒運転]",
+      "recordedAt": "2026-11-14T06:44:11.830Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "銭湯ロッカー窃盗“指示役”逮捕 クレジットカードのICチップ狙いか",
+        "date": "2026-11-13",
+        "url": "https://news.ntv.co.jp/category/society/92749696b0de41faa7f88f63157fc233"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 銭湯に窃盗目的で侵入疑い 中国籍の男逮捕 国際的窃盗Gメンバーか 千葉)",
+      "recordedAt": "2026-11-14T06:44:11.830Z"
     }
   ]
 }
