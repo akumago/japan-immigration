@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-15T17:51:35.439Z",
+  "updatedAt": "2026-11-15T22:59:23.972Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6471,6 +6471,42 @@
       },
       "reason": "タイトル高類似 (100%: 強盗被害店が一転・・・ 犯罪収益を海外に送金か? ベトナム人の男2人を逮捕)",
       "recordedAt": "2026-11-15T17:51:35.439Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "公然わいせつの容疑で米兵を逮捕 下半身を露出した疑い",
+        "date": "2026-11-15",
+        "url": "https://news.yahoo.co.jp/articles/56b8ccc0407b0ae18221c3c7db08e006f3ddee87?source=rss"
+      },
+      "reason": "同一事件確定(自治体一致) [沖縄県沖縄市 / 米国籍 / 性犯罪・わいせつ]",
+      "recordedAt": "2026-11-15T22:59:23.972Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "基準値の約1.9倍のアルコールを検出 酒酔い運転の疑いでベトナム国籍の男を逮捕",
+        "date": "2026-11-15",
+        "url": "https://news.yahoo.co.jp/articles/91d4627791b64e752c020b1a27303ca373d728c5?source=rss"
+      },
+      "reason": "タイトル高類似 (100%: 基準値の約1.9倍のアルコールを検出 酒酔い運転の疑いでベトナム国籍の男を逮捕)",
+      "recordedAt": "2026-11-15T22:59:23.972Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "通報者が制止、警察官も警告 それでも自転車に... 基準値の約8倍のアルコール 26歳ネパール国籍の留学生の男を現行犯逮捕",
+        "date": "2026-11-10",
+        "url": "https://www.msn.com/ja-jp/news/news/%E9%80%9A%E5%A0%B1%E8%80%85%E3%81%8C%E5%88%B6%E6%AD%A2-%E8%AD%A6%E5%AF%9F%E5%AE%98%E3%82%82%E8%AD%A6%E5%91%8A-%E3%81%9D%E3%82%8C%E3%81%A7%E3%82%82%E8%87%AA%E8%BB%A2%E8%BB%8A%E3%81%AB-%E5%9F%BA%E6%BA%96%E5%80%A4%E3%81%AE%E7%B4%848%E5%80%8D%E3%81%AE%E3%82%A2%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%AB-26%E6%AD%B3%E3%83%8D%E3%83%91%E3%83%BC%E3%83%AB%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%95%99%E5%AD%A6%E7%94%9F%E3%81%AE%E7%94%B7%E3%82%92%E7%8F%BE%E8%A1%8C%E7%8A%AF%E9%80%AE%E6%8D%95/ar-AA2h8z5o"
+      },
+      "reason": "タイトル高類似 (100%: 通報者が制止、警察官も警告 それでも自転車に... 基準値の約8倍のアルコール 26歳ネパール国籍の留学生の男を現行犯逮捕)",
+      "recordedAt": "2026-11-15T22:59:23.972Z"
     }
   ]
 }
