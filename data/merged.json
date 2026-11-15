@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-14T23:13:17.676Z",
+  "updatedAt": "2026-11-15T02:50:27.575Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6291,6 +6291,42 @@
       },
       "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: ケタミンやMDMAをレターパックで全国発送か 麻薬営利目的譲渡の疑いでベトナム国籍の男を逮捕 兵庫県警)",
       "recordedAt": "2026-11-14T23:13:17.676Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "アルバイト先の同僚女子高校生にキスなど”不同意わいせつ” バングラデシュ国籍の男逮捕",
+        "date": "2026-11-13",
+        "url": "https://news.yahoo.co.jp/articles/d5f28e3afd1fdace177de4993f1eea5e3689327c?source=rss"
+      },
+      "reason": "タイトル高類似 (100%: アルバイト先の同僚女子高校生にキスなど”不同意わいせつ” バングラデシュ国籍の男逮捕)",
+      "recordedAt": "2026-11-15T02:50:27.575Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "約4000万円相当の金塊詐取容疑で台湾籍の男を再逮捕 本人は「身に覚えない」",
+        "date": "2026-11-12",
+        "url": "https://news.yahoo.co.jp/articles/a16a56b9792ef7a0ad0650ea8243427561dfceb3?source=rss"
+      },
+      "reason": "タイトル高類似 (100%: 【速報】約4000万円相当の金塊詐取容疑で台湾籍の男を再逮捕 本人は「身に覚えない」)",
+      "recordedAt": "2026-11-15T02:50:27.575Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "他人名義のカードでATMから200万円を引き出す 村山警察署が中国国籍の男を再逮捕",
+        "date": "2026-11-12",
+        "url": "https://news.yahoo.co.jp/articles/5f303f85c8f708755414921cd48d7bee7940a853?source=rss"
+      },
+      "reason": "タイトル高類似 (100%: 他人名義のカードでATMから200万円を引き出す 村山警察署が中国国籍の男を再逮捕)",
+      "recordedAt": "2026-11-15T02:50:27.575Z"
     }
   ]
 }

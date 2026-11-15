@@ -1,5 +1,26 @@
 [
   {
+    "id": "a5ef77068f7a",
+    "sourceRecordId": "v5-a5ef77068f7a",
+    "date": "2026-11-15",
+    "pubDate": "2026-11-14T23:48:00.000Z",
+    "location": "沖縄県",
+    "prefecture": "沖縄県",
+    "media": "TBS NEWS DIG",
+    "source": "TBS NEWS DIG",
+    "stage": "逮捕",
+    "nationality": "米国籍",
+    "crimeCategory": "性犯罪・わいせつ",
+    "title": "米兵を現行犯逮捕 商業施設広場で下半身露出し公然わいせつ疑い 酔った状態で会話できず 14日だけで米兵2人逮捕",
+    "url": "https://news.yahoo.co.jp/articles/1613b45e6e94d5d946c0ba704f947dd50e2d36bb",
+    "summary": "米兵の逮捕は、14日だけで2人となっています。沖縄市の商業施設で14日夜、下半身を露出した公然わいせつの疑いで米空軍兵が現行犯逮捕されました。",
+    "evidence": {
+      "suspect": "本文抜粋: 米兵の逮捕は、14日だけで2人となっています。",
+      "nationality": "本文抜粋: 米兵"
+    },
+    "locationBasis": "本文抜粋: 沖縄市の商業施設で14日夜、下半身を露出した公然わいせつの疑いで米空軍兵が現行犯逮捕されました。"
+  },
+  {
     "id": "c55b934d33a8",
     "sourceRecordId": "v5-c55b934d33a8",
     "date": "2026-11-15",
