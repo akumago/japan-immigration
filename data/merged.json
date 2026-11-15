@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-15T11:14:09.378Z",
+  "updatedAt": "2026-11-15T17:51:35.439Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6375,6 +6375,102 @@
       },
       "reason": "URL完全一致 (https://news.yahoo.co.jp/articles/1613b45e6e94d5d946c0ba704f947dd50e2d36bb)",
       "recordedAt": "2026-11-15T11:14:09.378Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "酒気帯び疑い、米軍大尉逮捕 沖縄、綱紀粛正の中また",
+        "date": "2026-11-16",
+        "url": "https://mainichi.jp/articles/20261114/kyd/00m/040/005000c"
+      },
+      "reason": "URL完全一致 (https://mainichi.jp/articles/20261114/kyd/00m/040/005000c)",
+      "recordedAt": "2026-11-15T17:51:35.439Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "愛知の住宅に複数人が押し入り82歳女性が重傷「トクリュウ」の犯行か",
+        "date": "2026-11-15",
+        "url": "https://news.livedoor.com/article/detail/32824971/"
+      },
+      "reason": "event-dedupe一致 (本文の容疑者氏名+罪種+同日+地域整合: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-15T17:51:35.439Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "永住許可申請時に書類偽造の疑いで自称医師の中国国籍の男を逮捕 青森県",
+        "date": "2026-11-15",
+        "url": "https://news.yahoo.co.jp/articles/5518893ed485576d14bd1df8c14e6b69c6ca7141"
+      },
+      "reason": "URL完全一致 (https://news.yahoo.co.jp/articles/5518893ed485576d14bd1df8c14e6b69c6ca7141)",
+      "recordedAt": "2026-11-15T17:51:35.439Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "綱紀粛正中の米軍で同日に2件目の摘発...嘉手納基地の兵長、商業施設で下半身を露出した疑いで逮捕",
+        "date": "2026-11-15",
+        "url": "https://news.yahoo.co.jp/articles/d89d4327865552a2ef9169e282e3c9c35dd23ed1"
+      },
+      "reason": "同一事件確定(自治体一致) [沖縄県沖縄市 / 米国籍 / 性犯罪・わいせつ]",
+      "recordedAt": "2026-11-15T17:51:35.439Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "軽乗用車に原付バイクが追突→原付バイクを運転していたベトナム国籍の男(27)を酒酔い運転の疑いで逮捕",
+        "date": "2026-11-15",
+        "url": "https://topics.smt.docomo.ne.jp/article/rkb/region/rkb-3086550"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 酒に酔って原付バイクを運転した疑い ベトナム人の27歳の男を逮捕 容疑認める)",
+      "recordedAt": "2026-11-15T17:51:35.439Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「ニセ警察官詐欺」に関与したとして逮捕された中国籍の女性を不起訴処分 大阪地検",
+        "date": "2026-11-13",
+        "url": "https://news.yahoo.co.jp/articles/18a2b360d83be1e946bf0f0274c4c70d280ef05e"
+      },
+      "reason": "URL完全一致 (https://news.yahoo.co.jp/articles/18a2b360d83be1e946bf0f0274c4c70d280ef05e)",
+      "recordedAt": "2026-11-15T17:51:35.439Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「バックしていた時に...ガシャンと」道路工事現場で警備の37歳男性がダンプ車にはねられ死亡 運転のベトナム人の男逮捕 大阪・富田林市",
+        "date": "2026-11-12",
+        "url": "https://www.msn.com/ja-jp/news/other/%E3%83%90%E3%83%83%E3%82%AF%E3%81%97%E3%81%A6%E3%81%84%E3%81%9F%E6%99%82%E3%81%AB-%E3%82%AC%E3%82%B7%E3%83%A3%E3%83%B3%E3%81%A8-%E9%81%93%E8%B7%AF%E5%B7%A5%E4%BA%8B%E7%8F%BE%E5%A0%B4%E3%81%A7%E8%AD%A6%E5%82%99%E3%81%AE37%E6%AD%B3%E7%94%B7%E6%80%A7%E3%81%8C%E3%83%80%E3%83%B3%E3%83%97%E8%BB%8A%E3%81%AB%E3%81%AF%E3%81%AD%E3%82%89%E3%82%8C%E6%AD%BB%E4%BA%A1-%E9%81%8B%E8%BB%A2%E3%81%AE%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E4%BA%BA%E3%81%AE%E7%94%B7%E9%80%AE%E6%8D%95-%E5%A4%A7%E9%98%AA-%E5%AF%8C%E7%94%B0%E6%9E%97%E5%B8%82/ar-AA2hePkl"
+      },
+      "reason": "タイトル高類似 (92%: 「バックしていた時に...ガシャンと」道路工事の現場で警備していた男性がダンプ車にはねられ死亡 運転のベトナム人の男逮捕 大阪・富田林市)",
+      "recordedAt": "2026-11-15T17:51:35.439Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "強盗被害店が一転・・・ 犯罪収益を海外に送金か? ベトナム人の男2人を逮捕",
+        "date": "2026-11-11",
+        "url": "https://news.yahoo.co.jp/articles/cb2e65dc0aaceec01cd4afb38fde3efcdd2e5c70"
+      },
+      "reason": "タイトル高類似 (100%: 強盗被害店が一転・・・ 犯罪収益を海外に送金か? ベトナム人の男2人を逮捕)",
+      "recordedAt": "2026-11-15T17:51:35.439Z"
     }
   ]
 }
