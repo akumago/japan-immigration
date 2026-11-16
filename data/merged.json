@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-16T02:53:28.364Z",
+  "updatedAt": "2026-11-16T11:43:20.053Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6531,6 +6531,30 @@
       },
       "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 首のあたりを鉄パイプで殴ったか...国の特別天然記念物「ニホンカモシカ」を無許可で捕獲し殺した疑い ベトナム人の28歳男を再逮捕)",
       "recordedAt": "2026-11-16T02:53:28.364Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "自宅敷地内に置いた950万円持ち去る...『ニセ警察詐欺』中国籍の男を再逮捕 特殊詐欺の県内被害は9億円超で過去最悪ペース(山形)",
+        "date": "2026-11-16",
+        "url": "https://news.yahoo.co.jp/articles/9e60849897061b6d9e46b2faaab43417a1cd354c"
+      },
+      "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [山形県 / 中国籍 / 特殊詐欺・出し子・受け子]",
+      "recordedAt": "2026-11-16T11:43:20.053Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "逮捕の5人に14歳中学生 82歳女性がバールで殴られ、肺に穴があく重傷 愛知・小牧市",
+        "date": "2026-11-16",
+        "url": "https://news.ntv.co.jp/n/ctv/category/society/ct84a4f9d362d34921a4c872c10bd708f1"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-16T11:43:20.053Z"
     }
   ]
 }
