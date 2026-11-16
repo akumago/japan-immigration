@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-15T22:59:23.972Z",
+  "updatedAt": "2026-11-16T02:53:28.364Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6507,6 +6507,30 @@
       },
       "reason": "タイトル高類似 (100%: 通報者が制止、警察官も警告 それでも自転車に... 基準値の約8倍のアルコール 26歳ネパール国籍の留学生の男を現行犯逮捕)",
       "recordedAt": "2026-11-15T22:59:23.972Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "小牧市で82歳女性重傷 盗難車の男と少年4人逮捕 関連捜査",
+        "date": "2026-11-16",
+        "url": "https://news.livedoor.com/article/detail/32826581/"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-16T02:53:28.364Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "特別天然記念物「カモシカ」をわなで捕獲して殺害した疑い ベトナム国籍の男を再逮捕",
+        "date": "2026-11-10",
+        "url": "https://news.yahoo.co.jp/articles/0b68375d113cdac41fcf0b276b6de55b25e22e09?source=rss"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 首のあたりを鉄パイプで殴ったか...国の特別天然記念物「ニホンカモシカ」を無許可で捕獲し殺した疑い ベトナム人の28歳男を再逮捕)",
+      "recordedAt": "2026-11-16T02:53:28.364Z"
     }
   ]
 }
