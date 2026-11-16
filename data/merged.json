@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-16T11:43:20.053Z",
+  "updatedAt": "2026-11-16T22:20:14.551Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6555,6 +6555,30 @@
       },
       "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
       "recordedAt": "2026-11-16T11:43:20.053Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "“トクリュウ”の犯行か...愛知で発生した強盗殺人未遂事件「仙台市から強盗のため訪れた」盗難車に乗り逮捕の少年の一部が供述",
+        "date": "2026-11-16",
+        "url": "https://news.livedoor.com/article/detail/32832567/"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-16T22:20:14.551Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「闇バイトに参加した。仙台市から来た」 愛知・小牧市の強盗殺人未遂事件 別件で逮捕の5人のうち複数人が関与ほのめかす",
+        "date": "2026-11-16",
+        "url": "https://news.yahoo.co.jp/articles/0711b9db1f027778e4bbd61404478bd3d356ad41?source=rss"
+      },
+      "reason": "event-dedupe一致 (本文の容疑者氏名+罪種+同日+地域整合: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-16T22:20:14.551Z"
     }
   ]
 }
