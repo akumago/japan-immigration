@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-17T14:39:36.030Z",
+  "updatedAt": "2026-11-17T23:01:20.891Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6747,6 +6747,102 @@
       },
       "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 空き家から盗んだトイレの便座を自宅で使用の疑い ベトナム国籍の男(38)を窃盗などの容疑で再逮捕 自宅から多数の盗品とみられる物が見つかる 北海道恵庭市)",
       "recordedAt": "2026-11-17T14:39:36.030Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "車が歩行者と衝突 74歳女性死亡 運転していた中国籍の女を逮捕 東京・港区(2026年11月17日掲載)",
+        "date": "2026-11-18",
+        "url": "https://news.ntv.co.jp/category/society/a523969df9204625824f2c3b301cc220"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 《不正取得アカウント悪用》詐欺容疑で7人逮捕 売り上げ数億円か【高知】)",
+      "recordedAt": "2026-11-17T23:01:20.891Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "《不正取得アカウント悪用》詐欺容疑で7人逮捕 売り上げ数億円か【高知】",
+        "date": "2026-11-17",
+        "url": "https://news.yahoo.co.jp/articles/14800360fcd962afe2edfbefee57ee1f72dcd125?source=rss"
+      },
+      "reason": "タイトル高類似 (100%: 《不正取得アカウント悪用》詐欺容疑で7人逮捕 売り上げ数億円か【高知】)",
+      "recordedAt": "2026-11-17T23:01:20.891Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ニセ警察詐欺で台湾籍の男(29)再逮捕...950万円だまし取った疑い 山形",
+        "date": "2026-11-17",
+        "url": "https://www.msn.com/ja-jp/news/other/%E3%83%8B%E3%82%BB%E8%AD%A6%E5%AF%9F%E8%A9%90%E6%AC%BA%E3%81%A7%E5%8F%B0%E6%B9%BE%E7%B1%8D%E3%81%AE%E7%94%B7-29-%E5%86%8D%E9%80%AE%E6%8D%95-950%E4%B8%87%E5%86%86%E3%81%A0%E3%81%BE%E3%81%97%E5%8F%96%E3%81%A3%E3%81%9F%E7%96%91%E3%81%84-%E5%B1%B1%E5%BD%A2/ar-AA2hC8aP"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 警察官になりすまし高齢女性から現金950万円をだまし取った疑い 台湾籍の男を再逮捕 鶴岡署)",
+      "recordedAt": "2026-11-17T23:01:20.891Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "他人への譲渡目的を隠し銀行口座を開設した疑い ベトナム国籍の男2人を再逮捕 兵庫県警",
+        "date": "2026-11-17",
+        "url": "https://www.kobe-np.co.jp/news/jiken/202611/0021043589.shtml"
+      },
+      "reason": "タイトル高類似 (100%: 他人への譲渡目的を隠し銀行口座を開設した疑い ベトナム国籍の男2人を再逮捕 兵庫県警)",
+      "recordedAt": "2026-11-17T23:01:20.891Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "関与疑いの3人は仙台の中学生...愛知の住宅で女性が襲われた強盗殺人未遂事件 匿名性高いアプリで指示受けたか",
+        "date": "2026-11-17",
+        "url": "https://news.yahoo.co.jp/articles/8fe6ec0a410ea2a09f42add3e5381e00b4de1760?source=rss"
+      },
+      "reason": "タイトル高類似 (100%: 関与疑いの3人は仙台の中学生...愛知の住宅で女性が襲われた強盗殺人未遂事件 匿名性高いアプリで指示受けたか)",
+      "recordedAt": "2026-11-17T23:01:20.891Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "“トクリュウ”の犯行か...愛知で発生した強盗殺人未遂事件「仙台市から強盗のため訪れた」盗難車に乗り逮捕の少年の一部が供述",
+        "date": "2026-11-16",
+        "url": "https://news.yahoo.co.jp/articles/da02e803df848faac13d12f79c8182f638c28476?source=rss"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-17T23:01:20.891Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "盗んだ便座で快適生活!?ベトナム人技能実習生の38歳男が空き家から\"温水洗浄機能付き便座\"を盗み自宅で使用...空き家を狙った犯行繰り返していたか―余罪などを捜査<北海道恵庭市>",
+        "date": "2026-11-16",
+        "url": "https://www.uhb.jp/news/single.html?id=63662"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 空き家から盗んだトイレの便座を自宅で使用の疑い ベトナム国籍の男(38)を窃盗などの容疑で再逮捕 自宅から多数の盗品とみられる物が見つかる 北海道恵庭市)",
+      "recordedAt": "2026-11-17T23:01:20.891Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "警察官になりすまし高齢女性から現金950万円をだまし取った疑い 台湾籍の男を再逮捕 鶴岡署",
+        "date": "2026-11-16",
+        "url": "https://news.yahoo.co.jp/articles/922e683fb98ef5c55f0ba0069cedf141343aac52?source=rss"
+      },
+      "reason": "タイトル高類似 (100%: 警察官になりすまし高齢女性から現金950万円をだまし取った疑い 台湾籍の男を再逮捕 鶴岡署)",
+      "recordedAt": "2026-11-17T23:01:20.891Z"
     }
   ]
 }
