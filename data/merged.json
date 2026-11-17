@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-17T04:41:44.034Z",
+  "updatedAt": "2026-11-17T14:39:36.030Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6675,6 +6675,78 @@
       },
       "reason": "同一事件確定(自治体一致) [沖縄県沖縄市 / 米国籍 / 性犯罪・わいせつ]",
       "recordedAt": "2026-11-17T04:41:44.034Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "『全て空き家から盗んだ』温水洗浄機能付き便座を盗み自宅トイレで使用...逮捕されたベトナム人技能実習生の男の自宅などから見つかったのは...大量の”時計・貴金属・生活用品”など300点<北海道>",
+        "date": "2026-11-17",
+        "url": "https://www.fnn.jp/articles/-/1154305"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 空き家から盗んだトイレの便座を自宅で使用の疑い ベトナム国籍の男(38)を窃盗などの容疑で再逮捕 自宅から多数の盗品とみられる物が見つかる 北海道恵庭市)",
+      "recordedAt": "2026-11-17T14:39:36.030Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "盗品約300点押収 空き家便座窃盗容疑 ベトナム国籍の男 便座は自宅で使用 宝飾品などは転売目的か 北海道",
+        "date": "2026-11-17",
+        "url": "https://www.msn.com/ja-jp/news/other/%E7%9B%97%E5%93%81%E7%B4%84300%E7%82%B9%E6%8A%BC%E5%8F%8E-%E7%A9%BA%E3%81%8D%E5%AE%B6%E4%BE%BF%E5%BA%A7%E7%AA%83%E7%9B%97%E5%AE%B9%E7%96%91-%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7-%E4%BE%BF%E5%BA%A7%E3%81%AF%E8%87%AA%E5%AE%85%E3%81%A7%E4%BD%BF%E7%94%A8-%E5%AE%9D%E9%A3%BE%E5%93%81%E3%81%AA%E3%81%A9%E3%81%AF%E8%BB%A2%E5%A3%B2%E7%9B%AE%E7%9A%84%E3%81%8B-%E5%8C%97%E6%B5%B7%E9%81%93/ar-AA2hBBMJ"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 空き家から盗んだトイレの便座を自宅で使用の疑い ベトナム国籍の男(38)を窃盗などの容疑で再逮捕 自宅から多数の盗品とみられる物が見つかる 北海道恵庭市)",
+      "recordedAt": "2026-11-17T14:39:36.030Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ブランド品に金のネックレス 男が盗んだ300点を公開 空き家が被害の窃盗事件相次ぐ 北海道",
+        "date": "2026-11-17",
+        "url": "https://news.livedoor.com/article/detail/32839707/"
+      },
+      "reason": "event-dedupe一致 (国籍+場所+罪種: 空き家から盗んだトイレの便座を自宅で使用の疑い ベトナム国籍の男(38)を窃盗などの容疑で再逮捕 自宅から多数の盗品とみられる物が見つかる 北海道恵庭市)",
+      "recordedAt": "2026-11-17T14:39:36.030Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ニセ警察詐欺で台湾籍の男(29)再逮捕...950万円だまし取った疑い 山形",
+        "date": "2026-11-17",
+        "url": "https://www.fnn.jp/articles/-/1154130"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 警察官になりすまし高齢女性から現金950万円をだまし取った疑い 台湾籍の男を再逮捕 鶴岡署)",
+      "recordedAt": "2026-11-17T14:39:36.030Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「報酬目的で仙台から」と供述=逮捕の少年4人の一部―小牧市の女性重傷・愛知県警",
+        "date": "2026-11-17",
+        "url": "https://news.yahoo.co.jp/articles/c0e5fb289afc8e78862f8b6d162b669d2efcd25a"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-17T14:39:36.030Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "空き家から\"温水洗浄便座\"を盗んだ疑いで男逮捕 自宅から盗品とみられる約300点押収 恵庭市",
+        "date": "2026-11-17",
+        "url": "https://www.msn.com/ja-jp/news/other/%E7%A9%BA%E3%81%8D%E5%AE%B6%E3%81%8B%E3%82%89-%E6%B8%A9%E6%B0%B4%E6%B4%97%E6%B5%84%E4%BE%BF%E5%BA%A7-%E3%82%92%E7%9B%97%E3%82%93%E3%81%A0%E7%96%91%E3%81%84%E3%81%A7%E7%94%B7%E9%80%AE%E6%8D%95-%E8%87%AA%E5%AE%85%E3%81%8B%E3%82%89%E7%9B%97%E5%93%81%E3%81%A8%E3%81%BF%E3%82%89%E3%82%8C%E3%82%8B%E7%B4%84300%E7%82%B9%E6%8A%BC%E5%8F%8E-%E6%81%B5%E5%BA%AD%E5%B8%82/ar-AA2hB1mv"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 空き家から盗んだトイレの便座を自宅で使用の疑い ベトナム国籍の男(38)を窃盗などの容疑で再逮捕 自宅から多数の盗品とみられる物が見つかる 北海道恵庭市)",
+      "recordedAt": "2026-11-17T14:39:36.030Z"
     }
   ]
 }
