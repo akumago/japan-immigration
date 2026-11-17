@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-16T22:20:14.551Z",
+  "updatedAt": "2026-11-17T04:41:44.034Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6579,6 +6579,102 @@
       },
       "reason": "event-dedupe一致 (本文の容疑者氏名+罪種+同日+地域整合: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
       "recordedAt": "2026-11-16T22:20:14.551Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "愛知・小牧市の強盗殺人未遂 ブラジル国籍男(23)が車の運転役か 男を含む別件逮捕の5人が事件関与の可能性 指示役とは秘匿性高いアプリでやりとり",
+        "date": "2026-11-17",
+        "url": "https://topics.smt.docomo.ne.jp/article/hicbc/nation/hicbc-3090387"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-17T04:41:44.034Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "コンビニの駐車場で女性に暴行し車など奪ったか 中国籍の男(37)を緊急逮捕 調べに対し容疑否認",
+        "date": "2026-11-17",
+        "url": "https://news.ntv.co.jp/n/kyt/category/society/ky80f0603a3ec64c519ab395889d97ca9b"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 中国語で「殺すぞ」首を絞め車など奪った疑いで中国籍の男を逮捕 鹿児島・霧島市)",
+      "recordedAt": "2026-11-17T04:41:44.034Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「報酬目的で仙台から来た」 愛知の強殺未遂、関与疑いの少年",
+        "date": "2026-11-17",
+        "url": "https://news.livedoor.com/article/detail/32835716/"
+      },
+      "reason": "event-dedupe一致 (国籍+場所+罪種: 関与疑いの3人は仙台の中学生...愛知の住宅で女性が襲われた強盗殺人未遂事件 匿名性高いアプリで指示受けたか)",
+      "recordedAt": "2026-11-17T04:41:44.034Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "愛知県小牧市の高齢女性宅での強盗殺人未遂事件 仙台市からの少年4人が住宅に押し入った実行役か",
+        "date": "2026-11-17",
+        "url": "https://news.livedoor.com/article/detail/32836438/"
+      },
+      "reason": "event-dedupe一致 (本文の容疑者氏名+罪種+同日+地域整合: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-17T04:41:44.034Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "強盗殺人未遂事件 容疑者に中学生も 愛知 小牧",
+        "date": "2026-11-17",
+        "url": "https://news.web.nhk/newsweb/na/nd-20261117de76910"
+      },
+      "reason": "event-dedupe一致 (本文の容疑者氏名+罪種+同日+地域整合: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-17T04:41:44.034Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「闇バイトに応募し仙台から来た」中学生ら5人“トクリュウ”関与か 高齢女性「肺に穴」......愛知・強殺未遂事件",
+        "date": "2026-11-17",
+        "url": "https://news.livedoor.com/article/detail/32834179/"
+      },
+      "reason": "event-dedupe一致 (本文の容疑者氏名+罪種+同日+地域整合: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-17T04:41:44.034Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「仙台市から強盗のため訪れた」中学生含む少年の一部の供述明らかに トクリュウによる犯行か 愛知・小牧市",
+        "date": "2026-11-17",
+        "url": "https://news.livedoor.com/article/detail/32834082/"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-17T04:41:44.034Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "規制期間中、飲酒がらみの米兵逮捕相次ぐ 公然わいせつ・酒気帯び運転疑い 沖縄",
+        "date": "2026-11-17",
+        "url": "https://news.yahoo.co.jp/articles/da852c92ad7112a41f0aa686dbc576f66414a000"
+      },
+      "reason": "同一事件確定(自治体一致) [沖縄県沖縄市 / 米国籍 / 性犯罪・わいせつ]",
+      "recordedAt": "2026-11-17T04:41:44.034Z"
     }
   ]
 }
