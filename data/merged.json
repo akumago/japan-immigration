@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-18T12:04:23.588Z",
+  "updatedAt": "2026-11-18T14:17:19.836Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6071,6 +6071,18 @@
       },
       "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
       "recordedAt": "2026-11-18T12:04:23.588Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ズボンのポケットに4000万相当の金 密輸しようとした疑いで男2人告発 東京税関",
+        "date": "2026-11-18",
+        "url": "https://news.yahoo.co.jp/articles/1e14d5558b488af4e5eeb0ddc8812634c428ea13"
+      },
+      "reason": "同一被疑者名一致(跨県含む) [千葉県 vs 群馬県 / バングラデシュ国籍 / アリファザー容疑者]",
+      "recordedAt": "2026-11-18T14:17:19.836Z"
     }
   ]
 }
