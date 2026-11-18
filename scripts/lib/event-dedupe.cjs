@@ -141,7 +141,7 @@ function isFollowUp(older, newer) {
 }
 
 function signals(item) {
-  const summaryText = item.summary && !/発生した外国人関与の事件・容疑に関する報道速報です|本文の文脈結合で確認した報道です/.test(item.summary) ? item.summary : '';
+  const summaryText = item.summary && !/発生した外国人関与の事件・容疑に関する報道速報です|本文の文脈結合で確認した報道です|ことを本文で確認した報道です|（[^（）]*被疑者の[^（）]*報道）$/.test(item.summary) ? item.summary : '';
   const evidence = [
     item.audit?.suspectRole?.evidence || item.evidence?.suspect,
     item.audit?.japanCrime?.evidence || item.locationBasis,
@@ -171,6 +171,7 @@ function signals(item) {
     .map((p) => p.replace(/^.*?(?:都|道|府|県)/, ''))
     .filter((p) => p.length >= 2 && !/^(?:同市|同町|同区|都市|市区|地区)$/.test(p)));
   (text.match(/(?:東急|京王|小田急|JR|東京メトロ|都営|西武|東武|京急|京成|阪急|阪神|近鉄|名鉄|西鉄|南海|相鉄)[一-龥ァ-ヴー]{0,8}線/g) || []).forEach((l) => places.add(l));
+  (text.match(/(?:東名|新東名|名神|新名神|中央|関越|東北|常磐|東関東|京葉|首都|阪神|中国|山陽|九州|圏央|外環|館山|富津館山|小田原厚木|京奈和|西名阪|阪和)[一-龥ァ-ヴー]{0,6}(?:自動車道|道路|高速|道)/g) || []).forEach((l) => places.add(l));
   (text.match(/[一-龥]{1,4}港/g) || []).forEach((l) => places.add(l));
   const crimes = new Set(CRIME_GROUPS.filter(([, re]) => re.test(text)).map(([k]) => k));
   // 強い事件固有アンカー。同日・同地域・同国籍・同罪種・同手続段階も揃う場合だけ、
@@ -217,6 +218,12 @@ function signals(item) {
   }
   if (/(?:ヤミ金|闇金)/.test(text)) {
     incidentAnchors.add('yamikin_usury');
+  }
+  if (/詐欺グループ/.test(text) && /口座.*提供/.test(text)) {
+    incidentAnchors.add('fraud_group_account_provision');
+  }
+  if (/ヤード/.test(text) && /覚醒剤.*製造/.test(text)) {
+    incidentAnchors.add('yard_stimulant_manufacturing');
   }
   // 数量・金額・逮捕人数の「事実トークン」から汎用アンカー(fact:罪種:値)を作る。事件ごとの個別登録は不要。
   // 重量は整数kgへ丸めて表記ゆれを吸収（約3kg/3キロ/3.2キロ→3kg）。text は NFKC 済みで全角数字も吸収済み。
@@ -376,7 +383,7 @@ function sameEventReason(a, b, { maxDays = 14 } = {}) {
   // 5日を超える離隔では、ほぼ同一見出し（sim >= 0.70）または事件固有アンカー一致のみを統合し、
   // 同一自治体・路線で別日に起きた同種事件（沖縄市の米兵飲酒運転など）の誤統合を防ぐ
   if (daysApart(a.date, b.date) > 5) {
-    if (natsMatch && sameCrime && sameStoredRegion && sim >= 0.70) return `国籍+罪種+遅延同一見出し${sim.toFixed(2)}`;
+    if (natsMatch && sameCrime && sameStoredRegion && (sim >= 0.70 || (sameAge && samePlace))) return `国籍+罪種+遅延同一見出し${sim.toFixed(2)}`;
     return null;
   }
   if (sim >= 0.6 && sameCrime && (samePlace || sameAge)) return `国籍+罪種+場所/年齢+見出し類似${sim.toFixed(2)}`;

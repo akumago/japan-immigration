@@ -47,7 +47,7 @@ function parseChibaBulletin(html, url) {
   const contentStart = text.indexOf(report[0]) + report[0].length;
   const contentEnd = text.indexOf('前のページに戻る', contentStart);
   const content = text.slice(contentStart, contentEnd < 0 ? undefined : contentEnd);
-  const blocks = content.split(/(?=・)/).map((x) => x.trim()).filter((x) => x.startsWith('・'));
+  const blocks = content.split(/(?:^|\n)(?=・)/).map((x) => x.trim()).filter((x) => x.startsWith('・'));
   const candidates = [];
   for (const block of blocks) {
     const lines = block.split('\n').map((x) => x.trim()).filter(Boolean);

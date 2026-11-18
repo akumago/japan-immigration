@@ -267,6 +267,8 @@ function photoPageToArticleUrl(url) {
   if (u.hostname === 'news.yahoo.co.jp' && (m = p.match(/^(\/articles\/[0-9a-f]{20,})\/images\/\d+\/?$/))) return `${u.origin}${m[1]}`;
   if (/(?:^|\.)sankei\.com$/.test(u.hostname) && (m = p.match(/^(\/article\/[^/]+)\/photo\/[^/]+\/?$/))) return `${u.origin}${m[1]}/`;
   if (/(?:^|\.)373news\.com$/.test(u.hostname) && (m = p.match(/^\/news\/([a-z]+)\/photo\/(\d+)\/?$/))) return `${u.origin}/news/${m[1]}/${m[2]}/`;
+  if (/(?:^|\.)(?:newsdig\.tbs\.co\.jp|saga-s\.co\.jp)$/.test(u.hostname) && (m = p.match(/^\/articles\/gallery\/(\d+)\/?$/))) return `${u.origin}/articles/-/${m[1]}`;
+  if (/(?:^|\.)asahi\.com$/.test(u.hostname) && (m = p.match(/^\/(?:sp\/)?articles\/photo\/(AS[0-9A-Z]+\.html)$/i))) return `${u.origin}/articles/${m[1]}`;
   return null;
 }
 

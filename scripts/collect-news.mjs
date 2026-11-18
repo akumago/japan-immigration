@@ -145,7 +145,8 @@ function decodeHtmlEntities(text = '') {
 
 function normalizeUrl(rawUrl = '') {
   try {
-    const u = new URL(rawUrl);
+    const canonical = articleFetcher.photoPageToArticleUrl(rawUrl) || rawUrl;
+    const u = new URL(canonical);
     const dropParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'ref', 'fbclid', 'gclid', 'oc', 'usg'];
     dropParams.forEach((p) => u.searchParams.delete(p));
     u.hash = '';
@@ -160,14 +161,16 @@ function cleanArticleTitle(rawTitle = '') {
   let title = decodeHtmlEntities(rawTitle).normalize('NFKC');
   title = title.replace(/\s*\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*\d{1,2}:\d{2}\s*$/g, '');
   title = title.replace(/\s*\d+\s*(?:時間|分|日|秒)前\s*$/g, '');
+  title = title.replace(/」」/g, '」');
   let prev;
   do {
     prev = title;
     title = title.replace(/\s+[-|｜―—]\s+[^-|｜―—]{1,35}$/, '');
     title = title.replace(/\s*[|｜]\s*[^|｜]{1,35}$/, '');
     title = title.replace(/[:：][一-龥ァ-ヶー]{2,8}ニュース$/, '');
+    title = title.replace(/\s*\[[一-龥]{2,4}\]\s*$/, '');
     // 二重括弧「（メ〜テレ（名古屋テレビ））」や「(読売新聞オンライン)」「(LOOK 静岡朝日テレビ」の媒体名を末尾から除去（年齢「(37)」は残す）
-    title = title.replace(/\s*[（(](?!\d{1,3}[）)])(?:[^（）()]|[（(][^（）()]*[）)])*(?:テレビ|新聞|ニュース|放送|通信|新報|日報|タイムス|朝日|毎日|読売|産経|日経|共同|時事|TBS|NHK|FNN|NNN|ANN|JNN|MBS|ABC|KBC|RKB|CBC|HBC|STV|HTB|UHB|TBC|ABS|TUY|TUF|BSN|SBC|UTY|SBS|ＳＢＳ|メ〜テレ|メ～テレ|中京|東海|カンテレ|読売テレビ|日テレ|テレ朝|テレ東|フジ|サンテレビ|KBS|RCC|KRY|RNC|RNB|RKC|TNC|FBS|TVQ|STS|KTN|KKT|TOS|UMK|MBC|KTS|QAB|OTV|RBC)[A-Za-z0-9ァ-ヶーぁ-ん一-龥\s（）()系・\-]*[）)]?\s*$/i, '');
+    title = title.replace(/\s*[（(](?!\d{1,3}[）)])(?:[^（）()]|[（(][^（）()]*[）)])*(?:テレビ|新聞|ニュース|放送|通信|新報|日報|タイムス|朝日|毎日|読売|産経|日経|共同|時事|TBS|NHK|FNN|NNN|ANN|JNN|MBS|ABC|KBC|RKB|CBC|HBC|STV|HTB|UHB|TBC|ABS|TUY|TUF|BSN|SBC|UTY|SBS|ＳＢＳ|メ〜テレ|メ～テレ|中京|東海|カンテレ|読売テレビ|日テレ|テレ朝|テレ東|フジ|サンテレビ|KBS|RCC|KRY|RNC|RNB|RKC|TNC|FBS|TVQ|STS|KTN|KKT|TOS|UMK|MBC|KTS|QAB|OTV|RBC|ぎふチャン|KFB|NEWS|デジタル|DIGITAL|オンライン|ONLINE|ちばとぴ|船橋つうしん)[A-Za-z0-9ァ-ヶーぁ-ん一-龥\s（）()系・\-]*[）)]?\s*$/i, '');
   } while (title !== prev);
 
   return title.trim();
@@ -175,7 +178,7 @@ function cleanArticleTitle(rawTitle = '') {
 
 const DOMAIN_MEDIA_MAP = [
   [/news\.yahoo\.co\.jp/i, 'Yahoo!ニュース'],
-  [/news\.ntv\.co\.jp/i, '日テレNEWS NNN'],
+  [/news\.ntv\.co\.jp|nnn\.co\.jp/i, '日テレNEWS NNN'],
   [/newsdig\.tbs\.co\.jp/i, 'TBS NEWS DIG'],
   [/fnn\.jp/i, 'FNNプライムオンライン'],
   [/news\.tv-asahi\.co\.jp/i, 'テレ朝NEWS'],
@@ -184,25 +187,55 @@ const DOMAIN_MEDIA_MAP = [
   [/asahi\.com/i, '朝日新聞'],
   [/mainichi\.jp/i, '毎日新聞'],
   [/sankei\.com/i, '産経新聞'],
-  [/kyodo\.co\.jp|47news\.jp/i, '共同通信'],
+  [/kyodo\.co\.jp/i, '共同通信'],
+  [/47news\.jp/i, '47NEWS'],
   [/jiji\.com/i, '時事通信'],
   [/news\.livedoor\.com/i, 'ライブドアニュース'],
+  [/sannichi\.co\.jp/i, '山梨日日新聞'],
+  [/shimotsuke\.co\.jp/i, '下野新聞'],
+  [/kahoku\.news/i, '河北新報'],
+  [/sanspo\.com/i, 'サンスポ'],
+  [/ktv\.jp/i, 'カンテレ'],
+  [/fukui-tv\.co\.jp/i, '福井テレビ'],
+  [/nagoyatv\.com/i, 'メ〜テレ'],
+  [/jomo-news\.co\.jp/i, '上毛新聞'],
+  [/niikei\.jp/i, 'にいがた経済新聞'],
+  [/chiba-tv\.com/i, 'チバテレ'],
+  [/kbc\.co\.jp/i, 'KBC九州朝日放送'],
+  [/satv\.co\.jp/i, '静岡朝日テレビ'],
+  [/fmgunma\.com/i, 'FM GUNMA'],
+  [/saga-s\.co\.jp/i, '佐賀新聞'],
+  [/topics\.smt\.docomo\.ne\.jp/i, 'dメニューニュース'],
+  [/infoseek\.co\.jp/i, 'Infoseekニュース'],
+  [/excite\.co\.jp/i, 'エキサイトニュース'],
+  [/msn\.com/i, 'MSNニュース'],
+  [/thaich\.net/i, 'タイランドハイパーリンクス'],
+  [/coki\.jp/i, 'coki'],
+  [/shueisha\.online/i, '集英社オンライン'],
+  [/funabashi-tsushin\.com/i, '船橋つうしん'],
+  [/police\.pref\.chiba\.jp/i, '千葉県警察'],
+  [/pref\.shizuoka\.jp/i, '静岡県警察'],
+  [/^t\.co$/i, '国内報道機関'],
 ];
 
 function resolveMediaName(rawSource = '', resolvedUrl = '', rawTitle = '') {
   const s = String(rawSource || '').trim();
-  const isBadAggregator = !s || /^(?:Howl\.Link|SmartNews|Googleニュース|国内報道機関|news\.google\.com)$/i.test(s);
+  const isBadAggregator = !s || /^(?:Howl\.Link|MSNニュース\s*\/\s*Howl\.Link|MSNニュース|SmartNews|Googleニュース|国内報道機関|news\.google\.com)$/i.test(s) || /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(s);
   if (!isBadAggregator) return s;
-
-  const rawTail = String(rawTitle || '').match(/[（(]([^（）()]{2,24})[）)]\s*$/)?.[1]
-    || String(rawTitle || '').match(/\s+[-|｜]\s+([^-|｜]{2,24})$/)?.[1];
-  if (rawTail && !/^\d+$|Howl\.Link/i.test(rawTail)) {
-    return rawTail.trim();
-  }
 
   for (const [re, name] of DOMAIN_MEDIA_MAP) {
     if (re.test(String(resolvedUrl || ''))) return name;
   }
+  for (const [re, name] of DOMAIN_MEDIA_MAP) {
+    if (re.test(s)) return name;
+  }
+
+  const rawTail = String(rawTitle || '').match(/[（(]([^（）()]{2,24})[）)]\s*$/)?.[1]
+    || String(rawTitle || '').match(/\s+[-|｜]\s+([^-|｜]{2,24})$/)?.[1];
+  if (rawTail && !/^\d+$|Howl\.Link|(?:北海道|都|府|県|市|区|町|村)$/i.test(rawTail)) {
+    return rawTail.trim();
+  }
+
   return s || '国内報道機関';
 }
 
@@ -1225,7 +1258,7 @@ async function main() {
       rawFetchedItems.push({
         rawTitle: pi.title || '',
         title: cleanArticleTitle(pi.title || ''),
-        url: pi.id ? `${basePoliceUrl}#${pi.id}` : basePoliceUrl,
+        url: pi.id ? `${basePoliceUrl}?incident=${pi.id}` : basePoliceUrl,
         pubDate: pi.pubDate || new Date().toISOString(),
         description: pi.sourceBody || pi.description || '',
         sourceBody: pi.sourceBody || '',

@@ -19,11 +19,25 @@ const { normTitle } = require('./dedupe-newsdata.cjs');
 
 const PAST_BG_EVIDENCE_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))(?:ら|など)?と共謀し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|事件では、[、，\s]*(?:直後に|これまでに|すでに)?[^。]*?が逮捕され|(?:\d+月|昨年|おととし|過去|以前)にも[^。]{0,50}?(?:被害|事件)が(?:あり|発生し|起き)[^。]{0,45}?(?:逮捕され(?:た|ている)|起訴され(?:た|ている))/;
 
+const VALID_CATEGORIES = new Set(aiGate.CRIME_CATEGORIES.map((c) => c.category));
+
 function findQualityIssues(items) {
   const issues = [];
   for (const item of items) {
     if (/本文の文脈結合で確認した報道です|ことを本文で確認した報道です|外国人関与の事件・容疑に関する報道速報です/.test(String(item.summary || ''))) {
       issues.push({ type: 'robot_template_summary', item });
+    }
+    if (!item.location || item.location === '全国' || item.location !== item.prefecture) {
+      issues.push({ type: 'invalid_location', item });
+    }
+    if (!VALID_CATEGORIES.has(item.crimeCategory) || item.crimeCategory === 'その他刑事事件') {
+      issues.push({ type: 'invalid_crime_category', item });
+    }
+    if (!item.media || /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(item.media) || /Howl\.Link/i.test(item.media)) {
+      issues.push({ type: 'unnormalized_media', item });
+    }
+    if (/<a\s+href=/i.test(item.description || '')) {
+      issues.push({ type: 'raw_html_description', item });
     }
     const text = [item.locationBasis, item.evidence?.suspect, item.summary].filter(Boolean).join(' ');
     const suspectOnly = String(item.evidence?.suspect || '')

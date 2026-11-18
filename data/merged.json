@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-18T11:21:52.640Z",
+  "updatedAt": "2026-11-18T12:04:23.588Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -5995,6 +5995,82 @@
       },
       "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
       "recordedAt": "2026-11-18T11:21:52.640Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "55897681b0191297",
+        "sourceRecordId": null,
+        "title": "京葉道路下り線で酒酔い運転 中国国籍の男(34)を現行犯逮捕 千葉県警",
+        "date": "2026-09-22",
+        "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03767.html"
+      },
+      "removed": {
+        "id": "7b4726bc60a3997e",
+        "sourceRecordId": null,
+        "title": "京葉道路で酒酔い運転の疑い、中国籍の男逮捕 「酒は抜けていると思った」 千葉県警高速隊",
+        "date": "2026-09-30",
+        "url": "https://news.yahoo.co.jp/articles/02a6c26da20eaa51f7983f96fd9e2bf9047b8bd7"
+      },
+      "reason": "国籍+罪種+遅延同一見出し0.48",
+      "recordedAt": "2026-11-18T12:04:23.588Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "05a9ae1ce36169f6",
+        "sourceRecordId": null,
+        "title": "自宅敷地内の消火栓の下に置くよう指示された現金1120万円は、全て持ち去られていた 警察になりすまし現金をだまし取った疑いで台湾国籍の男(24)を逮捕",
+        "date": "2026-09-28",
+        "url": "https://newsdig.tbs.co.jp/articles/-/2972064"
+      },
+      "removed": {
+        "id": "263d77cac5aa2bc0",
+        "sourceRecordId": null,
+        "title": "警察官を装う詐欺の疑いで台湾籍の男を逮捕 鳥取・米子",
+        "date": "2026-09-28",
+        "url": "https://www.nnn.co.jp/articles/-/805430"
+      },
+      "reason": "同日+同県+国籍+罪種（矛盾なし転載）",
+      "recordedAt": "2026-11-18T12:04:23.588Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "18279ec35c2452a7",
+        "sourceRecordId": null,
+        "title": "だまし取った現金を資金洗浄か ベトナム国籍の男を逮捕",
+        "date": "2026-09-30",
+        "url": "https://news.ntv.co.jp/n/ctv/category/society/ctfd87161ccedd498ca6544d34d8c4d38d"
+      },
+      "removed": {
+        "id": "321d5559a30c0790",
+        "sourceRecordId": null,
+        "title": "詐欺グループへの口座提供でベトナム国籍の大学生を逮捕",
+        "date": "2026-09-29",
+        "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9EQjNDTlozcmNMLUhWNFZ0RU10UnNXRWZhN0U2QkdBVmRETlNSZmRQMFFNM2tUS1c4S0dSbTVVOENMdklEQVRxejBjanhLb0xqUmJPZVlTX09wOU8xbXdpS2dfNE4tTFJub0xJN3JzblNJelJRQnc?oc=5"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-11-18T12:04:23.588Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "783d098ea1fa735f",
+        "sourceRecordId": null,
+        "title": "コンテナで覚醒剤を製造か イラン国籍の男3人再逮捕 錠剤5万錠など大量に見つかる",
+        "date": "2026-10-01",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000537046.html"
+      },
+      "removed": {
+        "id": "a5b5d930865b8819",
+        "sourceRecordId": null,
+        "title": "ヤードで覚醒剤製造した疑い...イラン国籍の男ら3人逮捕 密造・密売の拠点か",
+        "date": "2026-09-30",
+        "url": "https://news.ntv.co.jp/category/society/dec3a787367a4ee19c90710c9a9466ee"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-11-18T12:04:23.588Z"
     }
   ]
 }
