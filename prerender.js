@@ -630,24 +630,29 @@ async function prerender() {
       changefreq: 'weekly'
     };
 
-    // 本文HTMLから各セクションの見出し（h2 / h3）を自動抽出して構造化データ hasPart に変換
+    // 本文HTMLから各セクションの見出し（h2 / h3）を自動抽出して id="section-N" を付与し、構造化データ hasPart に変換
     const sectionParts = [];
-    const headingRegex = /<(h2|h3)[^>]*>([\s\S]*?)<\/\1>/gi;
-    let match;
     let secIdx = 1;
     const seenHeadings = new Set();
-    while ((match = headingRegex.exec(appHtml)) !== null && sectionParts.length < 25) {
-      const text = stripHtmlTags(match[2]);
+    const enrichedAppHtml = appHtml.replace(/<(h2|h3)([^>]*)>([\s\S]*?)<\/\1>/gi, (full, tag, attrs, inner) => {
+      if (sectionParts.length >= 25) return full;
+      const text = stripHtmlTags(inner);
       if (text && text.length >= 4 && text.length <= 90 && !seenHeadings.has(text) && !/^(ナビゲーション|メニュー|目次|Crawler)/i.test(text)) {
         seenHeadings.add(text);
+        const currentIdx = secIdx++;
+        const secId = `section-${currentIdx}`;
         sectionParts.push({
           '@type': 'WebPageElement',
-          'position': secIdx++,
+          'position': currentIdx,
           'name': text,
-          'url': `${canonicalUrl}#section-${secIdx - 1}`
+          'url': `${canonicalUrl}#${secId}`
         });
+        if (!/\bid\s*=/i.test(attrs)) {
+          return `<${tag}${attrs} id="${secId}">${inner}</${tag}>`;
+        }
       }
-    }
+      return full;
+    });
 
     const segMeta = segmentRouteMeta[normalizedUrl] || null;
     const pageModifiedIso = routeLastmodIso(normalizedUrl);
@@ -781,6 +786,7 @@ async function prerender() {
 
     const cleanHeadTags = [
       `<title>${escapeHtmlAttr(seoCfg.title)}</title>`,
+      `<meta name="prerender-title" content="${escapeHtmlAttr(seoCfg.title)}" />`,
       `<meta name="description" content="${escapeHtmlAttr(seoCfg.desc)}" />`,
       `<meta name="keywords" content="${escapeHtmlAttr(seoCfg.keywords)}" />`,
       `<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />`,
@@ -801,7 +807,7 @@ async function prerender() {
     ].join('\n    ');
 
     const finalHtml = baseInlinedTemplate
-      .replace('<!--app-html-->', appHtml)
+      .replace('<!--app-html-->', enrichedAppHtml)
       .replace(/<title>[\s\S]*?<meta property="twitter:image"[^>]*>/, cleanHeadTags);
 
     const fileName = url === '/' ? 'index.html' : `${url}/index.html`;
