@@ -1,7 +1,9 @@
 import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { MainLayout } from '../components/MainLayout';
 import newsData from '../data/newsData.json';
+import crimeSegments from '../data/crimeSegments.json';
 
 interface NewsItem {
   id: string;
@@ -396,6 +398,41 @@ export const CrimeNewsArchive: React.FC = () => {
                 />
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* 都道府県別・国籍別 集計ページへのインデックス導線（5件以上のみ） */}
+        <div className="mt-8 p-6 rounded-2xl bg-[#161b22] border border-white/10 shadow-xl">
+          <h2 className="text-sm font-bold text-gray-200 mb-3">📂 都道府県別・国籍別の個別集計アーカイブ（5件以上）</h2>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {Object.entries(crimeSegments.prefectures).map(([slug, name]) => {
+              const count = items.filter(i => i.location === name).length;
+              if (count < 5) return null;
+              return (
+                <Link
+                  key={slug}
+                  to={`/analysis/crime-news/pref/${slug}/`}
+                  className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-gray-300"
+                >
+                  {name} ({count})
+                </Link>
+              );
+            })}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {Object.entries(crimeSegments.nationalities).map(([slug, name]) => {
+              const count = items.filter(i => i.nationality === name).length;
+              if (count < 5) return null;
+              return (
+                <Link
+                  key={slug}
+                  to={`/analysis/crime-news/nationality/${slug}/`}
+                  className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-gray-300"
+                >
+                  {name} ({count})
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>

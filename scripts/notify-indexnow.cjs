@@ -1,10 +1,12 @@
 const https = require('https');
+const fs = require('fs');
+const path = require('path');
 
 const host = 'endearing-blini-b688ce.netlify.app';
 const key = '6c7e3f89a1b24d5e8f0a1c2d3e4f5a6b';
 const keyLocation = `https://${host}/${key}.txt`;
 
-const urlList = [
+const fallbackUrlList = [
   `https://${host}/`,
   `https://${host}/analysis-archive/`,
   `https://${host}/analysis/crime-news/`,
@@ -54,6 +56,20 @@ const urlList = [
   `https://${host}/analysis/image/14/`,
   `https://${host}/analysis/image/15/`
 ];
+
+function loadSitemapUrls() {
+  try {
+    const sitemapPath = path.join(__dirname, '..', 'public', 'sitemap.xml');
+    if (!fs.existsSync(sitemapPath)) return fallbackUrlList;
+    const xml = fs.readFileSync(sitemapPath, 'utf-8');
+    const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim()).filter(Boolean);
+    return locs.length > 0 ? locs : fallbackUrlList;
+  } catch {
+    return fallbackUrlList;
+  }
+}
+
+const urlList = loadSitemapUrls();
 
 const postData = JSON.stringify({
   host: host,

@@ -36,6 +36,7 @@ import { AISimulation } from "./pages/AISimulation";
 import { ImagePage } from "./pages/ImagePage";
 import { Disclaimer } from "./pages/Disclaimer";
 import { CrimeNewsArchive } from "./pages/CrimeNewsArchive";
+import { PrefCrimePage, NationalityCrimePage } from "./pages/CrimeSegmentPage";
 
 const App: React.FC = () => {
   // ハイドレーションエラーを防ぐためのフラグ
@@ -88,6 +89,8 @@ const App: React.FC = () => {
         <Route path="/glossary/" element={<Glossary />} />
         <Route path="/operator-info/" element={<OperatorInfo />} />
         <Route path="/analysis/crime-news/" element={<CrimeNewsArchive />} />
+        <Route path="/analysis/crime-news/pref/:pref/" element={<PrefCrimePage />} />
+        <Route path="/analysis/crime-news/nationality/:nat/" element={<NationalityCrimePage />} />
       </Routes>
       
       {/* クライアント側でのみ表示される動的コンポーネント */}
