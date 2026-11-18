@@ -165,7 +165,7 @@ function cleanArticleTitle(rawTitle = '') {
     prev = title;
     title = title.replace(/\s+[-|｜―—]\s+[^-|｜―—]{1,35}$/, '');
     title = title.replace(/\s*[|｜]\s*[^|｜]{1,35}$/, '');
-    title = title.replace(/[:：]地域ニュース$/, '');
+    title = title.replace(/[:：][一-龥ァ-ヶー]{2,8}ニュース$/, '');
     // 二重括弧「（メ〜テレ（名古屋テレビ））」や「(読売新聞オンライン)」「(LOOK 静岡朝日テレビ」の媒体名を末尾から除去（年齢「(37)」は残す）
     title = title.replace(/\s*[（(](?!\d{1,3}[）)])(?:[^（）()]|[（(][^（）()]*[）)])*(?:テレビ|新聞|ニュース|放送|通信|新報|日報|タイムス|朝日|毎日|読売|産経|日経|共同|時事|TBS|NHK|FNN|NNN|ANN|JNN|MBS|ABC|KBC|RKB|CBC|HBC|STV|HTB|UHB|TBC|ABS|TUY|TUF|BSN|SBC|UTY|SBS|ＳＢＳ|メ〜テレ|メ～テレ|中京|東海|カンテレ|読売テレビ|日テレ|テレ朝|テレ東|フジ|サンテレビ|KBS|RCC|KRY|RNC|RNB|RKC|TNC|FBS|TVQ|STS|KTN|KKT|TOS|UMK|MBC|KTS|QAB|OTV|RBC)[A-Za-z0-9ァ-ヶーぁ-ん一-龥\s（）()系・\-]*[）)]?\s*$/i, '');
   } while (title !== prev);
@@ -250,14 +250,16 @@ async function writeJsonAtomically(targetPath, dataObj) {
 // 4. 5W1H抽出エンジン（ai-gate.cjs の1,741市区町村辞書・主述結合検証と完全連動）
 // ============================================================================
 
-function standardizeNationality(rawNatText = '', fallbackFullText = '') {
-  const target = `${rawNatText} ${fallbackFullText}`;
-  // まず ai-gate.cjs の natOccurrences で「被疑者側（suspect: true）」と判定された最初の国籍表記を優先抽出
+function standardizeNationality(rawNatText = '', fallbackFullText = '', titleText = '') {
+  const target = `${titleText} ${rawNatText} ${fallbackFullText}`;
+  // 見出しに被疑者側の具体国籍が明記されていれば最優先し、次に ai-gate.cjs の natOccurrences で被疑者側と判定された国籍を抽出
+  const titleOccs = titleText ? aiGate.natOccurrences(titleText).filter((o) => o.suspect && !/^(?:外国|無国|二重|複数|同国)/.test(o.text)) : [];
   const occs = [
+    ...titleOccs,
     ...aiGate.natOccurrences(rawNatText).filter((o) => o.suspect),
     ...aiGate.natOccurrences(fallbackFullText).filter((o) => o.suspect),
   ];
-  const candidateTexts = occs.length > 0 ? [occs[0].text, rawNatText, target] : [rawNatText, target];
+  const candidateTexts = occs.length > 0 ? [occs[0].text, titleText, rawNatText, target] : [titleText, rawNatText, target];
 
   for (const text of candidateTexts) {
     if (!text) continue;
@@ -614,7 +616,7 @@ function cleanSummarySentence(s = '') {
   return String(s || '')
     .replace(/\s+/g, ' ')
     .replace(/^(?:本文抜粋|見出し根拠|見出し・本文統合根拠|国内捜査・司法機関管轄根拠)\s*[:：]\s*/, '')
-    .replace(/^(?:【[^】]{1,20}】\s*|写真拡大\s*|[〉>≫]\s*[^。]{5,70}?ほか\s*)+/, '')
+    .replace(/^(?:【[^】]{1,20}】\s*|写真拡大\s*|[〉>≫]\s*[^。]{5,70}?ほか\s*|[▶▷▼▽■◆●]\s*[^。]{10,90}?(?:市|区|町|村)\s+|(?:TOP|社会)\s+(?:事件・事故\s*)?)+/, '')
     // Yahoo!ニュース等の本文途中に挟まる別記事のインライン見出し（「…逮捕 兵庫・姫路市 「捜査の結果…」」等）を除去
     .replace(/^[^。「]{10,60}?(?:逮捕|送検|起訴|判決)\s+[一-龥]{2,4}[・･][一-龥]{2,6}(?:市|区|町|村)\s+(?=「)/, '')
     // 記事途中に挿入された別記事リンク見出し（例: 「台所に洗いたての包丁 凶器か 母親殺害疑いで４５歳女逮捕 兵庫・姫路市 起訴状などによりますと…」）を除去
@@ -923,7 +925,7 @@ function inspectCandidateWithStrictGate(title, bodyText = '') {
   const suspectSentence = gateResult.audit?.suspectRole?.evidence || cleanTitle;
   const locationEvidence = gateResult.audit?.japanCrime?.evidence || '';
 
-  const nationality = standardizeNationality(rawNatEvidence, `${suspectSentence} ${cleanTitle}`);
+  const nationality = standardizeNationality(rawNatEvidence, `${suspectSentence} ${cleanTitle}`, cleanTitle);
   if (!nationality) {
     return { valid: false, reason: '被疑者の外国籍表記が特定不可' };
   }
@@ -999,7 +1001,7 @@ async function sanitizeExistingArticles(rawExisting) {
   const sanitized = [];
 
   // 第1パス: 既存の正規監査済みデータを最優先で保護（明確な政治要請・議会答弁・遺族談話・過去事件端緒・外国人被害者/管理者/対象相手の誤混入を除外）
-  const PAST_CASE_EVIDENCE_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))(?:ら|など)?と共謀し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|(?:\d+月|昨年|過去)にも[^。]{0,50}?(?:被害|事件)が(?:あり|発生し|起き)[^。]{0,45}?逮捕され(?:た|ている)/;
+  const PAST_CASE_EVIDENCE_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))(?:ら|など)?と共謀し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|事件では、[、，\s]*(?:直後に|これまでに|すでに)?[^。]*?が逮捕され|(?:\d+月|昨年|過去)にも[^。]{0,50}?(?:被害|事件)が(?:あり|発生し|起き)[^。]{0,45}?逮捕され(?:た|ている)/;
   for (const item of trusted) {
     const cleanedTitle = cleanArticleTitle(item.title || '');
     if (NON_INCIDENT_REGEX.test(cleanedTitle) || (/^《[^》]+》/.test(cleanedTitle) && !aiGate.CRIME_RE.test(cleanedTitle))) {
@@ -1029,7 +1031,7 @@ async function sanitizeExistingArticles(rawExisting) {
     if (item.crimeCategory === 'その他刑事事件' || item.crimeCategory === '万引き・ドラッグストア大量窃盗' || (item.crimeCategory === '性犯罪・わいせつ' && /(?:問題|試験|学科)/.test(cleanedTitle))) {
       item.crimeCategory = reClassified[0];
     }
-    if (/本文の文脈結合で確認した報道です|、(?:起訴状|逮捕容疑)/.test(item.summary || '')) {
+    if (/本文の文脈結合で確認した報道です|ことを本文で確認した報道です|外国人関与の事件・容疑に関する報道速報です|、(?:起訴状|逮捕容疑)/.test(item.summary || '')) {
       item.summary = buildLocalEventSummary(cleanedTitle, `${item.evidence?.suspect || ''}。${item.locationBasis || ''}`, {
         prefecture: item.location,
         nationality: item.nationality,
@@ -1173,16 +1175,22 @@ async function main() {
     } catch {
       // ignore
     }
-    for (const feed of officialFeeds) {
-      if (!feed.url) continue;
-      try {
-        const res = await fetchWithTimeout(feed.url);
-        if (res.ok) {
+    const validFeeds = officialFeeds.filter((f) => f && f.url);
+    const RSS_CONCURRENCY = 6;
+    for (let i = 0; i < validFeeds.length; i += RSS_CONCURRENCY) {
+      const batch = validFeeds.slice(i, i + RSS_CONCURRENCY);
+      const settled = await Promise.allSettled(
+        batch.map(async (feed) => {
+          const res = await fetchWithTimeout(feed.url, {}, 1);
+          if (!res.ok) return [];
           const xml = await res.text();
-          rawFetchedItems.push(...parseRssItems(xml, feed.media || feed.name || '国内報道機関'));
+          return parseRssItems(xml, feed.media || feed.name || '国内報道機関');
+        }),
+      );
+      for (const s of settled) {
+        if (s.status === 'fulfilled' && Array.isArray(s.value)) {
+          rawFetchedItems.push(...s.value);
         }
-      } catch {
-        // 個別フィードのタイムアウトは無視して次へ
       }
     }
   } catch {
@@ -1213,10 +1221,11 @@ async function main() {
     const chibaItems = await policeBulletins.collectChibaBulletins(articleFetcher.httpRequest).catch(() => []);
     const shizuokaItems = await policeBulletins.collectShizuokaBulletins(articleFetcher.httpRequest).catch(() => []);
     for (const pi of [...(chibaItems || []), ...(shizuokaItems || [])]) {
+      const basePoliceUrl = normalizeUrl(pi.url || '');
       rawFetchedItems.push({
         rawTitle: pi.title || '',
         title: cleanArticleTitle(pi.title || ''),
-        url: normalizeUrl(pi.url || ''),
+        url: pi.id ? `${basePoliceUrl}#${pi.id}` : basePoliceUrl,
         pubDate: pi.pubDate || new Date().toISOString(),
         description: pi.sourceBody || pi.description || '',
         sourceBody: pi.sourceBody || '',

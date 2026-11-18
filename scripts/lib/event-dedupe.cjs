@@ -23,7 +23,7 @@ const CRIME_GROUPS = [
   ['暴行傷害', /暴行|傷害|切り付け|切りつけ|殴|刺(?:され|し|傷|突き)|脅迫|恐喝|スプレー噴射|スプレーま[いか]|催涙スプレー|異臭騒ぎ|襲わ|けが|負傷/],
   ['銃刀法・凶器', /銃刀法|果物ナイフ|刃物|ナイフ|包丁|サバイバルナイフ/],
   ['性犯罪', /不同意性交|不同意わいせつ|強制性交|強制わいせつ|わいせつな?行為|性的暴行|性的姿態|盗撮|痴漢|胸を触|体を触/],
-  ['交通', /道交法|道路交通法|信号無視|赤信号|ひき逃げ|当て逃げ|酒気帯び|酒酔い|飲酒運転|飲酒して.{0,12}事故|無免許|危険運転|過失運転|死亡事故|玉突き事故|車突入|車突っ込|逃走.{0,10}(?:車|パトカー)|パトカー.{0,10}逃走/],
+  ['交通', /道交法|道路交通法|信号無視|赤信号|ひき逃げ|当て逃げ|酒気帯び|酒酔い|酒に酔っ[てた]|飲酒運転|飲酒して.{0,12}事故|無免許|危険運転|過失運転|死亡事故|玉突き事故|車突入|車突っ込|逃走.{0,10}(?:車|パトカー)|パトカー.{0,10}逃走/],
   ['入管', /入管|難民法|不法(?:に)?(?:上陸|入国|滞在|在留|残留|就労)|オーバーステイ|偽造在留カード|資格外活動/],
   ['盗品保管', /盗品等保管|盗品保管|盗難車保管|盗品と知りながら.{0,24}保管/],
   ['商標', /商標法|偽(?:ブランド|物|ボンドロ|シール|ユニホ|ユニフォ|サプリ|ロゴ)|ボンボンドロップ|模倣品|海賊版/],
@@ -317,15 +317,18 @@ function sameEventReason(a, b, { maxDays = 14 } = {}) {
   // 数量・金額の事実アンカーが一致し、同県・3日以内・国籍が矛盾しない場合だけ、
   // 媒体ごとに容疑者名・年齢・場所の表記が揺れる複数被疑者事件の転載を同一事件として扱う。
   const sameStoredRegionForFact = Boolean(a.location && b.location && a.location === b.location);
+  const isChinaTaiwanPair = Boolean(
+    (sa.nats.has('中国') && sb.nats.has('台湾')) || (sa.nats.has('台湾') && sb.nats.has('中国'))
+  );
   const genericNatConfirmedSame = genericVsSpecificNat
     && daysApart(a.date, b.date) <= 3
     && sameStoredRegionForFact
     && intersects(sa.crimes, sb.crimes)
-    && (intersects(sa.ages, sb.ages) || intersects(sa.places, sb.places) || dice(sa.grams, sb.grams) >= 0.55 || hasMatchingSuspectName);
+    && (intersects(sa.ages, sb.ages) || intersects(sa.places, sb.places) || dice(sa.grams, sb.grams) >= 0.55 || dice(sa.content, sb.content) >= 0.35 || hasMatchingSuspectName);
   const crossPrefFactShared = [...(sa.incidentAnchors || [])].some((x) => x.startsWith('fact:') && !x.endsWith('kg') && sb.incidentAnchors?.has(x)) && daysApart(a.date, b.date) <= 2 && natsMatch && intersects(sa.crimes, sb.crimes) && (intersects(sa.ages, sb.ages) || (sa.genders.size >= 2 && sb.genders.size >= 2) || dice(sa.content, sb.content) >= 0.20);
   const factAnchorShared = [...(sa.incidentAnchors || [])].some((x) => x.startsWith('fact:') && sb.incidentAnchors?.has(x))
     && daysApart(a.date, b.date) <= 3 && sameStoredRegionForFact
-    && (natsMatch || !sa.nats.size || !sb.nats.size) || crossPrefFactShared;
+    && (natsMatch || !sa.nats.size || !sb.nats.size || (isChinaTaiwanPair && intersects(sa.ages, sb.ages))) || crossPrefFactShared;
   if (!natsMatch && !genericNatConfirmedSame && !factAnchorShared && !hasMatchingSuspectName) return null;
   if (sa.suspectNames?.size && sb.suspectNames?.size && !hasMatchingSuspectName && !factAnchorShared) return null;
   const sameAge = intersects(sa.ages, sb.ages);
@@ -416,10 +419,15 @@ function healRecentDuplicates(items, { auditOf = () => null, windowDays = 5, now
       const differentProcedureStage = procedureStage(recent[i].item) !== procedureStage(recent[j].item);
       if (isFollowUp(recent[i].item, recent[j].item)
         || (recent[j].item.followUp && differentProcedureStage && recent[i].item.date !== recent[j].item.date)) continue;
+      const specNatA = recent[i].sig.nats.size > 0 ? 1 : 0;
+      const specNatB = recent[j].sig.nats.size > 0 ? 1 : 0;
+      const bodyVerA = /^本文抜粋/.test(recent[i].item.evidence?.suspect || '') ? 1 : 0;
+      const bodyVerB = /^本文抜粋/.test(recent[j].item.evidence?.suspect || '') ? 1 : 0;
       const rankA = rank(recent[i].item.url);
       const rankB = rank(recent[j].item.url);
-      const keepJ = rankB > rankA
-        || (rankB === rankA && Date.parse(recent[j].item.date) > Date.parse(recent[i].item.date));
+      const keepJ = specNatB !== specNatA ? specNatB > specNatA
+        : bodyVerB !== bodyVerA ? bodyVerB > bodyVerA
+        : rankB > rankA || (rankB === rankA && Date.parse(recent[j].item.date) > Date.parse(recent[i].item.date));
       const loser = keepJ ? recent[i].item : recent[j].item;
       const winner = keepJ ? recent[j].item : recent[i].item;
       drop.add(loser);

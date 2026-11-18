@@ -367,7 +367,7 @@ function extractArticleText(html, optsOrMaxChars = 8000, legacyMaxChars = 8000) 
   containerHtml = containerHtml.replace(/<br\s*[\/]?>/gi, '\n');
 
   const stripInlineBannerPrefix = (line) => line
-    .replace(/^(?:【(?:写真を見る|画像|動画|関連記事|あわせて読みたい)】\s*|写真拡大\s*|[〉>≫]\s*[^。]{5,70}?ほか\s*)+/g, '')
+    .replace(/^(?:【(?:写真を見る|画像|動画|関連記事|あわせて読みたい)】\s*|写真拡大\s*|[〉>≫]\s*[^。]{5,70}?ほか\s*|[▶▷▼▽■◆●]\s*[^。]{10,90}?(?:市|区|町|村)\s+|(?:TOP|社会)\s+(?:事件・事故\s*)?)+/g, '')
     .trim();
 
   // 本文段落（<p>）の抽出
