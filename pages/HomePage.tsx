@@ -407,7 +407,7 @@ export const HomePage: React.FC = () => {
                                         <span>戸建て・店舗の侵入防止・防犯カメラ設置</span>
                                     </div>
                                     <p className="text-xs text-gray-400 leading-relaxed mb-4">
-                                        空き巣や車上荒らし、不法侵入の抑止に。東証上場企業グループによる死角のない防犯設計、現地調査とお見積りは完全無料です。
+                                        空き巣や車上荒らし、不法侵入の抑止に。防犯設備のプロによる死角のない防犯設計、現地調査とお見積りは完全無料です。
                                     </p>
                                 </div>
                                 <div className="pt-2 border-t border-white/5">
