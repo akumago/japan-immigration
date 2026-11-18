@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-17T23:01:20.891Z",
+  "updatedAt": "2026-11-18T04:34:33.104Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6843,6 +6843,78 @@
       },
       "reason": "タイトル高類似 (100%: 警察官になりすまし高齢女性から現金950万円をだまし取った疑い 台湾籍の男を再逮捕 鶴岡署)",
       "recordedAt": "2026-11-17T23:01:20.891Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "中国籍の男送検 強盗致傷の疑い 知人女性に暴行し車など奪ったか【鹿児島】",
+        "date": "2026-11-18",
+        "url": "https://www.msn.com/ja-jp/news/news/%E4%B8%AD%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E9%80%81%E6%A4%9C-%E5%BC%B7%E7%9B%97%E8%87%B4%E5%82%B7%E3%81%AE%E7%96%91%E3%81%84-%E7%9F%A5%E4%BA%BA%E5%A5%B3%E6%80%A7%E3%81%AB%E6%9A%B4%E8%A1%8C%E3%81%97%E8%BB%8A%E3%81%AA%E3%81%A9%E5%A5%AA%E3%81%A3%E3%81%9F%E3%81%8B-%E9%B9%BF%E5%85%90%E5%B3%B6/ar-AA2hFppi"
+      },
+      "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [鹿児島県 / 中国籍 / 強盗・強盗致傷]",
+      "recordedAt": "2026-11-18T04:34:33.104Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "少年4人は地元の知人関係 仙台駅から新幹線に乗り...名古屋市内でブラジル国籍の男と合流していた 愛知・小牧市の強盗殺人未遂 “トクリュウ”による事件とみて捜査",
+        "date": "2026-11-18",
+        "url": "https://news.yahoo.co.jp/articles/0d5f9b52695d18bfb6c1a0b4215b6cacaef62615?source=rss"
+      },
+      "reason": "event-dedupe一致 (本文の容疑者氏名+罪種+同日+地域整合: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-18T04:34:33.104Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ニセ警察詐欺で台湾籍の男(29)再逮捕...950万円だまし取った疑い 山形",
+        "date": "2026-11-17",
+        "url": "https://news.yahoo.co.jp/articles/64310a221cadf5a0fd0caefcc7faac6505275e48?source=rss"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 警察官になりすまし高齢女性から現金950万円をだまし取った疑い 台湾籍の男を再逮捕 鶴岡署)",
+      "recordedAt": "2026-11-18T04:34:33.104Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "愛知・小牧市の強盗殺人未遂 ブラジル国籍男(23)が車の運転役か 男を含む別件逮捕の5人が事件関与の可能性 指示役とは秘匿性高いアプリでやりとり",
+        "date": "2026-11-17",
+        "url": "https://news.yahoo.co.jp/articles/9ac798978d2deb78e23cb7b03f8198a8abd3aa86?source=rss"
+      },
+      "reason": "event-dedupe一致 (本文の容疑者氏名+罪種+同日+地域整合: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-18T04:34:33.104Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「自分は人を殺していない」集合住宅で男性刺して殺害か 知人とみられるベトナム国籍の男逮捕 横浜市",
+        "date": "2026-11-16",
+        "url": "https://www.fnn.jp/articles/-/1151367"
+      },
+      "reason": "event-dedupe一致 (国籍+場所+罪種: ベトナム国籍の男性を殺害容疑、24歳の男を再逮捕 容疑を否認 [神奈川県])",
+      "recordedAt": "2026-11-18T04:34:33.104Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "“クマよけスプレー”使用か...住宅に男らが押し入り女性を襲った強盗殺人未遂事件 重傷負わせ顔にスプレー噴射して逃走",
+        "date": "2026-11-16",
+        "url": "https://news.yahoo.co.jp/articles/75144163dc32fa9bdc230e179483801c0ccf68ab?source=rss"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-18T04:34:33.104Z"
     }
   ]
 }
