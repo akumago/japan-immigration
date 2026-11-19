@@ -23,6 +23,7 @@ import {
 import AdComponent from "../components/AdComponent";
 import { EmbeddedImage } from "../components/EmbeddedImage";
 import CrimeNewsSection from "../components/CrimeNewsSection";
+import { CrimeHubLinksSection } from "../components/CrimeHubLinksSection";
 
 import { MainLayout } from "../components/MainLayout";
 
@@ -464,6 +465,8 @@ export const HomePage: React.FC = () => {
                             </div>
                         </div>
                     </div>
+
+                    <CrimeHubLinksSection variant="home" />
 
                     <footer className="text-center mt-12 text-gray-400 border-t border-white/10 pt-12 pb-12">
                         <div className="mb-12 p-6 bg-blue-900/10 border border-blue-500/20 rounded-xl max-w-2xl mx-auto text-sm">

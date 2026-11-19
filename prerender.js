@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 import https from 'https';
 import { execSync } from 'child_process';
+import { getAllEligibleHubs } from './lib/crimeHubs.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const toAbsolute = (p) => path.resolve(__dirname, p);
@@ -171,6 +172,8 @@ async function prerender() {
     '/analysis/symbiosis',
     '/analysis/ai-simulation',
     '/analysis/crime-news',
+    '/analysis/non-prosecution',
+    '/analysis/crime-rate-factcheck',
     ...Array.from({ length: 15 }, (_, i) => `/analysis/image/${i + 1}`)
   ];
 
@@ -264,8 +267,18 @@ async function prerender() {
     '/analysis/conclusion/': 'pages/Conclusion.tsx',
     '/analysis/strategic-recommendations/': 'pages/StrategicRecommendations.tsx',
     '/analysis/symbiosis/': 'pages/SymbiosisPage.tsx',
-    '/analysis/ai-simulation/': 'pages/AISimulation.tsx'
+    '/analysis/ai-simulation/': 'pages/AISimulation.tsx',
+    '/analysis/non-prosecution/': 'pages/NonProsecutionAnalysis.tsx',
+    '/analysis/crime-rate-factcheck/': 'pages/CrimeRateFactCheck.tsx'
   };
+
+  // トピック別・罪種別・ステージ別・エリア別・月別・クロス特集ハブのメタ構築
+  const hubRouteMeta = {};
+  for (const hub of getAllEligibleHubs(newsItems)) {
+    const route = hub.path.replace(/\/$/, '');
+    routesToPrerender.push(route);
+    hubRouteMeta[hub.path] = hub;
+  }
 
   // 都道府県別・国籍別ページ（記事数5件以上のみ）のメタ・最新日付マップを構築
   const segmentRouteMeta = {};
@@ -289,7 +302,15 @@ async function prerender() {
   }
 
   const routeLastmodIso = (normRoute) => {
-    if (normRoute === '/' || normRoute === '/analysis/crime-news/') return latestNewsIso;
+    if (
+      normRoute === '/' ||
+      normRoute === '/analysis/crime-news/' ||
+      normRoute === '/analysis/non-prosecution/' ||
+      normRoute === '/analysis/crime-rate-factcheck/'
+    ) {
+      return latestNewsIso;
+    }
+    if (hubRouteMeta[normRoute]) return `${hubRouteMeta[normRoute].stats.latestDate}T08:00:00+09:00`;
     if (segmentRouteMeta[normRoute]) return `${segmentRouteMeta[normRoute].latestDate}T08:00:00+09:00`;
     const srcFile = normRoute.startsWith('/analysis/image/') ? 'pages/ImagePage.tsx' : ROUTE_SOURCE_FILES[normRoute];
     if (srcFile && gitLastmodByFile[srcFile]) return gitLastmodByFile[srcFile];
@@ -602,19 +623,84 @@ async function prerender() {
         };
   }
 
+  const nonProsItemsForSeo = newsItems.filter((i) => i.stage === '不起訴');
+  const nonProsShareSeo = totalNewsCount > 0 ? ((nonProsItemsForSeo.length / totalNewsCount) * 100).toFixed(1) : '0.0';
+  const nonProsLatestSeo = nonProsItemsForSeo[0]?.date || latestNewsDate;
+  SEO_ROUTE_CONFIG['/analysis/non-prosecution/'] = {
+    title: `【一覧・構造解説】外国人犯罪の「不起訴」はなぜ？(${nonProsItemsForSeo.length}件実録)と起訴便宜主義・司法実務 | 日本の岐路`,
+    desc: `ニュースで外国籍被疑者の「不起訴処分」が相次ぐ背景を日本の刑事訴訟法・起訴便宜主義・通訳コスト・強制送還手続から客観解説。国内報道から抽出した最新の不起訴${nonProsItemsForSeo.length}件一覧も同時収録。`,
+    keywords: '外国人 不起訴 なぜ,外国人犯罪 不起訴 一覧,外国人 逮捕 不起訴 理由,起訴猶予,嫌疑不十分,検察審査会',
+    priority: '0.92',
+    changefreq: 'daily',
+    faqs: [
+      {
+        q: '外国人犯罪のニュースで「不起訴処分」と報じられるのは、本当に無罪（冤罪）だからですか？',
+        a: '必ずしも無実を意味しません。日本の不起訴処分には「嫌疑なし」「嫌疑不十分」のほかに、犯罪事実が明白でも被害弁償や情状等を考慮して起訴を見送る「起訴猶予（刑事訴訟法第248条）」が含まれます。'
+      },
+      {
+        q: '検察庁はなぜ不起訴になった詳細な理由をニュース発表しないのですか？',
+        a: '検察は公判を開かない以上、被疑者・関係者の名誉やプライバシー保護、捜査上の支障回避の観点から、個別事案の不起訴理由（起訴猶予・嫌疑不十分等の区分）を原則非公表としています。'
+      },
+      {
+        q: '不起訴処分に納得できない場合、被害者や遺族は不服を申し立てられますか？',
+        a: 'はい。告訴人・告発人や被害者・遺族等は、一般市民11名で構成される「検察審査会」に不起訴処分の当否を審査するよう申し立てることができます。審査会が「起訴相当」を2度議決すると強制起訴の手続へ進みます。'
+      },
+      {
+        q: '現在このサイトに記録されている最新の「不起訴」報道は何件ありますか？',
+        a: `国内メディア一次報道アーカイブ（全${totalNewsCount}件）のうち、「不起訴」ステージに分類された報道記録は現在${nonProsItemsForSeo.length}件（全体の${nonProsShareSeo}%、最新収録日${nonProsLatestSeo}）です。`
+      }
+    ]
+  };
+
+  const catCountMapSeo = new Map();
+  for (const it of newsItems) {
+    const c = it.crimeCategory || 'その他';
+    catCountMapSeo.set(c, (catCountMapSeo.get(c) || 0) + 1);
+  }
+  const top3CatsText = Array.from(catCountMapSeo.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([c, n]) => `${c}(${n}件)`)
+    .join('、');
+
+  SEO_ROUTE_CONFIG['/analysis/crime-rate-factcheck/'] = {
+    title: '【統計検証】「外国人犯罪率は日本人より低い」は本当かデマか？警察庁答弁1.72倍の計算根拠と3つの落とし穴 | 日本の岐路',
+    desc: `SNS等で議論が割れる「外国人犯罪率」について、2025年11月参議院内閣委員会の警察庁答弁（定住外国人0.323% vs 日本人0.188%＝約1.72倍）と、なぜ反対の結論が出るのかを計算式から検証します。`,
+    keywords: '外国人 犯罪率 デマ,外国人 犯罪率 本当,外国人 犯罪率 日本人 比較,外国人 犯罪率 警察庁,1.72倍,来日外国人 統計',
+    priority: '0.92',
+    changefreq: 'daily',
+    faqs: [
+      {
+        q: '「外国人の犯罪率は日本人の1.72倍」という数字はどこが出典ですか？',
+        a: '2025年11月の参議院内閣委員会における警察庁答弁に基づく比較データで、短期滞在者を除いた定住外国人の刑法犯検挙率0.323%を日本人の0.188%で除した数値（約1.72倍）が出典です。'
+      },
+      {
+        q: '「外国人の犯罪率が高いのはデマ」と主張する記事は何を根拠にしていますか？',
+        a: '主に「外国人全体は20〜30代の若年層が多く、高齢者の多い日本人全体と年齢補正なしで比較するのは不公平である」という点や、警察庁統計のうち「来日外国人」区分のみを取り出した比率などを根拠にしています。'
+      },
+      {
+        q: '日本の外国人犯罪報道で実際に多い罪種は何ですか？',
+        a: `当サイトが収集した直近の国内一次報道${totalNewsCount}件の傾向では、${top3CatsText}などが上位を占めています。`
+      }
+    ]
+  };
+
+  for (const [norm, hub] of Object.entries(hubRouteMeta)) {
+    SEO_ROUTE_CONFIG[norm] = {
+      title: hub.title,
+      desc: hub.desc,
+      keywords: hub.keywords,
+      priority: hub.mode === 'cross' ? '0.80' : '0.85',
+      changefreq: hub.mode === 'month' ? 'weekly' : 'daily',
+      faqs: hub.faqs
+    };
+  }
+
   const escapeHtmlAttr = (str) => String(str || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const stripHtmlTags = (str) => String(str || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
 
-  // CSSを完全インライン化してレンダリングブロックリクエストを完全ゼロ化（最速表示）
-  const cssMatch = template.match(/<link rel="stylesheet" [^>]*href="([^"]+)"[^>]*>/);
-  let baseInlinedTemplate = template;
-  if (cssMatch) {
-    const cssPath = path.join(toAbsolute('dist/client'), cssMatch[1].replace(/^\//, ''));
-    if (fs.existsSync(cssPath)) {
-      const cssContent = fs.readFileSync(cssPath, 'utf-8');
-      baseInlinedTemplate = template.replace(cssMatch[0], `<style>${cssContent}</style>`);
-    }
-  }
+  // 外部CSSキャッシュ（/assets/index-*.css は netlify.toml で 1年間 immutable キャッシュ）を活かし全HTMLへの98KB重複インライン展開を廃止
+  const baseInlinedTemplate = template;
 
   for (const url of routesToPrerender) {
     const context = {};
@@ -655,6 +741,7 @@ async function prerender() {
     });
 
     const segMeta = segmentRouteMeta[normalizedUrl] || null;
+    const hubMeta = hubRouteMeta[normalizedUrl] || null;
     const pageModifiedIso = routeLastmodIso(normalizedUrl);
 
     // 全セクションが検索結果にリッチ表示されるための統合 @graph JSON-LD を構築
@@ -749,7 +836,24 @@ async function prerender() {
           'position': idx + 1,
           'name': `[${item.date}] 【${item.location}・${item.nationality || '外国籍'}】${item.title}`,
           'description': item.summary || item.title,
-          'url': canonicalUrl
+          'url': `${canonicalUrl}#incident-${item.id}`
+        }))
+      });
+    }
+
+    // トピック別・罪種別・ステージ別・月別・エリア別・クロスハブ用 ItemList 構造化データ
+    if (hubMeta && hubMeta.items.length > 0) {
+      graphNodes.push({
+        '@type': 'ItemList',
+        '@id': `${canonicalUrl}#hub-incidents`,
+        'name': `${hubMeta.label}の関連報道一覧（直近10件 / 全${hubMeta.items.length}件）`,
+        'numberOfItems': hubMeta.items.length,
+        'itemListElement': hubMeta.items.slice(0, 10).map((item, idx) => ({
+          '@type': 'ListItem',
+          'position': idx + 1,
+          'name': `[${item.date}] 【${item.location}・${item.nationality || '外国籍'}】${item.title}`,
+          'description': item.summary || item.title,
+          'url': `${canonicalUrl}#incident-${item.id}`
         }))
       });
     }
@@ -778,18 +882,23 @@ async function prerender() {
             'position': idx + 1,
             'name': `[${item.date}] 【${item.location}・${item.nationality || '外国籍'}】${item.title}`,
             'description': item.summary || item.title,
-            'url': canonicalUrl
+            'url': `${canonicalUrl}#incident-${item.id}`
           }))
         });
       }
     }
+
+    const isNoindexRoute = normalizedUrl.startsWith('/analysis/image/');
+    const robotsContent = isNoindexRoute
+      ? 'noindex, follow'
+      : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 
     const cleanHeadTags = [
       `<title>${escapeHtmlAttr(seoCfg.title)}</title>`,
       `<meta name="prerender-title" content="${escapeHtmlAttr(seoCfg.title)}" />`,
       `<meta name="description" content="${escapeHtmlAttr(seoCfg.desc)}" />`,
       `<meta name="keywords" content="${escapeHtmlAttr(seoCfg.keywords)}" />`,
-      `<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />`,
+      `<meta name="robots" content="${robotsContent}" />`,
       `<link rel="canonical" href="${canonicalUrl}" />`,
       `<meta property="og:site_name" content="日本の岐路" />`,
       `<meta property="og:locale" content="ja_JP" />`,
@@ -806,7 +915,18 @@ async function prerender() {
       `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': graphNodes })}</script>`
     ].join('\n    ');
 
-    const finalHtml = baseInlinedTemplate
+    const needsNewsPreload =
+      normalizedUrl === '/' ||
+      normalizedUrl.startsWith('/analysis/crime-news') ||
+      normalizedUrl === '/analysis/non-prosecution/' ||
+      normalizedUrl === '/analysis/crime-rate-factcheck/';
+
+    let routeTemplate = baseInlinedTemplate;
+    if (!needsNewsPreload) {
+      routeTemplate = routeTemplate.replace(/<link rel="modulepreload"[^>]*data-news[^>]*>\s*/gi, '');
+    }
+
+    const finalHtml = routeTemplate
       .replace('<!--app-html-->', enrichedAppHtml)
       .replace(/<title>[\s\S]*?<meta property="twitter:image"[^>]*>/, cleanHeadTags);
 
@@ -840,8 +960,9 @@ async function prerender() {
   copyStaticAssets(clientDir, uploadDir);
   fs.copyFileSync(toAbsolute('dist/client/index.html'), path.join(uploadDir, '200.html'));
 
-  // 全ルートの実更新日を反映した sitemap.xml を public/・dist/client/・NETLIFY_UPLOAD/ に自動出力
-  const sitemapEntries = routesToPrerender.map(url => {
+  // 全インデックス対象ルートの実更新日を反映した sitemap.xml を public/・dist/client/・NETLIFY_UPLOAD/ に自動出力
+  const indexableRoutes = routesToPrerender.filter(url => !url.startsWith('/analysis/image/'));
+  const sitemapEntries = indexableRoutes.map(url => {
     const norm = url.endsWith('/') ? url : `${url}/`;
     const cfg = SEO_ROUTE_CONFIG[norm] || { priority: '0.80', changefreq: 'weekly' };
     return `  <url><loc>${SITE_URL}${norm}</loc><lastmod>${routeLastmod(norm)}</lastmod><changefreq>${cfg.changefreq}</changefreq><priority>${cfg.priority}</priority></url>`;
@@ -850,7 +971,7 @@ async function prerender() {
   fs.writeFileSync(toAbsolute('public/sitemap.xml'), sitemapXml, 'utf-8');
   fs.writeFileSync(toAbsolute('dist/client/sitemap.xml'), sitemapXml, 'utf-8');
   fs.writeFileSync(path.join(uploadDir, 'sitemap.xml'), sitemapXml, 'utf-8');
-  console.log(`Updated sitemap.xml with ${routesToPrerender.length} routes (latest news: ${latestNewsDate})`);
+  console.log(`Updated sitemap.xml with ${indexableRoutes.length} indexable routes (total prerendered: ${routesToPrerender.length}, latest news: ${latestNewsDate})`);
 
   console.log('BUILD COMPLETE! Upload NETLIFY_UPLOAD to Netlify.');
 }

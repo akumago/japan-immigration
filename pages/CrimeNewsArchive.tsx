@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { MainLayout } from '../components/MainLayout';
+import { CrimeHubLinksSection } from '../components/CrimeHubLinksSection';
 import newsData from '../data/newsData.json';
 import crimeSegments from '../data/crimeSegments.json';
 
@@ -435,6 +436,7 @@ export const CrimeNewsArchive: React.FC = () => {
             })}
           </div>
         </div>
+        <CrimeHubLinksSection variant="archive" />
       </div>
     </MainLayout>
   );

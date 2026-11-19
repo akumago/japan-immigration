@@ -37,6 +37,16 @@ import { ImagePage } from "./pages/ImagePage";
 import { Disclaimer } from "./pages/Disclaimer";
 import { CrimeNewsArchive } from "./pages/CrimeNewsArchive";
 import { PrefCrimePage, NationalityCrimePage } from "./pages/CrimeSegmentPage";
+import {
+  CategoryCrimePage,
+  StageCrimePage,
+  TopicCrimePage,
+  AreaCrimePage,
+  MonthCrimePage,
+  CrossCrimePage,
+} from "./pages/CrimeHubPage";
+import { NonProsecutionAnalysis } from "./pages/NonProsecutionAnalysis";
+import { CrimeRateFactCheck } from "./pages/CrimeRateFactCheck";
 
 const App: React.FC = () => {
   // ハイドレーションエラーを防ぐためのフラグ
@@ -91,6 +101,14 @@ const App: React.FC = () => {
         <Route path="/analysis/crime-news/" element={<CrimeNewsArchive />} />
         <Route path="/analysis/crime-news/pref/:pref/" element={<PrefCrimePage />} />
         <Route path="/analysis/crime-news/nationality/:nat/" element={<NationalityCrimePage />} />
+        <Route path="/analysis/crime-news/category/:slug/" element={<CategoryCrimePage />} />
+        <Route path="/analysis/crime-news/stage/:slug/" element={<StageCrimePage />} />
+        <Route path="/analysis/crime-news/topic/:slug/" element={<TopicCrimePage />} />
+        <Route path="/analysis/crime-news/area/:slug/" element={<AreaCrimePage />} />
+        <Route path="/analysis/crime-news/month/:slug/" element={<MonthCrimePage />} />
+        <Route path="/analysis/crime-news/cross/:slug/" element={<CrossCrimePage />} />
+        <Route path="/analysis/non-prosecution/" element={<NonProsecutionAnalysis />} />
+        <Route path="/analysis/crime-rate-factcheck/" element={<CrimeRateFactCheck />} />
       </Routes>
       
       {/* クライアント側でのみ表示される動的コンポーネント */}

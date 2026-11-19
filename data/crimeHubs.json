@@ -1,0 +1,397 @@
+{
+  "minHubCount": 5,
+  "minCrossCount": 8,
+  "categories": [
+    {
+      "slug": "traffic-crime",
+      "category": "交通犯罪・ひき逃げ・無免許・飲酒運転",
+      "label": "交通犯罪（無免許運転・飲酒運転・ひき逃げ）",
+      "seoKeyword": "外国人 交通犯罪 無免許運転 飲酒運転 ひき逃げ 逮捕 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計・検挙率分析を見る"
+    },
+    {
+      "slug": "drug-smuggling",
+      "category": "薬物・大麻・覚醒剤・密輸",
+      "label": "薬物犯罪（覚醒剤・大麻・密輸・不正輸出）",
+      "seoKeyword": "外国人 薬物 大麻 覚醒剤 密輸 逮捕 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計・罪種別傾向を見る"
+    },
+    {
+      "slug": "assault",
+      "category": "暴行・傷害・脅迫",
+      "label": "暴行・傷害・脅迫事件",
+      "seoKeyword": "外国人 暴行 傷害 逮捕 ニュース 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計の詳細を見る"
+    },
+    {
+      "slug": "fraud",
+      "category": "一般詐欺・無銭飲食",
+      "label": "詐欺・無銭飲食事件",
+      "seoKeyword": "外国人 詐欺 逮捕 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計の詳細を見る"
+    },
+    {
+      "slug": "theft",
+      "category": "一般窃盗・スリ・車上荒らし",
+      "label": "窃盗・スリ・車上荒らし",
+      "seoKeyword": "外国人 窃盗 逮捕 ニュース 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計の詳細を見る"
+    },
+    {
+      "slug": "sex-crime",
+      "category": "性犯罪・わいせつ",
+      "label": "性犯罪・不同意わいせつ・盗撮",
+      "seoKeyword": "外国人 性犯罪 わいせつ 盗撮 逮捕 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計の詳細を見る"
+    },
+    {
+      "slug": "immigration-violation",
+      "category": "入管法違反・不法残留・不法就労助長",
+      "label": "入管法違反（不法滞在・不法残留・オーバーステイ）",
+      "seoKeyword": "不法滞在 不法残留 オーバーステイ 入管法違反 外国人 摘発 一覧",
+      "guidePath": "/analysis/labor-dilemma/",
+      "guideLabel": "技能実習生失踪・不法滞在構造の分析へ"
+    },
+    {
+      "slug": "special-fraud",
+      "category": "特殊詐欺・出し子・受け子",
+      "label": "特殊詐欺（受け子・出し子）",
+      "seoKeyword": "外国人 特殊詐欺 受け子 出し子 逮捕 一覧",
+      "guidePath": "/analysis/national-security/",
+      "guideLabel": "国境を越えた組織犯罪リスクを見る"
+    },
+    {
+      "slug": "homicide",
+      "category": "殺人・殺人未遂",
+      "label": "殺人・殺人未遂事件",
+      "seoKeyword": "外国人 殺人 殺人未遂 逮捕 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計の詳細を見る"
+    },
+    {
+      "slug": "robbery",
+      "category": "強盗・強盗致傷",
+      "label": "強盗・強盗致傷・ひったくり",
+      "seoKeyword": "外国人 強盗 強盗致傷 逮捕 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計の詳細を見る"
+    },
+    {
+      "slug": "copper-cable-theft",
+      "category": "金属・太陽光ケーブル窃盗",
+      "label": "銅線・太陽光ケーブル・金属窃盗",
+      "seoKeyword": "外国人 銅線窃盗 太陽光ケーブル 逮捕 一覧",
+      "guidePath": "/analysis/labor-dilemma/",
+      "guideLabel": "失踪外国人による窃盗団問題の背景を見る"
+    },
+    {
+      "slug": "burglary",
+      "category": "住宅侵入・空き巣・店舗窃盗",
+      "label": "住宅侵入・空き巣・店舗窃盗",
+      "seoKeyword": "外国人 空き巣 住宅侵入 窃盗 逮捕 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計の詳細を見る"
+    },
+    {
+      "slug": "credit-card-cyber",
+      "category": "クレジットカード・電子計算機詐欺",
+      "label": "クレジットカード不正利用・サイバー詐欺",
+      "seoKeyword": "外国人 クレジットカード 不正利用 サイバー詐欺 逮捕",
+      "guidePath": "/analysis/national-security/",
+      "guideLabel": "組織犯罪と通信インフラリスクを見る"
+    },
+    {
+      "slug": "trespass-property-damage",
+      "category": "建造物侵入・住居侵入・器物損壊・放火",
+      "label": "住居侵入・建造物侵入・器物損壊・放火",
+      "seoKeyword": "外国人 住居侵入 器物損壊 逮捕 一覧",
+      "guidePath": "/analysis/symbiosis/",
+      "guideLabel": "地域社会における生活・治安摩擦の検証へ"
+    },
+    {
+      "slug": "forgery",
+      "category": "有印公文書偽造・偽造カード・偽装結婚",
+      "label": "在留カード偽造・公文書偽造・偽装結婚",
+      "seoKeyword": "在留カード 偽造 マイナカード 偽造 偽装結婚 外国人 逮捕",
+      "guidePath": "/analysis/naturalization-paradox/",
+      "guideLabel": "在留管理・国籍制度の課題を見る"
+    },
+    {
+      "slug": "vehicle-yard-theft",
+      "category": "自動車・バイク盗・ヤード解体",
+      "label": "自動車盗・高級車窃盗・違法ヤード解体",
+      "seoKeyword": "外国人 自動車盗 高級車窃盗 ヤード 逮捕 一覧",
+      "guidePath": "/analysis/national-security/",
+      "guideLabel": "ヤード解体・不正輸出ルート問題を見る"
+    },
+    {
+      "slug": "illegal-nightlife",
+      "category": "風営法・売春防止法・違法カジノ",
+      "label": "風営法違反・違法接待・売春・カジノ",
+      "seoKeyword": "外国人 風営法 違法風俗 カジノ 摘発 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計の詳細を見る"
+    },
+    {
+      "slug": "counterfeit-brand",
+      "category": "商標法・著作権法・偽ブランド",
+      "label": "商標法違反・偽ブランド・模倣品販売",
+      "seoKeyword": "外国人 商標法違反 偽ブランド 逮捕 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計の詳細を見る"
+    },
+    {
+      "slug": "weapons-obstruction",
+      "category": "銃刀法・公務執行妨害・犯人蔵匿",
+      "label": "銃刀法違反・公務執行妨害・犯人蔵匿",
+      "seoKeyword": "外国人 銃刀法 公務執行妨害 逮捕 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計の詳細を見る"
+    },
+    {
+      "slug": "shirataku",
+      "category": "白タク・道路運送法違反",
+      "label": "白タク・無許可有償運送（道路運送法違反）",
+      "seoKeyword": "外国人 白タク 逮捕 道路運送法違反 パキスタン 中国 一覧",
+      "guidePath": "/analysis/labor-dilemma/",
+      "guideLabel": "インバウンドと違法営業問題の検証へ"
+    },
+    {
+      "slug": "shoplifting",
+      "category": "万引き・ドラッグストア大量窃盗",
+      "label": "万引き・ドラッグストア大量窃盗",
+      "seoKeyword": "外国人 万引き ドラッグストア 大量窃盗 逮捕 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計の詳細を見る"
+    },
+    {
+      "slug": "stolen-goods",
+      "category": "盗品等関与・故買・転売",
+      "label": "盗品保管・故買・不正買い取り",
+      "seoKeyword": "外国人 盗品保管 故買 逮捕 一覧",
+      "guidePath": "/analysis/national-security/",
+      "guideLabel": "盗品流通ルート問題を見る"
+    },
+    {
+      "slug": "agricultural-theft",
+      "category": "農作物・家畜・果物窃盗",
+      "label": "農作物・果物・米・家畜窃盗",
+      "seoKeyword": "外国人 農作物 果物 窃盗 逮捕 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計の詳細を見る"
+    },
+    {
+      "slug": "currency-counterfeit",
+      "category": "通貨偽造・偽造硬貨・偽札",
+      "label": "通貨偽造・偽造1万円銀貨事件",
+      "seoKeyword": "外国人 通貨偽造 偽造銀貨 逮捕 一覧",
+      "guidePath": "/analysis/national-security/",
+      "guideLabel": "越境組織犯罪の検証へ"
+    },
+    {
+      "slug": "illegal-medical",
+      "category": "医師法・薬機法・無資格医療・美容",
+      "label": "無資格医療・違法美容・薬機法違反",
+      "seoKeyword": "外国人 医師法 無資格 美容医療 逮捕 一覧",
+      "guidePath": "/analysis/social-security/",
+      "guideLabel": "外国人医療問題の検証へ"
+    },
+    {
+      "slug": "poaching",
+      "category": "鳥獣保護法・密猟・違法ジビエ・密漁",
+      "label": "密猟・違法ジビエ・密漁（オカヤドカリ等）",
+      "seoKeyword": "外国人 密猟 密漁 オカヤドカリ ジビエ 逮捕",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計の詳細を見る"
+    },
+    {
+      "slug": "illegal-dumping",
+      "category": "廃棄物処理法・不法投棄・環境犯罪",
+      "label": "不法投棄・産廃違法処理（廃棄物処理法）",
+      "seoKeyword": "外国人 不法投棄 産廃 違法ヤード 逮捕 一覧",
+      "guidePath": "/analysis/symbiosis/",
+      "guideLabel": "地域生活環境と行政コストを見る"
+    },
+    {
+      "slug": "underground-bank",
+      "category": "銀行法・地下銀行・犯罪収益移転防止法",
+      "label": "地下銀行・口座売買・違法ヤミ金",
+      "seoKeyword": "外国人 地下銀行 口座売買 ヤミ金 逮捕 一覧",
+      "guidePath": "/analysis/national-security/",
+      "guideLabel": "違法送金と地下経済の検証へ"
+    },
+    {
+      "slug": "fake-base-station",
+      "category": "電波法・偽基地局・不正通信",
+      "label": "偽基地局・電波法違反・不法通信",
+      "seoKeyword": "外国人 偽基地局 電波法違反 中国人 逮捕 一覧",
+      "guidePath": "/analysis/national-security/",
+      "guideLabel": "通信インフラ防衛リスクを読む"
+    },
+    {
+      "slug": "obstruction-of-business",
+      "category": "威力・偽計業務妨害・不正行為",
+      "label": "威力業務妨害・偽計業務妨害",
+      "seoKeyword": "外国人 業務妨害 逮捕 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計の詳細を見る"
+    }
+  ],
+  "stages": [
+    {
+      "slug": "non-prosecution",
+      "stage": "不起訴",
+      "label": "不起訴処分（起訴猶予・嫌疑不十分）",
+      "seoKeyword": "外国人 不起訴 一覧 ニュース",
+      "guidePath": "/analysis/non-prosecution/",
+      "guideLabel": "【決定版】なぜ外国人事件で不起訴が注目されるのか徹底解説"
+    },
+    {
+      "slug": "re-arrest",
+      "stage": "再逮捕",
+      "label": "再逮捕（余罪追及・組織事件）",
+      "seoKeyword": "外国人 再逮捕 事件 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪の共犯・組織犯罪率データを見る"
+    },
+    {
+      "slug": "referral",
+      "stage": "送検",
+      "label": "送検・書類送検",
+      "seoKeyword": "外国人 送検 書類送検 ニュース 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪統計・手続データを見る"
+    },
+    {
+      "slug": "indictment",
+      "stage": "起訴",
+      "label": "起訴・公判請求",
+      "seoKeyword": "外国人 起訴 事件 ニュース 一覧",
+      "guidePath": "/analysis/non-prosecution/",
+      "guideLabel": "起訴率・不起訴処分との比較解説を見る"
+    },
+    {
+      "slug": "trial",
+      "stage": "公判",
+      "label": "初公判・公判・求刑",
+      "seoKeyword": "外国人 初公判 公判 求刑 ニュース 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪の司法手続と統計を見る"
+    },
+    {
+      "slug": "verdict",
+      "stage": "判決",
+      "label": "判決（実刑・執行猶予）",
+      "seoKeyword": "外国人 犯罪 判決 実刑 執行猶予 一覧",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "外国人犯罪の司法処遇・退去強制を見る"
+    }
+  ],
+  "topics": [
+    {
+      "slug": "zombie-tobacco",
+      "label": "ゾンビたばこ（エトミデート）密輸・所持",
+      "seoKeyword": "ゾンビたばこ エトミデート 外国人 逮捕 一覧",
+      "pattern": "ゾンビたばこ|エトミデート",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "薬物・密輸犯罪の統計動向を見る"
+    },
+    {
+      "slug": "fake-police-fraud",
+      "label": "ニセ警察官詐欺・特殊詐欺（受け子・出し子）",
+      "seoKeyword": "ニセ警察官 詐欺 外国人 台湾 中国 受け子 逮捕 一覧",
+      "pattern": "ニセ警察|警察官.*なりすまし|特殊詐欺|受け子|出し子|かけ子",
+      "guidePath": "/analysis/national-security/",
+      "guideLabel": "海外拠点トクリュウと安全保障リスクを見る"
+    },
+    {
+      "slug": "counterfeit-document-currency",
+      "label": "偽造1万円銀貨・在留カード偽造・文書偽造",
+      "seoKeyword": "偽造1万円銀貨 在留カード偽造 マイナカード偽造 外国人 逮捕",
+      "pattern": "偽造|偽札|銀貨|マイナ.*偽造|在留カード",
+      "guidePath": "/analysis/naturalization-paradox/",
+      "guideLabel": "本人確認・在留資格管理の盲点を検証する"
+    },
+    {
+      "slug": "us-military-crime",
+      "label": "在日米兵・米軍関係者の逮捕・起訴事件",
+      "seoKeyword": "米兵 犯罪 逮捕 沖縄 横須賀 事件 一覧",
+      "pattern": "米兵|米軍|海兵隊|米海軍|米空軍|米陸軍",
+      "guidePath": "/analysis/national-security/",
+      "guideLabel": "日米地位協定と安全保障の論点を見る"
+    },
+    {
+      "slug": "technical-intern-incidents",
+      "label": "技能実習生・特定技能・留学生の事件",
+      "seoKeyword": "技能実習生 特定技能 留学生 逮捕 事件 一覧",
+      "pattern": "技能実習生|特定技能|留学生",
+      "guidePath": "/analysis/labor-dilemma/",
+      "guideLabel": "技能実習生失踪・育成就労の課題を読む"
+    },
+    {
+      "slug": "tokuryu-yami-baito",
+      "label": "トクリュウ（匿名・流動型犯罪グループ）関与事件",
+      "seoKeyword": "外国人 トクリュウ 組織犯罪 逮捕 一覧",
+      "pattern": "トクリュウ|匿名・流動型|組織的",
+      "guidePath": "/analysis/crime-statistics/",
+      "guideLabel": "来日外国人の高い共犯率データを見る"
+    }
+  ],
+  "areas": [
+    { "slug": "kawaguchi", "label": "埼玉県川口市", "pref": "埼玉県", "pattern": "川口市|川口署|川口" },
+    { "slug": "shinjuku-kabukicho", "label": "東京都新宿区・歌舞伎町", "pref": "東京都", "pattern": "新宿区|新宿署|歌舞伎町|大久保" },
+    { "slug": "osaka-minami", "label": "大阪市・ミナミ・心斎橋", "pref": "大阪府", "pattern": "大阪市|ミナミ|心斎橋|難波|浪速" },
+    { "slug": "nagoya", "label": "愛知県名古屋市", "pref": "愛知県", "pattern": "名古屋市|名古屋" },
+    { "slug": "yokohama", "label": "神奈川県横浜市", "pref": "神奈川県", "pattern": "横浜市|横浜" },
+    { "slug": "narita-airport", "label": "成田空港・千葉県成田市", "pref": "千葉県", "pattern": "成田空港|成田国際空港|成田市" },
+    { "slug": "kansai-airport", "label": "関西国際空港（関空）", "pref": "大阪府", "pattern": "関西空港|関西国際空港|関空" },
+    { "slug": "haneda-airport", "label": "羽田空港・東京都大田区", "pref": "東京都", "pattern": "羽田空港" },
+    { "slug": "funabashi", "label": "千葉県船橋市", "pref": "千葉県", "pattern": "船橋市|船橋署|船橋" },
+    { "slug": "matsudo", "label": "千葉県松戸市", "pref": "千葉県", "pattern": "松戸市|松戸署|松戸東署|松戸" },
+    { "slug": "chiba-city", "label": "千葉県千葉市", "pref": "千葉県", "pattern": "千葉市|千葉中央|千葉西|千葉東|千葉南|千葉北" },
+    { "slug": "kashiwa", "label": "千葉県柏市", "pref": "千葉県", "pattern": "柏市|柏署" },
+    { "slug": "hamamatsu", "label": "静岡県浜松市", "pref": "静岡県", "pattern": "浜松市|浜松" },
+    { "slug": "fuji-shizuoka", "label": "静岡県富士市", "pref": "静岡県", "pattern": "富士市|富士署|富士警察署" },
+    { "slug": "ota-isesaki", "label": "群馬県太田市・伊勢崎市・大泉町", "pref": "群馬県", "pattern": "太田市|太田署|伊勢崎市|伊勢崎署|大泉町|大泉署" },
+    { "slug": "fukuoka-city", "label": "福岡県福岡市（博多・天神）", "pref": "福岡県", "pattern": "福岡市|博多|天神" },
+    { "slug": "sapporo", "label": "北海道札幌市", "pref": "北海道", "pattern": "札幌市|札幌" },
+    { "slug": "kobe", "label": "兵庫県神戸市", "pref": "兵庫県", "pattern": "神戸市|神戸" },
+    { "slug": "sendai", "label": "宮城県仙台市", "pref": "宮城県", "pattern": "仙台市|仙台" },
+    { "slug": "kyoto-city", "label": "京都府京都市", "pref": "京都府", "pattern": "京都市" },
+    { "slug": "utsunomiya", "label": "栃木県宇都宮市", "pref": "栃木県", "pattern": "宇都宮" },
+    { "slug": "saitama-city", "label": "埼玉県さいたま市", "pref": "埼玉県", "pattern": "さいたま市|浦和|大宮" },
+    { "slug": "shibuya-ikebukuro", "label": "東京都渋谷区・池袋・上野周辺", "pref": "東京都", "pattern": "渋谷|池袋|豊島区|台東区|上野" }
+  ],
+  "cross": [
+    { "slug": "tokyo-china", "label": "東京都×中国籍の外国人犯罪・逮捕", "location": "東京都", "nationality": "中国籍" },
+    { "slug": "shizuoka-brazil", "label": "静岡県×ブラジル国籍の犯罪・逮捕", "location": "静岡県", "nationality": "ブラジル国籍" },
+    { "slug": "fukuoka-nepal", "label": "福岡県×ネパール国籍の犯罪・逮捕", "location": "福岡県", "nationality": "ネパール国籍" },
+    { "slug": "chiba-china", "label": "千葉県×中国籍の犯罪・逮捕", "location": "千葉県", "nationality": "中国籍" },
+    { "slug": "shizuoka-vietnam", "label": "静岡県×ベトナム国籍の犯罪・逮捕", "location": "静岡県", "nationality": "ベトナム国籍" },
+    { "slug": "saitama-china", "label": "埼玉県×中国籍の犯罪・逮捕", "location": "埼玉県", "nationality": "中国籍" },
+    { "slug": "saitama-vietnam", "label": "埼玉県×ベトナム国籍の犯罪・逮捕", "location": "埼玉県", "nationality": "ベトナム国籍" },
+    { "slug": "saitama-turkey", "label": "埼玉県×トルコ・クルド国籍の犯罪・逮捕", "location": "埼玉県", "nationality": "トルコ国籍" },
+    { "slug": "tokyo-vietnam", "label": "東京都×ベトナム国籍の犯罪・逮捕", "location": "東京都", "nationality": "ベトナム国籍" },
+    { "slug": "osaka-china", "label": "大阪府×中国籍の犯罪・逮捕", "location": "大阪府", "nationality": "中国籍" },
+    { "slug": "osaka-vietnam", "label": "大阪府×ベトナム国籍の犯罪・逮捕", "location": "大阪府", "nationality": "ベトナム国籍" },
+    { "slug": "aichi-vietnam", "label": "愛知県×ベトナム国籍の犯罪・逮捕", "location": "愛知県", "nationality": "ベトナム国籍" },
+    { "slug": "aichi-brazil", "label": "愛知県×ブラジル国籍の犯罪・逮捕", "location": "愛知県", "nationality": "ブラジル国籍" },
+    { "slug": "gunma-vietnam", "label": "群馬県×ベトナム国籍の犯罪・逮捕", "location": "群馬県", "nationality": "ベトナム国籍" },
+    { "slug": "vietnam-drugs", "label": "ベトナム国籍×薬物・大麻・覚醒剤・密輸", "nationality": "ベトナム国籍", "crimeCategory": "薬物・大麻・覚醒剤・密輸" },
+    { "slug": "china-fraud", "label": "中国籍×一般詐欺・無銭飲食", "nationality": "中国籍", "crimeCategory": "一般詐欺・無銭飲食" },
+    { "slug": "taiwan-special-fraud", "label": "台湾籍×特殊詐欺・出し子・受け子", "nationality": "台湾籍", "crimeCategory": "特殊詐欺・出し子・受け子" },
+    { "slug": "taiwan-fraud", "label": "台湾籍×一般詐欺・ニセ警察詐欺", "nationality": "台湾籍", "crimeCategory": "一般詐欺・無銭飲食" },
+    { "slug": "vietnam-burglary", "label": "ベトナム国籍×住宅侵入・空き巣・店舗窃盗", "nationality": "ベトナム国籍", "crimeCategory": "住宅侵入・空き巣・店舗窃盗" },
+    { "slug": "vietnam-theft", "label": "ベトナム国籍×一般窃盗・スリ", "nationality": "ベトナム国籍", "crimeCategory": "一般窃盗・スリ・車上荒らし" },
+    { "slug": "vietnam-traffic", "label": "ベトナム国籍×交通犯罪（無免許・飲酒運転）", "nationality": "ベトナム国籍", "crimeCategory": "交通犯罪・ひき逃げ・無免許・飲酒運転" },
+    { "slug": "china-traffic", "label": "中国籍×交通犯罪（無免許・飲酒運転）", "nationality": "中国籍", "crimeCategory": "交通犯罪・ひき逃げ・無免許・飲酒運転" },
+    { "slug": "china-special-fraud", "label": "中国籍×特殊詐欺・出し子・受け子", "nationality": "中国籍", "crimeCategory": "特殊詐欺・出し子・受け子" },
+    { "slug": "vietnam-immigration", "label": "ベトナム国籍×入管法違反・不法残留", "nationality": "ベトナム国籍", "crimeCategory": "入管法違反・不法残留・不法就労助長" }
+  ]
+}
