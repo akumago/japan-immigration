@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-19T03:42:22.785Z",
+  "updatedAt": "2026-11-19T07:46:16.974Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6119,6 +6119,25 @@
       },
       "reason": "URL完全一致 (https://news.yahoo.co.jp/articles/96149d66b026622709b8a9af074fd0c835526b25)",
       "recordedAt": "2026-11-19T03:42:22.785Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "kept": {
+        "id": "7a749a757426",
+        "sourceRecordId": "v5-7a749a757426",
+        "title": "輸出利用しマネロン疑い 宇都宮市の会社社長ら逮捕 静岡県警",
+        "date": "2026-10-28",
+        "url": "https://www.shimotsuke.co.jp/articles/-/1449227"
+      },
+      "removed": {
+        "id": "5d148eef5dd4",
+        "sourceRecordId": "v5-5d148eef5dd4",
+        "title": "マネーロンダリング目的か?特殊詐欺で3200万円だまし取った会社役員ら3人逮捕(静岡・藤枝市)",
+        "date": "2026-10-29",
+        "url": "https://news.livedoor.com/article/detail/32683009/"
+      },
+      "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
+      "recordedAt": "2026-11-19T07:46:16.974Z"
     }
   ]
 }

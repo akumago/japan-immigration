@@ -150,7 +150,10 @@ function signals(item) {
     summaryText,
   ]
     .filter(Boolean).join(' ').replace(/本文抜粋:\s*/g, '');
-  const title = nfkc(item.title).replace(/\s*\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*\d{1,2}:\d{2}\s*$/, '').replace(/\s*\d+(?:分|時間)前\s*$/, '')
+  const title = nfkc(item.title)
+    .replace(/\s*\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*\d{1,2}:\d{2}\s*$/, '')
+    .replace(/\s*[（(]\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日(?:掲載|配信|更新|放送)?[）)]\s*$/, '')
+    .replace(/\s*\d+(?:分|時間)前\s*$/, '')
     // 末尾の媒体名「(テレビ愛知)」「（神戸新聞NEXT）」や途切れた「(」を除去（年齢「（37）」は残す）
     .replace(/\s*[（(](?!\d{1,3}[）)])[^（）()]{0,30}[）)]?\s*$/, '').replace(/\s*[-–―]\s*[^\s]{1,20}(?:\s[^\s]{1,20})?$/, (m) => (/[逮捕疑容]/.test(m) ? m : ''));
   const text = `${nfkc(evidence)} ${title}`;
@@ -218,6 +221,9 @@ function signals(item) {
   }
   if (/(?:ヤミ金|闇金)/.test(text)) {
     incidentAnchors.add('yamikin_usury');
+  }
+  if (/(?:マネーロンダリング|マネロン|資金洗浄)/.test(text) && /特殊詐欺/.test(text)) {
+    incidentAnchors.add('special_fraud_money_laundering');
   }
   if (/詐欺グループ/.test(text) && /口座.*提供/.test(text)) {
     incidentAnchors.add('fraud_group_account_provision');
@@ -356,7 +362,7 @@ function sameEventReason(a, b, { maxDays = 14 } = {}) {
     && (locationRelation === 'compatible' || sameStoredRegion || natsMatch);
   // 国籍・年齢・市区町村（福山市等）・罪種がすべて一致する場合は、住所抽出などによる県名の食い違いを矛盾とみなさない
   const storedRegionMislabeled = natsMatch && sameAge && samePlace && sameCrime;
-  const crossRegionAnchors = new Set(['pakistan_shirataku_group', 'russia_car_export_sanctions', 'concrete_piece_brawl', 'driver_license_exam_sneakshot', 'yamikin_usury']);
+  const crossRegionAnchors = new Set(['pakistan_shirataku_group', 'russia_car_export_sanctions', 'concrete_piece_brawl', 'driver_license_exam_sneakshot', 'yamikin_usury', 'special_fraud_money_laundering']);
   const sharedIncidentCrossRegion = [...(sa.incidentAnchors || [])].some((x) => crossRegionAnchors.has(x) && sb.incidentAnchors?.has(x)) && natsMatch && daysApart(a.date, b.date) <= 4 && (sameAge || sameNamedSuspect || dice(sa.content, sb.content) >= 0.15 || !sa.ages.size || !sb.ages.size);
   if (locationRelation === 'conflict' && !sameNamedSuspect && !storedRegionMislabeled && !sharedIncidentCrossRegion && !crossPrefFactShared) return null;
   const agesConflict = sa.ages.size && sb.ages.size && !sameAge && !sameNamedSuspect && !factAnchorShared;

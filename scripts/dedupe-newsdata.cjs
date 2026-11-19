@@ -129,7 +129,7 @@ function resolveNormalizedMedia(currentMedia, url) {
   }
   if (/MSNニュース/i.test(String(currentMedia || ''))) return 'MSNニュース';
   const s = String(currentMedia || '').trim();
-  if (!s || /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(s) || /Howl\.Link/i.test(s)) {
+  if (!s || /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(s) || /Howl\.Link/i.test(s) || /^YouTube$/i.test(s)) {
     return '国内報道機関';
   }
   return s;
@@ -142,6 +142,7 @@ const WINDOW_DAYS = 3650;
 function normTitle(title) {
   return String(title || '').normalize('NFKC')
     .replace(/\s*\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*\d{1,2}:\d{2}\s*$/, '')
+    .replace(/\s*[（(]\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日(?:掲載|配信|更新|放送)?[）)]\s*$/, '')
     .replace(/\s*\d+\s*(?:分|時間|日)前\s*$/, '')
     // 末尾の媒体名「(テレビ愛知)」「（神戸新聞NEXT）」や途切れた「(」（年齢「（37）」は残す）
     .replace(/\s*[（(](?!\d{1,3}[）)])[^（）()]{0,30}[）)]?\s*$/, '')
@@ -214,6 +215,7 @@ function run({ newsDataPath, mergedPath, dryRun = false, now = Date.now(), logge
     '321d5559a30c0790': '愛知県',
     '05a9ae1ce36169f6': '鳥取県',
     '1e56307e710ad8c0': '兵庫県',
+    '2485ce3c42ba': '広島県',
   };
   for (const item of raw) {
     const text = [item.locationBasis, item.evidence && item.evidence.suspect ? item.evidence.suspect : '', item.summary || '']
@@ -228,8 +230,9 @@ function run({ newsDataPath, mergedPath, dryRun = false, now = Date.now(), logge
     const allVictimOrNonSuspect = suspectOccs.length > 0 && suspectOccs.every((o) => !o.suspect);
     const isPastBgOnly = Boolean(suspectOnly && PAST_BG_EVIDENCE_RE.test(suspectOnly) && !aiGate.NAT_RE.test(String(item.title || '')));
     const isGossipNonCrimeTitle = /^《[^》]+》/.test(String(item.title || '')) && !aiGate.CRIME_RE.test(String(item.title || ''));
-    if (check.rejected || suspectCheck.rejected || allVictimOrNonSuspect || isPastBgOnly || isGossipNonCrimeTitle || (!check.verified && /(?:偽造依頼|家宅捜索した際)/.test(text))) {
-      const reason = check.rejectReason || suspectCheck.rejectReason || (isGossipNonCrimeTitle ? 'editorial_or_opinion' : allVictimOrNonSuspect ? 'victim_or_non_suspect_foreigner' : 'suspect_is_japanese_or_background_foreigner');
+    const isColumnOrRankingUrl = /\/(?:column|opinion|editorial|ranking)\//i.test(String(item.url || ''));
+    if (check.rejected || suspectCheck.rejected || allVictimOrNonSuspect || isPastBgOnly || isGossipNonCrimeTitle || isColumnOrRankingUrl || (!check.verified && /(?:偽造依頼|家宅捜索した際)/.test(text))) {
+      const reason = check.rejectReason || suspectCheck.rejectReason || (isColumnOrRankingUrl || isGossipNonCrimeTitle ? 'editorial_or_opinion' : allVictimOrNonSuspect ? 'victim_or_non_suspect_foreigner' : 'suspect_is_japanese_or_background_foreigner');
       logger.log(`🚫 オピニオン・非対象記事を除外 [${reason}]: ${item.title}`);
       drop.add(item);
       rejectRecords.push({ kind: 'automatic_reject', url: item.url || null, item: ref(item), reason });
@@ -244,6 +247,7 @@ function run({ newsDataPath, mergedPath, dryRun = false, now = Date.now(), logge
     }
     const cleanedTitle = String(item.title || '')
       .replace(/」」/g, '」')
+      .replace(/\s*[（(]\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日(?:掲載|配信|更新|放送)?[）)]\s*$/, '')
       .replace(/(?:\s*[|｜]\s*[^|｜]{1,35})+$/, '')
       .replace(/[:：][一-龥ァ-ヶー]{2,8}ニュース$/, '')
       .replace(/\s*\[[一-龥]{2,4}\]\s*$/, '')
@@ -263,6 +267,29 @@ function run({ newsDataPath, mergedPath, dryRun = false, now = Date.now(), logge
     if (canonicalPhotoUrl && canonicalPhotoUrl !== item.url) {
       item.url = canonicalPhotoUrl;
       changed = true;
+    }
+    if (item.url) {
+      try {
+        const u = new URL(item.url);
+        const dropParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'ref', 'fbclid', 'gclid', 'oc', 'usg', 'source', 'guccounter', 'guce_referrer', 'ved'];
+        let urlChanged = false;
+        for (const p of dropParams) {
+          if (u.searchParams.has(p)) {
+            u.searchParams.delete(p);
+            urlChanged = true;
+          }
+        }
+        if (u.hash) {
+          u.hash = '';
+          urlChanged = true;
+        }
+        if (urlChanged) {
+          item.url = u.toString();
+          changed = true;
+        }
+      } catch {
+        // ignore invalid URL
+      }
     }
     let evidenceRestored = false;
     if (!item.evidence && qHit?.audit?.suspectRole?.evidence) {
@@ -345,7 +372,7 @@ function run({ newsDataPath, mergedPath, dryRun = false, now = Date.now(), logge
       }
     }
 
-    if (!item.media || /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(item.media) || /Howl\.Link|MSNニュース\s*\/\s*Howl\.Link/i.test(item.media)) {
+    if (!item.media || /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(item.media) || /Howl\.Link|MSNニュース\s*\/\s*Howl\.Link|^YouTube$/i.test(item.media)) {
       const normMedia = resolveNormalizedMedia(item.media, item.url);
       if (normMedia !== item.media) {
         item.media = normMedia;
@@ -356,6 +383,41 @@ function run({ newsDataPath, mergedPath, dryRun = false, now = Date.now(), logge
     if (item.description && /<a\s+href=/i.test(item.description)) {
       delete item.description;
       changed = true;
+    }
+
+    const cleanDupSnippet = (val) => {
+      if (typeof val !== 'string' || !val) return val;
+      const prefixM = val.match(/^((?:本文抜粋|見出し根拠|見出し・本文統合根拠|国内捜査・司法機関管轄根拠)\s*[:：]\s*)/);
+      const prefix = prefixM ? prefixM[1] : '';
+      let body = prefix ? val.slice(prefix.length) : val;
+      const head = body.slice(0, 18);
+      if (head.length >= 18) {
+        const dupAt = body.indexOf(head, 18);
+        if (dupAt > 0) {
+          const firstHalf = body.slice(0, dupAt).replace(/\.{2,}$/, '').trim();
+          const secondHalf = body.slice(dupAt).trim();
+          const nestedDup = secondHalf.indexOf(head, 18);
+          const cleanSecond = nestedDup > 0 ? secondHalf.slice(0, nestedDup).replace(/\.{2,}$/, '').trim() : secondHalf;
+          body = cleanSecond.length > firstHalf.length ? cleanSecond : firstHalf;
+        }
+      }
+      return `${prefix}${body}`;
+    };
+    for (const field of ['summary', 'locationBasis']) {
+      if (item[field]) {
+        const cleaned = cleanDupSnippet(item[field]);
+        if (cleaned !== item[field]) {
+          item[field] = cleaned;
+          changed = true;
+        }
+      }
+    }
+    if (item.evidence?.suspect) {
+      const cleaned = cleanDupSnippet(item.evidence.suspect);
+      if (cleaned !== item.evidence.suspect) {
+        item.evidence.suspect = cleaned;
+        changed = true;
+      }
     }
 
     if (item.id === 'a3239936fc6a' && String(item.summary || '').includes('（加古川市の男が）使っていない') && !String(item.summary || '').includes('「（加古川市の男が）')) {
@@ -379,6 +441,8 @@ function run({ newsDataPath, mergedPath, dryRun = false, now = Date.now(), logge
       changed = true;
     }
     const isTemplateOrBrokenSummary = evidenceRestored
+      || String(item.summary || '').trim() === String(item.title || '').trim()
+      || !/[。！？）」』）]$/.test(String(item.summary || '').trim())
       || /[、・]\s*[一-龥ァ-ヶー]{1,4}。$/.test(String(item.summary || ''))
       || /本文の文脈結合で確認した報道です|ことを本文で確認した報道です|外国人関与の事件・容疑に関する報道速報です|、(?:起訴状|逮捕容疑)/.test(String(item.summary || ''))
       || (/被疑者の[^（）]*報道）$/.test(String(item.summary || '')) && !String(item.summary || '').includes(`（${item.location || '国内'}・${item.nationality || '外国籍'}被疑者の${item.stage || '逮捕'}報道）`));
@@ -402,7 +466,7 @@ function run({ newsDataPath, mergedPath, dryRun = false, now = Date.now(), logge
         item.summary = parts.join('');
       } else {
         const cleanSum = cleanExc(item.summary);
-        if (!/本文の文脈結合で確認した報道です|ことを本文で確認した報道です|外国人関与の事件・容疑に関する報道速報です|被疑者の[^（）]*報道）$/.test(cleanSum) && !/[、・]\s*[一-龥ァ-ヶー]{1,4}。$/.test(cleanSum) && cleanSum.length >= 35) {
+        if (cleanSum !== item.title && /[。！？）」』]$/.test(cleanSum) && !/本文の文脈結合で確認した報道です|ことを本文で確認した報道です|外国人関与の事件・容疑に関する報道速報です|被疑者の[^（）]*報道）$/.test(cleanSum) && !/[、・]\s*[一-龥ァ-ヶー]{1,4}。$/.test(cleanSum) && cleanSum.length >= 35) {
           item.summary = cleanSum;
         } else if (parts.length === 1 && parts[0].length >= 12) {
           const bareTitle = String(item.title || '').replace(/。+$/, '');
@@ -458,7 +522,40 @@ function run({ newsDataPath, mergedPath, dryRun = false, now = Date.now(), logge
     records.push({ kind: 'automatic_merge', kept: ref(r.keptItem), removed: ref(r.removedItem), reason: r.reason });
   });
 
-  const result = healed.items;
+  const removedByKeptKey = new Map();
+  for (const r of healed.removed) {
+    if (r.keptItem && r.removedItem) {
+      const k = r.keptItem.id || r.keptItem.title;
+      const arr = removedByKeptKey.get(k) || [];
+      arr.push(r.removedItem);
+      removedByKeptKey.set(k, arr);
+    }
+  }
+  const result = healed.items.map((origItem) => {
+    const item = { ...origItem };
+    const mergedAway = removedByKeptKey.get(item.id || item.title) || [];
+    if (mergedAway.length > 0 && (/被疑者の[^（）]*報道）$/.test(String(item.summary || '')) || String(item.summary || '').trim() === String(item.title || '').trim())) {
+      const betterSource = mergedAway.find((m) => {
+        const ms = String(m.summary || '').trim();
+        return ms.length >= 30 && ms !== String(m.title || '').trim() && !/被疑者の[^（）]*報道）$/.test(ms) && /[。！？）」』]$/.test(ms);
+      });
+      if (betterSource) {
+        item.summary = betterSource.summary;
+        metadataFixedCount++;
+      }
+    }
+    if (item.location && item.prefecture && item.location !== item.prefecture) {
+      item.location = item.prefecture;
+      metadataFixedCount++;
+    } else if (item.location && !item.prefecture) {
+      const h = eventDedupe.locationHierarchy({ location: item.location });
+      const pref = h?.pref || item.location;
+      item.location = pref;
+      item.prefecture = pref;
+      metadataFixedCount++;
+    }
+    return item;
+  });
   const removedCount = raw.length - result.length;
   logger.log(`🔎 重複検査: ${raw.length} 件 → ${result.length} 件（統合 ${removedCount} 件 / 品質補正 ${metadataFixedCount} 件）`);
   if ((removedCount === 0 && metadataFixedCount === 0) || dryRun) return { before: raw.length, after: result.length, removed: removedCount, written: false };

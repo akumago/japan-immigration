@@ -106,9 +106,9 @@ const GOOGLE_NEWS_QUERIES = [
 // 2. 厳格ノイズ除外ルール（社説・コラム・政治要請・議会答弁・抗議・遺族談話・写真枠・デマ検証・告訴のみ・海外事件を100%排除）
 // ============================================================================
 
-const NON_INCIDENT_REGEX = /(?:^(?:画像・写真|写真特集|映像|動画)\s*[:：]|社説|論説|社論|オピニオン|コラム|解説|視点|論点|提言|インタビュー|アンケート|世論調査|統計|白書|ランキング|まとめ|特集|連載|振り返る|シンポジウム|セミナー|勉強会|デモ行進|抗議集会|法改正|制度見直し|入管法改正|ガイドライン|対策会議|防犯訓練|防犯教室|有識者|エキスパートトピ|ファクトチェック|デマ|誤情報|根拠不明|真偽不明|デマ否定|刑事告訴|告訴状|被害届を?提出|ドラマ|映画(?!館|祭)|アニメ|ネタバレ|あらすじ|小説|漫画|【[^】]*(?:解説|詳報|前編|後編|中編|連載|特集|独自解説)[^】]*】|[一-龥ァ-ヶ]{2,8}(?:大|大学)(?:講師|教授|准教授|名誉教授)\s*$|私見|に驚き|持論|苦言|モーニングショー|羽鳥慎一|ひるおび|ミヤネ屋|ゴゴスマ|めざまし8|サン!シャイン|ワイドナショー|[一-龥ァ-ヶ]{2,10}(?:弁護士|コメンテーター|元刑事)[、:]|(?:再)?逮捕へ(?:\s|$|[・　])|(?:書類)?送検へ(?:\s|$)|起訴へ(?:\s|$)|方針を固め|メッセージの遅さ|極めて遺憾|日米と県協議|協定の改定|改定が必要|パリピ生活|水際で阻止|応えよ$|求めよ$|べきだ$|とは…|できたワケ|の正体|とは何か|^[▽▼■◆●]\s*[上中下前後0-9０-９]|連帯広げる|不安抱く社会|浮かび上がる[^。]*の「?構図」?|専門家が(?:語[るった]|み[るた])|だまされないための対策|エックス速報|合同巡回で米兵[^。]*外出禁止違反|憲兵隊が拘束|事件受けたパトロール|(?:事件|逮捕)[^。]{0,10}受け[^。]*(?:要請|抗議|答弁|集会|声明|談話|コメント|申し入れ|削除依頼|怒りの声|外出制限)|(?:首相|外務省|防衛省|政府|米軍)に[^。]*(?:要請|抗議|申し入れ)|(?:知事|市長|官房長官|大臣)[^。]*(?:再発防止|要請|抗議|注視|言及|批判|遺憾)|県議会[^。]*答弁|市民団体[^。]*(?:抗議|集会|怒りの声|要請|声明)|遺族(?:が|ら|も)[^。]*(?:コメント|談話|手記)|被害者へ中傷|中傷[^。]*削除依頼|日米共同演習|相次いで先島に飛来|FRIDAY|フライデー|逮捕直後の.*表情|初公判の傍聴券|傍聴席に.*姿|(?:合同)?巡視|パトロール活動|警戒活動|[＝=]中国ネット)/i;
+const NON_INCIDENT_REGEX = /(?:^(?:画像・写真|写真特集|映像|動画)\s*[:：]|社説|論説|社論|オピニオン|コラム|解説|視点|論点|提言|インタビュー|アンケート|世論調査|統計|白書|ランキング|【[^】]*\d+位】|ニュース記事\d+位|が明かした[^。]{0,16}素顔|まとめ|特集|連載|振り返る|シンポジウム|セミナー|勉強会|デモ行進|抗議集会|法改正|制度見直し|入管法改正|ガイドライン|対策会議|防犯訓練|防犯教室|有識者|エキスパートトピ|ファクトチェック|デマ|誤情報|根拠不明|真偽不明|デマ否定|刑事告訴|告訴状|被害届を?提出|ドラマ|映画(?!館|祭)|アニメ|ネタバレ|あらすじ|小説|漫画|【[^】]*(?:解説|詳報|前編|後編|中編|連載|特集|独自解説)[^】]*】|[一-龥ァ-ヶ]{2,8}(?:大|大学)(?:講師|教授|准教授|名誉教授)\s*$|私見|に驚き|持論|苦言|モーニングショー|羽鳥慎一|ひるおび|ミヤネ屋|ゴゴスマ|めざまし8|サン!シャイン|ワイドナショー|[一-龥ァ-ヶ]{2,10}(?:弁護士|コメンテーター|元刑事)[、:]|(?:再)?逮捕へ(?:\s|$|[・　])|(?:書類)?送検へ(?:\s|$)|起訴へ(?:\s|$)|方針を固め|メッセージの遅さ|極めて遺憾|日米と県協議|協定の改定|改定が必要|パリピ生活|水際で阻止|応えよ$|求めよ$|べきだ$|とは…|できたワケ|の正体|とは何か|^[▽▼■◆●]\s*[上中下前後0-9０-９]|連帯広げる|不安抱く社会|浮かび上がる[^。]*の「?構図」?|専門家が(?:語[るった]|み[るた])|だまされないための対策|エックス速報|合同巡回で米兵[^。]*外出禁止違反|憲兵隊が拘束|事件受けたパトロール|(?:事件|逮捕)[^。]{0,10}受け[^。]*(?:要請|抗議|答弁|集会|声明|談話|コメント|申し入れ|削除依頼|怒りの声|外出制限)|(?:首相|外務省|防衛省|政府|米軍)に[^。]*(?:要請|抗議|申し入れ)|(?:知事|市長|官房長官|大臣)[^。]*(?:再発防止|要請|抗議|注視|言及|批判|遺憾)|県議会[^。]*答弁|市民団体[^。]*(?:抗議|集会|怒りの声|要請|声明)|遺族(?:が|ら|も)[^。]*(?:コメント|談話|手記)|被害者へ中傷|中傷[^。]*削除依頼|日米共同演習|相次いで先島に飛来|FRIDAY|フライデー|逮捕直後の.*表情|初公判の傍聴券|傍聴席に.*姿|(?:合同)?巡視|パトロール活動|警戒活動|[＝=]中国ネット)/i;
 
-const OVERSEAS_INCIDENT_REGEX = /(現地時間|現地メディア|現地警察|米警察|韓国警察|タイ警察|中国公安|比当局|フィリピン当局|カンボジア当局|ミャンマー当局|ロシア(?:当局|警察|で)|スパイ容疑|身柄拘束|人質|連邦検察|連邦地裁|州警察|保安官|JPドラゴン|ルフィ|邦人(?:を|ら)?(?:逮捕|拘束|保護)|日本人(?:の男|の女|ら|グループ)?を(?:現地|海外|国外|タイ|フィリピン|カンボジア|ベトナム|中国|韓国|米国|アメリカ|ロシア)で(?:逮捕|拘束|摘発)|国外退去処分を受けた日本人|^\s*[【\[（(](?:ソウル|北京|上海|香港|台北|バンコク|マニラ|ハノイ|ジャカルタ|プノンペン|ヤンゴン|ニューデリー|ワシントン|ニューヨーク|ロサンゼルス|ロンドン|パリ|ベルリン|モスクワ|ローマ|シドニー|カイロ)[＝=・\s時事共同])/;
+const OVERSEAS_INCIDENT_REGEX = /(現地時間|現地メディア|現地警察|米警察|韓国警察|タイ警察|中国公安|比当局|フィリピン当局|カンボジア当局|ミャンマー当局|ロシア(?:当局|警察|連邦保安局|で(?:逮捕|拘束|起訴|判決))|スパイ容疑|(?:現地|海外|国外|外国|中国|韓国|タイ|フィリピン|カンボジア|ベトナム|米国|ロシア)[^。]{0,15}身柄拘束|人質|連邦検察|連邦地裁|州警察|保安官|JPドラゴン|ルフィ|邦人(?:を|ら)?(?:逮捕|拘束|保護)|日本人(?:の男|の女|ら|グループ)?を(?:現地|海外|国外|タイ|フィリピン|カンボジア|ベトナム|中国|韓国|米国|アメリカ|ロシア)で(?:逮捕|拘束|摘発)|国外退去処分を受けた日本人|^\s*[【\[（(](?:ソウル|北京|上海|香港|台北|バンコク|マニラ|ハノイ|ジャカルタ|プノンペン|ヤンゴン|ニューデリー|ワシントン|ニューヨーク|ロサンゼルス|ロンドン|パリ|ベルリン|モスクワ|ローマ|シドニー|カイロ)[＝=・\s時事共同])/;
 
 const OVERSEAS_OR_GOSSIP_MEDIA_RE = /(?:Record\s*China|レコードチャイナ|サーチナ|WoW!Korea|ワウコリア|中央日報|朝鮮日報|東亜日報|ハンギョレ|聯合ニュース|大紀元|新唐人|看中国|フォーカス台湾|中央社|CNN|BBC|ロイター|Reuters|AFPBB|ブルームバーグ|Bloomberg|江南タイムズ|Kstyle|モデルプレス|オリコン|ORICON|ナタリー|シネマトゥデイ|映画\.com|Real\s*Sound|文春オンライン|デイリー新潮|女性自身|女性セブン|週刊女性PRIME|FLASH|Smart\s*FLASH|FRIDAYデジタル|日刊ゲンダイ|東スポWEB|スポニチアネックス)/i;
 
@@ -147,7 +147,7 @@ function normalizeUrl(rawUrl = '') {
   try {
     const canonical = articleFetcher.photoPageToArticleUrl(rawUrl) || rawUrl;
     const u = new URL(canonical);
-    const dropParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'ref', 'fbclid', 'gclid', 'oc', 'usg'];
+    const dropParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'ref', 'fbclid', 'gclid', 'oc', 'usg', 'source', 'guccounter', 'guce_referrer', 'ved'];
     dropParams.forEach((p) => u.searchParams.delete(p));
     u.hash = '';
     return u.toString();
@@ -160,6 +160,7 @@ function normalizeUrl(rawUrl = '') {
 function cleanArticleTitle(rawTitle = '') {
   let title = decodeHtmlEntities(rawTitle).normalize('NFKC');
   title = title.replace(/\s*\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*\d{1,2}:\d{2}\s*$/g, '');
+  title = title.replace(/\s*[（(]\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日(?:掲載|配信|更新|放送)?[）)]\s*$/g, '');
   title = title.replace(/\s*\d+\s*(?:時間|分|日|秒)前\s*$/g, '');
   title = title.replace(/」」/g, '」');
   let prev;
@@ -257,7 +258,7 @@ const DOMAIN_MEDIA_MAP = [
 
 function resolveMediaName(rawSource = '', resolvedUrl = '', rawTitle = '') {
   const s = String(rawSource || '').trim();
-  const isUnnormalized = !s || /Howl\.Link/i.test(s) || /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(s);
+  const isUnnormalized = !s || /Howl\.Link|^YouTube$/i.test(s) || /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(s);
   const isBadAggregator = isUnnormalized || /^(?:MSNニュース|SmartNews|Googleニュース|国内報道機関)$/i.test(s);
   if (!isBadAggregator) return s;
 
@@ -548,19 +549,23 @@ function isDuplicateAgainstExisting(candidate, existingArticles) {
       return { duplicate: true, reason: `URL完全一致 (${existing.url})` };
     }
 
+    const isStageFollowUp = eventDedupe.isFollowUp(existing, candidate);
+
     const titleSim = calculateTitleSimilarity(candidate.title, existing.title || '');
-    if (titleSim >= CONFIG.TITLE_SIMILARITY_THRESHOLD) {
+    if (titleSim >= CONFIG.TITLE_SIMILARITY_THRESHOLD && !isStageFollowUp) {
       return { duplicate: true, reason: `タイトル高類似 (${Math.round(titleSim * 100)}%: ${existing.title})` };
     }
 
     // 第1段: event-dedupe.cjs の厳格イベント重複エンジンで検査
     const eventReason = eventDedupe.sameEventReason(candidate, existing);
-    if (eventReason && !eventDedupe.isFollowUp(existing, candidate)) {
+    if (eventReason && !isStageFollowUp) {
       return {
         duplicate: true,
         reason: `event-dedupe一致 (${eventReason}: ${existing.title})`,
       };
     }
+
+    if (isStageFollowUp) continue;
 
     // 第2段: 28罪種カテゴリ＆5W1Hプロファイルによる重複検査（年齢未記載記事のすり抜けも防止）
     const existingDate = new Date(existing.pubDate || existing.date || Date.now()).getTime();
@@ -706,7 +711,7 @@ function buildLocalEventSummary(cleanTitle, bodyText, { prefecture, nationality,
 
   const picked = [];
   const core = cleanSummarySentence(suspectSentence);
-  if (core && core.length >= 18) picked.push(core);
+  if (core && core.length >= 18 && core !== cleanTitle && /[。！？）」』]$/.test(core)) picked.push(core);
 
   for (const s of rawSentences) {
     if (picked.length >= 2) break;
@@ -891,7 +896,8 @@ function parseRssItems(xml, defaultSource = '国内報道機関') {
 }
 
 const googleSpacer = articleFetcher.createSpacer(600);
-const NON_NEWS_DOMAIN_RE = /(?:rocket-boys\.co\.jp|shueisha\.online|bunshun\.jp|dailyshincho\.jp|gendai\.media|toyokeizai\.net|diamond\.jp|president\.jp|jbpress\.ismedia\.jp|mag2\.com|note\.com|ameblo\.jp|ameba\.jp|livedoor\.blog|fc2\.com|hatenablog\.com|qiita\.com|zenn\.dev|wikipedia\.org|chiebukuro\.yahoo\.co\.jp|oshiete\.goo\.ne\.jp|mamastar\.jp|girlschannel\.net|open2ch\.net|2ch\.sc|machibbs\.com|5ch\.net|bakusai\.com|togetter\.com|posfie\.com|x\.com|twitter\.com|youtube\.com|tiktok\.com|instagram\.com|facebook\.com|bengo4\.com)/i;
+const NON_NEWS_DOMAIN_RE = /(?:coki\.jp|rocket-boys\.co\.jp|shueisha\.online|bunshun\.jp|dailyshincho\.jp|gendai\.media|toyokeizai\.net|diamond\.jp|president\.jp|jbpress\.ismedia\.jp|mag2\.com|note\.com|ameblo\.jp|ameba\.jp|livedoor\.blog|fc2\.com|hatenablog\.com|qiita\.com|zenn\.dev|wikipedia\.org|chiebukuro\.yahoo\.co\.jp|oshiete\.goo\.ne\.jp|mamastar\.jp|girlschannel\.net|open2ch\.net|2ch\.sc|machibbs\.com|5ch\.net|bakusai\.com|togetter\.com|posfie\.com|x\.com|twitter\.com|youtube\.com|tiktok\.com|instagram\.com|facebook\.com|bengo4\.com)/i;
+const NON_NEWS_URL_PATH_RE = /\/(?:column|opinion|editorial|ranking)\//i;
 
 // article-fetcher.cjs の batchexecute URLデコード＆サイドバー完全除去を優先使用し、失敗時はBing/Yahooスニペットで補完
 async function resolveUrlAndPureArticleBody(item) {
@@ -1194,7 +1200,9 @@ async function main() {
   let seenUrls = new Set();
   try {
     const seenRaw = JSON.parse(await fs.readFile(CONFIG.SEEN_CACHE_FILE, 'utf-8'));
-    if (Array.isArray(seenRaw)) seenUrls = new Set(seenRaw);
+    if (Array.isArray(seenRaw)) {
+      seenUrls = new Set(seenRaw.map((u) => normalizeUrl(u)).filter(Boolean));
+    }
   } catch {
     // 初回は空
   }
@@ -1218,21 +1226,27 @@ async function main() {
     console.log(`[RECOVERY] 長期停止・空白期間を検知 (最新記事から約${outageDays}日経過 / 指定=${envBackfillDays || '自動'}): 検索窓を when:${effectiveWindowDays}d に動的拡大し全シャード巡回を実行します。`);
   }
 
-  // 3. 全国網羅収集（①Google News 13クエリ ＋ ②公式RSS・Yahoo地域シャード ＋ ③主要局一覧ページ直接巡回 ＋ ④県警公式発表）
+  // 3. 全国網羅収集（①県警公式発表 → ②公式RSS＆Yahoo地域全巡回 → ③主要局一覧直接巡回 → ④Google News 13クエリ）
+  // 公式直接URLを先に収集し、バッチ内重複排除で Google News リダイレクトURLより公式一次媒体を優先保持する。
   const rawFetchedItems = [];
 
-  for (const baseQuery of GOOGLE_NEWS_QUERIES) {
-    const query = baseQuery.replace(/when:\d+d/g, `when:${effectiveWindowDays}d`);
-    const googleRssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=ja&gl=JP&ceid=JP:ja`;
-    try {
-      const res = await fetchWithTimeout(googleRssUrl);
-      if (res.ok) {
-        const xml = await res.text();
-        rawFetchedItems.push(...parseRssItems(xml));
-      }
-    } catch (err) {
-      console.warn(`[WARN] Google RSS取得失敗 (${query}): ${err.message}`);
+  try {
+    const chibaItems = await policeBulletins.collectChibaBulletins(articleFetcher.httpRequest).catch(() => []);
+    const shizuokaItems = await policeBulletins.collectShizuokaBulletins(articleFetcher.httpRequest).catch(() => []);
+    for (const pi of [...(chibaItems || []), ...(shizuokaItems || [])]) {
+      const basePoliceUrl = normalizeUrl(pi.url || '');
+      rawFetchedItems.push({
+        rawTitle: pi.title || '',
+        title: cleanArticleTitle(pi.title || ''),
+        url: pi.id ? `${basePoliceUrl}?incident=${pi.id}` : basePoliceUrl,
+        pubDate: pi.pubDate || new Date().toISOString(),
+        description: pi.sourceBody || pi.description || '',
+        sourceBody: pi.sourceBody || '',
+        source: pi.media || '都道府県警察公式発表',
+      });
     }
+  } catch {
+    // ignore
   }
 
   try {
@@ -1244,7 +1258,7 @@ async function main() {
         const allLocal = rssSources.parseYahooMediaCatalog(catHtml);
         const shard = rssSources.selectYahooMediaShard(allLocal, {
           now: Date.now(),
-          shardCount: isOutageRecovery ? 1 : 2,
+          shardCount: 1,
         });
         officialFeeds.push(...shard);
       }
@@ -1293,23 +1307,18 @@ async function main() {
     // ignore
   }
 
-  try {
-    const chibaItems = await policeBulletins.collectChibaBulletins(articleFetcher.httpRequest).catch(() => []);
-    const shizuokaItems = await policeBulletins.collectShizuokaBulletins(articleFetcher.httpRequest).catch(() => []);
-    for (const pi of [...(chibaItems || []), ...(shizuokaItems || [])]) {
-      const basePoliceUrl = normalizeUrl(pi.url || '');
-      rawFetchedItems.push({
-        rawTitle: pi.title || '',
-        title: cleanArticleTitle(pi.title || ''),
-        url: pi.id ? `${basePoliceUrl}?incident=${pi.id}` : basePoliceUrl,
-        pubDate: pi.pubDate || new Date().toISOString(),
-        description: pi.sourceBody || pi.description || '',
-        sourceBody: pi.sourceBody || '',
-        source: pi.media || '都道府県警察公式発表',
-      });
+  for (const baseQuery of GOOGLE_NEWS_QUERIES) {
+    const query = baseQuery.replace(/when:\d+d/g, `when:${effectiveWindowDays}d`);
+    const googleRssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=ja&gl=JP&ceid=JP:ja`;
+    try {
+      const res = await fetchWithTimeout(googleRssUrl);
+      if (res.ok) {
+        const xml = await res.text();
+        rawFetchedItems.push(...parseRssItems(xml));
+      }
+    } catch (err) {
+      console.warn(`[WARN] Google RSS取得失敗 (${query}): ${err.message}`);
     }
-  } catch {
-    // ignore
   }
 
   console.log(`[FETCH] 全国RSS・ローカル局・県警発表から合計 ${rawFetchedItems.length} 件の候補を取得しました。`);
@@ -1337,6 +1346,8 @@ async function main() {
     if (
       NON_INCIDENT_REGEX.test(item.title) ||
       OVERSEAS_INCIDENT_REGEX.test(item.title) ||
+      NON_NEWS_DOMAIN_RE.test(item.url) ||
+      NON_NEWS_URL_PATH_RE.test(item.url) ||
       OVERSEAS_OR_GOSSIP_MEDIA_RE.test(`${item.source || ''} ${item.rawTitle || ''}`)
     ) {
       seenUrls.add(item.url);
@@ -1348,8 +1359,9 @@ async function main() {
       continue;
     }
 
+    const isPoliceBulletinTitle = Boolean(item.sourceBody) || /[（(][^（）()]{1,12}警察署[）)]\s*$/.test(item.title);
     const inBatchDup = uniqueCandidates.some(
-      (c) => c.url === item.url || calculateTitleSimilarity(c.title, item.title) >= CONFIG.TITLE_SIMILARITY_THRESHOLD
+      (c) => c.url === item.url || (!isPoliceBulletinTitle && !c.sourceBody && calculateTitleSimilarity(c.title, item.title) >= CONFIG.TITLE_SIMILARITY_THRESHOLD)
     );
     if (!inBatchDup) {
       uniqueCandidates.push(item);
@@ -1373,7 +1385,7 @@ async function main() {
     const bodyText = await resolveUrlAndPureArticleBody(candidate);
 
     const candidateMedia = resolveMediaName(candidate.source, candidate.url, candidate.rawTitle || candidate.title);
-    if (NON_NEWS_DOMAIN_RE.test(candidate.url) || OVERSEAS_OR_GOSSIP_MEDIA_RE.test(candidateMedia)) {
+    if (NON_NEWS_DOMAIN_RE.test(candidate.url) || NON_NEWS_URL_PATH_RE.test(candidate.url) || OVERSEAS_OR_GOSSIP_MEDIA_RE.test(candidateMedia)) {
       seenUrls.add(originalUrl);
       seenUrls.add(candidate.url);
       continue;
@@ -1485,7 +1497,13 @@ async function main() {
   }
 
   const finalArticles = [...newlyAccepted, ...existingProtected]
-    .sort((a, b) => new Date(b.pubDate || b.date || 0) - new Date(a.pubDate || a.date || 0))
+    .sort((a, b) => {
+      const dateCmp = String(b.date || '').localeCompare(String(a.date || ''));
+      if (dateCmp !== 0) return dateCmp;
+      const tb = Date.parse(b.pubDate || b.date || 0);
+      const ta = Date.parse(a.pubDate || a.date || 0);
+      return (Number.isFinite(tb) ? tb : 0) - (Number.isFinite(ta) ? ta : 0);
+    })
     .map(({ _profile, ...rest }) => rest);
 
   await writeJsonAtomically(filePath, finalArticles);

@@ -27,14 +27,27 @@ function findQualityIssues(items) {
     if (/本文の文脈結合で確認した報道です|ことを本文で確認した報道です|外国人関与の事件・容疑に関する報道速報です/.test(String(item.summary || ''))) {
       issues.push({ type: 'robot_template_summary', item });
     }
+    const sumTrim = String(item.summary || '').trim();
+    if (!sumTrim || sumTrim === String(item.title || '').trim() || !/[。！？）」』）]$/.test(sumTrim)) {
+      issues.push({ type: 'truncated_or_title_summary', item });
+    }
     if (!item.location || item.location === '全国' || item.location !== item.prefecture) {
       issues.push({ type: 'invalid_location', item });
     }
     if (!VALID_CATEGORIES.has(item.crimeCategory)) {
       issues.push({ type: 'invalid_crime_category', item });
     }
-    if (!item.media || /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(item.media) || /Howl\.Link/i.test(item.media)) {
+    if (!item.media || /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(item.media) || /Howl\.Link|^YouTube$/i.test(item.media)) {
       issues.push({ type: 'unnormalized_media', item });
+    }
+    if (/\/(?:column|opinion|editorial|ranking)\//i.test(item.url || '')) {
+      issues.push({ type: 'column_or_ranking_url', item });
+    }
+    if (/[?&](?:source=rss|utm_|fbclid=|gclid=)/i.test(item.url || '')) {
+      issues.push({ type: 'dirty_tracking_url', item });
+    }
+    if (/[（(]\d{4}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日(?:掲載|配信|更新|放送)?[）)]\s*$/.test(item.title || '')) {
+      issues.push({ type: 'dirty_title_date', item });
     }
     if (/<a\s+href=/i.test(item.description || '')) {
       issues.push({ type: 'raw_html_description', item });

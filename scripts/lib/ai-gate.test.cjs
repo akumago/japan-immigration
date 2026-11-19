@@ -459,3 +459,27 @@ test('包括品質監査回帰: 公判中過去共犯者・ゴシップ記事除
   assert.equal(gunmaRes.verified, true);
   assert.equal(gunmaRes.location, '群馬県');
 });
+
+test('追加網羅監査回帰: 居住県vs末尾県名、遺体発見被害者除外、ランキング/ゴシップ記事除外', () => {
+  // 1. 居住市（「埼玉県川口市のブラジル国籍男」）より末尾の現場県（「移動か 広島」）を優先する
+  const pokekaRes = gate.verifyArticleContent(
+    '閉店後のカードショップに侵入…ポケカなど10箱（総額約110万円相当）窃盗か 埼玉県川口市のブラジル国籍男（18）を逮捕 直前に盗んだバイクで移動か 広島',
+    '閉店後のカードショップに侵入...ポケカなど10箱窃盗か 埼玉県川口市のブラジル国籍男(18)を逮捕 直前に盗んだバイクで移動か 広島',
+  );
+  assert.equal(pokekaRes.verified, true);
+  assert.equal(pokekaRes.location, '広島県');
+
+  // 2. 「遺体が見つかった＋国籍」だけで被疑者特定と誤認しない
+  const victimExcerpt = '福岡市の那珂川で8月19日に遺体が見つかったネパール国籍の専門学校生、ラジバンシ・ラクスミさん（当時25）の殺害容疑';
+  const occs = gate.natOccurrences(victimExcerpt);
+  assert.equal(occs.every((o) => !o.suspect), true);
+
+  // 3. ランキング・夫の素顔系まとめ記事を確実に除外
+  const rankGossip = gate.verifyArticleContent(
+    '千葉県警は10月14日、トルコ国籍の男2人を逮捕した。',
+    '千葉≫トルコ国籍の男2人が小屋に女性を連れ込み...男の日本人妻が明かした夫の素顔【2026年10月ニュース記事3位】',
+  );
+  assert.equal(rankGossip.verified, false);
+  assert.equal(rankGossip.rejected, true);
+  assert.equal(rankGossip.rejectReason, 'editorial_or_opinion');
+});

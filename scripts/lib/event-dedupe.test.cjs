@@ -711,3 +711,35 @@ test('summary活用および初報(外国籍)と続報(具体国籍)の重複統
   };
   assert.equal(dedupe.sameEventReason(firstReport, diffPerson), null, '年齢が異なる別事件は統合しない');
 });
+
+test('追加網羅監査回帰: 特殊詐欺マネロン跨市重複の統合と掲載日表記の正規化', () => {
+  const shizuokaReport = {
+    id: '5d148eef5dd4',
+    title: 'マネーロンダリング目的か?特殊詐欺で3200万円だまし取った会社役員ら3人逮捕(静岡・藤枝市)',
+    date: '2026-10-29',
+    location: '静岡県',
+    nationality: 'ベトナム国籍',
+    stage: '逮捕',
+    evidence: {
+      suspect: '本文抜粋: 逮捕されたのは栃木県に住む会社役員の男37歳といずれもベトナム国籍の男女2人です。',
+      nationality: '本文抜粋: ベトナム国籍',
+    },
+  };
+  const shimotsukeReport = {
+    id: '7a749a757426',
+    title: '輸出利用しマネロン疑い 宇都宮市の会社社長ら逮捕 静岡県警',
+    date: '2026-10-28',
+    location: '静岡県',
+    nationality: 'ベトナム国籍',
+    stage: '逮捕',
+    evidence: {
+      suspect: '本文抜粋: 特殊詐欺でだまし取った金で購入した商品を輸出してマネーロンダリング（資金洗浄）したとして、静岡県警は28日、組織犯罪処罰法違反（犯罪収益隠匿）などの疑いで宇都宮',
+      nationality: '本文抜粋: ベトナム国籍',
+    },
+  };
+  assert.ok(dedupe.sameEventReason(shizuokaReport, shimotsukeReport), '同じ静岡県・ベトナム国籍の特殊詐欺マネロン事件は別市表記でも統合する');
+
+  const datedSig = dedupe.signals({ title: 'ベトナム人中心の特殊詐欺グループ摘発 男4人を逮捕(2026年11月18日掲載)', date: '2026-11-19' });
+  const plainSig = dedupe.signals({ title: 'ベトナム人中心の特殊詐欺グループ摘発 男4人を逮捕', date: '2026-11-19' });
+  assert.equal(datedSig.grams.size, plainSig.grams.size);
+});
