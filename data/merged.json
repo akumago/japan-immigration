@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-19T13:29:13.955Z",
+  "updatedAt": "2026-11-19T22:18:00.764Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6198,6 +6198,102 @@
       },
       "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 警察官かたる特殊詐欺の被害金を資金洗浄 ベトナム人の男4人逮捕 10億円以上洗浄関与か)",
       "recordedAt": "2026-11-19T13:29:13.955Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "“確保の瞬間”が防犯カメラに...住宅で女性が襲われた強盗殺人未遂事件 関与疑いの男らを警察官が追跡し袋小路に追い込む",
+        "date": "2026-11-20",
+        "url": "https://www.fnn.jp/articles/-/1156027"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-19T22:18:00.764Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "千葉3人切りつけ事件 男を再逮捕",
+        "date": "2026-11-19",
+        "url": "https://news.yahoo.co.jp/pickup/6603214"
+      },
+      "reason": "event-dedupe一致 (同日+同県+国籍+罪種（矛盾なし転載）: 「殺すつもりはなかった」千葉・JR馬橋駅周辺で無差別切りつけか コロンビア国籍の男を殺人未遂容疑で再逮捕)",
+      "recordedAt": "2026-11-19T22:18:00.764Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "千葉 松戸 駅近くで3人切りつけ 殺人未遂容疑で再逮捕",
+        "date": "2026-11-19",
+        "url": "https://mainichi.jp/articles/20261119/k00/00m/310/408000c"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 「殺すつもりはなかった」千葉・JR馬橋駅周辺で無差別切りつけか コロンビア国籍の男を殺人未遂容疑で再逮捕)",
+      "recordedAt": "2026-11-19T22:18:00.764Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "千葉・JR馬橋駅周辺で切りつけ?コロンビア国籍の男を殺人未遂容疑で再逮捕",
+        "date": "2026-11-19",
+        "url": "https://news.livedoor.com/article/detail/32856730/"
+      },
+      "reason": "タイトル高類似 (78%: 「殺すつもりはなかった」千葉・JR馬橋駅周辺で無差別切りつけか コロンビア国籍の男を殺人未遂容疑で再逮捕)",
+      "recordedAt": "2026-11-19T22:18:00.764Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "警察官かたる特殊詐欺の被害金を資金洗浄 ベトナム人の男4人逮捕 10億円以上洗浄関与か",
+        "date": "2026-11-19",
+        "url": "https://www.msn.com/ja-jp/news/other/%E8%AD%A6%E5%AF%9F%E5%AE%98%E3%81%8B%E3%81%9F%E3%82%8B%E7%89%B9%E6%AE%8A%E8%A9%90%E6%AC%BA%E3%81%AE%E8%A2%AB%E5%AE%B3%E9%87%91%E3%82%92%E8%B3%87%E9%87%91%E6%B4%97%E6%B5%84-%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E4%BA%BA%E3%81%AE%E7%94%B74%E4%BA%BA%E9%80%AE%E6%8D%95-10%E5%84%84%E5%86%86%E4%BB%A5%E4%B8%8A%E6%B4%97%E6%B5%84%E9%96%A2%E4%B8%8E%E3%81%8B/ar-AA2hLqGC"
+      },
+      "reason": "タイトル高類似 (100%: 警察官かたる特殊詐欺の被害金を資金洗浄 ベトナム人の男4人逮捕 10億円以上洗浄関与か)",
+      "recordedAt": "2026-11-19T22:18:00.764Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ポケモンカードなど100万円相当盗んだか ブラジル国籍の18歳男逮捕 盗んだバイクで移動 広島",
+        "date": "2026-11-19",
+        "url": "https://www.msn.com/ja-jp/news/other/%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%82%AB%E3%83%BC%E3%83%89%E3%81%AA%E3%81%A9%EF%BC%91%EF%BC%90%EF%BC%90%E4%B8%87%E5%86%86%E7%9B%B8%E5%BD%93%E7%9B%97%E3%82%93%E3%81%A0%E3%81%8B-%E3%83%96%E3%83%A9%E3%82%B8%E3%83%AB%E5%9B%BD%E7%B1%8D%E3%81%AE%EF%BC%91%EF%BC%98%E6%AD%B3%E7%94%B7%E9%80%AE%E6%8D%95-%E7%9B%97%E3%82%93%E3%81%A0%E3%83%90%E3%82%A4%E3%82%AF%E3%81%A7%E7%A7%BB%E5%8B%95-%E5%BA%83%E5%B3%B6/ar-AA2hLADD"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 閉店後のカードショップに侵入...ポケカなど10箱窃盗か 埼玉県川口市のブラジル国籍男(18)を逮捕 直前に盗んだバイクで移動か 広島)",
+      "recordedAt": "2026-11-19T22:18:00.764Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "総額10億円の特殊詐欺事件に関与か ベトナム人グループ28歳男ら4人逮捕",
+        "date": "2026-11-19",
+        "url": "https://www.fnn.jp/articles/-/1155679"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 警察官かたる特殊詐欺の被害金を資金洗浄 ベトナム人の男4人逮捕 10億円以上洗浄関与か)",
+      "recordedAt": "2026-11-19T22:18:00.764Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "1600万円をだましとろうとした疑い 台湾籍の30代男を逮捕 公衆トイレで",
+        "date": "2026-11-19",
+        "url": "https://www.msn.com/ja-jp/news/other/%E9%80%9F%E5%A0%B1-1600%E4%B8%87%E5%86%86%E3%82%92%E3%81%A0%E3%81%BE%E3%81%97%E3%81%A8%E3%82%8D%E3%81%86%E3%81%A8%E3%81%97%E3%81%9F%E7%96%91%E3%81%84-%E5%8F%B0%E6%B9%BE%E7%B1%8D%E3%81%AE30%E4%BB%A3%E7%94%B7%E3%82%92%E9%80%AE%E6%8D%95-%E5%85%AC%E8%A1%86%E3%83%88%E3%82%A4%E3%83%AC%E3%81%A7/ar-AA2hLJK8"
+      },
+      "reason": "タイトル高類似 (100%: 1600万円をだましとろうとした疑い 台湾籍の30代男を逮捕 公衆トイレで)",
+      "recordedAt": "2026-11-19T22:18:00.764Z"
     }
   ]
 }
