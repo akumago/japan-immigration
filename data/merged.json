@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-18T14:17:19.836Z",
+  "updatedAt": "2026-11-19T03:42:22.785Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6083,6 +6083,42 @@
       },
       "reason": "同一被疑者名一致(跨県含む) [千葉県 vs 群馬県 / バングラデシュ国籍 / アリファザー容疑者]",
       "recordedAt": "2026-11-18T14:17:19.836Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "重い知的障害の息子を殺害した罪 89歳女を起訴「介護に疲れた」将来を悲観か 山梨",
+        "date": "2026-11-19",
+        "url": "https://news.ntv.co.jp/n/ybs/category/society/ys3651b2f70428400ead3864f0b8d43ed7"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 「息子の面倒を見られなくなってしまう」 青木ヶ原樹海で息子の首を絞め殺害した罪 母親を起訴 山梨)",
+      "recordedAt": "2026-11-19T03:42:22.785Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "盗んだ原付バイクで移動しカードショップからポケカ10箱盗んだか 埼玉県の18歳の男を逮捕",
+        "date": "2026-11-19",
+        "url": "https://news.livedoor.com/article/detail/32851476/"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 閉店後のカードショップに侵入...ポケカなど10箱窃盗か 埼玉県川口市のブラジル国籍男(18)を逮捕 直前に盗んだバイクで移動か 広島)",
+      "recordedAt": "2026-11-19T03:42:22.785Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「サウナで体を触られた」男子大学生の胸や下腹部をいきなり触ったか 旅行中の44歳フィリピン国籍の男逮捕「肩を叩いただけ」",
+        "date": "2026-11-18",
+        "url": "https://news.yahoo.co.jp/articles/96149d66b026622709b8a9af074fd0c835526b25"
+      },
+      "reason": "URL完全一致 (https://news.yahoo.co.jp/articles/96149d66b026622709b8a9af074fd0c835526b25)",
+      "recordedAt": "2026-11-19T03:42:22.785Z"
     }
   ]
 }
