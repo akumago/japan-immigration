@@ -187,28 +187,65 @@ const DOMAIN_MEDIA_MAP = [
   [/asahi\.com/i, '朝日新聞'],
   [/mainichi\.jp/i, '毎日新聞'],
   [/sankei\.com/i, '産経新聞'],
+  [/nikkei\.com/i, '日本経済新聞'],
   [/kyodo\.co\.jp/i, '共同通信'],
   [/47news\.jp/i, '47NEWS'],
   [/jiji\.com/i, '時事通信'],
   [/news\.livedoor\.com/i, 'ライブドアニュース'],
-  [/sannichi\.co\.jp/i, '山梨日日新聞'],
-  [/shimotsuke\.co\.jp/i, '下野新聞'],
+  [/hokkaido-np\.co\.jp/i, '北海道新聞'],
   [/kahoku\.news/i, '河北新報'],
+  [/ibaraki-np\.co\.jp/i, '茨城新聞'],
+  [/shimotsuke\.co\.jp/i, '下野新聞'],
+  [/jomo-news\.co\.jp/i, '上毛新聞'],
+  [/saitama-np\.co\.jp/i, '埼玉新聞'],
+  [/chibanippo\.co\.jp/i, '千葉日報'],
+  [/tokyo-np\.co\.jp/i, '東京新聞'],
+  [/kanaloco\.jp/i, '神奈川新聞'],
+  [/niigata-nippo\.co\.jp/i, '新潟日報'],
+  [/niikei\.jp/i, 'にいがた経済新聞'],
+  [/sannichi\.co\.jp/i, '山梨日日新聞'],
+  [/shinmai\.co\.jp/i, '信濃毎日新聞'],
+  [/chunichi\.co\.jp/i, '中日新聞'],
+  [/at-s\.com/i, '静岡新聞'],
+  [/kyoto-np\.co\.jp/i, '京都新聞'],
+  [/kobe-np\.co\.jp/i, '神戸新聞'],
+  [/chugoku-np\.co\.jp/i, '中国新聞'],
+  [/sanyonews\.jp/i, '山陽新聞'],
+  [/ehime-np\.co\.jp/i, '愛媛新聞'],
+  [/kochinews\.co\.jp/i, '高知新聞'],
+  [/nishinippon\.co\.jp/i, '西日本新聞'],
+  [/saga-s\.co\.jp/i, '佐賀新聞'],
+  [/kumanichi\.com/i, '熊本日日新聞'],
+  [/373news\.com/i, '南日本新聞'],
+  [/okinawatimes\.co\.jp/i, '沖縄タイムス'],
+  [/ryukyushimpo\.jp/i, '琉球新報'],
   [/sanspo\.com/i, 'サンスポ'],
+  [/nikkansports\.com/i, '日刊スポーツ'],
+  [/hochi\.news/i, 'スポーツ報知'],
   [/ktv\.jp/i, 'カンテレ'],
+  [/mbs\.jp/i, 'MBSニュース'],
+  [/asahi\.co\.jp/i, 'ABCニュース'],
+  [/ytv\.co\.jp/i, '読売テレビ'],
+  [/ctv\.co\.jp/i, '中京テレビ'],
+  [/tokai-tv\.com/i, '東海テレビ'],
+  [/hicbc\.com/i, 'CBCテレビ'],
   [/fukui-tv\.co\.jp/i, '福井テレビ'],
   [/nagoyatv\.com/i, 'メ〜テレ'],
-  [/jomo-news\.co\.jp/i, '上毛新聞'],
-  [/niikei\.jp/i, 'にいがた経済新聞'],
   [/chiba-tv\.com/i, 'チバテレ'],
   [/kbc\.co\.jp/i, 'KBC九州朝日放送'],
+  [/rkb\.jp/i, 'RKB毎日放送'],
+  [/fbs\.co\.jp/i, 'FBS福岡放送'],
   [/satv\.co\.jp/i, '静岡朝日テレビ'],
+  [/htb\.co\.jp/i, 'HTB北海道テレビ'],
+  [/stv\.jp/i, 'STV札幌テレビ'],
+  [/uhb\.jp/i, 'UHB北海道文化放送'],
+  [/hbc\.co\.jp/i, 'HBC北海道放送'],
   [/fmgunma\.com/i, 'FM GUNMA'],
-  [/saga-s\.co\.jp/i, '佐賀新聞'],
   [/topics\.smt\.docomo\.ne\.jp/i, 'dメニューニュース'],
   [/infoseek\.co\.jp/i, 'Infoseekニュース'],
   [/excite\.co\.jp/i, 'エキサイトニュース'],
   [/msn\.com/i, 'MSNニュース'],
+  [/nordot\.app|news\.jp/i, '共同通信・地方紙'],
   [/thaich\.net/i, 'タイランドハイパーリンクス'],
   [/coki\.jp/i, 'coki'],
   [/shueisha\.online/i, '集英社オンライン'],
@@ -220,7 +257,8 @@ const DOMAIN_MEDIA_MAP = [
 
 function resolveMediaName(rawSource = '', resolvedUrl = '', rawTitle = '') {
   const s = String(rawSource || '').trim();
-  const isBadAggregator = !s || /^(?:Howl\.Link|MSNニュース\s*\/\s*Howl\.Link|MSNニュース|SmartNews|Googleニュース|国内報道機関|news\.google\.com)$/i.test(s) || /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(s);
+  const isUnnormalized = !s || /Howl\.Link/i.test(s) || /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(s);
+  const isBadAggregator = isUnnormalized || /^(?:MSNニュース|SmartNews|Googleニュース|国内報道機関)$/i.test(s);
   if (!isBadAggregator) return s;
 
   for (const [re, name] of DOMAIN_MEDIA_MAP) {
@@ -232,11 +270,11 @@ function resolveMediaName(rawSource = '', resolvedUrl = '', rawTitle = '') {
 
   const rawTail = String(rawTitle || '').match(/[（(]([^（）()]{2,24})[）)]\s*$/)?.[1]
     || String(rawTitle || '').match(/\s+[-|｜]\s+([^-|｜]{2,24})$/)?.[1];
-  if (rawTail && !/^\d+$|Howl\.Link|(?:北海道|都|府|県|市|区|町|村)$/i.test(rawTail)) {
+  if (rawTail && !/^\d+$|Howl\.Link|^[a-z0-9.-]+\.[a-z]{2,}$|(?:北海道|都|府|県|市|区|町|村)$/i.test(rawTail.trim())) {
     return rawTail.trim();
   }
 
-  return s || '国内報道機関';
+  return isUnnormalized ? '国内報道機関' : s;
 }
 
 function normalizeTitleForComparison(title = '') {
@@ -957,6 +995,11 @@ function inspectCandidateWithStrictGate(title, bodyText = '') {
   const rawNatEvidence = gateResult.audit?.foreignNationality?.evidence || '';
   const suspectSentence = gateResult.audit?.suspectRole?.evidence || cleanTitle;
   const locationEvidence = gateResult.audit?.japanCrime?.evidence || '';
+
+  const PAST_BG_EVIDENCE_RE = /(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))[^。]*?を逮捕し|(?:＝|=|（|\()[^＝=）)]*?(?:起訴|公判中|受刑者|実刑|有罪)[^＝=）)]*?(?:＝|=|）|\))(?:ら|など)?と共謀し|を逮捕し、[^。]*?(?:処分先|売却先|買い取り先|関与|同社|男ら|容疑者ら)が浮上|事件では、[、，\s]*(?:直後に|これまでに|すでに)?[^。]*?が逮捕され|(?:\d+月|昨年|おととし|過去|以前)にも[^。]{0,50}?(?:被害|事件)が(?:あり|発生し|起き)[^。]{0,45}?(?:逮捕され(?:た|ている)|起訴され(?:た|ている))/;
+  if (PAST_BG_EVIDENCE_RE.test(suspectSentence) && !aiGate.NAT_RE.test(cleanTitle)) {
+    return { valid: false, reason: '過去事件の捜査端緒・既公判共犯者のみ（今回の被疑者の外国籍特定なし）' };
+  }
 
   const nationality = standardizeNationality(rawNatEvidence, `${suspectSentence} ${cleanTitle}`, cleanTitle);
   if (!nationality) {
