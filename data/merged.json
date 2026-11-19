@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-19T07:46:16.974Z",
+  "updatedAt": "2026-11-19T13:29:13.955Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6138,6 +6138,66 @@
       },
       "reason": "国籍+罪種+地域+近接日同段階+事件固有アンカー",
       "recordedAt": "2026-11-19T07:46:16.974Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "特殊詐欺関与か、ベトナム人4人逮捕 被害10億円、マネロンも―警視庁",
+        "date": "2026-11-19",
+        "url": "https://www.jiji.com/jc/article?k=2026111901108&g=soc"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: ベトナム人中心の特殊詐欺グループ摘発 男4人を逮捕)",
+      "recordedAt": "2026-11-19T13:29:13.955Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "社長になりすまし1000万円詐取疑い ベトナム国籍の容疑者逮捕",
+        "date": "2026-11-19",
+        "url": "https://news.web.nhk/newsweb/na/nd-20261119de78603"
+      },
+      "reason": "event-dedupe一致 (同日+同県+国籍+罪種（矛盾なし転載）: ベトナム人中心の特殊詐欺グループ摘発 男4人を逮捕)",
+      "recordedAt": "2026-11-19T13:29:13.955Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "殺人未遂疑い、コロンビア国籍の男を再逮捕 千葉、背中刺され男性重傷 2人に面識なし",
+        "date": "2026-11-19",
+        "url": "https://www.sankei.com/article/20261119-Z5CB2RAWKRNXLJ4AVK7QDR3H4Y/"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 「殺すつもりはなかった」千葉・JR馬橋駅周辺で無差別切りつけか コロンビア国籍の男を殺人未遂容疑で再逮捕)",
+      "recordedAt": "2026-11-19T13:29:13.955Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ポケモンカードなど100万円相当盗んだか ブラジル国籍の18歳男逮捕 盗んだバイクで移動 広島",
+        "date": "2026-11-19",
+        "url": "https://news.yahoo.co.jp/articles/577827204d54dddef8014a54256ecf48c98209e4"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 閉店後のカードショップに侵入...ポケカなど10箱窃盗か 埼玉県川口市のブラジル国籍男(18)を逮捕 直前に盗んだバイクで移動か 広島)",
+      "recordedAt": "2026-11-19T13:29:13.955Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "総額10億円の特殊詐欺事件に関与か ベトナム人グループ28歳男ら4人逮捕",
+        "date": "2026-11-19",
+        "url": "https://news.livedoor.com/article/detail/32855924/"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 警察官かたる特殊詐欺の被害金を資金洗浄 ベトナム人の男4人逮捕 10億円以上洗浄関与か)",
+      "recordedAt": "2026-11-19T13:29:13.955Z"
     }
   ]
 }
