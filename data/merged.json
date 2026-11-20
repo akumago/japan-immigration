@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-20T03:35:46.152Z",
+  "updatedAt": "2026-11-20T13:10:26.054Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6330,6 +6330,18 @@
       },
       "reason": "URL完全一致 (https://www.fnn.jp/articles/-/1155895)",
       "recordedAt": "2026-11-20T03:35:46.152Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "違法ポーカー賭博か 韓国籍の男逮捕 毎月100万円以上の報酬受け取り部屋を賭博場に 「貸していただけ」 東京・新宿区",
+        "date": "2026-11-20",
+        "url": "https://www.msn.com/ja-jp/news/other/%E9%81%95%E6%B3%95%E3%83%9D%E3%83%BC%E3%82%AB%E3%83%BC%E8%B3%AD%E5%8D%9A%E3%81%8B-%E9%9F%93%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E9%80%AE%E6%8D%95-%E6%AF%8E%E6%9C%88100%E4%B8%87%E5%86%86%E4%BB%A5%E4%B8%8A%E3%81%AE%E5%A0%B1%E9%85%AC%E5%8F%97%E3%81%91%E5%8F%96%E3%82%8A%E9%83%A8%E5%B1%8B%E3%82%92%E8%B3%AD%E5%8D%9A%E5%A0%B4%E3%81%AB-%E8%B2%B8%E3%81%97%E3%81%A6%E3%81%84%E3%81%9F%E3%81%A0%E3%81%91-%E6%9D%B1%E4%BA%AC-%E6%96%B0%E5%AE%BF%E5%8C%BA/ar-AA2hPZ7K"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 新宿区で違法ポーカー店開帳か 韓国籍の男逮捕 約7か月で700万円受け取る 警視庁)",
+      "recordedAt": "2026-11-20T13:10:26.054Z"
     }
   ]
 }
