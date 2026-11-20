@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-19T22:18:00.764Z",
+  "updatedAt": "2026-11-20T03:35:46.152Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6294,6 +6294,42 @@
       },
       "reason": "タイトル高類似 (100%: 1600万円をだましとろうとした疑い 台湾籍の30代男を逮捕 公衆トイレで)",
       "recordedAt": "2026-11-19T22:18:00.764Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "松戸市で殺人未遂か コロンビア国籍の男再逮捕 現場にほかの負傷者も",
+        "date": "2026-11-20",
+        "url": "https://topics.smt.docomo.ne.jp/article/chibatv/region/chibatv-2026112242243"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 「殺すつもりはなかった」千葉・JR馬橋駅周辺で無差別切りつけか コロンビア国籍の男を殺人未遂容疑で再逮捕)",
+      "recordedAt": "2026-11-20T03:35:46.152Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "【ポケモンカード盗難】ブラジル国籍の18歳男逮捕 100万円相当 盗んだバイクで移動か 広島",
+        "date": "2026-11-20",
+        "url": "https://news.yahoo.co.jp/articles/04b037dded552e710ceeec2f6e0c646226b9d92f"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 閉店後のカードショップに侵入...ポケカなど10箱窃盗か 埼玉県川口市のブラジル国籍男(18)を逮捕 直前に盗んだバイクで移動か 広島)",
+      "recordedAt": "2026-11-20T03:35:46.152Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「殺すつもりはなかった」千葉・JR馬橋駅周辺で無差別切りつけか コロンビア国籍の男を殺人未遂容疑で再逮捕",
+        "date": "2026-11-19",
+        "url": "https://www.fnn.jp/articles/-/1155895"
+      },
+      "reason": "URL完全一致 (https://www.fnn.jp/articles/-/1155895)",
+      "recordedAt": "2026-11-20T03:35:46.152Z"
     }
   ]
 }
