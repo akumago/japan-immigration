@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-20T13:10:26.054Z",
+  "updatedAt": "2026-11-20T21:18:26.703Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6342,6 +6342,90 @@
       },
       "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 新宿区で違法ポーカー店開帳か 韓国籍の男逮捕 約7か月で700万円受け取る 警視庁)",
       "recordedAt": "2026-11-20T13:10:26.054Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "フィリピンで特殊詐欺拠点を摘発 日本人9人を含む17人拘束 「福井県警」装い金銭要求か",
+        "date": "2026-11-21",
+        "url": "https://news.livedoor.com/article/detail/32866035/"
+      },
+      "reason": "event-dedupe一致 (同日+同県+国籍+罪種（矛盾なし転載）: 「福井県警」のパネルも...日本の警察装い特殊詐欺か フィリピンの首都マニラで日本人や中国人ら17人拘束)",
+      "recordedAt": "2026-11-20T21:18:26.703Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「詐欺だとは知りませんでした」中国籍の無職男を詐欺未遂疑いで逮捕、受け子か",
+        "date": "2026-11-20",
+        "url": "https://www.oricon.co.jp/article/3443910/"
+      },
+      "reason": "タイトル高類似 (100%: 【速報】「詐欺だとは知りませんでした」中国籍の無職男を詐欺未遂疑いで逮捕、受け子か)",
+      "recordedAt": "2026-11-20T21:18:26.703Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "新宿区で違法ポーカー店開帳か 韓国籍の男逮捕 約7か月で700万円受け取る 警視庁",
+        "date": "2026-11-20",
+        "url": "https://news.yahoo.co.jp/articles/6a5fcc628b1d98527af94ab3775d55995e818473"
+      },
+      "reason": "URL完全一致 (https://news.yahoo.co.jp/articles/6a5fcc628b1d98527af94ab3775d55995e818473)",
+      "recordedAt": "2026-11-20T21:18:26.703Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "福岡県内を中心に空き巣224件関与、ベトナム国籍11人を窃盗容疑などで逮捕・送検...大半は元技能実習生",
+        "date": "2026-11-20",
+        "url": "https://news.yahoo.co.jp/articles/d1b5604ce2209bcf3673c96d9757df2fc41e2639"
+      },
+      "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [福岡県 / ベトナム国籍 / 一般窃盗・スリ・車上荒らし]",
+      "recordedAt": "2026-11-20T21:18:26.703Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "客にポーカー賭博させたとして運営・集客役の韓国籍の男(70)を逮捕 東京・新宿区の2か所で約3億円売り上げか 警視庁",
+        "date": "2026-11-20",
+        "url": "https://www.msn.com/ja-jp/news/other/%E5%AE%A2%E3%81%AB%E3%83%9D%E3%83%BC%E3%82%AB%E3%83%BC%E8%B3%AD%E5%8D%9A%E3%81%95%E3%81%9B%E3%81%9F%E3%81%A8%E3%81%97%E3%81%A6%E9%81%8B%E5%96%B6-%E9%9B%86%E5%AE%A2%E5%BD%B9%E3%81%AE%E9%9F%93%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7-70-%E3%82%92%E9%80%AE%E6%8D%95-%E6%9D%B1%E4%BA%AC-%E6%96%B0%E5%AE%BF%E5%8C%BA%E3%81%AE2%E3%81%8B%E6%89%80%E3%81%A7%E7%B4%843%E5%84%84%E5%86%86%E5%A3%B2%E3%82%8A%E4%B8%8A%E3%81%92%E3%81%8B-%E8%AD%A6%E8%A6%96%E5%BA%81/ar-AA2hPWan"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 新宿区で違法ポーカー店開帳か 韓国籍の男逮捕 約7か月で700万円受け取る 警視庁)",
+      "recordedAt": "2026-11-20T21:18:26.703Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "新宿の違法ポーカー店摘発 部屋提供の男を新たに逮捕",
+        "date": "2026-11-20",
+        "url": "https://news.ntv.co.jp/category/society/cc9fd785b4394addb4e1bba813e7f324"
+      },
+      "reason": "同一事件確定(自治体一致) [東京都新宿区 / 韓国籍 / 風営法・売春防止法・違法カジノ]",
+      "recordedAt": "2026-11-20T21:18:26.703Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「生活費の足しにしていた」 タイヤなど133点・およそ117万円分盗んだ疑い 43歳男の余罪24件を書類送検 新潟",
+        "date": "2026-11-20",
+        "url": "https://news.yahoo.co.jp/articles/bccebe06f1d02013d1222e3df3231c5309b0e3f1"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 【屋外に積んだタイヤを狙う】三条市などで24件、43歳男を書類送検)",
+      "recordedAt": "2026-11-20T21:18:26.703Z"
     }
   ]
 }

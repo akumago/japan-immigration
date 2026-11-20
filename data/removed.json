@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-19T07:46:16.778Z",
+  "updatedAt": "2026-11-20T21:18:27.163Z",
   "items": [
     {
       "id": "cad831a7781dd24a",
@@ -470,6 +470,19 @@
       },
       "reason": "editorial_or_opinion",
       "recordedAt": "2026-11-19T07:46:16.778Z"
+    },
+    {
+      "kind": "automatic_reject",
+      "url": "https://news.livedoor.com/article/detail/32866283/",
+      "item": {
+        "id": "b2046095b6eb",
+        "sourceRecordId": "v5-b2046095b6eb",
+        "title": "「福井県警」のパネルも...日本の警察装い特殊詐欺か フィリピンの首都マニラで日本人や中国人ら17人拘束",
+        "date": "2026-11-21",
+        "url": "https://news.livedoor.com/article/detail/32866283/"
+      },
+      "reason": "crime_outside_japan",
+      "recordedAt": "2026-11-20T21:18:27.163Z"
     }
   ]
 }
