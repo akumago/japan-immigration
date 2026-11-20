@@ -121,6 +121,38 @@ export const CrimeHubLinksSection: React.FC<CrimeHubLinksSectionProps> = ({ vari
         </Link>
       </div>
 
+      <div className="mb-8 bg-slate-950/70 border border-slate-800 rounded-xl p-4">
+        <div className="text-xs font-bold text-amber-300 mb-2.5">
+          2026年最新データ増設セクション（検索需要の高い主要検証トピック）
+        </div>
+        <div className="flex flex-wrap gap-2 text-xs">
+          <Link to="/analysis/social-security/#notion-addendum-social-security" className="px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-emerald-200 transition-colors">
+            国保収納率 外国人63% vs 全体93%（未納5.29倍）
+          </Link>
+          <Link to="/analysis/summary-statistics/#notion-addendum-summary-statistics" className="px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-sky-200 transition-colors">
+            2026年6月末 在留外国人428万人（総人口3.5%）
+          </Link>
+          <Link to="/analysis/crime-statistics/#notion-addendum-crime-statistics" className="px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-red-200 transition-colors">
+            参院法務委質疑：ベトナム検挙構成比32.6% vs 在留18.2%
+          </Link>
+          <Link to="/analysis/uk-immigration-lesson/#notion-addendum-uk-immigration-lesson" className="px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-amber-200 transition-colors">
+            欧州最新：イタリア・メストレ＆スウェーデン2026法案
+          </Link>
+          <Link to="/analysis/burial-controversy/#notion-addendum-burial-controversy" className="px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-rose-200 transition-colors">
+            宗教規範 vs 日本法の優先順位・神戸神社損壊事例
+          </Link>
+          <Link to="/analysis/national-security/#notion-addendum-national-security" className="px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-purple-200 transition-colors">
+            尖閣335日・JIIA沖縄分析・中国邦人拘束17人・日中世論87.7%
+          </Link>
+          <Link to="/analysis/simulation-model/#notion-addendum-simulation-model" className="px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-cyan-200 transition-colors">
+            外国人比率1%上限案（期待件数71.3%減）・みかん理論
+          </Link>
+          <Link to="/analysis/labor-mismatch/#notion-addendum-labor-mismatch" className="px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-lime-200 transition-colors">
+            人手不足の6分解＆南アフリカ失業率33.7%(LU3 44%)対比
+          </Link>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs sm:text-sm">
         <div className="space-y-4">
           {byMode.stage.length > 0 && (

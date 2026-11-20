@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Header } from "../components/Header";
 import { MainLayout } from "../components/MainLayout";
 import { RelatedArticles } from "../components/RelatedArticles";
+import { NotionSeoAddendum } from "../components/NotionSeoAddendum";
 
 export const SummaryStatistics: React.FC = () => {
     return (
@@ -111,6 +112,8 @@ export const SummaryStatistics: React.FC = () => {
                             統計的現実を政策に反映させることは、外国人への差別ではありません。むしろ、適切な管理のない無秩序な受け入れが、来日外国人自身にとっても搾取や孤立という不幸な結末をもたらしているという意味で、受け入れ基準の厳格化は双方にとって有益な政策転換です。「量」ではなく「質」を重視する移民政策への転換——それが、本報告書の統計分析から導き出される、最も合理的で人道的な結論です。
                         </p>
                     </div>
+                <NotionSeoAddendum pageKey="summary-statistics" />
+
                 <RelatedArticles currentPath="/analysis/summary-statistics" />
             </main>
         </MainLayout>

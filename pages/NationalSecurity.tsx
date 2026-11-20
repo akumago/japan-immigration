@@ -7,6 +7,7 @@ import StatCard from "../components/StatCard";
 import CaseCard from "../components/CaseCard";
 import { SocialShare } from "../components/SocialShare";
 import { RelatedArticles } from "../components/RelatedArticles";
+import { NotionSeoAddendum } from "../components/NotionSeoAddendum";
 import { EmbeddedImage } from "../components/EmbeddedImage";
 import { CaseType } from "../types";
 
@@ -195,6 +196,8 @@ export const NationalSecurity: React.FC = () => {
                         </div>
                     </div>
                     {/* 追記部分終了 */}
+
+                    <NotionSeoAddendum pageKey="national-security" />
 
                     <RelatedArticles currentPath="/analysis/national-security" />
 

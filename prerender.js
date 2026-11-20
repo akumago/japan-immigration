@@ -197,6 +197,12 @@ async function prerender() {
   } catch (e) {
     console.warn('Could not load data/crimeSegments.json:', e.message);
   }
+  let notionAddendumFaqs = {};
+  try {
+    notionAddendumFaqs = JSON.parse(fs.readFileSync(toAbsolute('data/notionAddendumFaqs.json'), 'utf-8'));
+  } catch (e) {
+    console.warn('Could not load data/notionAddendumFaqs.json:', e.message);
+  }
   const totalNewsCount = newsItems.length || 450;
   const nowJst = new Date(Date.now() + 9 * 3600 * 1000);
   const todayDateStr = nowJst.toISOString().slice(0, 10);
@@ -301,6 +307,23 @@ async function prerender() {
     segmentRouteMeta[norm] = { mode: 'nationality', slug, label: natName, items: matched, latestDate: latest };
   }
 
+  const ADDENDUM_LASTMOD_ROUTES = new Set([
+    '/analysis/social-security/',
+    '/analysis/summary-statistics/',
+    '/analysis/crime-statistics/',
+    '/analysis/non-prosecution/',
+    '/analysis/labor-mismatch/',
+    '/analysis/economic-impact/',
+    '/analysis/simulation-model/',
+    '/analysis/uk-immigration-lesson/',
+    '/analysis/burial-controversy/',
+    '/analysis/conclusion/',
+    '/analysis/national-security/',
+    '/analysis/symbiosis/',
+    '/analysis/borderless-welfare-state/'
+  ]);
+  const ADDENDUM_FLOOR_ISO = '2026-11-20T09:00:00+09:00';
+
   const routeLastmodIso = (normRoute) => {
     if (
       normRoute === '/' ||
@@ -308,12 +331,16 @@ async function prerender() {
       normRoute === '/analysis/non-prosecution/' ||
       normRoute === '/analysis/crime-rate-factcheck/'
     ) {
-      return latestNewsIso;
+      return latestNewsIso > ADDENDUM_FLOOR_ISO ? latestNewsIso : ADDENDUM_FLOOR_ISO;
     }
     if (hubRouteMeta[normRoute]) return `${hubRouteMeta[normRoute].stats.latestDate}T08:00:00+09:00`;
     if (segmentRouteMeta[normRoute]) return `${segmentRouteMeta[normRoute].latestDate}T08:00:00+09:00`;
     const srcFile = normRoute.startsWith('/analysis/image/') ? 'pages/ImagePage.tsx' : ROUTE_SOURCE_FILES[normRoute];
-    if (srcFile && gitLastmodByFile[srcFile]) return gitLastmodByFile[srcFile];
+    const gitIso = srcFile && gitLastmodByFile[srcFile];
+    if (ADDENDUM_LASTMOD_ROUTES.has(normRoute)) {
+      return gitIso && gitIso > ADDENDUM_FLOOR_ISO ? gitIso : ADDENDUM_FLOOR_ISO;
+    }
+    if (gitIso) return gitIso;
     return '2026-11-08T08:00:00+09:00';
   };
   const routeLastmod = (normRoute) => routeLastmodIso(normRoute).slice(0, 10);
@@ -362,33 +389,25 @@ async function prerender() {
       ]
     },
     '/analysis/crime-statistics/': {
-      title: '外国人の犯罪率は日本人の何倍？警察庁データで検証 | 日本の岐路',
-      desc: '警察庁・法務省の犯罪白書と国会答弁データを徹底検証。来日外国人の人口当たり検挙人員比率0.323%（日本人0.188%・約1.72倍）の根拠と計算方法、国籍別犯罪傾向、外国人事件で不起訴処分が多発する構造的理由を解説します。',
-      keywords: '外国人 犯罪率,外国人犯罪 統計,外国人 検挙率 1.72倍,外国人 不起訴 なぜ,外国人 不起訴 理由,国籍別 犯罪率 ランキング,ベトナム人 犯罪率,中国人 犯罪 統計,来日外国人 犯罪白書,警察庁 外国人犯罪',
-      priority: '0.9', changefreq: 'weekly',
-      faqs: [
-        { q: '外国人が逮捕されても不起訴になるケースが多いのはなぜですか？', a: '希少言語の司法通訳人不足による取調べ期間の限界、組織犯罪における証拠立証の壁、強制送還（退去強制）を前提とした起訴猶予処分などが重なり、結果として刑事処罰を受けないまま釈放・帰国するケースが多発しています。' },
-        { q: '来日外国人の犯罪統計で特に多い罪種は何ですか？', a: '警察庁の統計では、組織的な太陽光パネル銅線窃盗や農作物・高級車窃盗などの侵入盗・非侵入盗、特殊詐欺の出し子・受け子、薬物密輸、および入管難民法違反（不法残留・不法就労）が高い割合を占めています。' }
-      ]
+      title: '【2026国会質疑】外国人犯罪率1.72倍と国籍別構成比（ベトナム32.6%・中国16.1%）検証 | 日本の岐路',
+      desc: '警察庁答弁の定住外国人検挙率0.323%（日本人0.188%・約1.72倍）に加え、2026年10月参院法務委質疑で取り上げられたベトナム人検挙構成比32.6%（在留比18.2%）・中国人16.1%や罪種別倍率試算、不起訴問題を徹底検証。',
+      keywords: '外国人 犯罪 国籍別 割合,ベトナム人 犯罪 割合 32.6%,外国人 犯罪率 1.72倍,外国人 不起訴 なぜ,来日外国人 犯罪白書,警察庁 外国人犯罪',
+      priority: '0.92', changefreq: 'weekly',
+      faqs: notionAddendumFaqs['crime-statistics'] || []
     },
     '/analysis/social-security/': {
-      title: '外国人の生活保護はなぜ支給される？国保・医療費未払いの実態 | 日本の岐路',
-      desc: '外国人の国民健康保険（国保）悪用による高額療養費・海外療養費・出産育児一時金の不正受給スキーム、訪日外国人の医療費未払い問題、最高裁判決にもかかわらず続く自治体裁量での外国人生活保護支給（年1,200億円超）の実態と社会保険料負担を公的データで検証。',
-      keywords: '外国人 生活保護 なぜ,外国人 生活保護 最高裁,外国人 国保 問題,外国人 医療費 未払い,出産育児一時金 外国人 不正,海外療養費 不正受給,外国人 社会保障 負担,経営管理ビザ 国保 悪用',
-      priority: '0.9', changefreq: 'weekly',
-      faqs: [
-        { q: 'なぜ外国人に生活保護が支給されているのですか？最高裁で対象外と判決が出たのではないですか？', a: '2014年の最高裁判決で「生活保護法は外国人を対象としていない（法的権利はない）」と確定しましたが、昭和29年の旧厚生省通知（行政措置による準用）が撤廃されず残っているため、現在も自治体の裁量で永住者や定住者等に年間1,200億円規模の生活保護費が支出されています。' },
-        { q: '外国人の国民健康保険（国保）を巡る課題とは何ですか？', a: '来日直後にわずかな保険料で国保に加入し、数百万〜数千万円単位の高額医療（がん治療やC型肝炎治療薬など）や高額療養費制度、出産育児一時金（50万円）を受給した後に保険料を未納のまま帰国・転居するケースが全国の自治体で問題化しています。' }
-      ]
+      title: '【厚労省データ】外国人国保の収納率63%(未納5.29倍)と生活保護支給の実態 | 日本の岐路',
+      desc: '厚労省約150自治体集計（内閣官房PDF・衆院答弁書）で判明した外国人世帯主の国保収納率63%（全体93%・未収納率5.29倍）と構成比拡大試算、最高裁判決後も続く外国人生活保護（年1,200億円規模）や医療費未払いの実態を公的データで検証。',
+      keywords: '外国人 国保 未納 割合,外国人 国民健康保険 収納率 63%,外国人 生活保護 なぜ,外国人 生活保護 最高裁,外国人 医療費 未払い,外国人 社会保障 負担',
+      priority: '0.92', changefreq: 'weekly',
+      faqs: notionAddendumFaqs['social-security'] || []
     },
     '/analysis/economic-impact/': {
-      title: '外国人労働者が増えると給料は下がる？実質賃金と増税の関係を図解 | 日本の岐路',
-      desc: '「人手不足だから外国人を入れる」という政策が日本人の実質賃金上昇を止め、増税と社会保障費増大を招くメカニズムを三角図解でわかりやすく解説。安価な労働供給が企業のDX・省力化投資を阻害し、GDPは増えても1人当たり所得が貧困化する経済学的根拠。',
-      keywords: '外国人労働者 賃金 上がらない,実質賃金 低下 理由,移民 経済効果,増税 所得減少 悪循環,人手不足 賃上げ 外国人,労働生産性 日本 低い理由,1人当たりGDP 低下 移民',
+      title: '外国人労働者が増えると給料は下がる？賃金回復6段階戦略と増税悪循環 | 日本の岐路',
+      desc: '「人手不足は賃金上昇のゴールデンタイム」――安価な労働供給を先に増やさず、40年停滞からの賃金回復・AI省人化・一人当たりGDP向上・少子化障壁低減へつなぐ6段階戦略と、増税と所得減少の悪循環メカニズムを解説。',
+      keywords: '外国人労働者 賃金 上がらない なぜ,人手不足 賃上げ 少子化対策,実質賃金 低下 理由,増税 所得減少 悪循環,1人当たりGDP 低下 移民',
       priority: '0.9', changefreq: 'weekly',
-      faqs: [
-        { q: '外国人労働者を受け入れると日本経済は成長するのではないですか？', a: '人口水増しによって見かけのGDP総額が微増しても、低賃金労働の拡大によって「1人当たりGDP」と「日本人の実質賃金」は逆に押し下げられます。さらに治安維持・教育・医療・生活保護などの社会的コストを税金で負担するため、国民の手取り所得は減少します。' }
-      ]
+      faqs: notionAddendumFaqs['economic-impact'] || []
     },
     '/analysis/naturalization-paradox/': {
       title: '帰化と永住権の違いは？要件の年数が逆転している理由 | 日本の岐路',
@@ -409,13 +428,11 @@ async function prerender() {
       ]
     },
     '/analysis/burial-controversy/': {
-      title: 'イスラム教徒の土葬問題とは？大分・日出町など住民反対の理由 | 日本の岐路',
-      desc: '火葬率99.97%の日本で急増するムスリム（イスラム教徒）による土葬墓地新設要求。大分県日出町・宮城県・茨城県等で起きた地域住民との激しい対立、地下水汚染や農産物の風評被害、墓地埋葬法の課題と多文化共生の限界を現地事例から徹底解説。',
-      keywords: 'イスラム教 土葬 なぜ,土葬 問題 自治体 どこ,大分県 日出町 土葬 反対,宮城県 土葬 墓地,ムスリム 土葬 日本 法律,火葬 土葬 トラブル',
+      title: '【宗教規範 vs 日本法】土葬問題・神戸神社損壊事例と「相互尊重」の非対称性を検証 | 日本の岐路',
+      desc: '火葬率99.97%の日本で起きている土葬墓地対立に加え、国会質疑で焦点となった「宗教上の規範と日本法が衝突した際の優先順位」、2023年神戸・瑞丘八幡神社損壊事例と教義的非対称性から共生条件の限界を検証。',
+      keywords: 'イスラム教 日本法 優先,ムスリム 神社 破壊 神戸,イスラム教 土葬 なぜ,大分県 日出町 土葬 反対,宮城県 土葬 墓地,火葬 土葬 トラブル',
       priority: '0.88', changefreq: 'weekly',
-      faqs: [
-        { q: 'なぜ日本でイスラム教徒の土葬墓地が問題になっているのですか？', a: '日本は公衆衛生と国土の制約から火葬率が99.97%に達し、事実上の社会規範となっています。土葬墓地の新設は周辺住民の飲料水源（井戸水・地下水）への心理的・衛生的懸念や農産物の風評被害、土地利用を巡る自治体・住民との深刻な摩擦を引き起こしています。' }
-      ]
+      faqs: notionAddendumFaqs['burial-controversy'] || []
     },
     '/analysis/labor-dilemma/': {
       title: '特定技能2号は移民と何が違う？育成就労と技能実習生失踪の問題 | 日本の岐路',
@@ -427,34 +444,39 @@ async function prerender() {
       ]
     },
     '/analysis/labor-mismatch/': {
-      title: '人手不足は本当か？職種別有効求人倍率のミスマッチを検証 | 日本の岐路',
-      desc: '日本の人手不足の正体は「人口不足」ではなく「職種と賃金のミスマッチ」だった。事務職（求人倍率0.4倍）に求職者が溢れる一方、低賃金・重労働の現場にだけ外国人を入れる歪んだ雇用構造を厚生労働省データで証明。',
-      keywords: '人手不足 統計,有効求人倍率 職種別 ミスマッチ,事務職 求人倍率 低い,外国人労働者 いらない 理由,人手不足 賃上げ 省力化',
-      priority: '0.85', changefreq: 'weekly'
+      title: '【国際比較】「人手不足」の6分解と南アフリカ失業率33.7%(LU3 44%)との対比・求人倍率検証 | 日本の岐路',
+      desc: '日本の「人手不足」を総数・技能・賃金条件・企業規模維持など6つに分解し、事務職（0.4倍）とのミスマッチや、極端な人手あまり状態にある南アフリカ最新労働統計（Stats SA Q3 2026：失業率33.7%・LU3 44.0%）との構造差を検証。',
+      keywords: '人手不足 人手あまり 違い,人手不足 嘘 採用難,有効求人倍率 職種別 ミスマッチ,南アフリカ 失業率 33.7%,人手不足 賃上げ 省力化',
+      priority: '0.88', changefreq: 'weekly',
+      faqs: notionAddendumFaqs['labor-mismatch'] || []
     },
     '/analysis/borderless-welfare-state/': {
-      title: '移民1人で4,200万円の赤字？オランダ『国境なき福祉国家』の調査 | 日本の岐路',
-      desc: 'アムステルダム大学ヤン・ファン・デ・Beek博士らが全国民マイクロデータで算出した衝撃の調査結果。非西洋系・低熟練移民の受け入れは1人あたり生涯で約27.5万ユーロ（約4,200万円）の純財政赤字を生み、福祉国家を破綻させるという科学的エビデンス。',
-      keywords: '国境なき福祉国家 オランダ 移民,移民 財政負担 4200万円,欧州 移民政策 失敗 データ,移民 社会保障 赤字 試算,福祉国家 移民 両立しない',
-      priority: '0.88', changefreq: 'weekly'
+      title: '移民1人で4,200万円の赤字？オランダ『国境なき福祉国家』(IZA 17569)原典調査 | 日本の岐路',
+      desc: 'アムステルダム大学ヤン・ファン・デ・ベーク博士らが全国民マイクロデータで算出したIZA Discussion Paper 17569・オランダ議会政府回答（2021Z13767）原典と、出身地域・世代・移住動機別の生涯純財政貢献分析を解説。',
+      keywords: 'オランダ 移民 財政 IZA 17569,Borderless Welfare State 原典,移民 財政負担 4200万円,欧州 移民政策 失敗 データ,福祉国家 移民 両立しない',
+      priority: '0.88', changefreq: 'weekly',
+      faqs: notionAddendumFaqs['borderless-welfare'] || []
     },
     '/analysis/symbiosis/': {
-      title: '西尾市「県営緑町住宅」の現状：外国人住民が多い団地の課題 | 日本の岐路',
-      desc: '住民の多数が外国人となった愛知県西尾市「県営緑町住宅」などの現場レポート。ゴミ出しルール崩壊、騒音トラブル、自治会費未納による地域コミュニティの機能不全、公立小学校での日本語指導負担と日本人児童へのしわ寄せを徹底検証。',
-      keywords: '西尾市 県営緑町住宅 外国人,外国人 団地 ゴミ問題 自治会,多文化共生 失敗 事例 日本,公立小学校 外国人児童 負担,川口 芝園団地 緑町住宅',
-      priority: '0.86', changefreq: 'weekly'
+      title: '【現場検証】西尾市緑町住宅＆蕨市・川口市の生活環境実態と「多文化共生」の限界 | 日本の岐路',
+      desc: '住民の多数が外国人となった愛知県西尾市「県営緑町住宅」と、埼玉県蕨市・川口市周辺の住民証言・短時間街頭取材検証を整理。ごみ出し摩擦・駅前滞留・自治会費未納・学校負担など現場のリアルな課題を公開。',
+      keywords: '蕨市 川口市 外国人 生活環境,西尾市 県営緑町住宅 外国人,多文化共生 報道 街頭取材,多文化共生 失敗 事例 日本,公立小学校 外国人児童 負担',
+      priority: '0.88', changefreq: 'weekly',
+      faqs: notionAddendumFaqs['symbiosis'] || []
     },
     '/analysis/uk-immigration-lesson/': {
-      title: 'イギリスの移民政策はなぜ失敗した？NHS・治安・ブレグジット | 日本の岐路',
-      desc: '「労働力不足解消」を名目に大量の移民を受け入れたイギリスで何が起きたのか？NHS（国営医療）の待機時間爆発、住宅価格高騰、低賃金固定化、ロザラム事件等の治安悪化と社会的分断から日本が今すぐ学ぶべき歴史的教訓。',
-      keywords: 'イギリス 移民政策 失敗,英国 移民 治安悪化 NHS,ブレグジット 原因 移民,ヨーロッパ 移民 失敗 理由,日本 イギリス 移民 比較',
-      priority: '0.85', changefreq: 'weekly'
+      title: '【欧州最新比較】英国・イタリア(メストレ)・スウェーデン2026法案・フランスに学ぶ移民の教訓 | 日本の岐路',
+      desc: '英国NHS・治安悪化に加え、ヴェネツィア警察（2023/2026）や県庁レッドゾーン検討で追うイタリア・メストレの実態、税・社会保障悪用を対象とするスウェーデン2026年3月法案、フランスの生活費抗議を比較検証。',
+      keywords: 'ヨーロッパ 移民 治安 失敗 事例,イタリア メストレ 治安,スウェーデン 移民 国外追放,イギリス 移民政策 失敗,ブレグジット 原因 移民',
+      priority: '0.88', changefreq: 'weekly',
+      faqs: notionAddendumFaqs['uk-immigration-lesson'] || []
     },
     '/analysis/national-security/': {
-      title: '外国人と安全保障リスク：国防動員法とスパイ防止法の論点 | 日本の岐路',
-      desc: '有事の際に在日外国人が本国法（中国・国防動員法や国家情報法等）に従うリスク、スパイ防止法が存在しない日本の防諜体制の脆弱性、通信・電力・港湾インフラおよび治安維持への直接的脅威を安全保障の観点から分析。',
-      keywords: '外国人 安全保障 リスク,国防動員法 在日中国人,スパイ防止法 日本 なぜない,重要インフラ 外国人 リスク,移民 治安 安全保障',
-      priority: '0.85', changefreq: 'weekly'
+      title: '【2026安保最新】尖閣335日・沖縄影響工作(JIIA)・中国邦人拘束17人・JTロシア接収と防諜課題 | 日本の岐路',
+      desc: '2026年版防衛白書（尖閣連続確認335日）、JIIA沖縄アイデンティティ工作分析（2026/11）、フィリピン撤退教訓、JTロシア4社一時管理、中国「国家安全」邦人拘束17人（外交青書2026）、日中世論調査（対日否定87.7%）を網羅検証。',
+      keywords: '沖縄 基地反対運動 中国 影響工作,中国 邦人拘束 17人,日中世論調査 87.7%,尖閣 335日 防衛白書,スパイ防止法 日本 なぜない',
+      priority: '0.88', changefreq: 'weekly',
+      faqs: notionAddendumFaqs['national-security'] || []
     },
     '/analysis/nigeria-case/': {
       title: 'JICAアフリカ・ホームタウン構想とは？ナイジェリア誤報の経緯 | 日本の岐路',
@@ -463,10 +485,11 @@ async function prerender() {
       priority: '0.84', changefreq: 'weekly'
     },
     '/analysis/simulation-model/': {
-      title: '移民受け入れの2050年シミュレーション：国民負担97兆円の試算 | 日本の岐路',
-      desc: '外国人労働者と家族帯同の増加が2050年までの日本経済・財政・社会保障・治安コストに与える影響を数理モデルで推計。企業の短期利益の裏で国民全体が背負う累計約97兆円の社会的コスト（外部不経済）を可視化。',
-      keywords: '移民 2050年 シミュレーション,外国人受け入れ 財政負担 試算,移民 社会的コスト 97兆円,人口減少 移民 シミュレーション',
-      priority: '0.85', changefreq: 'weekly'
+      title: '【数理検証】外国人比率1%上限案(期待件数71.3%減)・みかん理論・2050年97兆円コスト試算 | 日本の岐路',
+      desc: '現状約3.48%（428万人）から比率1%目安（123万人）へ縮小した場合の期待件数71.3%減の算術構造、『C = J + F』の事前予防原則、みかん理論の正確な数理構造と2050年累計97兆円の社会的コスト推計を可視化。',
+      keywords: '外国人 比率 上限 何パーセント,移民 受け入れ 規模 犯罪 リスク,外国人比率 1% 試算 71.3%,みかん理論 C=J+F,移民 社会的コスト 97兆円',
+      priority: '0.88', changefreq: 'weekly',
+      faqs: notionAddendumFaqs['simulation-model'] || []
     },
     '/analysis/statistical-evidence/': {
       title: '移民で経済成長する？外国人比率と実質賃金の国際比較グラフ | 日本の岐路',
@@ -481,10 +504,11 @@ async function prerender() {
       priority: '0.85', changefreq: 'weekly'
     },
     '/analysis/summary-statistics/': {
-      title: '外国人問題の統計まとめ：警察庁・法務省・厚労省データ一覧 | 日本の岐路',
-      desc: '検挙率1.72倍、技能実習生失踪9,000人超、外国人生活保護1,200億円、生涯財政赤字4,200万円など、政府公式統計と国際研究が示す重要ファクトを一目で確認できる統計総括ページ。',
-      keywords: '外国人問題 統計 まとめ,外国人犯罪 厚労省 法務省 データ,移民政策 エビデンス 一覧',
-      priority: '0.84', changefreq: 'weekly'
+      title: '【2026年最新】在留外国人428万人(総人口3.5%)・国保収納率63%・検挙率1.72倍 統計一覧 | 日本の岐路',
+      desc: '2026年6月末の在留外国人数428万1,026人（過去最多・総人口約3.5%）、国保収納率63% vs 全体93%、定住外国人検挙率1.72倍、尖閣335日、永住審査厳格化など最新一次資料を一目で確認できる統計総括ページ。',
+      keywords: '在留外国人 2026 何人,日本 外国人 割合 何パーセント,外国人問題 統計 まとめ,国保 収納率 63%,外国人 検挙率 1.72倍',
+      priority: '0.90', changefreq: 'weekly',
+      faqs: notionAddendumFaqs['summary-statistics'] || []
     },
     '/analysis/policy-recommendations/': {
       title: '人手不足の解決策は外国人以外にある？省力化・賃上げの政策提言 | 日本の岐路',
@@ -499,10 +523,11 @@ async function prerender() {
       priority: '0.82', changefreq: 'monthly'
     },
     '/analysis/conclusion/': {
-      title: '多文化共生の限界と「棲み分け」という選択肢：結論 | 日本の岐路',
-      desc: '全分析レポートの結論。欧米の失敗を繰り返さず、日本の高度な治安・文化・社会保障を次世代へ引き継ぐための「秩序ある棲み分け」と主権回復へのメッセージ。',
-      keywords: '多文化共生 限界 結論,棲み分けの共生 日本,移民問題 結論 日本の未来',
-      priority: '0.80', changefreq: 'monthly'
+      title: '多文化共生「相互尊重」の限界と神道に根づく日本の秩序・棲み分け結論 | 日本の岐路',
+      desc: '共通ルール遵守を前提にしない「相互尊重による共存」の論理的限界と、八百万・感謝・「いただきます」など海外からも高く評価される日本の精神文化・治安基盤を守り抜く「棲み分け」の結論。',
+      keywords: '多文化共生 相互尊重 限界 なぜ,日本 治安 良い 理由 文化 神道,棲み分けの共生 日本,移民問題 結論 日本の未来',
+      priority: '0.84', changefreq: 'monthly',
+      faqs: notionAddendumFaqs['conclusion'] || []
     },
     '/analysis/ai-simulation/': {
       title: '生成AIは日本の移民政策をどう予測する？2040年シミュレーション | 日本の岐路',
@@ -648,7 +673,8 @@ async function prerender() {
       {
         q: '現在このサイトに記録されている最新の「不起訴」報道は何件ありますか？',
         a: `国内メディア一次報道アーカイブ（全${totalNewsCount}件）のうち、「不起訴」ステージに分類された報道記録は現在${nonProsItemsForSeo.length}件（全体の${nonProsShareSeo}%、最新収録日${nonProsLatestSeo}）です。`
-      }
+      },
+      ...(notionAddendumFaqs['non-prosecution'] || [])
     ]
   };
 

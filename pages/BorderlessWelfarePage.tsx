@@ -5,6 +5,7 @@ import Section from "../components/Section";
 import ContentBlockRenderer from "../components/ContentBlockRenderer";
 import { SocialShare } from "../components/SocialShare";
 import { RelatedArticles } from "../components/RelatedArticles";
+import { NotionSeoAddendum } from "../components/NotionSeoAddendum";
 import BorderlessWelfareState from "../components/BorderlessWelfareState";
 import { MainLayout } from "../components/MainLayout";
 
@@ -130,6 +131,8 @@ export const BorderlessWelfarePage: React.FC = () => {
                     <h3 className="text-xl font-bold text-white mb-6">この記事を共有する</h3>
                     <SocialShare />
                 </div>
+
+                <NotionSeoAddendum pageKey="borderless-welfare" />
 
                 <RelatedArticles currentPath="/analysis/borderless-welfare-state" />
             </main>

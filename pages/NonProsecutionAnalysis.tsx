@@ -6,6 +6,7 @@ import { Header } from '../components/Header';
 import Section from '../components/Section';
 import ContentBlockRenderer from '../components/ContentBlockRenderer';
 import { RelatedArticles } from '../components/RelatedArticles';
+import { NotionSeoAddendum } from '../components/NotionSeoAddendum';
 import newsData from '../data/newsData.json';
 import crimeSegments from '../data/crimeSegments.json';
 import type { ContentBlock } from '../types';
@@ -329,6 +330,8 @@ export const NonProsecutionAnalysis: React.FC = () => {
               ))}
             </dl>
           </section>
+
+          <NotionSeoAddendum pageKey="non-prosecution" />
 
           <RelatedArticles currentPath="/analysis/non-prosecution" />
         </div>

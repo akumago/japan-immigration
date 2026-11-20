@@ -5,6 +5,7 @@ import Section from "../components/Section";
 import ContentBlockRenderer from "../components/ContentBlockRenderer";
 import { SocialShare } from "../components/SocialShare";
 import { RelatedArticles } from "../components/RelatedArticles";
+import { NotionSeoAddendum } from "../components/NotionSeoAddendum";
 import { EmbeddedImage } from "../components/EmbeddedImage";
 
 import { MainLayout } from "../components/MainLayout";
@@ -262,6 +263,8 @@ export const CrimeStatistics: React.FC = () => {
                         </div>
                     </div>
                     {/* 追記部分終了 */}
+
+                    <NotionSeoAddendum pageKey="crime-statistics" />
 
                     <RelatedArticles currentPath="/analysis/crime-statistics" />
                 </main>

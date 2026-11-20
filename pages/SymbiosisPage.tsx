@@ -5,6 +5,7 @@ import SymbiosisSection from "../components/SymbiosisSection";
 import { MainLayout } from "../components/MainLayout";
 import { SocialShare } from "../components/SocialShare";
 import { RelatedArticles } from "../components/RelatedArticles";
+import { NotionSeoAddendum } from "../components/NotionSeoAddendum";
 
 export const SymbiosisPage: React.FC = () => {
     return (
@@ -111,6 +112,8 @@ export const SymbiosisPage: React.FC = () => {
                         </div>
                     </div>
                 </div>
+
+                <NotionSeoAddendum pageKey="symbiosis" />
 
                 <RelatedArticles currentPath="/analysis/symbiosis" />
 

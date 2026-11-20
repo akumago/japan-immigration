@@ -5,6 +5,7 @@ import Section from "../components/Section";
 import ContentBlockRenderer from "../components/ContentBlockRenderer";
 import { SocialShare } from "../components/SocialShare";
 import { RelatedArticles } from "../components/RelatedArticles";
+import { NotionSeoAddendum } from "../components/NotionSeoAddendum";
 import { EmbeddedImage } from "../components/EmbeddedImage";
 
 import { MainLayout } from "../components/MainLayout";
@@ -164,6 +165,8 @@ export const UKImmigrationLesson: React.FC = () => {
                         </div>
                     </div>
                     {/* 追記部分終了 */}
+
+                                                            <NotionSeoAddendum pageKey="uk-immigration-lesson" />
 
                                                             <RelatedArticles currentPath="/analysis/uk-immigration-lesson" />
 

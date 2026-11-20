@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { MainLayout } from "../components/MainLayout";
 import DichotomyOfLabor from "../components/DichotomyOfLabor";
 import { RelatedArticles } from "../components/RelatedArticles";
+import { NotionSeoAddendum } from "../components/NotionSeoAddendum";
 
 export const LaborMismatch: React.FC = () => {
     return (
@@ -115,6 +116,8 @@ export const LaborMismatch: React.FC = () => {
                     </div>
                 </div>
                 {/* 追記部分終了 */}
+
+                <NotionSeoAddendum pageKey="labor-mismatch" />
 
                 <RelatedArticles currentPath="/analysis/labor-mismatch" />
             </main>

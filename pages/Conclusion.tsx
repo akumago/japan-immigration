@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Header } from "../components/Header";
 import { MainLayout } from "../components/MainLayout";
 import { RelatedArticles } from "../components/RelatedArticles";
+import { NotionSeoAddendum } from "../components/NotionSeoAddendum";
 
 export const Conclusion: React.FC = () => {
     return (
@@ -117,6 +118,8 @@ export const Conclusion: React.FC = () => {
                     </div>
                 </div>
                 {/* 追記部分終了 */}
+
+                <NotionSeoAddendum pageKey="conclusion" />
 
                 <RelatedArticles currentPath="/analysis/conclusion" />
             </main>
