@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-21T02:35:51.846Z",
+  "updatedAt": "2026-11-21T11:24:32.630Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6474,6 +6474,78 @@
       },
       "reason": "URL完全一致 (https://www.msn.com/ja-jp/news/other/%E5%81%BD%E9%80%A0%E5%9C%A8%E7%95%99%E3%82%AB%E3%83%BC%E3%83%89%E3%82%92%E9%9B%87%E7%94%A8%E4%B8%BB%E3%81%AB%E9%80%81%E4%BF%A1%E3%81%97%E3%81%9F%E7%96%91%E3%81%84-%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E9%80%AE%E6%8D%95-%E5%8A%A0%E5%8F%A4%E5%B7%9D%E7%BD%B2/ar-AA2hL3LY)",
       "recordedAt": "2026-11-21T02:35:51.846Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "職場の中学校女子トイレに侵入した疑い アメリカ国籍・会計年度任用職員の男(28)逮捕 北海道士幌町",
+        "date": "2026-11-21",
+        "url": "https://topics.smt.docomo.ne.jp/article/hbc/region/hbc-3103030"
+      },
+      "reason": "タイトル高類似 (100%: 職場の中学校女子トイレに侵入した疑い アメリカ国籍・会計年度任用職員の男(28)逮捕 北海道士幌町)",
+      "recordedAt": "2026-11-21T11:24:32.630Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "バングラデシュ国籍の50歳男が、ネパール国籍の30代男性の顔面を殴る...飲食店で同僚に暴行した疑いで逮捕「殴っていません」と容疑否認〈北海道札幌市〉",
+        "date": "2026-11-21",
+        "url": "https://www.fnn.jp/articles/-/1156875"
+      },
+      "reason": "URL完全一致 (https://www.fnn.jp/articles/-/1156875)",
+      "recordedAt": "2026-11-21T11:24:32.630Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "米兵向け風俗店、別店舗でも違法営業か 中国籍6人含む9人再逮捕 沖縄市ゲート通り",
+        "date": "2026-11-20",
+        "url": "https://topics.smt.docomo.ne.jp/article/okinawa/region/okinawa-20261120130100"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 別店舗でも違法風俗か 9人を再逮捕 風営法違反疑い 沖縄県警)",
+      "recordedAt": "2026-11-21T11:24:32.630Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "【女性用トイレに侵入】“自分が勤務する中学校”のトイレから出てきたところを学校関係者が目撃し通報...アメリカ国籍の28歳職員の男を建造物侵入の現行犯で逮捕〈北海道士幌町〉",
+        "date": "2026-11-20",
+        "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFBDU29GVG1LZlJ1ZTE4Z3NFUUlha3dhZS1Wcml2R25QYV9rN01BcDUyajhteWpyaXQ2Y0w0VW5XekRwOU14Slhpbk9QTWJqLURKLUJHQWRSdw"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 職場の中学校女子トイレに侵入した疑い アメリカ国籍・会計年度任用職員の男(28)逮捕 北海道士幌町)",
+      "recordedAt": "2026-11-21T11:24:32.630Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "千葉・JR馬橋駅周辺で切りつけ?コロンビア国籍の男を殺人未遂容疑で再逮捕 (2026年11月19日掲載)",
+        "date": "2026-11-19",
+        "url": "https://news.livedoor.com/topics/detail/32856730/"
+      },
+      "reason": "タイトル高類似 (78%: 「殺すつもりはなかった」千葉・JR馬橋駅周辺で無差別切りつけか コロンビア国籍の男を殺人未遂容疑で再逮捕)",
+      "recordedAt": "2026-11-21T11:24:32.630Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "“確保の瞬間”が防犯カメラに...住宅で女性が襲われた強盗殺人未遂事件 関与疑いの男らを警察官が追跡し袋小路に追い込む",
+        "date": "2026-11-19",
+        "url": "https://news.yahoo.co.jp/articles/a0397258274e4b99ab1152bd578df5a2716643fc"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 愛知で住宅に強盗、「金はないか」 82歳女性重傷、盗難車運転疑いの男関与か―県警)",
+      "recordedAt": "2026-11-21T11:24:32.630Z"
     }
   ]
 }
