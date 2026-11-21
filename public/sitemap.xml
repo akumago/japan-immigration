@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://endearing-blini-b688ce.netlify.app/</loc><lastmod>2026-11-20</lastmod><changefreq>hourly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://endearing-blini-b688ce.netlify.app/</loc><lastmod>2026-11-21</lastmod><changefreq>hourly</changefreq><priority>1.0</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis-archive/</loc><lastmod>2026-11-08</lastmod><changefreq>daily</changefreq><priority>0.90</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/privacy-policy/</loc><lastmod>2026-09-05</lastmod><changefreq>yearly</changefreq><priority>0.50</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/disclaimer/</loc><lastmod>2026-09-05</lastmod><changefreq>yearly</changefreq><priority>0.50</priority></url>
@@ -32,9 +32,9 @@
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/strategic-recommendations/</loc><lastmod>2026-09-05</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/symbiosis/</loc><lastmod>2026-11-20</lastmod><changefreq>weekly</changefreq><priority>0.88</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/ai-simulation/</loc><lastmod>2026-09-05</lastmod><changefreq>monthly</changefreq><priority>0.82</priority></url>
-  <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/</loc><lastmod>2026-11-20</lastmod><changefreq>hourly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/non-prosecution/</loc><lastmod>2026-11-20</lastmod><changefreq>daily</changefreq><priority>0.92</priority></url>
-  <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-rate-factcheck/</loc><lastmod>2026-11-20</lastmod><changefreq>daily</changefreq><priority>0.92</priority></url>
+  <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/</loc><lastmod>2026-11-21</lastmod><changefreq>hourly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/non-prosecution/</loc><lastmod>2026-11-21</lastmod><changefreq>daily</changefreq><priority>0.92</priority></url>
+  <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-rate-factcheck/</loc><lastmod>2026-11-21</lastmod><changefreq>daily</changefreq><priority>0.92</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/stage/non-prosecution/</loc><lastmod>2026-11-13</lastmod><changefreq>daily</changefreq><priority>0.85</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/stage/re-arrest/</loc><lastmod>2026-11-20</lastmod><changefreq>daily</changefreq><priority>0.85</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/stage/referral/</loc><lastmod>2026-11-20</lastmod><changefreq>daily</changefreq><priority>0.85</priority></url>
@@ -49,7 +49,7 @@
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/topic/tokuryu-yami-baito/</loc><lastmod>2026-11-05</lastmod><changefreq>daily</changefreq><priority>0.85</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/category/traffic-crime/</loc><lastmod>2026-11-19</lastmod><changefreq>daily</changefreq><priority>0.85</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/category/drug-smuggling/</loc><lastmod>2026-11-11</lastmod><changefreq>daily</changefreq><priority>0.85</priority></url>
-  <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/category/assault/</loc><lastmod>2026-11-16</lastmod><changefreq>daily</changefreq><priority>0.85</priority></url>
+  <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/category/assault/</loc><lastmod>2026-11-21</lastmod><changefreq>daily</changefreq><priority>0.85</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/category/fraud/</loc><lastmod>2026-11-19</lastmod><changefreq>daily</changefreq><priority>0.85</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/category/theft/</loc><lastmod>2026-11-20</lastmod><changefreq>daily</changefreq><priority>0.85</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/category/sex-crime/</loc><lastmod>2026-11-18</lastmod><changefreq>daily</changefreq><priority>0.85</priority></url>
@@ -78,7 +78,7 @@
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/area/ota-isesaki/</loc><lastmod>2026-11-20</lastmod><changefreq>daily</changefreq><priority>0.85</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/area/fukuoka-city/</loc><lastmod>2026-11-18</lastmod><changefreq>daily</changefreq><priority>0.85</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/area/kobe/</loc><lastmod>2026-11-06</lastmod><changefreq>daily</changefreq><priority>0.85</priority></url>
-  <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/month/2026-11/</loc><lastmod>2026-11-20</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/month/2026-11/</loc><lastmod>2026-11-21</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/month/2026-10/</loc><lastmod>2026-10-31</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/month/2026-09/</loc><lastmod>2026-09-30</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/month/2026-08/</loc><lastmod>2026-08-31</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
@@ -96,7 +96,7 @@
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/cross/vietnam-traffic/</loc><lastmod>2026-11-15</lastmod><changefreq>daily</changefreq><priority>0.80</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/cross/china-traffic/</loc><lastmod>2026-11-19</lastmod><changefreq>daily</changefreq><priority>0.80</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/cross/china-special-fraud/</loc><lastmod>2026-11-20</lastmod><changefreq>daily</changefreq><priority>0.80</priority></url>
-  <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/pref/hokkaido/</loc><lastmod>2026-11-14</lastmod><changefreq>daily</changefreq><priority>0.82</priority></url>
+  <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/pref/hokkaido/</loc><lastmod>2026-11-21</lastmod><changefreq>daily</changefreq><priority>0.82</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/pref/iwate/</loc><lastmod>2026-10-21</lastmod><changefreq>daily</changefreq><priority>0.82</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/pref/miyagi/</loc><lastmod>2026-11-10</lastmod><changefreq>daily</changefreq><priority>0.82</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/pref/yamagata/</loc><lastmod>2026-11-16</lastmod><changefreq>daily</changefreq><priority>0.82</priority></url>
@@ -134,7 +134,7 @@
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/nationality/brazil/</loc><lastmod>2026-11-20</lastmod><changefreq>daily</changefreq><priority>0.82</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/nationality/philippines/</loc><lastmod>2026-11-18</lastmod><changefreq>daily</changefreq><priority>0.82</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/nationality/nepal/</loc><lastmod>2026-11-13</lastmod><changefreq>daily</changefreq><priority>0.82</priority></url>
-  <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/nationality/usa/</loc><lastmod>2026-11-17</lastmod><changefreq>daily</changefreq><priority>0.82</priority></url>
+  <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/nationality/usa/</loc><lastmod>2026-11-21</lastmod><changefreq>daily</changefreq><priority>0.82</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/nationality/pakistan/</loc><lastmod>2026-11-11</lastmod><changefreq>daily</changefreq><priority>0.82</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/nationality/sri-lanka/</loc><lastmod>2026-10-17</lastmod><changefreq>daily</changefreq><priority>0.82</priority></url>
   <url><loc>https://endearing-blini-b688ce.netlify.app/analysis/crime-news/nationality/turkey/</loc><lastmod>2026-11-11</lastmod><changefreq>daily</changefreq><priority>0.82</priority></url>

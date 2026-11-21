@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-20T21:18:26.703Z",
+  "updatedAt": "2026-11-21T02:35:51.846Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6426,6 +6426,54 @@
       },
       "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 【屋外に積んだタイヤを狙う】三条市などで24件、43歳男を書類送検)",
       "recordedAt": "2026-11-20T21:18:26.703Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "米兵向け風俗店、別店舗でも違法営業か 中国籍6人含む9人再逮捕 沖縄市ゲート通り",
+        "date": "2026-11-20",
+        "url": "https://www.okinawatimes.co.jp/articles/-/1970384"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 別店舗でも違法風俗か 9人を再逮捕 風営法違反疑い 沖縄県警)",
+      "recordedAt": "2026-11-21T02:35:51.846Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "東京・新宿で複数のポーカー賭博店運営か、韓国籍の男逮捕 7カ月で3000万円売り上げ",
+        "date": "2026-11-20",
+        "url": "https://www.sankei.com/article/20261120-4J74FWSYLFOG3PZFYLZC4ZKHCM/"
+      },
+      "reason": "同一5W1H＋年齢一致 [東京都 / 韓国籍 / 風営法・売春防止法・違法カジノ / 70歳]",
+      "recordedAt": "2026-11-21T02:35:51.846Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "【ポケモンカード盗難】ブラジル国籍の18歳男逮捕 100万円相当 盗んだバイクで移動か 広島",
+        "date": "2026-11-20",
+        "url": "https://www.fnn.jp/articles/-/1156049"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 閉店後のカードショップに侵入...ポケカなど10箱窃盗か 埼玉県川口市のブラジル国籍男(18)を逮捕 直前に盗んだバイクで移動か 広島)",
+      "recordedAt": "2026-11-21T02:35:51.846Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "偽造在留カードを雇用主に送信した疑い ベトナム国籍の男逮捕 加古川署",
+        "date": "2026-11-19",
+        "url": "https://www.msn.com/ja-jp/news/other/%E5%81%BD%E9%80%A0%E5%9C%A8%E7%95%99%E3%82%AB%E3%83%BC%E3%83%89%E3%82%92%E9%9B%87%E7%94%A8%E4%B8%BB%E3%81%AB%E9%80%81%E4%BF%A1%E3%81%97%E3%81%9F%E7%96%91%E3%81%84-%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E9%80%AE%E6%8D%95-%E5%8A%A0%E5%8F%A4%E5%B7%9D%E7%BD%B2/ar-AA2hL3LY"
+      },
+      "reason": "URL完全一致 (https://www.msn.com/ja-jp/news/other/%E5%81%BD%E9%80%A0%E5%9C%A8%E7%95%99%E3%82%AB%E3%83%BC%E3%83%89%E3%82%92%E9%9B%87%E7%94%A8%E4%B8%BB%E3%81%AB%E9%80%81%E4%BF%A1%E3%81%97%E3%81%9F%E7%96%91%E3%81%84-%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E9%80%AE%E6%8D%95-%E5%8A%A0%E5%8F%A4%E5%B7%9D%E7%BD%B2/ar-AA2hL3LY)",
+      "recordedAt": "2026-11-21T02:35:51.846Z"
     }
   ]
 }
