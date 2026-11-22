@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-22T00:28:11.330Z",
+  "updatedAt": "2026-11-22T08:09:32.458Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6714,6 +6714,78 @@
       },
       "reason": "event-dedupe一致 (国籍+場所+罪種: 解体工の同僚が空き家狙いか 金歯を盗んだ疑いでベトナムとインドネシア国籍の男2人を逮捕 愛媛・西予市)",
       "recordedAt": "2026-11-22T00:28:11.330Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "運転中に原付バイクはねて逃走か トルコ国籍の男を逮捕 男性は鎖骨を折るなどの重傷 名古屋・東区",
+        "date": "2026-11-22",
+        "url": "https://news.ntv.co.jp/n/ctv/category/society/ctcd7eb85d1ff84ac2ad6177e3da55ba28"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 名古屋市東区のひき逃げ事件 トルコ国籍の男を逮捕)",
+      "recordedAt": "2026-11-22T08:09:32.458Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "乗用車で原付バイクと衝突 重傷ひき逃げの疑いでトルコ国籍の男を逮捕 名古屋・東区",
+        "date": "2026-11-22",
+        "url": "https://news.yahoo.co.jp/articles/90c13dd685dafa5e7d799984d8810c56a7951994"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 名古屋市東区のひき逃げ事件 トルコ国籍の男を逮捕)",
+      "recordedAt": "2026-11-22T08:09:32.458Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "左から追い抜こうと...車で原付バイクに衝突し男性に重傷負わせて逃走した疑い トルコ国籍の42歳男を逮捕",
+        "date": "2026-11-22",
+        "url": "https://news.yahoo.co.jp/articles/f7675f2e2c21c363f9b654565ed5a1b204338f63"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 名古屋市東区のひき逃げ事件 トルコ国籍の男を逮捕)",
+      "recordedAt": "2026-11-22T08:09:32.458Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "名古屋市東区のひき逃げ事件 トルコ国籍の男を逮捕",
+        "date": "2026-11-22",
+        "url": "https://www.nagoyatv.com/news/?id%3D97723="
+      },
+      "reason": "タイトル高類似 (100%: 名古屋市東区のひき逃げ事件 トルコ国籍の男を逮捕)",
+      "recordedAt": "2026-11-22T08:09:32.458Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "不同意わいせつ致傷事件で男を逮捕(松戸東警察署)",
+        "date": "2026-11-18",
+        "url": "https://www.police.pref.chiba.jp/kohoka/orders_prefecture_03829.html?incident=ab86a73bb4b060bb287c"
+      },
+      "reason": "タイトル高類似 (90%: 不同意わいせつ事件で男を逮捕(松戸東警察署))",
+      "recordedAt": "2026-11-22T08:09:32.458Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「いかがわしい営業をしているお店がある」中国人の女を逮捕 集合住宅で違法マッサージ店経営か HPには「当店は風俗店ではありません」と記載 静岡・湖西市",
+        "date": "2026-11-18",
+        "url": "https://topics.smt.docomo.ne.jp/article/look/region/look-103229"
+      },
+      "reason": "タイトル高類似 (100%: 「いかがわしい営業をしているお店がある」中国人の女を逮捕 集合住宅で違法マッサージ店経営か HPには「当店は風俗店ではありません」と記載 静岡・湖西市)",
+      "recordedAt": "2026-11-22T08:09:32.458Z"
     }
   ]
 }
