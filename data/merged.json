@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-22T08:09:32.458Z",
+  "updatedAt": "2026-11-22T16:25:58.413Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6786,6 +6786,102 @@
       },
       "reason": "タイトル高類似 (100%: 「いかがわしい営業をしているお店がある」中国人の女を逮捕 集合住宅で違法マッサージ店経営か HPには「当店は風俗店ではありません」と記載 静岡・湖西市)",
       "recordedAt": "2026-11-22T08:09:32.458Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "社員男性をアイスピックで脅し監禁か 中国籍の社長ら4人逮捕",
+        "date": "2026-11-22",
+        "url": "https://news.yahoo.co.jp/articles/ef9742044baddcf2a1d081002ac466a33b63d2cc"
+      },
+      "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [東京都 / 中国籍 / 暴行・傷害・脅迫]",
+      "recordedAt": "2026-11-22T16:25:58.413Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "駐車方法をめぐるトラブルで男性の顔を殴りけがをさせる 韓国籍の50代の男を逮捕【高知】",
+        "date": "2026-11-22",
+        "url": "https://news.livedoor.com/article/detail/32876486/"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 駐車をめぐるトラブルで面識ない男性の顔を複数回殴ったか 50代の男を逮捕)",
+      "recordedAt": "2026-11-22T16:25:58.413Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "運転中に原付バイクはねて逃走か トルコ国籍の男を逮捕 男性は鎖骨を折るなどの重傷 名古屋・東区",
+        "date": "2026-11-22",
+        "url": "https://news.yahoo.co.jp/articles/c375b884e3ec24ad984539656e86520d244418c6"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 名古屋市東区のひき逃げ事件 トルコ国籍の男を逮捕)",
+      "recordedAt": "2026-11-22T16:25:58.413Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "左から追い抜こうと...車で原付バイクに衝突し男性に重傷負わせて逃走した疑い トルコ国籍の42歳男を逮捕",
+        "date": "2026-11-22",
+        "url": "https://www.msn.com/ja-jp/news/other/%E5%B7%A6%E3%81%8B%E3%82%89%E8%BF%BD%E3%81%84%E6%8A%9C%E3%81%93%E3%81%86%E3%81%A8-%E8%BB%8A%E3%81%A7%E5%8E%9F%E4%BB%98%E3%83%90%E3%82%A4%E3%82%AF%E3%81%AB%E8%A1%9D%E7%AA%81%E3%81%97%E7%94%B7%E6%80%A7%E3%81%AB%E9%87%8D%E5%82%B7%E8%B2%A0%E3%82%8F%E3%81%9B%E3%81%A6%E9%80%83%E8%B5%B0%E3%81%97%E3%81%9F%E7%96%91%E3%81%84-%E3%83%88%E3%83%AB%E3%82%B3%E5%9B%BD%E7%B1%8D%E3%81%AE42%E6%AD%B3%E7%94%B7%E3%82%92%E9%80%AE%E6%8D%95/ar-AA2hWfpO"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 名古屋市東区のひき逃げ事件 トルコ国籍の男を逮捕)",
+      "recordedAt": "2026-11-22T16:25:58.413Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "名古屋市東区のひき逃げ事件 トルコ国籍の男を逮捕",
+        "date": "2026-11-22",
+        "url": "https://www.nagoyatv.com/news/?id=019228%2F"
+      },
+      "reason": "タイトル高類似 (100%: 名古屋市東区のひき逃げ事件 トルコ国籍の男を逮捕)",
+      "recordedAt": "2026-11-22T16:25:58.413Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ビールやキュウリなど23点販売価格約7000円を万引き ショッピングセンター警備員や警官に支払ったと否認し逮捕 所持金は2万8000円あったのに 三重・桑名市",
+        "date": "2026-11-21",
+        "url": "https://www.msn.com/ja-jp/news/other/%E3%83%93%E3%83%BC%E3%83%AB%E3%82%84%E3%82%AD%E3%83%A5%E3%82%A6%E3%83%AA%E3%81%AA%E3%81%A923%E7%82%B9%E8%B2%A9%E5%A3%B2%E4%BE%A1%E6%A0%BC%E7%B4%847000%E5%86%86%E3%82%92%E4%B8%87%E5%BC%95%E3%81%8D-%E3%82%B7%E3%83%A7%E3%83%83%E3%83%94%E3%83%B3%E3%82%B0%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%E8%AD%A6%E5%82%99%E5%93%A1%E3%82%84%E8%AD%A6%E5%AE%98%E3%81%AB%E6%94%AF%E6%89%95%E3%81%A3%E3%81%9F%E3%81%A8%E5%90%A6%E8%AA%8D%E3%81%97%E9%80%AE%E6%8D%95-%E6%89%80%E6%8C%81%E9%87%91%E3%81%AF2%E4%B8%878000%E5%86%86%E3%81%82%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%AB-%E4%B8%89%E9%87%8D-%E6%A1%91%E5%90%8D%E5%B8%82/ar-AA2hUWOy"
+      },
+      "reason": "タイトル高類似 (100%: ビールやキュウリなど23点販売価格約7000円を万引き ショッピングセンター警備員や警官に支払ったと否認し逮捕 所持金は2万8000円あったのに 三重・桑名市)",
+      "recordedAt": "2026-11-22T16:25:58.413Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "新宿区で違法ポーカー店開帳か 韓国籍の男逮捕 約7か月で700万円受け取る 警視庁",
+        "date": "2026-11-20",
+        "url": "https://www.msn.com/ja-jp/news/other/%E6%96%B0%E5%AE%BF%E5%8C%BA%E3%81%A7%E9%81%95%E6%B3%95%E3%83%9D%E3%83%BC%E3%82%AB%E3%83%BC%E5%BA%97%E9%96%8B%E5%B8%B3%E3%81%8B-%E9%9F%93%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E9%80%AE%E6%8D%95-%E7%B4%847%E3%81%8B%E6%9C%88%E3%81%A7700%E4%B8%87%E5%86%86%E5%8F%97%E3%81%91%E5%8F%96%E3%82%8B-%E8%AD%A6%E8%A6%96%E5%BA%81/ar-AA2hPRBz"
+      },
+      "reason": "タイトル高類似 (100%: 新宿区で違法ポーカー店開帳か 韓国籍の男逮捕 約7か月で700万円受け取る 警視庁)",
+      "recordedAt": "2026-11-22T16:25:58.413Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "《不正取得アカウント悪用》詐欺容疑で7人逮捕 売り上げ数億円か【高知】",
+        "date": "2026-11-17",
+        "url": "https://news.yahoo.co.jp/articles/14800360fcd962afe2edfbefee57ee1f72dcd125"
+      },
+      "reason": "タイトル高類似 (100%: 《不正取得アカウント悪用》詐欺容疑で7人逮捕 売り上げ数億円か【高知】)",
+      "recordedAt": "2026-11-22T16:25:58.413Z"
     }
   ]
 }

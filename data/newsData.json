@@ -1,5 +1,26 @@
 [
   {
+    "id": "7ee4a10a13cf",
+    "sourceRecordId": "v5-7ee4a10a13cf",
+    "date": "2026-11-22",
+    "pubDate": "2026-11-22T13:36:08.000Z",
+    "location": "東京都",
+    "prefecture": "東京都",
+    "media": "Yahoo!ニュース",
+    "source": "Yahoo!ニュース",
+    "stage": "逮捕",
+    "nationality": "中国籍",
+    "crimeCategory": "暴行・傷害・脅迫",
+    "title": "社員を監禁疑い 社長ら4人逮捕",
+    "url": "https://news.yahoo.co.jp/pickup/6603608",
+    "summary": "社員の男性を車などに監禁か 中国籍の社長ら4人逮捕 警視庁社員の男性を監禁したなどとして、社長ら4人が逮捕されました。",
+    "evidence": {
+      "suspect": "本文抜粋: 社員の男性を車などに監禁か 中国籍の社長ら4人逮捕 警視庁",
+      "nationality": "本文抜粋: 中国籍"
+    },
+    "locationBasis": "国内捜査・司法機関管轄根拠: 社員の男性を車などに監禁か 中国籍の社長ら4人逮捕 警視庁"
+  },
+  {
     "id": "8c5614892e21",
     "sourceRecordId": "v5-8c5614892e21",
     "date": "2026-11-22",
