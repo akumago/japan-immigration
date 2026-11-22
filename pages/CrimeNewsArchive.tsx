@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { MainLayout } from '../components/MainLayout';
 import { CrimeHubLinksSection } from '../components/CrimeHubLinksSection';
+import { CrimeAggregateSummaryBanner } from '../components/CrimeAggregateSummaryBanner';
 import newsData from '../data/newsData.json';
 import crimeSegments from '../data/crimeSegments.json';
 
@@ -118,6 +119,8 @@ export const CrimeNewsArchive: React.FC = () => {
             全国の地方紙・主要報道メディア等のニュースから、外国人が関与する案件を自動取得・累積保存しています（毎時 自動巡回更新中）。
           </p>
         </div>
+
+        <CrimeAggregateSummaryBanner />
 
         {/* 最新データベース集計：事件報道・国籍別ランキング */}
         <div className="mb-8 p-6 rounded-2xl bg-gradient-to-r from-red-950/30 via-gray-900/40 to-blue-950/30 border border-white/10 shadow-xl">
