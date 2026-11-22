@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-21T19:29:03.350Z",
+  "updatedAt": "2026-11-22T00:28:11.330Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6642,6 +6642,78 @@
       },
       "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 閉店後のカードショップに侵入...ポケカなど10箱窃盗か 埼玉県川口市のブラジル国籍男(18)を逮捕 直前に盗んだバイクで移動か 広島)",
       "recordedAt": "2026-11-21T19:29:03.350Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "乗用車で原付バイクと衝突 重傷ひき逃げの疑いでトルコ国籍の男を逮捕 名古屋・東区",
+        "date": "2026-11-22",
+        "url": "https://news.livedoor.com/article/detail/32872906/"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 名古屋市東区のひき逃げ事件 トルコ国籍の男を逮捕)",
+      "recordedAt": "2026-11-22T00:28:11.330Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "左から追い抜こうと...車で原付バイクに衝突し男性に重傷負わせて逃走した疑い トルコ国籍の42歳男を逮捕",
+        "date": "2026-11-22",
+        "url": "https://news.livedoor.com/article/detail/32872691/"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 名古屋市東区のひき逃げ事件 トルコ国籍の男を逮捕)",
+      "recordedAt": "2026-11-22T00:28:11.330Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "名古屋市東区のひき逃げ事件 トルコ国籍の男を逮捕",
+        "date": "2026-11-22",
+        "url": "https://news.yahoo.co.jp/articles/39f784d5b7996ab43fa5e1d984b66b97b6534b99"
+      },
+      "reason": "タイトル高類似 (100%: 名古屋市東区のひき逃げ事件 トルコ国籍の男を逮捕)",
+      "recordedAt": "2026-11-22T00:28:11.330Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ビールやキュウリなど23点販売価格約7000円を万引き ショッピングセンター警備員や警官に支払ったと否認し逮捕 所持金は2万8000円あったのに 三重・桑名市",
+        "date": "2026-11-21",
+        "url": "https://news.yahoo.co.jp/articles/5bf17774c7ca16f544158c2dfd4db03a0a6a5847"
+      },
+      "reason": "タイトル高類似 (100%: ビールやキュウリなど23点販売価格約7000円を万引き ショッピングセンター警備員や警官に支払ったと否認し逮捕 所持金は2万8000円あったのに 三重・桑名市)",
+      "recordedAt": "2026-11-22T00:28:11.330Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "新潟・西区の80代男性から“現金800万円入りの菓子箱”だまし取った疑い 台湾出身の男(33)を逮捕",
+        "date": "2026-11-18",
+        "url": "https://news.yahoo.co.jp/articles/3934b908f937a44a474c48956589cf28ede8182a"
+      },
+      "reason": "跨県同一事件(年齢・国籍・罪種・内容一致) [新潟県 vs 滋賀県 / 台湾籍 / 33歳]",
+      "recordedAt": "2026-11-22T00:28:11.330Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "西予の空き家から金歯盗む “職場同僚”外国人2人組の男逮捕 以前は宇和島で金貨窃盗も【愛媛】",
+        "date": "2026-11-18",
+        "url": "https://news.yahoo.co.jp/articles/dbea71f6e2dfc71479b89148659b96b829e3297a"
+      },
+      "reason": "event-dedupe一致 (国籍+場所+罪種: 解体工の同僚が空き家狙いか 金歯を盗んだ疑いでベトナムとインドネシア国籍の男2人を逮捕 愛媛・西予市)",
+      "recordedAt": "2026-11-22T00:28:11.330Z"
     }
   ]
 }
