@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-23T03:48:28.907Z",
+  "updatedAt": "2026-11-23T14:55:15.723Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -7002,6 +7002,54 @@
       },
       "reason": "タイトル高類似 (100%: 物流会社の社長とベトナム人の従業員など4人が逮捕 投資詐欺やサポート詐欺で金をだまし取ったか 静岡県警)",
       "recordedAt": "2026-11-23T03:48:28.907Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「逃げたら殺す」社員をアイスピックで脅し監禁か 中国籍の社長ら男4人逮捕",
+        "date": "2026-11-23",
+        "url": "https://www.msn.com/ja-jp/news/other/%E9%80%83%E3%81%92%E3%81%9F%E3%82%89%E6%AE%BA%E3%81%99-%E7%94%B7%E6%80%A7%E3%82%92%E8%84%85%E3%81%97%E7%9B%A3%E7%A6%81%E3%81%8B-%E4%B8%AD%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%A4%BE%E9%95%B7%E3%82%89%E9%80%AE%E6%8D%95-%E8%BA%AB%E4%BB%A3%E9%87%91%E5%8F%97%E3%81%91%E5%8F%96%E3%81%A3%E3%81%9F%E7%96%91%E3%81%84%E3%82%82/ar-AA2i03UD"
+      },
+      "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [東京都 / 中国籍 / 暴行・傷害・脅迫]",
+      "recordedAt": "2026-11-23T14:55:15.723Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "男性を1週間監禁した疑い 「逃げたら殺す」中国籍の22歳社長ら4人逮捕 被害男性の母親に身代金要求、10万円受け取ったか",
+        "date": "2026-11-23",
+        "url": "https://www.fnn.jp/articles/-/1157747"
+      },
+      "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [東京都 / 中国籍 / 暴行・傷害・脅迫]",
+      "recordedAt": "2026-11-23T14:55:15.723Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "愛知・小牧市の強殺未遂事件から1週間...防犯カメラが捉えた逃走 犯行時も指示役と現場でやり取りか",
+        "date": "2026-11-23",
+        "url": "https://news.yahoo.co.jp/articles/2364c77b24be328738d7a1958852685e40f68865"
+      },
+      "reason": "同一被疑者名一致(跨県含む) [宮城県 vs 愛知県 / ブラジル国籍 / ミタフェラリ容疑者]",
+      "recordedAt": "2026-11-23T14:55:15.723Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "無免許運転で事故不申告 容疑の外国籍男逮捕 群馬県警大泉署",
+        "date": "2026-11-23",
+        "url": "https://www.jomo-news.co.jp/articles/-/1071624"
+      },
+      "reason": "タイトル高類似 (63%: 無免許運転の疑いで外国籍の男逮捕 群馬県警大泉署)",
+      "recordedAt": "2026-11-23T14:55:15.723Z"
     }
   ]
 }
