@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-22T22:34:27.029Z",
+  "updatedAt": "2026-11-23T03:48:28.907Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -6954,6 +6954,54 @@
       },
       "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 空き家から盗んだトイレの便座を自宅で使用の疑い ベトナム国籍の男(38)を窃盗などの容疑で再逮捕 自宅から多数の盗品とみられる物が見つかる 北海道恵庭市)",
       "recordedAt": "2026-11-22T22:34:27.029Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「逃げたら殺す」男性を脅し監禁か 中国籍の社長ら逮捕 身代金受け取った疑いも",
+        "date": "2026-11-23",
+        "url": "https://news.yahoo.co.jp/articles/a327791a9de9229738dccd2338005c1c78efe6f6"
+      },
+      "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [東京都 / 中国籍 / 暴行・傷害・脅迫]",
+      "recordedAt": "2026-11-23T03:48:28.907Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「逃げたら殺す」男性社員を監禁か 中国籍の会社社長(22)ら4人を逮捕 アイスピックで脅し、母親に身代金も要求か",
+        "date": "2026-11-23",
+        "url": "https://www.fnn.jp/articles/-/1157625"
+      },
+      "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [東京都 / 中国籍 / 暴行・傷害・脅迫]",
+      "recordedAt": "2026-11-23T03:48:28.907Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "駐車方法をめぐるトラブルで男性の顔を殴りけがをさせる 韓国籍の50代の男を逮捕【高知】",
+        "date": "2026-11-22",
+        "url": "https://news.yahoo.co.jp/articles/dc4b1b49bbe4a210d185e6b519805ba990b0e8c5"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 駐車をめぐるトラブルで面識ない男性の顔を複数回殴ったか 50代の男を逮捕)",
+      "recordedAt": "2026-11-23T03:48:28.907Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "物流会社の社長とベトナム人の従業員など4人が逮捕 投資詐欺やサポート詐欺で金をだまし取ったか 静岡県警",
+        "date": "2026-11-18",
+        "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1mSzdTVHFkZVQxZ2Z5aVQyaWhaXzhtSHp0QklBNU96NS1MUVVPNGdCa3BDYUJKSXM2bGxlSW5uOXpmd2hpejNsbXF5WnpVRVJqNmpzN1NwSVgydVdwazUzN3VWbno4eWlURy1lOURrd0HSAXZBVV95cUxPSFlTRk5LVWZ5MG9uY2dQTDRhanRaMkRBaHc5MzRYQkxPdE5XeUVybGVFa3ZMd19mMjhGQVZ2Wm93SXNCa2tzbnFFdmN2RWNWX05fWHNnYkU0dWNjUTJjUFJLdnl4SUhfQ0F6QTNCbGxOYWJTS3VR"
+      },
+      "reason": "タイトル高類似 (100%: 物流会社の社長とベトナム人の従業員など4人が逮捕 投資詐欺やサポート詐欺で金をだまし取ったか 静岡県警)",
+      "recordedAt": "2026-11-23T03:48:28.907Z"
     }
   ]
 }
