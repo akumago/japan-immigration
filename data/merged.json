@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-24T02:22:01.906Z",
+  "updatedAt": "2026-11-24T13:58:17.116Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -7098,6 +7098,114 @@
       },
       "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 「殺すつもりはなかった」千葉・JR馬橋駅周辺で無差別切りつけか コロンビア国籍の男を殺人未遂容疑で再逮捕)",
       "recordedAt": "2026-11-24T02:22:01.906Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「目が閉じられない」女性客から相談が...“闇美容クリニック”に潜入取材 医師免許なしで美容整形を繰り返したか 男女3人逮捕 トラブルの実態【独自】",
+        "date": "2026-11-24",
+        "url": "https://news.yahoo.co.jp/articles/fa7af9c94330ade8ef449f65f3b7045c7fcca68c"
+      },
+      "reason": "event-dedupe一致 (同日+同県+国籍+罪種（矛盾なし転載）: 無資格で医療行為か ベトナム国籍の容疑者3人逮捕)",
+      "recordedAt": "2026-11-24T13:58:17.116Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "知人女性を刃渡り21センチの中華包丁で切り付けた中国籍の39歳の男を現行犯逮捕",
+        "date": "2026-11-24",
+        "url": "https://news.yahoo.co.jp/articles/97d908ce0dc4fb332bad572e333fb4c304c277ae"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 【富山】中華料理店で中華包丁で知人女性を切り付けか 技能実習生の中国籍の男を現行犯逮捕)",
+      "recordedAt": "2026-11-24T13:58:17.116Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "無資格でまぶた切開術疑い ベトナム人夫婦ら逮捕",
+        "date": "2026-11-24",
+        "url": "https://news.livedoor.com/article/detail/32889717/"
+      },
+      "reason": "event-dedupe一致 (同日+同県+国籍+罪種（矛盾なし転載）: 無資格で医療行為か ベトナム国籍の容疑者3人逮捕)",
+      "recordedAt": "2026-11-24T13:58:17.116Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「無期懲役」求刑 大阪・ミナミのブランド品販売店で6280万円の高級腕時計奪い店員男性を殺害した罪など問われた中国籍の男の裁判 検察側「完全責任能力ある」 弁護側「何らかの精神障害の影響」主張",
+        "date": "2026-11-24",
+        "url": "https://news.yahoo.co.jp/articles/56ef911d0a94c506838cde565d3001a63787f2f7"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 【速報】大阪・ミナミのブランド品販売店で店員の腹部を牛刀で刺して殺害・販売価格6280万円の腕時計を奪った強盗殺人罪などに問われている中国籍の男の裁判 検察側「無期懲役」求刑)",
+      "recordedAt": "2026-11-24T13:58:17.116Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「私が殺したのはアチャン」大阪・ミナミの腕時計強盗殺人 中国人被告に無期懲役求刑",
+        "date": "2026-11-24",
+        "url": "https://news.yahoo.co.jp/articles/e875bc7a6e5246505b17bc55198bdd032be31864"
+      },
+      "reason": "event-dedupe一致 (同日+同県+国籍+罪種（矛盾なし転載）: 【速報】大阪・ミナミのブランド品販売店で店員の腹部を牛刀で刺して殺害・販売価格6280万円の腕時計を奪った強盗殺人罪などに問われている中国籍の男の裁判 検察側「無期懲役」求刑)",
+      "recordedAt": "2026-11-24T13:58:17.116Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "目が閉じられなくなる被害も...無免許で整形手術か ベトナム国籍の男女3人を逮捕 愛知・南警察署",
+        "date": "2026-11-24",
+        "url": "https://news.ntv.co.jp/n/ctv/category/society/ct8acf0ee274aa4740a6ac7349ee6baf9f"
+      },
+      "reason": "event-dedupe一致 (同日+同県+国籍+罪種（矛盾なし転載）: 無資格で医療行為か ベトナム国籍の容疑者3人逮捕)",
+      "recordedAt": "2026-11-24T13:58:17.116Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "医師免許なしで女性のまぶたを切った疑い 処置の様子をSNSでライブ配信 ベトナム国籍の3人を逮捕",
+        "date": "2026-11-24",
+        "url": "https://news.livedoor.com/article/detail/32890100/"
+      },
+      "reason": "event-dedupe一致 (同日+同県+国籍+罪種（矛盾なし転載）: 無資格で医療行為か ベトナム国籍の容疑者3人逮捕)",
+      "recordedAt": "2026-11-24T13:58:17.116Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "知人女性を包丁で切りつけたか...中国籍の男が逮捕される 富山 (2026年11月24日掲載)",
+        "date": "2026-11-24",
+        "url": "https://www.msn.com/ja-jp/news/other/%E7%9F%A5%E4%BA%BA%E5%A5%B3%E6%80%A7%E3%81%AB%E5%AF%BE%E3%81%97%E5%8C%85%E4%B8%81%E3%81%A7%E5%88%87%E3%82%8A%E3%81%A4%E3%81%91%E3%81%9F%E3%81%8B-%E4%B8%AD%E5%9B%BD%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B7%E3%82%92%E6%AE%BA%E4%BA%BA%E6%9C%AA%E9%81%82%E5%AE%B9%E7%96%91%E3%81%A7%E9%80%AE%E6%8D%95-%E5%AF%8C%E5%B1%B1%E4%B8%AD%E5%A4%AE%E8%AD%A6%E5%AF%9F%E7%BD%B2/ar-AA2i4ex4"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 【富山】中華料理店で中華包丁で知人女性を切り付けか 技能実習生の中国籍の男を現行犯逮捕)",
+      "recordedAt": "2026-11-24T13:58:17.116Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "中華包丁で知人女性切りつけた疑い 富山市の飲食店従業員逮捕",
+        "date": "2026-11-24",
+        "url": "https://news.yahoo.co.jp/articles/2d2ba7258ee761ee42ba703d5193d1a3398c89df"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 【富山】中華料理店で中華包丁で知人女性を切り付けか 技能実習生の中国籍の男を現行犯逮捕)",
+      "recordedAt": "2026-11-24T13:58:17.116Z"
     }
   ]
 }
