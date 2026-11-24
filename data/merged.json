@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-24T13:58:17.116Z",
+  "updatedAt": "2026-11-24T23:33:13.355Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -7206,6 +7206,30 @@
       },
       "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 【富山】中華料理店で中華包丁で知人女性を切り付けか 技能実習生の中国籍の男を現行犯逮捕)",
       "recordedAt": "2026-11-24T13:58:17.116Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "医師免許なしで女性のまぶたを切った疑い 処置の様子をSNSでライブ配信 ベトナム国籍の3人を逮捕",
+        "date": "2026-11-24",
+        "url": "https://news.yahoo.co.jp/articles/11b40f812919d949aadefd7c34eda89728400ffa"
+      },
+      "reason": "event-dedupe一致 (同日+同県+国籍+罪種（矛盾なし転載）: 無資格で医療行為か ベトナム国籍の容疑者3人逮捕)",
+      "recordedAt": "2026-11-24T23:33:13.355Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "目が閉じられなくなる被害も...無免許で整形手術か ベトナム国籍の男女3人を逮捕 愛知・南警察署",
+        "date": "2026-11-24",
+        "url": "https://news.yahoo.co.jp/articles/38b0f8f004f8258e38c049e53834fe688b7a9ead"
+      },
+      "reason": "event-dedupe一致 (同日+同県+国籍+罪種（矛盾なし転載）: 無資格で医療行為か ベトナム国籍の容疑者3人逮捕)",
+      "recordedAt": "2026-11-24T23:33:13.355Z"
     }
   ]
 }
