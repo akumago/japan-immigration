@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-23T14:55:15.723Z",
+  "updatedAt": "2026-11-24T02:22:01.906Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -7050,6 +7050,54 @@
       },
       "reason": "タイトル高類似 (63%: 無免許運転の疑いで外国籍の男逮捕 群馬県警大泉署)",
       "recordedAt": "2026-11-23T14:55:15.723Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "9 社員の男性を車などに監禁か 中国籍の社長ら4人逮捕 警視庁",
+        "date": "2026-11-24",
+        "url": "https://newsdig.tbs.co.jp/articles/-/3104268"
+      },
+      "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [東京都 / 中国籍 / 暴行・傷害・脅迫]",
+      "recordedAt": "2026-11-24T02:22:01.906Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "中国籍の男「刺さった相手はアチャン」・・・強盗殺人罪に問われた被告は、精神障がいがあるのか?詐病か? 大阪・ミナミの宝飾店強盗殺人事件",
+        "date": "2026-11-23",
+        "url": "https://news.yahoo.co.jp/articles/e46ef854ecac1cf2f91e596795d64f00684df9d1"
+      },
+      "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [大阪府 / 中国籍 / 殺人・殺人未遂]",
+      "recordedAt": "2026-11-24T02:22:01.906Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "600万円詐欺で受け子逮捕 出雲での別件捜査から発覚 台湾出身の男を逮捕 島根県大田市",
+        "date": "2026-11-23",
+        "url": "https://news.yahoo.co.jp/articles/a352c763add498a3de49c68496fa7a98db32b492"
+      },
+      "reason": "タイトル高類似 (100%: 600万円詐欺で受け子逮捕 出雲での別件捜査から発覚 台湾出身の男を逮捕 島根県大田市)",
+      "recordedAt": "2026-11-24T02:22:01.906Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "松戸市で殺人未遂か コロンビア国籍の男再逮捕 現場にほかの負傷者も(チバテレ)",
+        "date": "2026-11-20",
+        "url": "https://news.yahoo.co.jp/articles/c3b1e2740b7aab03a2025d2418ba5df62295d3ba"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 「殺すつもりはなかった」千葉・JR馬橋駅周辺で無差別切りつけか コロンビア国籍の男を殺人未遂容疑で再逮捕)",
+      "recordedAt": "2026-11-24T02:22:01.906Z"
     }
   ]
 }
