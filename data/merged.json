@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-24T23:33:13.355Z",
+  "updatedAt": "2026-11-25T08:50:42.599Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -7230,6 +7230,102 @@
       },
       "reason": "event-dedupe一致 (同日+同県+国籍+罪種（矛盾なし転載）: 無資格で医療行為か ベトナム国籍の容疑者3人逮捕)",
       "recordedAt": "2026-11-24T23:33:13.355Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "仙台の中高生ら5人を再逮捕 82歳女性重傷、強殺未遂容疑―愛知県警",
+        "date": "2026-11-25",
+        "url": "https://www.jiji.com/jc/article?k=2026112500932&g=soc"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 【独自】ブラジル人と中高生の計5人を再逮捕へ...住宅で高齢女性が襲われた事件で強盗殺人未遂の疑い 実行役と運転役に分かれ犯行か)",
+      "recordedAt": "2026-11-25T08:50:42.599Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "【再逮捕】10/29(木)松戸市馬橋の路上で60歳代男性の背中を刃物様のもので刺したとして、コロンビア国籍の37歳の男が殺人未遂容疑で11/19(木)逮捕",
+        "date": "2026-11-25",
+        "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE40bHh0V2ZBMXk4ZXFfci1WS2lRa1cxZWdJMGt2d3NCMHRteDU2bHZoOVZpeFpMU3o1T3lpSWhia1p2anZCY0lhdDQ0UTh4dGM"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 「殺すつもりはなかった」千葉・JR馬橋駅周辺で無差別切りつけか コロンビア国籍の男を殺人未遂容疑で再逮捕)",
+      "recordedAt": "2026-11-25T08:50:42.599Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "盗難車保管の容疑から「強盗殺人未遂」へ 男子中学生ら5人再逮捕 愛知・小牧市",
+        "date": "2026-11-25",
+        "url": "https://news.ntv.co.jp/n/ctv/category/society/ctcf45fd8196634194951bdbce732ee836"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 【独自】ブラジル人と中高生の計5人を再逮捕へ...住宅で高齢女性が襲われた事件で強盗殺人未遂の疑い 実行役と運転役に分かれ犯行か)",
+      "recordedAt": "2026-11-25T08:50:42.599Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "愛知・小牧市の強盗殺人未遂事件で中高生ら5人を再逮捕 「闇バイトに誘われた」と供述も",
+        "date": "2026-11-25",
+        "url": "https://news.yahoo.co.jp/articles/a9c64dbea048dee2d20f8a79d61cff761a376da0"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 【独自】ブラジル人と中高生の計5人を再逮捕へ...住宅で高齢女性が襲われた事件で強盗殺人未遂の疑い 実行役と運転役に分かれ犯行か)",
+      "recordedAt": "2026-11-25T08:50:42.599Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "強殺未遂疑い少年ら再逮捕 仙台の中高生、愛知県警",
+        "date": "2026-11-25",
+        "url": "https://news.yahoo.co.jp/articles/8e43d70dd16ed365783c1885e2a43f0f470c4306"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 【独自】ブラジル人と中高生の計5人を再逮捕へ...住宅で高齢女性が襲われた事件で強盗殺人未遂の疑い 実行役と運転役に分かれ犯行か)",
+      "recordedAt": "2026-11-25T08:50:42.599Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "仙台の少年らが実行役か...愛知の住宅で高齢者が襲われた強盗殺人未遂事件 ブラジル人や中学生ら5人を再逮捕",
+        "date": "2026-11-25",
+        "url": "https://www.fnn.jp/articles/-/1159052"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 【独自】ブラジル人と中高生の計5人を再逮捕へ...住宅で高齢女性が襲われた事件で強盗殺人未遂の疑い 実行役と運転役に分かれ犯行か)",
+      "recordedAt": "2026-11-25T08:50:42.599Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "《コロンビア人容疑者が猛ダッシュ》「痛え! 何すんだよ」無差別3人切りつけの現場に響いた叫び声、住民は「ここ最近治安が悪くなったように感じていた」【千葉・松戸市】",
+        "date": "2026-11-25",
+        "url": "https://news.livedoor.com/article/detail/32897215/"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 「殺すつもりはなかった」千葉・JR馬橋駅周辺で無差別切りつけか コロンビア国籍の男を殺人未遂容疑で再逮捕)",
+      "recordedAt": "2026-11-25T08:50:42.599Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "強殺未遂疑い、仙台の少年ら5人再逮捕",
+        "date": "2026-11-25",
+        "url": "https://news.livedoor.com/article/detail/32897110/"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 【独自】ブラジル人と中高生の計5人を再逮捕へ...住宅で高齢女性が襲われた事件で強盗殺人未遂の疑い 実行役と運転役に分かれ犯行か)",
+      "recordedAt": "2026-11-25T08:50:42.599Z"
     }
   ]
 }
