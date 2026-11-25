@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-25T08:50:42.599Z",
+  "updatedAt": "2026-11-25T19:28:23.860Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -7326,6 +7326,54 @@
       },
       "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 【独自】ブラジル人と中高生の計5人を再逮捕へ...住宅で高齢女性が襲われた事件で強盗殺人未遂の疑い 実行役と運転役に分かれ犯行か)",
       "recordedAt": "2026-11-25T08:50:42.599Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "金目の物を売却の可能性も、産廃を無許可保管か トルコ人ら4人逮捕 埼玉・川口市から情報提供受け捜査",
+        "date": "2026-11-25",
+        "url": "https://news.livedoor.com/article/detail/32900283/"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 無許可で廃材積み替え保管か トルコ国籍の男ら逮捕)",
+      "recordedAt": "2026-11-25T19:28:23.860Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "整形後「目が閉じられない」ニセ医師が美容整形手術 逮捕のベトナム人らSNSで手術を配信し集客か 名古屋市",
+        "date": "2026-11-25",
+        "url": "https://news.livedoor.com/article/detail/32900130/"
+      },
+      "reason": "event-dedupe一致 (国籍+場所+罪種: 無資格で医療行為か ベトナム国籍の容疑者3人逮捕)",
+      "recordedAt": "2026-11-25T19:28:23.860Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "「ヤード」で産業廃棄物を無許可で保管か トルコ国籍の男ら4人逮捕 埼玉・川口市 産業廃棄物内の金属などを売却しようとしたか",
+        "date": "2026-11-25",
+        "url": "https://news.livedoor.com/article/detail/32899885/"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 無許可で廃材積み替え保管か トルコ国籍の男ら逮捕)",
+      "recordedAt": "2026-11-25T19:28:23.860Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "産廃を無許可保管疑い トルコ人の解体工ら 4人逮捕/埼玉県(テレ玉)",
+        "date": "2026-11-25",
+        "url": "https://www.msn.com/ja-jp/news/other/%E7%94%A3%E5%BB%83%E3%82%92%E7%84%A1%E8%A8%B1%E5%8F%AF%E4%BF%9D%E7%AE%A1%E7%96%91%E3%81%84-%E3%83%88%E3%83%AB%E3%82%B3%E4%BA%BA%E3%81%AE%E8%A7%A3%E4%BD%93%E5%B7%A5%E3%82%89-%EF%BC%94%E4%BA%BA%E9%80%AE%E6%8D%95-%E5%9F%BC%E7%8E%89%E7%9C%8C/ar-AA2ibHAb"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 無許可で廃材積み替え保管か トルコ国籍の男ら逮捕)",
+      "recordedAt": "2026-11-25T19:28:23.860Z"
     }
   ]
 }
