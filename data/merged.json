@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-26T12:52:19.397Z",
+  "updatedAt": "2026-11-26T22:28:11.571Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -7410,6 +7410,42 @@
       },
       "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [三重県 / ベトナム国籍 / 一般窃盗・スリ・車上荒らし]",
       "recordedAt": "2026-11-26T12:52:19.397Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "投資詐欺容疑で台湾籍の男2人逮捕 岡山県警井原署",
+        "date": "2026-11-26",
+        "url": "https://news.yahoo.co.jp/articles/5426ebe0c0dc5fcd2068a0f3faf636b0dde4471b"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 台湾籍の男女2人を逮捕...投資運用資金名目で会社役員の男性から現金500万円をだまし取った疑い【岡山県警】)",
+      "recordedAt": "2026-11-26T22:28:11.571Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "盗品だと知りながら...指輪など2点・時価約16万円相当を買い取った疑い ベトナム人窃盗グループの35歳男を逮捕",
+        "date": "2026-11-26",
+        "url": "https://news.yahoo.co.jp/articles/73896fec89b0b944e45e3a5bab3bb6b0ea25902f"
+      },
+      "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [三重県 / ベトナム国籍 / 一般窃盗・スリ・車上荒らし]",
+      "recordedAt": "2026-11-26T22:28:11.571Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ボイスフィッシング詐欺 不正送金先の口座開設でベトナム国籍の男を起訴 山形県内企業の被害はおよそ9億円",
+        "date": "2026-11-26",
+        "url": "https://news.ntv.co.jp/n/ybc/category/society/yb11aed2b9292040a9a5d0d05025ebece7"
+      },
+      "reason": "タイトル高類似 (100%: ボイスフィッシング詐欺 不正送金先の口座開設でベトナム国籍の男を起訴 山形県内企業の被害はおよそ9億円)",
+      "recordedAt": "2026-11-26T22:28:11.571Z"
     }
   ]
 }
