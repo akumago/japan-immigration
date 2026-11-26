@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-25T19:28:23.860Z",
+  "updatedAt": "2026-11-26T02:57:02.832Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -7374,6 +7374,18 @@
       },
       "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 無許可で廃材積み替え保管か トルコ国籍の男ら逮捕)",
       "recordedAt": "2026-11-25T19:28:23.860Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "警察官のコスプレをした男がLINE通話に...1000万円だまし取られる 台湾籍の男を逮捕 札幌市",
+        "date": "2026-11-26",
+        "url": "https://news.livedoor.com/article/detail/32902131/"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 1000万円詐取の「受け子」疑い 台湾籍の32歳男逮捕 札幌南署)",
+      "recordedAt": "2026-11-26T02:57:02.832Z"
     }
   ]
 }
