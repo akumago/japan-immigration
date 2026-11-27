@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-26T22:28:11.571Z",
+  "updatedAt": "2026-11-27T05:10:14.229Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -7446,6 +7446,78 @@
       },
       "reason": "タイトル高類似 (100%: ボイスフィッシング詐欺 不正送金先の口座開設でベトナム国籍の男を起訴 山形県内企業の被害はおよそ9億円)",
       "recordedAt": "2026-11-26T22:28:11.571Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "強盗殺人未遂事件 被害女性の財布を盗難車から発見 愛知・小牧市",
+        "date": "2026-11-27",
+        "url": "https://news.yahoo.co.jp/articles/ab4f484c1bad7568e27db13b129686b73a130834"
+      },
+      "reason": "event-dedupe一致 (国籍+年齢+場所/罪種: 【独自】ブラジル人と中高生の計5人を再逮捕へ...住宅で高齢女性が襲われた事件で強盗殺人未遂の疑い 実行役と運転役に分かれ犯行か)",
+      "recordedAt": "2026-11-27T05:10:14.229Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "スマホで指示受けたか 愛知・小牧市の強盗殺人未遂事件で中高生ら5人を再逮捕 車両から被害女性の財布も",
+        "date": "2026-11-27",
+        "url": "https://news.livedoor.com/article/detail/32915728/"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 【独自】ブラジル人と中高生の計5人を再逮捕へ...住宅で高齢女性が襲われた事件で強盗殺人未遂の疑い 実行役と運転役に分かれ犯行か)",
+      "recordedAt": "2026-11-27T05:10:14.229Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "詐欺に使う口座を開設したベトナム国籍の男を起訴 県内企業が計9億円超をだまし取られたボイスフィッシング事件に関与(山形)",
+        "date": "2026-11-27",
+        "url": "https://news.livedoor.com/article/detail/32915081/"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: ボイスフィッシング詐欺 不正送金先の口座開設でベトナム国籍の男を起訴 山形県内企業の被害はおよそ9億円)",
+      "recordedAt": "2026-11-27T05:10:14.229Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "ルイ・ヴィトンなど偽物販売か インド国籍の男3人逮捕(ABEMA TIMES)",
+        "date": "2026-11-27",
+        "url": "https://times.abema.tv/articles/-/10292476"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 【偽物のルイ ヴィトンやロレックスを販売した疑い】「偽物ではないか」と情報提供 インド国籍の会社役員など男3人を逮捕 山梨)",
+      "recordedAt": "2026-11-27T05:10:14.229Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "高級ブランドの偽物を販売か インド国籍の男3人を逮捕",
+        "date": "2026-11-27",
+        "url": "https://www.msn.com/ja-jp/news/other/%E9%AB%98%E7%B4%9A%E3%83%96%E3%83%A9%E3%83%B3%E3%83%89%E3%81%AE%E5%81%BD%E7%89%A9%E3%82%92%E8%B2%A9%E5%A3%B2%E3%81%8B-%E3%82%A4%E3%83%B3%E3%83%89%E5%9B%BD%E7%B1%8D%E3%81%AE%E7%94%B73%E4%BA%BA%E3%82%92%E9%80%AE%E6%8D%95/vi-AA2ijFaS"
+      },
+      "reason": "event-dedupe一致 (国籍+罪種+地域+近接日同段階+事件固有アンカー: 【偽物のルイ ヴィトンやロレックスを販売した疑い】「偽物ではないか」と情報提供 インド国籍の会社役員など男3人を逮捕 山梨)",
+      "recordedAt": "2026-11-27T05:10:14.229Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "自転車と衝突する事故で無免許発覚 オーストラリア国籍の22歳男逮捕 国際免許とっていたが期限切れ=静岡・沼津市",
+        "date": "2026-11-27",
+        "url": "https://news.yahoo.co.jp/articles/ac67e7e3d90121a24b4d230877a49937e2cbb73e"
+      },
+      "reason": "event-dedupe一致 (国籍+場所+罪種: コンビニ駐車場で自転車にぶつかり発覚 オーストラリア人の大学生の男を無免許運転容疑で逮捕 静岡・沼津市)",
+      "recordedAt": "2026-11-27T05:10:14.229Z"
     }
   ]
 }
