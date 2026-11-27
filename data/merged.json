@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-27T05:10:14.229Z",
+  "updatedAt": "2026-11-27T23:36:14.483Z",
   "items": [
     {
       "kind": "automatic_merge",
@@ -7518,6 +7518,42 @@
       },
       "reason": "event-dedupe一致 (国籍+場所+罪種: コンビニ駐車場で自転車にぶつかり発覚 オーストラリア人の大学生の男を無免許運転容疑で逮捕 静岡・沼津市)",
       "recordedAt": "2026-11-27T05:10:14.229Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "東京・歌舞伎町でぼったくり店に客引きした疑いの男性を釈放 警視庁",
+        "date": "2026-11-28",
+        "url": "https://news.tv-asahi.co.jp/news_society/articles/000551125.html"
+      },
+      "reason": "タイトル高類似 (100%: 東京・歌舞伎町でぼったくり店に客引きした疑いの男性を釈放 警視庁)",
+      "recordedAt": "2026-11-27T23:36:14.483Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "社員男性をアイスピックで脅し監禁か中国籍の社長ら4人逮捕",
+        "date": "2026-11-28",
+        "url": "https://www.msn.com/ja-jp/news/other/%E7%A4%BE%E5%93%A1%E3%82%92%E3%82%A2%E3%82%A4%E3%82%B9%E3%83%94%E3%83%83%E3%82%AF%E3%81%A7%E8%84%85%E3%81%97%E7%9B%A3%E7%A6%81%E3%81%8B-%E7%A4%BE%E9%95%B7%E3%82%894%E4%BA%BA%E9%80%AE%E6%8D%95/ar-AA2i1mrH"
+      },
+      "reason": "同一5W1H(同県・同国籍・同罪種・矛盾なし) [東京都 / 中国籍 / 暴行・傷害・脅迫]",
+      "recordedAt": "2026-11-27T23:36:14.483Z"
+    },
+    {
+      "kind": "automatic_merge",
+      "removed": {
+        "id": null,
+        "sourceRecordId": null,
+        "title": "空き家に侵入しネックレスや銀貨など盗んだ疑い ベトナム国籍31歳無職の男を逮捕 福井など8県で同様の事件相次ぐ 窃盗グループの一員か",
+        "date": "2026-11-27",
+        "url": "https://news.yahoo.co.jp/articles/8ff010eba2caee9e01e24e721bbff63f2ae5fad4"
+      },
+      "reason": "タイトル高類似 (100%: 空き家に侵入しネックレスや銀貨など盗んだ疑い ベトナム国籍31歳無職の男を逮捕 福井など8県で同様の事件相次ぐ 窃盗グループの一員か)",
+      "recordedAt": "2026-11-27T23:36:14.483Z"
     }
   ]
 }
